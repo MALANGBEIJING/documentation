@@ -13,7 +13,9 @@ Odoo community and Odoo employees alike, the preferred way is to perform a sourc
    Follow the :ref:`contributing/development/setup` section of the contributing guide to prepare
    your environment for pushing local changes to the Odoo repositories.
 
-Adapt the environment for the tutorials
+   请按照贡献指南中 :ref:contributing/development/setup 部分的说明，准备您的环境，以便将本地更改推送到 Odoo 仓库。
+
+为教程调整环境设置
 =======================================
 
 By now, you should have downloaded the source code into two local repositories, one for `odoo/odoo`
