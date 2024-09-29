@@ -1,6 +1,9 @@
 ===========
-Setup guide
+设置导引
 ===========
+
+
+根据预期的使用场景，有多种方式可以安装 Odoo。对于 Odoo 社区的开发者和 Odoo 员工来说，首选的方式是进行源码安装（从源代码运行 Odoo）。
 
 Depending on the intended use case, there are multiple ways to install Odoo. For developers of the
 Odoo community and Odoo employees alike, the preferred way is to perform a source install
