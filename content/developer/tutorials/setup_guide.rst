@@ -18,6 +18,8 @@ Odoo community and Odoo employees alike, the preferred way is to perform a sourc
 为教程调整环境设置
 =======================================
 
+到目前为止，您应该已经将源代码下载到两个本地仓库中，一个用于 odoo/odoo，另一个用于 odoo/enterprise。这些仓库已经设置好，可以将更改推送到GitHub上的预定义分叉。当您开始为代码库做出贡献时，这将非常方便，但在进行教程的过程中，我们希望避免将它们与培训材料混在一起。因此，我们将把您的更改推送到第三个仓库：odoo/tutorials。与前两个仓库一样，它也将成为引用所有包含 Odoo 模块的目录的 addons-path 的一部分
+
 By now, you should have downloaded the source code into two local repositories, one for `odoo/odoo`
 and one for `odoo/enterprise`. These repositories are set up to push changes to pre-defined
 forks on GitHub. This will prove to be convenient when you start contributing to the codebase, but
