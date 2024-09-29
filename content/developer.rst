@@ -36,7 +36,8 @@ If you are new to Odoo or web application development, start with the
       :target: developer/howtos
 
       Recipes that provide a step-by-step guide for addressing real-world problems and use-cases.
-
+      提供分步骤指南以解决现实问题和应用场景的方案。
+      
    .. card:: Reference
       :target: developer/reference
 

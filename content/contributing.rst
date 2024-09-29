@@ -55,6 +55,8 @@ lists the most important of them.
      - Submit corrections and improvements to the Odoo documentation. The product evolves fast, and
        it can be challenging to consistently reflect these changes in the documentation. By updating
        the documentation, you can help many users find their way in Odoo.
+       提交对 Odoo 文档的修改和改进。由于产品更新迅速，及时在文档中反映这些变化可能具有挑战性。
+       通过更新文档，您可以帮助许多用户更好地使用 Odoo。
      - * :doc:`Guide: Contributing to the documentation <contributing/documentation>`
      - Anyone interested in improving the Odoo documentation
    * - Create custom modules
@@ -62,6 +64,8 @@ lists the most important of them.
        for free or paid on the Odoo App Store or on any other Odoo modules library. By creating
        custom modules and making them available to others, you can help grow the Odoo ecosystem and
        provide additional value to users of the platform.
+       开发新模块以扩展 Odoo 的功能。自定义模块可以在 Odoo 应用商店或其他 Odoo 模块库中免费或付费提供。
+       通过创建自定义模块并将其提供给他人，您可以帮助壮大 Odoo 生态系统，并为平台用户提供更多的价值。
      - * `Odoo Apps Store <https://apps.odoo.com/apps>`_
      - Developers with experience in Python and web development
 
