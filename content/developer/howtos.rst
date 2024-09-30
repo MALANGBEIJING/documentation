@@ -2,7 +2,7 @@
 :hide-page-toc:
 
 =============
-How-to guides
+操作指南
 =============
 
 .. toctree::
@@ -23,90 +23,87 @@ How-to guides
 
    howtos/upgrade_custom_db
 
-Frontend development
-====================
+前端开发
+================
 
 .. cards::
 
-   .. card:: Write lean easy-to-maintain CSS
+   .. card:: 编写简洁易维护的 CSS
       :target: howtos/scss_tips
 
-      Follow this guide to keep the technical debt of your CSS code under control.
+      请遵循本指南，控制您的 CSS 代码中的技术债务。
 
-   .. card:: Customize a field
+   .. card:: 自定义字段
       :target: howtos/javascript_field
 
-      Learn how to customize field components in the web framework.
+      学习如何在 Web 框架中自定义字段组件。
 
-   .. card:: Customize a view type
+   .. card:: 自定义视图类型
       :target: howtos/javascript_view
 
-      Learn how to customize view types in the web framework.
+      学习如何在 Web 框架中自定义视图类型。
 
-   .. card:: Create a client action
+   .. card:: 创建客户端动作
       :target: howtos/javascript_client_action
 
-      Learn how to create client actions in the web framework.
+      学习如何在 Web 框架中创建客户端动作。
 
-   .. card:: Create a standalone Owl application
+   .. card:: 创建独立的 Owl 应用程序
       :target: howtos/standalone_owl_application
 
-      Learn how to create a public-facing Owl application outside of the web client using a
-      controller and the web framework.
+      学习如何通过控制器和 Web 框架创建面向公众的独立 Owl 应用程序。
 
-   .. card:: Use Owl components on the portal and website
+   .. card:: 在门户和网站上使用 Owl 组件
       :target: howtos/frontend_owl_components
 
-      Learn how to use Owl components on the portal and website.
+      学习如何在门户和网站上使用 Owl 组件。
 
-   .. card:: Website themes
+   .. card:: 网站主题
       :target: howtos/website_themes
 
-      Learn how to customize your website by creating a custom theme.
+      学习如何通过创建自定义主题来自定义您的网站。
 
-Server-side development
-=======================
+服务器端开发
+================
 
 .. cards::
 
-   .. card:: Web services
+   .. card:: Web 服务
       :target: howtos/web_services
 
-      Learn more about Odoo's web services.
+      了解更多关于 Odoo Web 服务的内容。
 
-   .. card:: Multi-company guidelines
+   .. card:: 多公司指南
       :target: howtos/company
 
-      Learn how to manage multiple companies and deal with the records-related specificities of a
-      multi-company environment.
+      学习如何管理多家公司以及处理与多公司环境相关的记录特定内容。
 
-   .. card:: Create customized reports
+   .. card:: 创建自定义报告
       :target: howtos/create_reports
 
-      Learn how to create customized reports with SQL Views.
+      学习如何通过 SQL 视图创建自定义报告。
 
-   .. card:: Accounting localization
+   .. card:: 会计本地化
       :target: howtos/accounting_localization
 
-      Learn how to build a localization module, create bank operation models and dynamic reports.
+      学习如何构建本地化模块、创建银行操作模型以及动态报告。
 
-   .. card:: Translating modules
+   .. card:: 模块翻译
       :target: howtos/translations
 
-      Learn how to provide translation abilities to your module.
+      学习如何为您的模块提供翻译功能。
 
-   .. card:: Connect with a device
+   .. card:: 连接设备
       :target: howtos/connect_device
 
-      Learn how to enable a module to detect and communicate with an IoT device.
+      学习如何使模块检测和与物联网设备通信。
 
-Custom development
+自定义开发
 ==================
 
 .. cards::
 
-   .. card:: Upgrade a customized database
+   .. card:: 升级自定义数据库
       :target: howtos/upgrade_custom_db
 
-      Learn how to upgrade a customized database, as well as the code and data of its custom
-      modules.
+      学习如何升级自定义数据库，以及其自定义模块的代码和数据。

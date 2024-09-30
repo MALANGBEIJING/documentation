@@ -2,7 +2,7 @@
 :hide-page-toc:
 
 =========
-Tutorials
+教程
 =========
 
 .. toctree::
@@ -17,69 +17,61 @@ Tutorials
    tutorials/pdf_reports
 
 .. tip::
-   If you are new to Odoo development, we recommend starting with the :doc:`setup guide
-   <tutorials/setup_guide>`.
+   如果您是 Odoo 开发的新手，建议从 :doc:`安装指南 <tutorials/setup_guide>` 开始。
 
-Learn the server and web frameworks
+学习服务器和网页框架
 ===================================
 
 .. cards::
 
-   .. card:: Server framework 101
+   .. card:: 服务器框架 101
       :target: tutorials/server_framework_101
-      :tag: Beginner
+      :tag: 初级
       :large:
 
-      This introductory tutorial is designed for complete beginners seeking to get started in Odoo
-      development. It covers the essential aspects and key concepts of the server framework. Learn
-      to create a simple module from scratch with step-by-step instructions and practical insights.
+      本入门教程专为想要入门 Odoo 开发的完全初学者设计，涵盖了服务器框架的基本方面和关键概念。通过逐步操作和实践指导，学习如何从头开始创建一个简单的模块。
 
-   .. card:: Discover the web framework
+   .. card:: 了解网页框架
       :target: tutorials/discover_js_framework
-      :tag: Beginner
+      :tag: 初级
 
-      This tutorial will teach the basics of the web framework and how to work with Owl components
-      by customizing the web client.
+      本教程将教您网页框架的基础知识，以及如何通过自定义网页客户端来使用 Owl 组件。
 
-   .. card:: Master the web framework
+   .. card:: 精通网页框架
       :target: tutorials/master_odoo_web_framework
-      :tag: Advanced
+      :tag: 高级
 
-      Become an expert in the web framework. A large variety of features are covered such as fields,
-      views, and even the kitten mode.
+      成为网页框架的专家。本教程涵盖了多种功能，例如字段、视图，甚至是“猫咪模式”。
 
-Expand your knowledge on the server framework
+扩展您的服务器框架知识
 =============================================
 
 .. cards::
 
-   .. card:: Define module data
+   .. card:: 定义模块数据
       :target: tutorials/define_module_data
-      :tag: Beginner
+      :tag: 初级
 
-      Define master and demo data for an Odoo module, leveraging the strengths of the CSV and XML
-      file formats to accommodate specific data requirements.
+      为 Odoo 模块定义主数据和演示数据，利用 CSV 和 XML 文件格式的优势满足特定数据需求。
 
-   .. card:: Restrict access to data
+   .. card:: 限制数据访问
       :target: tutorials/restrict_data_access
-      :tag: Beginner
+      :tag: 初级
 
-      Implement security measures to restrict access to sensitive data with the help of groups,
-      access rights, and record rules.
+      使用群组、访问权限和记录规则实施安全措施，限制对敏感数据的访问。
 
-   .. card:: Safeguard your code with unit tests
+   .. card:: 使用单元测试保护代码
       :target: tutorials/unit_tests
-      :tag: Beginner
+      :tag: 初级
 
-      Write effective unit tests in Python to ensure the resilience of your code and safeguard it
-      against unexpected behaviors and regressions.
+      使用 Python 编写有效的单元测试，确保代码的健壮性，并防止意外行为和回归问题。
 
-   .. card:: Reuse code with mixins
+   .. card:: 通过混入重用代码
       :target: tutorials/mixins
 
-      Create mixins to code features once and reuse them in multiple models.
+      创建混入类，将功能代码编写一次，并在多个模型中复用。
 
-   .. card:: Build PDF reports
+   .. card:: 构建 PDF 报告
       :target: tutorials/pdf_reports
 
-      Use QWeb, Odoo's powerful templating engine, to create custom PDF reports for your documents.
+      使用 Odoo 强大的模板引擎 QWeb 为您的文档创建自定义 PDF 报告。

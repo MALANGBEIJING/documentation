@@ -1,87 +1,59 @@
 ===============================
-编写简洁易维护的CSS
+编写简洁易维护的 CSS
 ===============================
 
-有很多方法可以简化和精简SCSS。第一步是确定是否真的需要自定义代码。
-There are many ways to lean and simplify SCSS. The first step is to establish if custom code is
-needed at all.
+简化和精简 SCSS 有很多方法。第一步是确定是否需要自定义代码。
 
-Odoo的web客户端设计为模块化，这意味着（几乎所有的）类可以在不同视图中共享。在创建新类之前，检查现有代码。很可能已经有一个类或HTML标签正好能实现您想要的效果。
-Odoo's webclient has been designed to be modular, meaning that (potentially all) classes can be
-shared across views. Check the code before creating a new class. Chances are that there is already a
-class or an HTML tag doing exactly what you're looking for.
+Odoo 的 webclient 设计为模块化，这意味着（可能所有的）类都可以在不同视图之间共享。在创建新类之前，请先检查代码。很有可能已经有一个类或 HTML 标签可以实现您需要的效果。
 
-此外，Odoo依赖于Bootstrap <https://getbootstrap.com/docs/5.1/getting-started/introduction/>_ (BS)，这是最完整的CSS框架之一。这个框架已经根据Odoo的设计进行了定制（适用于社区版和企业版），这意味着您可以直接在Odoo中使用任何BS类，并获得与我们的UI一致的视觉效果。
-
-On top of that, Odoo relies on `Bootstrap
-<https://getbootstrap.com/docs/5.1/getting-started/introduction/>`_ (BS), one of the most complete
-CSS frameworks available. The framework has been customized in order to match Odoo's design (both
-community and enterprise versions), meaning that you can use any BS class directly in Odoo and
-achieve a visual result that is consistent with our UI.
+除此之外，Odoo 依赖于 `Bootstrap <https://getbootstrap.com/docs/5.1/getting-started/introduction/>`_（BS），这是目前最完整的 CSS 框架之一。该框架经过定制，以符合 Odoo 的设计（适用于社区版和企业版），这意味着您可以直接在 Odoo 中使用任何 BS 类，并获得与我们的用户界面一致的视觉效果。
 
 .. warning::
-   - 某个类虽然实现了所需的视觉效果，但不一定意味着它适用于当前任务。例如，注意可能触发JS行为的类。
-   - The fact that a class achieves the desired visual result doesn't necessarily mean that it's the
-     right one for the job. Be aware of classes triggering JS behaviors, for example.
-   - 注意类的语义。将一个按钮类应用于标题不仅语义上错误，还可能导致迁移问题和视觉不一致。
-   - Be careful about class semantics. Applying a **button class** to a **title** is not only
-     semantically wrong, it may also lead to migration issues and visual inconsistencies.
+   - 一个类实现了所需的视觉效果并不意味着它就是正确的选择。请注意触发 JS 行为的类，例如。
+   - 注意类的语义。将 **按钮类** 应用于 **标题** 不仅语义上是错误的，还可能导致迁移问题和视觉不一致。
 
-以下章节描述了 **在必须使用自定义代码时** 精简SCSS代码的技巧。
-The following sections describe tips to strip-down SCSS lines **when custom-code is the only way to
-go**.
+以下部分介绍了 **在自定义代码是唯一可行方式时**，减少 SCSS 行数的技巧。
 
 .. _tutorials/scss_tips/browser_defaults:
 
-浏览器默认设置
+浏览器默认样式
 ================
 
-默认情况下，每个浏览器使用用户代理样式表渲染内容。为了解决不同浏览器之间的不一致性，其中一些规则由Bootstrap Reboot <https://getbootstrap.com/docs/5.1/content/reboot/>_ 覆盖。
-By default, each browser renders content using a *user agent stylesheet*. To overcome
-inconsistencies between browsers, some of these rules are overridden by `Bootstrap Reboot
-<https://getbootstrap.com/docs/5.1/content/reboot/>`_.
+默认情况下，每个浏览器都使用 *用户代理样式表* 来呈现内容。为了克服浏览器之间的不一致，`Bootstrap Reboot <https://getbootstrap.com/docs/5.1/content/reboot/>`_ 覆盖了其中的一些规则。
 
-在此阶段，所有“浏览器特定装饰”规则都已被删除，但仍保留了定义基本布局信息的大部分规则（或由Reboot为了一致性原因加强了这些规则）。
-At this stage all "browser-specific-decoration" rules have been stripped away, but a big chunk of
-rules defining basic layout information is maintained (or reinforced by *Reboot* for consistency
-reasons).
+此时，所有 "浏览器特定装饰" 规则都已被删除，但定义基本布局信息的大部分规则仍然保留（或出于一致性原因由 *Reboot* 加强）。
 
 您可以依赖这些规则。
-You can rely on these rules.
 
 .. example::
 
-   通常不需要为<div/>应用display: block;。
-   Applying `display: block;` to a `<div/>` is normally not necessary.
+   为 `<div/>` 应用 `display: block;` 通常是没有必要的。
 
    .. code-block:: css
 
       div.element {
          display: block;
-         /* not needed 99% of the time */
+         /* 99% 的情况下不需要 */
       }
 
 .. example::
 
-   在这种情况下，您可以选择切换HTML标签，而不是添加新CSS规则。
-   In this instance, you may opt to switching the HTML tag rather than adding a new CSS rule.
+   在这种情况下，您可以选择更改 HTML 标签，而不是添加新的 CSS 规则。
 
    .. code-block:: css
 
       span.element {
          display: block;
-         /* replace <span> with <div> instead
-            to get 'display: block' by default */
+         /* 将 <span> 替换为 <div>，这样默认就会有 'display: block' */
       }
 
-以下是基本并非很全面的规则列表：
-Here's a non-comprehensive list of default rules:
+以下是默认规则的一个不完全列表：
 
 .. list-table::
    :header-rows: 1
 
-   * - Tag / Attribute
-     - Defaults
+   * - 标签 / 属性
+     - 默认值
    * - `<div/>`, `<section/>`, `<header/>`, `<footer/>`...
      - `display: block`
    * - `<span/>`, `<a/>`, `<em/>`, `<b/>`...
@@ -99,36 +71,32 @@ Here's a non-comprehensive list of default rules:
      - ...
 
 .. seealso::
-   `Bootstrap Reboot on GitHub
-   <https://github.com/twbs/bootstrap/blob/1a6fdfae6b/scss/_reboot.scss>`_
+   `GitHub 上的 Bootstrap Reboot <https://github.com/twbs/bootstrap/blob/1a6fdfae6b/scss/_reboot.scss>`_
 
 .. _tutorials/scss_tips/html_tags:
 
 HTML 标签
 =========
 
-这可能显而易见，但使文本看起来像标题的最简单、最一致的方法是使用标题标签 (<h1>, <h2>...)。除了重置规则外，几乎所有标签都带有Odoo定义的装饰样式。
-It may seem obvious, but the simplest and most **consistent** way of making text look like a title
-is to use a header tag (`<h1>`, `<h2>`, ...). Besides reboot rules, mostly all tags carry decorative
-styles defined by Odoo.
+这看起来可能很明显，但使文本看起来像标题的最 **一致** 方式是使用标题标签（`<h1>`, `<h2>`, ...）。除了重启规则外，几乎所有标签都携带 Odoo 定义的装饰样式。
 
 .. rst-class:: bg-light
 .. example::
 
    .. container:: alert alert-danger
 
-      Don't
+      不推荐
 
       .. tabs::
 
          .. code-tab:: html XML
 
             <span class="o_module_custom_title">
-               Hello There!
+               你好！
             </span>
 
             <span class="o_module_custom_subtitle">
-               I'm a subtitle.
+               我是副标题。
             </span>
 
          .. code-tab:: css SCSS
@@ -149,18 +117,18 @@ styles defined by Odoo.
 
    .. container:: alert alert-success
 
-      Do
+      推荐
 
       .. tabs::
 
          .. code-tab:: html XML
 
             <h5 class="o_module_custom_title">
-               Hello There!
+               你好！
             </h5>
 
             <div class="o_module_custom_subtitle">
-               <b><small>I'm a subtitle.</small></b>
+               <b><small>我是副标题。</small></b>
             </div>
 
          .. code-tab:: css SCSS
@@ -174,25 +142,18 @@ styles defined by Odoo.
             }
 
 .. note::
-   此外，模块化设计方法（使用类、标签、混合类等）不仅减少了代码量，还能保持视觉效果的一致性，并且易于维护。
-   Besides reducing the amount of code, a modular-design approach (use classes, tags, mixins...)
-   keeps the visual result consistent and easily **maintainable**.
+   除了减少代码量外，模块化设计方法（使用类、标签、mixins 等）还能保持视觉效果的一致性，并且易于 **维护**。
 
-   参考上一个示例，如果Odoo标题的设计发生变化，这些变化也会应用于o_module_custom_title元素，因为它使用了<h5>标签。
-   Following the last example, if Odoo titles' design changes, these changes will be applied in the
-   `o_module_custom_title` element too since it's using an `<h5>` tag.
+   按照上一个示例，如果 Odoo 标题的设计发生变化，这些变化也会应用到 `o_module_custom_title` 元素中，因为它使用的是 `<h5>` 标签。
 
 .. _tutorials/scss_tips/utility_classes:
 
-实用类
-===============
+工具类
+======
 
-我们的框架定义了大量的实用类，旨在涵盖几乎所有布局、设计和交互需求。由于这些类已经存在，因此在可能的情况下，应该优先使用它们，而不是编写自定义CSS。
-Our framework defines a multitude of utility classes designed to cover almost all
-layout/design/interaction needs. The simple fact that a class already exists justifies its use over
-custom CSS whenever possible.
+我们的框架定义了大量工具类，旨在涵盖几乎所有布局/设计/交互需求。一个类已经定义的简单事实足以在可能的情况下优先使用现有类而不是自定义 CSS。
 
-以 `position-relative`. 示例为例
+以 `position-relative` 为例。
 
 .. code-block:: css
 
@@ -200,23 +161,20 @@ custom CSS whenever possible.
       position: relative !important;
    }
 
-由于已经定义了实用类，任何带有 `position: relative` 声明的CSS代码 **可能** 都是多余的。
+由于已经定义了工具类，任何带有 `position: relative` 声明的 CSS 行都 **可能** 是多余的。
 
-Odoo 依赖于默认的 [Bootstrap 实用类](https://getbootstrap.com/docs/5.1/utilities/background/) 集合，并使用 [Bootstrap API](https://getbootstrap.com/docs/5.1/utilities/api/) 定义了自己的实用类。
-Odoo relies on the default `Bootstrap utility-classes
+Odoo 依赖于默认的 `Bootstrap 工具类 <https://getbootstrap.com/docs/5.1/utilities/background/>`_ 堆栈，并使用 `Bootstrap API <https://getbootstrap.com/docs/5.1/utilities/api/>`_ 定义自己的工具类。
 
 .. seealso::
-   - `Bootstrap utility classes <https://getbootstrap.com/docs/5.1/utilities/api/>`_
-   - `Odoo custom utilities on github
-     <{GITHUB_PATH}/addons/web/static/src/scss/utilities_custom.scss>`_
+   - `Bootstrap 工具类 <https://getbootstrap.com/docs/5.1/utilities/api/>`_
+   - `GitHub 上的 Odoo 自定义工具类 <{GITHUB_PATH}/addons/web/static/src/scss/utilities_custom.scss>`_
 
 .. _tutorials/scss_tips/utility_classes/downside:
 
+处理工具类的冗长
+----------------
 
-处理实用类的冗长性
-----------------------------------
-
-实用类的一个缺点是可能会导致代码可读性下降。
+工具类的缺点是可能缺乏可读性。
 
 .. example::
 
@@ -227,12 +185,11 @@ Odoo relies on the default `Bootstrap utility-classes
       card d-lg-block position-absolute {{props.active ?
       'o_myComponent_active' : ''}}  myComponent px-3"/>
 
-
 为了解决这个问题，您可以结合不同的方法：
 
-- 在 Qweb 属性中，只使用需要**动态切换**的类；
-- 每个属性使用单独的换行；
-- 按照 `[odoo 组件] [bootstrap 组件] [CSS 声明顺序]` 的约定来排列类。
+- 在 Qweb 属性中，只使用需要 *动态切换* 的类；
+- 每个属性使用新行；
+- 按照约定 `[odoo component] [bootstrap component] [css 声明顺序]` 对类进行排序。
 
 .. example::
 
@@ -247,4 +204,4 @@ Odoo relies on the default `Bootstrap utility-classes
       />
 
 .. seealso::
-   :ref:`Odoo CSS properties order <contributing/coding_guidelines/scss/properties_order>`
+   :ref:`Odoo CSS 属性顺序 <contributing/coding_guidelines/scss/properties_order>`

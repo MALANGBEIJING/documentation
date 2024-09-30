@@ -1,50 +1,46 @@
 :orphan:
 
 ==========================
-Customizing the web client
+定制Web客户端
 ==========================
 
 .. danger::
-   This tutorial is outdated.
+   本教程已过时。
 
 .. highlight:: javascript
 
 .. default-domain:: js
 
-This guide is about creating modules for Odoo's web client.
+本指南介绍如何为 Odoo 的 Web 客户端创建模块。
 
-To create websites with Odoo, see :doc:`website`; to add business capabilities
-or extend existing business systems of Odoo, see :doc:`backend`.
+要使用 Odoo 创建网站，请参阅 :doc:`website`；要添加业务功能或扩展 Odoo 的现有业务系统，请参阅 :doc:`backend`。
 
 .. warning::
 
-    This guide assumes knowledge of:
+    本指南假设您具备以下知识：
 
-    * Javascript basics and good practices
+    * Javascript 基础知识和良好实践
     * jQuery_
     * `Underscore.js`_
 
-    It also requires :doc:`an installed Odoo </administration/on_premise>`, and Git_.
+    还需要 :doc:`已安装的 Odoo </administration/on_premise>` 和 Git_。
 
-A Simple Module
+一个简单的模块
 ===============
 
-Let's start with a simple Odoo module holding basic web component
-configuration and letting us test the web framework.
+让我们从一个简单的 Odoo 模块开始，该模块包含基本的 Web 组件配置，并让我们测试 Web 框架。
 
-The example module is available online and can be downloaded using the
-following command:
+示例模块可以在线获取，并可通过以下命令下载：
 
 .. code-block:: console
 
     $ git clone http://github.com/odoo/petstore
 
-This will create a ``petstore`` folder wherever you executed the command.
-You then need to add that folder to Odoo's
-:option:`addons path <odoo-bin --addons-path>`, create a new database and
-install the ``oepetstore`` module.
+这将创建一个 ``petstore`` 文件夹，该文件夹会放置在您执行该命令的位置。
+然后，您需要将该文件夹添加到 Odoo 的
+:option:`addons path <odoo-bin --addons-path>`，创建一个新数据库并安装 ``oepetstore`` 模块。
 
-If you browse the ``petstore`` folder, you should see the following content:
+如果您浏览 ``petstore`` 文件夹，您应该会看到以下内容：
 
 .. code-block:: text
 
@@ -70,23 +66,16 @@ If you browse the ``petstore`` folder, you should see the following content:
             `-- xml
                 `-- petstore.xml
 
-The module already holds various server customizations. We'll come back to
-these later, for now let's focus on the web-related content, in the ``static``
-folder.
+该模块已经包含了各种服务器自定义内容。我们稍后再讨论这些内容，目前让我们重点关注 ``static`` 文件夹中的 Web 相关内容。
 
-Files used in the "web" side of an Odoo module must be placed in a ``static``
-folder so they are available to a web browser, files outside that folder can
-not be fetched by browsers. The ``src/css``, ``src/js`` and ``src/xml``
-sub-folders are conventional and not strictly necessary.
+Odoo 模块中用于 "Web" 部分的文件必须放置在 ``static`` 文件夹中，以便 Web 浏览器可以访问这些文件。放置在该文件夹之外的文件无法被浏览器获取。``src/css``、``src/js`` 和 ``src/xml`` 子文件夹是约定俗成的，并非必须。
 
 ``oepetstore/static/css/petstore.css``
-    Currently empty, will hold the CSS_ for pet store content
+    当前为空，将用于存放宠物商店内容的 CSS_ 样式
 ``oepetstore/static/xml/petstore.xml``
-    Mostly empty, will hold :ref:`reference/qweb` templates
+    大部分为空，将用于存放 :ref:`reference/qweb` 模板
 ``oepetstore/static/js/petstore.js``
-    The most important (and interesting) part, contains the logic of the
-    application (or at least its web-browser side) as javascript. It should
-    currently look like::
+    最重要（也是最有趣）的部分，包含应用程序的逻辑（至少是其 Web 浏览器部分），以 Javascript 编写。当前应如下所示::
 
         odoo.oepetstore = function(instance, local) {
             var _t = instance.web._t,
@@ -103,24 +92,15 @@ sub-folders are conventional and not strictly necessary.
                 'petstore.homepage', 'instance.oepetstore.HomePage');
         }
 
-Which only prints a small message in the browser's console.
+它只在浏览器的控制台中打印一条消息。
 
-The files in the ``static`` folder, need to be defined within the module in order for them to be
-loaded correctly. Everything in ``src/xml`` is defined in ``__manifest__.py`` while the contents of
-``src/css`` and ``src/js`` are defined in ``petstore.xml``, or a similar file.
+``static`` 文件夹中的文件需要在模块内进行定义，以便正确加载。``src/xml`` 中的所有内容都在 ``__manifest__.py`` 中定义，而 ``src/css`` 和 ``src/js`` 的内容则定义在 ``petstore.xml`` 或类似文件中。
 
 .. warning::
 
-    All JavaScript files are concatenated and :term:`minified` to improve
-    application load time.
+    所有的 JavaScript 文件都会被合并和 :term:`minified`（压缩）以提高应用程序的加载速度。
 
-    One of the drawback is debugging becomes more difficult as
-    individual files disappear and the code is made significantly less
-    readable. It is possible to disable this process by enabling the
-    "developer mode": log into your Odoo instance (user *admin* password
-    *admin* by default) open the user menu (in the top-right corner of the
-    Odoo screen) and select :guilabel:`About Odoo` then :guilabel:`Activate
-    the developer mode`:
+    其缺点之一是调试变得更加困难，因为单独的文件消失了，并且代码变得显著不易读。可以通过启用 "开发者模式" 来禁用此过程：登录您的 Odoo 实例（默认情况下，用户为 *admin*，密码为 *admin*），打开用户菜单（在 Odoo 界面的右上角），然后选择 :guilabel:`关于 Odoo`，然后点击 :guilabel:`激活开发者模式`：
 
     .. image:: web/about_odoo.png
         :align: center
@@ -128,57 +108,39 @@ loaded correctly. Everything in ``src/xml`` is defined in ``__manifest__.py`` wh
     .. image:: web/devmode.png
         :align: center
 
-    This will reload the web client with optimizations disabled, making
-    development and debugging significantly more comfortable.
+    这将重新加载 Web 客户端，禁用优化，使开发和调试更加舒适。
 
-.. todo:: qweb files hooked via __manifest__.py, but js and CSS use bundles
+.. todo:: qweb 文件通过 ``__manifest__.py`` 挂钩，但 js 和 CSS 使用的是 bundle（捆绑包）
 
-Odoo JavaScript Module
+
+Odoo JavaScript 模块
 ======================
 
-Javascript doesn't have built-in modules. As a result variables defined in
-different files are all mashed together and may conflict. This has given rise
-to various module patterns used to build clean namespaces and limit risks of
-naming conflicts.
+JavaScript 没有内置的模块。因此，不同文件中定义的变量可能会被混合在一起并导致冲突。这促使开发者设计了各种模块模式，用于构建干净的命名空间并限制命名冲突的风险。
 
-The Odoo framework uses one such pattern to define modules within web addons,
-in order to both namespace code and correctly order its loading.
+Odoo 框架使用其中的一种模式来在 Web 插件中定义模块，以便为代码命名空间，并正确地对其加载顺序进行排序。
 
-``oepetstore/static/js/petstore.js`` contains a module declaration::
+``oepetstore/static/js/petstore.js`` 中包含一个模块声明::
 
     odoo.oepetstore = function(instance, local) {
         local.xxx = ...;
     }
 
-In Odoo web, modules are declared as functions set on the global ``odoo``
-variable. The function's name must be the same as the addon (in this case
-``oepetstore``) so the framework can find it, and automatically initialize it.
+在 Odoo Web 中，模块作为全局 ``odoo`` 变量上的函数声明。函数名称必须与插件名称相同（在此例中为 ``oepetstore``），这样框架才能找到它并自动初始化。
 
-When the web client loads your module it will call the root function
-and provide two parameters:
+当 Web 客户端加载您的模块时，它将调用根函数并提供两个参数：
 
-* the first parameter is the current instance of the Odoo web client, it gives
-  access to various capabilities defined by the Odoo (translations,
-  network services) as well as objects defined by the core or by other
-  modules.
-* the second parameter is your own local namespace automatically created by
-  the web client. Objects and variables which should be accessible from
-  outside your module (either because the Odoo web client needs to call them
-  or because others may want to customize them) should be set inside that
-  namespace.
+* 第一个参数是当前的 Odoo Web 客户端实例，它提供对 Odoo 定义的各种功能的访问（如翻译、网络服务），以及核心或其他模块定义的对象。
+* 第二个参数是由 Web 客户端自动创建的本地命名空间。应将需要从模块外部访问的对象和变量（无论是 Odoo Web 客户端需要调用它们还是其他模块可能需要定制它们）设置在该命名空间中。
 
-Classes
+类
 =======
 
-Much as modules, and contrary to most object-oriented languages, javascript
-does not build in *classes*\ [#classes]_ although it provides roughly
-equivalent (if lower-level and more verbose) mechanisms.
+与模块类似，并且与大多数面向对象语言不同，JavaScript 并不内置 *类* \ [#classes]_，虽然它提供了大致等效（如果不是更低级且冗长）的机制。
 
-For simplicity and developer-friendliness Odoo web provides a class
-system based on John Resig's `Simple JavaScript Inheritance`_.
+为了简化和提高开发者的友好度，Odoo Web 提供了一个基于 John Resig 的 `Simple JavaScript Inheritance`_ 的类系统。
 
-New classes are defined by calling the :func:`~odoo.web.Class.extend`
-method of :class:`odoo.web.Class`::
+通过调用 :func:`~odoo.web.Class.extend` 方法来定义新类::
 
     var MyClass = instance.web.Class.extend({
         say_hello: function() {
@@ -186,17 +148,15 @@ method of :class:`odoo.web.Class`::
         },
     });
 
-The :func:`~odoo.web.Class.extend` method takes a dictionary describing
-the new class's content (methods and static attributes). In this case, it will
-only have a ``say_hello`` method which takes no parameters.
+:func:`~odoo.web.Class.extend` 方法接受一个字典，描述新类的内容（方法和静态属性）。在此例中，它将只有一个 ``say_hello`` 方法，该方法不接受任何参数。
 
-Classes are instantiated using the ``new`` operator::
+类的实例是使用 ``new`` 操作符来创建的::
 
     var my_object = new MyClass();
     my_object.say_hello();
-    // print "hello" in the console
+    // 在控制台打印 "hello"
 
-And attributes of the instance can be accessed via ``this``::
+并且类的属性可以通过 ``this`` 访问::
 
     var MyClass = instance.web.Class.extend({
         say_hello: function() {
@@ -207,11 +167,9 @@ And attributes of the instance can be accessed via ``this``::
     var my_object = new MyClass();
     my_object.name = "Bob";
     my_object.say_hello();
-    // print "hello Bob" in the console
+    // 在控制台打印 "hello Bob"
 
-Classes can provide an initializer to perform the initial setup of the
-instance, by defining an ``init()`` method. The initializer receives the
-parameters passed when using the ``new`` operator::
+类可以通过定义 ``init()`` 方法提供初始化器来执行实例的初始设置。初始化器接收通过 ``new`` 操作符传递的参数::
 
     var MyClass = instance.web.Class.extend({
         init: function(name) {
@@ -224,11 +182,9 @@ parameters passed when using the ``new`` operator::
 
     var my_object = new MyClass("Bob");
     my_object.say_hello();
-    // print "hello Bob" in the console
+    // 在控制台打印 "hello Bob"
 
-It is also possible to create subclasses from existing (used-defined) classes
-by calling :func:`~odoo.web.Class.extend` on the parent class, as is done
-to subclass :class:`~odoo.web.Class`::
+还可以通过调用父类的 :func:`~odoo.web.Class.extend` 来从现有的（用户定义的）类创建子类，就像对 :class:`~odoo.web.Class` 进行子类化一样::
 
     var MySpanishClass = MyClass.extend({
         say_hello: function() {
@@ -238,10 +194,9 @@ to subclass :class:`~odoo.web.Class`::
 
     var my_object = new MySpanishClass("Bob");
     my_object.say_hello();
-    // print "hola Bob" in the console
+    // 在控制台打印 "hola Bob"
 
-When overriding a method using inheritance, you can use ``this._super()`` to
-call the original method::
+当使用继承重写方法时，可以使用 ``this._super()`` 调用原始方法::
 
     var MySpanishClass = MyClass.extend({
         say_hello: function() {
@@ -252,50 +207,40 @@ call the original method::
 
     var my_object = new MySpanishClass("Bob");
     my_object.say_hello();
-    // print "hello Bob \n translation in Spanish: hola Bob" in the console
+    // 在控制台打印 "hello Bob \n translation in Spanish: hola Bob"
 
 .. warning::
 
-    ``_super`` is not a standard method, it is set on-the-fly to the next
-    method in the current inheritance chain, if any. It is only defined
-    during the *synchronous* part of a method call, for use in asynchronous
-    handlers (after network calls or in ``setTimeout`` callbacks) a reference
-    to its value should be retained, it should not be accessed via ``this``::
+    ``_super`` 不是标准方法，它在当前继承链的下一个方法上动态设置（如果有的话）。它仅在方法调用的 *同步* 部分定义，对于异步处理程序（如网络调用之后或 ``setTimeout`` 回调中），应保留对其值的引用，而不应通过 ``this`` 访问::
 
-        // broken, will generate an error
+        // 错误示例，将生成错误
         say_hello: function () {
             setTimeout(function () {
                 this._super();
             }.bind(this), 0);
         }
 
-        // correct
+        // 正确示例
         say_hello: function () {
-            // don't forget .bind()
+            // 不要忘记 .bind()
             var _super = this._super.bind(this);
             setTimeout(function () {
                 _super();
             }.bind(this), 0);
         }
 
-Widgets Basics
+
+Widget 基础
 ==============
 
-The Odoo web client bundles jQuery_ for easy DOM manipulation. It is useful
-and provides a better API than standard `W3C DOM`_\ [#dombugs]_, but
-insufficient to structure complex applications leading to difficult
-maintenance.
+Odoo Web 客户端捆绑了 jQuery_，用于简化 DOM 操作。它比标准的 `W3C DOM`_ 提供了更好的 API，但在构建复杂应用时仍显不足，可能导致难以维护。
 
-Much like object-oriented desktop UI toolkits (e.g. Qt_, Cocoa_ or GTK_),
-Odoo Web makes specific components responsible for sections of a page. In
-Odoo web, the base for such components is the :class:`~odoo.Widget`
-class, a component specialized in handling a page section and displaying
-information for the user.
+类似于面向对象的桌面 UI 工具包（如 Qt_、Cocoa_ 或 GTK_），Odoo Web 使得特定组件负责页面的部分区域。在 Odoo Web 中，这类组件的基础是 :class:`~odoo.Widget` 类，该类专门负责处理页面的一部分并显示信息给用户。
 
-Your First Widget
+您的第一个 Widget
 -----------------
 
-The initial demonstration module already provides a basic widget::
+初始示例模块已经提供了一个基本的 widget::
 
     local.HomePage = instance.Widget.extend({
         start: function() {
@@ -303,49 +248,36 @@ The initial demonstration module already provides a basic widget::
         },
     });
 
-It extends :class:`~odoo.Widget` and overrides the standard method
-:func:`~odoo.Widget.start`, which — much like the previous ``MyClass``
-— does little for now.
+它继承了 :class:`~odoo.Widget`，并重写了标准方法 :func:`~odoo.Widget.start`，与前面的 ``MyClass`` 类似，这个方法暂时没有执行太多功能。
 
-This line at the end of the file::
+文件末尾的这一行代码::
 
     instance.web.client_actions.add(
         'petstore.homepage', 'instance.oepetstore.HomePage');
 
-registers our basic widget as a client action. Client actions will be
-explained later, for now this is just what allows our widget to
-be called and displayed when we select the
-:menuselection:`Pet Store --> Pet Store --> Home Page` menu.
+将我们的基本 widget 注册为一个客户端动作。客户端动作稍后会进行解释，目前这一行代码只是为了确保我们的 widget 在选择菜单项时能够被调用并显示：
+:menuselection:`Pet Store --> Pet Store --> Home Page`。
 
 .. warning::
 
-    because the widget will be called from outside our module, the web client
-    needs its "fully qualified" name, not the local version.
+    因为 widget 将从我们的模块外部被调用，Web 客户端需要其“完全限定名”，而不是本地版本。
 
-Display Content
+显示内容
 ---------------
 
-Widgets have a number of methods and features, but the basics are simple:
+Widgets 具有许多方法和功能，但其基础非常简单：
 
-* set up a widget
-* format the widget's data
-* display the widget
+* 设置 widget
+* 格式化 widget 的数据
+* 显示 widget
 
-The ``HomePage`` widget already has a :func:`~odoo.Widget.start`
-method. That method is part of the normal widget lifecycle and automatically
-called once the widget is inserted in the page. We can use it to display some
-content.
+``HomePage`` widget 已经有一个 :func:`~odoo.Widget.start` 方法。该方法是 widget 生命周期的一部分，当 widget 被插入页面时自动调用。我们可以用它来显示一些内容。
 
-All widgets have a :attr:`~odoo.Widget.$el` which represents the
-section of page they're in charge of (as a jQuery_ object). Widget content
-should be inserted there. By default, :attr:`~odoo.Widget.$el` is an
-empty ``<div>`` element.
+所有的 widget 都有一个 :attr:`~odoo.Widget.$el`，它表示页面中 widget 负责的区域（作为 jQuery_ 对象）。Widget 的内容应该插入在其中。默认情况下，:attr:`~odoo.Widget.$el` 是一个空的 ``<div>`` 元素。
 
-A ``<div>`` element is usually invisible to the user if it has no content (or
-without specific styles giving it a size) which is why nothing is displayed
-on the page when ``HomePage`` is launched.
+如果一个 ``<div>`` 元素没有内容（或没有特定样式来定义大小），通常它对用户是不可见的，这就是为什么当 ``HomePage`` 启动时页面上什么也不显示的原因。
 
-Let's add some content to the widget's root element, using jQuery::
+让我们使用 jQuery 向 widget 的根元素添加一些内容::
 
     local.HomePage = instance.Widget.extend({
         start: function() {
@@ -353,16 +285,13 @@ Let's add some content to the widget's root element, using jQuery::
         },
     });
 
-That message will now appear when you open :menuselection:`Pet Store
---> Pet Store --> Home Page`
+当您打开 :menuselection:`Pet Store --> Pet Store --> Home Page` 时，该消息现在将出现在页面上。
 
 .. note::
 
-    to refresh the javascript code loaded in Odoo Web, you will need to reload
-    the page. There is no need to restart the Odoo server.
+    要刷新 Odoo Web 中加载的 JavaScript 代码，您需要重新加载页面。没有必要重新启动 Odoo 服务器。
 
-The ``HomePage`` widget is used by Odoo Web and managed automatically.
-To learn how to use a widget "from scratch" let's create a new one::
+``HomePage`` widget 被 Odoo Web 使用并自动管理。为了学习如何从头开始使用 widget，让我们创建一个新的 widget::
 
     local.GreetingsWidget = instance.Widget.extend({
         start: function() {
@@ -370,8 +299,7 @@ To learn how to use a widget "from scratch" let's create a new one::
         },
     });
 
-We can now add our ``GreetingsWidget`` to the ``HomePage`` by using the
-``GreetingsWidget``'s :func:`~odoo.Widget.appendTo` method::
+现在我们可以通过使用 ``GreetingsWidget`` 的 :func:`~odoo.Widget.appendTo` 方法将 ``GreetingsWidget`` 添加到 ``HomePage`` 中::
 
     local.HomePage = instance.Widget.extend({
         start: function() {
@@ -381,20 +309,13 @@ We can now add our ``GreetingsWidget`` to the ``HomePage`` by using the
         },
     });
 
-* ``HomePage`` first adds its own content to its DOM root
-* ``HomePage`` then instantiates ``GreetingsWidget``
-* Finally it tells ``GreetingsWidget`` where to insert itself, delegating part
-  of its :attr:`~odoo.Widget.$el` to the ``GreetingsWidget``.
+* ``HomePage`` 首先将自己的内容添加到其 DOM 根元素中
+* 然后 ``HomePage`` 实例化 ``GreetingsWidget``
+* 最后它告诉 ``GreetingsWidget`` 插入自己，将其 :attr:`~odoo.Widget.$el` 的一部分委派给 ``GreetingsWidget``。
 
-When the :func:`~odoo.Widget.appendTo` method is called, it asks the
-widget to insert itself at the specified position and to display its content.
-The :func:`~odoo.Widget.start` method will be called during the call
-to :func:`~odoo.Widget.appendTo`.
+当调用 :func:`~odoo.Widget.appendTo` 方法时，它请求 widget 将自己插入指定位置并显示其内容。在调用 :func:`~odoo.Widget.appendTo` 期间，:func:`~odoo.Widget.start` 方法将被调用。
 
-To see what happens under the displayed interface, we will use the browser's
-DOM Explorer. But first let's alter our widgets slightly so we can more easily
-find where they are, by :attr:`adding a class to their root elements
-<odoo.Widget.className>`::
+为了查看显示界面背后的内容，我们将使用浏览器的 DOM Explorer。首先让我们稍微修改我们的 widget，以便更容易地找到它们的位置，方法是 :attr:`为它们的根元素添加类 <odoo.Widget.className>`::
 
     local.HomePage = instance.Widget.extend({
         className: 'oe_petstore_homepage',
@@ -405,8 +326,7 @@ find where they are, by :attr:`adding a class to their root elements
         ...
     });
 
-If you can find the relevant section of the DOM (right-click on the text
-then :guilabel:`Inspect Element`), it should look like this:
+如果您能找到 DOM 的相关部分（右键单击文本然后选择 :guilabel:`检查元素`），它应该看起来像这样：
 
 .. code-block:: html
 
@@ -417,60 +337,48 @@ then :guilabel:`Inspect Element`), it should look like this:
         </div>
     </div>
 
-Which clearly shows the two ``<div>`` elements automatically created by
-:class:`~odoo.Widget`, because we added some classes on them.
+这清楚地显示了通过 :class:`~odoo.Widget` 自动创建的两个 ``<div>`` 元素，因为我们在它们上添加了一些类。
 
-We can also see the two message-holding divs we added ourselves
+我们还可以看到我们自己添加的两个包含消息的 div 元素。
 
-Finally, note the ``<div class="oe_petstore_greetings">`` element which
-represents the ``GreetingsWidget`` instance is *inside* the
-``<div class="oe_petstore_homepage">`` which represents the ``HomePage``
-instance, since we appended
+最后，请注意 ``<div class="oe_petstore_greetings">`` 元素，它表示 ``GreetingsWidget`` 实例，*在* ``<div class="oe_petstore_homepage">`` 元素内，该元素表示 ``HomePage`` 实例，因为我们将其附加到其中。
 
-Widget Parents and Children
+Widget 的父组件和子组件
 ---------------------------
 
-In the previous part, we instantiated a widget using this syntax::
+在前面的部分中，我们使用以下语法实例化了一个 widget::
 
     new local.GreetingsWidget(this);
 
-The first argument is ``this``, which in that case was a ``HomePage``
-instance. This tells the widget being created which other widget is its
-*parent*.
+第一个参数是 ``this``，在这种情况下是一个 ``HomePage`` 实例。这告诉正在创建的 widget 其*父组件*是什么。
 
-As we've seen, widgets are usually inserted in the DOM by another widget and
-*inside* that other widget's root element. This means most widgets are "part"
-of another widget, and exist on behalf of it. We call the container the
-*parent*, and the contained widget the *child*.
+正如我们所见，widgets 通常由另一个 widget 插入 DOM，并且*在*另一个 widget 的根元素内。这意味着大多数 widget 是另一个 widget 的“组成部分”，并且代表另一个 widget 存在。我们称容器为*父组件*，被包含的 widget 为*子组件*。
 
-Due to multiple technical and conceptual reasons, it is necessary for a widget
-to know who is its parent and who are its children.
+由于多种技术和概念上的原因，widget 有必要知道其父组件是谁以及子组件是谁。
 
 :func:`~odoo.Widget.getParent`
-    can be used to get the parent of a widget::
+    可用于获取 widget 的父组件::
 
         local.GreetingsWidget = instance.Widget.extend({
             start: function() {
                 console.log(this.getParent().$el );
-                // will print "div.oe_petstore_homepage" in the console
+                // 将在控制台打印 "div.oe_petstore_homepage"
             },
         });
 
 :func:`~odoo.Widget.getChildren`
-    can be used to get a list of its children::
+    可用于获取其子组件的列表::
 
         local.HomePage = instance.Widget.extend({
             start: function() {
                 var greeting = new local.GreetingsWidget(this);
                 greeting.appendTo(this.$el);
                 console.log(this.getChildren()[0].$el);
-                // will print "div.oe_petstore_greetings" in the console
+                // 将在控制台打印 "div.oe_petstore_greetings"
             },
         });
 
-When overriding the :func:`~odoo.Widget.init` method of a widget it is
-*of the utmost importance* to pass the parent to the ``this._super()`` call,
-otherwise the relation will not be set up correctly::
+在覆盖 widget 的 :func:`~odoo.Widget.init` 方法时，*非常重要的是*将父组件传递给 ``this._super()`` 调用，否则关系将无法正确设置::
 
     local.GreetingsWidget = instance.Widget.extend({
         init: function(parent, name) {
@@ -479,75 +387,48 @@ otherwise the relation will not be set up correctly::
         },
     });
 
-Finally, if a widget does not have a parent (e.g. because it's the root
-widget of the application), ``null`` can be provided as parent::
+最后，如果 widget 没有父组件（例如因为它是应用程序的根 widget），可以将 ``null`` 作为父组件提供::
 
     new local.GreetingsWidget(null);
 
-Destroying Widgets
+销毁 Widgets
 ------------------
 
-If you can display content to your users, you should also be able to erase
-it. This is done via the :func:`~odoo.Widget.destroy` method::
+如果您能够向用户显示内容，那么您也应该能够将其删除。这可以通过 :func:`~odoo.Widget.destroy` 方法完成::
 
     greeting.destroy();
 
-When a widget is destroyed it will first call
-:func:`~odoo.Widget.destroy` on all its children. Then it erases itself
-from the DOM. If you have set up permanent structures in
-:func:`~odoo.Widget.init` or :func:`~odoo.Widget.start` which
-must be explicitly cleaned up (because the garbage collector will not handle
-them), you can override :func:`~odoo.Widget.destroy`.
+当一个 widget 被销毁时，它首先会在所有子组件上调用 :func:`~odoo.Widget.destroy`，然后它会从 DOM 中删除自身。如果您在 :func:`~odoo.Widget.init` 或 :func:`~odoo.Widget.start` 中设置了永久结构，需要显式清理（因为垃圾回收器无法处理它们），则可以重写 :func:`~odoo.Widget.destroy`。
 
 .. danger::
-   when overriding :func:`~odoo.Widget.destroy`, ``_super()``
-   *must always* be called otherwise the widget and its children are not
-   correctly cleaned up leaving possible memory leaks and "phantom events",
-   even if no error is displayed
+   在重写 :func:`~odoo.Widget.destroy` 时，必须调用 ``_super()``，否则 widget 及其子组件将不会被正确清理，可能会导致内存泄漏和“幽灵事件”，即使没有显示错误。
 
-The QWeb Template Engine
+QWeb 模板引擎
 ========================
 
-In the previous section we added content to our widgets by directly
-manipulating (and adding to) their DOM::
+在上一节中，我们通过直接操作并添加到 widget 的 DOM 中来添加内容::
 
     this.$el.append("<div>Hello dear Odoo user!</div>");
 
-This allows generating and displaying any type of content, but gets unwieldy
-when generating significant amounts of DOM (lots of duplication, quoting
-issues, ...)
+这种方法允许生成并显示任意类型的内容，但在生成大量 DOM 时会变得笨拙（例如大量重复、引用问题等）。
 
-As many other environments, Odoo's solution is to use a `template engine`_.
-Odoo's template engine is called :ref:`reference/qweb`.
+像许多其他环境一样，Odoo 的解决方案是使用 `模板引擎`_。Odoo 的模板引擎称为 :ref:`reference/qweb`。
 
-QWeb is an XML-based templating language, similar to `Genshi
-<http://en.wikipedia.org/wiki/Genshi_(templating_language)>`_, `Thymeleaf
-<http://en.wikipedia.org/wiki/Thymeleaf>`_ or `Facelets
-<http://en.wikipedia.org/wiki/Facelets>`_. It has the following
-characteristics:
+QWeb 是基于 XML 的模板语言，类似于 `Genshi <http://en.wikipedia.org/wiki/Genshi_(templating_language)>`_、`Thymeleaf <http://en.wikipedia.org/wiki/Thymeleaf>`_ 或 `Facelets <http://en.wikipedia.org/wiki/Facelets>`_。它具有以下特性：
 
-* It's implemented fully in JavaScript and rendered in the browser
-* Each template file (XML files) contains multiple templates
-* It has special support in Odoo Web's :class:`~odoo.Widget`, though it
-  can be used outside of Odoo's web client (and it's possible to use
-  :class:`~odoo.Widget` without relying on QWeb)
+* 它完全用 JavaScript 实现并在浏览器中渲染
+* 每个模板文件（XML 文件）包含多个模板
+* 它在 Odoo Web 的 :class:`~odoo.Widget` 中有特殊支持，尽管它也可以在 Odoo Web 客户端之外使用（并且可以不依赖 QWeb 使用 :class:`~odoo.Widget`）
 
 .. note::
-   The rationale behind using QWeb instead of existing javascript template
-   engines is the extensibility of pre-existing (third-party) templates, much
-   like Odoo :doc:`views <../reference/user_interface/view_records>`.
+   选择使用 QWeb 而不是现有的 JavaScript 模板引擎的理由在于其对现有（第三方）模板的可扩展性，类似于 Odoo :doc:`视图 <../reference/user_interface/view_records>`。
 
-   Most javascript template engines are text-based which precludes easy
-   structural extensibility where an XML-based templating engine can be
-   generically altered using e.g. XPath or CSS and a tree-alteration DSL (or
-   even just XSLT). This flexibility and extensibility is a core
-   characteristic of Odoo, and losing it was considered unacceptable.
+   大多数 JavaScript 模板引擎是基于文本的，这使得结构化扩展变得困难，而基于 XML 的模板引擎可以通过例如 XPath 或 CSS 和树形操作 DSL（甚至 XSLT）来通用地修改。这种灵活性和可扩展性是 Odoo 的核心特性，失去它被认为是不可接受的。
 
-Using QWeb
+使用 QWeb
 ----------
 
-First let's define a simple QWeb template in the almost-empty
-``oepetstore/static/src/xml/petstore.xml`` file:
+首先，在几乎空的 ``oepetstore/static/src/xml/petstore.xml`` 文件中定义一个简单的 QWeb 模板：
 
 .. code-block:: xml
 
@@ -558,9 +439,7 @@ First let's define a simple QWeb template in the almost-empty
         </t>
     </templates>
 
-Now we can use this template inside of the ``HomePage`` widget. Using the
-``QWeb`` loader variable defined at the top of the page, we can call to the
-template defined in the XML file::
+现在可以在 ``HomePage`` widget 中使用该模板。使用页面顶部定义的 ``QWeb`` 加载器变量，可以调用 XML 文件中定义的模板::
 
     local.HomePage = instance.Widget.extend({
         start: function() {
@@ -568,12 +447,9 @@ template defined in the XML file::
         },
     });
 
-:func:`QWeb.render` looks for the specified template, renders it to a string
-and returns the result.
+:func:`QWeb.render` 查找指定的模板，将其渲染为字符串并返回结果。
 
-However, because :class:`~odoo.Widget` has special integration for QWeb
-the template can be set directly on the widget via its
-:attr:`~odoo.Widget.template` attribute::
+不过，由于 :class:`~odoo.Widget` 对 QWeb 进行了特殊集成，模板可以直接通过 widget 的 :attr:`~odoo.Widget.template` 属性设置::
 
     local.HomePage = instance.Widget.extend({
         template: "HomePageTemplate",
@@ -582,33 +458,24 @@ the template can be set directly on the widget via its
         },
     });
 
-Although the result looks similar, there are two differences between these
-usages:
+虽然结果看起来相似，但这两种用法有两个区别：
 
-* with the second version, the template is rendered right before
-  :func:`~odoo.Widget.start` is called
-* in the first version the template's content is added to the widget's root
-  element, whereas in the second version the template's root element is
-  directly *set as* the widget's root element. Which is why the "greetings"
-  sub-widget also gets a red background
+* 在第二种方式中，模板在调用 :func:`~odoo.Widget.start` 之前渲染
+* 在第一种方式中，模板的内容被添加到 widget 的根元素，而在第二种方式中，模板的根元素直接 *被设置为* widget 的根元素。因此，“greetings”子 widget 也会获得红色背景。
 
 .. warning::
-   templates should have a single non-``t`` root element, especially if
-   they're set as a widget's :attr:`~odoo.Widget.template`. If there are
-   multiple "root elements", results are undefined (usually only the first
-   root element will be used and the others will be ignored)
+   模板应有一个单一的非 ``t`` 根元素，尤其是作为 widget 的 :attr:`~odoo.Widget.template` 设置时。如果有多个“根元素”，结果将不确定（通常只使用第一个根元素，其他将被忽略）。
 
-QWeb Context
+QWeb 上下文
 ~~~~~~~~~~~~
 
-QWeb templates can be given data and can contain basic display logic.
+QWeb 模板可以接收数据并包含基本的显示逻辑。
 
-For explicit calls to :func:`QWeb.render`, the template data is passed as
-second parameter::
+对于显式调用 :func:`QWeb.render`，模板数据作为第二个参数传递::
 
     QWeb.render("HomePageTemplate", {name: "Klaus"});
 
-with the template modified to:
+将模板修改为：
 
 .. code-block:: xml
 
@@ -616,17 +483,13 @@ with the template modified to:
         <div>Hello <t t-esc="name"/></div>
     </t>
 
-will result in:
+渲染结果为：
 
 .. code-block:: html
 
     <div>Hello Klaus</div>
 
-When using :class:`~odoo.Widget`'s integration it is not possible to
-provide additional data to the template. The template will be given a single
-``widget`` context variable, referencing the widget being rendered right
-before :func:`~odoo.Widget.start` is called (the widget's state will
-essentially be that set up by :func:`~odoo.Widget.init`):
+当使用 :class:`~odoo.Widget` 的集成时，无法向模板提供额外数据。模板将接收一个 ``widget`` 上下文变量，引用在调用 :func:`~odoo.Widget.start` 之前渲染的 widget（widget 的状态基本上是由 :func:`~odoo.Widget.init` 设置的）：
 
 .. code-block:: xml
 
@@ -646,23 +509,20 @@ essentially be that set up by :func:`~odoo.Widget.init`):
         },
     });
 
-Result:
+结果：
 
 .. code-block:: html
 
     <div>Hello Mordecai</div>
 
-Template Declaration
+模板声明
 ~~~~~~~~~~~~~~~~~~~~
 
-We've seen how to *render* QWeb templates, let's now see the syntax of
-the templates themselves.
+我们已经看到了如何 *渲染* QWeb 模板，现在来看一下模板本身的语法。
 
-A QWeb template is composed of regular XML mixed with QWeb *directives*. A
-QWeb directive is declared with XML attributes starting with ``t-``.
+QWeb 模板由常规 XML 和 QWeb *指令* 组成。QWeb 指令通过 XML 属性声明，属性以 ``t-`` 开头。
 
-The most basic directive is ``t-name``, used to declare new templates in
-a template file:
+最基本的指令是 ``t-name``，用于在模板文件中声明新模板：
 
 .. code-block:: xml
 
@@ -672,40 +532,33 @@ a template file:
         </t>
     </templates>
 
-``t-name`` takes the name of the template being defined, and declares that
-it can be called using :func:`QWeb.render`. It can only be used at the
-top-level of a template file.
+``t-name`` 获取要定义的模板名称，并声明可以通过 :func:`QWeb.render` 调用它。它只能用于模板文件的顶级元素。
 
-Escaping
+转义
 ~~~~~~~~
 
-The ``t-esc`` directive can be used to output text:
+``t-esc`` 指令用于输出文本：
 
 .. code-block:: xml
 
     <div>Hello <t t-esc="name"/></div>
 
-It takes a Javascript expression which is evaluated, the result of the
-expression is then HTML-escaped and inserted in the document. Since it's an
-expression it's possible to provide just a variable name as above, or a more
-complex expression like a computation:
+它接收一个 JavaScript 表达式，该表达式的结果将被 HTML 转义并插入到文档中。由于它是一个表达式，可以提供一个变量名称，如上所示，也可以是更复杂的表达式，如计算：
 
 .. code-block:: xml
 
     <div><t t-esc="3+5"/></div>
 
-or method calls:
+或方法调用：
 
 .. code-block:: xml
 
     <div><t t-esc="name.toUpperCase()"/></div>
 
-Outputting HTML
+输出 HTML
 ~~~~~~~~~~~~~~~
 
-To inject HTML in the page being rendered, use ``t-raw``. Like ``t-esc`` it
-takes an arbitrary Javascript expression as parameter, but it does not
-perform an HTML-escape step.
+要将 HTML 注入到渲染的页面中，使用 ``t-raw``。与 ``t-esc`` 类似，它接受一个任意的 JavaScript 表达式作为参数，但不会执行 HTML 转义步骤。
 
 .. code-block:: xml
 
@@ -713,16 +566,12 @@ perform an HTML-escape step.
 
 .. danger::
 
-    ``t-raw`` *must not* be used on any data which may contain non-escaped
-    user-provided content as this leads to `cross-site scripting`_
-    vulnerabilities
+    ``t-raw`` *绝不* 应该用于任何可能包含未转义用户提供内容的数据，因为这会导致 `跨站脚本攻击`_ 的漏洞。
 
-Conditionals
+条件判断
 ~~~~~~~~~~~~
 
-QWeb can have conditional blocks using ``t-if``. The directive takes an
-arbitrary expression, if the expression is falsy (``false``, ``null``, ``0``
-or an empty string) the whole block is suppressed, otherwise it is displayed.
+QWeb 可以通过 ``t-if`` 指令使用条件块。该指令接受一个任意表达式，如果表达式为假（``false``、``null``、``0`` 或空字符串），整个块将被抑制，否则将显示。
 
 .. code-block:: xml
 
@@ -737,16 +586,12 @@ or an empty string) the whole block is suppressed, otherwise it is displayed.
 
 .. note::
 
-    QWeb doesn't have an "else" structure, use a second ``t-if`` with the
-    original condition inverted. You may want to store the condition in a
-    local variable if it's a complex or expensive expression.
+    QWeb 没有 "else" 结构，请使用第二个 ``t-if``，并将原始条件反转。如果表达式很复杂或开销较大，您可能希望将其存储在局部变量中。
 
-Iteration
+迭代
 ~~~~~~~~~
 
-To iterate on a list, use ``t-foreach`` and ``t-as``. ``t-foreach`` takes an
-expression returning a list to iterate on ``t-as`` takes a variable name to
-bind to each item during iteration.
+要迭代一个列表，请使用 ``t-foreach`` 和 ``t-as``。``t-foreach`` 接受一个返回列表的表达式，``t-as`` 接受一个变量名，用于在迭代时绑定到每个项目。
 
 .. code-block:: xml
 
@@ -758,48 +603,37 @@ bind to each item during iteration.
         </t>
     </div>
 
-.. note:: ``t-foreach`` can also be used with numbers and objects
-          (dictionaries)
+.. note:: ``t-foreach`` 也可以用于数字和对象（字典）。
 
-Defining attributes
+定义属性
 ~~~~~~~~~~~~~~~~~~~
 
-QWeb provides two related directives to define computed attributes:
-:samp:`t-att-{name}` and :samp:`t-attf-{name}`. In either case, *name* is the
-name of the attribute to create (e.g. ``t-att-id`` defines the attribute
-``id`` after rendering).
+QWeb 提供了两个相关的指令来定义计算属性：
+:samp:`t-att-{name}` 和 :samp:`t-attf-{name}`。在这两种情况下，*name* 是要创建的属性名称（例如，``t-att-id`` 定义渲染后的 ``id`` 属性）。
 
-``t-att-`` takes a javascript expression whose result is set as the
-attribute's value, it is most useful if all of the attribute's value is
-computed:
+``t-att-`` 接受一个 JavaScript 表达式，其结果被设置为属性的值，当属性的值全部是计算得出时最有用：
 
 .. code-block:: xml
 
     <div>
-        Input your name:
+        输入你的名字：
         <input type="text" t-att-value="defaultName"/>
     </div>
 
-``t-attf-`` takes a *format string*. A format string is literal text with
-interpolation blocks inside, an interpolation block is a javascript
-expression between ``{{`` and ``}}``, which will be replaced by the result
-of the expression. It is most useful for attributes which are partially
-literal and partially computed such as a class:
+``t-attf-`` 接受一个 *格式字符串*。格式字符串是包含插值块的文本，插值块是位于 ``{{`` 和 ``}}`` 之间的 JavaScript 表达式，该表达式的结果将替换插值块。这对于部分是字面值、部分是计算值的属性（例如类名）最为有用：
 
 .. code-block:: xml
 
     <div t-attf-class="container {{ left ? 'text-left' : '' }} {{ extra_class }}">
-        insert content here
+        插入内容在此处
     </div>
 
-Calling other templates
-~~~~~~~~~~~~~~~~~~~~~~~
+调用其他模板
+~~~~~~~~~~~~~~~~~~~
 
-Templates can be split into sub-templates (for simplicity, maintainability,
-reusability or to avoid excessive markup nesting).
+模板可以拆分为子模板（为简单性、可维护性、可重用性，或避免过多的标记嵌套）。
 
-This is done using the ``t-call`` directive, which takes the name of the
-template to render:
+这可以通过 ``t-call`` 指令完成，它接受要渲染的模板名称：
 
 .. code-block:: xml
 
@@ -812,7 +646,7 @@ template to render:
         <div class="i-am-b"/>
     </t>
 
-rendering the ``A`` template will result in:
+渲染 ``A`` 模板的结果将是：
 
 .. code-block:: xml
 
@@ -820,32 +654,26 @@ rendering the ``A`` template will result in:
         <div class="i-am-b"/>
     </div>
 
-Sub-templates inherit the rendering context of their caller.
+子模板继承其调用者的渲染上下文。
 
-To Learn More About QWeb
+了解更多关于 QWeb
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-For a QWeb reference, see :ref:`reference/qweb`.
+有关 QWeb 的参考资料，请参阅 :ref:`reference/qweb`。
 
-Exercise
+练习
 ~~~~~~~~
 
-.. exercise:: Usage of QWeb in Widgets
+.. exercise:: 在 Widgets 中使用 QWeb
 
-    Create a widget whose constructor takes two parameters aside from
-    ``parent``: ``product_names`` and ``color``.
+    创建一个 widget，构造函数接受两个参数（除 ``parent`` 外）：``product_names`` 和 ``color``。
 
-    * ``product_names`` should an array of strings, each one the name of a
-      product
-    * ``color`` is a string containing a color in CSS color format (ie:
-      ``#000000`` for black).
+    * ``product_names`` 应该是一个字符串数组，每个字符串是一个产品的名称。
+    * ``color`` 是一个包含 CSS 颜色格式（例如：``#000000`` 表示黑色）的字符串。
 
-    The widget should display the given product names one under the other,
-    each one in a separate box with a background color with the value of
-    ``color`` and a border. You should use QWeb to render the HTML. Any
-    necessary CSS should be in ``oepetstore/static/src/css/petstore.css``.
+    该 widget 应该显示给定的产品名称，每个名称都在一个单独的框中，框的背景颜色为 ``color`` 值，并带有边框。您应使用 QWeb 来渲染 HTML。任何必要的 CSS 应放置在 ``oepetstore/static/src/css/petstore.css`` 中。
 
-    Use the widget in ``HomePage`` with half a dozen products.
+    在 ``HomePage`` 中使用 widget，显示六个左右的产品。
 
     .. only:: solutions
 
@@ -908,19 +736,17 @@ Exercise
            :align: center
            :width: 70%
 
-Widget Helpers
-==============
+Widget 辅助工具
+===============
 
-``Widget``'s jQuery Selector
+``Widget`` 的 jQuery 选择器
 ----------------------------
 
-Selecting DOM elements within a widget can be performed by calling the
-``find()`` method on the widget's DOM root::
+可以通过在小部件的 DOM 根上调用 ``find()`` 方法来选择小部件内的 DOM 元素::
 
     this.$el.find("input.my_input")...
 
-But because it's a common operation, :class:`~odoo.Widget` provides an
-equivalent shortcut through the :func:`~odoo.Widget.$` method::
+由于这是一个常见的操作，:class:`~odoo.Widget` 提供了一个等效的快捷方式，通过 :func:`~odoo.Widget.$` 方法::
 
     local.MyWidget = instance.Widget.extend({
         start: function() {
@@ -928,20 +754,14 @@ equivalent shortcut through the :func:`~odoo.Widget.$` method::
         },
     });
 
-.. warning::
+.. 警告::
 
-    The global jQuery function ``$()`` should *never* be used unless it is
-    absolutely necessary: selection on a widget's root are scoped to the
-    widget and local to it, but selections with ``$()`` are global to the
-    page/application and may match parts of other widgets and views, leading
-    to odd or dangerous side-effects. Since a widget should generally act
-    only on the DOM section it owns, there is no cause for global selection.
+    全局的 jQuery 函数 ``$()`` 应 *永远不* 使用，除非这是绝对必要的：在小部件的根上进行选择是针对小部件的并且是局部的，但使用 ``$()`` 进行选择是全局的，并且可能匹配其他小部件和视图的部分，导致奇怪或危险的副作用。由于小部件通常只应操作它拥有的 DOM 部分，因此没有理由进行全局选择。
 
-Easier DOM Events Binding
+更简单的 DOM 事件绑定
 -------------------------
 
-We have previously bound DOM events using normal jQuery event handlers (e.g.
-``.click()`` or ``.change()``) on widget elements::
+我们之前使用正常的 jQuery 事件处理程序（例如 ``.click()`` 或 ``.change()``）在小部件元素上绑定 DOM 事件::
 
     local.MyWidget = instance.Widget.extend({
         start: function() {
@@ -955,16 +775,13 @@ We have previously bound DOM events using normal jQuery event handlers (e.g.
         },
     });
 
-While this works it has a few issues:
+虽然这可以工作，但它有一些问题：
 
-1. it is rather verbose
-2. it does not support replacing the widget's root element at runtime as
-   the binding is only performed when ``start()`` is run (during widget
-   initialization)
-3. it requires dealing with ``this``-binding issues
+1. 它相当冗长
+2. 它不支持在运行时替换小部件的根元素，因为绑定只在 ``start()`` 运行时进行（在小部件初始化期间）
+3. 它需要处理 ``this`` 绑定问题
 
-Widgets thus provide a shortcut to DOM event binding via
-:attr:`~odoo.Widget.events`::
+因此，小部件提供了一个通过 :attr:`~odoo.Widget.events` 进行 DOM 事件绑定的快捷方式::
 
     local.MyWidget = instance.Widget.extend({
         events: {
@@ -975,36 +792,28 @@ Widgets thus provide a shortcut to DOM event binding via
         }
     });
 
-:attr:`~odoo.Widget.events` is an object (mapping) of an event to the
-function or method to call when the event is triggered:
+:attr:`~odoo.Widget.events` 是一个将事件映射到当事件触发时调用的函数或方法的对象：
 
-* the key is an event name, possibly refined with a CSS selector in which
-  case only if the event happens on a selected sub-element will the function
-  or method run: ``click`` will handle all clicks within the widget, but
-  ``click .my_button`` will only handle clicks in elements bearing the
-  ``my_button`` class
-* the value is the action to perform when the event is triggered
+* 键是事件名称，可以通过 CSS 选择器进一步细化，在这种情况下，只有当事件发生在选定的子元素上时，函数或方法才会运行：``click`` 将处理小部件内的所有点击，但 ``click .my_button`` 只处理带有 ``my_button`` 类的元素上的点击
+* 值是事件触发时要执行的操作
 
-  It can be either a function::
+  它可以是一个函数::
 
       events: {
-          'click': function (e) { /* code here */ }
+          'click': function (e) { /* 这里是代码 */ }
       }
 
-  or the name of a method on the object (see example above).
+  也可以是对象上的方法名称（参见上面的例子）。
 
-  In either case, the ``this`` is the widget instance and the handler is given
-  a single parameter, the `jQuery event object`_ for the event.
+  在任一情况下，``this`` 都是小部件实例，处理程序将接收一个参数，即事件的 `jQuery 事件对象`_。
 
-Widget Events and Properties
+Widget 事件和属性
 ============================
 
-Events
+事件
 ------
 
-Widgets provide an event system (separate from the DOM/jQuery event system
-described above): a widget can fire events on itself, and other widgets (or
-itself) can bind themselves and listen for these events::
+小部件提供了一个事件系统（与上面描述的 DOM/jQuery 事件系统分开）：小部件可以在自身上触发事件，其他小部件（或自身）可以绑定并监听这些事件::
 
     local.ConfirmWidget = instance.Widget.extend({
         events: {
@@ -1016,22 +825,17 @@ itself) can bind themselves and listen for these events::
             }
         },
         start: function() {
-            this.$el.append("<div>Are you sure you want to perform this action?</div>" +
-                "<button class='ok_button'>Ok</button>" +
-                "<button class='cancel_button'>Cancel</button>");
+            this.$el.append("<div>您确定要执行此操作吗？</div>" +
+                "<button class='ok_button'>确定</button>" +
+                "<button class='cancel_button'>取消</button>");
         },
     });
 
-This widget acts as a facade, transforming user input (through DOM events)
-into a documentable internal event to which parent widgets can bind
-themselves.
+此小部件作为一个外观，将用户输入（通过 DOM 事件）转换为可以记录的内部事件，父小部件可以绑定这些事件。
 
-:func:`~odoo.Widget.trigger` takes the name of the event to trigger as
-its first (mandatory) argument, any further arguments are treated as event
-data and passed directly to listeners.
+:func:`~odoo.Widget.trigger` 接受事件名称作为第一个（必需的）参数，任何进一步的参数都作为事件数据直接传递给监听器。
 
-We can then set up a parent event instantiating our generic widget and
-listening to the ``user_chose`` event using :func:`~odoo.Widget.on`::
+然后，我们可以设置一个父事件，实例化我们的通用小部件并使用 :func:`~odoo.Widget.on` 监听 ``user_chose`` 事件::
 
     local.HomePage = instance.Widget.extend({
         start: function() {
@@ -1041,19 +845,14 @@ listening to the ``user_chose`` event using :func:`~odoo.Widget.on`::
         },
         user_chose: function(confirm) {
             if (confirm) {
-                console.log("The user agreed to continue");
+                console.log("用户同意继续");
             } else {
-                console.log("The user refused to continue");
+                console.log("用户拒绝继续");
             }
         },
     });
 
-:func:`~odoo.Widget.on` binds a function to be called when the
-event identified by ``event_name`` is. The ``func`` argument is the
-function to call and ``object`` is the object to which that function is
-related if it is a method. The bound function will be called with the
-additional arguments of :func:`~odoo.Widget.trigger` if it has
-any. Example::
+:func:`~odoo.Widget.on` 绑定一个函数，当事件由 ``event_name`` 标识时调用。``func`` 参数是要调用的函数，``object`` 是该函数所属的对象（如果它是一个方法）。绑定的函数将与 :func:`~odoo.Widget.trigger` 的附加参数一起调用，如果有的话。例如::
 
     start: function() {
         var widget = ...
@@ -1062,22 +861,17 @@ any. Example::
     },
     my_event_triggered: function(a, b, c) {
         console.log(a, b, c);
-        // will print "1 2 3"
+        // 将打印 "1 2 3"
     }
 
-.. note::
+.. 注意::
 
-    Triggering events on an other widget is generally a bad idea. The main
-    exception to that rule is ``odoo.web.bus`` which exists specifically
-    to broadcasts evens in which any widget could be interested throughout
-    the Odoo web application.
+    在其他小部件上触发事件通常是一个坏主意。该规则的主要例外是 ``odoo.web.bus``，它专门用于在 Odoo Web 应用程序中广播任何小部件可能感兴趣的事件。
 
-Properties
+属性
 ----------
 
-Properties are very similar to normal object attributes in that they allow
-storing data on a widget instance, however they have the additional feature
-that they trigger events when set::
+属性非常类似于普通的对象属性，因为它们允许在小部件实例上存储数据，然而，它们有一个额外的功能，即设置值时会触发事件::
 
     start: function() {
         this.widget = ...
@@ -1085,13 +879,12 @@ that they trigger events when set::
         this.widget.set("name", "Nicolas");
     },
     name_changed: function() {
-        console.log("The new value of the property 'name' is", this.widget.get("name"));
+        console.log("属性 'name' 的新值是", this.widget.get("name"));
     }
 
-* :func:`~odoo.Widget.set` sets the value of a property and triggers
-  :samp:`change:{propname}` (where *propname* is the property name passed as
-  first parameter to :func:`~odoo.Widget.set`) and ``change``
-* :func:`~odoo.Widget.get` retrieves the value of a property.
+* :func:`~odoo.Widget.set` 设置属性的值并触发 :samp:`change:{propname}`（其中 *propname* 是传递给 :func:`~odoo.Widget.set` 的属性名称）和 ``change`` 事件
+* :func:`~odoo.Widget.get` 检索属性的值。
+
 
 Exercise
 --------
