@@ -1,23 +1,22 @@
 ===============
-Building blocks
+构建块
 ===============
 
-Building blocks, also known as snippets, are how users design and layout pages. They are important
-XML elements of your design.
+构建块，也称为片段，是用户设计和布局页面的方式。它们是设计中重要的 XML 元素。
 
-The building blocks are classified into four categories:
+构建块分为四类：
 
-#. **Structure blocks**: to give a basic structure to the website
-#. **Feature blocks**: to describe the features of a product or service
-#. **Dynamic Content blocks**: blocks that are animated or interact with the backend
-#. **Inner Content blocks**: blocks used inside other building blocks
+#. **结构块**：为网站提供基本结构
+#. **功能块**：用于描述产品或服务的功能
+#. **动态内容块**：带有动画或与后端交互的块
+#. **内部内容块**：用于嵌入在其他构建块中的块
 
-In this chapter, you will learn how to create custom building blocks and options.
+在本章中，您将学习如何创建自定义构建块和选项。
 
-File structure
+文件结构
 ==============
 
-The layout's file structure is the following.
+布局的文件结构如下所示。
 
 ::
 
@@ -26,7 +25,7 @@ The layout's file structure is the following.
     │   └── options.xml
     │   └── s_snippet_name.xml
 
-The styles' file structure is the following.
+样式的文件结构如下所示。
 
 ::
 
@@ -41,209 +40,201 @@ The styles' file structure is the following.
     │           └── option.js
 
 .. seealso::
-   `XML templates of the different snippets
+   `不同片段的 XML 模板
    <{GITHUB_PATH}/addons/website/views/snippets/snippets.xml>`_
 
-.. admonition:: Demo page
+.. admonition:: 示例页面
 
    http://localhost:8069/website/demo/snippets
 
-Layout
+布局
 ======
 
-Snippets are editable by the user using the Website Builder. Some Bootstrap classes are important as
-**they trigger some Website Builder options**.
+用户可以使用网站构建器编辑片段。某些 Bootstrap 类非常重要，因为**它们会触发网站构建器的某些选项**。
 
-Wrapper
+包装器
 -------
 
-The standard main container of any snippet is a `section`. Any section element can be edited like a
-block of content that you can move or duplicate.
+任何片段的标准主容器是 `section`。任何 section 元素都可以像内容块一样进行编辑，您可以移动或复制它。
 
 .. code-block:: xml
 
    <section class="s_snippet_name" data-name="..." data-snippet="...">
-       <!-- Content -->
+       <!-- 内容 -->
    </section>
 
-For inner content snippets, any other HTML tag can be used.
+对于内部内容片段，可以使用任何其他 HTML 标签。
 
 .. code-block:: xml
 
    <div class="s_snippet_name" data-name="..." data-snippet="...">
-       <!-- Content -->
+       <!-- 内容 -->
    </div>
 
-.. todo:: Missing description in table ...
+.. todo:: 缺少表格描述...
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - class
-     - Unique class name for this snippet
+     - 此片段的唯一类名
    * - data-name
-     - Displayed in the right panel as the name of the snippet. If not found, it will fall back to
-       *Block*.
+     - 在右侧面板中显示为片段的名称。如果找不到，将回退为 *Block*。
    * - data-snippet
-     - Used by the system to identify the snippet
+     - 系统用于标识片段
 
-The system automatically adds the `data-name` and `data-snippet` attributes during the drag and
-drop based on the template's name.
-
-.. warning::
-   Those attributes should be specifically added when a snippet is declared on a theme page.
+系统会在拖放过程中根据模板的名称自动添加 `data-name` 和 `data-snippet` 属性。
 
 .. warning::
-   Avoid adding a `section` tag inside another `section` tag: this will trigger twice the Website
-   Builder's options. You can use inner content snippets instead.
+   声明片段时，应特别添加这些属性。
 
-Columns
+.. warning::
+   避免在一个 `section` 标签中嵌套另一个 `section` 标签：这将触发两次网站构建器的选项。您可以改为使用内部内容片段。
+
+列
 -------
 
-Any large Bootstrap columns directly descending from a `.row` element (respecting Bootstrap
-structure) will be triggered by the Website Builder to make them resizable.
+直接从 `.row` 元素派生的任何大 Bootstrap 列（遵循 Bootstrap 结构）将由网站构建器触发，使其可调整大小。
 
 .. code-block:: css
 
    .row > .col-lg-*
 
-Add padding on columns and sections.
+为列和段添加内边距。
 
 .. code-block:: xml
 
    class="pt80 pb80"
 
-Add a background based on the color palette for columns and sections.
+为列和段添加基于调色板的背景。
 
 .. code-block:: xml
 
    class="o_cc o_cc*"
 
-Make an element not editable.
+使元素不可编辑。
 
 .. code-block:: xml
 
    <div class="o_not_editable">
 
-Enable the columns selector.
+启用列选择器。
 
 .. code-block:: xml
 
    <div class="container s_allow_columns">
 
-Disable the columns option.
+禁用列选项。
 
 .. code-block:: xml
 
    <div class="row s_nb_column_fixed">
 
-Disable the size option of all child columns.
+禁用所有子列的大小选项。
 
 .. code-block:: xml
 
    <div class="row s_col_no_resize">
 
-Disable the size option for one column.
+禁用单列的大小选项。
 
 .. code-block:: xml
 
    <div class="col-lg-* s_col_no_resize">
 
-Disable the background color option for all columns.
+禁用所有列的背景颜色选项。
 
 .. code-block:: xml
 
    <div class="row s_col_no_bgcolor">
 
-Disable the background color option of one column.
+禁用单列的背景颜色选项。
 
 .. code-block:: xml
 
    <div class="col-lg-* s_col_no_bgcolor">
 
-Add parallax effect.
+添加视差效果。
 
 .. code-block:: xml
 
    <section class="parallax s_parallax_is_fixed s_parallax_no_overflow_hidden" data-scroll-background-ratio="1">
        <span class="s_parallax_bg oe_img_bg o_bg_img_center" style="background-image: url('...'); background-position: 50% 75%;"/>
        <div class="container">
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </section>
 
-Add a black color filter with an opacity of 50%.
+添加不透明度为 50% 的黑色滤镜。
 
 .. code-block:: xml
 
    <section>
        <div class="o_we_bg_filter bg-black-50"/>
        <div class="container">
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </section>
 
-Add a white color filter with an opacity of 85%.
+添加不透明度为 85% 的白色滤镜。
 
 .. code-block:: xml
 
    <section>
        <div class="o_we_bg_filter bg-white-85"/>
        <div class="container">
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </section>
 
-Add a custom color filter.
+添加自定义颜色滤镜。
 
 .. code-block:: xml
 
    <section>
        <div class="o_we_bg_filter" style="background-color: rgba(39, 110, 114, 0.54) !important;"/>
        <div class="container">
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </section>
 
-Add a custom gradient filter.
+添加自定义渐变滤镜。
 
 .. code-block:: xml
 
    <section>
        <div class="o_we_bg_filter" style="background-image: linear-gradient(135deg, rgba(255, 204, 51, 0.5) 0%, rgba(226, 51, 255, 0.5) 100%) !important;"/>
        <div class="container">
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </section>
 
-Styles
+样式
 ======
 
-Compatibility system
+兼容性系统
 --------------------
 
-When a snippet has a `data-vcss` or `data-vjs` attribute, it means it is an updated version, not the
-original one.
+当片段具有 `data-vcss` 或 `data-vjs` 属性时，表示它是更新版本，而不是原始版本。
 
 .. code-block:: xml
 
    <section class="s_snippet_name" data-vcss="..." data-js="...">
-       <!-- Content -->
+       <!-- 内容 -->
    </section>
 
-The `data-vcss` and `data-js` attributes indicate to the system which file version to load for that
-snippet (e.g., :file:`001.js`, :file:`002.scss`).
+`data-vcss` 和 `data-js` 属性指示系统应加载该片段的哪个文件版本（例如，:file:`001.js`，:file:`002.scss`）。
 
-Custom
+自定义
 ======
 
-Create the snippet's content.
+创建片段的内容。
 
-**Declaration**
+**声明**
 
 .. code-block:: xml
    :caption: ``/website_airproof/views/snippets/s_airproof_snippet.xml``
@@ -253,24 +244,22 @@ Create the snippet's content.
 
        <template id="s_airproof_snippet" name="...">
            <section class="s_airproof_snippet">
-               <!-- Content -->
+               <!-- 内容 -->
            </section>
        </template>
 
    </odoo>
 
 .. warning::
-   `data-name` and `data-snippet` attributes have to be specified when a snippet is declared on a
-   theme page.
+   当片段在主题页面上声明时，必须指定 `data-name` 和 `data-snippet` 属性。
 
 .. tip::
-   - Use Bootstrap native classes as much as possible.
-   - Prefix all your custom classes.
-   - Use underscore lowercase notation to name classes, e.g., `.x_nav`, `.x_nav_item`.
-   - Avoid using ID tag.
+   - 尽可能多使用 Bootstrap 原生类。
+   - 为所有自定义类添加前缀。
+   - 使用下划线小写命名法命名类，例如 `.x_nav`，`.x_nav_item`。
+   - 避免使用 ID 标签。
 
-Add your custom snippet to the list of default snippets, so the user can drag and drop it on the
-page, directly from the edit panel.
+将自定义片段添加到默认片段列表中，以便用户可以直接从编辑面板中拖放到页面上。
 
 .. code-block:: xml
    :caption: ``/website_airproof/views/snippets/options.xml``
@@ -279,10 +268,10 @@ page, directly from the edit panel.
        <xpath expr="//*[@id='default_snippets']" position="before">
            <t id="x_theme_snippets">
                <div id="x_theme_snippets_category" class="o_panel">
-                   <div class="o_panel_header">Theme</div>
+                   <div class="o_panel_header">主题</div>
                    <div class="o_panel_body">
                        <t t-snippet="website_airproof.s_airproof_snippet" t-thumbnail="/website_airproof/static/src/img/wbuilder/s_airproof_snippet.svg">
-                           <keywords>Snippet</keywords>
+                           <keywords>片段</keywords>
                        </t>
                    </div>
                </div>
@@ -295,62 +284,57 @@ page, directly from the edit panel.
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - t-snippet
-     - The template to use
+     - 要使用的模板
    * - t-thumbnail
-     - The path to the snippet thumbnail
+     - 片段缩略图的路径
 
-Options
+选项
 -------
 
-Options allow users to edit a snippet's appearance using the Website Builder. You can create
-snippet options easily and automatically add them to the Website Builder.
+选项允许用户使用网站构建器编辑片段的外观。您可以轻松创建片段选项，并自动将其添加到网站构建器中。
 
-Groups properties
+组属性
 -----------------
 
-Options are wrapped in groups. Groups can have properties that define how the included options
-interact with the user interface.
+选项封装在组中。组可以具有定义包含的选项如何与用户界面交互的属性。
 
-`data-selector` binds all the options included in the group to a particular element. It can be used
-in combination with `data-target` and `data-exclude`.
+`data-selector` 绑定组中包含的所有选项到特定元素。它可以与 `data-target` 和 `data-exclude` 一起使用。
 
 .. code-block:: xml
 
    <div data-selector="section, h1, .custom_class, #custom_id">
 
-`data-js` binds custom JavaScript methods.
+`data-js` 绑定自定义 JavaScript 方法。
 
 .. code-block:: xml
 
    <div data-js="CustomMethodName" data-selector="...">
 
-`data-drop-in` defines the list of elements where the snippet can be dropped into.
+`data-drop-in` 定义片段可以放入的元素列表。
 
-.. todo:: no css selector ...
+.. todo:: 没有 CSS 选择器...
 
 .. code-block:: xml
 
    <div data-selector="..." data-drop-in="...">
 
-`data-drop-near` defines the list of elements where the snippet can be dropped beside.
+`data-drop-near` 定义片段可以放在旁边的元素列表。
 
 .. code-block:: xml
 
    <div data-selector="..." data-drop-near="...">
 
-SCSS options
+SCSS 选项
 ------------
 
-Options can apply standard or custom CSS classes to the snippet. Depending on the method that you
-choose, the user interface will behave differently.
+选项可以为片段应用标准或自定义的 CSS 类。根据您选择的方法，用户界面的行为将有所不同。
 
 `data-select-class="..."`
 
-More `data-select-class` in the same group defines a list of classes the user can apply. Only one
-option can be enabled at a time.
+在同一组中使用多个 `data-select-class` 定义用户可以应用的类列表。一次只能启用一个选项。
 
 .. code-block:: xml
    :caption: ``/website_airproof/views/snippets/options.xml``
@@ -359,8 +343,8 @@ option can be enabled at a time.
        <xpath expr="." position="inside">
 
            <div data-selector="h1, h2, h3, h4, h5, h6">
-               <we-select string="Headings">
-                   <we-button data-select-class="">Default</we-button>
+               <we-select string="标题">
+                   <we-button data-select-class="">默认</we-button>
                    <we-button data-select-class="x_custom_class_01">01</we-button>
                    <we-button data-select-class="x_custom_class_02">02</we-button>
                </we-select>
@@ -370,13 +354,13 @@ option can be enabled at a time.
    </template>
 
 .. seealso::
-   `XML templates of the different snippets
+   `不同片段的 XML 模板
    <{GITHUB_PATH}/addons/website/views/snippets/snippets.xml>`_
 
-JavaScript options
+JavaScript 选项
 ------------------
 
-The `data-js` attribute can be assigned to an options group in order to define a custom method.
+可以为选项组分配 `data-js` 属性以定义自定义方法。
 
 .. code-block:: javascript
 
@@ -388,40 +372,36 @@ The `data-js` attribute can be assigned to an options group in order to define a
        //
    });
 
-The Website Builder provides several events you can use to trigger your custom functions.
+网站构建器提供了多个事件，您可以使用它们来触发自定义功能。
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Event
-     - Description
+   * - 事件
+     - 描述
    * - start
-     - Occurs when the publisher selects the snippet for the first time in an editing session or
-       when the snippet is drag-and-dropped on the page.
+     - 发生在发布者在编辑会话中首次选择片段或将片段拖放到页面上时。
    * - onFocus
-     - Occurs each time the snippet is selected by the user or when the snippet is drag-and-dropped
-       on the page.
+     - 每次用户选择片段时发生，或当片段被拖放到页面上时发生。
    * - onBlur
-     - Occurs when a snippet loses focus.
+     - 当片段失去焦点时发生。
    * - onClone
-     - Occurs just after a snippet is duplicated.
+     - 片段复制后立即发生。
    * - onRemove
-     - Occurs just before the snippet is removed.
+     - 片段被删除之前发生。
    * - onBuilt
-     - Occurs just after the snippet is drag-and-dropped on a drop zone. When this event is
-       triggered, the content is already inserted in the page.
+     - 片段在放置区域拖放完成后发生。当触发此事件时，内容已经插入页面。
    * - cleanForSave
-     - Occurs before the publisher saves the page.
+     - 发布者保存页面之前发生。
 
-Dynamic Content templates
+动态内容模板
 -------------------------
 
-By default, Dynamic Content blocks have a selection of templates available in the Website Builder.
-You can also add your own template to the list.
+默认情况下，动态内容块在网站构建器中有一些可用的模板。您还可以将自己的模板添加到列表中。
 
-Blog posts
+博客文章
 ~~~~~~~~~~
 
 .. code-block:: xml
@@ -430,7 +410,7 @@ Blog posts
    <template id="dynamic_filter_template_blog_post_airproof" name="...">
        <div t-foreach="records" t-as="data" class="s_blog_posts_post">
            <t t-set="record" t-value="data['_record']"/>
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </template>
 
@@ -439,14 +419,14 @@ Blog posts
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - id
-     - The ID of the template. Has to start with `dynamic_filter_template_blog_post_`
+     - 模板的 ID。必须以 `dynamic_filter_template_blog_post_` 开头。
    * - name
-     - Human-readable name of the template
+     - 模板的可读名称
 
-Products
+产品
 ~~~~~~~~
 
 .. code-block:: xml
@@ -455,7 +435,7 @@ Products
    <template id="dynamic_filter_template_product_product_airproof" name="...">
        <t t-foreach="records" t-as="data" data-number-of-elements="4" data-number-of-elements-sm="1" data-number-of-elements-fetch="8">
            <t t-set="record" t-value="data['_record']"/>
-           <!-- Content -->
+           <!-- 内容 -->
        </t>
    </template>
 
@@ -464,20 +444,20 @@ Products
    :stub-columns: 1
    :widths: 40 60
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - id
-     - The ID of the template. Has to start with `dynamic_filter_template_product_product_`
+     - 模板的 ID。必须以 `dynamic_filter_template_product_product_` 开头。
    * - name
-     - Human-readable name of the template
+     - 模板的可读名称
    * - data-number-of-elements
-     - Number of products per slide on desktop
+     - 桌面上的每张幻灯片显示的产品数量
    * - data-number-of-elements-sm
-     - Number of products per slide on mobile
+     - 移动设备上的每张幻灯片显示的产品数量
    * - data-number-of-elements-fetch
-     - The total amount of fetched products
+     - 获取的总产品数量
 
-Events
+活动
 ~~~~~~
 
 .. code-block:: xml
@@ -486,7 +466,7 @@ Events
    <template id="dynamic_filter_template_event_event_airproof" name="...">
        <div t-foreach="records" t-as="data" class="s_events_event">
            <t t-set="record" t-value="data['_record']._set_tz_context()"/>
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </template>
 
@@ -495,9 +475,9 @@ Events
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - id
-     - The ID of the template. Has to start with `dynamic_filter_template_event_event_`
+     - 模板的 ID。必须以 `dynamic_filter_template_event_event_` 开头。
    * - name
-     - Human-readable name of the template
+     - 模板的可读名称

@@ -1,44 +1,38 @@
 ==========
-Animations
+动画效果
 ==========
 
-Eye-catching animations can bring your website to life.
+引人注目的动画效果可以让您的网站更加生动。
 
-On appearance
-=============
+出现在视窗时的动画
+===================
 
-In standard, you can add animations to columns when they appear, thanks to the Website Builder. Odoo
-detects when your element is in the viewport and launches the animation. A large selection of
-animations is available:
+在标准配置中，您可以使用网站构建器在元素出现在视窗中时为列添加动画。Odoo 会检测到元素何时出现在视窗中，并启动动画。可供选择的动画效果包括：
 
-- Fade in
-- Bounce in
-- Rotate in
-- Zoom in
+- 淡入
+- 弹入
+- 旋转进入
+- 缩放进入
 - …
 
-You can easily define an animation on a column in your custom theme. You need to add two classes:
-`o_animate` and `o_anim_fade_in`. The second class changes depending on the type of animation you
-want to use.
+您可以在自定义主题中轻松地为列定义动画。您需要添加两个类：`o_animate` 和 `o_anim_fade_in`。第二个类根据您想使用的动画类型而变化。
 
-Add the `o_animate_both_scroll` class to launch the animation every time the column appears on the
-screen. The animation is only launched once by default.
+添加 `o_animate_both_scroll` 类以确保每次该列出现在屏幕上时都启动动画。默认情况下，动画仅启动一次。
 
-You can also define an `animation-duration` and an `animation-delay` directly in the `style`
-attribute.
+您还可以直接在 `style` 属性中定义 `animation-duration` 和 `animation-delay`。
 
-**Use**
+**用法**
 
 .. code-block:: xml
 
    <div class="col-lg-6 o_animate o_anim_fade_in o_animate_both_scroll" style="animation-duration: 2s !important; animation-delay: 1s !important;">
-       <h2>A Section Subtitle</h2>
-       <p>Write one or two paragraphs describing your product or services.</p>
+       <h2>部分副标题</h2>
+       <p>撰写一到两段文字描述您的产品或服务。</p>
    </div>
 
 .. image:: animations/animations.png
-   :alt: Animation options
+   :alt: 动画选项
 
 .. seealso::
-   `Website Animate
+   `网站动画
    <https://github.com/odoo/odoo/blob/34c0c9c1ae00aba391932129d4cefd027a9c6bbd/addons/website/static/src/scss/website.scss#L1638>`_

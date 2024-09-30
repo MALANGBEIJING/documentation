@@ -1,74 +1,72 @@
 ======
-Shapes
+形状
 ======
 
-Shapes are handy if you want to add personality to your website.
+形状是为您的网站增添个性的一种方便方法。
 
-In this chapter, you will learn how to add standard and custom background and image shapes.
+在本章中，您将学习如何添加标准和自定义的背景形状和图片形状。
 
-Background shapes
+背景形状
 =================
 
-Background shapes are SVG files that you can add as a decorative background in your different
-sections. Each shape has one or several customizable colors, and some of them are animated.
+背景形状是 SVG 文件，您可以将其添加到不同部分的装饰背景中。每个形状都有一个或多个可定制的颜色，有些形状是动画的。
 
-Standard
+标准
 --------
 
-A large selection of default background shapes is available.
+提供了大量默认的背景形状供选择。
 
-**Use**
+**使用**
 
 .. code-block:: xml
 
    <section data-oe-shape-data="{'shape':'web_editor/Zigs/06'}">
        <div class="o_we_shape o_web_editor_Zigs_06"/>
        <div class="container">
-           <!-- Content -->
+           <!-- 内容 -->
         </div>
    </section>
 
-`data-oe-shape-data` is the location of your shape.
+`data-oe-shape-data` 是您的形状的位置。
 
-Flip the shape horizontally or vertically by using the X or Y axis.
+使用 X 或 Y 轴翻转形状。
 
 .. code-block:: xml
 
    <section data-oe-shape-data="{'shape':'web_editor/Zigs/06','flip':[x,y]}">
        <div class="o_we_shape o_we_flip_x o_we_flip_y o_web_editor_Zigs_06"/>
        <div class="container">
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </section>
 
-Colors mapping
+颜色映射
 ~~~~~~~~~~~~~~
 
-You can also change the default color mapping of your shape.
+您还可以更改形状的默认颜色映射。
 
-Switch colors mapping
+切换颜色映射
 *********************
 
-First, put the c* color (here `4`).
+首先，设置 c* 颜色（这里为 `4`）。
 
-Then, the replacement color (here `3`). These replacement colors also range from 1 to 5:
+然后，设置替换颜色（这里为 `3`）。这些替换颜色的范围也是 1 到 5：
 
-- `1` = background color of the color preset 1 (o-cc1).
-- `2` = background color of the color preset 2 (o-cc2).
-- `3` = background color of the color preset 3 (o-cc3).
-- `4` = background color of the color preset 4 (o-cc4).
-- `5` = background color of the color preset 5 (o-cc5).
+- `1` = 颜色预设 1 的背景颜色 (o-cc1)。
+- `2` = 颜色预设 2 的背景颜色 (o-cc2)。
+- `3` = 颜色预设 3 的背景颜色 (o-cc3)。
+- `4` = 颜色预设 4 的背景颜色 (o-cc4)。
+- `5` = 颜色预设 5 的背景颜色 (o-cc5)。
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/boostrap_overridden.scss``
 
    $o-bg-shapes: change-shape-colors-mapping('web_editor', 'Zigs/06', (4: 3, 5: 1));
 
-Add extra colors mapping
+添加额外颜色映射
 ************************
 
-Adding extra color mapping allows you to add a color variant to the template of a shape while
-keeping the original.
+添加额外颜色映射可以为形状模板添加颜色变体，同时保留原始颜色。
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/boostrap_overridden.scss``
@@ -80,16 +78,16 @@ keeping the original.
    <section data-oe-shape-data="{'shape':'web_editor/Zigs/06'}">
        <div class="o_we_shape o_web_editor_Zigs_06 o_second_extra_shape_mapping"/>
        <div class="container">
-           <!-- Content -->
+           <!-- 内容 -->
        </div>
    </section>
 
-Custom
+自定义
 ------
 
-Sometimes, your design might require creating one or several custom shapes.
+有时，您的设计可能需要创建一个或多个自定义形状。
 
-Firstly, you need to create an SVG file for your shape.
+首先，您需要为形状创建一个 SVG 文件。
 
 .. code-block:: xml
    :caption: ``/website_airproof/static/shapes/hexagons/01.svg``
@@ -98,7 +96,7 @@ Firstly, you need to create an SVG file for your shape.
        <polygon points="0 25, 43 0, 86 25, 86 75, 43 100, 0 75" style="fill: #3AADAA;"/>
    </svg>
 
-Make sure to use colors from the default Odoo palette for your shape.
+确保为形状使用 Odoo 默认调色板中的颜色。
 
 .. code-block:: scss
 
@@ -110,7 +108,7 @@ Make sure to use colors from the default Odoo palette for your shape.
        '5': '#383E45',
    }
 
-Declare your shape file.
+声明您的形状文件。
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/shapes.xml``
@@ -122,25 +120,25 @@ Declare your shape file.
        <field name="public" eval="True"/>
    </record>
 
-.. todo:: Missing description in table ...
+.. todo:: 缺少表格描述...
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Field
-     - Description
+   * - 字段
+     - 描述
    * - name
-     - Name of the shape
+     - 形状名称
    * - datas
-     - Path to the shape
+     - 形状路径
    * - url
      - ...
    * - public
-     - Makes the shape available for later editing.
+     - 使形状可供以后编辑。
 
-Define the styles of your shape.
+定义形状的样式。
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/primary_variables.scss``
@@ -161,25 +159,22 @@ Define the styles of your shape.
    :stub-columns: 1
    :widths: 20 80
 
-   * - Key
-     - Description
-   * - File location
-     - `hexagons/01` corresponds to the location of your file in the `shapes` folder.
+   * - 键
+     - 描述
+   * - 文件位置
+     - `hexagons/01` 对应于您的文件在 `shapes` 文件夹中的位置。
    * - position
-     - Defines the position of your shape.
+     - 定义形状的位置。
    * - size
-     - Defines the size of your shape.
+     - 定义形状的大小。
    * - colors
-     - Defines the color c* you want it to have (this will override the color you specified in your
-       SVG).
+     - 定义您想要的颜色 c*（这将覆盖您在 SVG 中指定的颜色）。
    * - repeat-x
-     - Defines if the shape is repeated horizontally. This key is optional and only needs to be
-       defined if set to `true`.
+     - 定义是否水平重复形状。此键是可选的，只有在设置为 `true` 时才需要定义。
    * - repeat-y
-     - Defines if the shape is repeated vertically. This key is optional and only needs to be
-       defined if set to `true`.
+     - 定义是否垂直重复形状。此键是可选的，只有在设置为 `true` 时才需要定义。
 
-Lastly, add your shape to the list of shapes available on the Website Builder.
+最后，将您的形状添加到网站构建器中可用的形状列表中。
 
 .. code-block:: xml
    :caption: ``/website_airproof/views/snippets/options.xml``
@@ -192,20 +187,19 @@ Lastly, add your shape to the list of shapes available on the Website Builder.
        </xpath>
    </template>
 
-Your custom shape can now be used the same way as standard shapes.
+您的自定义形状现在可以像标准形状一样使用。
 
-Image shapes
+图片形状
 ============
 
-Image shapes are SVG files you can add as a clipping mask on your images. Some shapes have
-customizable colors, and some are animated.
+图片形状是 SVG 文件，您可以将其添加为图片的剪裁蒙版。有些形状可以自定义颜色，有些是动画的。
 
-Standard
+标准
 --------
 
-A large selection of default image shapes is available.
+提供了大量默认的图片形状供选择。
 
-**Use**
+**使用**
 
 .. code-block:: xml
 
@@ -221,13 +215,12 @@ A large selection of default image shapes is available.
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - data-shape
-     - Location of the shape
+     - 形状位置
    * - data-shape-colors
-     - Colors applied to the shape
+     - 应用于形状的颜色
 
 .. warning::
-   Sometimes, your image shape might not be applied after adding your changes. To fix the issue,
-   open the Website Builder and save the page to force the shape to load.
+   有时，在添加更改后，您的图片形状可能无法应用。为了解决此问题，请打开网站构建器并保存页面以强制加载形状。

@@ -1,58 +1,46 @@
 ============
-Translations
+翻译
 ============
 
-With Odoo, you can translate your website into different languages.
+使用 Odoo，您可以将网站翻译成不同的语言。
 
-In this chapter, you will learn how to:
+在本章中，您将学习如何：
 
-- Translate the content of a module.
-- Import and export translations.
-- Integrate translations to a module.
+- 翻译模块的内容。
+- 导入和导出翻译。
+- 将翻译集成到模块中。
 
-Frontend
+前端
 ========
 
-To translate your pages with the Website Builder, go to your website and click on the language
-selector to switch to it. If your website was never translated to the target language, click
-:guilabel:`Add a language...`, select it in the pop-up window, and click :guilabel:`Add`.
+要使用网站构建器翻译您的页面，请访问您的网站并点击语言选择器切换语言。如果您的网站从未翻译成目标语言，请点击 :guilabel:`添加语言...`，在弹出窗口中选择语言，然后点击 :guilabel:`添加`。
 
-Click :guilabel:`Translate` to start translating. Depending on the language, some text is
-automatically translated and highlighted in green, while everything that should be translated
-manually is highlighted in yellow.
+点击 :guilabel:`翻译` 开始翻译。根据语言的不同，有些文本会自动翻译并以绿色高亮显示，而所有需要手动翻译的部分会以黄色高亮显示。
 
 .. image:: translations/translate-button.png
-   :alt: Translate button
+   :alt: 翻译按钮
    :width: 570
 
-Backend
+后端
 =======
 
-Translating pages directly from the backend allows you to translate several languages at the same
-time. To do so, go to :menuselection:`Settings --> Technical --> User Interface: Views`, search for
-the name of the page you want to translate, and click the :guilabel:`Edit Translations` button.
+直接从后端翻译页面，允许您同时翻译多种语言。为此，请转到 :menuselection:`设置 --> 技术 --> 用户界面：视图`，搜索您要翻译的页面名称，然后点击 :guilabel:`编辑翻译` 按钮。
 
 .. image:: translations/edit-translations.png
-   :alt: Edit translations
+   :alt: 编辑翻译
    :width: 718
 
-Export
+导出
 ======
 
-Once you are done translating, you need to export the translations to integrate them into your
-module. To export everything at once, open your database, activate :ref:`developer mode
-<developer-mode>`, and go to :menuselection:`Settings --> Translations --> Export Translation`.
-Select the :guilabel:`Language` you translated, *PO File* under :guilabel:`File Format`, and
-*website_airproof* as the :guilabel:`Apps To Export`.
+完成翻译后，您需要导出翻译以将其集成到模块中。要一次导出所有内容，请打开数据库，激活 :ref:`开发者模式 <developer-mode>`，然后转到 :menuselection:`设置 --> 翻译 --> 导出翻译`。选择您翻译的 :guilabel:`语言`，在 :guilabel:`文件格式` 中选择 *PO 文件*，并选择 *website_airproof* 作为 :guilabel:`导出的应用程序`。
 
-Download the file and move it to the :file:`i18n` folder. If needed, you can manually edit the
-:file:`.po` file afterward.
+下载文件并将其移至 :file:`i18n` 文件夹。如果需要，您可以手动编辑此后的 :file:`.po` 文件。
 
-PO file
+PO 文件
 =======
 
-You can translate directly by editing a :file:`.po` file or creating the file yourself. Check out
-the :doc:`translating modules documentation <../translations>` to write your translations.
+您可以通过编辑 :file:`.po` 文件直接进行翻译，或者自己创建该文件。请查看 :doc:`翻译模块文档 <../translations>` 以编写您的翻译内容。
 
 .. code-block:: po
    :caption: ``/website_coconuts/i18n/fr_BE.po``
@@ -62,8 +50,7 @@ the :doc:`translating modules documentation <../translations>` to write your tra
    msgid "..."
    msgstr "..."
 
-Import
+导入
 ======
 
-To import your translation files into Odoo, go to :menuselection:`Settings --> Translations -->
-Import Translation` and upload them.
+要将您的翻译文件导入到 Odoo 中，请转到 :menuselection:`设置 --> 翻译 --> 导入翻译` 并上传文件。

@@ -1,63 +1,62 @@
 =====
-Pages
+页面
 =====
 
-In this chapter, you will learn how to declare static pages.
+在本章中，你将学习如何声明静态页面。
 
-Default pages
+默认页面
 =============
 
-In Odoo, websites come with a few default static pages (Home, Contact us, 404, ...). They are built
-the following way.
+在 Odoo 中，网站自带一些默认的静态页面（主页、联系我们、404 页面等）。它们是通过以下方式构建的。
 
 .. code-block:: xml
 
    <template id="website.homepage" name="Homepage">
        <t t-call="website.layout">
 
-           <!-- Variables -->
+           <!-- 变量 -->
            <t t-set="additional_title" t-value="'Home'" />
 
            <div id="wrap" class="oe_structure oe_empty">
 
-               <!-- Content -->
+               <!-- 内容 -->
 
            </div>
 
        </t>
    </template>
 
-Define the meta title.
+定义元标题。
 
 .. code-block:: xml
 
    <t t-set="additional_title" t-value="'...'"/>
 
-Define the meta description.
+定义元描述。
 
 .. code-block:: xml
 
    <t t-set="meta_description" t-value="'...'"/>
 
-Add a CSS class to the page.
+为页面添加 CSS 类。
 
 .. code-block:: xml
 
    <t t-set="pageName" t-value="'...'"/>
 
-Hide the header.
+隐藏头部。
 
 .. code-block:: xml
 
    <t t-set="no_header" t-value="true"/>
 
-Hide the footer.
+隐藏页脚。
 
 .. code-block:: xml
 
    <t t-set="no_footer" t-value="true"/>
 
-If needed, deactivate default pages.
+如有需要，停用默认页面。
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/pages/home.xml``
@@ -73,7 +72,7 @@ If needed, deactivate default pages.
        <field name="active" eval="False"/>
    </record>
 
-Alternatively, replace the default content of these pages using XPath.
+或者，使用 XPath 替换这些页面的默认内容。
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/pages/404.xml``
@@ -84,30 +83,29 @@ Alternatively, replace the default content of these pages using XPath.
            <t t-set="additional_title" t-value="'404 - Not found'"/>
 
            <div id="wrap" class="oe_structure">
-               <!-- Content -->
+               <!-- 内容 -->
            </div>
 
        </xpath>
    </template>
 
 .. seealso::
-   - `Odoo eLearning: Search Engine Optimization (SEO)
+   - `Odoo 电子学习：搜索引擎优化（SEO）
      <https://www.odoo.com/slides/slide/search-engine-optimization-seo-648>`_
-   - :doc:`Odoo Documentation on SEO <../../../applications/websites/website/pages/seo>`
+   - :doc:`Odoo 文档中的 SEO <../../../applications/websites/website/pages/seo>`
 
-Theme pages
+主题页面
 ===========
 
-You can add as many pages as you want to your website. Instead of defining a `<template>`, create a
-page object.
+你可以向你的网站添加任意数量的页面。与定义 `<template>` 不同，创建一个页面对象。
 
-**Declaration**
+**声明**
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/pages/about_us.xml``
 
    <record id="page_about_us" model="website.page">
-       <field name="name">About us</field>
+       <field name="name">关于我们</field>
        <field name="is_published" eval="True"/>
        <field name="key">website_airproof.page_about_us</field>
        <field name="url">/about-us</field>
@@ -118,7 +116,7 @@ page object.
                <t t-call="website.layout">
                    <div id="wrap" class="oe_structure">
 
-                       <!-- Content -->
+                       <!-- 内容 -->
 
                    </div>
                </t>
@@ -127,99 +125,98 @@ page object.
        </field>
    </record>
 
-.. todo:: Missing description in table ...
+.. todo:: 缺少表格描述...
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Field
-     - Description
+   * - 字段
+     - 描述
    * - name
-     - Page name.
+     - 页面名称。
    * - is_published
-     - Define if the page is published (visible to visitors).
+     - 定义页面是否已发布（可见）。
    * - key
-     - View key (must be unique)
+     - 视图键（必须唯一）
    * - url
-     - URL where the page is reachable.
+     - 页面可访问的 URL。
    * - type
-     - View type
+     - 视图类型
    * - arch
-     - View architecture
+     - 视图架构
 
-With `<t t-call="website.layout">` you use the Odoo default page layout with your code.
+使用 `<t t-call="website.layout">` 时，你可以在 Odoo 的默认页面布局中插入自己的代码。
 
 .. _header_overlay:
 
-Header overlay
+头部叠加
 --------------
 
-Make the header background transparent and stand on top of the page content.
+使头部背景透明并覆盖在页面内容之上。
 
 .. code-block:: xml
 
    <field name="header_overlay" eval="True"/>
 
 .. image:: pages/header-overlay.png
-   :alt: Header overlay
+   :alt: 头部叠加
 
-Media
+媒体
 =====
 
-Images
+图像
 ------
 
-You can record images in the database and use them later in your design/code. They will also be
-available for the end user through the *media dialog*.
+你可以将图像记录在数据库中，并在设计/代码中稍后使用。它们也会通过*媒体对话框*为最终用户提供。
 
 .. image:: pages/media-window.png
-   :alt: Media window
+   :alt: 媒体窗口
 
-The Website Builder supports the following image file formats: JPG, GIF, PNG, and SVG.
+网站构建器支持以下图像文件格式：JPG、GIF、PNG 和 SVG。
 
-**Declaration**
+**声明**
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/images.xml``
 
    <record id="img_about_01" model="ir.attachment">
-       <field name="name">About Image 01</field>
+       <field name="name">关于图片 01</field>
        <field name="datas" type="base64" file="website_airproof/static/src/img/content/img_about_01.jpg"/>
        <field name="res_model">ir.ui.view</field>
        <field name="public" eval="True"/>
    </record>
 
-.. todo:: Missing description in table ...
+.. todo:: 缺少表格描述...
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Field
-     - Description
+   * - 字段
+     - 描述
    * - name
-     - Image name
+     - 图像名称
    * - datas
-     - Path to the image file
+     - 图像文件路径
    * - res_model
-     - Name of the wizard model
+     - 向导模型的名称
 
-Use it as a background image.
+用作背景图片。
 
 .. code-block:: xml
 
    <section style="background-image: url('/web/image/website_airproof.img_about_01');">
 
-Use it as a regular image.
+用作常规图片。
 
 .. code-block:: xml
 
    <img src="/web/image/website_airproof.img_about_01" alt=""/>
 
-Use as a regular image with a color filter.
+用作带颜色滤镜的常规图片。
 
 .. code-block:: xml
 
@@ -229,18 +226,17 @@ Use as a regular image with a color filter.
        data-filter-options="{'filterColor': 'rgba(0, 0, 0, 0.5)'}"/>
 
 .. tip::
-   The image size greatly influences the user experience, search engine optimization, and overall
-   website performance. So, be sure to size your images correctly.
+   图像大小极大地影响用户体验、搜索引擎优化和整体网站性能。因此，确保正确调整图像大小。
 
-Videos
+视频
 ------
 
-Add videos as background.
+将视频添加为背景。
 
 .. code-block:: xml
 
    <section class="o_background_video" data-bg-video-src="...">
-       <!-- Content -->
+       <!-- 内容 -->
    </section>
 
 .. list-table::
@@ -248,12 +244,12 @@ Add videos as background.
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - data-bg-video-src
-     - Video URL.
+     - 视频 URL。
 
-Add videos as content.
+将视频作为内容添加。
 
 .. code-block:: xml
 
@@ -271,39 +267,36 @@ Add videos as content.
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - data-oe-expression
-     - Video URL.
+     - 视频 URL。
    * - src
-     - Video URL.
+     - 视频 URL。
 
-Icons
+图标
 -----
 
-By default, the Font Awesome icons library is included in the Website Builder. You can place icons
-anywhere using the CSS Prefix `fa` and the icon's name. Font Awesome is designed to be used with
-inline elements. You can use `<i>` tag for brevity, but using a `<span>` is more semantically
-correct.
+默认情况下，Font Awesome 图标库已包含在网站构建器中。你可以使用 CSS 前缀 `fa` 和图标名称将图标放置在任何位置。Font Awesome 设计为与内联元素一起使用。你可以简写使用 `<i>` 标签，但使用 `<span>` 在语义上更为正确。
 
 .. code-block:: xml
 
    <span class="fa fa-picture-o"/>
 
 .. seealso::
-   `Font Awesome v4 icons <https://fontawesome.com/v4/icons/>`_
+   `Font Awesome v4 图标 <https://fontawesome.com/v4/icons/>`_
 
-Enable the Website Builder style options.
+启用网站构建器的样式选项。
 
 .. code-block:: xml
 
    <span class="fa fa-2x fa-picture-o rounded-circle"/>
 
-Increase the icon size (fa-2x, fa-3x, fa-4x, or fa-5x classes).
+增大图标尺寸（fa-2x、fa-3x、fa-4x 或 fa-5x 类）。
 
 .. code-block:: xml
 
    <span class="fa fa-2x fa-picture-o"/>
 
 .. image:: pages/icon-options.png
-   :alt: Icon options
+   :alt: 图标选项
