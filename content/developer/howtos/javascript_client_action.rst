@@ -1,26 +1,21 @@
-
 .. _howtos/javascript_client_action:
 
 ======================
-Create a client action
+创建客户端操作
 ======================
 
-A client action triggers an action that is entirely implemented in the client side.
-One of the benefits of using a client action is the ability to create highly customized interfaces
-with ease. A client action is typically defined by an OWL component; we can also use the web
-framework and use services, core components, hooks,...
+客户端操作触发的操作完全在客户端实现。使用客户端操作的一个好处是能够轻松创建高度定制的界面。客户端操作通常由一个 OWL 组件定义；我们还可以使用 Web 框架，并使用服务、核心组件、钩子等。
 
-#. Create the :ref:`client action <reference/actions/client>`, don't forget to
-   make it accessible.
+#. 创建 :ref:`客户端操作 <reference/actions/client>`，并确保其可访问。
 
    .. code-block:: xml
 
       <record model="ir.actions.client" id="my_client_action">
-          <field name="name">My Client Action</field>
+          <field name="name">我的客户端操作</field>
           <field name="tag">my_module.MyClientAction</field>
       </record>
 
-#. Create a component that represents the client action.
+#. 创建一个表示客户端操作的组件。
 
    .. code-block:: js
       :caption: :file:`my_client_action.js`
@@ -28,13 +23,12 @@ framework and use services, core components, hooks,...
       /** @odoo-module **/
 
       import { registry } from "@web/core/registry";
-
       import { Component } from  "@odoo/owl";
 
       class MyClientAction extends Component {}
       MyClientAction.template = "my_module.clientaction";
 
-      // remember the tag name we put in the first step
+      // 记住我们在第一步中设置的标签名称
       registry.category("actions").add("my_module.MyClientAction", MyClientAction);
 
    .. code-block:: xml
@@ -43,6 +37,6 @@ framework and use services, core components, hooks,...
       <?xml version="1.0" encoding="UTF-8" ?>
       <templates xml:space="preserve">
           <t t-name="awesome_tshirt.clientaction">
-              Hello world
+              你好，世界
           </t>
       </templates>

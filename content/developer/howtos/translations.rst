@@ -1,109 +1,75 @@
 .. _reference/translations:
 
 ===================
-Translating Modules
+翻译模块
 ===================
 
-This section explains how to provide translation abilities to your module.
+本节介绍如何为您的模块提供翻译功能。
 
-.. note:: If you want to contribute to the translation of Odoo itself, please refer to the
-  `Odoo Wiki page <https://github.com/odoo/odoo/wiki/Translations>`_.
+.. note:: 如果您想为 Odoo 的翻译做贡献，请参阅 `Odoo Wiki 页面 <https://github.com/odoo/odoo/wiki/Translations>`_。
 
-Exporting translatable term
+导出可翻译术语
 ===========================
 
-A number of terms in your modules are implicitly translatable. As a result,
-even if you haven't done any specific work towards translation, you can export
-your module's translatable terms and may find content to work with.
+模块中的一些术语是隐式可翻译的。因此，即使您没有针对翻译做任何具体工作，您也可以导出模块的可翻译术语，并且可能会找到可用的内容。
 
-.. todo:: needs technical features
+.. todo:: 需要技术功能
 
-Translations export is performed via the administration interface by logging into
-the backend interface and opening :menuselection:`Settings --> Translations
---> Import / Export --> Export Translations`
+可以通过管理界面导出翻译，登录后打开 :menuselection:`设置 --> 翻译 --> 导入/导出 --> 导出翻译`
 
-* leave the language to the default (new language/empty template)
-* select the `PO File`_ format
-* select your module
-* click :guilabel:`Export` and download the file
+* 保持语言为默认值（新语言/空模板）
+* 选择 `PO 文件`_ 格式
+* 选择您的模块
+* 点击 :guilabel:`导出` 并下载文件
 
 .. image:: translations/po-export.png
     :align: center
     :width: 75%
 
-This gives you a file called :file:`{yourmodule}.pot` which should be moved to
-the :file:`{yourmodule}/i18n/` directory. The file is a *PO Template* which
-simply lists translatable strings and from which actual translations (PO files)
-can be created. PO files can be created using msginit_, with a dedicated
-translation tool like POEdit_ or by simply copying the template to a new file
-called :file:`{language}.po`. Translation files should be put in
-:file:`{yourmodule}/i18n/`, next to :file:`{yourmodule}.pot`, and will be
-automatically loaded by Odoo when the corresponding language is installed (via
-:menuselection:`Settings --> Translations --> Languages`)
+这将生成一个名为 :file:`{yourmodule}.pot` 的文件，您应该将其移动到 :file:`{yourmodule}/i18n/` 目录。该文件是一个 *PO 模板*，它仅列出了可翻译的字符串，可以从中创建实际的翻译 (PO 文件)。可以使用 msginit_、专用的翻译工具如 POEdit_，或通过简单复制模板创建名为 :file:`{language}.po` 的新文件来创建 PO 文件。翻译文件应放在 :file:`{yourmodule}/i18n/` 中，放在 :file:`{yourmodule}.pot` 旁边，当安装相应语言时（通过 :menuselection:`设置 --> 翻译 --> 语言`），Odoo 会自动加载这些文件。
 
-.. note:: translations for all loaded languages are also installed or updated
-          when installing or updating a module
+.. note:: 当安装或更新模块时，也会安装或更新所有已加载语言的翻译。
 
-Implicit exports
+隐式导出
 ================
 
-Odoo automatically exports translatable strings from "data"-type content:
+Odoo 会自动导出 "数据" 类型内容中的可翻译字符串：
 
-* in non-QWeb views, all text nodes are exported as well as the content of
-  the ``string``, ``help``, ``sum``, ``confirm`` and ``placeholder``
-  attributes
-* QWeb templates (both server-side and client-side), all text nodes are
-  exported except inside ``t-translation="off"`` blocks, the content of the
-  ``title``, ``alt``, ``label`` and ``placeholder`` attributes are also
-  exported
-* for :class:`~odoo.fields.Field`, unless their model is marked with
-  ``_translate = False``:
+* 在非 QWeb 视图中，所有文本节点以及 ``string``、``help``、``sum``、``confirm`` 和 ``placeholder`` 属性的内容都会被导出
+* 在 QWeb 模板中（包括服务器端和客户端模板），除 ``t-translation="off"`` 块内的内容外，所有文本节点都会导出，同时也导出 ``title``、``alt``、``label`` 和 ``placeholder`` 属性的内容
+* 对于 :class:`~odoo.fields.Field`，除非它们的模型被标记为 ``_translate = False``：
 
-  * their ``string`` and ``help`` attributes are exported
-  * if ``selection`` is present and a list (or tuple), it's exported
-  * if their ``translate`` attribute is set to ``True``, all of their existing
-    values (across all records) are exported
-* help/error messages of :attr:`~odoo.models.Model._constraints` and
-  :attr:`~odoo.models.Model._sql_constraints` are exported
+  * 它们的 ``string`` 和 ``help`` 属性会被导出
+  * 如果 ``selection`` 是列表（或元组），它会被导出
+  * 如果它们的 ``translate`` 属性设置为 ``True``，那么它们现有的所有值（跨所有记录）都会被导出
+* :attr:`~odoo.models.Model._constraints` 和 :attr:`~odoo.models.Model._sql_constraints` 的帮助/错误信息会被导出
 
-Explicit exports
+显式导出
 ================
 
-When it comes to more "imperative" situations in Python code or Javascript
-code, Odoo cannot automatically export translatable terms so they
-must be marked explicitly for export. This is done by wrapping a literal
-string in a function call.
+在 Python 代码或 JavaScript 代码中，当遇到更具 "指令性" 的情况时，Odoo 无法自动导出可翻译的术语，因此必须明确标记它们进行导出。为此，需要将字符串字面量用函数调用包装。
 
-In Python, the wrapping function is :func:`odoo._`::
+在 Python 中，包装函数是 :func:`odoo._`::
 
-    title = _("Bank Accounts")
+    title = _("银行账户")
 
-In JavaScript, the wrapping function is generally :js:func:`odoo.web._t`:
+在 JavaScript 中，包装函数通常是 :js:func:`odoo.web._t`:
 
 .. code-block:: javascript
 
-    title = _t("Bank Accounts");
+    title = _t("银行账户");
 
 .. warning::
 
-    Only literal strings can be marked for exports, not expressions or
-    variables. For situations where strings are formatted, this means the
-    format string must be marked, not the formatted string
+    只有字符串字面量可以标记为导出，表达式或变量不能标记为导出。在格式化字符串的情况下，必须标记格式字符串，而不是格式化后的字符串。
 
-The lazy version of `_` and `_t` is :func:`odoo._lt` in python and
-:js:func:`odoo.web._lt` in javascript. The translation lookup is executed only
-at rendering and can be used to declare translatable properties in class methods
-of global variables.
+`_` 和 `_t` 的延迟版本分别是 Python 中的 :func:`odoo._lt` 和 JavaScript 中的 :js:func:`odoo.web._lt`。翻译查找仅在渲染时执行，可用于在类方法或全局变量中声明可翻译的属性。
 
 .. note::
 
-    Translations of a module are **not** exposed to the front end by default and
-    thus are not accessible from JavaScript. In order to achieve that, the
-    module name has to be either prefixed with `website` (just like
-    `website_sale`, `website_event` etc.) or explicitly register by implementing
-    :func:`_get_translation_frontend_modules_name` for the `ir.http` model.
+    默认情况下，模块的翻译**不会**暴露给前端，因此无法从 JavaScript 访问这些翻译。要实现这一点，模块名称必须以 `website` 为前缀（如 `website_sale`、`website_event` 等），或通过为 `ir.http` 模型实现 :func:`_get_translation_frontend_modules_name` 来显式注册。
 
-    This could look like the following::
+    这可以如下实现::
 
         from odoo import models
 
@@ -115,67 +81,65 @@ of global variables.
                 modules = super()._get_translation_frontend_modules_name()
                 return modules + ['your_module']
 
-Variables
+变量
 ---------
 
-**Don't** the extract may work but it will not translate the text correctly::
+**不要**这样做，提取可能有效，但不会正确翻译文本::
 
-    _("Scheduled meeting with %s" % invitee.name)
+    _("与 %s 的预定会议" % invitee.name)
 
-**Do** set the dynamic variables as a parameter of the translation lookup (this
-will fallback on source in case of missing placeholder in the translation)::
+**要**将动态变量设置为翻译查找的参数（如果翻译中缺少占位符，它将回退到源语言）::
 
-    _("Scheduled meeting with %s", invitee.name)
+    _("与 %s 的预定会议", invitee.name)
 
 
-Blocks
+块
 ------
 
-**Don't** split your translation in several blocks or multiples lines::
+**不要**将翻译分成多个块或多行::
 
-    # bad, trailing spaces, blocks out of context
-    _("You have ") + len(invoices) + _(" invoices waiting")
-    _t("You have ") + invoices.length + _t(" invoices waiting");
+    # 不好，尾随空格，块上下文不连贯
+    _("您有 ") + len(invoices) + _(" 份待处理发票")
+    _t("您有 ") + invoices.length + _t(" 份待处理发票");
 
-    # bad, multiple small translations
-    _("Reference of the document that generated ") + \
-    _("this sales order request.")
+    # 不好，多次小翻译
+    _("生成此销售订单请求的文档参考") + \
+    _("。")
 
-**Do** keep in one block, giving the full context to translators::
+**要**保持在一个块中，给翻译人员完整的上下文::
 
-    # good, allow to change position of the number in the translation
-    _("You have %s invoices wainting") % len(invoices)
-    _.str.sprintf(_t("You have %s invoices wainting"), invoices.length);
+    # 好，允许在翻译中改变数字的位置
+    _("您有 %s 份待处理发票") % len(invoices)
+    _.str.sprintf(_t("您有 %s 份待处理发票"), invoices.length);
 
-    # good, full sentence is understandable
-    _("Reference of the document that generated " + \
-      "this sales order request.")
+    # 好，整句意思明确
+    _("生成此销售订单请求的文档参考。")
 
-Plural
+复数
 ------
 
-**Don't** pluralize terms the English-way::
+**不要**按英语的方式复数化术语::
 
-    msg = _("You have %(count)s invoice", count=invoice_count)
+    msg = _("您有 %(count)s 份发票", count=invoice_count)
     if invoice_count > 1:
       msg += _("s")
 
-**Do** keep in mind every language has different plural forms::
+**要**记住每种语言有不同的复数形式::
 
     if invoice_count > 1:
-      msg = _("You have %(count)s invoices", count=invoice_count)
+      msg = _("您有 %(count)s 份发票", count=invoice_count)
     else:
-      msg = _("You have one invoice")
+      msg = _("您有一份发票")
 
-Read vs Run Time
+读取与运行时
 ----------------
 
-**Don't** invoke translation lookup at server launch::
+**不要**在服务器启动时调用翻译查找::
 
     ERROR_MESSAGE = {
-      # bad, evaluated at server launch with no user language
-      'access_error': _('Access Error'),
-      'missing_error': _('Missing Record'),
+      # 不好，在服务器启动时评估，没有用户语言
+      'access_error': _('访问错误'),
+      'missing_error': _('缺失记录'),
     }
 
     class Record(models.Model):
@@ -183,52 +147,50 @@ Read vs Run Time
       def _raise_error(self, code):
         raise UserError(ERROR_MESSAGE[code])
 
-**Don't** invoke translation lookup when the javascript file is read::
+**不要**在 JavaScript 文件读取时调用翻译查找::
 
-    # bad, js _t is evaluated too early
+    # 不好，js _t 太早执行
     var core = require('web.core');
     var _t = core._t;
     var map_title = {
-        access_error: _t('Access Error'),
-        missing_error: _t('Missing Record'),
+        access_error: _t('访问错误'),
+        missing_error: _t('缺失记录'),
     };
 
-
-**Do** use lazy translation lookup method::
+**要**使用延迟翻译查找方法::
 
     ERROR_MESSAGE = {
-      'access_error': _lt('Access Error'),
-      'missing_error': _lt('Missing Record'),
+      'access_error': _lt('访问错误'),
+      'missing_error': _lt('缺失记录'),
     }
 
     class Record(models.Model):
 
       def _raise_error(self, code):
-        # translation lookup executed at error rendering
+        # 错误渲染时执行翻译查找
         raise UserError(ERROR_MESSAGE[code])
 
 
-or **do** evaluate dynamically the translatable content::
+或 **要**动态评估可翻译的内容::
 
-    # good, evaluated at run time
+    # 好，运行时评估
     def _get_error_message(self):
       return {
-        access_error: _('Access Error'),
-        missing_error: _('Missing Record'),
+        access_error: _('访问错误'),
+        missing_error: _('缺失记录'),
       }
 
-**Do** in the case where the translation lookup is done when the JS file is
-*read*, use `_lt` instead of `_t` to translate the term when it is *used*::
+**要**当 JS 文件*读取*时进行翻译查找，使用 `_lt` 而不是 `_t`，以便在*使用*时翻译术语::
 
-    # good, js _lt is evaluated lazily
+    # 好，js _lt 延迟评估
     var core = require('web.core');
     var _lt = core._lt;
     var map_title = {
-        access_error: _lt('Access Error'),
-        missing_error: _lt('Missing Record'),
+        access_error: _lt('访问错误'),
+        missing_error: _lt('缺失记录'),
     };
 
 
-.. _PO File: https://en.wikipedia.org/wiki/Gettext#Translating
+.. _PO 文件: https://en.wikipedia.org/wiki/Gettext#Translating
 .. _msginit: https://www.gnu.org/software/gettext/manual/gettext.html#Creating
 .. _POEdit: https://poedit.net/
