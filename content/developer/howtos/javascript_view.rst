@@ -1,15 +1,13 @@
 =====================
-Customize a view type
+自定义视图类型
 =====================
 
-Subclass an existing view
+继承现有视图
 =========================
 
-Assume we need to create a custom version of a generic view. For example, a kanban view with some
-extra ribbon-like widget on top (to display some specific custom information). In that case, this
-can be done in a few steps:
+假设我们需要创建一个通用视图的自定义版本。例如，一个带有额外的丝带样式的小部件的看板视图（用于显示一些特定的自定义信息）。在这种情况下，可以通过以下几个步骤实现：
 
-#. Extend the kanban controller/renderer/model and register it in the view registry.
+#. 扩展看板控制器/渲染器/模型，并将其注册到视图注册表中。
 
    .. code-block:: js
       :caption: :file:`custom_kanban_controller.js`
@@ -20,24 +18,23 @@ can be done in a few steps:
       import { kanbanView } from "@web/views/kanban/kanban_view";
       import { registry } from "@web/core/registry";
 
-      // the controller usually contains the Layout and the renderer.
+      // 控制器通常包含布局和渲染器。
       class CustomKanbanController extends KanbanController {
-          // Your logic here, override or insert new methods...
-          // if you override setup(), don't forget to call super.setup()
+          // 在这里编写逻辑，覆盖或插入新方法...
+          // 如果覆盖 setup()，别忘了调用 super.setup()
       }
 
       CustomKanbanController.template = "my_module.CustomKanbanView";
 
       export const customKanbanView = {
-          ...kanbanView, // contains the default Renderer/Controller/Model
+          ...kanbanView, // 包含默认的渲染器/控制器/模型
           Controller: CustomKanbanController,
       };
 
-      // Register it to the views registry
+      // 将其注册到视图注册表中
       registry.category("views").add("custom_kanban", customKanbanView);
 
-   In our custom kanban, we defined a new template. We can either inherit the kanban controller
-   template and add our template pieces or we can define a completely new template.
+   在我们的自定义看板中，我们定义了一个新模板。我们可以继承看板控制器模板并添加我们自己的模板片段，也可以定义一个全新的模板。
 
    .. code-block:: xml
       :caption: :file:`custom_kanban_controller.xml`
@@ -53,31 +50,28 @@ can be done in a few steps:
           </t>
       </templates>
 
-#. Use the view with the `js_class` attribute in arch.
+#. 在 arch 中使用 `js_class` 属性来使用该视图。
 
    .. code-block:: xml
 
       <kanban js_class="custom_kanban">
           <templates>
               <t t-name="kanban-box">
-                  <!--Your comment-->
+                  <!--您的注释-->
               </t>
           </templates>
       </kanban>
 
-The possibilities for extending views are endless. While we have only extended the controller
-here, you can also extend the renderer to add new buttons, modify how records are presented, or
-customize the dropdown, as well as extend other components such as the model and `buttonTemplate`.
+扩展视图的可能性是无穷无尽的。尽管我们在这里只扩展了控制器，您还可以扩展渲染器以添加新按钮，修改记录的展示方式，或自定义下拉菜单，还可以扩展其他组件，如模型和 `buttonTemplate`。
 
-Create a new view from scratch
+从头创建新视图
 ==============================
 
-Creating a new view is an advanced topic. This guide highlight only the essential steps.
+创建一个新视图是一个高级话题。本指南仅强调关键步骤。
 
-#. Create the controller.
+#. 创建控制器。
 
-    The primary role of a controller is to facilitate the coordination between various components
-    of a view, such as the Renderer, Model, and Layout.
+   控制器的主要作用是协调视图的各种组件，例如渲染器、模型和布局。
 
    .. code-block:: js
       :caption: :file:`beautiful_controller.js`
@@ -92,8 +86,7 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
           setup() {
               this.orm = useService("orm");
 
-              // The controller create the model and make it reactive so whenever this.model is
-              // accessed and edited then it'll cause a rerendering
+              // 控制器创建模型并使其具有反应性，因此每当访问和编辑这个模型时，它将重新渲染
               this.model = useState(
                   new this.props.Model(
                       this.orm,
@@ -113,8 +106,7 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
       BeautifulController.template = "my_module.View";
       BeautifulController.components = { Layout };
 
-   The template of the Controller displays the control panel with Layout and also the
-   renderer.
+   控制器的模板显示了带有布局的控制面板以及渲染器。
 
    .. code-block:: xml
       :caption: :file:`beautiful_controller.xml`
@@ -128,10 +120,9 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
           </t>
       </templates>
 
-#. Create the renderer.
+#. 创建渲染器。
 
-    The primary function of a renderer is to generate a visual representation of data by rendering
-    the view that includes records.
+   渲染器的主要功能是通过渲染视图中的记录来生成数据的视觉表示。
 
    .. code-block:: js
       :caption: :file:`beautiful_renderer.js`
@@ -149,14 +140,14 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
           <t t-name="my_module.Renderer">
               <t t-esc="props.propsYouWant"/>
               <t t-foreach="props.records" t-as="record" t-key="record.id">
-                  // Show records
+                  // 显示记录
               </t>
           </t>
       </templates>
 
-#. Create the model.
+#. 创建模型。
 
-   The role of the model is to retrieve and manage all the necessary data in the view.
+   模型的作用是检索和管理视图中所需的所有数据。
 
    .. code-block:: js
       :caption: :file:`beautiful_model.js`
@@ -169,7 +160,7 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
           constructor(orm, resModel, fields, archInfo, domain) {
               this.orm = orm;
               this.resModel = resModel;
-              // We can access arch information parsed by the beautiful arch parser
+              // 我们可以访问由arch解析器解析的arch信息
               const { fieldFromTheArch } = archInfo;
               this.fieldFromTheArch = fieldFromTheArch;
               this.fields = fields;
@@ -178,7 +169,7 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
           }
 
           async load() {
-              // The keeplast protect against concurrency call
+              // keepLast保护并发调用
               const { length, records } = await this.keepLast.add(
                   this.orm.webSearchRead(this.resModel, this.domain, [this.fieldsFromTheArch], {})
               );
@@ -189,12 +180,11 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
 
    .. note::
 
-      For advanced cases, instead of creating a model from scratch, it is also possible to use
-      `RelationalModel`, which is used by other views.
+      对于高级案例，您可以不从头创建模型，而是使用 `RelationalModel`，这是其他视图中使用的模型。
 
-#. Create the arch parser.
+#. 创建arch解析器。
 
-   The role of the arch parser is to parse the arch view so the view has access to the information.
+   arch解析器的作用是解析arch视图，使视图能够访问信息。
 
    .. code-block:: js
       :caption: :file:`beautiful_arch_parser.js`
@@ -213,8 +203,7 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
           }
       }
 
-#. Create the view and combine all the pieces together, then register the view in the views
-   registry.
+#. 创建视图并将所有部分组合在一起，然后将视图注册到视图注册表中。
 
    .. code-block:: js
       :caption: :file:`beautiful_view.js`
@@ -224,13 +213,13 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
       import { registry } from "@web/core/registry";
       import { BeautifulController } from "./beautiful_controller";
       import { BeautifulArchParser } from "./beautiful_arch_parser";
-      import { BeautifylModel } from "./beautiful_model";
+      import { BeautifulModel } from "./beautiful_model";
       import { BeautifulRenderer } from "./beautiful_renderer";
 
       export const beautifulView = {
           type: "beautiful",
           display_name: "Beautiful",
-          icon: "fa fa-picture-o", // the icon that will be displayed in the Layout panel
+          icon: "fa fa-picture-o", // 在布局面板中显示的图标
           multiRecord: true,
           Controller: BeautifulController,
           ArchParser: BeautifulArchParser,
@@ -253,7 +242,7 @@ Creating a new view is an advanced topic. This guide highlight only the essentia
 
       registry.category("views").add("beautifulView", beautifulView);
 
-#. Declare the :ref:`view <reference/view_records/structure>` in the arch.
+#. 在arch中声明视图。
 
    .. code-block:: xml
 

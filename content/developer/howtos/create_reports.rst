@@ -1,16 +1,13 @@
 =========================
-Create customized reports
+创建自定义报表
 =========================
 
-SQL views are a technique for creating customized reports to show data that cannot be
-shown with existing models' fields and views. In other words, this technique helps avoid
-unnecessary creation and calculation of additional fields solely for data analysis
-purposes.
+SQL 视图是一种创建自定义报表的技术，用于显示现有模型的字段和视图无法显示的数据。换句话说，这种技术可以避免为了数据分析目的而不必要地创建和计算额外字段。
 
-Create a model
+创建模型
 ==============
 
-A SQL view is created in a similar manner as a standard model:
+SQL 视图的创建方式与标准模型相似：
 
 .. code-block:: python
 
@@ -19,43 +16,35 @@ A SQL view is created in a similar manner as a standard model:
 
   class ModuleReport(models.Model):
       _name = 'module.report'
-      _description = "Module Report"
+      _description = "模块报表"
       _rec_name = 'module_field'
       _auto = False
 
-Where the attributes:
+其中属性：
 
-- `_auto = False` indicates that we do not want to store the model in the database
-- `_rec_name` indicates which of the model's fields represents a record's name (i.e. the
-  name that will be used in the navigation breadcrumb when opening a record's form view)
+- `_auto = False` 表示我们不希望将模型存储在数据库中
+- `_rec_name` 指定模型的哪个字段代表记录的名称（即在打开记录的表单视图时导航面包屑中使用的名称）
 
-and its fields are defined in the same way as a standard model, except every field is
-marked as `readonly=True`.
+字段的定义方式与标准模型相同，唯一的区别是每个字段都标记为 `readonly=True`。
 
 .. note::
-   Don't forget to add your new model to your security file.
+   别忘了将您的新模型添加到安全文件中。
 
-Populate the model
+填充模型
 ==================
 
-There are 2 ways to populate a SQL view's table:
+填充 SQL 视图表有两种方法：
 
-- override the `BaseModel.init()` method,
-- set the `_table_query` property.
+- 重写 `BaseModel.init()` 方法，
+- 设置 `_table_query` 属性。
 
-Regardless of which way is used, a SQL query will be executed to populate the model.
-Therefore, any SQL commands can be used to collect and/or calculate the data needed
-and you are expected to keep in mind that you are bypassing the ORM (i.e. it is a
-good idea to read through :ref:`reference/security` if you haven't already). The columns
-returned from the `SELECT` will populate the model's fields, so ensure that your column
-names match your field names, or use alias names that match.
+无论采用哪种方法，SQL 查询将被执行以填充模型。因此，任何 SQL 命令都可以用于收集和/或计算所需数据。请记住，您绕过了 ORM（即，如果还没有，建议阅读 :ref:`reference/security`）。`SELECT` 返回的列将填充模型的字段，因此请确保列名与字段名匹配，或者使用与字段名匹配的别名。
 
 .. tabs::
 
-   .. tab:: Overriding `BaseModel.init()`
+   .. tab:: 重写 `BaseModel.init()`
 
-      In most cases, overriding the `BaseModel.init()` method is the standard and better option to
-      use. It requires the import of `tools` and is typically written as follows:
+      在大多数情况下，重写 `BaseModel.init()` 方法是更标准和更好的选择。它需要导入 `tools`，通常写成如下形式：
 
       .. code-block:: python
 
@@ -68,20 +57,15 @@ names match your field names, or use alias names that match.
                                        %s
                  )""" % (self._table, self._select(), self._from()))
 
-      `tools.drop_view_if_exists` ensures that a conflicting view is not created when the
-      SQL query is executed. It is standard to separate the different parts of the query to
-      allow for easier model extension. Exactly how the query is split up across methods is not
-      standardized, but at minimum, the `_select` and `_from` methods are common, and of course,
-      all these methods will return strings.
+      `tools.drop_view_if_exists` 确保在执行 SQL 查询时不会创建冲突的视图。通常将查询的不同部分分离开来，以便更容易扩展模型。具体如何在方法之间拆分查询并没有标准化，但至少 `_select` 和 `_from` 方法是常见的，当然，这些方法都将返回字符串。
 
       .. seealso::
-         `Example: a SQL view using an override of BaseModel.init()
+         `示例：使用 BaseModel.init() 重写的 SQL 视图
          <{GITHUB_PATH}/addons/project/report/project_report.py>`_
 
-   .. tab:: Using `_table_query`
+   .. tab:: 使用 `_table_query`
 
-      The ``_table_query`` property is used when the view depends on the context. It is typically
-      written as follows:
+      ``_table_query`` 属性用于当视图依赖于上下文时。通常写成如下形式：
 
       .. code-block:: python
 
@@ -89,31 +73,24 @@ names match your field names, or use alias names that match.
           def _table_query(self):
               return 'SELECT %s FROM %s' % (self._select(), self._from())
 
-      and follows the same `_select` and `_from` methods standards as `BaseModel.init()`.
+      并遵循与 `BaseModel.init()` 相同的 `_select` 和 `_from` 方法标准。
 
-      An example of when the property should be used instead of overriding `BaseModel.init()`
-      is in a multi-company and multi-currency environment where currency related amounts need
-      to be converted using currency exchange rates when the user switches between companies.
+      一个使用该属性而不是重写 `BaseModel.init()` 的示例是在多公司和多货币环境中，当用户在公司之间切换时，涉及货币相关金额的转换需要使用货币汇率。
 
       .. seealso::
-         `Example: a SQL view using _table_query
+         `示例：使用 _table_query 的 SQL 视图
          <{GITHUB_PATH}/addons/account/report/account_invoice_report.py>`_
 
-Use the model
+使用模型
 =============
 
-Views and menu items for your SQL views are created and used in the same way as any
-other Odoo model. You are all set to start using your SQL view. Have fun!
+视图和菜单项的创建与使用方式与任何其他 Odoo 模型相同。您现在可以开始使用您的 SQL 视图了。祝您玩得开心！
 
-Extra tips
+额外提示
 ==========
 
 .. tip::
-   A common mistake in SQL views is not considering the duplication of certain data
-   due to table JOINs. This can lead to miscounting when using a field's `group_operator`
-   and/or the pivot view. It is best to test your SQL view with sufficient data to ensure the
-   resulting field values are as you expect.
+   SQL 视图中的一个常见错误是由于表连接（JOIN）导致某些数据重复，从而导致字段的 `group_operator` 和/或数据透视视图的计数错误。最好使用足够的数据来测试您的 SQL 视图，以确保生成的字段值符合您的预期。
 
 .. tip::
-   If you have a field that you do not want as a measure (i.e., in your pivot or graph views), add
-   `store=False` to it, and it will not show.
+   如果您有一个不希望作为度量字段的字段（例如，在数据透视表或图表视图中），将 `store=False` 添加到该字段中，它就不会显示出来。

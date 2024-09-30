@@ -1,223 +1,162 @@
 ===================================
-Safeguard your code with unit tests
+使用单元测试保护您的代码
 ===================================
 
 .. important::
-   This tutorial is an extension of the :doc:`server_framework_101` tutorial. Make sure you have
-   completed it and use the `estate` module you have built as a base for the exercises in this
-   tutorial.
+   本教程是 :doc:`server_framework_101` 教程的扩展。请确保您已完成该教程，并使用您构建的 `estate` 模块作为本教程练习的基础。
 
-**Reference**:
-`Odoo's Test Framework: Learn Best Practices <https://www.youtube.com/watch?v=JEIscps0OOQ>`__
-(Odoo Experience 2020) on YouTube.
+**参考**：
+`Odoo 的测试框架：学习最佳实践 <https://www.youtube.com/watch?v=JEIscps0OOQ>`__（Odoo Experience 2020）在 YouTube 上。
 
-Writing tests is a necessity for multiple reasons. Here is a non-exhaustive list:
+编写测试是必要的，原因有很多。以下是一个不完整的列表：
 
-* Ensure code will not be broken in the future
-* Define the scope of your code
-* Give examples of use cases
-* It is one way to technically document the code
-* Help your coding by defining your goal before working towards it
+* 确保代码在未来不会被破坏
+* 定义代码的范围
+* 提供用例示例
+* 这是技术性记录代码的一种方式
+* 通过在工作之前定义目标来帮助您的编码
 
-Running Tests
-=============
+运行测试
+=========
 
-Before knowing how to write tests, we need to know how to run them.
+在了解如何编写测试之前，我们需要知道如何运行它们。
 
 .. code-block:: console
 
   $ odoo-bin -h
-  Usage: odoo-bin [options]
+  用法：odoo-bin [选项]
 
-  Options:
-  --version             show program's version number and exit
-  -h, --help            show this help message and exit
+  选项：
+  --version             显示程序的版本号并退出
+  -h, --help            显示此帮助信息并退出
 
   [...]
 
-  Testing Configuration:
+  测试配置：
     --test-file=TEST_FILE
-                        Launch a python test file.
-    --test-enable       Enable unit tests.
+                            运行一个 Python 测试文件。
+    --test-enable           启用单元测试。
     --test-tags=TEST_TAGS
-                        Comma-separated list of specs to filter which tests to
-                        execute. Enable unit tests if set. A filter spec has
-                        the format: [-][tag][/module][:class][.method] The '-'
-                        specifies if we want to include or exclude tests
-                        matching this spec. The tag will match tags added on a
-                        class with a @tagged decorator (all Test classes have
-                        'standard' and 'at_install' tags until explicitly
-                        removed, see the decorator documentation). '*' will
-                        match all tags. If tag is omitted on include mode, its
-                        value is 'standard'. If tag is omitted on exclude
-                        mode, its value is '*'. The module, class, and method
-                        will respectively match the module name, test class
-                        name and test method name. Example: --test-tags
-                        :TestClass.test_func,/test_module,external  Filtering
-                        and executing the tests happens twice: right after
-                        each module installation/update and at the end of the
-                        modules loading. At each stage tests are filtered by
-                        --test-tags specs and additionally by dynamic specs
-                        'at_install' and 'post_install' correspondingly.
-    --screencasts=DIR   Screencasts will go in DIR/{db_name}/screencasts.
-    --screenshots=DIR   Screenshots will go in DIR/{db_name}/screenshots.
-                        Defaults to /tmp/odoo_tests.
+                            用逗号分隔的规范列表，用于过滤要执行的测试。如果设置了该选项，则启用单元测试。过滤规范的格式为：[-][tag][/module][:class][.method] '-' 指定我们是否要包括或排除匹配此规范的测试。tag 将匹配使用 @tagged 装饰器添加到类上的标签（所有测试类都有 'standard' 和 'at_install' 标签，直到显式移除，请参阅装饰器文档）。'*' 将匹配所有标签。如果在包含模式下省略了 tag，其值为 'standard'。如果在排除模式下省略了 tag，其值为 '*'。module、class 和 method 将分别匹配模块名、测试类名和测试方法名。例如：--test-tags :TestClass.test_func,/test_module,external 过滤和执行测试会发生两次：在每个模块安装/更新后立即进行，并在模块加载结束时进行。在每个阶段，测试都将通过 --test-tags 规范进行过滤，并另外通过动态规范 'at_install' 和 'post_install' 分别进行过滤。
+    --screencasts=DIR       Screencasts 将位于 DIR/{db_name}/screencasts 中。
+    --screenshots=DIR       截图将位于 DIR/{db_name}/screenshots 中。默认为 /tmp/odoo_tests。
 
-  $ # run all the tests of account, and modules installed by account
-  $ # the dependencies already installed are not tested
-  $ # this takes some time because you need to install the modules, but at_install
-  $ # and post_install are respected
+  $ # 运行 account 模块及其安装的模块的所有测试
+  $ # 已安装的依赖项不会被测试
+  $ # 这需要一些时间，因为您需要安装模块，但会遵循 at_install 和 post_install
   $ odoo-bin -i account --test-enable
-  $ # run all the tests in this file
+  $ # 运行此文件中的所有测试
   $ odoo-bin --test-file=addons/account/tests/test_account_move_entry.py
-  $ # test tags can help you filter quite easily
+  $ # 测试标签可以帮助您轻松过滤
   $ odoo-bin --test-tags=/account:TestAccountMove.test_custom_currency_on_account_1
 
-Integration Bots
-================
+集成机器人
+===========
 
-.. note:: This section is only for Odoo employees and people that are contributing to
-  `github.com/odoo`. We highly recommend having your own CI otherwise.
+.. note:: 本节仅适用于 Odoo 员工和为 `github.com/odoo` 做出贡献的人。我们强烈建议您自行设置持续集成（CI）。
 
-When a test is written, it is important to make sure it always passes when modifications are
-applied to the source code. To automate this task, we use a development practice called
-Continuous Integration (CI). This is why we have some bots running all the tests at different
-moments.
-Whether you are working at Odoo or not, if you are trying to merge something inside `odoo/odoo`,
-`odoo/enterprise`, `odoo/upgrade` or on odoo.sh, you will have to go through the CI. If you are
-working on another project, you should think of adding your own CI.
+编写测试后，确保在对源代码进行修改时测试始终通过非常重要。为了自动化此任务，我们使用一种称为持续集成（CI）的开发实践。这就是为什么我们在不同的时刻运行所有测试的原因。
+
+无论您是否在 Odoo 工作，如果您尝试合并到 `odoo/odoo`、`odoo/enterprise`、`odoo/upgrade` 或 odoo.sh 上，您都必须经过 CI。如果您正在处理另一个项目，您应该考虑添加自己的 CI。
 
 Runbot
 ------
 
-**Reference**: the documentation related to this topic can be found in
-`Runbot FAQ <https://runbot.odoo.com/doc>`__.
+**参考**：与此主题相关的文档可在
+`Runbot FAQ <https://runbot.odoo.com/doc>`__ 中找到。
 
-Most of the tests are run on `Runbot <https://runbot.odoo.com>`__ every time a commit is pushed on
-GitHub.
+每次在 GitHub 上推送提交时，大多数测试都会在 `Runbot <https://runbot.odoo.com>`__ 上运行。
 
-You can see the state of a commit/branch by filtering on the runbot dashboard.
+您可以通过在 Runbot 仪表板上过滤来查看提交/分支的状态。
 
-A **bundle** is created for each branch. A bundle consists of a configuration and
-batches.
+对于每个分支都会创建一个 **bundle**。bundle 包含一个配置和批次。
 
-A **batch** is a set of builds, depending on the parameters of the bundle.
-A batch is green (i.e. passes the tests) if all the builds are green.
+**批次（batch）** 是一组构建，取决于 bundle 的参数。
+如果所有构建都是绿色的（通过测试），则批次为绿色。
 
-A **build** is when we launch a server. It can be divided in sub-builds. Usually there are builds
-for the community version, the enterprise version (only if there is an enterprise branch but you
-can force the build), and the migration of the branch.
-A build is green if every sub-build is green.
+**构建（build）** 是我们启动服务器时的过程。它可以分为子构建。通常，对于社区版和企业版（仅当有企业版分支时，但您可以强制构建）以及该分支的迁移都会有构建。
+如果每个子构建都是绿色的，则构建为绿色。
 
-A **sub-build** only does some parts of what a full build does. It is used to speed up the CI
-process. Generally it is used to split the post install tests in 4 parallel instances.
-A sub-build is green if all the tests are passing and there are no errors/warnings logged.
+**子构建（sub-build）** 只执行完整构建的一部分。它用于加速 CI 过程。通常用于将 post_install 测试拆分为 4 个并行实例。
+如果所有测试都通过且没有记录错误/警告，则子构建为绿色。
 
 .. note::
-  * All tests are run regardless of the modifications done. Correcting a typo in an error message or
-    refactoring a whole module triggers the same tests. All modules will be installed as well. This means
-    something might not work even if the Runbot is green, i.e. your changes depend on a module that the
-    module the changes are in doesn't depend on.
-  * The localization modules (i.e. country-specific modules) are not installed on Runbot (except
-    the generic one). Some modules with external dependencies can also be excluded.
-  * There is a nightly build running additional tests: module operations, localization, single
-    module installs, multi-builds for nondeterministic bugs, etc.
-    These are not kept in the standard CI to shorten the time of execution.
+  * 无论进行了哪些修改，所有测试都会运行。修正错误消息中的拼写错误或重构整个模块都会触发相同的测试。所有模块也都会被安装。这意味着即使 Runbot 是绿色的，也可能有些东西无法正常工作，即您的更改依赖于一个模块，但更改所在的模块并不依赖该模块。
+  * 本地化模块（即特定国家的模块）不会在 Runbot 上安装（除非是通用模块）。一些具有外部依赖项的模块也可能被排除。
+  * 每晚都会运行一个额外的测试：模块操作、本地化、单模块安装、多构建用于非确定性错误等。
+    这些未包含在标准 CI 中，以缩短执行时间。
 
-You can also login to a build built by Runbot. There are 3 users usable: `admin`, `demo` and
-`portal`. The password is the same as the login. This is useful to quickly test things on different
-versions without having to build it locally. The full logs are also available; these are used for
-monitoring.
+您还可以登录到 Runbot 构建的构建中。有 3 个可用的用户：`admin`、`demo` 和 `portal`。密码与登录名相同。这对于在不同版本上快速测试事物而无需在本地构建非常有用。完整的日志也可用；这些用于监控。
 
 Robodoo
 -------
 
-You will most likely have to gain a little bit more experience before having the rights to summon
-robodoo, but here are a few remarks anyways.
+您可能需要获得更多经验才能有权召唤 robodoo，但这里还是有一些备注。
 
-Robodoo is the guy spamming the CI status as tags on your PRs, but he is also the guy that kindly
-integrates your commits into the main repositories.
+Robodoo 是在您的 PR 上发送 CI 状态标签的人，但他也是那个友好地将您的提交集成到主存储库中的人。
 
-When the last batch is green, the reviewer can ask robodoo to merge your PR (it is more
-a `rebase` than a `merge`). It will then go to the mergebot.
+当最后一个批次是绿色时，审阅者可以请求 robodoo 合并您的 PR（这更像是 `rebase` 而不是 `merge`）。然后它将进入 mergebot。
 
 Mergebot
 --------
 
-`Mergebot <https://mergebot.odoo.com>`__ is the last testing phase before merging a PR.
+`Mergebot <https://mergebot.odoo.com>`__ 是在合并 PR 之前的最后一个测试阶段。
 
-It will take the commits in your branch not yet present on the target, stage it and rerun the tests
-one more time, including the enterprise version even if you are only changing something in
-community.
+它将获取您的分支中尚未在目标上存在的提交，进行阶段并再次运行测试，包括企业版，即使您只是在社区版中更改了某些内容。
 
-This step can fail with a `Staging failed` error message. This could be due to
+此步骤可能会失败，并显示 `Staging failed` 错误消息。这可能是由于
 
-* a nondeterministic bug that is already on the target. If you are an Odoo employee, you can check
-  those here: https://runbot.odoo.com/runbot/errors
-* a nondeterministic bug that you introduced but wasn't detected in the CI before
-* an incompatibility with another commit merged right before and what you are trying to merge
-* an incompatibility with the enterprise repository if you only did changes in the community repo
+* 一个非确定性错误已存在于目标上。如果您是 Odoo 员工，您可以在此处查看这些错误：https://runbot.odoo.com/runbot/errors
+* 您引入的非确定性错误，但之前在 CI 中未检测到
+* 与刚刚合并的另一个提交以及您尝试合并的内容不兼容
+* 如果您只在社区存储库中进行了更改，与企业存储库不兼容
 
-Always check that the issue does not come from you before asking the merge bot to retry: rebase
-your branch on the target and rerun the tests locally.
+在请求合并机器人重试之前，请始终检查问题是否不是由您引起的：将您的分支重新基于目标并在本地重新运行测试。
 
-Modules
-=======
+模块
+====
 
-Because Odoo is modular, the tests need to be also modular. This means tests are defined in
-the module that adds the functionality you are adding in, and tests cannot depend on functionality
-coming from modules your module doesn't depend on.
+由于 Odoo 是模块化的，测试也需要模块化。这意味着测试在添加您正在添加的功能的模块中定义，测试不能依赖于您的模块不依赖的模块中的功能。
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`Special Tags<reference/testing/tags>`.
+**参考**：与此主题相关的文档可在 :ref:`特殊标签<reference/testing/tags>` 中找到。
 
 .. code-block:: python
 
   from odoo.tests.common import TransactionCase
   from odoo.tests import tagged
 
-  # The CI will run these tests after all the modules are installed,
-  # not right after installing the one defining it.
-  @tagged('post_install', '-at_install')  # add `post_install` and remove `at_install`
+  # CI 将在所有模块安装后运行这些测试，
+  # 而不是在安装定义它的模块后立即运行。
+  @tagged('post_install', '-at_install')  # 添加 `post_install` 并移除 `at_install`
   class PostInstallTestCase(TransactionCase):
       def test_01(self):
           ...
 
-  @tagged('at_install')  # this is the default
+  @tagged('at_install')  # 这是默认值
   class AtInstallTestCase(TransactionCase):
       def test_01(self):
           ...
 
+如果您要测试的行为可能会因安装另一个模块而改变，您需要确保设置了 `at_install` 标签；否则，您可以使用 `post_install` 标签来加速 CI，并确保如果不应该改变，就不会改变。
 
-If the behavior you want to test can be changed by the installation of another module, you need to
-ensure that the tag `at_install` is set; otherwise, you can use the tag `post_install` to speed up
-the CI and ensure it is not changed if it shouldn't.
+编写测试
+=========
 
-Writing a test
-==============
-
-**Reference**: the documentation related to this topic can be found in
+**参考**：与此主题相关的文档可在
 `Python unittest <https://docs.python.org/3/library/unittest.html>`__
-and :ref:`Testing Odoo<reference/testing>`.
+和 :ref:`测试 Odoo<reference/testing>` 中找到。
 
-Here are a few things to take into consideration before writing a test
+在编写测试之前，需要考虑以下几点
 
-* The tests should be independent of the data currently in the database (including demo data)
-* Tests should not impact the database by leaving/changing residual data. This is usually done by
-  the test framework by doing a rollback. Therefore, you must never call ``cr.commit`` in a test
-  (nor anywhere else in the business code).
-* For a bug fix, the test should fail before applying the fix and pass after.
-* Don't test something that is already tested elsewhere; you can trust the ORM. Most of the tests
-  in business modules should only test the business flows.
-* You shouldn't need to flush data into the database.
+* 测试应独立于数据库中当前的数据（包括演示数据）
+* 测试不应通过留下/更改残留数据来影响数据库。这通常由测试框架通过回滚完成。因此，您在测试中绝不能调用 ``cr.commit``（也不能在业务代码中的其他任何地方调用）。
+* 对于错误修复，测试应在应用修复之前失败，应用修复后通过。
+* 不要测试已经在其他地方测试的内容；您可以信任 ORM。业务模块中的大多数测试应该只测试业务流程。
+* 您不应需要将数据刷新到数据库中。
 
-.. note:: Remember that ``onchange`` only applies in the Form views, not by changing the attributes
-  in python. This also applies in the tests. If you want to emulate a Form view, you can use
-  ``odoo.tests.common.Form``.
+.. note:: 请记住，``onchange`` 仅适用于表单视图，而不是通过在 Python 中更改属性。这也适用于测试。如果您想模拟表单视图，可以使用 ``odoo.tests.common.Form``。
 
-The tests should be in a ``tests`` folder at the root of your module. Each test file name
-should start with `test_` and be imported in the ``__init__.py`` of the test folder. You shouldn't
-import the test folder/module in the ``__init__.py`` of the module.
+测试应位于模块根目录下的 ``tests`` 文件夹中。每个测试文件名应以 `test_` 开头，并在测试文件夹的 ``__init__.py`` 中导入。您不应在模块的 ``__init__.py`` 中导入测试文件夹/模块。
 
 .. code-block:: bash
 
@@ -231,11 +170,9 @@ import the test folder/module in the ``__init__.py`` of the module.
   ├── __init__.py
   └── __manifest__.py
 
-All the tests should extend ``odoo.tests.common.TransactionCase``. You usually define a
-``setUpClass`` and the tests. After writing the `setUpClass`, you have an `env` available in the
-class and can start interacting with the ORM.
+所有测试都应继承自 ``odoo.tests.common.TransactionCase``。通常，您会定义一个 ``setUpClass`` 和测试。在编写 `setUpClass` 之后，您可以在类中使用 `env` 并开始与 ORM 交互。
 
-These test classes are built on top of the ``unittest`` python module.
+这些测试类构建在 Python 的 ``unittest`` 模块之上。
 
 .. code-block:: python
 
@@ -243,32 +180,29 @@ These test classes are built on top of the ``unittest`` python module.
   from odoo.exceptions import UserError
   from odoo.tests import tagged
 
-  # The CI will run these tests after all the modules are installed,
-  # not right after installing the one defining it.
+  # CI 将在所有模块安装后运行这些测试，
+  # 而不是在安装定义它的模块后立即运行。
   @tagged('post_install', '-at_install')
   class EstateTestCase(TransactionCase):
 
       @classmethod
       def setUpClass(cls):
-          # add env on cls and many other things
+          # 在 cls 上添加 env 和许多其他内容
           super(EstateTestCase, cls).setUpClass()
 
-          # create the data for each tests. By doing it in the setUpClass instead
-          # of in a setUp or in each test case, we reduce the testing time and
-          # the duplication of code.
+          # 为每个测试创建数据。通过在 setUpClass 中而不是在 setUp 或每个测试用例中完成，可以减少测试时间和代码重复。
           cls.properties = cls.env['estate.property'].create([...])
 
       def test_creation_area(self):
-          """Test that the total_area is computed like it should."""
+          """测试 total_area 是否按预期计算。"""
           self.properties.living_area = 20
           self.assertRecordValues(self.properties, [
              {'name': ..., 'total_area': ...},
              {'name': ..., 'total_area': ...},
           ])
 
-
       def test_action_sell(self):
-          """Test that everything behaves like it should when selling a property."""
+          """测试在出售物业时一切是否按预期运行。"""
           self.properties.action_sold()
           self.assertRecordValues(self.properties, [
              {'name': ..., 'state': ...},
@@ -278,21 +212,16 @@ These test classes are built on top of the ``unittest`` python module.
           with self.assertRaises(UserError):
               self.properties.forbidden_action_on_sold_property()
 
-.. note:: For better readability, split your tests into multiple files depending on the scope of the
-  tests. You can also have a Common class that most of the tests should inherit from; this common
-  class can define the whole setup for the module. For instance, in
-  `account <{GITHUB_PATH}/addons/account/tests/common.py>`__.
+.. note:: 为了更好的可读性，根据测试的范围将您的测试拆分为多个文件。您还可以有一个大多数测试应继承的 Common 类；这个公共类可以定义模块的整个设置。例如，在
+`account <{GITHUB_PATH}/addons/account/tests/common.py>`__ 中。
 
-.. exercise:: Update the code so no one can:
+.. exercise:: 更新代码，使得没有人可以：
 
-  - Create an offer for a sold property
-  - Sell a property with no accepted offers on it
+  - 为已售出的物业创建报价
+  - 出售没有被接受的报价的物业
 
-  and create tests for both of these cases. Additionally check that selling a property that can
-  be sold is correctly marked as sold after selling it.
+  并为这两种情况创建测试。此外，检查可售出的物业在出售后是否正确标记为已售出。
 
+.. exercise:: 有人不断破坏取消选中花园复选框时重置花园面积和朝向的功能。确保它不会再次发生。
 
-.. exercise:: Someone keeps breaking the reset of Garden Area and Orientation when you uncheck the
-  Garden checkbox. Make sure it doesn't happen again.
-
-  .. tip:: Tip: remember the note about `Form` a little bit above.
+  .. tip:: 提示：请记住上面关于 `Form` 的说明。

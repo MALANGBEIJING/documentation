@@ -1,15 +1,13 @@
-
 =================
-Customize a field
+自定义字段
 =================
 
-Subclass an existing field component
+继承现有字段组件
 ====================================
 
-Let's take an example where we want to extends the `BooleanField` to create a boolean field
-displaying "Late!" in red whenever the checkbox is checked.
+让我们以扩展 `BooleanField` 为例，创建一个布尔字段，当复选框被选中时显示“迟到！”的红色文字。
 
-#. Create a new widget component extending the desired field component.
+#. 创建一个扩展所需字段组件的新小部件组件。
 
    .. code-block:: javascript
       :caption: :file:`late_order_boolean_field.js`
@@ -23,10 +21,9 @@ displaying "Late!" in red whenever the checkbox is checked.
       class LateOrderBooleanField extends BooleanField {}
       LateOrderBooleanField.template = "my_module.LateOrderBooleanField";
 
-#. Create the field template.
+#. 创建字段模板。
 
-   The component uses a new template with the name `my_module.LateOrderBooleanField`. Create it by
-   inheriting the current template of the `BooleanField`.
+   该组件使用一个名为 `my_module.LateOrderBooleanField` 的新模板。通过继承 `BooleanField` 的当前模板来创建它。
 
    .. code-block:: xml
       :caption: :file:`late_order_boolean_field.xml`
@@ -35,30 +32,30 @@ displaying "Late!" in red whenever the checkbox is checked.
       <templates xml:space="preserve">
           <t t-name="my_module.LateOrderBooleanField" t-inherit="web.BooleanField">
               <xpath expr="//CheckBox" position="after">
-                    <span t-if="props.value" class="text-danger"> Late! </span>
+                    <span t-if="props.value" class="text-danger"> 迟到！ </span>
               </xpath>
           </t>
       </templates>
 
-#. Register the component to the fields registry.
+#. 将组件注册到字段注册表中。
 
    .. code-block::
       :caption: :file:`late_order_boolean_field.js`
 
       registry.category("fields").add("late_boolean", LateOrderBooleanField);
 
-#. Add the widget in the view arch as an attribute of the field.
+#. 在视图arch中添加小部件作为字段的属性。
 
    .. code-block:: xml
 
       <field name="somefield" widget="late_boolean"/>
 
-Create a new field component
+创建新的字段组件
 ============================
 
-Assume that we want to create a field that displays a simple text in red.
+假设我们想创建一个显示红色简单文本的字段。
 
-#. Create a new Owl component representing our new field
+#. 创建一个表示新字段的 Owl 组件。
 
    .. code-block:: js
       :caption: :file:`my_text_field.js`
@@ -87,20 +84,18 @@ Assume that we want to create a field that displays a simple text in red.
       };
       MyTextField.supportedTypes = ["char"];
 
-   The imported `standardFieldProps` contains the standard props passed by the `View` such as
-   the `update` function to update the value, the `type` of the field in the model, the
-   `readonly` boolean, and others.
+   导入的 `standardFieldProps` 包含由 `View` 传递的标准属性，例如用于更新值的 `update` 函数、模型中字段的 `type`、 `readonly` 布尔值等。
 
-#. In the same file, register the component to the fields registry.
+#. 在同一个文件中，将组件注册到字段注册表中。
 
    .. code-block:: js
       :caption: :file:`my_text_field.js`
 
       registry.category("fields").add("my_text_field", MyTextField);
 
-   This maps the widget name in the arch to its actual component.
+   这将arch中的小部件名称映射到其实际组件。
 
-#. Add the widget in the view arch as an attribute of the field.
+#. 在视图arch中添加小部件作为字段的属性。
 
    .. code-block:: xml
 

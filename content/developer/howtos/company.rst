@@ -1,42 +1,34 @@
-
 .. _reference/howtos/company:
 
 ========================
-Multi-company Guidelines
+多公司指南
 ========================
 
 .. warning::
 
-    This tutorial requires good knowledge of Odoo.
-    Please refer to the :doc:`../tutorials/server_framework_101` tutorial first if needed.
+    本教程需要具备良好的 Odoo 知识。
+    如果需要，请先参考 :doc:`../tutorials/server_framework_101` 教程。
 
-As of version 13.0, a user can be logged in to multiple companies at once. This allows the user to
-access information from multiple companies, but also to create/edit records in a multi-company
-environment.
+从版本 13.0 开始，用户可以同时登录多个公司。这允许用户访问多个公司的信息，也可以在多公司环境中创建/编辑记录。
 
-If not managed correctly, it may be the source of a lot of inconsistent multi-company behaviors.
-For instance, a user logged in to both companies A and B could create a sales order in company A and
-add products belonging to company B to it. It is only when the user logs out from company B that
-access errors will occur for the sales order.
+如果管理不当，可能会导致许多多公司行为不一致。例如，一个同时登录公司 A 和公司 B 的用户可以在公司 A 中创建销售订单并向其中添加属于公司 B 的产品。只有当用户退出公司 B 时，销售订单才会发生访问错误。
 
-To correctly manage multi-company behaviors, Odoo's ORM provides multiple features:
+为了正确管理多公司行为，Odoo 的 ORM 提供了多种功能：
 
-- :ref:`Company-dependent fields <howto/company/company_dependent>`
-- :ref:`Multi-company consistency <howto/company/check_company>`
-- :ref:`Default company <howto/company/default_company>`
-- :ref:`Views <howto/company/views>`
-- :ref:`Security rules <howto/company/security>`
+- :ref:`公司相关字段 <howto/company/company_dependent>`
+- :ref:`多公司一致性 <howto/company/check_company>`
+- :ref:`默认公司 <howto/company/default_company>`
+- :ref:`视图 <howto/company/views>`
+- :ref:`安全规则 <howto/company/security>`
 
 .. _howto/company/company_dependent:
 
-Company-dependent fields
+公司相关字段
 ------------------------
 
-When a record is available from multiple companies, we must expect that different values will be
-assigned to a given field depending on the company from which the value is set.
+当一个记录可以在多个公司之间共享时，我们必须预期，视哪个公司设置了值，给定字段会有不同的值。
 
-For the field of the same record to support several values, it must be defined with the attribute
-`company_dependent` set to `True`.
+为了让同一记录的字段支持多个值，必须将该字段定义为 `company_dependent=True`。
 
 .. code-block:: python
 
@@ -47,40 +39,32 @@ For the field of the same record to support several values, it must be defined w
 
        info = fields.Text()
        company_info = fields.Text(company_dependent=True)
-       display_info = fields.Text(string='Infos', compute='_compute_display_info')
+       display_info = fields.Text(string='信息', compute='_compute_display_info')
 
        @api.depends_context('company')
        def _compute_display_info(self):
            for record in self:
                record.display_info = record.info + record.company_info
 
-.. note:: The `_compute_display_info` method is decorated with `depends_context('company')`
-          (see :attr:`~odoo.api.depends_context`) to ensure that the computed field is recomputed
-          depending on the current company (`self.env.company`).
+.. note:: `_compute_display_info` 方法使用了 `depends_context('company')` 装饰器
+          (参见 :attr:`~odoo.api.depends_context`)，以确保根据当前公司 (`self.env.company`) 重新计算计算字段。
 
-When a company-dependent field is read, the current company is used to retrieve its value. In other
-words, if a user is logged in to companies A and B with A as the main company and creates a record for
-company B, the value of company-dependent fields will be that of company A.
+读取公司相关字段时，使用当前公司来检索其值。换句话说，如果用户登录到公司 A 和公司 B，且 A 是主公司，并为公司 B 创建记录，则公司相关字段的值将是公司 A 的值。
 
-To read the values of company-dependent fields set by another company than the current one, we need
-to ensure the company we are using is the correct one.  This can be done with :meth:`~odoo.models.Model.with_company`,
-which updates the current company.
+要读取由当前公司以外的公司设置的公司相关字段的值，我们需要确保使用的公司是正确的公司。这可以通过 :meth:`~odoo.models.Model.with_company` 来完成，它会更新当前公司。
 
 .. code-block:: python
 
-   # Accessed as the main company (self.env.company)
+   # 作为主公司 (self.env.company) 访问
    val = record.company_dependent_field
 
-   # Accessed as the desired company (company_B)
+   # 作为目标公司 (company_B) 访问
    val = record.with_company(company_B).company_dependent_field
    # record.with_company(company_B).env.company == company_B
 
 .. warning::
 
-    Whenever you are computing/creating/... things that may behave differently
-    in different companies, you should make sure whatever you are doing is done
-    in the right company. It doesn't cost much to always use `with_company` to
-    avoid problems later.
+    每当您在不同公司中计算/创建/...时，应该确保您在正确的公司执行这些操作。使用 `with_company` 并不会增加很大的开销，但可以避免日后产生问题。
 
     .. code-block:: python
 
@@ -97,21 +81,17 @@ which updates the current company.
 
 .. _howto/company/check_company:
 
-Multi-company consistency
+多公司一致性
 -------------------------
 
-When a record is made shareable between several companies by the means of a `company_id` field, we
-must take care that it cannot be linked to the record of another company through a relational field.
-For instance, we do not want to have a sales order and its invoice belonging to different companies.
+当通过 `company_id` 字段使记录可以在多个公司之间共享时，我们必须确保它不能通过关系字段链接到另一家公司。例如，我们不希望销售订单和其发票属于不同的公司。
 
-To ensure this multi-company consistency, you must:
+为了确保多公司一致性，您必须：
 
-* Set the class attribute `_check_company_auto` to `True`.
-* Define relational fields with the attribute `check_company` set to `True` if their model has a
-  `company_id` field.
+* 将类属性 `_check_company_auto` 设置为 `True`。
+* 如果模型具有 `company_id` 字段，则将关系字段定义为 `check_company=True`。
 
-On each :meth:`~odoo.models.Model.create` and :meth:`~odoo.models.Model.write`, automatic checks
-will be triggered to ensure the multi-company consistency of the record.
+在每次 :meth:`~odoo.models.Model.create` 和 :meth:`~odoo.models.Model.write` 操作时，都会触发自动检查，以确保记录的多公司一致性。
 
 .. code-block:: python
 
@@ -124,29 +104,23 @@ will be triggered to ensure the multi-company consistency of the record.
        company_id = fields.Many2one('res.company')
        other_record_id = fields.Many2one('other.record', check_company=True)
 
-.. note:: The field `company_id` must not be defined with `check_company=True`.
+.. note:: `company_id` 字段不能定义为 `check_company=True`。
 
 .. currentmodule:: odoo.models
 .. automethod:: Model._check_company
 
-.. warning:: The `check_company` feature performs a strict check! It means that if a record has no
-             `company_id` (i.e., the field is not required), it cannot be linked to a record whose
-             `company_id` is set.
+.. warning:: `check_company` 功能执行严格检查！这意味着如果一条记录没有 `company_id`（即，该字段不是必填项），则它不能与已设置 `company_id` 的记录链接。
 
 .. note::
 
-    When no domain is defined on the field and `check_company` is set to `True`, a default domain is
-    added: `['|', '('company_id', '=', False), ('company_id', '=', company_id)]`
+    当字段没有定义 domain 且 `check_company` 设置为 `True` 时，系统将添加一个默认的 domain：`['|', '('company_id', '=', False), ('company_id', '=', company_id)]`
 
 .. _howto/company/default_company:
 
-Default company
+默认公司
 ---------------
 
-When the field `company_id` is made required on a model, a good practice is to set a default
-company. It eases the setup flow for the user or even guarantees its validity when the company is
-hidden from view. Indeed, the company is usually hidden if the user does not have access to
-multiple companies (i.e., when the user does not have the group `base.group_multi_company`).
+当 `company_id` 字段在模型中是必填项时，良好的做法是设置一个默认公司。这简化了用户的设置流程，或者当公司字段在视图中被隐藏时保证其有效性。事实上，如果用户没有访问多个公司的权限（即，用户没有 `base.group_multi_company` 组），公司字段通常是隐藏的。
 
 .. code-block:: python
 
@@ -164,12 +138,10 @@ multiple companies (i.e., when the user does not have the group `base.group_mult
 
 .. _howto/company/views:
 
-Views
+视图
 -----
 
-As stated in :ref:`above <howto/company/default_company>`, the company is usually hidden
-from view if the user does not have access to multiple companies. This is assessed with the group
-`base.group_multi_company`.
+如前述 :ref:`default_company <howto/company/default_company>` 所述，如果用户没有访问多个公司的权限，公司字段通常在视图中被隐藏。这是通过 `base.group_multi_company` 组来评估的。
 
 .. code-block:: xml
 
@@ -193,20 +165,18 @@ from view if the user does not have access to multiple companies. This is assess
 
 .. _howto/company/security:
 
-Security rules
+安全规则
 --------------
 
-When working with records shared across companies or restricted to a single company, we must take
-care that a user does not have access to records belonging to other companies.
+在处理跨公司共享或限制在单个公司的记录时，我们必须确保用户无法访问其他公司所属的记录。
 
-This is achieved with security rules based on `company_ids`, which contain the current companies of
-the user (the companies the user checked in the multi-company widget).
+这是通过基于 `company_ids` 的安全规则实现的，`company_ids` 包含当前用户选中的公司（用户在多公司小部件中选中的公司）。
 
 .. code-block:: xml
 
-    <!-- Shareable Records -->
+    <!-- 共享记录 -->
     <record model="ir.rule" id="record_shared_company_rule">
-        <field name="name">Shared Record: multi-company</field>
+        <field name="name">共享记录：多公司</field>
         <field name="model_id" ref="model_record_shared"/>
         <field name="global" eval="True"/>
         <field name="domain_force">
@@ -216,9 +186,9 @@ the user (the companies the user checked in the multi-company widget).
 
 .. code-block:: xml
 
-    <!-- Company-restricted Records -->
+    <!-- 公司限制的记录 -->
     <record model="ir.rule" id="record_restricted_company_rule">
-        <field name="name">Restricted Record: multi-company</field>
+        <field name="name">限制记录：多公司</field>
         <field name="model_id" ref="model_record_restricted"/>
         <field name="global" eval="True"/>
         <field name="domain_force">
@@ -226,4 +196,4 @@ the user (the companies the user checked in the multi-company widget).
         </field>
     </record>
 
-.. todo:: check_company on company_dependent fields.
+.. todo:: 检查公司相关字段上的 check_company 设置。

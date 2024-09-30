@@ -1,46 +1,44 @@
 =========
-Gradients
+渐变
 =========
 
-In this chapter, you will discover how to:
+在本章中，您将学习如何：
 
-- Add a gradient to a section or a title.
-- Add your own gradient to the Website Builder palette.
+- 为部分或标题添加渐变。
+- 将自定义渐变添加到网站构建器的调色板中。
 
-Standard
+标准
 ========
 
-In standard, you can select several gradients directly from the Website Builder. However, for custom
-themes, you must add the gradients directly in the section tag with a style attribute.
+在标准情况下，您可以直接从网站构建器中选择几种渐变。然而，对于自定义主题，您必须在部分标签中使用样式属性直接添加渐变。
 
-**Use**
+**用法**
 
 .. code-block:: xml
 
     <section class="s_text_image" data-snippet="s_text_image" data-name="Text - Image" style="background-image: linear-gradient(135deg, rgb(255, 204, 51) 0%, rgb(226, 51, 255) 100%) !important;">
-        <!-- Content -->
+        <!-- 内容 -->
     </section>
 
-To apply a gradient to text, use a font tag with the `text-gradient` class.
+要将渐变应用于文本，请使用带有 `text-gradient` 类的字体标签。
 
 .. code-block:: xml
 
    <h2>
-       <font class="text-gradient" style="background-image: linear-gradient(135deg, rgb(203, 94, 238) 0%, rgb(75, 225, 236) 100%);">A Section Subtitle</font>
+       <font class="text-gradient" style="background-image: linear-gradient(135deg, rgb(203, 94, 238) 0%, rgb(75, 225, 236) 100%);">一个部分副标题</font>
    </h2>
 
-Custom
+自定义
 ======
 
-You can also add your own custom gradients to the Website Builder. This way, the user can easily
-use them without manually recreating them.
+您还可以将自定义渐变添加到网站构建器中。这样，用户可以轻松使用它们，而无需手动重新创建。
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/presets.xml``
 
    <record id="colorpicker" model="ir.ui.view">
        <field name="key">website_airproof.colorpicker</field>
-       <field name="name">Custom Gradients</field>
+       <field name="name">自定义渐变</field>
        <field name="type">qweb</field>
        <field name="inherit_id" ref="web_editor.colorpicker"/>
        <field name="website_id">1</field>

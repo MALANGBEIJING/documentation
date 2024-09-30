@@ -1,62 +1,43 @@
 ===========
-设置导引
+安装指南
 ===========
 
-
-根据预期的使用场景，有多种方式可以安装 Odoo。对于 Odoo 社区的开发者和 Odoo 员工来说，首选的方式是进行源码安装（从源代码运行 Odoo）。
-
-Depending on the intended use case, there are multiple ways to install Odoo. For developers of the
-Odoo community and Odoo employees alike, the preferred way is to perform a source install
-(:dfn:`running Odoo from the source code`).
+根据使用案例的不同，安装 Odoo 有多种方式。对于 Odoo 社区开发人员和 Odoo 员工而言，首选的安装方式是源代码安装 (:dfn:`从源代码运行 Odoo`)。
 
 .. important::
-   Follow the :ref:`contributing/development/setup` section of the contributing guide to prepare
-   your environment for pushing local changes to the Odoo repositories.
+   请参阅贡献指南中的 :ref:`contributing/development/setup` 部分，为推送本地更改到 Odoo 存储库做好环境准备。
 
-   请按照贡献指南中 :ref:contributing/development/setup 部分的说明，准备您的环境，以便将本地更改推送到 Odoo 仓库。
+为教程调整环境
+==================
 
-为教程调整环境设置
-=======================================
-
-到目前为止，您应该已经将源代码下载到两个本地仓库中，一个用于 odoo/odoo，另一个用于 odoo/enterprise。这些仓库已经设置好，可以将更改推送到GitHub上的预定义分叉。当您开始为代码库做出贡献时，这将非常方便，但在进行教程的过程中，我们希望避免将它们与培训材料混在一起。因此，我们将把您的更改推送到第三个仓库：odoo/tutorials。与前两个仓库一样，它也将成为引用所有包含 Odoo 模块的目录的 addons-path 的一部分
-
-By now, you should have downloaded the source code into two local repositories, one for `odoo/odoo`
-and one for `odoo/enterprise`. These repositories are set up to push changes to pre-defined
-forks on GitHub. This will prove to be convenient when you start contributing to the codebase, but
-in the scope of following a tutorial, we want to avoid polluting them with training material. Let's
-then push your changes in a third repository: `odoo/tutorials`. Like the first two repositories, it
-will be part of the `addons-path` that references all directories containing Odoo modules.
+到现在为止，您应该已经将源代码下载到两个本地存储库，一个用于 `odoo/odoo`，另一个用于 `odoo/enterprise`。这些存储库已设置为将更改推送到 GitHub 上的预定义 fork。当您开始为代码库做出贡献时，这将非常方便，但在跟随教程的过程中，我们希望避免用训练材料污染它们。让我们将您的更改推送到第三个存储库：`odoo/tutorials`。与前两个存储库一样，它将成为引用 Odoo 模块的 `addons-path` 的一部分。
 
 .. note::
-   Depending on the tutorial that you are following, you might not need to install all the modules
-   that this repository contains.
+   根据您正在跟随的教程，您可能不需要安装该存储库中包含的所有模块。
 
-#. Following the same process as with the `odoo/odoo` and `odoo/enterprise` repositories, clone
-   the `odoo/tutorials` repository on your machine with:
+#. 按照与 `odoo/odoo` 和 `odoo/enterprise` 存储库相同的过程，将 `odoo/tutorials` 存储库克隆到您的计算机上：
 
    .. code-block:: console
 
       $ git clone git@github.com:odoo/tutorials.git
 
-#. Configure your fork and Git to push changes to your fork rather than to the main codebase. If you
-   work at Odoo, configure Git to push changes to the shared fork created on the account **odoo-dev**.
+#. 配置您的 fork 和 Git，将更改推送到您的 fork，而不是主代码库。如果您在 Odoo 工作，请将 Git 配置为将更改推送到账户 **odoo-dev** 上创建的共享 fork。
 
    .. tabs::
 
-      .. tab:: Link Git with your fork
+      .. tab:: 将 Git 与您的 fork 链接
 
-         #. Visit `github.com/odoo/tutorials <https://github.com/odoo/tutorials>`_ and click the
-            :guilabel:`Fork` button to create a fork of the repository on your account.
+         #. 访问 `github.com/odoo/tutorials <https://github.com/odoo/tutorials>`_ 并点击
+            :guilabel:`Fork` 按钮在您的帐户上创建该存储库的 fork。
 
-         #. In the command below, replace `<your_github_account>` with the name of the GitHub account
-            on which you created the fork.
+         #. 在以下命令中，将 `<your_github_account>` 替换为您创建 fork 的 GitHub 帐户名称。
 
             .. code-block:: console
 
                $ cd /TutorialsPath
                $ git remote add dev git@github.com:<your_github_account>/tutorials.git
 
-      .. tab:: Link Git with odoo-dev
+      .. tab:: 将 Git 与 odoo-dev 链接
 
          .. code-block:: console
 
@@ -64,126 +45,96 @@ will be part of the `addons-path` that references all directories containing Odo
             $ git remote add dev git@github.com:odoo-dev/tutorials.git
             $ git remote set-url --push origin you_should_not_push_on_this_repository
 
-That's it! Your environment is now prepared to run Odoo from the sources, and you have successfully
-created a repository to serve as an addons directory. This will allow you to push your work to GitHub.
+就这样！您的环境现在已准备好从源代码运行 Odoo，并且您已成功创建一个存储库，作为 addons 目录。这样您就可以将您的工作推送到 GitHub。
 
 .. important::
 
-   **For Odoo employees only:**
+   **仅适用于 Odoo 员工：**
 
-   #. Make sure to read very carefully :ref:`contributing/development/first-contribution`. In particular,
-      your branch name must follow our conventions.
+   #. 确保仔细阅读 :ref:`contributing/development/first-contribution`。尤其是，您的分支名称必须遵循我们的命名约定。
 
-   #. Once you have pushed your first change to the shared fork on **odoo-dev**, create a
-      :abbr:`PR (Pull Request)`. Please put your quadrigram in the PR title (e.g., "abcd - Technical
-      Training").
+   #. 一旦您将第一个更改推送到 **odoo-dev** 上的共享 fork，请创建 :abbr:`PR (Pull Request)`。请在 PR 标题中注明您的四字母代码 (例如 "abcd - 技术培训")。
 
-      This will enable you to share your upcoming work and receive feedback from your coaches. To ensure
-      a continuous feedback loop, we recommend pushing a new commit as soon as you complete a chapter
-      of the tutorial. Note that the PR is automatically updated with commits you push to **odoo-dev**,
-      you don't need to open multiple PRs.
+      这样您就可以分享即将完成的工作，并从您的教练那里获得反馈。为了确保持续的反馈循环，我们建议您在完成教程的一章后尽快推送新的提交。请注意，PR 会自动更新为您推送到 **odoo-dev** 的提交，您无需打开多个 PR。
 
-   #. At Odoo we use `Runbot <https://runbot.odoo.com>`_ extensively for our :abbr:`CI (Continuous
-      Integration)` tests. When you push your changes to **odoo-dev**, Runbot creates a new build
-      and test your code. Once logged in, you will be able to see your branches `Tutorials project
-      <https://runbot.odoo.com/runbot/tutorials-12>`_.
+   #. 在 Odoo，我们广泛使用 `Runbot <https://runbot.odoo.com>`_ 进行 :abbr:`CI (持续集成)` 测试。当您将更改推送到 **odoo-dev** 时，Runbot 会创建一个新的构建并测试您的代码。登录后，您可以在 `Tutorials 项目 <https://runbot.odoo.com/runbot/tutorials-12>`_ 中看到您的分支。
 
 .. note::
 
-   The specific location of the repositories on your file system is not crucial. However, for the
-   sake of simplicity, we will assume that you have cloned all the repositories under the same
-   directory. If this is not the case, make sure to adjust the following commands accordingly,
-   providing the appropriate relative path from the `odoo/odoo` repository to the
-   `odoo/tutorials` repository.
+   您的存储库在文件系统上的特定位置并不重要。但是，为了简化操作，我们假设您已将所有存储库克隆到同一目录下。如果不是这种情况，请确保相应地调整以下命令，并提供从 `odoo/odoo` 存储库到 `odoo/tutorials` 存储库的适当相对路径。
 
-Run the server
-==============
+运行服务器
+===========
 
-Launch with `odoo-bin`
+使用 `odoo-bin` 启动
 ----------------------
 
-Once all dependencies are set up, Odoo can be launched by running `odoo-bin`, the command-line
-interface of the server.
+所有依赖项设置完成后，可以通过运行 `odoo-bin` 启动 Odoo，`odoo-bin` 是服务器的命令行界面。
 
 .. code-block:: console
 
     $ cd $HOME/src/odoo/
     $ ./odoo-bin --addons-path="addons/,../enterprise/,../tutorials" -d rd-demo
 
-There are multiple :ref:`command-line arguments <reference/cmdline/server>` that you can use to run
-the server. In this training you will only need some of them.
+运行服务器时，您可以使用多个 :ref:`命令行参数 <reference/cmdline/server>`。在本次培训中，您只需要其中的一部分。
 
 .. option:: -d <database>
 
-   The database that is going to be used.
+   要使用的数据库。
 
 .. option:: --addons-path <directories>
 
-   A comma-separated list of directories in which modules are stored. These directories are scanned
-   for modules.
+   存储模块的目录的逗号分隔列表。这些目录将被扫描以查找模块。
 
 .. option:: --limit-time-cpu <limit>
 
-   Prevent the worker from using more than <limit> CPU seconds for each request.
+   防止 worker 为每个请求使用超过 <limit> 秒的 CPU 时间。
 
 .. option:: --limit-time-real <limit>
 
-   Prevent the worker from taking longer than <limit> seconds to process a request.
+   防止 worker 处理请求所用时间超过 <limit> 秒。
 
 .. tip::
-   - The :option:`--limit-time-cpu` and :option:`--limit-time-real` arguments can be used to prevent
-     the worker from being killed when debugging the source code.
-   - | You may face an error similar to `AttributeError: module '<MODULE_NAME>' has no attribute
-       '<$ATTRIBUTE'>`. In this case, you may need to re-install the module with :command:`$ pip
-       install --upgrade --force-reinstall <MODULE_NAME>`.
-     | If this error occurs with more than one module, you may need to re-install all the
-       requirements with :command:`$ pip install --upgrade --force-reinstall -r requirements.txt`.
-     | You can also clear the python cache to solve the issue:
+   - :option:`--limit-time-cpu` 和 :option:`--limit-time-real` 参数可用于防止在调试源代码时 worker 被终止。
+   - | 您可能会遇到类似 `AttributeError: module '<MODULE_NAME>' has no attribute '<$ATTRIBUTE'>` 的错误。在这种情况下，您可能需要使用 :command:`$ pip install --upgrade --force-reinstall <MODULE_NAME>` 重新安装该模块。
+     | 如果此错误发生在多个模块上，您可能需要使用 :command:`$ pip install --upgrade --force-reinstall -r requirements.txt` 重新安装所有依赖项。
+     | 您还可以通过清除 Python 缓存来解决此问题：
 
        .. code-block:: console
 
           $ cd $HOME/.local/lib/python3.8/site-packages/
           $ find -name '*.pyc' -type f -delete
 
-   - Other commonly used arguments are:
+   - 其他常用参数包括：
 
-     - :option:`-i <odoo-bin --init>`: Install some modules before running the server
-       (comma-separated list). This is equivalent to going to :guilabel:`Apps` in the user interface,
-       and installing the module from there.
-     - :option:`-u <odoo-bin --update>`: Update some modules before running the server
-       (comma-separated list). This is equivalent to going to :guilabel:`Apps` in the user interface,
-       selecting a module, and upgrading it from there.
+     - :option:`-i <odoo-bin --init>`：在运行服务器之前安装一些模块（逗号分隔列表）。这相当于在用户界面的 :guilabel:`Apps` 中安装模块。
+     - :option:`-u <odoo-bin --update>`：在运行服务器之前更新一些模块（逗号分隔列表）。这相当于在用户界面的 :guilabel:`Apps` 中选择一个模块，并从那里升级它。
 
-Log in to Odoo
---------------
+登录 Odoo
+---------
 
-Open http://localhost:8069/ on your browser. We recommend using `Chrome
-<https://www.google.com/intl/en/chrome/>`_, `Firefox <https://www.mozilla.org/firefox/new/>`_, or
-any other browser with development tools.
+在浏览器中打开 http://localhost:8069/。我们推荐使用 `Chrome <https://www.google.com/intl/en/chrome/>`_，`Firefox <https://www.mozilla.org/firefox/new/>`_，或任何其他带有开发工具的浏览器。
 
-To log in as the administrator user, use the following credentials:
+作为管理员用户登录，使用以下凭据：
 
-- email: `admin`
-- password: `admin`
+- 电子邮件：`admin`
+- 密码：`admin`
 
-Enable the developer mode
-=========================
+启用开发者模式
+=================
 
-The developer or debug mode is useful for training as it gives access to additional (advanced)
-tools. :ref:`Enable the developer mode <developer-mode>` now. Choose the method that you prefer;
-they are all equivalent.
+开发者模式或调试模式对于培训非常有用，因为它提供了额外的（高级）工具。现在 :ref:`启用开发者模式 <developer-mode>`。选择您喜欢的方法，它们都是等效的。
 
-Extra tools
-===========
+其他工具
+========
 
-Useful Git commands
--------------------
+有用的 Git 命令
+----------------
 
-Here are some useful Git commands for your day-to-day work.
+以下是一些日常工作中有用的 Git 命令。
 
-- | Switch branches:
-  | When you switch branches, both repositories (odoo and enterprise) must be synchronized, i.e.
-    both need to be in the same branch.
+- | 切换分支：
+  | 切换分支时，两个存储库（odoo 和 enterprise）必须同步，即它们都需要处于同一分支。
 
   .. code-block:: console
 
@@ -193,7 +144,7 @@ Here are some useful Git commands for your day-to-day work.
      $ cd $HOME/src/enterprise
      $ git switch {BRANCH}
 
-- Fetch and rebase:
+- 获取和变基：
 
   .. code-block:: console
 
@@ -205,59 +156,48 @@ Here are some useful Git commands for your day-to-day work.
      $ git fetch --all --prune
      $ git rebase --autostash enterprise/{BRANCH}
 
-Code Editor
+代码编辑器
 -----------
 
-If you are working at Odoo, many of your colleagues are using `VSCode
-<https://code.visualstudio.com>`_, `VSCodium <https://vscodium.com>`_ (the open source equivalent),
-`PyCharm <https://www.jetbrains.com/pycharm/download/#section=linux>`_, or `Sublime Text
-<https://www.sublimetext.com>`_. However, you are free to choose your preferred editor.
+如果您在 Odoo 工作，许多同事使用 `VSCode <https://code.visualstudio.com>`_，`VSCodium <https://vscodium.com>`_（开源等效版），`PyCharm <https://www.jetbrains.com/pycharm/download/#section=linux>`_，或 `Sublime Text <https://www.sublimetext.com>`_。但是，您可以自由选择自己喜欢的编辑器。
 
-It is important to configure your linters correctly. Using a linter helps you by showing syntax and
-semantic warnings or errors. Odoo source code tries to respect Python's and JavaScript's standards,
-but some of them can be ignored.
+正确配置您的代码格式检查工具非常重要。使用 linter 可以通过显示语法和语义警告或错误来帮助您。Odoo 源代码尝试遵守 Python 和 JavaScript 的标准，但某些标准可以忽略。
 
-For Python, we use PEP8 with these options ignored:
+对于 Python，我们使用 PEP8，并忽略以下选项：
 
-- `E501`: line too long
-- `E301`: expected 1 blank line, found 0
-- `E302`: expected 2 blank lines, found 1
+- `E501`: 行太长
+- `E301`: 期望有 1 个空行，找到了 0 个
+- `E302`: 期望有 2 个空行，找到了 1 个
 
-For JavaScript, we use ESLint and you can find a `configuration file example here
-<https://github.com/odoo/odoo/wiki/Javascript-coding-guidelines#use-a-linter>`_.
+对于 JavaScript，我们使用 ESLint，您可以在 `此处找到配置文件示例 <https://github.com/odoo/odoo/wiki/Javascript-coding-guidelines#use-a-linter>`_。
 
-Administrator tools for PostgreSQL
-----------------------------------
+PostgreSQL 管理员工具
+----------------------
 
-You can manage your PostgreSQL databases using the command line as demonstrated earlier or using
-a GUI application such as `pgAdmin <https://www.pgadmin.org/download/pgadmin-4-apt/>`_ or `DBeaver
-<https://dbeaver.io/>`_.
+您可以使用命令行管理 PostgreSQL 数据库，也可以使用 GUI 应用程序，如 `pgAdmin <https://www.pgadmin.org/download/pgadmin-4-apt/>`_ 或 `DBeaver <https://dbeaver.io/>`_。
 
-To connect the GUI application to your database we recommend you connect using the Unix socket.
+建议您使用 Unix 套接字连接 GUI 应用程序到数据库。
 
-- Host name/address: `/var/run/postgresql`
-- Port: `5432`
-- Username: `$USER`
+- 主机名/地址：`/var/run/postgresql`
+- 端口：`5432`
+- 用户名：`$USER`
 
-Python Debugging
-----------------
+Python 调试
+-----------
 
-When facing a bug or trying to understand how the code works, simply printing things out can go a
-long way, but a proper debugger can save a lot of time.
+在遇到 bug 或尝试了解代码工作原理时，简单地输出内容可以起到很大作用，但使用调试器可以节省大量时间。
 
-You can use a classic Python library debugger (`pdb <https://docs.python.org/3/library/pdb.html>`_,
-`pudb <https://pypi.org/project/pudb/>`_ or `ipdb <https://pypi.org/project/ipdb/>`_), or you can
-use your editor's debugger.
+您可以使用经典的 Python 调试库（`pdb <https://docs.python.org/3/library/pdb.html>`_，`pudb <https://pypi.org/project/pudb/>`_ 或 `ipdb <https://pypi.org/project/ipdb/>`_），或者使用编辑器的调试工具。
 
-In the following example we use ipdb, but the process is similar with other libraries.
+在以下示例中，我们使用 ipdb，但使用其他库的过程类似。
 
-#. Install the library:
+#. 安装库：
 
    .. code-block:: console
 
       pip install ipdb
 
-#. Place a trigger (breakpoint):
+#. 设置触发器（断点）：
 
    .. code-block:: python
 
@@ -276,42 +216,40 @@ In the following example we use ipdb, but the process is similar with other libr
              default = dict(default or {}, name=new_name)
              return super(Partner, self).copy(default)
 
-Here is a list of commands:
+以下是命令列表：
 
 .. option:: h(elp) [command]
 
-   Print the list of available commands if not argument is supplied. With a command as an argument,
-   print the help about that command.
+   如果未提供参数，则打印可用命令列表。如果提供了命令作为参数，则打印有关该命令的帮助信息。
 
 .. option:: pp expression
 
-   The value of the `expression` is pretty-printed using the `pprint` module.
+   使用 `pprint` 模块对 `expression` 的值进行漂亮打印。
 
 .. option:: w(here)
 
-   Print a stack trace with the most recent frame at the bottom.
+   打印堆栈跟踪，最近的帧在底部。
 
 .. option:: d(own)
 
-   Move the current frame one level down in the stack trace (to a newer frame).
+   将当前帧向下移动一层（到较新的帧）。
 
 .. option:: u(p)
 
-   Move the current frame one level up in the stack trace (to an older frame).
+   将当前帧向上移动一层（到较旧的帧）。
 
 .. option:: n(ext)
 
-   Continue the execution until the next line in the current function is reached or it returns.
+   继续执行，直到到达当前函数中的下一行或返回。
 
 .. option:: c(ontinue)
 
-   Continue the execution and only stop when a breakpoint is encountered.
+   继续执行，只有在遇到断点时才会停止。
 
 .. option:: s(tep)
 
-   Execute the current line. Stop at the first possible occasion (either in a function that is
-   called or on the next line in the current function).
+   执行当前行。在首次可能的情况下停止（无论是在调用的函数中，还是在当前函数中的下一行）。
 
 .. option:: q(uit)
 
-   Quit the debugger. The program being executed is aborted.
+   退出调试器。正在执行的程序将被中止。

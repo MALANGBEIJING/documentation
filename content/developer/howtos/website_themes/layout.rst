@@ -1,22 +1,19 @@
 ======
-Layout
+布局
 ======
 
-In this chapter, you will learn how to:
+在本章中，你将学习如何：
 
-- Create a custom header.
-- Create a custom footer.
-- Modify a standard template.
-- Add a copyright section.
-- Improve your website's responsiveness.
+- 创建自定义页眉。
+- 创建自定义页脚。
+- 修改标准模板。
+- 添加版权部分。
+- 改善你网站的响应性。
 
-Default
-=======
+默认
+====
 
-An Odoo page combines cross-page and unique elements. Cross-page elements are the same on every
-page, while unique elements are only related to a specific page. By default, a page has two
-cross-page elements, the header and the footer, and a unique main element that contains the specific
-content of that page.
+Odoo 页面结合了跨页面元素和独特元素。跨页面元素在每个页面上都是相同的，而独特元素仅与特定页面相关。默认情况下，页面有两个跨页面元素，即页眉和页脚，以及一个包含该页面特定内容的独特主元素。
 
 .. code-block:: xml
 
@@ -24,14 +21,13 @@ content of that page.
       <header/>
          <main>
             <div id="wrap" class="oe_structure">
-               <!-- Page Content -->
+               <!-- 页面内容 -->
             </div>
          </main>
       <footer/>
    </div>
 
-Any Odoo XML file starts with encoding specifications. After that, you must write your code inside
-an `<odoo>` tag.
+任何 Odoo XML 文件都以编码规范开头。之后，必须在 `<odoo>` 标签中编写代码。
 
 .. code-block:: xml
 
@@ -41,24 +37,21 @@ an `<odoo>` tag.
    </odoo>
 
 .. note::
-   Using precise file names is important to find information through all modules quickly. File names
-   should only contain lowercase alphanumerics and underscores.
+   使用精确的文件名对快速找到所有模块中的信息非常重要。文件名应仅包含小写的字母数字字符和下划线。
 
-   Always add an empty line at the end of your file. This can be done automatically by configuring
-   your IDE.
+   文件末尾应始终添加一个空行。这可以通过配置 IDE 自动完成。
 
 XPath
 =====
 
-XPath (XML Path Language) is an expression language that enables you to navigate through elements
-and attributes in an XML document easily. XPath is used to extend standard Odoo templates.
+XPath（XML 路径语言）是一种表达语言，可以轻松导航 XML 文档中的元素和属性。XPath 用于扩展 Odoo 标准模板。
 
-A view is coded the following way.
+视图的编码方式如下：
 
 .. code-block:: xml
 
    <template id="..." inherit_id="..." name="...">
-      <!-- Content -->
+      <!-- 内容 -->
    </template>
 
 .. list-table::
@@ -66,112 +59,104 @@ A view is coded the following way.
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - id
-     - ID of the modified view
+     - 修改视图的 ID
    * - inherited_id
-     - ID of the standard view
+     - 标准视图的 ID
    * - name
-     - Human-readable name of the modified view
+     - 人类可读的修改视图的名称
 
-For each XPath, you modify two attributes: **expression** and **position**.
+对于每个 XPath，你可以修改两个属性：**expression** 和 **position**。
 
 .. example::
    .. code-block:: xml
       :caption: ``/website_airproof/views/website_templates.xml``
 
-      <template id="layout" inherit_id="website.layout" name="Welcome Message">
+      <template id="layout" inherit_id="website.layout" name="欢迎消息">
          <xpath expr="//header" position="before">
-            <!-- Content -->
+            <!-- 内容 -->
          </xpath>
       </template>
 
-   This XPath adds a welcome message right before the page content.
+   该 XPath 在页面内容之前添加了一条欢迎消息。
 
 .. warning::
-   Be careful when replacing default elements' attributes. As your theme extends the default one,
-   your changes will take priority over any future Odoo update.
+   当替换默认元素的属性时要小心。由于你的主题扩展了默认主题，你的更改将优先于任何未来的 Odoo 更新。
 
 .. note::
-   - You should update your module every time you create a new template or record.
-   - *XML IDs* of inheriting views should use the same *ID* as the original record. It helps to find
-     all inheritance at a glance. As final *XML IDs* are prefixed by the module that creates them,
-     there is no overlap.
+   - 每次创建新模板或记录时都应更新模块。
+   - 继承视图的 *XML IDs* 应使用与原始记录相同的 *ID*。这样可以一目了然地找到所有继承关系。由于最终的 *XML IDs* 由创建它们的模块添加前缀，因此不存在重叠。
 
-Expressions
------------
+表达式
+----------
 
-XPath uses path expressions to select nodes in an XML document. Selectors are used inside the
-expression to target the right element. The most useful ones are listed below.
+XPath 使用路径表达式选择 XML 文档中的节点。选择器用于表达式内以目标元素。以下列出了最有用的选择器。
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Descendent selectors
-     - Description
+   * - 后代选择器
+     - 描述
    * - /
-     - Selects from the root node.
+     - 从根节点选择。
    * - //
-     - Selects nodes in the document from the current node that matches the selection no matter
-       where they are.
+     - 从当前节点中选择符合条件的节点，无论它们位于何处。
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute selectors
-     - Description
+   * - 属性选择器
+     - 描述
    * - \*
-     - Selects any XML tag. `*` can be replaced by a specific tag if the selection needs to be
-       more precise.
+     - 选择任意 XML 标签。`*` 可被更精确的标签替代。
    * - \*[@id="id"]
-     - Selects a specific ID.
+     - 选择特定的 ID。
    * - \*[hasclass("class")]
-     - Selects a specific class.
+     - 选择特定类。
    * - \*[@name="name"]
-     - Selects a tag with a specific name.
+     - 选择具有特定名称的标签。
    * - \*[@t-call="t-call"]
-     - Selects a specific t-call.
+     - 选择特定的 t-call。
 
-Position
+位置
 --------
 
-The position defines where the code is placed inside the template. The possible values are listed
-below:
+位置定义了代码在模板中的放置位置。可能的值如下所示：
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Position
-     - Description
+   * - 位置
+     - 描述
    * - replace
-     - Replaces the targeted node with the XPath content.
+     - 用 XPath 内容替换目标节点。
    * - inside
-     - Adds the XPath content inside the targeted node.
+     - 在目标节点内添加 XPath 内容。
    * - before
-     - Adds the XPath content before the targeted node.
+     - 在目标节点之前添加 XPath 内容。
    * - after
-     - Adds the XPath content after the targeted node.
+     - 在目标节点之后添加 XPath 内容。
    * - attributes
-     - Adds the XPath content inside an attribute.
+     - 在属性中添加 XPath 内容。
 
 .. example::
-   This XPath adds a `<div>` before the `<nav>` that is a direct child of the `<header>`.
+   该 XPath 在 `<header>` 的 `<nav>` 直接子元素之前添加了一个 `<div>`。
 
    .. code-block:: xml
 
       <xpath expr="//header/nav" position="before">
-         <div>Some content before the header</div>
+         <div>页眉前的一些内容</div>
       </xpath>
 
-   This XPath adds `x_airproof_header` in the class attribute of the header. You also need to define
-   a `separator` attribute to add a space before the class you are adding.
+   该 XPath 在页眉的 class 属性中添加了 `x_airproof_header`。你还需要定义一个 `separator` 属性以在你添加的类之前添加空格。
 
    .. code-block:: xml
 
@@ -179,8 +164,7 @@ below:
          <attribute name="class" add="x_airproof_header" separator=" "/>
       </xpath>
 
-   This XPath removes `x_airproof_header` in the class attribute of the header. In this case, you
-   don't need to use the `separator` attribute.
+   该 XPath 从页眉的 class 属性中移除了 `x_airproof_header`。在这种情况下，不需要使用 `separator` 属性。
 
    .. code-block:: xml
 
@@ -188,38 +172,37 @@ below:
          <attribute name="class" remove="x_airproof_header" />
       </xpath>
 
-   This XPath removes the first element with a `.breadcrumb` class.
+   该 XPath 移除了第一个带有 `.breadcrumb` 类的元素。
 
    .. code-block:: xml
 
       <xpath expr="//*[hasclass('breadcrumb')]" position="replace"/>
 
-   This XPath adds an extra `<li>` element after the last child of the `<ul>` element.
+   该 XPath 在 `<ul>` 元素的最后一个子元素之后添加了一个额外的 `<li>` 元素。
 
    .. code-block:: xml
 
       <xpath expr="//ul" position="inside">
-         <li>Last element of the list</li>
+         <li>列表的最后一个元素</li>
       </xpath>
 
 .. seealso::
-   You can find more information about XPath in this `cheat sheet <https://devhints.io/xpath>`_.
+   你可以在这个 `cheat sheet <https://devhints.io/xpath>`_ 中找到更多关于 XPath 的信息。
 
 QWeb
 ====
 
-QWeb is the primary templating engine used by Odoo. It is an XML templating engine mainly used to
-generate HTML fragments and pages.
+QWeb 是 Odoo 使用的主要模板引擎。它是一个 XML 模板引擎，主要用于生成 HTML 片段和页面。
 
 .. seealso::
-   :doc:`QWeb templates documentation <../../reference/frontend/qweb>`.
+   :doc:`QWeb 模板文档 <../../reference/frontend/qweb>`。
 
-Background
+背景
 ==========
 
-You can define a color or an image as the background of your website.
+你可以定义颜色或图片作为你网站的背景。
 
-**Colors**
+**颜色**
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/primary_variables.scss``
@@ -233,7 +216,7 @@ You can define a color or an image as the background of your website.
        )
    );
 
-**Image/pattern**
+**图片/图案**
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/primary_variables.scss``
@@ -245,19 +228,18 @@ You can define a color or an image as the background of your website.
       )
    );
 
-Header
+页眉
 ======
 
-By default, the header contains a responsive navigation menu and the company's logo. You can easily
-add new elements or create your own template.
+默认情况下，页眉包含一个响应式导航菜单和公司的标志。你可以轻松添加新元素或创建自己的模板。
 
-Standard
+标准
 --------
 
-Enable one of the header default templates.
+启用默认页眉模板之一。
 
 .. important::
-   Don't forget that you may need to disable the active header template first.
+   不要忘记你可能需要先禁用活动的页眉模板。
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/primary_variables.scss``
@@ -275,17 +257,17 @@ Enable one of the header default templates.
       <field name="active" eval="True"/>
    </record>
 
-Custom
+自定义
 ------
 
-Create your own template and add it to the list.
+创建你自己的模板并将其添加到列表中。
 
 .. important::
-   Don't forget that you may need to disable the active header template first.
+   不要忘记你可能需要先禁用活动的页眉模板。
 
-**Option**
+**选项**
 
-Use the following code to add an option for your new custom header on the Website Builder.
+使用以下代码在网站构建器中为你的新自定义页眉添加选项。
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/presets.xml``
@@ -303,17 +285,16 @@ Use the following code to add an option for your new custom header on the Websit
    :stub-columns: 1
    :widths: 20 80
 
-   * - Attribute
-     - Description
+   * - 属性
+     - 描述
    * - data-customize-website-views
-     - The template to enable
+     - 要启用的模板
    * - data-customize-website-variable
-     - The name given to the variable
+     - 赋予变量的名称
    * - data-img
-     - The thumbnail of the custom template shown in the templates selection on the Website Builder
+     - 网站构建器中的模板缩略图
 
-Now you have to explicitly define that you want to use your custom template in the Odoo SASS
-variables.
+你现在必须在 Odoo SASS 变量中显式定义你要使用的自定义模板。
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/primary_variables.scss``
@@ -324,7 +305,7 @@ variables.
       ),
    );
 
-**Layout**
+**布局**
 
 .. code-block:: xml
    :caption: ``/website_airproof/views/website_templates.xml``
@@ -337,19 +318,19 @@ variables.
       <field name="mode">extension</field>
       <field name="arch" type="xml">
          <xpath expr="//header//nav" position="replace">
-            <!-- Static Content -->
-            <!-- Components -->
-            <!-- Editable areas -->
+            <!-- 静态内容 -->
+            <!-- 组件 -->
+            <!-- 可编辑区域 -->
          </xpath>
       </field>
    </record>
 
-Components
+组件
 ----------
 
-In your custom header, you can call several sub-templates using the `t-call` directive from QWeb:
+在你的自定义页眉中，你可以使用 QWeb 的 `t-call` 指令调用几个子模板：
 
-Logo
+徽标
 ~~~~
 
 .. code-block:: xml
@@ -358,7 +339,7 @@ Logo
       <t t-set="_link_class" t-valuef="..."/>
    </t>
 
-Don't forget to record the logo of your website in the database.
+不要忘记在数据库中记录你网站的徽标。
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/images.xml``
@@ -367,7 +348,7 @@ Don't forget to record the logo of your website in the database.
       <field name="logo" type="base64" file="website_airproof/static/src/img/content/logo.png"/>
    </record>
 
-Menu
+菜单
 ~~~~
 
 .. code-block:: xml
@@ -379,7 +360,7 @@ Menu
       </t>
    </t>
 
-Sign in
+登录
 ~~~~~~~
 
 .. code-block:: xml
@@ -389,7 +370,7 @@ Sign in
       <t t-set="_link_class" t-valuef="nav-link"/>
    </t>
 
-User dropdown
+用户下拉菜单
 ~~~~~~~~~~~~~
 
 .. code-block:: xml
@@ -403,8 +384,8 @@ User dropdown
       <t t-set="_dropdown_menu_class" t-valuef="..."/>
    </t>
 
-Language selector
-~~~~~~~~~~~~~~~~~
+语言选择器
+~~~~~~~~~~~~~
 
 .. code-block:: xml
 
@@ -412,7 +393,7 @@ Language selector
       <t t-set="_div_classes" t-valuef="..."/>
    </t>
 
-Call to action
+行动呼吁
 ~~~~~~~~~~~~~~
 
 .. code-block:: xml
@@ -421,7 +402,7 @@ Call to action
       <t t-set="_div_classes" t-valuef="..."/>
    </t>
 
-Navbar toggler
+导航栏切换器
 ~~~~~~~~~~~~~~
 
 .. code-block:: xml
@@ -431,20 +412,17 @@ Navbar toggler
    </t>
 
 .. seealso::
-   You can add a :ref:`header overlay <header_overlay>` to position your header over the content of
-   your page. It has to be done on each page individually.
+   你可以添加 :ref:`header overlay <header_overlay>` 将你的页眉定位于页面内容上方。此操作需要在每个页面上单独完成。
 
-Footer
+页脚
 ======
 
-By default, the footer contains a section with some static content. You can easily add new elements
-or create your own template.
+默认情况下，页脚包含一个静态内容部分。你可以轻松添加新元素或创建自己的模板。
 
-Standard
+标准
 --------
 
-Enable one of the default footer templates. Don't forget that you may need to disable the active
-footer template first.
+启用默认页脚模板之一。不要忘记你可能需要先禁用活动的页脚模板。
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/primary_variables.scss``
@@ -462,13 +440,12 @@ footer template first.
       <field name="active" eval="True"/>
    </record>
 
-Custom
+自定义
 ------
 
-Create your own template and add it to the list. Don't forget that you may need to disable the
-active footer template first.
+创建你自己的模板并将其添加到列表中。不要忘记你可能需要先禁用活动的页脚模板。
 
-**Option**
+**选项**
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/presets.xml``
@@ -482,7 +459,7 @@ active footer template first.
       </xpath>
    </template>
 
-**Declaration**
+**声明**
 
 .. code-block:: scss
    :caption: ``/website_airproof/static/src/scss/primary_variables.scss``
@@ -493,7 +470,7 @@ active footer template first.
       ),
    );
 
-**Layout**
+**布局**
 
 .. code-block:: xml
     :caption: ``/website_airproof/views/website_templates.xml``
@@ -507,18 +484,18 @@ active footer template first.
        <field name="arch" type="xml">
           <xpath expr="//div[@id='footer']" position="replace">
              <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
-                <!-- Content -->
+                <!-- 内容 -->
              </div>
           </xpath>
        </field>
     </record>
 
-Copyright
+版权
 =========
 
-There is only one template available at the moment for the copyright bar.
+目前只有一个模板可用于版权栏。
 
-To replace the content or modify its structure, you can add your own code to the following XPath.
+要替换内容或修改其结构，你可以在以下 XPath 中添加自己的代码。
 
 .. code-block:: xml
     :caption: ``/website_airproof/views/website_templates.xml``
@@ -526,85 +503,81 @@ To replace the content or modify its structure, you can add your own code to the
     <template id="copyright" inherit_id="website.layout">
        <xpath expr="//div[hasclass('o_footer_copyright')]" position="replace">
           <div class="o_footer_copyright" data-name="Copyright">
-             <!-- Content -->
+             <!-- 内容 -->
           </div>
        </xpath>
     </template>
 
-Drop zone
+拖放区域
 =========
 
-Instead of defining the complete layout of a page, you can create building blocks (snippets) and
-let the user choose where to drag and drop them, creating the page layout on their own. We call
-this *modular design*.
+与其定义页面的完整布局，你可以创建构建块（snippets），让用户选择将它们拖放到某处，从而创建页面布局。我们称之为*模块化设计*。
 
-You can define an empty area that the user can fill with snippets.
+你可以定义一个空白区域，用户可以用构建块来填充它。
 
 .. code-block:: xml
 
    <div id="oe_structure_layout_01" class="oe_structure"/>
 
-.. todo:: Missing description in table ...
+.. todo:: 缺少表格中的描述 ...
 
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
    :widths: 20 80
 
-   * - Class
-     - Description
+   * - 类
+     - 描述
    * - oe_structure
-     - Define a drag-and-drop area for the user.
+     - 为用户定义一个拖放区域。
    * - oe_structure_solo
-     - Only one snippet can be dropped in this area.
+     - 该区域只能放置一个构建块。
 
-You can also populate an existing drop zone with your content.
+你也可以用自己的内容填充已有的拖放区域。
 
 .. code-block:: xml
 
     <template id="oe_structure_layout_01" inherit_id="..." name="...">
        <xpath expr="//*[@id='oe_structure_layout_01']" position="replace">
           <div id="oe_structure_layout_01" class="oe_structure oe_structure_solo">
-             <!-- Content -->
+             <!-- 内容 -->
           </div>
        </xpath>
     </template>
 
-Responsive
+响应式设计
 ==========
 
-You can find some hints below to help you make your website responsive.
+以下提示可以帮助你使网站具有响应式设计。
 
 Bootstrap
 ---------
 
 .. seealso::
-   - `Bootstrap documentation on responsive breakpoints
+   - `Bootstrap 响应式断点文档
      <https://getbootstrap.com/docs/4.6/layout/overview/#responsive-breakpoints>`_
-   - `Bootstrap documentation on display property
+   - `Bootstrap display 属性文档
      <https://getbootstrap.com/docs/4.6/utilities/display/>`_
 
-**Font size**
+**字体大小**
 
-As of v4.3.0, Bootstrap ships with the option to enable responsive font sizes, allowing text to
-scale more naturally across device and viewport sizes. Enable them by changing the
-`$enable-responsive-font-sizes` Sass variable to true.
+从 v4.3.0 开始，Bootstrap 提供了启用响应式字体大小的选项，使文本能够更自然地跨设备和视口大小缩放。通过将 `$enable-responsive-font-sizes` Sass 变量设置为 true 来启用它们。
 
 .. seealso::
    `Responsive Font Size GitHub <https://github.com/twbs/rfs/tree/v8.1.0>`_
 
-Website Builder
+网站构建器
 ---------------
 
-Hide a specific `<section>` on mobile.
+在移动设备上隐藏特定的 `<section>`。
 
 .. code-block:: xml
 
     <section class="d-none d-md-block">
-       <!-- Content -->
+       <!-- 内容 -->
     </section>
 
-Hide a `<col>` on mobile.
+在移动设备上隐藏 `<col>`。
 
 .. code-block:: xml
 
@@ -612,7 +585,7 @@ Hide a `<col>` on mobile.
       <div class="container">
          <div class="row d-flex align-items-stretch">
             <div class="col-lg-4 d-none d-md-block">
-               <!-- Content -->
+               <!-- 内容 -->
             </div>
          </div>
       </div>

@@ -1,45 +1,43 @@
 ==========
-Navigation
+导航
 ==========
 
-You can easily modify the navigation with the Website Builder to fit your needs.
+你可以使用网站构建器轻松修改导航以满足你的需求。
 
-In this chapter, you will learn how to:
+在本章中，你将学习如何：
 
-- Delete and create menu items.
-- Create a dropdown menu.
-- Create a mega menu.
+- 删除和创建菜单项。
+- 创建下拉菜单。
+- 创建超级菜单。
 
-Default
+默认
 =======
 
-Odoo automatically generates some basic menu items depending on the apps you installed. For example,
-the Website app adds two items to the main menu. These items are linked to pages, which are also
-automatically created.
+Odoo 会根据你安装的应用自动生成一些基础的菜单项。例如，网站应用会在主菜单中添加两个项目。这些项目链接到自动创建的页面。
 
-Delete default menu items.
+删除默认菜单项。
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/menu.xml``
 
-   <!-- Contact us -->
+   <!-- 联系我们 -->
    <delete model="website.menu" search="[('url','in', ['/', '/contactus']),
    ('website_id', '=', 1)]"/>
 
-   <!-- Shop -->
+   <!-- 商店 -->
    <delete model="website.menu" search="[('url','in', ['/', '/shop']),
    ('website_id', '=', 1)]"/>
 
-Menu item
+菜单项
 =========
 
-**Declaration**
+**声明**
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/menu.xml``
 
    <record id="menu_about_us" model="website.menu">
-       <field name="name">About us</field>
+       <field name="name">关于我们</field>
        <field name="url">/about-us</field>
        <field name="parent_id" search="[
            ('url', '=', '/default-main-menu'),
@@ -53,23 +51,23 @@ Menu item
    :stub-columns: 1
    :widths: 20 80
 
-   * - Field
-     - Description
+   * - 字段
+     - 描述
    * - name
-     - Link text
+     - 链接文本
    * - url
-     - Value of the href attribute
+     - href 属性的值
    * - parent_id
-     - The menu in which the item will be added.
+     - 添加此项的菜单。
    * - website_id
-     - The website on which the item will be added.
+     - 添加此项的网站。
    * - sequence
-     - Defines the link's position in the top menu.
+     - 定义链接在顶级菜单中的位置。
 
-New window
+新窗口
 ----------
 
-Open the link's URL in a new tab.
+在新标签页中打开链接的 URL。
 
 .. code-block:: xml
 
@@ -77,10 +75,10 @@ Open the link's URL in a new tab.
        <field name="new_window" eval="True"/>
    </record>
 
-External Links
+外部链接
 --------------
 
-Add a link to an external website.
+添加指向外部网站的链接。
 
 .. code-block:: xml
 
@@ -88,10 +86,10 @@ Add a link to an external website.
        <field name="url">https://www.odoo.com</field>
    </record>
 
-Anchor
+锚点
 ------
 
-Link to a specific section of a page.
+链接到页面的特定部分。
 
 .. code-block:: xml
 
@@ -99,16 +97,16 @@ Link to a specific section of a page.
        <field name="url">/about-us#our-team</field>
    </record>
 
-Dropdown menu
+下拉菜单
 =============
 
-**Declaration**
+**声明**
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/menu.xml``
 
    <record id="menu_services" model="website.menu">
-       <field name="name">Services</field>
+       <field name="name">服务</field>
        <field name="website_id">1</field>
        <field name="parent_id" search="[
            ('url', '=', '/default-main-menu'),
@@ -116,12 +114,12 @@ Dropdown menu
        <field name="sequence" type="int">...</field>
    </record>
 
-Add an item to a dropdown menu.
+在下拉菜单中添加一项。
 
 .. code-block:: xml
 
    <record id="menu_services_item_1" model="website.menu">
-       <field name="name">Item 1</field>
+       <field name="name">项目 1</field>
        <field name="url">/dropdown/item-1</field>
        <field name="website_id">1</field>
        <field name="parent_id" ref="website_airproof.menu_services"/>
@@ -133,24 +131,23 @@ Add an item to a dropdown menu.
    :stub-columns: 1
    :widths: 20 80
 
-   * - Field
-     - Description
+   * - 字段
+     - 描述
    * - parent_id
-     - The dropdown in which the item will be added.
+     - 将要添加该项的下拉菜单。
 
-Mega menu
+超级菜单
 =========
 
-A mega menu is a dropdown menu with additional possibilities and not just a list of links. In a
-mega menu, you can use any kind of content (text, images, icons, ...).
+超级菜单是具有额外可能性的下拉菜单，而不仅仅是一列链接。在超级菜单中，你可以使用任何内容（文本、图像、图标等）。
 
-**Declaration**
+**声明**
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/menu.xml``
 
    <record id="menu_mega_menu" model="website.menu">
-       <field name="name">Mega Menu</field>
+       <field name="name">超级菜单</field>
        <field name="url">/mega-menu</field>
        <field name="parent_id" search="[
            ('url', '=', '/default-main-menu'),
@@ -160,7 +157,7 @@ mega menu, you can use any kind of content (text, images, icons, ...).
        <field name="is_mega_menu" eval="True"/>
        <field name="mega_menu_classes">...</field>
        <field name="mega_menu_content" type="html">
-           <!-- Content -->
+           <!-- 内容 -->
        </field>
    </record>
 
@@ -169,34 +166,34 @@ mega menu, you can use any kind of content (text, images, icons, ...).
    :stub-columns: 1
    :widths: 20 80
 
-   * - Field
-     - Description
+   * - 字段
+     - 描述
    * - is_mega_menu
-     - Enable the mega menu feature.
+     - 启用超级菜单功能。
    * - mega_menu_classes
-     - Custom classes to be added to the main element
+     - 要添加到主元素的自定义类
    * - mega_menu_content
-     - The default content of the mega menu
+     - 超级菜单的默认内容
 
-Custom template
+自定义模板
 ---------------
 
-Create your own template and add it to the list.
+创建你自己的模板并将其添加到列表中。
 
-**Layout**
+**布局**
 
 .. code-block:: xml
    :caption: ``/website_airproof/views/website_templates.xml``
 
    <template id="s_mega_menu_airproof" name="Airproof" groups="base.group_user">
        <section class="s_mega_menu_airproof o_cc o_cc1 pt40">
-           <!-- Content -->
+           <!-- 内容 -->
        </section>
    </template>
 
-**Option**
+**选项**
 
-Use the following code to add an option for your new custom mega menu on the Website Builder.
+使用以下代码在网站构建器中为你的新自定义超级菜单添加一个选项。
 
 .. code-block:: xml
    :caption: ``/website_airproof/data/presets.xml``

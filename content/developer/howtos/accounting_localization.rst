@@ -1,34 +1,32 @@
-
 =======================
-Accounting localization
+会计本地化
 =======================
 
 .. warning::
 
-    This tutorial requires knowledge about how to build a module in Odoo (see
-    :doc:`../tutorials/server_framework_101`).
+    本教程需要了解如何在 Odoo 中构建模块（参见 :doc:`../tutorials/server_framework_101`）。
 
 
-Installation procedure
+安装步骤
 ======================
 
-On installing the `account <{GITHUB_PATH}/addons/account>`_ module, the localization module corresponding to the country code of the company is installed automatically.
-In case of no country code set or no localization module found, the `l10n_generic_coa <{GITHUB_PATH}/addons/l10n_generic_coa>`_ (US) localization module is installed by default.
-Check `post init hook <{GITHUB_PATH}/addons/account/__init__.py>`_ for details.
+安装 `account <{GITHUB_PATH}/addons/account>`_ 模块时，会根据公司的国家代码自动安装相应的本地化模块。
+如果未设置国家代码或未找到本地化模块，则默认安装 `l10n_generic_coa <{GITHUB_PATH}/addons/l10n_generic_coa>`_（美国）本地化模块。
+有关详细信息，请查看 `post init hook <{GITHUB_PATH}/addons/account/__init__.py>`_。
 
-For example, `l10n_ch <{GITHUB_PATH}/addons/l10n_ch>`_ will be installed if the company has ``Switzerland`` as country.
+例如，如果公司国家是“瑞士”，则会安装 `l10n_ch <{GITHUB_PATH}/addons/l10n_ch>`_ 模块。
 
-Building a localization module
+构建本地化模块
 ==============================
 
-The structure of a basic ``l10n_XX`` module may be described with the following :file:`__manifest__.py` file:
+一个基础的 ``l10n_XX`` 模块的结构可以通过以下 :file:`__manifest__.py` 文件描述：
 
 .. code-block:: python
 
     {
-        "name": "COUNTRY - Accounting",
+        "name": "国家 - 会计",
         "version": "1.0.0",
-        "category": "Accounting/Localizations/Account Charts",
+        "category": "会计/本地化/账户图表",
         "license": "LGPL-3",
         "depends": [
             "account",
@@ -42,7 +40,7 @@ The structure of a basic ``l10n_XX`` module may be described with the following 
         ]
     }
 
-Your worktree should look like this
+您的工作树应如下所示
 
 .. code-block:: bash
 
@@ -64,10 +62,10 @@ Your worktree should look like this
   └── __manifest__.py
 
 
-In the first file :file:`models/template_xx.py`, we set the name for the chart of accounts along with some basic fields.
+在第一个文件 :file:`models/template_xx.py` 中，我们为账户图表设置了名称以及一些基本字段。
 
 .. seealso::
-   :doc:`Chart Template References </developer/reference/standard_modules/account>`
+   :doc:`账户图表模板参考 </developer/reference/standard_modules/account>`
 
 .. example::
   `addons/l10n_be/models/template_be.py <{GITHUB_PATH}/addons/l10n_be/models/template_be.py>`_
@@ -79,20 +77,20 @@ In the first file :file:`models/template_xx.py`, we set the name for the chart o
     :end-before: _get_be_reconcile_model
 
 
-Chart of Accounts
+账户图表
 =================
 
-Account tags
+账户标签
 ------------
 
 .. seealso::
-   :ref:`Account Tag References <reference/account_account_tag>`
+   :ref:`账户标签参考 <reference/account_account_tag>`
 
-Tags are a way to sort accounts.
-For example, imagine you want to create a financial report having multiple lines but you have no way to find a rule to dispatch the accounts according to their ``code``.
-The solution is the usage of tags, one for each report line, to filter accounts like you want.
+标签是一种分类账户的方式。
+例如，假设您想创建一个包含多行的财务报表，但找不到按 ``代码`` 分配账户的规则。
+解决方案是使用标签，每个报表行都有一个标签，用于按您希望的方式过滤账户。
 
-Put the tags in the :file:`data/account_account_tag_data.xml` file.
+将标签放在 :file:`data/account_account_tag_data.xml` 文件中。
 
 .. example::
   `addons/l10n_lt/data/template/account.account-lt.csv <{GITHUB_PATH}/addons/l10n_lt/data/template/account.account-lt.csv>`_
@@ -102,14 +100,14 @@ Put the tags in the :file:`data/account_account_tag_data.xml` file.
     :language: csv
     :end-at: account_account_template_1201
 
-Accounts
+账户
 --------
 
 .. seealso::
-   - :ref:`Account References <reference/account_account>`
+   - :ref:`账户参考 <reference/account_account>`
    - :doc:`/applications/finance/accounting/get_started/chart_of_accounts`
 
-Obviously, :guilabel:`Chart of Accounts` cannot exist without :guilabel:`Accounts`. You need to specify them in :file:`data/account.account.template.csv`.
+显然，:guilabel:`账户图表` 不能没有 :guilabel:`账户` 存在。您需要在 :file:`data/account.account.template.csv` 中指定它们。
 
 .. example::
   `addons/l10n_ch/data/template/account.account-ch.csv <{GITHUB_PATH}/addons/l10n_ch/data/template/account.account-ch.csv>`_
@@ -121,21 +119,21 @@ Obviously, :guilabel:`Chart of Accounts` cannot exist without :guilabel:`Account
 
 .. warning::
 
-    - Avoid the usage of `asset_cash` ``account_type``!
-      Indeed, the bank & cash accounts are created directly at the installation of the localization module and then, are linked to an ``account.journal``.
-    - Only one account of type payable/receivable is enough for the generic case.  We need to define a PoS receivable account as well however. (linked in the CoA)
-    - Don't create too many accounts: 200-300 is enough. But mostly, we try to find a good balance where the CoA needs minimal adapting for most companies afterwards.
+    - 避免使用 `asset_cash` ``account_type``！
+      事实上，银行和现金账户会在安装本地化模块时直接创建，然后链接到 ``account.journal``。
+    - 对于一般情况，一个应付/应收账户就足够了。但是，我们还需要定义一个 PoS 应收账户（在 CoA 中链接）。
+    - 不要创建过多账户：200-300 个足够了。我们试图找到一个平衡点，使 CoA 在大多数公司中只需进行最少的调整。
 
 
-Account groups
+账户组
 --------------
 
 .. seealso::
-   :ref:`Account Group References <reference/account_group>`
+   :ref:`账户组参考 <reference/account_group>`
 
-Account groups allow describing the hierarchical structure of the chart of accounts. The filter needs to be activated in the report and then when you decollapse into journal entries it will show the parents of the account.
+账户组允许描述账户图表的层次结构。过滤器需要在报表中激活，然后当您展开到会计分录时，它将显示账户的父组。
 
-It works with the prefix *start*/*end*, so every account where the code starts with something between *start* and *end* will have this ``account.group`` as the parent group.  Furthermore, the account groups can have a parent account group as well to form the hierarchy.
+它使用前缀 *start*/*end*，因此每个代码以 *start* 到 *end* 之间的内容开头的账户将具有该 ``account.group`` 作为父组。此外，账户组还可以有父账户组，以形成层次结构。
 
 
 .. example::
@@ -147,15 +145,15 @@ It works with the prefix *start*/*end*, so every account where the code starts w
      :widths: 20,20,20,20,20
      :header-rows: 1
 
-Taxes
+税收
 -----
 
 .. seealso::
-   - :ref:`Tax References <reference/account_tax>`
+   - :ref:`税务参考 <reference/account_tax>`
    - :doc:`/applications/finance/accounting/taxes/`
 
-To add taxes you first need to specify tax groups. You normally need just one tax group for every tax rate, except for the 0% as you need to often distinguish between exempt, 0%, not subject, ... taxes.
-This model only has two required fields: `name` and `country`. Create the file :file:`data/template/account.tax.group-xx.csv` and list the groups.
+要添加税收，首先需要指定税组。每种税率通常只需要一个税组，除了 0% 税率，因为您需要区分免税、0%、不适用等税种。
+该模型只有两个必填字段：`name` 和 `country`。创建文件 :file:`data/template/account.tax.group-xx.csv` 并列出这些组。
 
 .. example::
   `addons/l10n_uk/data/template/account.tax.group-uk.csv <{GITHUB_PATH}/addons/l10n_uk/data/template/account.tax.group-uk.csv>`_
@@ -165,7 +163,7 @@ This model only has two required fields: `name` and `country`. Create the file :
     :language: csv
 
 
-Now you can add the taxes via :file:`data/template/account.tax-xx.csv` file.  The first tax you define that is purchase/sale also becomes the default purchase/sale tax for your products.
+现在，您可以通过 :file:`data/template/account.tax-xx.csv` 文件添加税收。第一个定义的采购/销售税也将成为产品的默认采购/销售税。
 
 
 .. example::
@@ -177,34 +175,34 @@ Now you can add the taxes via :file:`data/template/account.tax-xx.csv` file.  Th
     :end-at: uae_sale_tax_5_ras_al_khaima
 
 
-Tax Report
+税务报告
 ----------
 
 .. raw:: html
 
-   <div><span class="badge" style="background-color:#AD5E99">Enterprise feature</span><div>
+   <div><span class="badge" style="background-color:#AD5E99">企业功能</span><div>
 
-The tax report is declared in the :guilabel:`Invoicing` (`account`) app, but the report is only accessible when :guilabel:`Accounting` (`account_accountant`) is installed.
+税务报告在 :guilabel:`开票`（`account`）应用中声明，但仅在安装了 :guilabel:`会计`（`account_accountant`）时才能访问。
 
 .. seealso::
    - :doc:`/developer/reference/standard_modules/account/account_report_line`
    - :doc:`/applications/finance/accounting/reporting/tax_returns`
 
-In the previous section, you noticed the fields `invoice_repartition_line_ids` or `refund_repartition_line_ids` and probably understood nothing about them. Good news: you are not alone on this incomprehension. Bad news: you have to figure it out a bit. The topic is complicated. Indeed:
+在上一部分中，您可能注意到了字段 `invoice_repartition_line_ids` 或 `refund_repartition_line_ids`，并可能不太理解它们。好消息是：您并不是唯一不理解的人。坏消息是：您需要自己理解一部分。这个话题确实比较复杂。
 
 .. graphviz:: accounting_localization/tax_report.dot
     :class: overflow-auto
 
-The simple version is that, in the tax template, you indicate in the invoice/refund repartition lines whether the base or a percentage of the tax needs to be reported in which report line (through the *minus/plus_report_line_ids* fields).
-It becomes clear also when you check the tax configuration in the Odoo interface (or check the docs :ref:`Tax References <reference/account_tax>`, :ref:`Tax Repartition References <reference/account_tax_repartition>`).
+简单来说，在税务模板中，您可以在发票/退款分配行中指示是否需要在哪个报表行中报告基数或税率的百分比（通过 *minus/plus_report_line_ids* 字段）。
+您可以在 Odoo 界面中检查税务配置，或者查看文档 :ref:`税务参考 <reference/account_tax>`、:ref:`税务分配参考 <reference/account_tax_repartition>`。
 
-So, once you have properly configured taxes, you just need to add the :file:`data/account_tax_report_data.xml` file with a record for your `account.report`. For it to be considered as a tax report, you need to provide it with the right `root_report_id`.
+因此，一旦您正确配置了税务，您只需添加包含 `account.report` 记录的 :file:`data/account_tax_report_data.xml` 文件。要将其视为税务报告，您需要为其提供正确的 `root_report_id`。
 
 .. code-block:: xml
 
     <odoo>
         <record id="tax_report" model="account.report">
-            <field name="name">Tax Report</field>
+            <field name="name">税务报告</field>
             <field name="root_report_id" ref="account.generic_tax_report"/>
             <field name="country_id" ref="base.XX"/>
         </record>
@@ -212,7 +210,7 @@ So, once you have properly configured taxes, you just need to add the :file:`dat
         ...
     </odoo>
 
-... followed by the declaration of its lines, as `account.report.line` records.
+... 之后跟着 `account.report.line` 记录的行声明。
 
 .. example::
   `addons/l10n_au/data/account_tax_report_data.xml <{GITHUB_PATH}/addons/l10n_au/data/account_tax_report_data.xml>`_
@@ -224,15 +222,14 @@ So, once you have properly configured taxes, you just need to add the :file:`dat
     :end-before: account_tax_report_gstrpt_g3
 
 
-
-Fiscal positions
+税务位置
 ----------------
 
 .. seealso::
-   - :ref:`Fiscal Position References <reference/account_fiscal_position>`
+   - :ref:`税务位置参考 <reference/account_fiscal_position>`
    - :doc:`/applications/finance/accounting/taxes/fiscal_positions`
 
-Specify fiscal positions in the :file:`data/template/account.fiscal.position-xx.csv` file.
+在 :file:`data/template/account.fiscal.position-xx.csv` 文件中指定税务位置。
 
 .. example::
   `addons/l10n_es/data/template/account.fiscal.position-es_common.csv <{GITHUB_PATH}/addons/l10n_es/data/template/account.fiscal.position-es_common.csv>`_
@@ -242,10 +239,10 @@ Specify fiscal positions in the :file:`data/template/account.fiscal.position-xx.
     :language: csv
     :end-at: account_tax_template_p_iva10_sp_ex
 
-Final steps
+最后步骤
 ===========
 
-Finally, you may add a demo company, so the localization can easily be tested in demo mode.
+最后，您可以添加一个演示公司，以便在演示模式下轻松测试本地化模块。
 
 .. example::
   `addons/l10n_ch/demo/demo_company.xml <{GITHUB_PATH}/addons/l10n_ch/demo/demo_company.xml>`_
@@ -256,26 +253,26 @@ Finally, you may add a demo company, so the localization can easily be tested in
     :start-after: <odoo>
     :end-before: </odoo>
 
-Accounting reports
+会计报表
 ==================
 
 .. raw:: html
 
-   <div><span class="badge" style="background-color:#AD5E99">Enterprise feature</span><div>
+   <div><span class="badge" style="background-color:#AD5E99">企业功能</span><div>
 
 .. seealso::
   :doc:`/applications/finance/accounting/reporting`
 
-Accounting reports should be added via a separate module `l10n_XX_reports` that should go to the `enterprise repository <{GITHUB_ENT_PATH}>`_.
+会计报表应通过一个独立模块 `l10n_XX_reports` 添加，该模块应放入 `enterprise repository <{GITHUB_ENT_PATH}>`_。
 
-Basic :file:`__manifest__.py` file for such a module looks as following:
+此类模块的基础 :file:`__manifest__.py` 文件如下所示：
 
 
 .. code-block:: python
 
     {
-        "name": "COUNTRY - Accounting Reports",
-        "category": "Accounting/Localizations/Reporting",
+        "name": "国家 - 会计报表",
+        "category": "会计/本地化/报表",
         "version": "1.0.0",
         "license": "OEEL-1",
         "depends": [
@@ -289,27 +286,20 @@ Basic :file:`__manifest__.py` file for such a module looks as following:
     }
 
 
-Functional overview of financial reports is here: :doc:`/applications/finance/accounting/reporting`.
+财务报表的功能概述在此：:doc:`/applications/finance/accounting/reporting`。
 
-Some good examples:
+一些好的示例：
 
 * `l10n_ch_reports/data/account_financial_html_report_data.xml <{GITHUB_ENT_PATH}/l10n_ch_reports/data/account_financial_html_report_data.xml>`_
 * `l10n_be_reports/data/account_financial_html_report_data.xml <{GITHUB_ENT_PATH}/l10n_be_reports/data/account_financial_html_report_data.xml>`_
 
-You can check the meaning of the fields here:
+您可以在这里查看字段的含义：
 
 * :doc:`/developer/reference/standard_modules/account/account_report`
 * :doc:`/developer/reference/standard_modules/account/account_report_line`
 
-If you gave a `root_report_id` to your report, it is now available in its variant selector. If not,
-you still need to add a menu item for it. A default menu item can be created from the form view of
-the report by clicking on :menuselection:`Actions --> Create Menu Item`. You will then need to
-refresh the page to see it. Alternatively, to create a dedicated section for a totally new report in
-the :guilabel:`Reporting` menu, you need to create a new `ir.ui.menu` record (usually in the main
-`l10n_XX` module) and a new `ir.actions.client` (usually in the new report XML file) that calls the
-`account.report` with  the new **report id**. Then, set the new menu as `parent_id` field in the
-action model.
+如果您为报表提供了 `root_report_id`，它现在可以在其变体选择器中使用。如果没有，您仍然需要为其添加一个菜单项。您可以通过单击 :menuselection:`操作 --> 创建菜单项` 从报表的表单视图中创建默认菜单项。然后，您需要刷新页面以查看它。或者，要为完全新报表在 :guilabel:`报表` 菜单中创建一个专门的部分，您需要在主 `l10n_XX` 模块中创建一个新的 `ir.ui.menu` 记录，并在新的报表 XML 文件中创建一个新的 `ir.actions.client`，该文件调用 `account.report` 并带有新的 **report id**。然后，在操作模型中将新的菜单设置为 `parent_id` 字段。
 
 .. example::
-   * `ir.ui.menu creation <{GITHUB_PATH}/addons/l10n_be/data/menuitem_data.xml>`_
-   * `ir.actions.client and menu item creation <{GITHUB_ENT_PATH}/l10n_be_reports/data/partner_vat_listing.xml>`_
+   * `ir.ui.menu 创建 <{GITHUB_PATH}/addons/l10n_be/data/menuitem_data.xml>`_
+   * `ir.actions.client 和菜单项创建 <{GITHUB_ENT_PATH}/l10n_be_reports/data/partner_vat_listing.xml>`_
