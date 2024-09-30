@@ -1,219 +1,158 @@
 =======================
-Restrict access to data
+限制数据访问
 =======================
 
 .. important::
-   This tutorial is an extension of the :doc:`server_framework_101` tutorial. Make sure you have
-   completed it and use the `estate` module you have built as a base for the exercises in this
-   tutorial.
+   本教程是 :doc:`server_framework_101` 教程的扩展。请确保您已经完成该教程，并使用您构建的 `estate` 模块作为本教程中的练习基础。
 
-So far we have mostly concerned ourselves with implementing useful features.
-However in most business scenarios *security* quickly becomes a concern:
-currently,
+到目前为止，我们主要关注的是实现有用的功能。然而，在大多数业务场景中，*安全性* 很快就会成为一个问题：目前，
 
-* Any employee (which is what ``group_user`` stands for) can create, read,
-  update or delete properties, property types, or property tags.
-* If ``estate_account`` is installed then only agents allowed to interact
-  with invoicing can confirm sales as that's necessary to :ref:`create an
-  invoice <tutorials/server_framework_101/13_other_module/create>`.
+* 任何员工（即 `group_user`）都可以创建、读取、更新或删除物业、物业类型或物业标签。
+* 如果安装了 `estate_account`，则只有允许处理发票的代理才能确认销售，因为这是 :ref:`创建发票 <tutorials/server_framework_101/13_other_module/create>` 的必要条件。
 
-However:
+然而：
 
-* We do not want third parties to be able to access properties directly.
-* Not all our employees may be real-estate agents (e.g. administrative
-  personnel, property managers, ...), we don't want non-agents to see the
-  available properties.
-* Real-estate agents don't need or get to decide what property types or tags are
-  *available*.
-* Real-estate agents can have *exclusive* properties, we do not want one agent
-  to be able to manage another's exclusives.
-* All real-estate agents should be able to confirm the sale of a property they
-  can manage, but we do not want them to be able to validate or mark as paid
-  any invoice in the system.
+* 我们不希望第三方可以直接访问物业。
+* 并非所有员工都是房地产经纪人（例如行政人员、物业经理等），我们不希望非代理看到可用的物业。
+* 房地产代理不需要或不应该决定哪些物业类型或标签是 *可用* 的。
+* 房地产代理可以有 *独家* 物业，我们不希望一个代理能够管理另一个代理的独家物业。
+* 所有房地产代理都应该能够确认他们可以管理的物业的销售，但我们不希望他们能够验证或标记系统中的任何发票为已支付。
 
 .. note::
 
-    We may actually be fine with some or most of these for a small business.
+    对于小型企业来说，我们可能对其中的一些或大多数要求都无所谓。
 
-    Because it's easier for users to disable unnecessary security rules than it
-    is to create them from nothing, it's better to err on the side of caution
-    and limit access: users can relax that access if necessary or convenient.
+    由于为用户禁用不必要的安全规则比从头创建它们更容易，因此我们倾向于保守限制访问：用户可以根据需要或方便时放宽访问权限。
 
-Groups
+用户组
 ======
 
 .. seealso::
 
-    The documentation related to this topic can be found in :ref:`the security
-    reference <reference/security>`.
+    与此主题相关的文档可以在 :ref:`安全参考 <reference/security>` 中找到。
 
-    :doc:`/contributing/development/coding_guidelines` document the format and
-    location of master data items.
+    :doc:`/contributing/development/coding_guidelines` 记录了主数据项的格式和位置。
 
-.. admonition:: **Goal**
+.. admonition:: **目标**
 
-    At the end of this section,
+    本节结束时，
 
-    - We can make employees *real-estate agents* or *real-estate managers*.
-    - The ``admin`` user is a real-estate manager.
-    - We have a new *real-estate agent* employee with no access to invoicing
-      or administration.
+    - 我们可以将员工设置为 *房地产代理* 或 *房地产经理*。
+    - ``admin`` 用户是房地产经理。
+    - 我们有一个新的 *房地产代理* 员工，没有发票或管理权限。
 
-It would not be practical to attach individual security rules to employees any
-time we need a change so *groups* link security rules and users. They correspond
-to roles that can be assigned to employees.
+将个别安全规则与员工关联在一起，每次需要更改时都进行调整并不实际，因此 *用户组* 将安全规则与用户关联。它们对应于可以分配给员工的角色。
 
-For most Odoo applications [#app]_ a good baseline is to have *user* and
-*manager* (or administrator) roles: the manager can change the configuration of
-the application and oversee the entirety of its use while the user can well,
-use the application [#appuser]_.
+对于大多数 Odoo 应用程序 [#app]_ 来说，一个好的基线是有 *用户* 和 *经理*（或管理员）角色：经理可以更改应用程序的配置并监督其所有使用情况，而用户则可以使用应用程序 [#appuser]_。
 
-This baseline seems sufficient for us:
+这个基线对我们来说似乎足够了：
 
-* Real estate managers can configure the system (manage available types and
-  tags) as well as oversee every property in the pipeline.
-* Real estate agents can manage the properties under their care, or properties
-  which are not specifically under the care of any agent.
+* 房地产经理可以配置系统（管理可用的类型和标签）以及监督所有的物业。
+* 房地产代理可以管理他们负责的物业，或者管理未指定代理负责的物业。
 
-In keeping with Odoo's data-driven nature, a group is no more than a record of
-the ``res.groups`` model. They are normally part of a module's :doc:`master data
-<define_module_data>`, defined in one of the module's data files.
+根据 Odoo 的数据驱动特性，用户组不过是 ``res.groups`` 模型的记录。它们通常是模块的 :doc:`主数据 <define_module_data>` 的一部分，在模块的某个数据文件中定义。
 
-As simple example `can be found here <https://github.com/odoo/odoo/blob/532c083cbbe0ee6e7a940e2bdc9c677bd56b62fa/addons/hr/security/hr_security.xml#L9-L14>`_.
+一个简单的例子 `可以在这里找到 <https://github.com/odoo/odoo/blob/532c083cbbe0ee6e7a940e2bdc9c677bd56b62fa/addons/hr/security/hr_security.xml#L9-L14>`_。
 
 .. exercise::
 
-    #. Create the ``security.xml`` file in the appropriate folder and add it to the ``__manifest__.py`` file.
+    #. 在合适的文件夹中创建 ``security.xml`` 文件，并将其添加到 ``__manifest__.py`` 文件中。
 
-    #. If not already, add a ``'category'`` field to your ``__manifest__.py`` with value ``Real Estate/Brokerage``.
+    #. 如果尚未完成，请在 ``__manifest__.py`` 文件中添加一个 `category` 字段，值为 ``Real Estate/Brokerage``。
 
-    #. Add a record creating a group with the id ``estate_group_user``, the name "Agent"
-       and the category ``base.module_category_real_estate_brokerage``.
+    #. 添加一个记录，创建 id 为 ``estate_group_user`` 的用户组，名称为 "Agent"，类别为 ``base.module_category_real_estate_brokerage``。
 
-    #. Below that, add a record creating a group with the id ``estate_group_manager``,
-       the name "Manager" and the category ``base.module_category_real_estate_brokerage``.
-       The ``estate_group_manager`` group needs to imply ``estate_group_user``.
+    #. 在下方添加另一个记录，创建 id 为 ``estate_group_manager`` 的用户组，名称为 "Manager"，类别为 ``base.module_category_real_estate_brokerage``。``estate_group_manager`` 用户组需要隐含 ``estate_group_user``。
 
     .. note::
 
-        Where does that **category** comes from ? It's a *module category*.
-        Here we used the category id ``base.module_category_real_estate_brokerage``
-        which was automatically generated by Odoo based on the `category` set in the ``__manifest__.py`` of the module.
-        You can also find here the list of
-        `default module categories <https://github.com/odoo/odoo/blob/71da80deb044852a2af6b111d695f94aad7803ac/odoo/addons/base/data/ir_module_category_data.xml>`_
-        provided by Odoo.
+        这个 **category** 从哪里来？它是一个 *模块类别*。这里我们使用了 id 为 ``base.module_category_real_estate_brokerage`` 的类别，这是 Odoo 根据模块的 ``__manifest__.py`` 文件中设置的 `category` 自动生成的。
+        你也可以在这里找到 Odoo 提供的 `默认模块类别列表 <https://github.com/odoo/odoo/blob/71da80deb044852a2af6b111d695f94aad7803ac/odoo/addons/base/data/ir_module_category_data.xml>`_。
 
     .. tip::
 
-        Since we modified data files, remember to restart Odoo and update the
-        module using ``-u estate``.
+        由于我们修改了数据文件，请记得重新启动 Odoo 并使用 ``-u estate`` 更新模块。
 
-    If you go to :menuselection:`Settings --> Manage Users` and open the
-    ``admin`` user ("Mitchell Admin"), you should see a new section:
+    如果你进入 :menuselection:`设置 --> 管理用户` 并打开 ``admin`` 用户（"Mitchell Admin"），你应该会看到一个新的部分：
 
     .. figure:: restrict_data_access/groups.png
 
-    Set the admin user to be a *Real Estate manager*.
+    将 admin 用户设置为 *房地产经理*。
 
 .. exercise::
 
-    Via the web interface, create a new user with only the "real estate agent"
-    access. The user should not have any Invoicing or Administration access.
+    通过 Web 界面，创建一个仅具有 "房地产代理" 访问权限的新用户。该用户不应有任何发票或管理权限。
 
-    Use a private tab or window to log in with the new user (remember to set
-    a password), as the real-estate agent you should only see the real estate
-    application, and possibly the Discuss (chat) application:
+    使用隐私模式或窗口以新用户身份登录（记得设置密码），作为房地产代理，你应该只看到房地产应用程序，可能还有讨论（聊天）应用程序：
 
     .. figure:: restrict_data_access/agent.png
 
-Access Rights
+访问权限
 =============
 
-.. seealso:: The documentation related to this topic can be found at
-             :ref:`reference/security/acl`.
+.. seealso:: 与此主题相关的文档可以在 :ref:`参考/安全/acl <reference/security/acl>` 中找到。
 
-.. admonition:: **Goal**
+.. admonition:: **目标**
 
-    At the end of this section,
+    本节结束时，
 
-    - Employees who are not at least real-estate agents will not see the
-      real-estate application.
-    - Real-estate agents will not be able to update the property types or tags.
+    - 未被至少设为房地产代理的员工将无法看到房地产应用程序。
+    - 房地产代理将无法更新物业类型或标签。
 
-Access rights were first introduced in :doc:`server_framework_101/04_securityintro`.
+访问权限首次在 :doc:`server_framework_101/04_securityintro` 中介绍。
 
-Access rights are a way to give users access to models *via* groups: associate
-an access right to a group, then all users with that group will have the access.
+访问权限是一种通过用户组赋予用户对模型的访问权限的方式：将访问权限与用户组关联，拥有该用户组的所有用户都将获得相应的访问权限。
 
-For instance we don't want real-estate agents to be able to modify what property
-types are available, so we would not link that access to the "user" group.
+例如，我们不希望房地产代理能够修改可用的物业类型，因此不会将该访问权限与 "用户" 用户组关联。
 
-Access rights can only give access, they can't remove it: when access is
-checked, the system looks to see if *any* access right associated with the user
-(via any group) grants that access.
+访问权限只能赋予权限，不能删除权限：当系统检查访问权限时，它会查看与用户关联的 *任何* 访问权限是否授予了该权限。
 
 ====== ====== ==== ====== ======
-group  create read update delete
+用户组  创建   读取  更新   删除
 ------ ------ ---- ------ ------
 A         X     X
 B               X
 C                     X
 ====== ====== ==== ====== ======
 
-A user with the groups A and C will be able to do anything but delete the object
-while one with B and C will be able to read and update it, but not create or delete it.
+具有 A 和 C 用户组的用户将能够执行除删除之外的所有操作，而具有 B 和 C 用户组的用户将能够读取和更新对象，但不能创建或删除它。
 
 .. note::
 
-    * The group of an access right can be omitted, this means the ACL applies
-      to *every user*, this is a useful but risky fallback as depending on the
-      applications installed it can grant even non-users access to the model.
-    * If no access right applies to a user, they are not granted access
-      (default-deny).
-    * If a menu item points to a model to which a user doesn't have access and
-      has no submenus which the user can see, the menu will not be displayed.
+    * 访问权限的用户组可以省略，这意味着 ACL 适用于 *所有用户*，这是一种有用但风险较大的后备机制，因为根据安装的应用程序，它可能会授予非用户对模型的访问权限。
+    * 如果没有访问权限适用于用户，则不授予访问权限（默认拒绝）。
+    * 如果菜单项指向一个用户无权访问的模型，并且该菜单没有用户可见的子菜单，则菜单不会显示。
 
-.. exercise:: Update the access rights file to:
+.. exercise:: 更新访问权限文件，以便：
 
-    * Give full access to all objects to your Real Estate Manager group.
-    * Give agents (real estate users) only read access to types and tags.
-    * Give nobody the right to delete properties.
-    * Check that your agent user is not able to alter types or tags, or to
-      delete properties, but that they can otherwise create or update
-      properties.
+    * 为您的房地产经理用户组赋予所有对象的全部访问权限。
+    * 为房地产代理（房地产用户）仅赋予读取类型和标签的权限。
+    * 不允许任何人删除物业。
+    * 检查您的代理用户无法更改类型或标签，或删除物业，但他们仍然可以创建或更新物业。
 
     .. warning::
 
-        Remember to give different xids to your ``ir.model.access`` records
-        otherwise they will overwrite one another.
+        请记住为您的 ``ir.model.access`` 记录提供不同的 xids，否则它们将相互覆盖。
 
-Since the "demo" user was not made a real-estate agent or manager, they should
-not even be able to see the real-estate application. Use a private tab or window
-to check for this (the "demo" user has the password "demo").
-
-Record Rules
+由于 "demo" 用户没有被设置为房地产代理或经理，因此他们甚至无法看到房地产应用程序。使用隐私模式或窗口检查这一点（"demo" 用户的密码是 "demo"）。
+记录规则
 ============
 
-.. seealso:: The documentation related to this topic can be found at
-             :ref:`reference/security/rules`.
+.. seealso:: 与此主题相关的文档可以在
+             :ref:`reference/security/rules` 中找到。
 
-.. admonition:: **Goal**
+.. admonition:: **目标**
 
-    At the end of this section, agents will not be able to see the properties
-    exclusive to their colleagues; but managers will still be able to see
-    everything.
+    在本节结束时，代理将无法看到其同事的独家物业；但经理仍然可以看到所有内容。
 
-Access rights can grant access to an entire model but often we need to be
-more specific: while an agent can interact with properties in general we may not
-want them to update or even see properties managed by one of their colleagues.
+访问权限可以授予对整个模型的访问权限，但我们通常需要更具体的限制：虽然代理可以与一般物业互动，但我们可能不希望他们更新甚至看到由其他代理管理的物业。
 
-Record *rules* provide that precision: they can grant or reject access to
-individual records:
+记录 *规则* 提供了这种精确性：它们可以授予或拒绝对个别记录的访问：
 
 .. code-block:: xml
 
     <record id="rule_id" model="ir.rule">
-        <field name="name">A description of the rule's role</field>
+        <field name="name">规则的作用描述</field>
         <field name="model_id" ref="model_to_manage"/>
         <field name="perm_read" eval="False"/>
         <field name="groups" eval="[Command.link(ref('base.group_user'))]"/>
@@ -223,208 +162,137 @@ individual records:
         ]</field>
     </record>
 
-The :ref:`reference/orm/domains` is how access is managed: if the record passes
-then access is granted, otherwise access is rejected.
+:ref:`reference/orm/domains` 通过域的方式管理访问：如果记录通过域的检查，则授予访问权限，否则拒绝访问。
 
 .. tip::
 
-    Because rules tends to be rather complex and not created in bulk, they're
-    usually created in XML rather than the CSV used for access rights.
+    由于规则往往非常复杂，并且通常不会大量创建，因此它们通常通过 XML 而非用于访问权限的 CSV 文件创建。
 
-The rule above:
+上述规则：
 
-* Only applies to the "create", "update" (write) and "delete" (unlink)
-  operations: here we want every employee to be able to see other users' records
-  but only the author / assignee can update a record.
-* Is :ref:`non-global <reference/security/rules/global>` so we can provide an
-  additional rule for e.g. managers.
-* Allows the operation if the current user (``user.id``) is set (e.g. created,
-  or is assigned) on the record, or if the record has no associated user at all.
+* 仅适用于“创建”、“更新”（写入）和“删除”（删除）操作：在这里我们希望所有员工都可以看到其他用户的记录，但只有记录的作者或分配的用户才能更新记录。
+* 是 :ref:`非全局规则 <reference/security/rules/global>`，因此我们可以为例如经理等用户提供附加规则。
+* 如果当前用户（``user.id``）在记录上被设置（例如创建或分配），或者记录没有关联的用户，则允许进行操作。
 
 .. note::
 
-    If no rule is defined or applies to a model and operation, then the
-    operation is allowed (*default-allow*), this can have odd effects
-    if access rights are not set up correctly (are too permissive).
+    如果没有为某个模型和操作定义规则或规则不适用，则允许操作（*默认允许*）。如果访问权限设置不正确（过于宽松），这可能会产生奇怪的效果。
 
 .. exercise::
 
-    Define a rule which limits agents to only being able to see or modify
-    properties which have no salesperson, or for which they are the salesperson.
+    定义一个规则，限制代理只能查看或修改没有销售人员的物业，或他们自己作为销售人员的物业。
 
-    You may want to create a second real-estate agent user, or create a few
-    properties for which the salesperson is a manager or some other user.
+    你可能需要创建第二个房地产代理用户，或者创建一些销售人员为经理或其他用户的物业。
 
-    Verify that your real estate manager(s) can still see all properties. If
-    not, why not? Remember:
+    验证你的房地产经理是否仍然可以查看所有物业。如果不能，为什么？请记住：
 
-        The ``estate_group_manager`` group needs to imply ``estate_group_user``.
+        ``estate_group_manager`` 用户组需要隐含 ``estate_group_user``。
 
-Security Override
+安全覆盖
 =================
 
-Bypassing Security
+绕过安全
 ------------------
 
-.. admonition:: **Goal**
+.. admonition:: **目标**
 
-    At the end of this section, agents should be able to confirm property sales
-    without needing invoicing access.
+    在本节结束时，代理应能够确认物业销售，而无需拥有发票管理权限。
 
-If you try to mark a property as "sold" as the real estate agent, you should get
-an access error:
+如果你尝试以房地产代理的身份将物业标记为“已售”，你应该会收到访问错误：
 
 .. figure:: restrict_data_access/error.png
 
-This happens because ``estate_account`` tries to create an invoice during the
-process, but creating an invoice requires the right to all invoice management.
+这是因为 ``estate_account`` 在此过程中尝试创建发票，而创建发票需要具有所有发票管理的权限。
 
-We want agents to be able to confirm a sale without them having full invoicing
-access, which means we need to *bypass* the normal security checks of Odoo in
-order to create an invoice *despite* the current user not having the right to
-do so.
+我们希望代理能够确认销售，但不希望他们拥有完整的发票管理权限，这意味着我们需要 *绕过* Odoo 的正常安全检查，以便尽管当前用户没有权限，仍然能够创建发票。
 
-There are two main ways to bypass existing security checks in Odoo, either
-wilfully or as a side-effect:
+在 Odoo 中，有两种主要方法可以绕过现有的安全检查，可以是有意为之或作为副作用：
 
-* The ``sudo()`` method will create a new recordset in "sudo mode", this ignores
-  all access rights and record rules (although hard-coded group and user checks
-  may still apply).
-* Performing raw SQL queries will bypass access rights and record rules as a
-  side-effect of bypassing the ORM itself.
+* ``sudo()`` 方法将在“sudo 模式”下创建一个新的记录集，该模式忽略所有访问权限和记录规则（尽管硬编码的用户组和用户检查仍然可能适用）。
+* 执行原始 SQL 查询将通过绕过 ORM 来绕过访问权限和记录规则。
 
 .. exercise::
 
-    Update ``estate_account`` to bypass access rights and rules when creating
-    the invoice.
+    更新 ``estate_account``，在创建发票时绕过访问权限和规则。
 
 .. danger::
 
-    These features should generally be avoided, and only used with extreme care,
-    after having checked that the current user and operation should be able to
-    bypass normal access rights validation.
+    这些功能通常应避免使用，仅在经过极其仔细的检查之后，确认当前用户和操作确实应能够绕过正常的访问权限验证时才使用。
 
-    Operations performed in such modes should also rely on user input as little
-    as possible, and should validate it to the maximum extent they can.
-
-Programmatically checking security
+    以这种模式执行的操作应尽可能减少对用户输入的依赖，并应尽可能多地验证这些输入。
+以编程方式检查安全性
 ----------------------------------
 
-.. admonition:: **Goal**
+.. admonition:: **目标**
 
-    At the end of this section, the creation of the invoice should be resilient
-    to security issues regardless to changes to ``estate``.
+    在本节结束时，发票的创建应能够应对任何与 ``estate`` 相关的安全问题。
 
-In Odoo, access rights and record rules are only checked *when performing data
-access via the ORM* e.g. creating, reading, searching, writing, or unlinking a
-record via ORM methods. Other methods do *not* necessarily check against any
-sort of access rights.
+在 Odoo 中，访问权限和记录规则仅在 *通过 ORM 执行数据访问* 时进行检查，例如通过 ORM 方法创建、读取、搜索、写入或删除记录。其他方法 *不一定* 检查任何形式的访问权限。
 
-In the previous section, we bypassed the record rules when creating the invoice
-in ``action_sold``. This bypass can be reached by any user without any access
-right being checked:
+在上一节中，我们在 ``action_sold`` 中绕过了创建发票时的记录规则。此绕过可以通过任何用户访问，而无需检查任何访问权限：
 
-- Add a print to ``action_sold`` in ``estate_account`` before the creation of
-  the invoice (as creating the invoice accesses the property, therefore triggers
-  an ACL check) e.g.::
+- 在 ``estate_account`` 中的 ``action_sold`` 方法中，在创建发票之前添加一个打印语句（因为创建发票会访问物业，因此触发 ACL 检查），例如::
 
     print(" reached ".center(100, '='))
 
-You should see ``reached`` in your Odoo log, followed by an access error.
+你应该会在 Odoo 日志中看到 ``reached``，随后是一个访问错误。
 
-.. danger:: Just because you're already in Python code does not mean any access
-            right or rule has or will be checked.
+.. danger:: 仅仅因为你已经进入了 Python 代码，并不意味着任何访问权限或规则已经或将被检查。
 
-*Currently* the accesses are implicitly checked by accessing data on ``self`` as
-well as calling ``super()`` (which does the same and *updates* ``self``),
-triggering access errors and cancelling the transaction "uncreating" our
-invoice.
+*目前*，通过访问 ``self`` 上的数据以及调用 ``super()``（它执行相同操作并 *更新* ``self``），隐式地检查了访问权限，这会触发访问错误并取消事务，从而“取消”创建发票。
 
-*However* if this changes in the future, or we add side-effects to the method
-(e.g. reporting the sale to a government agency), or bugs are introduced in
-``estate``, ... it would be possible for non-agents to trigger operations they
-should not have access to.
+*然而*，如果未来发生变化，或者我们在方法中添加了副作用（例如向政府机构报告销售），或者 ``estate`` 中引入了漏洞，……那么不具备权限的用户可能会触发他们不应有权限执行的操作。
 
-Therefore when performing non-CRUD operations, or legitimately bypassing the
-ORM or security, or when triggering other side-effects, it is extremely
-important to perform *explicit security checks*.
+因此，在执行非 CRUD 操作时，或合法绕过 ORM 或安全性时，或者触发其他副作用时，进行 *显式安全检查* 是极其重要的。
 
-Explicit security checks can be performed by:
+可以通过以下方式进行显式安全检查：
 
-* Checking who the current user is (``self.env.user``) and match them against
-  specific models or records.
-* Checking that the current user has specific groups hard-coded to allow or deny
-  an operation (``self.env.user.has_group``).
-* Calling the ``check_access_rights(operation)`` method on a recordset, this
-  verifies whether the current user has access to the model itself.
-* Calling ``check_access_rule(operations)`` on a non-empty recordset, this
-  verifies that the current user is allowed to perform the operation on *every*
-  record of the set.
+* 检查当前用户是谁（``self.env.user``），并将其与特定模型或记录匹配。
+* 检查当前用户是否具有硬编码的特定用户组，以允许或拒绝操作（``self.env.user.has_group``）。
+* 在记录集上调用 ``check_access_rights(operation)`` 方法，该方法验证当前用户是否具有访问该模型的权限。
+* 在非空的记录集上调用 ``check_access_rule(operations)`` 方法，验证当前用户是否被允许对 *每条* 记录执行该操作。
 
-.. warning:: Checking access rights and checking record rules are separate
-             operations, if you're checking record rules you usually want to
-             also check access rights beforehand.
+.. warning:: 检查访问权限和检查记录规则是两个独立的操作，如果你在检查记录规则，你通常也需要提前检查访问权限。
 
 .. exercise::
 
-    Before creating the invoice, use ``check_access_rights`` and
-    ``check_access_rule`` to ensure that the current user can update properties
-    in general as well as the specific property the invoice is for.
+    在创建发票之前，使用 ``check_access_rights`` 和 ``check_access_rule`` 以确保当前用户可以更新一般物业以及发票对应的具体物业。
 
-    Re-run the bypass script, check that the error occurs before the print.
+    重新运行绕过脚本，检查错误是否在打印语句之前发生。
 
 .. _tutorials/restrict_data_access/multicompany:
-
-Multi-company security
+多公司安全性
 ======================
 
 .. seealso::
 
-    :ref:`reference/howtos/company` for an overview of multi-company facilities
-    in general, and :ref:`multi-company security rules <howto/company/security>`
-    in particular.
+    :ref:`reference/howtos/company` 概述了多公司功能，特别是 :ref:`多公司安全规则 <howto/company/security>`。
 
-    Documentation on rules in general can, again, be found at
-    :ref:`reference/security/rules`.
+    关于规则的文档可以在 :ref:`reference/security/rules` 中找到。
 
-.. admonition:: **Goal**
+.. admonition:: **目标**
 
-    At the end of this section, agents should only have access to properties
-    of their agency (or agencies).
+    在本节结束时，代理商只能访问他们所属的机构（或机构）的物业。
 
-For one reason or another we might need to manage our real-estate business
-as multiple companies e.g. we might have largely autonomous agencies, a
-franchise setup, or multiple brands (possibly from having acquired other
-real-estate businesses) which remain legally or financially separate from one
-another.
+由于某种原因，我们可能需要将我们的房地产业务作为多个公司来管理，例如我们可能有较为自主的代理机构、特许经营设置，或多个品牌（可能是通过收购其他房地产业务而来），这些品牌在法律或财务上相互独立。
 
-Odoo can be used to manage multiple companies inside the same system, however
-the actual handling is up to individual modules: Odoo itself provides the tools
-to manage the issue of company-dependent fields and *multi-company rules*,
-which is what we're going to concern ourselves with.
+Odoo 可以用于在同一系统中管理多个公司，然而，具体的处理则由各个模块决定：Odoo 本身提供了处理公司依赖字段和 *多公司规则* 的工具，而这是我们将要关注的重点。
 
-We want different agencies to be "siloed" from one another, with properties
-belonging to a given agency and users (whether agents or managers) only able to
-see properties linked to their agency.
+我们希望不同的代理机构彼此隔离，物业属于特定代理机构，用户（无论是代理商还是经理）只能看到与他们的机构相关的物业。
 
-As before, because this is based on non-trivial records it's easier for a user
-to relax rules than to tighten them so it makes sense to default to a
-relatively stronger security model.
+如前所述，由于这基于复杂的记录，对于用户来说放宽规则比收紧规则更容易，因此采取相对更严格的安全模型是有意义的。
 
-Multi-company rules are simply record rules based on the ``company_ids`` or
-``company_id`` fields:
+多公司规则只是基于 ``company_ids`` 或 ``company_id`` 字段的记录规则：
 
-* ``company_ids`` is all the companies to which the current user has access
-* ``company_id`` is the currently active company (the one the user is currently
-  working in / for).
+* ``company_ids`` 是当前用户有权访问的所有公司
+* ``company_id`` 是当前激活的公司（用户当前工作的公司）。
 
-Multi-company rules will *usually* use the former i.e. check if the record is
-associated with *one* of the companies the user has access to:
+多公司规则 *通常* 使用前者，即检查记录是否与用户有权访问的 *某个* 公司相关：
 
 .. code-block:: xml
 
     <record model="ir.rule" id="hr_appraisal_plan_comp_rule">
-        <field name="name">Appraisal Plan multi-company</field>
+        <field name="name">考核计划多公司</field>
         <field name="model_id" ref="model_hr_appraisal_plan"/>
         <field name="domain_force">[
             '|', ('company_id', '=', False),
@@ -434,84 +302,51 @@ associated with *one* of the companies the user has access to:
 
 .. danger::
 
-    Multi-company rules are usually :ref:`global <reference/security/rules/global>`,
-    otherwise there is a high risk that additional rules would allow bypassing
-    the multi-company rules.
+    多公司规则通常是 :ref:`全局规则 <reference/security/rules/global>`，否则可能会有很高的风险，其他规则可能会绕过多公司规则。
 
 .. exercise::
 
-    * Add a ``company_id`` field to ``estate.property``, it should be required
-      (we don't want agency-less properties), and should default to the current
-      user's current company.
-    * Create a new company, with a new estate agent in that company.
-    * The manager should be a member of both companies.
-    * The old agent should only be a member of the old company.
-    * Create a few properties in each company (either use the company selector
-      as the manager or use the agents). Unset the default salesman to avoid
-      triggering *that* rule.
-    * All agents can see all companies, which is not desirable, add the record
-      rule restricting this behaviour.
+    * 为 ``estate.property`` 添加一个 ``company_id`` 字段，它应为必填字段（我们不希望出现无机构的物业），并且应默认为当前用户的当前公司。
+    * 创建一个新公司，并为该公司添加一个新的房地产代理商。
+    * 经理应是两个公司的成员。
+    * 老代理商应仅为老公司的成员。
+    * 在每个公司中创建一些物业（可以使用经理的公司选择器，也可以使用代理商）。取消设置默认的销售人员，以避免触发 *那条* 规则。
+    * 所有代理商都可以看到所有公司，这是不理想的，添加记录规则来限制此行为。
 
-.. warning:: remember to ``--update`` your module when you change its model or
-             data
+.. warning:: 在更改模型或数据后，记得使用 ``--update`` 参数更新你的模块。
 
-Visibility != security
+可见性 ≠ 安全性
 ======================
 
-.. admonition:: **Goal**
+.. admonition:: **目标**
 
-    At the end of this section, real-estate agents should not see the Settings
-    menu of the real-estate application, but should still be able to set the
-    property type or tags.
+    在本节结束时，房地产代理商不应看到房地产应用程序的设置菜单，但仍应能够设置物业类型或标签。
 
-Specific Odoo models can be associated directly with groups (or companies, or
-users). It is important to figure out whether this association is a *security*
-or a *visibility* feature before using it:
+特定的 Odoo 模型可以直接与用户组（或公司、用户）关联。使用这些关联时，重要的是要弄清楚它们是 *安全* 还是 *可见性* 功能：
 
-* *Visibility* features mean a user can still access the model or record
-  otherwise, either through another part of the interface or by :doc:`performing
-  operations remotely using RPC <../reference/external_api>`, things might just not be
-  visible in the web interface in some contexts.
-* *Security* features mean a user can not access records, fields or operations.
+* *可见性* 功能意味着用户仍然可以通过其他部分的界面访问模型或记录，或者通过 :doc:`使用 RPC 执行操作 <../reference/external_api>`，在某些上下文中，内容可能只是不会在网页界面中显示出来。
+* *安全* 功能意味着用户无法访问记录、字段或操作。
 
-Here are some examples:
+以下是一些示例：
 
-* Groups on *model fields* (in Python) are a security feature, users outside the
-  group will not be able to retrieve the field, or even know it exists.
+* *模型字段* 上的用户组（在 Python 中）是安全功能，组外用户无法检索该字段，甚至不知道它的存在。
 
-  Example: in server actions, `only system users can see or update Python code
-  <https://github.com/odoo/odoo/blob/7058e338a980268df1c502b8b2860bdd8be9f727/odoo/addons/base/models/ir_actions.py#L414-L417>`_.
-* Groups on *view elements* (in XML) are a visibility feature, users outside the
-  group will not be able to see the element or its content in the form but they
-  will otherwise be able to interact with the object (including that field).
+  示例：在服务器操作中，`只有系统用户可以查看或更新 Python 代码 <https://github.com/odoo/odoo/blob/7058e338a980268df1c502b8b2860bdd8be9f727/odoo/addons/base/models/ir_actions.py#L414-L417>`_。
+* *视图元素* 上的用户组（在 XML 中）是可见性功能，组外用户将无法在表单中看到该元素或其内容，但他们仍然可以与对象交互（包括该字段）。
 
-  Example: `only managers have an immediate filter to see their teams' leaves
-  <https://github.com/odoo/odoo/blob/8e19904bcaff8300803a7b596c02ec45fcf36ae6/addons/hr_holidays/report/hr_leave_reports.xml#L16>`_.
-* Groups on menus and actions are visibility features, the menu or action will
-  not be shown in the interface but that doesn't prevent directly interacting
-  with the underlying object.
+  示例：`只有经理有一个直接的筛选器来查看他们团队的请假记录 <https://github.com/odoo/odoo/blob/8e19904bcaff8300803a7b596c02ec45fcf36ae6/addons/hr_holidays/report/hr_leave_reports.xml#L16>`_。
+* 菜单和操作上的用户组是可见性功能，菜单或操作不会在界面中显示，但这并不妨碍直接与底层对象进行交互。
 
-  Example: `only system administrators can see the elearning settings menu
-  <https://github.com/odoo/odoo/blob/ff828a3e0c5386dc54e6a46fd71de9272ef3b691/addons/website_slides/views/website_slides_menu_views.xml#L64-L69>`_.
+  示例：`只有系统管理员可以看到 elearning 设置菜单 <https://github.com/odoo/odoo/blob/ff828a3e0c5386dc54e6a46fd71de9272ef3b691/addons/website_slides/views/website_slides_menu_views.xml#L64-L69>`_。
 
 .. exercise::
 
-    Real Estate agents can not add property types or tags, but can see their
-    options from the Property form view when creating it.
+    房地产代理商无法添加物业类型或标签，但在创建物业时，他们可以在物业表单视图中看到这些选项。
 
-    The Settings menu just adds noise to their interface, make it only
-    visible to managers.
+    设置菜单只会增加他们界面的杂乱感，使其仅对经理可见。
 
-Despite not having access to the Property Types and Property Tags menus anymore,
-agents can still access the underlying objects since they can still select
-tags or a type to set on their properties.
+尽管代理商不再能够访问物业类型和物业标签菜单，但他们仍然可以访问底层对象，因为他们仍然可以为其物业选择标签或类型。
 
-.. [#app] An Odoo Application is a group of related modules covering a business
-          area or field, usually composed of a base module and a number of
-          expansions on that base to add optional or specific features, or link
-          to other business areas.
+.. [#app] Odoo 应用程序是覆盖一个业务领域或领域的相关模块组，通常由一个基础模块和若干扩展模块组成，这些扩展模块为基础模块增加可选或特定的功能，或与其他业务领域相链接。
 
-.. [#appuser] For applications which would be used by most or every employees,
-              the "application user" role might be done away with and its
-              abilities granted to all employees directly e.g. generally all
-              employees can submit expenses or take time off.
+.. [#appuser] 对于可能由大多数或所有员工使用的应用程序，可能不需要“应用程序用户”角色，并将其功能直接授予所有员工，例如通常所有员工都可以提交费用或请假。

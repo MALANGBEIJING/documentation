@@ -1,66 +1,57 @@
 :orphan:
 
 ==================
-Building a Website
+创建网站
 ==================
 
 .. danger::
-   This tutorial is outdated. We recommend reading :doc:`server_framework_101` instead.
+   本教程已过时。我们建议阅读 :doc:`server_framework_101` 以获取最新信息。
 
 .. warning::
 
-    * This guide assumes `basic knowledge of Python
-      <http://docs.python.org/2/tutorial/>`_
-    * This guide assumes :doc:`an installed Odoo </administration/on_premise>`
+    * 本指南假设您具有 `Python 基础知识 <http://docs.python.org/2/tutorial/>`_
+    * 本指南假设您已经 :doc:`安装了 Odoo </administration/on_premise>`
 
-Creating a basic module
+创建基础模块
 =======================
 
-In Odoo, tasks are performed by creating modules.
+在 Odoo 中，任务通过创建模块来执行。
 
-Modules customize the behavior of an Odoo installation, either by adding new
-behaviors or by altering existing ones (including behaviors added by other
-modules).
+模块可以通过添加新行为或修改现有行为（包括其他模块添加的行为）来自定义 Odoo 的行为。
 
-:ref:`Odoo's scaffolding <reference/cmdline/scaffold>` can setup a basic
-module. To quickly get started simply invoke:
+:ref:`Odoo 的脚手架工具 <reference/cmdline/scaffold>` 可以设置一个基础模块。快速入门的方法是执行以下命令：
 
 .. code-block:: console
 
     $ ./odoo-bin scaffold Academy my-modules
 
-This will automatically create a ``my-modules`` *module directory* with an
-``academy`` module inside. The directory can be an existing module directory
-if you want, but the module name must be unique within the directory.
+这将自动创建一个 ``my-modules`` *模块目录*，其中包含一个名为 ``academy`` 的模块。如果您愿意，该目录可以是现有的模块目录，但模块名称在目录中必须是唯一的。
 
-A demonstration module
-======================
+演示模块
+=======================
 
-We have a "complete" module ready for installation.
+我们现在有一个“完整的”模块，可以进行安装。
 
-Although it does absolutely nothing we can install it:
+虽然它目前什么也不做，但我们可以安装它：
 
-* start the Odoo server
+* 启动 Odoo 服务器
 
   .. code-block:: console
 
       $ ./odoo-bin --addons-path addons,my-modules
 
-* go to http://localhost:8069
-* create a new database including demonstration data
-* to go :menuselection:`Settings --> Modules --> Modules`
-* in the top-right corner remove the *Installed* filter and search for
-  *academy*
-* click the :guilabel:`Install` button for the *Academy* module
+* 访问 http://localhost:8069
+* 创建一个包含演示数据的新数据库
+* 转到 :menuselection:`设置 --> 应用 --> 应用`
+* 在右上角删除 *已安装* 筛选器，搜索 *academy*
+* 点击 *Academy* 模块的 :guilabel:`安装` 按钮
 
-To the browser
-==============
+前往浏览器
+==================
 
-:ref:`Controllers <reference/controllers>` interpret browser requests and
-send data back.
+:ref:`控制器 <reference/controllers>` 解释浏览器请求并返回数据。
 
-Add a simple controller and ensure it is imported by ``__init__.py`` (so
-Odoo can find it):
+添加一个简单的控制器，并确保通过 ``__init__.py`` 导入它（这样 Odoo 能够找到它）：
 
 .. code-block:: python
     :caption: ``academy/controllers.py``
@@ -74,29 +65,24 @@ Odoo can find it):
         def index(self, **kw):
             return "Hello, world"
 
-Shut down your server (:kbd:`^C`) then restart it:
+关闭您的服务器 (:kbd:`^C`) 并重新启动：
 
 .. code-block:: console
 
     $ ./odoo-bin --addons-path addons,my-modules
 
-and open a page to http://localhost:8069/academy/academy/, you should see your
-"page" appear:
+然后访问 http://localhost:8069/academy/academy/，您应该会看到您的“页面”：
 
 .. figure:: website/helloworld.png
 
-Templates
-=========
+模板
+================
 
-Generating HTML in Python isn't very pleasant.
+在 Python 中生成 HTML 不是很方便。
 
-The usual solution is templates_, pseudo-documents with placeholders and
-display logic. Odoo allows any Python templating system, but provides its
-own :ref:`QWeb <reference/qweb>` templating system which integrates with other
-features.
+常见的解决方案是使用模板_，即包含占位符和显示逻辑的伪文档。Odoo 允许使用任何 Python 模板系统，但提供了自己的 :ref:`QWeb <reference/qweb>` 模板系统，并与其他功能集成。
 
-Create a template and ensure the template file is registered in the
-``__manifest__.py`` manifest, and alter the controller to use our template:
+创建一个模板，并确保在 ``__manifest__.py`` 中注册模板文件，然后修改控制器以使用我们的模板：
 
 .. code-block:: python
     :caption: ``academy/controllers.py``
@@ -123,40 +109,32 @@ Create a template and ensure the template file is registered in the
 
     </odoo>
 
-The templates iterates (``t-foreach``) on all the teachers (passed through the
-*template context*), and prints each teacher in its own paragraph.
+模板遍历了所有教师（通过 *模板上下文* 传递），并在每个段落中打印教师的名字。
 
-Finally restart Odoo and update the module's data (to install the template)
-by going to :menuselection:`Settings --> Modules --> Modules -->
-Academy` and clicking :guilabel:`Upgrade`.
+最后，重启 Odoo 并更新模块的数据（以安装模板），操作方法是转到 :menuselection:`设置 --> 应用 --> 应用 --> Academy` 并点击 :guilabel:`升级`。
 
 .. tip::
 
-    Alternatively, Odoo can be restarted :option:`and update modules at
-    the same time<odoo-bin -u>`:
+    或者，Odoo 可以通过 :option:`同时更新模块 <odoo-bin -u>` 进行重启：
 
     .. code-block:: console
 
         $ odoo-bin --addons-path addons,my-modules -d academy -u academy
 
-Going to http://localhost:8069/academy/academy/ should now result in:
+访问 http://localhost:8069/academy/academy/ 现在应该会显示：
 
 .. image:: website/basic-list.png
+在 Odoo 中存储数据
+===================
 
-Storing data in Odoo
-====================
+:ref:`Odoo 模型 <reference/orm/model>` 映射到数据库表。
 
-:ref:`Odoo models <reference/orm/model>` map to database tables.
+在上一节中，我们仅显示了在 Python 代码中静态输入的字符串列表。这不允许修改或持久存储，因此我们现在将数据移至数据库中。
 
-In the previous section we just displayed a list of string entered statically
-in the Python code. This doesn't allow modifications or persistent storage
-so we'll now move our data to the database.
+定义数据模型
+-------------
 
-Defining the data model
------------------------
-
-Define a teacher model, and ensure it is imported from ``__init__.py`` so it
-is correctly loaded:
+定义一个教师模型，并确保在 ``__init__.py`` 中导入该模型，以便正确加载：
 
 .. code-block:: python
     :caption: ``academy/models.py``
@@ -168,13 +146,12 @@ is correctly loaded:
 
         name = fields.Char()
 
-Then setup :ref:`basic access control <reference/security/acl>` for the model
-and add them to the manifest:
+然后为该模型设置 :ref:`基础访问控制 <reference/security/acl>`，并将其添加到模块清单中：
 
 .. code-block:: python
     :caption: ``academy/__manifest__.py``
 
-    # always loaded
+    # 总是加载
     'data': [
         'security/ir.model.access.csv',
         'templates.xml',
@@ -186,26 +163,20 @@ and add them to the manifest:
     id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
     access_academy_teachers,access_academy_teachers,model_academy_teachers,,1,0,0,0
 
-this simply gives read access (``perm_read``) to all users (``group_id:id``
-left empty).
+这简单地为所有用户提供了读取权限（``perm_read``）（``group_id:id`` 留空）。
 
 .. note::
 
-    :ref:`Data files <reference/data>` (XML or CSV) must be added to the
-    module manifest, Python files (models or controllers) don't but have to
-    be imported from ``__init__.py`` (directly or indirectly)
+    :ref:`数据文件 <reference/data>`（XML 或 CSV）必须添加到模块清单中，而 Python 文件（模型或控制器）则不需要，但必须从 ``__init__.py`` 中导入（直接或间接）。
 
 .. warning::
 
-    the administrator user bypasses access control, they have access to all
-    models even if not given access
+    管理员用户绕过了访问控制，他们拥有对所有模型的访问权限，即使未赋予访问权限。
 
-Demonstration data
-------------------
+演示数据
+---------
 
-The second step is to add some demonstration data to the system so it's
-possible to test it easily. This is done by adding a ``demo``
-:ref:`data file <reference/data>`, which must be linked from the manifest:
+第二步是向系统添加一些演示数据，以便可以轻松测试。通过添加一个 ``demo`` :ref:`数据文件 <reference/data>` 完成此操作，该文件必须从模块清单中链接：
 
 .. code-block:: xml
     :caption: ``academy/demo.xml``
@@ -226,24 +197,16 @@ possible to test it easily. This is done by adding a ``demo``
 
 .. tip::
 
-    :ref:`Data files <reference/data>` can be used for demo and non-demo data.
-    Demo data are only loaded in "demonstration mode" and can be used for flow
-    testing and demonstration, non-demo data are always loaded and used as
-    initial system setup.
+    :ref:`数据文件 <reference/data>` 可以用于演示和非演示数据。演示数据仅在“演示模式”下加载，可用于流程测试和演示，非演示数据始终加载并用作系统的初始设置。
 
-    In this case we're using demonstration data because an actual user of the
-    system would want to input or import their own teachers list, this list
-    is only useful for testing.
+    在这种情况下，我们使用的是演示数据，因为系统的实际用户可能希望输入或导入自己的教师名单，而此名单仅用于测试。
+访问数据
+--------
 
-Accessing the data
-------------------
+最后一步是修改模型和模板以使用我们的演示数据：
 
-The last step is to alter model and template to use our demonstration data:
-
-#. fetch the records from the database instead of having a static list
-#. Because :meth:`~odoo.models.Model.search` returns a set of records
-   matching the filter ("all records" here), alter the template to print each
-   teacher's ``name``
+#. 从数据库中获取记录，而不是使用静态列表
+#. 因为 :meth:`~odoo.models.Model.search` 返回与过滤器匹配的记录集（这里为“所有记录”），所以需要修改模板以打印每位教师的 ``name``
 
 .. code-block:: python
    :caption: ``academy/controllers.py``
@@ -271,36 +234,28 @@ The last step is to alter model and template to use our demonstration data:
 
    </odoo>
 
-Restart the server and update the module (in order to update the manifest
-and templates and load the demo file) then navigate to
-http://localhost:8069/academy/academy/. The page should look slightly
-different: names should simply be prefixed by a number (the database
-identifier for the teacher).
+重启服务器并更新模块（以更新清单和模板并加载演示文件），然后访问 http://localhost:8069/academy/academy/。页面看起来会稍有不同：名称前应带有一个编号（教师的数据库标识符）。
 
-Website support
-===============
+网站支持
+========
 
-Odoo bundles a module dedicated to building websites.
+Odoo 捆绑了一个专用于构建网站的模块。
 
-So far we've used controllers fairly directly, but Odoo 8 added deeper
-integration and a few other services (e.g. default styling, theming) via the
-``website`` module.
+到目前为止，我们已经直接使用了控制器，但 Odoo 8 通过 ``website`` 模块添加了更深的集成和其他一些服务（例如默认样式、主题）。
 
-#. first, add ``website`` as a dependency to ``academy``
-#. then add the ``website=True`` flag on the controller, this sets up a few
-   new variables on :ref:`the request object <reference/http/request>` and
-   allows using the website layout in our template
-#. use the website layout in the template
+#. 首先，将 ``website`` 添加为 ``academy`` 的依赖项
+#. 然后在控制器上添加 ``website=True`` 标志，这会在 :ref:`请求对象 <reference/http/request>` 上设置一些新变量，并允许在我们的模板中使用网站布局
+#. 在模板中使用网站布局
 
 .. code-block:: python
     :caption: ``academy/__manifest__.py``
 
     'version': '0.1',
 
-    # any module necessary for this one to work correctly
+    # 此模块正常工作所需的任何模块
     'depends': ['website'],
 
-    # always loaded
+    # 总是加载
     'data': [
 
 .. code-block:: python
@@ -335,56 +290,35 @@ integration and a few other services (e.g. default styling, theming) via the
 
     </odoo>
 
-After restarting the server while updating the module (in order to update the
-manifest and template) access http://localhost:8069/academy/academy/ should
-yield a nicer looking page with branding and a number of built-in page
-elements (top-level menu, footer, …)
+在重启服务器并更新模块（以更新清单和模板）后，访问 http://localhost:8069/academy/academy/ 应该会显示一个更美观的页面，带有品牌标识和多个内置页面元素（顶级菜单、页脚等）。
 
 .. image:: website/layout.png
 
-The website layout also provides support for editing tools: click
-:guilabel:`Sign In` (in the top-right), fill the credentials in (``admin`` /
-``admin`` by default) then click :guilabel:`Log In`.
+网站布局还提供了编辑工具支持：点击页面右上角的 :guilabel:`登录` 按钮，输入凭据（默认是 ``admin`` / ``admin``），然后点击 :guilabel:`登录`。
 
-You're now in Odoo "proper": the administrative interface. For now click on
-the :guilabel:`Website` menu item (top-left corner.
+现在，您已经进入 Odoo 的“管理界面”：点击左上角的 :guilabel:`网站` 菜单项，返回到网站界面，但这次是以管理员身份进入，具有 *website* 模块提供的高级编辑功能：
 
-We're back in the website but as an administrator, with access to advanced
-editing features provided by the *website* support:
+* 一个模板代码编辑器 (:menuselection:`自定义 --> HTML 编辑器`)，您可以在其中查看和编辑当前页面使用的所有模板
+* 页面左上角的 :guilabel:`编辑` 按钮可切换到“编辑模式”，在该模式下可用块（片段）和富文本编辑
+* 其他功能如移动预览或 :abbr:`SEO（搜索引擎优化）`
+URLs 和路由
+==========
 
-* a template code editor (:menuselection:`Customize --> HTML Editor`) where
-  you can see and edit all templates used for the current page
-* the :guilabel:`Edit` button in the top-left switches to "editing mode" where
-  blocks (snippets) and rich text editing are available
-* a number of other features such as mobile preview or :abbr:`SEO (Search
-  Engine Optimization)`
+控制器方法通过 :func:`~odoo.http.route` 装饰器与 *路由* 关联，该装饰器接收一个路由字符串和若干用于自定义其行为或安全性的属性。
 
-URLs and routing
-================
-
-Controller methods are associated with *routes* via the
-:func:`~odoo.http.route` decorator which takes a routing string and a
-number of attributes to customise its behavior or security.
-
-We've seen a "literal" routing string, which matches a URL section exactly,
-but routing strings can also use `converter patterns`_ which match bits
-of URLs and make those available as local variables. For instance we can
-create a new controller method which takes a bit of URL and prints it out:
+我们已经见过一个“字面”的路由字符串，它精确匹配 URL 的一部分，但路由字符串也可以使用 `转换器模式`_，它匹配 URL 的一部分并将这些部分作为局部变量提供。例如，我们可以创建一个新的控制器方法，该方法接收 URL 的一部分并将其输出：
 
 .. code-block:: python
     :caption: ``academy/controllers.py``
 
-    # New route
+    # 新路由
     @http.route('/academy/<name>/', auth='public', website=True)
     def teacher(self, name):
         return '<h1>{}</h1>'.format(name)
 
-restart Odoo, access http://localhost:8069/academy/Alice/ and
-http://localhost:8069/academy/Bob/ and see the difference.
+重启 Odoo，访问 http://localhost:8069/academy/Alice/ 和 http://localhost:8069/academy/Bob/，看看有什么不同。
 
-As the name indicates, `converter patterns`_ don't just do extraction, they
-also do *validation* and *conversion*, so we can change the new controller
-to only accept integers:
+顾名思义，`转换器模式`_ 不仅仅是提取，它们还执行 *验证* 和 *转换*，因此我们可以将新的控制器修改为仅接受整数：
 
 .. code-block:: python
     :caption: ``academy/controllers.py``
@@ -393,15 +327,9 @@ to only accept integers:
     def teacher(self, id):
         return '<h1>{} ({})</h1>'.format(id, type(id).__name__)
 
-Restart Odoo, access http://localhost:8069/academy/2, note how the old value
-was a string, but the new one was converted to an integers. Try accessing
-http://localhost:8069/academy/Carol/ and note that the page was not found:
-since "Carol" is not an integer, the route was ignored and no route could be
-found.
+重启 Odoo，访问 http://localhost:8069/academy/2，注意到旧值是字符串，而新值被转换为整数。尝试访问 http://localhost:8069/academy/Carol/，您会发现页面无法找到：由于“Carol”不是整数，路由被忽略，未找到匹配的路由。
 
-Odoo provides an additional converter called ``model`` which provides records
-directly when given their id. Let's use this to create a generic page for
-teacher biographies:
+Odoo 提供了一个额外的转换器，称为 ``model``，它可以在给定 ID 时直接提供记录。让我们使用这个功能为教师的简历创建一个通用页面：
 
 .. code-block:: python
     :caption: ``academy/controllers.py``
@@ -428,8 +356,7 @@ teacher biographies:
         </t>
     </template>
 
-then change the list of model to link to our new controller:
-
+然后修改模型列表，以链接到我们新的控制器：
 
 .. code-block:: xml
     :caption: ``academy/templates.xml``
@@ -450,18 +377,11 @@ then change the list of model to link to our new controller:
         </t>
     </template>
 
-Restart Odoo and upgrade the module, then you can visit each teacher's page.
-As an exercise, try adding blocks to a teacher's page to write a biography,
-then go to another teacher's page and so forth. You will discover, that your
-biography is shared between all teachers, because blocks are added to the
-*template*, and the *biography* template is shared between all teachers, when
-one page is edited they're all edited at the same time.
+重启 Odoo 并升级模块，然后您可以访问每位教师的页面。作为练习，尝试在教师页面上添加块来编写简历，然后转到其他教师的页面。您会发现，您的简历在所有教师之间共享，因为块是添加到 *模板* 中的，而 *biography* 模板在所有教师之间共享，当编辑一个页面时，所有页面都会同时被编辑。
+字段编辑
+==========
 
-Field editing
-=============
-
-Data which is specific to a record should be saved on that record, so let us
-add a new biography field to our teachers:
+特定于记录的数据应保存在该记录上，因此让我们为教师添加一个新的简历字段：
 
 .. code-block:: python
     :caption: ``academy/models.py``
@@ -489,15 +409,11 @@ add a new biography field to our teachers:
         </t>
     </template>
 
-Restart Odoo and update the views, reload the teacher's page and… the field
-is invisible since it contains nothing.
+重启 Odoo 并更新视图，重新加载教师页面，您会发现字段是不可见的，因为它为空。
 
-.. todo:: the view has been set to noupdate because modified previously,
-          force via ``-i`` or do something else?
+.. todo:: 视图被设置为 noupdate，因为之前进行了修改，可以通过 ``-i`` 强制更新或采取其他操作？
 
-For record fields, templates can use a special ``t-field`` directive which
-allows editing the field content from the website using field-specific
-interfaces. Change the *person* template to use ``t-field``:
+对于记录字段，模板可以使用特殊的 ``t-field`` 指令，该指令允许从网站中使用字段特定的接口编辑字段内容。将 *person* 模板更改为使用 ``t-field``：
 
 .. code-block:: xml
     :caption: ``academy/templates.xml``
@@ -509,16 +425,11 @@ interfaces. Change the *person* template to use ``t-field``:
         </div>
     </div>
 
-Restart Odoo and upgrade the module, there is now a placeholder under the
-teacher's name and a new zone for blocks in :guilabel:`Edit` mode. Content
-dropped there is stored in the corresponding teacher's ``biography`` field, and
-thus specific to that teacher.
+重启 Odoo 并升级模块，现在教师姓名下有一个占位符，并且在 :guilabel:`编辑` 模式下有一个新的块区域。放置在该区域的内容会存储在对应教师的 ``biography`` 字段中，因此这些内容特定于该教师。
 
-The teacher's name is also editable, and when saved the change is visible on
-the index page.
+教师的姓名也是可编辑的，保存后，变更会在索引页面上可见。
 
-``t-field`` can also take formatting options which depend on the exact field.
-For instance if we display the modification date for a teacher's record:
+``t-field`` 还可以接受取决于具体字段的格式化选项。例如，如果我们显示教师记录的修改日期：
 
 .. code-block:: xml
     :caption: ``academy/templates.xml``
@@ -526,13 +437,12 @@ For instance if we display the modification date for a teacher's record:
     <div class="oe_structure">
         <div class="container">
             <h3 t-field="person.name"/>
-            <p>Last modified: <i t-field="person.write_date"/></p>
+            <p>最后修改时间: <i t-field="person.write_date"/></p>
             <div t-field="person.biography"/>
         </div>
     </div>
 
-it is displayed in a very "computery" manner and hard to read, but we could
-ask for a human-readable version:
+它以非常“计算机化”的方式显示，难以阅读，但我们可以要求显示为人类可读的格式：
 
 .. code-block:: xml
     :caption: ``academy/templates.xml``
@@ -540,12 +450,12 @@ ask for a human-readable version:
     <div class="oe_structure">
         <div class="container">
             <h3 t-field="person.name"/>
-            <p>Last modified: <i t-field="person.write_date" t-options='{"format": "long"}'/></p>
+            <p>最后修改时间: <i t-field="person.write_date" t-options='{"format": "long"}'/></p>
             <div t-field="person.biography"/>
         </div>
     </div>
 
-or a relative display:
+或者以相对时间显示：
 
 .. code-block:: xml
     :caption: ``academy/templates.xml``
@@ -553,45 +463,35 @@ or a relative display:
     <div class="oe_structure">
         <div class="container">
             <h3 t-field="person.name"/>
-            <p>Last modified: <i t-field="person.write_date" t-options='{"widget": "relative"}'/></p>
+            <p>最后修改时间: <i t-field="person.write_date" t-options='{"widget": "relative"}'/></p>
             <div t-field="person.biography"/>
         </div>
     </div>
 
-Administration and ERP integration
-==================================
+管理与 ERP 集成
+================
 
-A brief and incomplete introduction to the Odoo administration
---------------------------------------------------------------
+Odoo 管理的简要介绍
+--------------------
 
-The Odoo administration was briefly seen during the `website support`_ section.
-We can go back to it using :menuselection:`Administrator --> Administrator` in
-the menu (or :guilabel:`Sign In` if you're signed out).
+我们在 `网站支持`_ 部分简要介绍了 Odoo 管理界面。您可以通过菜单中的 :menuselection:`Administrator --> Administrator` 返回到管理界面（或如果您已退出登录，可以点击 :guilabel:`登录`）。
 
-The conceptual structure of the Odoo backend is simple:
+Odoo 后端的概念结构很简单：
 
-#. first are menus, a tree (menus can have sub-menus) of records. Menus
-   without children map to…
-#. actions. Actions have various types: links, reports, code which Odoo should
-   execute or data display. Data display actions are called *window actions*,
-   and tell Odoo to display a given *model* according to a set of views…
-#. a view has a type, a broad category to which it corresponds (a list,
-   a graph, a calendar) and an *architecture* which customises the way the
-   model is displayed inside the view.
+#. 首先是菜单，菜单是一个树结构（菜单可以有子菜单），其中的记录。没有子菜单的菜单映射到……
+#. 操作。操作有多种类型：链接、报告、Odoo 应执行的代码或数据展示。数据展示操作称为 *窗口操作*，它告诉 Odoo 显示给定的 *模型* 并根据一组视图展示……
+#. 视图有一个类型，一个对应的广泛类别（如列表、图表、日历），并且视图有一个 *架构*，用于自定义模型在视图中的展示方式。
+在 Odoo 管理界面中进行编辑
+---------------------------
 
-Editing in the Odoo administration
-----------------------------------
+默认情况下，Odoo 模型对用户是不可见的。要使其可见，它必须通过操作进行访问，而操作本身需要通过菜单访问。
 
-By default, an Odoo model is essentially invisible to a user. To make it
-visible it must be available through an action, which itself needs to be
-reachable, generally through a menu.
-
-Let's create a menu for our model:
+让我们为我们的模型创建一个菜单：
 
 .. code-block:: python
     :caption: ``academy/__manifest__.py``
 
-    # always loaded
+    # 总是加载
     'data': [
         'security/ir.model.access.csv',
         'templates.xml',
@@ -615,19 +515,9 @@ Let's create a menu for our model:
                     action="action_academy_teachers"/>
     </odoo>
 
-then accessing http://localhost:8069/web/ in the top left should be a menu
-:guilabel:`Academy`, which is selected by default, as it is the first menu,
-and having opened a listing of teachers. From the listing it is possible to
-:guilabel:`Create` new teacher records, and to switch to the "form" by-record
-view.
+然后访问 http://localhost:8069/web/，在左上角应该有一个 :guilabel:`Academy` 菜单，默认选择它，因为它是第一个菜单，并打开教师列表。从列表中，您可以 :guilabel:`创建` 新的教师记录，并切换到按记录查看的“表单”视图。
 
-If there is no definition of how to present records (a
-:doc:`view <../reference/user_interface/view_records>`) Odoo will automatically create a basic one
-on-the-fly. In our case it works for the "list" view for now (only displays
-the teacher's name) but in the "form" view the HTML ``biography`` field is
-displayed side-by-side with the ``name`` field and not given enough space.
-Let's define a custom form view to make viewing and editing teacher records
-a better experience:
+如果没有定义如何呈现记录的视图 (:doc:`view <../reference/user_interface/view_records>`)，Odoo 将自动即时创建一个基本视图。就目前而言，列表视图可以正常工作（只显示教师的姓名），但在表单视图中，HTML ``biography`` 字段与 ``name`` 字段并排显示，且没有足够的空间。让我们定义一个自定义表单视图，以改进查看和编辑教师记录的体验：
 
 .. code-block:: xml
     :caption: ``academy/views.xml``
@@ -645,18 +535,12 @@ a better experience:
         </field>
     </record>
 
-Relations between models
-------------------------
+模型之间的关系
+----------------
 
-We have seen a pair of "basic" fields stored directly in the record. There are
-:ref:`a number of basic fields <reference/fields/basic>`. The second
-broad categories of fields are :ref:`relational
-<reference/fields/relational>` and used to link records to one another
-(within a model or across models).
+我们已经看到了存储在记录中的一对“基本”字段。Odoo 提供了 :ref:`许多基本字段 <reference/fields/basic>`。另一类重要字段是 :ref:`关系字段 <reference/fields/relational>`，用于链接记录（无论是在同一模型还是跨模型之间）。
 
-For demonstration, let's create a *courses* model. Each course should have a
-``teacher`` field, linking to a single teacher record, but each teacher can
-teach many courses:
+为了演示，让我们创建一个 *课程* 模型。每个课程应该有一个 ``teacher`` 字段，链接到单个教师记录，但每位教师可以教授多门课程：
 
 .. code-block:: python
     :caption: ``academy/models.py``
@@ -674,8 +558,7 @@ teach many courses:
     access_academy_teachers,access_academy_teachers,model_academy_teachers,,1,0,0,0
     access_academy_courses,access_academy_courses,model_academy_courses,,1,0,0,0
 
-let's also add views so we can see and edit a course's teacher:
-
+我们还可以添加视图，以便查看和编辑课程的教师信息：
 
 .. code-block:: xml
     :caption: ``academy/views.xml``
@@ -727,10 +610,7 @@ let's also add views so we can see and edit a course's teacher:
                 parent="menu_academy_content"
                 action="action_academy_teachers"/>
 
-It should also be possible to create new courses directly from a teacher's
-page, or to see all the courses they teach, so add
-:class:`the inverse relationship <odoo.fields.One2many>` to the *teachers*
-model:
+也应该可以直接从教师的页面创建新课程，或者查看他们教授的所有课程，因此请为 *教师* 模型添加 :class:`逆向关系 <odoo.fields.One2many>`：
 
 .. code-block:: python
     :caption: ``academy/models.py``
@@ -761,7 +641,7 @@ model:
                     <field name="name"/>
                     <field name="biography"/>
                     <field name="course_ids">
-                        <tree Sstring="Courses" editable="bottom">
+                        <tree string="Courses" editable="bottom">
                             <field name="name"/>
                         </tree>
                     </field>
@@ -769,33 +649,24 @@ model:
             </form>
         </field>
     </record>
-
-Discussions and notifications
+讨论与通知
 -----------------------------
 
-Odoo provides technical models, which don't directly fulfill business needs
-but which add capabilities to business objects without having to build
-them by hand.
+Odoo 提供了一些技术模型，这些模型虽然不会直接满足业务需求，但可以为业务对象增加功能，而无需手动构建它们。
 
-One of these is the *Chatter* system, part of Odoo's email and messaging
-system, which can add notifications and discussion threads to any model.
-The model simply has to :attr:`~odoo.models.Model._inherit`
-``mail.thread``, and add the ``message_ids`` field to its form view to display
-the discussion thread. Discussion threads are per-record.
+其中一个是 *Chatter* 系统，它是 Odoo 的邮件和消息系统的一部分，可以为任何模型添加通知和讨论线程。模型只需 :attr:`~odoo.models.Model._inherit` ``mail.thread``，并在其表单视图中添加 ``message_ids`` 字段即可显示讨论线程。讨论线程是按记录进行的。
 
-For our academy, it makes sense to allow discussing courses to handle e.g.
-scheduling changes or discussions between teachers and assistants:
-
+对于我们的学院，允许讨论课程是合理的，例如处理排课变更或教师与助教之间的讨论：
 
 .. code-block:: python
     :caption: ``academy/__manifest__.py``
 
     'version': '0.1',
 
-    # any module necessary for this one to work correctly
+    # 使该模块正常运行所需的任何模块
     'depends': ['website', 'mail'],
 
-    # always loaded
+    # 始终加载
     'data': [
 
 .. code-block:: python
@@ -828,42 +699,31 @@ scheduling changes or discussions between teachers and assistants:
         </field>
     </record>
 
-At the bottom of each course form, there is now a discussion thread and the
-possibility for users of the system to leave messages and follow or unfollow
-discussions linked to specific courses.
+现在，每个课程表单的底部都有一个讨论线程，系统用户可以在其中留下消息，并关注或取消关注与特定课程相关的讨论。
 
-Selling courses
+销售课程
 ---------------
 
-Odoo also provides business models which allow using or opting in business
-needs more directly. For instance the ``website_sale`` module sets up an
-e-commerce site based on the products in the Odoo system. We can easily make
-course subscriptions sellable by making our courses specific kinds of
-products.
+Odoo 还提供了更直接满足业务需求的业务模型。例如，``website_sale`` 模块基于 Odoo 系统中的产品建立了一个电子商务网站。我们可以通过将课程作为特定类型的产品来轻松销售课程订阅。
 
-Rather than the previous classical inheritance, this means replacing our
-*course* model by the *product* model, and extending products in-place (to
-add anything we need to it).
+与之前的经典继承不同，这意味着用 *产品* 模型替换 *课程* 模型，并在原位扩展产品（以添加我们需要的内容）。
 
-First of all we need to add a dependency on ``website_sale`` so we get both
-products (via ``sale``) and the ecommerce interface:
+首先，我们需要添加对 ``website_sale`` 的依赖，以便我们同时获得产品（通过 ``sale``）和电子商务界面：
 
 .. code-block:: python
     :caption: ``academy/__manifest__.py``
 
     'version': '0.1',
 
-    # any module necessary for this one to work correctly
+    # 使该模块正常运行所需的任何模块
     'depends': ['mail', 'website_sale'],
 
-    # always loaded
+    # 始终加载
     'data': [
 
-restart Odoo, update your module, there is now a :guilabel:`Shop` section in
-the website, listing a number of pre-filled (via demonstration data) products.
+重启 Odoo，更新模块，现在网站上有一个 :guilabel:`商店` 部分，列出了通过演示数据预填的产品。
 
-The second step is to replace the *courses* model by ``product.template``,
-and add a new category of product for courses:
+第二步是用 ``product.template`` 替换 *课程* 模型，并为课程添加一个新的产品类别：
 
 .. code-block:: python
     :caption: ``academy/__manifest__.py``
@@ -873,7 +733,7 @@ and add a new category of product for courses:
         'views.xml',
         'data.xml',
     ],
-    # only loaded in demonstration mode
+    # 仅在演示模式下加载
     'demo': [
 
 .. code-block:: xml
@@ -925,51 +785,34 @@ and add a new category of product for courses:
         name = fields.Char()
         teacher_id = fields.Many2one('academy.teachers', string="Teacher")
 
-With this installed, a few courses are now available in the :guilabel:`Shop`,
-though they may have to be looked for.
+安装此模块后，商店中现在提供了一些课程，尽管可能需要进行搜索才能找到它们。
 
 .. note::
 
-    * to extend a model in-place, it's :attr:`inherited
-      <odoo.models.Model._inherit>` without giving it a new
-      :attr:`~odoo.models.Model._name`
-    * ``product.template`` already uses the discussions system, so we can
-      remove it from our extension model
-    * we're creating our courses as *published* by default so they can be
-      seen without having to log in
-
-Altering existing views
+    * 要在原位扩展模型，可以 :attr:`继承 <odoo.models.Model._inherit>`，而不为其赋予新的 :attr:`~odoo.models.Model._name`
+    * ``product.template`` 已经使用了讨论系统，因此我们可以从扩展模型中移除它
+    * 我们默认将课程创建为 *已发布*，因此不需要登录即可查看它们
+修改现有视图
 -----------------------
 
-So far, we have briefly seen:
+到目前为止，我们已经简要了解了以下内容：
 
-* the creation of new models
-* the creation of new views
-* the creation of new records
-* the alteration of existing models
+* 创建新模型
+* 创建新视图
+* 创建新记录
+* 修改现有模型
 
-We're left with the alteration of existing records and the alteration of
-existing views. We'll do both on the :guilabel:`Shop` pages.
+现在我们要了解修改现有记录和修改现有视图。我们将在 :guilabel:`商店` 页面上进行这两个操作。
 
-View alteration is done by creating *extension* views, which are applied on
-top of the original view and alter it. These alteration views can be added or
-removed without modifying the original, making it easier to try things out and
-roll changes back.
+视图的修改是通过创建 *扩展* 视图来完成的，这些扩展视图应用在原始视图之上，对其进行修改。这些修改视图可以在不修改原始视图的情况下添加或移除，这使得尝试新功能和回滚更改更加容易。
 
-Since our courses are free, there is no reason to display their price on the
-shop page, so we're going to alter the view and hide the price if it's 0. The
-first task is finding out which view displays the price, this can be done via
-:menuselection:`Customize --> HTML Editor` which lets us read the various
-templates involved in rendering a page. Going through a few of them, "Product
-item" looks a likely culprit.
+由于我们的课程是免费的，因此没有理由在商店页面上显示其价格，因此我们将修改视图并在价格为 0 时隐藏价格。第一步是找出显示价格的视图，可以通过 :menuselection:`自定义 --> HTML 编辑器` 来查看呈现页面的各种模板。查看几个模板后，"Product item" 看起来是个很可能的模板。
 
-Altering view architectures is done in 3 steps:
+视图架构的修改分三步完成：
 
-#. Create a new view
-#. Extend the view to modify by setting the new view's ``inherit_id`` to the
-   modified view's external id
-#. In the architecture, use the ``xpath`` tag to select and alter elements
-   from the modified view
+#. 创建一个新视图
+#. 通过将新视图的 ``inherit_id`` 设置为要修改视图的外部 ID，扩展该视图
+#. 在架构中，使用 ``xpath`` 标签选择并修改要修改视图中的元素
 
 .. code-block:: xml
    :caption: ``academy/templates.xml``
@@ -980,19 +823,11 @@ Altering view architectures is done in 3 steps:
         </xpath>
     </template>
 
-The second thing we will change is making the product categories sidebar
-visible by default: :menuselection:`Customize --> Product Categories` lets
-you toggle a tree of product categories (used to filter the main display) on
-and off.
+第二个我们要更改的是使产品类别侧边栏默认可见：:menuselection:`自定义 --> 产品类别` 允许你切换一个产品类别树（用于过滤主显示）开关。
 
-This is done via the ``customize_show`` and ``active`` fields of extension
-templates: an extension template (such as the one we've just created) can be
-*customize_show=True*. This choice will display the view in the :guilabel:`Customize`
-menu with a check box, allowing administrators to activate or disable them
-(and easily customize their website pages).
+这是通过扩展模板的 ``customize_show`` 和 ``active`` 字段完成的：扩展模板（例如我们刚创建的那个）可以设置为 *customize_show=True*。此选项将在 :guilabel:`自定义` 菜单中显示该视图的复选框，允许管理员激活或禁用它们（并轻松定制网站页面）。
 
-We simply need to modify the *Product Categories* record and set its default
-to *active="True"*:
+我们只需修改 *产品类别* 记录并将其默认设置为 *active="True"*：
 
 .. code-block:: xml
     :caption: ``academy/templates.xml``
@@ -1001,13 +836,4 @@ to *active="True"*:
         <field name="active" eval="True"/>
     </record>
 
-With this, the *Product Categories* sidebar will automatically be enabled when
-the *Academy* module is installed.
-
-.. _templates: https://en.wikipedia.org/wiki/Web_template
-.. _postgres:
-.. _postgresql:
-    https://www.postgresql.org
-.. _converter pattern:
-.. _converter patterns:
-    https://werkzeug.pocoo.org/docs/routing/#rule-format
+有了这个，当 *Academy* 模块安装时，*产品类别* 侧边栏将自动启用。

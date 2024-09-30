@@ -1,44 +1,33 @@
 ==================
-Define module data
+定义模块数据
 ==================
 
 .. important::
-   This tutorial is an extension of the :doc:`server_framework_101` tutorial. Make sure you have
-   completed it and use the `estate` module you have built as a base for the exercises in this
-   tutorial.
+   本教程是 :doc:`server_framework_101` 教程的扩展。确保您已经完成了该教程，并使用您创建的 `estate` 模块作为本教程练习的基础。
 
-Data Types
-==========
+数据类型
+========
 
-Master Data
------------
+主数据
+------
 
-Master data is usually part of the technical or business requirements for the module. In other
-words, such data is often necessary for the module to work properly. This data will always be
-installed when installing the module.
+主数据通常是模块的技术或业务需求的一部分。换句话说，这类数据通常是模块正常运行所必需的。这些数据在安装模块时始终会被安装。
 
-We already met technical data previously since we have defined :doc:`views
-<../reference/user_interface/view_records>` and :doc:`actions <../reference/backend/actions>`. Those
-are one kind of master data.
+我们之前已经遇到过技术数据，因为我们已经定义了 :doc:`视图 <../reference/user_interface/view_records>` 和 :doc:`动作 <../reference/backend/actions>`。这些就是一种主数据。
 
-On top of technical data, business data can be defined, e.g. countries, currencies, units of measure,
-as well as complete country localization (legal reports, tax definitions, chart of account), and much
-more...
+除了技术数据外，还可以定义业务数据，例如国家、货币、计量单位，以及完整的国家本地化（法律报告、税收定义、会计科目表）等等……
 
-Demo Data
----------
+演示数据
+--------
 
-In additional to master data, which are requirements for a module to work properly, we also like
-having data for demonstration purposes:
+除了主数据外，模块要正常工作所需的数据外，我们还希望有演示数据：
 
-* Help the sales representatives make their demos quickly.
-* Have a set of working data for developers to test new features and see how these new features look
-  with data they might not have added themselves.
-* Test that the data is loaded correctly, without raising an error.
-* Setup most of the features to be used quickly when creating a new database.
+* 帮助销售代表快速演示。
+* 为开发人员提供一组可用的数据来测试新功能，并查看这些新功能如何与他们自己可能未添加的数据结合使用。
+* 测试数据是否正确加载，确保不会产生错误。
+* 在创建新数据库时，快速设置大部分功能。
 
-Demo data is automatically loaded when you start the server if you don't explicitly say you don't
-want it. This can be done in the database manager or with the command line.
+如果不明确表示不需要，启动服务器时会自动加载演示数据。这可以在数据库管理器中或通过命令行实现。
 
 .. code-block:: console
 
@@ -46,40 +35,35 @@ want it. This can be done in the database manager or with the command line.
   Usage: odoo-bin [options]
 
   Options:
-  --version             show program's version number and exit
-  -h, --help            show this help message and exit
+  --version             显示程序的版本号并退出
+  -h, --help            显示此帮助信息并退出
 
-  Common options:
+  常见选项:
     [...]
     --without-demo=WITHOUT_DEMO
-                        disable loading demo data for modules to be installed
-                        (comma-separated, use "all" for all modules). Requires
-                        -d and -i. Default is none
+                        禁用安装模块时加载演示数据
+                        （以逗号分隔，使用 "all" 禁用所有模块的演示数据）。需要
+                        -d 和 -i 参数。默认不禁用。
   [...]
 
   $ ./odoo-bin --addons-path=... -d db -i account --without-demo=all
 
-Data Declaration
-================
+数据声明
+========
 
-Manifest
---------
+模块声明文件
+------------
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`Module Manifests<reference/module/manifest>`.
+**参考**: 有关此主题的文档可以在 :ref:`模块声明文件 <reference/module/manifest>` 中找到。
 
-Data is declared either in CSV or in XML.
-Each file containing data must be added in the manifest for them to be loaded.
+数据可以通过 CSV 或 XML 格式声明。
+每个包含数据的文件必须在模块声明文件中添加，才能被加载。
 
-The keys to use in the manifest to add new data are ``data`` for the master data and ``demo`` for
-the demo data. Both values should be a list of strings representing the relative paths to the files
-declaring the data.
+用于添加新数据的声明文件中的键为 ``data``（用于主数据）和 ``demo``（用于演示数据）。两者的值应为字符串列表，表示声明数据的文件的相对路径。
 
-Usually, demo data is in a ``demo`` folder, views and actions are in a ``views``
-folder, security related data is in a ``security`` folder, and other data is in a
-``data`` folder.
+通常，演示数据放在 ``demo`` 文件夹中，视图和动作放在 ``views`` 文件夹中，安全相关数据放在 ``security`` 文件夹中，其他数据放在 ``data`` 文件夹中。
 
-If your work tree looks like this:
+如果您的工作目录如下所示：
 
 .. code-block:: bash
 
@@ -98,7 +82,7 @@ If your work tree looks like this:
   ├── __init__.py
   └── __manifest__.py
 
-Your manifest should look like this:
+您的模块声明文件应如下所示：
 
 .. code-block:: python
 
@@ -110,24 +94,22 @@ Your manifest should look like this:
           ...
       ],
       "data": [
-          "security/ir.model.access.csv",  # CSV and XML files are loaded at the same place
-          "views/estate_property_offer_views.xml",  # Views are data too
-          "data/master_data.xml",  # Split the data in multiple files depending on the model
+          "security/ir.model.access.csv",  # CSV 和 XML 文件在同一位置加载
+          "views/estate_property_offer_views.xml",  # 视图也是数据
+          "data/master_data.xml",  # 根据模型将数据分为多个文件
       ],
       "demo": [
           "demo/demo_data.xml",
-      ]
+      ],
       "application": True,
   }
 
 CSV
 ---
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`CSV data files<reference/data/csvdatafiles>`.
+**参考**: 有关此主题的文档可以在 :ref:`CSV 数据文件 <reference/data/csvdatafiles>` 中找到。
 
-The easiest way to declare simple data is by using the CSV format. This is however limited in terms
-of features: use it for long lists of simple models, but prefer XML otherwise.
+声明简单数据的最简单方法是使用 CSV 格式。然而，它的功能是有限的：对于长列表的简单模型使用 CSV，但对于其他情况，建议使用 XML。
 
 .. code-block:: text
 
@@ -135,23 +117,21 @@ of features: use it for long lists of simple models, but prefer XML otherwise.
     id1,valueA1,valueB1,module.relatedid
     id2,valueA2,valueB2,module.relatedid
 
-.. tip:: Your IDE has probably an extension to have a syntax highlighting of the CSV files
+.. 提示:: 您的 IDE 可能有语法高亮的扩展来显示 CSV 文件
 
   * `Atom <https://atom.io/packages/rainbow-csv>`__.
   * `PyCharm/IntelliJ <https://plugins.jetbrains.com/plugin/10037-csv-plugin>`__.
   * `Vim <https://github.com/mechatroner/rainbow_csv>`__.
   * `Visual Studio <https://marketplace.visualstudio.com/items?itemName=mechatroner.rainbow-csv>`__.
 
-.. exercise:: Add some standard Real Estate Property Types for the `estate` module: Residential,
-  Commercial, Industrial and Land. These should always be installed.
+.. exercise:: 为 `estate` 模块添加一些标准的房产类型：住宅、商业、工业和土地。这些类型应始终安装。
 
 XML
 ---
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`Data Files<reference/data>`.
+**参考**: 有关此主题的文档可以在 :ref:`数据文件 <reference/data>` 中找到。
 
-When the data to create is more complex it can be useful, or even necessary, to do it in XML.
+当要创建的数据更加复杂时，使用 XML 会更有用，甚至是必要的。
 
 .. code-block:: xml
 
@@ -167,38 +147,33 @@ When the data to create is more complex it can be useful, or even necessary, to 
       </record>
     </odoo>
 
-.. exercise:: Create some demo data for the `estate` module.
+.. exercise:: 为 `estate` 模块创建一些演示数据。
 
   ================== ==================== ======================
-  Field              Values               Values
+  字段               值                    值
   ================== ==================== ======================
-  name               Big Villa            Trailer home
-  state              New                  Canceled
-  description        A nice and big villa Home in a trailer park
-  postcode           12345                54321
-  date_availability  2020-02-02           1970-01-01
-  expected_price     1,600,000            100,000
-  selling_price                           120,000
-  bedrooms           6                    1
-  living_area        100                  10
-  facades            4                    4
-  garage             True                 False
-  garden             True
-  garden_area        100000
-  garden_orientation South
+  名称               大别墅                拖车房
+  状态               新建                  已取消
+  描述               一座漂亮的大别墅        拖车公园中的房子
+  邮政编码           12345                 54321
+  可用日期           2020-02-02            1970-01-01
+  预期价格           1,600,000             100,000
+  销售价格                                120,000
+  卧室数             6                    1
+  居住面积           100                  10
+  立面数             4                    4
+  车库               有                    无
+  花园               有
+  花园面积           100000
+  花园朝向           南
   ================== ==================== ======================
 
-Data Extension
-~~~~~~~~~~~~~~
+数据扩展
+~~~~~~~~
 
-During the Core Training, we saw in the :doc:`server_framework_101/12_inheritance` chapter we
-could inherit (extend) an existing view. This was a special case of data extension: any data can be
-extended in a module.
+在核心培训中，我们在 :doc:`server_framework_101/12_inheritance` 章节中看到，我们可以继承（扩展）现有的视图。这是数据扩展的一个特殊情况：在模块中，任何数据都可以扩展。
 
-When you are adding new fields to an existing model in a new module, you might want to populate
-those fields on the records created in the modules you are depending on. This is done by giving the
-`xml_id` of the record you want to extend. It won't replace it, in this case we will set the
-``field_c`` to the given value for both records.
+当您在新模块中向现有模型添加新字段时，您可能希望在依赖的模块中填充这些字段的记录。这可以通过提供要扩展的记录的 `xml_id` 来完成。它不会替换记录，而是在这两条记录上设置 ``field_c`` 为给定的值。
 
 .. code-block:: xml
 
@@ -216,10 +191,7 @@ those fields on the records created in the modules you are depending on. This is
 ``ref``
 ~~~~~~~
 
-Related fields can be set using the ``ref`` key. The value of that key is the ``xml_id`` of the
-record you want to link. Remember the ``xml_id`` is composed of the name of the module where the
-data is first declared, followed by a dot, followed by the ``id`` of the record (just the ``id``
-works too if you are in the module declaring it).
+相关字段可以使用 ``ref`` 键进行设置。该键的值是您想要链接的记录的 ``xml_id``。请记住，``xml_id`` 由声明数据的模块名称、一个点和记录的 ``id`` 组成（如果是在声明该数据的模块中，直接使用 ``id`` 也可以）。
 
 .. code-block:: xml
 
@@ -229,27 +201,24 @@ works too if you are in the module declaring it).
       </record>
     </odoo>
 
-.. exercise:: Create some demo data offers for the properties you created.
+.. exercise:: 为您创建的房产创建一些演示数据的报价。
 
-  Create offers using the partners defined in ``base``
+  使用在 ``base`` 中定义的合作伙伴创建报价。
 
   ============== ========= ======= ========
-  Partner        Estate    Price   Validity
+  合作伙伴        房产        价格    有效期
   ============== ========= ======= ========
-  Azure Interior Big Villa 10000   14
-  Azure Interior Big Villa 1500000 14
-  Deco Addict    Big Villa 1500001 14
+  Azure Interior 大别墅      10000   14
+  Azure Interior 大别墅      1500000 14
+  Deco Addict    大别墅      1500001 14
   ============== ========= ======= ========
 
-.. exercise:: Ensure both of your demo properties are created with their Property Type set to Residential.
+.. exercise:: 确保您的两个演示房产的类型均设置为住宅。
 
 ``eval``
 ~~~~~~~~
 
-The value to assign to a field is not always a simple string and you might need to compute it.
-It can also be used to optimize the insertion of related values, or because a constraint forces you
-to add the related values in batch. See ::ref:`Add X2many fields
-<tutorials/define_module_data/x2m>`.
+要分配给字段的值不总是一个简单的字符串，您可能需要计算它。它还可以用于优化相关值的插入，或者由于约束，强制您批量添加相关值。参见::ref:`添加 X2many 字段 <tutorials/define_module_data/x2m>`。
 
 .. code-block:: xml
 
@@ -259,13 +228,12 @@ to add the related values in batch. See ::ref:`Add X2many fields
       </record>
     </odoo>
 
-.. exercise:: The offers you added should always be in a date relative to the installation of the
-  module.
+.. exercise:: 您添加的报价的日期应始终相对于模块的安装日期。
 
 ``search``
 ~~~~~~~~~~
 
-Sometimes, you need to call the ORM to do a ``search``. This is not feasible with the CSV format.
+有时，您需要调用 ORM 执行 ``search`` 操作。这在 CSV 格式中是不可行的。
 
 .. code-block:: xml
 
@@ -278,13 +246,12 @@ Sometimes, you need to call the ORM to do a ``search``. This is not feasible wit
       </record>
     </odoo>
 
-In this code snippet, it is needed because the master data depends on the localization
-installed.
+在此代码片段中，这是必需的，因为主数据取决于已安装的本地化设置。
 
 ``function``
 ~~~~~~~~~~~~
 
-You might also need to execute python code when loading data.
+加载数据时，您可能还需要执行 Python 代码。
 
 .. code-block:: xml
 
@@ -292,20 +259,16 @@ You might also need to execute python code when loading data.
       <value eval="[ref('demo_invoice_1')]"/>
   </function>
 
-.. exercise:: Validate one of the demo data offers by using the "Accept Offer" button. Refuse the
-  others.
-
+.. exercise:: 使用 "接受报价" 按钮验证一个演示数据报价。拒绝其他报价。
 
 .. _tutorials/define_module_data/x2m:
 
-Add X2many fields
------------------
+添加 X2many 字段
+----------------
 
-**Reference**: the documentation related to this topic can be found in
-:class:`~odoo.fields.Command`.
+**参考**: 有关此主题的文档可以在 :class:`~odoo.fields.Command` 中找到。
 
-If you need to add related data in a One2many or a Many2many field, you can do so by using the
-:class:`~odoo.fields.Command` methods.
+如果您需要在 One2many 或 Many2many 字段中添加相关数据，可以使用 :class:`~odoo.fields.Command` 方法。
 
 .. code-block:: xml
 
@@ -313,31 +276,28 @@ If you need to add related data in a One2many or a Many2many field, you can do s
       <record id="id1" model="tutorial.example">
         <field name="related_ids" eval="[
             Command.create({
-                'name': 'My name',
+                'name': '我的名字',
             }),
             Command.create({
-                'name': 'Your name',
+                'name': '你的名字',
             }),
             Command.link(ref('model.xml_id')),
         ]"/>
       </record>
     </odoo>
 
-.. exercise:: Create one new Property, but this time with some offers created directly inside the
-  One2many field linked to the Offers.
+.. exercise:: 创建一个新房产，但这次在与报价相关联的 One2many 字段中直接创建一些报价。
 
-Accessing the data
-==================
+访问数据
+========
 
-.. warning:: You should never access demo data outside of the demo data declaration, not even in
-  tests.
+.. warning:: 除了演示数据声明外，您不应在其他地方访问演示数据，即使是在测试中也不应。
 
-There are multiple ways to access the master/demo data.
+有多种方式可以访问主数据或演示数据。
 
-In python code, you can use the ``env.ref(self, xml_id, raise_if_not_found=True)`` method. It
-returns the recordset linked to the ``xml_id`` you specify.
+在 Python 代码中，您可以使用 ``env.ref(self, xml_id, raise_if_not_found=True)`` 方法。它返回与您指定的 ``xml_id`` 关联的记录集。
 
-In XML, you can use the `ref` key like this
+在 XML 中，您可以像这样使用 `ref` 键：
 
 .. code-block:: xml
 
@@ -347,49 +307,39 @@ In XML, you can use the `ref` key like this
       </record>
     </odoo>
 
-It will call the ref method, and store the id of the record returned on the field ``related_id`` of
-the record of type ``tutorial.example`` with id ``id1``.
+它会调用 `ref` 方法，并将返回的记录的 id 存储在类型为 ``tutorial.example`` 的记录 ``id1`` 的 ``related_id`` 字段中。
 
-In CSV, the title of the column must be suffixed with ``:id`` or ``/id``.
+在 CSV 中，列的标题必须以 ``:id`` 或 ``/id`` 作为后缀。
 
 .. code-block:: text
 
   id,parent_id:id,name
-  "child1","module.parent","Name1"
-  "child2","module.parent","Name2"
-  "child3","module.parent","Name3"
+  "child1","module.parent","名称1"
+  "child2","module.parent","名称2"
+  "child3","module.parent","名称3"
 
-In SQL, it is more complicated, see :ref:`the advanced section
-<tutorials/define_module_data/xml_id>`.
+在 SQL 中更复杂，详见 :ref:`高级部分 <tutorials/define_module_data/xml_id>`。
 
-.. warning:: Data can always be deleted by the user. Always code defensively, taking this into
-  account.
+.. warning:: 数据可以随时被用户删除。始终要编写防御性代码，将此考虑在内。
 
-
-
-
-Advanced
-========
+高级
+====
 
 .. _tutorials/define_module_data/xml_id:
 
-What is the XML id?
--------------------
+什么是 XML id？
+--------------
 
-Because we don't want a column ``xml_id`` in every single SQL table of the database, we need a
-mechanism to store it. This is done with the ``ir.model.data`` model.
+因为我们不希望在数据库的每个 SQL 表中都有一个 ``xml_id`` 列，所以我们需要一种机制来存储它。这是通过 ``ir.model.data`` 模型实现的。
 
-It contains the name of the record (the ``xml_id``) along with the module in which it is defined,
-the model defining it, and the id of it.
+该模型包含记录的名称（即 ``xml_id``）以及定义它的模块名称、定义它的模型和它的 id。
 
-No update
----------
+不更新
+------
 
-The records created with the ``noupdate`` flag won't be updated when upgrading the module that
-created them, but it will be created if it didn't exist yet.
+使用 ``noupdate`` 标志创建的记录在升级创建它的模块时不会更新，但如果尚不存在则会创建。
 
-.. note:: ``odoo-bin -i module`` will bypass this setting and always load the data. But normally
-  one shouldn't do this on a production database.
+.. note:: ``odoo-bin -i module`` 将绕过此设置并始终加载数据。但通常不应在生产数据库上执行此操作。
 
 .. code-block:: xml
 
@@ -400,19 +350,15 @@ created them, but it will be created if it didn't exist yet.
     </odoo>
 
 
-Import as SQL
+使用 SQL 导入
 -------------
 
-In some cases, it makes sense to do the import directly in SQL. This is however discouraged as it
-bypasses all the features of the ORM, computed fields (including metadata) and python constraints.
+在某些情况下，直接使用 SQL 导入是有意义的。然而，不推荐这样做，因为它绕过了 ORM 的所有功能、计算字段（包括元数据）和 Python 约束。
 
-.. note:: Generally using raw SQL also bypasses ACLs and increases the risks of injections.
+.. note:: 通常，使用原始 SQL 也会绕过 ACL，并增加注入风险。
 
-  **Reference**: :ref:`Security in Odoo<reference/security>`
+  **参考**: :ref:`Odoo 中的安全性 <reference/security>`
 
-* It can help to speed the import time by a lot
-  `with huge files <https://github.com/odoo/enterprise/blob/d46cceef8c594b9056d0115edb7169e207a5986f/product_unspsc/hooks.py#L19>`__.
-* For more complex imports like for the
-  `translations <https://github.com/odoo/odoo/blob/e1f8d549895cd9c459e6350430f30d541d02838a/odoo/addons/base/models/ir_translation.py#L24>`__.
-* It can be necessary to
-  `initialize the database <https://github.com/odoo/odoo/blob/e1f8d549895cd9c459e6350430f30d541d02838a/odoo/addons/base/data/base_data.sql>`__.
+* 在处理巨大的文件时，它可以帮助大幅加快导入时间 `<https://github.com/odoo/enterprise/blob/d46cceef8c594b9056d0115edb7169e207a5986f/product_unspsc/hooks.py#L19>`__。
+* 对于更复杂的导入，比如 `翻译 <https://github.com/odoo/odoo/blob/e1f8d549895cd9c459e6350430f30d541d02838a/odoo/addons/base/models/ir_translation.py#L24>`__。
+* 在初始化数据库时可能是必要的 `初始化数据库 <https://github.com/odoo/odoo/blob/e1f8d549895cd9c459e6350430f30d541d02838a/odoo/addons/base/data/base_data.sql>`__。

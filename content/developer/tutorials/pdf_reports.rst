@@ -1,36 +1,20 @@
 =================
-Build PDF Reports
+生成 PDF 报告
 =================
 
 .. important::
-   This tutorial is an extension of the :doc:`server_framework_101` tutorial. Make sure you have
-   completed it and use the `estate` module you have built as a base for the exercises in this
-   tutorial.
+   本教程是 :doc:`server_framework_101` 教程的扩展。确保您已经完成了该教程，并使用您构建的 `estate` 模块作为本教程中练习的基础。
 
-We were previously :doc:`introduced to QWeb <server_framework_101/14_qwebintro>`
-where it was used to build a kanban view. Now we will expand on one of QWeb's
-other main uses: creating PDF reports. A common business requirement is the ability to create documents
-to send to customers and to use internally. These reports can be used to summarize and display
-information in an organized template to support the business in different ways. Odoo
-can additionally add our company's header and footer to our reports with minimal extra effort.
+我们之前 :doc:`介绍了 QWeb <server_framework_101/14_qwebintro>`，并将其用于构建看板视图。现在我们将扩展 QWeb 的另一个主要用途：创建 PDF 报告。常见的业务需求之一是生成文档，以发送给客户或供内部使用。这些报告可以用于汇总和展示信息，支持业务的各个方面。Odoo 还可以轻松地为我们的报告添加公司抬头和页脚，几乎不需要额外的努力。
 
-The documentation related to this topic can be found in :ref:`reference/qweb`,
-:ref:`reference/reports/report`, and the :ref:`reference/actions/report`
-section of the Actions reference.
+与此主题相关的文档可在 :ref:`reference/qweb`、:ref:`reference/reports/report` 和操作参考的 :ref:`reference/actions/report` 部分找到。
 
-File Structure
+文件结构
 ==============
 
-The bulk of a PDF report is its QWeb template. It also typically needs a corresponding
-``ir.actions.report`` to include the report within a module's business logic.
-There is no strict rule for the file names or where they are located, but these two parts are
-typically stored in 2 separate files within a ``report`` folder at the top level of your module's
-directory. If a module has many or multiple long report templates, then they are often organized
-logically across different files named after the report(s) they contain. All actions
-for the reports are usually stored in the same file ending with ``_reports.xml``, regardless of the
-number of reports it contains.
+PDF 报告的主体是其 QWeb 模板。通常，它还需要一个对应的 ``ir.actions.report``，以将报告纳入模块的业务逻辑中。文件名或其存放位置没有严格的规定，但这两个部分通常位于模块目录顶层的 ``report`` 文件夹中。如果一个模块包含多个较长的报告模板，它们通常按逻辑划分为不同的文件，并根据它们所包含的报告命名。所有报告的操作通常存储在同一个以 ``_reports.xml`` 结尾的文件中，无论包含多少报告。
 
-Therefore, it is expected that your work tree will look something like this:
+因此，您的工作目录应如下所示：
 
 .. code-block:: bash
 
@@ -48,58 +32,41 @@ Therefore, it is expected that your work tree will look something like this:
   ├── __init__.py
   └── __manifest__.py
 
-Don't forget to add whatever files your template and action view will be into to your ``__manifest__.py``.
-In this case, you will want to add the files to the ``data`` list and remember that the files listed in a manifest
-are loaded sequentially!
+不要忘记将您的模板和操作视图所在的文件添加到 ``__manifest__.py`` 中。在本例中，您需要将这些文件添加到 ``data`` 列表中，并记住，声明文件中的文件是按顺序加载的！
 
-Basic Report
+基础报告
 ============
 
 .. note::
 
-    **Goal**: at the end of this section, we will can print a report that displays all offers for a
-    property.
+    **目标**: 在本节结束时，我们将能够打印显示某个房产所有报价的报告。
 
     .. image:: pdf_reports/simple_report.png
       :align: center
-      :alt: Simple PDF report
+      :alt: 简单 PDF 报告
 
-In our real estate example there are many useful reports that we could create. One simple report we
-can create is one that displays all of a property's offers.
+在我们的房地产示例中，我们可以创建许多有用的报告。我们可以创建的一个简单报告是显示房产所有报价的报告。
 
-Report Data
+报告数据
 -----------
 
-Before we do anything we first need some data to populate our reports or else this tutorial
-won't be very interesting. When creating reports, you will need some data to test your report code
-and check that the resulting look is as expected. It is a good idea to test with data that will cover most
-or all of your expected use cases. A good representation set for our simple report is:
+在我们开始之前，首先需要一些数据来填充我们的报告，否则本教程将不会很有趣。创建报告时，您需要一些数据来测试您的报告代码，并检查生成的外观是否符合预期。最好使用可以覆盖大多数或所有预期使用案例的数据集。我们简单报告的良好代表集是：
 
-* At least 3 properties where 1 is "sold", 1 is "offer received" and 1 is "new".
-* At least 2-3 offers for our "sold" and "offer received" properties
+* 至少 3 个房产，其中 1 个已“售出”，1 个“收到报价”，1 个“新建”。
+* 对于“售出”和“收到报价”的房产，至少有 2-3 个报价。
 
-If you don't have a set of data like this already, you can either:
+如果您还没有这样的数据集，您可以：
 
-* Complete the :doc:`define_module_data` tutorial (if you haven't done so already) and add the extra
-  cases to your demo data (you may need to create a new database to load in the demo data).
-* Manually create the data in your database.
-* Copy this `data file
-  <https://github.com/odoo/technical-training-solutions/blob/{BRANCH}-J_reports/estate/data/estate_demo.xml>`_
-  into a new directory (data) in your estate module and copy `these lines
-  <https://github.com/odoo/technical-training-solutions/blob/{BRANCH}-J_reports/estate/__manifest__.py#L21-L23>`_
-  into your __manifest__.py file (you may need to create a new database to load in the demo data).
+* 完成 :doc:`define_module_data` 教程（如果还没有完成），并将这些额外的情况添加到您的演示数据中（可能需要创建一个新数据库来加载演示数据）。
+* 手动在您的数据库中创建数据。
+* 复制此 `数据文件 <https://github.com/odoo/technical-training-solutions/blob/{BRANCH}-J_reports/estate/data/estate_demo.xml>`_ 到您的 estate 模块的新目录（data）中，并将 `这些行 <https://github.com/odoo/technical-training-solutions/blob/{BRANCH}-J_reports/estate/__manifest__.py#L21-L23>`_ 复制到您的 __manifest__.py 文件中（可能需要创建一个新数据库来加载演示数据）。
 
-Before continuing, click through your data in your database and make sure your data is as expected.
-Of course you can add the data after you write your report code, but then you will not be able to
-incrementally test portions of your code as you write it. This can make checking for mistakes and
-debugging your code more difficult in the long run for complicated reports.
+在继续之前，请点击您的数据库中的数据，确保数据符合预期。当然，您也可以在编写报告代码后添加数据，但这样做会让您在编写代码时无法逐步测试代码的各个部分。对于复杂报告，长期来看，这可能会增加查找错误和调试代码的难度。
 
-Minimal Template
+最小模板
 ----------------
 
-A minimal viable template is viewable under the "Minimal viable template" section of the
-:ref:`reference/reports/templates` documentation. We can modify this example to build
-our minimal property offers template file:
+在 "最小可行模板" 部分中可以查看最小可行模板的示例 :ref:`reference/reports/templates` 文档。我们可以修改该示例来构建我们房产报价的最小模板文件：
 
 .. code-block:: xml
 
@@ -114,13 +81,13 @@ our minimal property offers template file:
                                 <span t-field="property.name"/>
                             </h2>
                             <div>
-                                <strong>Expected Price: </strong>
+                                <strong>预期价格: </strong>
                                 <span t-field="property.expected_price"/>
                             </div>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Price</th>
+                                        <th>价格</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -139,164 +106,116 @@ our minimal property offers template file:
         </template>
     </odoo>
 
-Most of the Odoo specific (i.e. non-HTML) items in our file are explained in the minimal viable template section.
-Some additional features in our template are:
+文件中的大多数 Odoo 特定项（即非 HTML 项）都在最小可行模板部分中进行了说明。我们的模板中的一些其他功能包括：
 
-* The use of the ``class="table"`` attribute, so our table has some nice formatting. Twitter Bootstrap
-  (we're using its table class in this case), and Font Awesome (useful for adding icons) classes can
-  be used in your report template.
-* The use of ``t-set``, ``t-value``, ``t-foreach``, and ``t-as`` so that we can loop over all the ``offer_ids``.
+* 使用 ``class="table"`` 属性，使我们的表格具有良好的格式。Twitter Bootstrap（我们在此使用其表格类）和 Font Awesome（用于添加图标）类可以在报告模板中使用。
+* 使用 ``t-set``、``t-value``、``t-foreach`` 和 ``t-as``，以便我们可以循环遍历所有 ``offer_ids``。
 
-If you are already familiar with website templating engines, then the QWeb directives (i.e. the `t-` commands)
-probably don't need much explanation and you can just look at its :ref:`documentation <reference/qweb>` and
-skip ahead to the next subsection.
+如果您已经熟悉网站模板引擎，那么 QWeb 指令（即 `t-` 命令）可能不需要太多解释，您只需查看其 :ref:`文档 <reference/qweb>`，然后跳到下一小节。
 
-Otherwise you are encouraged to read more about them (
-`Wikipedia <https://en.wikipedia.org/wiki/Template_processor>`__ has a good high level description), but
-the general idea is that QWeb provides the ability to dynamically generate web code based on Odoo data and
-simple commands. I.e. QWeb can access recordset data (and methods) and process simple programming operations
-such as setting and accessing temporary variables. For example, in the above example:
+否则，建议您阅读更多关于它们的信息（`Wikipedia <https://en.wikipedia.org/wiki/Template_processor>`__ 提供了一个很好的高级描述），但其一般思想是，QWeb 提供了根据 Odoo 数据和简单命令动态生成网页代码的能力。即 QWeb 可以访问记录集数据（和方法）并处理简单的编程操作，例如设置和访问临时变量。例如，在上述示例中：
 
-* ``t-set`` creates a temporary variable called "offers" that has its value set by ``t-value`` to the current
-  ``estate.property`` recordset's ``offer_ids``.
-* The ``t-foreach`` and ``t-as`` usage is the equivalent to the Python:
+* ``t-set`` 创建一个名为 "offers" 的临时变量，其值通过 ``t-value`` 设置为当前 ``estate.property`` 记录集的 ``offer_ids``。
+* ``t-foreach`` 和 ``t-as`` 的用法相当于 Python 中的：
 
 .. code-block:: Python
 
   for offer in offers:
 
-Report Action
+报告操作
 -------------
 
-Now that we have a template, we need to make it accessible in our app via a ``ir.actions.report``.
-A practical example of ``ir.actions.report`` is
-`here <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/event/report/event_event_reports.xml#L20-L30>`__
-corresponding to
-`this template <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/event/report/event_event_templates.xml#L5>`__.
-Its contents are all explained in :ref:`the documentation <reference/actions/report>`.
+现在我们有了模板，我们需要通过 ``ir.actions.report`` 使其在应用中可访问。
+``ir.actions.report`` 的一个实际示例可以在 `这里 <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/event/report/event_event_reports.xml#L20-L30>`__ 查看，其对应的
+`模板 <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/event/report/event_event_templates.xml#L5>`__。
+其内容在 :ref:`文档 <reference/actions/report>` 中进行了详细解释。
 
-An ``ir.actions.report`` is primarily used via the Print menu of a model's view. In the practical
-example, the ``binding_model_id`` specifies which model's views the report should show, and Odoo
-will auto-magically add it for you. Another common use case of the report action is to link it to
-a button as we learned in :doc:`server_framework_101/09_actions`. This is handy for reports
-that only make sense under specific conditions. For example, if we wanted to make a "Final Sale"
-report, then we can link it to a "Print Sale Info" button that appears in the form view only when
-the property is "Sold".
+``ir.actions.report`` 主要通过模型视图的打印菜单使用。在实际示例中，``binding_model_id`` 指定了报告应显示在哪些模型视图中，Odoo 会自动为您添加它。报告操作的另一个常见用例是将其链接到按钮，如我们在 :doc:`server_framework_101/09_actions` 中所学的。这对于仅在特定条件下有意义的报告非常方便。例如，如果我们要创建一个“最终销售”报告，那么我们可以将其链接到一个“打印销售信息”按钮，该按钮仅在房产状态为“售出”时出现在表单视图中。
 
 .. image:: pdf_reports/print_menu.png
     :align: center
-    :alt: Print Menu Button
+    :alt: 打印菜单按钮
 
-You may have noticed or are wondered why our report template loops through a recordset. When our
-template is passed more than one record, it can produce one PDF report for all the records.
-Using the Print menu in the list view with multiple records selected will demonstrate this.
+您可能已经注意到或想知道，为什么我们的报告模板会遍历一个记录集。当传递多个记录时，它可以为所有记录生成一个 PDF 报告。使用列表视图中的打印菜单并选择多个记录时，可以演示这一点。
 
-Make a Report
+生成报告
 -------------
 
-Finally, you now know where to create your files and how the content of the files should look. Happy report making!
+最后，您现在知道了在哪里创建文件以及文件的内容应如何编写。祝您报告生成愉快！
 
-.. exercise:: Make a report.
+.. exercise:: 生成一个报告。
 
-    - Add the property offers report from the minimal template subsection to the Print menu of the Property views.
+    - 将最小模板子节中的房产报价报告添加到房产视图的打印菜单中。
 
-    - Improve the report by adding more data. Refer to the **Goal** of this section to see what additional
-      data you can add and feel free to add even more.
+    - 通过添加更多数据来改进报告。请参阅本节的 **目标**，以了解您可以添加哪些其他数据，并随意添加更多。
 
-    - Bonus: Make an extra flexible report by adding in some logic so that when there are no offers on a property
-      then we don't create a table and instead write something about how there are no offers yet. Hint: you will
-      need to use ``t-if`` and ``t-else``.
+    - 奖励: 通过添加一些逻辑生成一个更灵活的报告，这样当某个房产没有报价时，我们不会创建表格，而是写一些关于该房产尚无报价的信息。提示: 您需要使用 ``t-if`` 和 ``t-else``。
 
-    Remember to check that your PDF reports match your data as expected.
+    请记住检查您的 PDF 报告与预期数据是否一致。
 
 
-Sub-templates
+子模板
 =============
 
 .. note::
 
-    **Goal**: at the end of this section, we will have a sub-template that we use in 2 reports.
+    **目标**: 在本节结束时，我们将拥有一个可在两个报告中使用的子模板。
 
     .. image:: pdf_reports/report_subtemplate.png
       :align: center
-      :alt: Report using a subtemplate
+      :alt: 使用子模板的报告
 
-There are two main reasons for using sub-templates. One is to make the code easier to read when working with
-extra-long or complicated templates. The other is to reuse code where possible. Our simple property offers
-report is useful, but listing property offers information can be useful for more than just one report template.
-One example is a report that lists all of a salesman's properties' offers.
+使用子模板有两个主要原因。一是当处理非常长或复杂的模板时，使代码更易于阅读。另一个是尽可能重用代码。我们简单的房产报价报告很有用，但列出房产报价信息不仅对一个报告模板有用。一个例子是列出某个销售人员所有房产报价的报告。
 
-See if you can understand how to call a sub-template by reading the
-:ref:`documentation <reference/qweb/sub-templates>` on it and/or by looking at an
-`example <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/portal/static/src/xml/portal_chatter.xml#L147-L160>`__
-(remember QWeb uses the same control flows regardless if it is for a report or a view in Odoo.)
+请参阅 :ref:`文档 <reference/qweb/sub-templates>` 了解如何调用子模板，或者查看 `示例 <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/portal/static/src/xml/portal_chatter.xml#L147-L160>`__（记住，QWeb 使用相同的控制流，无论是用于报告还是 Odoo 中的视图）。
 
-.. exercise:: Create and use a sub-template.
+.. exercise:: 创建并使用子模板。
 
-    - Split the table portion of the offers into its own template. Remember to check that your
-      original report still prints correctly afterwards.
+    - 将报价表格部分拆分为一个独立的模板。请记住检查原始报告在修改后是否仍能正确打印。
 
-    - Add a new report for ``res.users`` that allows you to print all of the Real Estate Properties
-      that are visible in their form view (i.e. in the "Settings" app). Include the offers for each
-      of those saleman's properties in the same report. Hint: since the ``binding_model_id`` in this
-      case will not be within the estate module, you will need to use ``ref="base.model_res_users"``.
+    - 为 ``res.users`` 添加一个新报告，允许您打印在其表单视图中可见的所有房产（即在“设置”应用中）。在同一报告中包含这些销售人员的房产报价。提示: 由于 ``binding_model_id`` 在本例中不在 estate 模块内，您需要使用 ``ref="base.model_res_users"``。
 
-      Your end result should look similar to the image in the **Goal** of this section.
+      最终结果应类似于本节 **目标** 中的图片。
 
-    Remember to check that your reports match your data as expected!
+    请记住检查您的报告是否与预期数据一致！
 
-Report Inheritance
+报告继承
 ==================
 
 .. note::
 
-    **Goal**: at the end of this section, we will inherit the property report in the ``estate_account``
-    module.
+    **目标**: 在本节结束时，我们将继承 ``estate_account`` 模块中的房产报告。
 
     .. image:: pdf_reports/inherited_report.png
       :align: center
-      :alt: An inherited report
+      :alt: 继承的报告
 
-Inheritance in QWeb uses the same ``xpath`` elements as :ref:`views inheritance <reference/view_records/inheritance>`.
-A QWeb template refers to its parent template in a different way though. It is even easier to do by just adding
-the ``inherit_id`` attribute to the ``template`` element and setting it equal to the *module.parent_template_id*.
+QWeb 中的继承使用与 :ref:`视图继承 <reference/view_records/inheritance>` 相同的 ``xpath`` 元素。然而，QWeb 模板引用其父模板的方式不同。实际上更简单，只需在 ``template`` 元素中添加 ``inherit_id`` 属性，并将其设置为 *module.parent_template_id*。
 
-We didn't add any new fields to any of the estate models in `estate_account`, but we can still add information
-to our existing property report. For example, we know that any "Sold" properties will already have an invoice
-created for them, so we can add this information to our report.
+我们没有在 `estate_account` 中的任何 estate 模型中添加新字段，但我们仍然可以向现有的房产报告中添加信息。例如，我们知道任何“已售出”的房产都已经为其生成了发票，因此我们可以将该信息添加到报告中。
 
-.. exercise:: Inherit a report.
+.. exercise:: 继承一个报告。
 
-    - Extend the property report to include some information about the invoice. You can look at the **Goal** of this
-      section for inspiration (i.e. print a line when the property is Done, otherwise print nothing).
+    - 扩展房产报告，包含一些关于发票的信息。您可以查看本节 **目标** 获取灵感（即在房产状态为“完成”时打印一行，否则不打印任何内容）。
 
-    Again, remember to check that your reports match your data as expected!
+    同样，请记住检查您的报告是否与预期数据一致！
 
-Additional Features
+其他功能
 ===================
 
-All the following extra features are described further in the :ref:`reference/reports/report`
-documentation, including how to implement each of them.
+所有以下额外功能都在 :ref:`reference/reports/report` 文档中有更详细的说明，包括如何实现每一个功能。
 
-Translations
+翻译
 ------------
 
-We all know Odoo is used in multiple languages thanks to automated and manual translating. QWeb reports are no
-exception! Note that sometimes the translations do not work properly if there are unnecessary spaces in your
-template's text content, so try to avoid them when possible (especially leading spaces).
+众所周知，Odoo 可以通过自动和手动翻译在多个语言中使用。QWeb 报告也不例外！请注意，有时如果模板中的文本内容中存在不必要的空格，翻译可能无法正常工作，因此请尽量避免它们（尤其是前导空格）。
 
-Reports are web pages
+报告是网页
 ---------------------
 
-You probably are tired of hearing that QWeb creates HTML, but we're saying it again! One of the
-neat features of reports being written in QWeb is they can be viewed within the web browser.
-This can be useful if you want to embed a hyperlink that leads to a specific report. Note that
-the usual security checks will still apply to prevent unauthorized users from accessing the reports.
+您可能已经厌倦了听到 QWeb 创建 HTML 了，但我们再次强调！报告以 QWeb 编写的一个有趣功能是它们可以在 Web 浏览器中查看。这在您希望嵌入指向特定报告的超链接时非常有用。请注意，通常的安全检查仍将适用于防止未经授权的用户访问报告。
 
-Barcodes
+条形码
 --------
 
-Odoo has a built-in barcode image creator that allows for barcodes to be embedded in your reports.
-Check out the corresponding
-`code <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/web/controllers/main.py#L2044-L2046>`__
-to see all the supported barcode types.
+Odoo 内置了一个条形码图像生成器，允许将条形码嵌入到报告中。查看对应的 `代码 <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/web/controllers/main.py#L2044-L2046>`__，以了解所有支持的条形码类型。

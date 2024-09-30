@@ -1,7 +1,7 @@
 :show-content:
 
 ====================
-Server framework 101
+服务器框架 101
 ====================
 
 .. toctree::
@@ -10,22 +10,14 @@ Server framework 101
 
     server_framework_101/*
 
-Welcome to the Server framework 101 tutorial! If you reached this page that means you are
-interested in the development of your own Odoo module. It might also mean that you recently
-joined the Odoo company for a rather technical position. In any case, your journey to the
-technical side of Odoo starts here.
+欢迎来到服务器框架 101 教程！如果你看到这个页面，说明你对开发自己的 Odoo 模块感兴趣。也有可能是你最近加入了 Odoo 公司，并担任了一个比较技术性的职位。不管怎样，你的 Odoo 技术之旅从这里开始。
 
-The goal of this tutorial is for you to get an insight of the most important parts of the Odoo
-development framework while developing your own Odoo module to manage real estate assets. The
-chapters should be followed in their given order since they cover the development of a new Odoo
-application from scratch in an incremental way. In other words, each chapter depends on the previous
-one.
+本教程的目标是让你在开发自己的 Odoo 模块以管理房地产资产的过程中，深入了解 Odoo 开发框架的最重要部分。各个章节是按顺序递进的，因为每一章都涵盖了从零开始开发一个新的 Odoo 应用程序的内容，也就是说，每一章都依赖于前一章的内容。
 
 .. important::
-   Before going further, make sure you have prepared your development environment with the
-   :doc:`setup guide <setup_guide>`.
+   在继续学习之前，请确保你已经根据 :doc:`设置指南 <setup_guide>` 准备好了你的开发环境。
 
-Ready? Let's get started!
+准备好了吗？我们开始吧！
 
 * :doc:`server_framework_101/01_architecture`
 * :doc:`server_framework_101/02_newapp`

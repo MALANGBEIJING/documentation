@@ -1,7 +1,7 @@
 :show-content:
 
 ==========================
-Discover the web framework
+探索 Web 框架
 ==========================
 
 .. toctree::
@@ -10,38 +10,26 @@ Discover the web framework
 
     discover_js_framework/*
 
-This two parts tutorial is designed to introduce you to the basics of the web framework. Whether
-you are new to the framework or have some prior experience, this tutorial will provide you with a
-solid foundation for using the web framework in your projects.
+本教程分为两部分，旨在向您介绍 Web 框架的基础知识。无论您是 Web 框架的新手，还是有一些经验，本教程都将为您提供使用 Web 框架的坚实基础。
 
-The first part covers the basics of Owl components, which
-are a key part of the web framework. Owl components are reusable UI components that can be used
-to build complex web interfaces quickly and efficiently. We will explore how to create and use Owl
-components in Odoo. Then, in the second part of this tutorial, we focus on creating a dashboard using various
-features of Odoo. Dashboards are an essential part of any web application, and provide a nice starting
-point to use and interact with the Odoo codebase.
+第一部分涵盖了 Owl 组件的基础知识，这些是 Web 框架的重要组成部分。Owl 组件是可重用的 UI 组件，可用于快速高效地构建复杂的 Web 界面。我们将探索如何在 Odoo 中创建和使用 Owl 组件。在本教程的第二部分，我们将重点介绍如何使用 Odoo 的各种功能创建一个仪表板。仪表板是任何 Web 应用程序的重要组成部分，是使用和交互 Odoo 代码库的良好起点。
 
-This tutorial assumes that you have some basic knowledge of development with Odoo in general
-(models, controllers, QWeb, ...). If you are new to Odoo, we recommend that you start with the
-:doc:`/developer/tutorials/server_framework_101` tutorial before proceeding with this one.
+本教程假设您已经具备一些 Odoo 开发的基础知识（模型、控制器、QWeb 等）。如果您是 Odoo 的新手，建议您先完成 :doc:`/developer/tutorials/server_framework_101` 教程，然后再继续学习本教程。
 
 .. note::
 
-    Each chapter of this tutorial is an independant project.  If you feel comfortable with Owl, you can
-    start directly with chapter 2.
+    本教程的每一章都是一个独立的项目。如果您对 Owl 已经比较熟悉，可以直接从第二章开始。
 
 .. _tutorials/discover_js_framework/setup:
 
-Setup
+设置
 =====
 
-#. Clone the `official Odoo tutorials repository <https://github.com/odoo/tutorials>`_ and switch to
-   the branch `{CURRENT_MAJOR_BRANCH}`.
-#. Add the cloned repository to your :option:`--addons-path <odoo-bin --addons-path>`.
-#. Start a new Odoo database and install the modules `awesome_owl` (for chapter 1) and `awesome_dashboard`
-   (for chapter 2).
+#. 克隆 `Odoo 官方教程仓库 <https://github.com/odoo/tutorials>`_ 并切换到分支 `{CURRENT_MAJOR_BRANCH}`。
+#. 将克隆的仓库添加到您的 :option:`--addons-path <odoo-bin --addons-path>`。
+#. 启动一个新的 Odoo 数据库并安装模块 `awesome_owl`（用于第一章）和 `awesome_dashboard`（用于第二章）。
 
-Content
+内容
 =======
 
 - :doc:`discover_js_framework/01_owl_components`

@@ -1,12 +1,9 @@
 ======================
-Reuse code with mixins
+使用 Mixins 复用代码
 ======================
 
-If you need to interface with common Odoo features such as the chatter, you can rely on
-:doc:`mixins <../reference/backend/mixins>`.
-They are Odoo models exposing useful methods through inheritance.
+如果您需要与 Odoo 的常见功能（例如 Chatter）进行接口，可以使用 :doc:`mixins <../reference/backend/mixins>`。
+它们是通过继承暴露有用方法的 Odoo 模型。
 
-To learn and play with mixins, visit `this repository <https://github.com/tivisse/odoodays-2018/>`_.
-This module for a plant nursery is training material developed for the OXP 2018. You don't need to
-code it on your side. But you can check the presentations in the :file:`/static/pdf` directory and
-play with the module to discover some magic features in Odoo.
+要学习并实践 mixins，您可以访问 `这个仓库 <https://github.com/tivisse/odoodays-2018/>`_。
+这个植物苗圃模块是为 OXP 2018 开发的培训材料。您不需要亲自编写代码，但您可以查看 :file:`/static/pdf` 目录中的演示文稿，并通过该模块来探索 Odoo 中的一些神奇功能。
