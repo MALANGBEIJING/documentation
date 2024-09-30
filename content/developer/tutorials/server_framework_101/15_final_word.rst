@@ -1,30 +1,23 @@
-==========================
-Chapter 15: The final word
+最后的话
 ==========================
 
-Coding guidelines
+编码指南
 =================
 
-We will start refactoring the code to match to the Odoo coding guidelines. The guidelines aim
-to improve the quality of the Odoo Apps code.
+我们将开始重构代码以符合 Odoo 的编码指南。这些指南旨在提高 Odoo 应用程序代码的质量。
 
-**Reference**: you will find the Odoo coding guidelines in
-:doc:`/contributing/development/coding_guidelines`.
+**参考**：您可以在 :doc:`/contributing/development/coding_guidelines` 找到 Odoo 的编码指南。
 
-.. exercise:: Polish your code.
+.. 练习:: 改善您的代码。
 
-    Refactor your code to respect the coding guidelines. Don't forget to run your linter and
-    respect the module structure, the variable names, the method name convention, the model
-    attribute order and the xml ids.
+    重构您的代码以遵循编码指南。别忘了运行您的代码检查工具，并遵循模块结构、变量名称、方法名称约定、模型属性顺序和 XML ID。
 
-Test on the runbot
+在 runbot 上进行测试
 ==================
 
-Odoo has its own :abbr:`CI (Continuous integration)` server named `runbot <https://runbot.odoo.com/>`__. All
-commits, branches and PR will be tested to avoid regressions or breaking of the stable versions.
-All the runs that pass the tests are deployed on their own server with demo data.
+Odoo 有自己的 :abbr:`CI (持续集成)` 服务器，名为 `runbot <https://runbot.odoo.com/>`__。所有提交、分支和 PR 都会进行测试，以避免回归或破坏稳定版本。
+所有通过测试的运行将在其自己的服务器上部署，并带有演示数据。
 
-.. exercise:: Play with the runbot.
+.. 练习:: 使用 runbot。
 
-    Feel free to go to the runbot website and open the last stable version of Odoo to check out all the available
-    applications and functionalities.
+    随意访问 runbot 网站，并打开 Odoo 的最新稳定版本，以查看所有可用的应用程序和功能。

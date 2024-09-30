@@ -1,48 +1,33 @@
 =============================
-Chapter 11: Add The Sprinkles
+第11章：添加一些装饰
 =============================
 
-Our real estate module now makes sense from a business perspective. We created
-:doc:`specific views <06_basicviews>`, added several
-:doc:`action buttons <09_actions>` and
-:doc:`constraints <10_constraints>`. However our user interface is still a bit
-rough. We would like to add some colors to the list views and make some fields and buttons conditionally
-disappear. For example, the 'Sold' and 'Cancel' buttons should disappear when the property
-is sold or canceled since it is no longer allowed to change the state at this point.
+我们的房地产模块现在从商业角度看是合理的。我们创建了 :doc:`特定视图 <06_basicviews>`，添加了多个 :doc:`操作按钮 <09_actions>` 和 :doc:`约束 <10_constraints>`。然而，我们的用户界面仍然有些粗糙。我们希望为列表视图添加一些颜色，并有条件地隐藏某些字段和按钮。例如，当物业已售或已取消时，“已售”和“取消”按钮应消失，因为此时不再允许更改状态。
 
-This chapter covers a very small subset of what can be done in the views. Do not hesitate to
-read the reference documentation for a more complete overview.
+本章涵盖了在视图中可以做的非常小的子集。请随时查看参考文档以获取更全面的概述。
 
-**Reference**: the documentation related to this chapter can be found in
-:doc:`../../reference/user_interface/view_records` and
-:doc:`../../reference/user_interface/view_architectures`.
+**参考**：有关本章的文档可以在 :doc:`../../reference/user_interface/view_records` 和 :doc:`../../reference/user_interface/view_architectures` 中找到。
 
-Inline Views
+内联视图
 ============
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, a specific list of properties should be added to the property
-    type view:
+    **目标**：在本节结束时，应在物业类型视图中添加特定的物业列表：
 
     .. image:: 11_sprinkles/inline_view.png
-      :align: center
-      :alt: Inline list view
+        :align: center
+        :alt: 内联列表视图
 
-In the real estate module we added a list of offers for a property. We simply added the field
-``offer_ids`` with:
+在房地产模块中，我们为物业添加了报价列表。我们只需添加字段 ``offer_ids``：
 
 .. code-block:: xml
 
     <field name="offer_ids"/>
 
-The field uses the specific view for ``estate.property.offer``. In some cases we want to define
-a specific list view which is only used in the context of a form view. For example, we would like
-to display the list of properties linked to a property type. However, we only want to display 3
-fields for clarity: name, expected price and state.
+该字段使用 ``estate.property.offer`` 的特定视图。在某些情况下，我们希望定义一个特定的列表视图，仅在表单视图的上下文中使用。例如，我们希望显示与物业类型链接的物业列表。然而，我们只希望显示三个字段以便于理解：名称、预期价格和状态。
 
-To do this, we can define *inline* list views. An inline list view is defined directly inside
-a form view. For example:
+为此，我们可以定义 *内联* 列表视图。内联列表视图直接在表单视图内定义。例如：
 
 .. code-block:: python
 
@@ -50,7 +35,7 @@ a form view. For example:
 
     class TestModel(models.Model):
         _name = "test_model"
-        _description = "Test Model"
+        _description = "测试模型"
 
         description = fields.Char()
         line_ids = fields.One2many("test_model_line", "model_id")
@@ -58,7 +43,7 @@ a form view. For example:
 
     class TestModelLine(models.Model):
         _name = "test_model_line"
-        _description = "Test Model Line"
+        _description = "测试模型行"
 
         model_id = fields.Many2one("test_model")
         field_1 = fields.Char()
@@ -77,88 +62,65 @@ a form view. For example:
         </field>
     </form>
 
-In the form view of the `test_model`, we define a specific list view for `test_model_line`
-with fields ``field_1`` and ``field_2``.
+在 `test_model` 的表单视图中，我们为 `test_model_line` 定义了一个特定的列表视图，包含字段 ``field_1`` 和 ``field_2``。
 
-An example can be found
-`here <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/event/views/event_tag_views.xml#L27-L33>`__.
+可以在
+`这里 <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/event/views/event_tag_views.xml#L27-L33>`__ 找到示例。
 
-.. exercise:: Add an inline list view.
+.. 练习:: 添加内联列表视图。
 
-    - Add the ``One2many`` field ``property_ids`` to the ``estate.property.type`` model.
-    - Add the field in the ``estate.property.type`` form view as depicted in the **Goal** of this
-      section.
+    - 向 ``estate.property.type`` 模型添加 ``One2many`` 字段 ``property_ids``。
+    - 按照本节 **目标** 中的描述将该字段添加到 ``estate.property.type`` 的表单视图中。
 
-Widgets
+小部件
 =======
 
-**Reference**: the documentation related to this section can be found in
-:ref:`reference/js/widgets`.
+**参考**：有关本节的文档可以在 :ref:`reference/js/widgets` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, the state of the property should be displayed using a
-    specific widget:
+    **目标**：在本节结束时，物业的状态应使用特定的小部件显示：
 
     .. image:: 11_sprinkles/widget.png
-      :align: center
-      :alt: Statusbar widget
+        :align: center
+        :alt: 状态栏小部件
 
-    Four states are displayed: New, Offer Received, Offer Accepted and Sold.
+    显示四个状态：新建、收到报价、报价接受和已售。
 
-Whenever we've added fields to our models, we've (almost) never had to worry about how
-these fields would look like in the user interface. For example, a date picker is provided
-for a ``Date`` field and a ``One2many`` field is automatically displayed as a list. Odoo
-chooses the right 'widget' depending on the field type.
+每当我们向模型添加字段时，我们（几乎）从未担心这些字段在用户界面中的外观。例如，为 ``Date`` 字段提供了日期选择器， ``One2many`` 字段自动显示为列表。Odoo 根据字段类型选择合适的“小部件”。
 
-However, in some cases, we want a specific representation of a field which can be done thanks to
-the ``widget`` attribute. We already used it for the ``tag_ids`` field when we used the
-``widget="many2many_tags"`` attribute. If we hadn't used it, then the field would have displayed as a
-list.
+然而，在某些情况下，我们希望对字段进行特定的表示，这可以通过 ``widget`` 属性来实现。我们在使用 ``widget="many2many_tags"`` 属性时已经使用过它。如果我们没有使用它，则该字段将显示为列表。
 
-Each field type has a set of widgets which can be used to fine tune its display. Some widgets also
-take extra options. An exhaustive list can be found in :ref:`reference/js/widgets`.
+每种字段类型都有一组可以用来微调其显示的小部件。有些小部件还接受额外选项。详尽的列表可以在 :ref:`reference/js/widgets` 中找到。
 
-.. exercise:: Use the status bar widget.
+.. 练习:: 使用状态栏小部件。
 
-    Use the ``statusbar`` widget in order to display the ``state`` of the ``estate.property`` as
-    depicted in the **Goal** of this section.
+    使用 ``statusbar`` 小部件来显示 ``estate.property`` 的 ``state``，如本节 **目标** 中所述。
 
-    Tip: a simple example can be found
-    `here <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/account/views/account_bank_statement_views.xml#L136>`__.
+    提示：可以在
+    `这里 <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/account/views/account_bank_statement_views.xml#L136>`__ 找到一个简单示例。
 
-.. warning:: Same field multiple times in a view
+.. 警告:: 在视图中多次使用同一字段
 
-    Add a field only **once** to a list or a form view. Adding it multiple times is
-    not supported.
+    仅将字段 **添加一次** 到列表或表单视图中。多次添加不被支持。
 
-List Order
+列表排序
 ==========
 
-**Reference**: the documentation related to this section can be found in
-:ref:`reference/orm/models`.
+**参考**：有关本节的文档可以在 :ref:`reference/orm/models` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, all lists should display by default in a deterministic
-    order. Property types can be ordered manually.
+    **目标**：在本节结束时，所有列表应默认以确定性顺序显示。物业类型可以手动排序。
 
-During the previous exercises, we created several list views. However, at no point did we specify
-which order the records had to be listed in by default. This is a very important thing for many business
-cases. For example, in our real estate module we would want to display the highest offers on top of the
-list.
+在之前的练习中，我们创建了多个列表视图。然而，在任何时候我们都没有指定记录应按默认顺序列出。这对许多业务案例来说是非常重要的。例如，在我们的房地产模块中，我们希望将最高的报价显示在列表顶部。
 
-Model
+模型
 -----
 
-Odoo provides several ways to set a default order. The most common way is to define
-the ``_order`` attribute directly in the model. This way, the retrieved records will follow
-a deterministic order which will be consistent in all views including when records are searched
-programmatically. By default there is no order specified, therefore the records will be
-retrieved in a non-deterministic order depending on PostgreSQL.
+Odoo 提供了几种设置默认排序的方法。最常见的方法是在模型中直接定义 ``_order`` 属性。通过这种方式，检索到的记录将遵循一个确定的顺序，这在所有视图中都将保持一致，包括在编程搜索记录时。默认情况下没有指定顺序，因此记录将根据 PostgreSQL 以非确定性顺序检索。
 
-The ``_order`` attribute takes a string containing a list of fields which will be used for sorting.
-It will be converted to an order_by_ clause in SQL. For example:
+``_order`` 属性采用一个包含将用于排序的字段列表的字符串。它将转换为 SQL 中的 order_by_ 子句。例如：
 
 .. code-block:: python
 
@@ -166,126 +128,99 @@ It will be converted to an order_by_ clause in SQL. For example:
 
     class TestModel(models.Model):
         _name = "test_model"
-        _description = "Test Model"
+        _description = "测试模型"
         _order = "id desc"
 
         description = fields.Char()
 
-Our records are ordered by descending ``id``, meaning the highest comes first.
+我们的记录按降序 ``id`` 排序，这意味着最高的在前。
 
-.. exercise:: Add model ordering.
+.. 练习:: 添加模型排序。
 
-    Define the following orders in their corresponding models:
+    在相应模型中定义以下排序：
 
     =================================== ===================================
-    Model                               Order
+    模型                               排序
     =================================== ===================================
-    ``estate.property``                 Descending ID
-    ``estate.property.offer``           Descending Price
-    ``estate.property.tag``             Name
-    ``estate.property.type``            Name
+    ``estate.property``                 降序 ID
+    ``estate.property.offer``           降序价格
+    ``estate.property.tag``             名称
+    ``estate.property.type``            名称
     =================================== ===================================
 
-View
+视图
 ----
 
-Ordering is possible at the model level. This has the advantage of a consistent order everywhere
-a list of records is retrieved. However, it is also possible to define a specific order directly
-in a view thanks to the ``default_order`` attribute
-(`example <https://github.com/odoo/odoo/blob/892dd6860733c46caf379fd36f57219082331b66/addons/crm/report/crm_activity_report_views.xml#L30>`__).
+排序可以在模型级别进行。这有一个优势，即在检索记录列表的地方始终保持一致的顺序。然而，也可以通过在视图中直接定义 ``default_order`` 属性来定义特定的顺序
+（`示例 <https://github.com/odoo/odoo/blob/892dd6860733c46caf379fd36f57219082331b66/addons/crm/report/crm_activity_report_views.xml#L30>`__）。
 
-Manual
+手动
 ------
 
-Both model and view ordering allow flexibility when sorting records, but there is still one case
-we need to cover: the manual ordering. A user may want to sort records depending on the business
-logic. For example, in our real estate module we would like to sort the property types manually.
-It is indeed useful to have the most used types appear at the top of the list. If our real estate
-agency mainly sells houses, it is more convenient to have 'House' appear before 'Apartment'.
+模型和视图排序都允许在排序记录时灵活性，但还有一种情况需要覆盖：手动排序。用户可能希望根据业务逻辑对记录进行排序。例如，在我们的房地产模块中，我们希望手动排序物业类型。确实，有用的类型出现在列表顶部。如果我们的房地产代理主要出售房屋，那么将“房屋”放在“公寓”之前会更方便。
 
-To do so, a ``sequence`` field is used in combination with the ``handle`` widget. Obviously
-the ``sequence`` field must be the first field in the ``_order`` attribute.
+为此，使用 ``sequence`` 字段结合 ``handle`` 小部件。显然， ``sequence`` 字段必须是 ``_order`` 属性中的第一个字段。
 
-.. exercise:: Add manual ordering.
+.. 练习:: 添加手动排序。
 
-    - Add the following field:
+    - 添加以下字段：
 
     =================================== ======================= =======================
-    Model                               Field                   Type
+    模型                               字段                   类型
     =================================== ======================= =======================
     ``estate.property.type``            Sequence                Integer
     =================================== ======================= =======================
 
-    - Add the sequence to the ``estate.property.type`` list view with the correct widget.
+    - 将序列添加到 ``estate.property.type`` 列表视图中，使用正确的小部件。
 
-    Tip: you can find an example here:
-    `model <https://github.com/odoo/odoo/blob/892dd6860733c46caf379fd36f57219082331b66/addons/crm/models/crm_stage.py#L36>`__
-    and
-    `view <https://github.com/odoo/odoo/blob/892dd6860733c46caf379fd36f57219082331b66/addons/crm/views/crm_stage_views.xml#L23>`__.
-
-Attributes and options
+    提示：可以在 `模型 <https://github.com/odoo/odoo/blob/892dd6860733c46caf379fd36f57219082331b66/addons/crm/models/crm_stage.py#L36>`__ 和 `视图 <https://github.com/odoo/odoo/blob/892dd6860733c46caf379fd36f57219082331b66/addons/crm/views/crm_stage_views.xml#L23>`__ 中找到示例。
+属性和选项
 ======================
 
-It would be prohibitive to detail all the available features which allow fine tuning of the look of a
-view. Therefore, we'll stick to the most common ones.
+详细说明视图外观的所有可用功能将是不可行的。因此，我们将重点介绍最常用的功能。
 
-Form
+表单
 ----
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, the property form view will have:
+    **目标**：在本节结束时，物业表单视图将具有：
 
-    - Conditional display of buttons and fields
-    - Tag colors
+    - 条件显示的按钮和字段
+    - 标签颜色
 
     .. image:: 11_sprinkles/form.gif
       :align: center
-      :alt: Form view with sprinkles
+      :alt: 带装饰的表单视图
 
 
-In our real estate module, we want to modify the behavior of some fields. For example, we don't
-want to be able to create or edit a property type from the form view. Instead we expect the
-types to be handled in their appropriate menu. We also want to give tags a color. In order to add these
-behavior customizations, we can add the ``options`` attribute to several field widgets.
+在我们的房地产模块中，我们希望修改某些字段的行为。例如，我们不希望能够在表单视图中创建或编辑物业类型。相反，我们希望在其适当的菜单中处理这些类型。我们还希望给标签赋予颜色。为了添加这些行为自定义，我们可以向多个字段小部件添加 ``options`` 属性。
 
-.. exercise:: Add widget options.
+.. 练习:: 添加小部件选项。
 
-    - Add the appropriate option to the ``property_type_id`` field to prevent the creation and the
-      editing of a property type from the property form view. Have a look at the
-      :ref:`Many2one widget documentation <reference/js/widgets>` for more info.
+    - 为 ``property_type_id`` 字段添加适当的选项，以防止从物业表单视图中创建和编辑物业类型。有关更多信息，请查看 :ref:`Many2one 小部件文档 <reference/js/widgets>`。
 
-    - Add the following field:
+    - 添加以下字段：
 
     =================================== ======================= =======================
-    Model                               Field                   Type
+    模型                               字段                   类型
     =================================== ======================= =======================
     ``estate.property.tag``             Color                   Integer
     =================================== ======================= =======================
 
-    Then add the appropriate option to the ``tag_ids`` field to add a color picker on the tags.
-    Have a look at the :ref:`FieldMany2ManyTags widget documentation <reference/js/widgets>`
-    for more info.
+    然后为 ``tag_ids`` 字段添加适当的选项，以在标签上添加颜色选择器。有关更多信息，请查看 :ref:`FieldMany2ManyTags 小部件文档 <reference/js/widgets>`。
 
-In :doc:`05_firstui`, we saw that reserved fields were used for
-specific behaviors. For example, the ``active`` field is used to automatically filter out
-inactive records. We added the ``state`` as a reserved field as well. It's now time to use it!
-A ``state`` field can be used in combination with an ``invisible`` attribute in the view to display
-buttons conditionally.
+在 :doc:`05_firstui` 中，我们看到保留字段用于特定行为。例如， ``active`` 字段用于自动过滤掉非活动记录。我们还添加了 ``state`` 作为保留字段。现在是时候使用它了！可以将 ``state`` 字段与视图中的 ``invisible`` 属性结合使用，以条件显示按钮。
 
-.. exercise:: Add conditional display of buttons.
+.. 练习:: 添加按钮的条件显示。
 
-    Use the ``invisible`` attribute to display the header buttons conditionally as depicted
-    in this section's **Goal** (notice how the 'Sold' and 'Cancel' buttons change when the state is modified).
+    使用 ``invisible`` 属性来条件显示表头按钮，如本节 **目标** 中所示（注意当状态被修改时“已售”和“取消”按钮的变化）。
 
-    Tip: do not hesitate to search for ``invisible=`` in the Odoo XML files for some examples.
+    提示：可以在 Odoo XML 文件中搜索 ``invisible=`` 以找到一些示例。
 
-More generally, it is possible to make a field ``invisible``, ``readonly`` or ``required`` based
-on the value of other fields. Note that ``invisible`` can also be applied to other elements of
-the view such as ``button`` or ``group``.
+更一般来说，可以根据其他字段的值使字段 ``invisible``、 ``readonly`` 或 ``required``。请注意， ``invisible`` 也可以应用于视图的其他元素，例如 ``button`` 或 ``group``。
 
-`invisible`, `readonly` and `required` can have any Python expression as value. The expression
-gives the condition in which the property applies. For example:
+`invisible`、 `readonly` 和 `required` 可以具有任何 Python 表达式作为值。该表达式给出了属性适用的条件。例如：
 
 .. code-block:: xml
 
@@ -294,62 +229,46 @@ gives the condition in which the property applies. For example:
         <field name="is_partner" invisible="True"/>
     </form>
 
-This means that the ``description`` field is invisible when ``is_partner`` is ``False``. It is
-important to note that a field used in ``invisible`` **must** be present in the view. If it
-should not be displayed to the user, we can use the ``invisible`` attribute to hide it.
+这意味着当 ``is_partner`` 为 ``False`` 时， ``description`` 字段是不可见的。重要的是要注意，在 ``invisible`` 中使用的字段 **必须** 在视图中存在。如果不应显示给用户，则可以使用 ``invisible`` 属性将其隐藏。
 
-.. exercise:: Use ``invisible``.
+.. 练习:: 使用 ``invisible``。
 
-    - Make the garden area and orientation invisible in the ``estate.property`` form view when
-      there is no garden.
-    - Make the 'Accept' and 'Refuse' buttons invisible once the offer state is set.
-    - Do not allow adding an offer when the property state is 'Offer Accepted', 'Sold' or
-      'Canceled'. To do this use the ``readonly`` attribute.
+    - 当没有花园时，在 ``estate.property`` 表单视图中使花园面积和朝向不可见。
+    - 一旦报价状态设置，'接受' 和 '拒绝' 按钮应不可见。
+    - 不允许在物业状态为 '报价接受'、'已售' 或 '已取消' 时添加报价。为此，使用 ``readonly`` 属性。
 
-.. warning::
+.. 警告::
 
-    Using a (conditional) ``readonly`` attribute in the view can be useful to prevent data entry
-    errors, but keep in mind that it doesn't provide any level of security! There is no check done
-    server-side, therefore it's always possible to write on the field through a RPC call.
+    在视图中使用（条件） ``readonly`` 属性可以防止数据输入错误，但请记住，它不提供任何安全级别！没有进行服务器端检查，因此始终可以通过 RPC 调用写入字段。
 
-List
+列表
 ----
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, the property and offer list views should have color decorations.
-    Additionally, offers and tags will be editable directly in the list, and the availability date will be
-    hidden by default.
+    **目标**：在本节结束时，物业和报价列表视图应具有颜色装饰。此外，报价和标签将在列表中直接可编辑，且可用日期默认隐藏。
 
     .. image:: 11_sprinkles/decoration.png
       :align: center
-      :alt: List view with decorations and optional field
+      :alt: 带装饰和可选字段的列表视图
 
     .. image:: 11_sprinkles/editable_list.gif
       :align: center
-      :alt: Editable list
+      :alt: 可编辑列表
 
-When the model only has a few fields, it can be useful to edit records directly through the list
-view and not have to open the form view. In the real estate example, there is no need to open a form view
-to add an offer or create a new tag. This can be achieved thanks to the ``editable`` attribute.
+当模型只有少数字段时，通过列表视图直接编辑记录可能很有用，而无需打开表单视图。在房地产示例中，添加报价或创建新标签时无需打开表单视图。这可以通过 ``editable`` 属性实现。
 
-.. exercise:: Make list views editable.
+.. 练习:: 使列表视图可编辑。
 
-    Make the ``estate.property.offer`` and ``estate.property.tag`` list views editable.
+    使 ``estate.property.offer`` 和 ``estate.property.tag`` 列表视图可编辑。
 
-On the other hand, when a model has a lot of fields it can be tempting to add too many fields in the
-list view and make it unclear. An alternative method is to add the fields, but make them optionally
-hidden. This can be achieved thanks to the ``optional`` attribute.
+另一方面，当模型有很多字段时，添加太多字段到列表视图并使其变得不清晰可能会很诱人。另一种方法是添加字段，但使它们可选地隐藏。这可以通过 ``optional`` 属性实现。
 
-.. exercise:: Make a field optional.
+.. 练习:: 使字段可选。
 
-    Make the field ``date_availability`` on the ``estate.property`` list view optional and hidden by
-    default.
+    在 ``estate.property`` 列表视图中使 ``date_availability`` 字段可选，默认隐藏。
 
-Finally, color codes are useful to visually emphasize records. For example, in the real estate
-module we would like to display refused offers in red and accepted offers in green. This can be achieved
-thanks to the ``decoration-{$name}`` attribute (see :ref:`reference/js/widgets` for a
-complete list):
+最后，颜色代码对于视觉上突出记录很有用。例如，在房地产模块中，我们希望以红色显示拒绝的报价，以绿色显示接受的报价。这可以通过 ``decoration-{$name}`` 属性实现（请参见 :ref:`reference/js/widgets` 获取完整列表）：
 
 .. code-block:: xml
 
@@ -358,124 +277,98 @@ complete list):
         <field name="is_partner" invisible="1"/>
     </tree>
 
-The records where ``is_partner`` is ``True`` will be displayed in green.
+当 ``is_partner`` 为 ``True`` 时，记录将以绿色显示。
 
-.. exercise:: Add some decorations.
+.. 练习:: 添加一些装饰。
 
-    On the ``estate.property`` list view:
+    在 ``estate.property`` 列表视图中：
 
-    - Properties with an offer received are green
-    - Properties with an offer accepted are green and bold
-    - Properties sold are muted
+    - 收到报价的物业为绿色
+    - 接受报价的物业为绿色且加粗
+    - 已售物业为淡色
 
-    On the ``estate.property.offer`` list view:
+    在 ``estate.property.offer`` 列表视图中：
 
-    - Refused offers are red
-    - Accepted offers are green
-    - The state should not be visible anymore
+    - 拒绝的报价为红色
+    - 接受的报价为绿色
+    - 状态不应再可见
 
-    Tips:
+    提示：
 
-    - Keep in mind that **all** fields used in attributes must be in the view!
-    - If you want to test the color of the "Offer Received" and "Offer Accepted" states, add the
-      field in the form view and change it manually (we'll implement the business logic for this later).
+    - 请记住，**所有** 在属性中使用的字段必须在视图中！
+    - 如果您想测试“报价收到”和“报价接受”状态的颜色，请在表单视图中添加该字段并手动更改（我们将在稍后实现业务逻辑）。
 
-Search
+搜索
 ------
 
-**Reference**: the documentation related to this section can be found in
-:ref:`reference/view_architectures/search` and :ref:`reference/view_architectures/search/defaults`.
+**参考**：有关本节的文档可以在 :ref:`reference/view_architectures/search` 和 :ref:`reference/view_architectures/search/defaults` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, the available properties will be filtered by default,
-    and searching on the living area returns results where the area is larger than the given
-    number.
+    **目标**：在本节结束时，可用的物业将默认过滤，并且搜索居住面积将返回面积大于给定数值的结果。
 
     .. image:: 11_sprinkles/search.gif
       :align: center
-      :alt: Default filters and domains
+      :alt: 默认过滤器和域
 
-Last but not least, there are some tweaks we would like to apply when searching. First of all, we
-want to have our 'Available' filter applied by default when we access the properties. To make this happen, we
-need to use the ``search_default_{$name}`` action context, where ``{$name}`` is the filter name.
-This means that we can define which filter(s) will be activated by default at the action level.
+最后但同样重要的是，我们希望在搜索时进行一些调整。首先，我们希望在访问物业时默认应用“可用”过滤器。要实现这一点，我们需要使用 ``search_default_{$name}`` 操作上下文，其中 ``{$name}`` 是过滤器名称。这意味着我们可以在操作级别定义将默认激活的过滤器。
 
-Here is an example of an
-`action <https://github.com/odoo/odoo/blob/6decc32a889b46947db6dd4d42ef995935894a2a/addons/crm/report/crm_opportunity_report_views.xml#L115>`__
-with its
-`corresponding filter <https://github.com/odoo/odoo/blob/6decc32a889b46947db6dd4d42ef995935894a2a/addons/crm/report/crm_opportunity_report_views.xml#L68>`__.
+这是一个
+`操作的示例 <https://github.com/odoo/odoo/blob/6decc32a889b46947db6dd4d42ef995935894a2a/addons/crm/report/crm_opportunity_report_views.xml#L115>`__
+及其
+`相应的过滤器 <https://github.com/odoo/odoo/blob/6decc32a889b46947db6dd4d42ef995935894a2a/addons/crm/report/crm_opportunity_report_views.xml#L68>`__。
 
-.. exercise:: Add a default filter.
+.. 练习:: 添加默认过滤器。
 
-    Make the 'Available' filter selected by default in the ``estate.property`` action.
+    在 ``estate.property`` 操作中使“可用”过滤器默认选中。
 
-Another useful improvement in our module would be the ability to search efficiently by living area.
-In practice, a user will want to search for properties of 'at least' the given area. It is unrealistic
-to expect users would want to find a property of an exact living area. It is always
-possible to make a custom search, but that's inconvenient.
+我们模块中的另一个有用改进是能够通过居住面积高效搜索。实际上，用户希望搜索“至少”给定面积的物业。期望用户找到确切居住面积的物业是不现实的。虽然始终可以进行自定义搜索，但这并不方便。
 
-Search view ``<field>`` elements can have a ``filter_domain`` that overrides
-the domain generated for searching on the given field. In the given domain,
-``self`` represents the value entered by the user. In the example below, it is
-used to search on both ``name`` and ``description`` fields.
+搜索视图的 ``<field>`` 元素可以具有 ``filter_domain``，该域会覆盖在给定字段上生成的搜索域。在给定的域中， ``self`` 代表用户输入的值。在下面的示例中，它用于同时在 ``name`` 和 ``description`` 字段上进行搜索。
 
 .. code-block:: xml
 
     <search string="Test">
-        <field name="description" string="Name and description"
+        <field name="description" string="名称和描述"
                filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"/>
     </search>
 
-.. exercise:: Change the living area search.
+.. 练习:: 更改居住面积搜索。
 
-    Add a ``filter_domain`` to the living area to include properties with an area equal to or
-    greater than the given value.
-
-Stat Buttons
+    为居住面积添加 ``filter_domain``，以包含面积等于或大于给定值的物业。
+统计按钮
 ============
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, there will be a stat button on the property type form view
-    which shows the list of all offers related to properties of the given type when it is clicked on.
+    **目标**：在本节结束时，物业类型表单视图上将有一个统计按钮，点击后会显示与该类型的物业相关的所有报价列表。
 
     .. image:: 11_sprinkles/stat_button.gif
       :align: center
-      :alt: Stat button
+      :alt: 统计按钮
 
-If you've already used some functional modules in Odoo, you've probably already encountered a 'stat
-button'. These buttons are displayed on the top right of a form view and give a quick access to
-linked documents. In our real estate module, we would like to have a quick link to the offers
-related to a given property type as depicted in the **Goal** of this section.
+如果您已经在 Odoo 中使用了一些功能模块，您可能已经遇到过“统计按钮”。这些按钮显示在表单视图的右上角，提供快速访问链接文档的功能。在我们的房地产模块中，我们希望能够快速链接到与给定物业类型相关的报价，如本节 **目标** 所示。
 
-At this point of the tutorial we have already seen most of the concepts to do this. However,
-there is not a single solution and it can still be confusing if you don't know where to start from.
-We'll describe a step-by-step solution in the exercise. It can always be useful to find some
-examples in the Odoo codebase by looking for ``oe_stat_button``.
+在本教程的这一点上，我们已经看到了实现这一点的大部分概念。然而，并没有单一的解决方案，如果您不知道从哪里开始，它可能仍然令人困惑。我们将在练习中描述一个逐步的解决方案。查找 ``oe_stat_button`` 的示例在 Odoo 代码库中也总是有用的。
 
-The following exercise might be a bit more difficult than the previous ones since it assumes you
-are able to search for examples in the source code on your own. If you are stuck there is probably
-someone nearby who can help you ;-)
+以下练习可能比之前的练习稍微困难一些，因为它假设您能够自行搜索源代码中的示例。如果您卡住了，附近可能有人可以帮助您 ;-)
 
-The exercise introduces the concept of :ref:`reference/fields/related`. The easiest way to
-understand it is to consider it as a specific case of a computed field. The following definition
-of the ``description`` field:
+该练习介绍了 :ref:`reference/fields/related` 的概念。理解它的最简单方法是将其视为计算字段的特定情况。以下 ``description`` 字段的定义：
 
 .. code-block:: python
 
         ...
 
-        partner_id = fields.Many2one("res.partner", string="Partner")
+        partner_id = fields.Many2one("res.partner", string="合作伙伴")
         description = fields.Char(related="partner_id.name")
 
-is equivalent to:
+等效于：
 
 .. code-block:: python
 
         ...
 
-        partner_id = fields.Many2one("res.partner", string="Partner")
+        partner_id = fields.Many2one("res.partner", string="合作伙伴")
         description = fields.Char(compute="_compute_description")
 
         @api.depends("partner_id.name")
@@ -483,39 +376,24 @@ is equivalent to:
             for record in self:
                 record.description = record.partner_id.name
 
-Every time the partner name is changed, the description is modified.
+每当合作伙伴名称更改时，描述也会随之修改。
 
-.. exercise:: Add a stat button to property type.
+.. 练习:: 向物业类型添加统计按钮。
 
-    - Add the field ``property_type_id`` to ``estate.property.offer``. We can define it as a
-      related field on ``property_id.property_type_id`` and set it as stored.
+    - 将字段 ``property_type_id`` 添加到 ``estate.property.offer``。我们可以将其定义为对 ``property_id.property_type_id`` 的相关字段并设置为存储。
 
-    Thanks to this field, an offer will be linked to a property type when it's created. You can add
-    the field to the list view of offers to make sure it works.
+    借助此字段，报价在创建时将与物业类型链接。您可以将该字段添加到报价的列表视图中，以确保其正常工作。
 
-    - Add the field ``offer_ids`` to ``estate.property.type`` which is the One2many inverse of
-      the field defined in the previous step.
+    - 将字段 ``offer_ids`` 添加到 ``estate.property.type``，它是前一步中定义的字段的 One2many 反向。
 
-    - Add the field ``offer_count`` to ``estate.property.type``. It is a computed field that counts
-      the number of offers for a given property type (use ``offer_ids`` to do so).
+    - 向 ``estate.property.type`` 添加字段 ``offer_count``。它是一个计算字段，计算与给定物业类型相关的报价数量（使用 ``offer_ids`` 来实现）。
 
-    At this point, you have all the information necessary to know how many offers are linked to
-    a property type. When in doubt, add ``offer_ids`` and ``offer_count`` directly to the view.
-    The next step is to display the list when clicking on the stat button.
+    在这一点上，您拥有所有必要的信息以了解与物业类型链接的报价数量。如果不确定，请将 ``offer_ids`` 和 ``offer_count`` 直接添加到视图中。下一步是在点击统计按钮时显示列表。
 
-    - Create a stat button on ``estate.property.type`` pointing to the ``estate.property.offer``
-      action. This means you should use the ``type="action"`` attribute (go back to the end of
-      :doc:`09_actions` if you need a refresher).
+    - 在 ``estate.property.type`` 上创建一个统计按钮，指向 ``estate.property.offer`` 动作。这意味着您应该使用 ``type="action"`` 属性（如果需要复习，请回到 :doc:`09_actions` 的末尾）。
 
-    At this point, clicking on the stat button should display all offers. We still need to filter out the
-    offers.
+    此时，点击统计按钮应显示所有报价。我们仍需过滤报价。
 
-    - On the ``estate.property.offer`` action, add a domain that defines ``property_type_id``
-      as equal to the ``active_id`` (= the current record,
-      `here is an example <https://github.com/odoo/odoo/blob/df37ce50e847e3489eb43d1ef6fc1bac6d6af333/addons/event/views/event_views.xml#L162>`__)
+    - 在 ``estate.property.offer`` 动作上，添加一个域，定义 ``property_type_id`` 等于 ``active_id``（= 当前记录， `这里有一个示例 <https://github.com/odoo/odoo/blob/df37ce50e847e3489eb43d1ef6fc1bac6d6af333/addons/event/views/event_views.xml#L162>`__）。
 
-Looking good? If not, don't worry, the :doc:`next chapter
-<12_inheritance>` doesn't require stat buttons ;-)
-
-.. _order_by:
-    https://www.postgresql.org/docs/12/queries-order.html
+看起来不错吗？如果没有，不用担心， :doc:`下一章 <12_inheritance>` 不需要统计按钮 ;-)

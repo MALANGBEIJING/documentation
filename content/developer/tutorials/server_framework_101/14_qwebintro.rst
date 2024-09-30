@@ -1,44 +1,28 @@
+QWeb 简介
 ===================================
-Chapter 14: A Brief History Of QWeb
-===================================
 
-So far the interface design of our real estate module has been rather limited. Building
-a list view is straightforward since only the list of fields is necessary. The same holds true
-for the form view: despite the use of a few tags such as ``<group>`` or ``<page>``, there
-is very little to do in terms of design.
+到目前为止，我们房地产模块的界面设计相对有限。构建列表视图是简单的，因为只需要字段列表。表单视图也是如此：尽管使用了几个标签，如 ``<group>`` 或 ``<page>``, 但在设计方面几乎没有什么可做的。
 
-However, if we want to give a unique look to our application, it is necessary to go a step
-further and be able to design new views. Moreover, other features such as PDF reports or
-website pages need another tool to be created with more flexibility: a templating_ engine.
+然而，如果我们想为我们的应用程序赋予独特的外观，就有必要更进一步，能够设计新的视图。此外，PDF 报告或网站页面等其他功能需要另一种工具，以便以更大的灵活性创建：模板引擎。
 
-You might already be familiar with existing engines such as Jinja (Python), ERB (Ruby) or
-Twig (PHP). Odoo comes with its own built-in engine: :ref:`reference/qweb`.
-QWeb is the primary templating engine used by Odoo. It is an XML templating engine and used
-mostly to generate HTML fragments and pages.
+您可能已经熟悉现有的引擎，如 Jinja（Python）、ERB（Ruby）或 Twig（PHP）。Odoo 附带了自己的内置引擎：:ref:`reference/qweb`。QWeb 是 Odoo 使用的主要模板引擎。它是一个 XML 模板引擎，主要用于生成 HTML 片段和页面。
 
-You probably already have come across the `kanban board`_ in Odoo where the records are
-displayed in a card-like structure. We will build such a view for our real estate module.
+您可能已经在 Odoo 中遇到了 `看板`_，在该看板中，记录以卡片状结构显示。我们将为我们的房地产模块构建这样的视图。
 
-Concrete Example: A Kanban View
+具体示例：看板视图
 ===============================
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`reference/view_architectures/kanban`.
+**参考**：与此主题相关的文档可以在 :ref:`reference/view_architectures/kanban` 找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section a Kanban view of the properties should be created:
+    **目标**：在本节结束时，应创建物业的看板视图：
 
     .. image:: 14_qwebintro/kanban.png
         :align: center
-        :alt: Kanban view
+        :alt: 看板视图
 
-In our estate application, we would like to add a Kanban view to display our properties. Kanban
-views are a standard Odoo view (like the form and list views), but their structure is much more
-flexible. In fact, the structure of each card is a mix of form elements (including basic HTML)
-and QWeb. The definition of a Kanban view is similar to the definition of the list and form
-views, except that their root element is ``<kanban>``. In its simplest form, a Kanban view
-looks like:
+在我们的房地产应用程序中，我们希望添加一个看板视图来显示我们的物业。看板视图是标准的 Odoo 视图（与表单和列表视图类似），但它们的结构更加灵活。实际上，每个卡片的结构是表单元素（包括基本的 HTML）和 QWeb 的混合。看板视图的定义与列表和表单视图的定义类似，唯一的区别是它们的根元素是 ``<kanban>``。在其最简单的形式下，看板视图看起来像这样：
 
 .. code-block:: xml
 
@@ -52,26 +36,20 @@ looks like:
         </templates>
     </kanban>
 
-Let's break down this example:
+让我们来逐步分析这个示例：
 
-- ``<templates>``: defines a list of :ref:`reference/qweb` templates. Kanban views *must* define at
-  least one root template ``kanban-box``, which will be rendered once for each record.
-- ``<t t-name="kanban-box">``: ``<t>`` is a placeholder element for QWeb directives. In this case,
-  it is used to set the ``name`` of the template to ``kanban-box``
-- ``<div class="oe_kanban_global_click">``: the ``oe_kanban_global_click`` makes the ``<div>``
-  clickable to open the record.
-- ``<field name="name"/>``: this will add the ``name`` field to the view.
+- ``<templates>``：定义了一系列 :ref:`reference/qweb` 模板。看板视图 *必须* 至少定义一个根模板 ``kanban-box``，该模板将为每条记录渲染一次。
+- ``<t t-name="kanban-box">``： ``<t>`` 是 QWeb 指令的占位符元素。在这种情况下，它用于将模板的 ``name`` 设置为 ``kanban-box``。
+- ``<div class="oe_kanban_global_click">``： ``oe_kanban_global_click`` 使得 ``<div>`` 可点击，以打开记录。
+- ``<field name="name"/>``：这将把 ``name`` 字段添加到视图中。
 
-.. exercise:: Make a minimal kanban view.
+.. 练习:: 创建最小的看板视图。
 
-    Using the simple example provided, create a minimal Kanban view for the properties. The
-    only field to display is the ``name``.
+    使用提供的简单示例，为物业创建一个最小的看板视图。要显示的唯一字段是 ``name``。
 
-    Tip: you must add ``kanban`` in the ``view_mode`` of the corresponding
-    ``ir.actions.act_window``.
+    提示：您必须在相应的 ``ir.actions.act_window`` 的 ``view_mode`` 中添加 ``kanban``。
 
-Once the Kanban view is working, we can start improving it. If we want to display an element
-conditionally, we can use the ``t-if`` directive (see :ref:`reference/qweb/conditionals`).
+一旦看板视图工作正常，我们就可以开始改进它。如果我们想有条件地显示一个元素，我们可以使用 ``t-if`` 指令（参见 :ref:`reference/qweb/conditionals`）。
 
 .. code-block:: xml
 
@@ -82,48 +60,35 @@ conditionally, we can use the ``t-if`` directive (see :ref:`reference/qweb/condi
                 <div class="oe_kanban_global_click">
                     <field name="name"/>
                     <div t-if="record.state.raw_value == 'new'">
-                        This is new!
+                        这是新的！
                     </div>
                 </div>
             </t>
         </templates>
     </kanban>
 
-We added a few things:
+我们添加了一些内容：
 
-- ``t-if``: the ``<div>`` element is rendered if the condition is true.
-- ``record``: an object with all the requested fields as its attributes. Each field has
-  two attributes ``value`` and ``raw_value``. The former is formatted according to current
-  user parameters and the latter is the direct value from a :meth:`~odoo.models.Model.read`.
+- ``t-if``：如果条件为真，则渲染 ``<div>`` 元素。
+- ``record``：一个对象，具有所有请求字段作为其属性。每个字段有两个属性 ``value`` 和 ``raw_value``。前者根据当前用户参数进行格式化，后者是直接来自 :meth:`~odoo.models.Model.read` 的值。
 
-In the above example, the field ``name`` was added in the ``<templates>`` element, but ``state``
-is outside of it. When we need the value of a field but don't want to display it in the view,
-it is possible to add it outside of the ``<templates>`` element.
+在上面的示例中，字段 ``name`` 是在 ``<templates>`` 元素中添加的，但 ``state`` 在外面。当我们需要某个字段的值，但不想在视图中显示它时，可以将其添加到 ``<templates>`` 元素之外。
 
-.. exercise:: Improve the Kanban view.
+.. 练习:: 改进看板视图。
 
-    Add the following fields to the Kanban view: expected price, best price, selling price and
-    tags. Pay attention: the best price is only displayed when an offer is received, while the
-    selling price is only displayed when an offer is accepted.
+    将以下字段添加到看板视图：预期价格、最佳价格、销售价格和标签。请注意：最佳价格仅在收到报价时显示，而销售价格仅在接受报价时显示。
 
-    Refer to the **Goal** of the section for a visual example.
+    请参考本节的 **目标** 以获得视觉示例。
 
-Let's give the final touch to our view: the properties must be grouped by type by default. You
-might want to have a look at the various options described in
-:ref:`reference/view_architectures/kanban`.
+让我们为我们的视图提供最终的润色：物业必须默认按类型分组。您可能想查看 :ref:`reference/view_architectures/kanban` 中描述的各种选项。
 
-.. exercise:: Add default grouping.
+.. 练习:: 添加默认分组。
 
-    Use the appropriate attribute to group the properties by type by default. You must also prevent
-    drag and drop.
+    使用适当的属性默认按类型对物业进行分组。您还必须防止拖放。
 
-    Refer to the **Goal** of the section for a visual example.
+    请参考本节的 **目标** 以获得视觉示例。
 
-Kanban views are a typical example of how it is always a good idea to start from an existing
-view and fine tune it instead of starting from scratch. There are many options and classes
-available, so... read and learn!
+看板视图是一个典型的示例，说明从现有视图开始并进行微调，而不是从头开始，始终是个好主意。可用的选项和类有很多，所以... 阅读和学习吧！
 
-.. _templating:
-    https://en.wikipedia.org/wiki/Template_processor
-.. _kanban board:
-    https://en.wikipedia.org/wiki/Kanban_board
+.. _templating: https://en.wikipedia.org/wiki/Template_processor
+.. _kanban board: https://en.wikipedia.org/wiki/Kanban_board

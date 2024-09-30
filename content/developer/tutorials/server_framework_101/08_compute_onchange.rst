@@ -1,66 +1,46 @@
 ========================================
-Chapter 8: Computed Fields And Onchanges
+第8章：计算字段和 onchange
 ========================================
 
-The :doc:`relations between models <07_relations>` are a key component of
-any Odoo module. They are necessary for the modelization of any business case. However, we may want
-links between the fields within a given model. Sometimes the value of one field is determined from
-the values of other fields and other times we want to help the user with data entry.
+模型之间的 :doc:`关系 <07_relations>` 是任何 Odoo 模块的关键组成部分。它们对于任何业务案例的建模都是必要的。然而，我们可能希望在给定模型中的字段之间建立链接。有时一个字段的值是从其他字段的值中确定的，有时我们希望帮助用户进行数据输入。
 
-These cases are supported by the concepts of computed fields and onchanges. Although this chapter is
-not technically complex, the semantics of both concepts is very important.
-This is also the first time we will write Python logic. Until now we haven't written anything
-other than class definitions and field declarations.
+这些情况通过计算字段和 onchange 概念得到支持。虽然本章在技术上并不复杂，但这两个概念的语义非常重要。这也是我们第一次编写 Python 逻辑。到目前为止，我们只编写了类定义和字段声明。
 
-Computed Fields
+计算字段
 ===============
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`reference/fields/compute`.
+**参考**：有关此主题的文档可以在 :ref:`reference/fields/compute` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section:
+    **目标**：在本节结束时：
 
-    - In the property model, the total area and the best offer should be computed:
+    - 在物业模型中，总面积和最佳报价应被计算：
 
     .. image:: 08_compute_onchange/compute.gif
         :align: center
-        :alt: Compute fields
+        :alt: 计算字段
 
-    - In the property offer model, the validity date should be computed and can be updated:
+    - 在物业报价模型中，有效日期应被计算并可以更新：
 
     .. image:: 08_compute_onchange/compute_inverse.gif
         :align: center
-        :alt: Compute field with inverse
+        :alt: 带反向的计算字段
 
-In our real estate module, we have defined the living area as well as the garden area. It is then
-natural to define the total area as the sum of both fields. We will use the concept of a computed
-field for this, i.e. the value of a given field will be computed from the value of other fields.
+在我们的房地产模块中，我们定义了居住面积和花园面积。因此，自然地定义总面积为这两个字段的和。我们将使用计算字段的概念来实现，即给定字段的值将从其他字段的值中计算得出。
 
-So far fields have been stored directly in and retrieved directly from the
-database. Fields can also be *computed*. In this case, the field's value is not
-retrieved from the database but computed on-the-fly by calling a method of the
-model.
+到目前为止，字段一直直接存储在数据库中并直接从数据库中检索。字段也可以是 *计算的*。在这种情况下，字段的值不是从数据库中检索，而是通过调用模型的方法动态计算。
 
-To create a computed field, create a field and set its attribute
-:attr:`~odoo.fields.Field.compute` to the name of a method. The computation
-method should set the value of the computed field for every record in
-``self``.
+要创建计算字段，创建一个字段并将其属性 :attr:`~odoo.fields.Field.compute` 设置为方法的名称。计算方法应为 ``self`` 中的每条记录设置计算字段的值。
 
-By convention, :attr:`~odoo.fields.Field.compute` methods are private, meaning that they cannot
-be called from the presentation tier, only from the business tier (see
-:ref:`tutorials/server_framework_101/01_architecture`). Private methods have a name starting with an
-underscore ``_``.
+按照约定，:attr:`~odoo.fields.Field.compute` 方法是私有的，这意味着它们不能从表示层调用，仅能从业务层调用（见 :ref:`tutorials/server_framework_101/01_architecture`）。私有方法的名称以下划线 ``_`` 开头。
 
-Dependencies
+依赖关系
 ------------
 
-The value of a computed field usually depends on the values of other fields in
-the computed record. The ORM expects the developer to specify those dependencies
-on the compute method with the decorator :func:`~odoo.api.depends`.
-The given dependencies are used by the ORM to trigger the recomputation of the
-field whenever some of its dependencies have been modified::
+计算字段的值通常依赖于计算记录中其他字段的值。ORM 期望开发人员通过装饰器 :func:`~odoo.api.depends` 指定这些依赖关系。给定的依赖关系由 ORM 用于在其某些依赖项被修改时触发字段的重新计算：
+
+.. code-block:: python
 
     from odoo import api, fields, models
 
@@ -75,30 +55,25 @@ field whenever some of its dependencies have been modified::
             for record in self:
                 record.total = 2.0 * record.amount
 
-.. note:: ``self`` is a collection.
+.. 注意:: ``self`` 是一个集合。
     :class: aphorism
 
-    The object ``self`` is a *recordset*, i.e. an ordered collection of
-    records. It supports the standard Python operations on collections, e.g.
-    ``len(self)`` and ``iter(self)``, plus extra set operations such as ``recs1 |
-    recs2``.
+    对象 ``self`` 是一个 *记录集*，即有序的记录集合。它支持对集合的标准 Python 操作，例如 ``len(self)`` 和 ``iter(self)``, 以及额外的集合操作，例如 ``recs1 | recs2``。
 
-    Iterating over ``self`` gives the records one by one, where each record is
-    itself a collection of size 1. You can access/assign fields on single
-    records by using the dot notation, e.g. ``record.name``.
+    在 ``self`` 上迭代会逐一返回记录，每条记录本身是大小为 1 的集合。您可以通过使用点符号访问/赋值单个记录的字段，例如 ``record.name``。
 
-Many examples of computed fields can be found in Odoo.
-`Here <https://github.com/odoo/odoo/blob/713dd3777ca0ce9d121d5162a3d63de3237509f4/addons/account/models/account_move.py#L3420-L3423>`__
-is a simple one.
+Odoo 中有许多计算字段的示例。
+`这里 <https://github.com/odoo/odoo/blob/713dd3777ca0ce9d121d5162a3d63de3237509f4/addons/account/models/account_move.py#L3420-L3423>`__ 是一个简单的示例。
 
-.. exercise:: Compute the total area.
+.. 练习:: 计算总面积。
 
-    - Add the ``total_area`` field to ``estate.property``. It is defined as the sum of the
-      ``living_area`` and the ``garden_area``.
+    - 向 ``estate.property`` 添加 ``total_area`` 字段。它定义为 ``living_area`` 和 ``garden_area`` 的和。
 
-    - Add the field in the form view as depicted on the first image of this section's **Goal**.
+    - 按照本节 **目标** 中的第一张图像在表单视图中添加该字段。
 
-For relational fields it's possible to use paths through a field as a dependency::
+对于关系字段，可以通过字段使用路径作为依赖关系：
+
+.. code-block::
 
     description = fields.Char(compute="_compute_description")
     partner_id = fields.Many2one("res.partner")
@@ -106,36 +81,32 @@ For relational fields it's possible to use paths through a field as a dependency
     @api.depends("partner_id.name")
     def _compute_description(self):
         for record in self:
-            record.description = "Test for partner %s" % record.partner_id.name
+            record.description = "测试合作伙伴 %s" % record.partner_id.name
 
-The example is given with a :class:`~odoo.fields.Many2one`, but it is valid for
-:class:`~odoo.fields.Many2many` or a :class:`~odoo.fields.One2many`. An example can be found
-`here <https://github.com/odoo/odoo/blob/713dd3777ca0ce9d121d5162a3d63de3237509f4/addons/account/models/account_reconcile_model.py#L248-L251>`__.
+这个例子是用 :class:`~odoo.fields.Many2one` 给出的，但对于 :class:`~odoo.fields.Many2many` 或 :class:`~odoo.fields.One2many` 也是有效的。可以在
+`这里 <https://github.com/odoo/odoo/blob/713dd3777ca0ce9d121d5162a3d63de3237509f4/addons/account/models/account_reconcile_model.py#L248-L251>`__ 找到一个示例。
 
-Let's try it in our module with the following exercise!
+让我们在我们的模块中尝试以下练习！
 
-.. exercise:: Compute the best offer.
+.. 练习:: 计算最佳报价。
 
-    - Add the ``best_price`` field to ``estate.property``. It is defined as the highest (i.e. maximum) of the
-      offers' ``price``.
+    - 向 ``estate.property`` 添加 ``best_price`` 字段。它定义为报价中 ``price`` 的最高（即最大）值。
 
-    - Add the field to the form view as depicted in the first image of this section's **Goal**.
+    - 按照本节 **目标** 中的第一张图像将该字段添加到表单视图。
 
-    Tip: you might want to try using the :meth:`~odoo.models.BaseModel.mapped` method. See
-    `here <https://github.com/odoo/odoo/blob/f011c9aacf3a3010c436d4e4f408cd9ae265de1b/addons/account/models/account_payment.py#L686>`__
-    for a simple example.
+    提示：您可能想尝试使用 :meth:`~odoo.models.BaseModel.mapped` 方法。查看
+    `这里 <https://github.com/odoo/odoo/blob/f011c9aacf3a3010c436d4e4f408cd9ae265de1b/addons/account/models/account_payment.py#L686>`__ 的简单示例。
 
-Inverse Function
+反向函数
 ----------------
 
-You might have noticed that computed fields are read-only by default. This is expected since the
-user is not supposed to set a value.
+您可能注意到计算字段默认是只读的。这是预期的，因为用户不应设置一个值。
 
-In some cases, it might be useful to still be able to set a value directly. In our real estate example,
-we can define a validity duration for an offer and set a validity date. We would like to be able
-to set either the duration or the date with one impacting the other.
+在某些情况下，能够直接设置一个值可能很有用。在我们的房地产示例中，我们可以定义报价的有效期限并设置有效日期。我们希望能够设置有效期或日期，二者互相影响。
 
-To support this Odoo provides the ability to use an ``inverse`` function::
+为此，Odoo 提供了使用 ``inverse`` 函数的能力：
+
+.. code-block:: python
 
     from odoo import api, fields, models
 
@@ -154,46 +125,39 @@ To support this Odoo provides the ability to use an ``inverse`` function::
             for record in self:
                 record.amount = record.total / 2.0
 
-An example can be found
-`here <https://github.com/odoo/odoo/blob/2ccf0bd0dcb2e232ee894f07f24fdc26c51835f7/addons/crm/models/crm_lead.py#L308-L317>`__.
+可以在
+`这里 <https://github.com/odoo/odoo/blob/2ccf0bd0dcb2e232ee894f07f24fdc26c51835f7/addons/crm/models/crm_lead.py#L308-L317>`__ 找到一个示例。
 
-A compute method sets the field while an inverse method sets the field's
-dependencies.
+计算方法设置字段，而反向方法设置字段的依赖项。
 
-Note that the ``inverse`` method is called when saving the record, while the
-``compute`` method is called at each change of its dependencies.
+请注意，``inverse`` 方法在保存记录时调用，而 ``compute`` 方法在每次其依赖项发生变化时调用。
 
-.. exercise:: Compute a validity date for offers.
+.. 练习:: 计算报价的有效日期。
 
-    - Add the following fields to the ``estate.property.offer`` model:
+    - 向 ``estate.property.offer`` 模型添加以下字段：
 
     ========================= ========================= =========================
-    Field                     Type                      Default
+    字段                     类型                      默认
     ========================= ========================= =========================
     validity                  Integer                   7
     date_deadline             Date
     ========================= ========================= =========================
 
-    Where ``date_deadline`` is a computed field which is defined as the sum of two fields from
-    the offer: the ``create_date`` and the ``validity``. Define an appropriate inverse function
-    so that the user can set either the date or the validity.
+    其中 ``date_deadline`` 是一个计算字段，定义为报价中的 ``create_date`` 和 ``validity`` 两个字段的和。定义一个适当的反向函数，以便用户可以设置日期或有效期。
 
-    Tip: the ``create_date`` is only filled in when the record is created, therefore you will
-    need a fallback to prevent crashing at time of creation.
+    提示：``create_date`` 仅在创建记录时填写，因此您需要一个后备措施以防在创建时崩溃。
 
-    - Add the fields in the form view and the list view as depicted on the second image of this section's **Goal**.
+    - 按照本节 **目标** 中的第二张图像在表单视图和列表视图中添加字段。
 
-Additional Information
+附加信息
 ----------------------
 
-Computed fields are **not stored** in the database by default. Therefore it is **not
-possible** to search on a computed field unless a ``search`` method is defined. This topic is beyond the scope
-of this training, so we won't cover it. An example can be found
-`here <https://github.com/odoo/odoo/blob/f011c9aacf3a3010c436d4e4f408cd9ae265de1b/addons/event/models/event_event.py#L188>`__.
+计算字段默认 **不存储** 在数据库中。因此，除非定义了 ``search`` 方法，否则 **无法** 在计算字段上进行搜索。这个主题超出了本次培训的范围，因此我们将不予讨论。可以在
+`这里 <https://github.com/odoo/odoo/blob/f011c9aacf3a3010c436d4e4f408cd9ae265de1b/addons/event/models/event_event.py#L188>`__ 找到一个示例。
 
-Another solution is to store the field with the ``store=True`` attribute. While this is
-usually convenient, pay attention to the potential computation load added to your model. Lets re-use
-our example::
+另一种解决方案是使用 ``store=True`` 属性存储字段。虽然这通常很方便，但请注意可能增加到模型的计算负载。让我们重用我们的示例：
+
+.. code-block:: python
 
     description = fields.Char(compute="_compute_description", store=True)
     partner_id = fields.Many2one("res.partner")
@@ -201,103 +165,70 @@ our example::
     @api.depends("partner_id.name")
     def _compute_description(self):
         for record in self:
-            record.description = "Test for partner %s" % record.partner_id.name
+            record.description = "测试合作伙伴 %s" % record.partner_id.name
 
-Every time the partner ``name`` is changed, the ``description`` is automatically recomputed for
-**all the records** referring to it! This can quickly become prohibitive to recompute when
-millions of records need recomputation.
+每次合作伙伴的 ``name`` 发生变化时， ``description`` 会自动为 **所有引用它的记录** 重新计算！当需要重新计算数百万条记录时，这可能会迅速变得不可承受。
 
-It is also worth noting that a computed field can depend on another computed field. The ORM is
-smart enough to correctly recompute all the dependencies in the right order... but sometimes at the
-cost of degraded performance.
+还值得注意的是，计算字段可以依赖于另一个计算字段。ORM 足够智能，可以按正确的顺序正确重新计算所有依赖项……但有时可能会导致性能下降。
 
-In general performance must always be kept in mind when defining computed fields. The more
-complex is your field to compute (e.g. with a lot of dependencies or when a computed field
-depends on other computed fields), the more time it will take to compute. Always take some time to
-evaluate the cost of a computed field beforehand. Most of the time it is only when your code
-reaches a production server that you realize it slows down a whole process. Not cool :-(
+在定义计算字段时，始终必须考虑性能。计算字段的复杂程度越高（例如，依赖项较多或计算字段依赖于其他计算字段），计算所需的时间就越长。始终花一些时间提前评估计算字段的成本。大多数情况下，只有当您的代码达到生产服务器时，您才会意识到它会减缓整个过程。这可不太好 :-(
 
 Onchanges
 =========
 
-**Reference**: the documentation related to this topic can be found in
-:func:`~odoo.api.onchange`:
+**参考**：有关此主题的文档可以在 :func:`~odoo.api.onchange` 中找到：
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, enabling the garden will set a default area of 10 and
-    an orientation to North.
+    **目标**：在本节结束时，启用花园时将设置默认区域为 10，并将朝向设置为北。
 
     .. image:: 08_compute_onchange/onchange.gif
         :align: center
-        :alt: Onchange
+        :alt: onchange
 
-In our real estate module, we also want to help the user with data entry. When the 'garden'
-field is set, we want to give a default value for the garden area as well as the orientation.
-Additionally, when the 'garden' field is unset we want the garden area to reset to zero and the
-orientation to be removed. In this case, the value of a given field modifies the value of
-other fields.
+在我们的房地产模块中，我们还希望帮助用户进行数据输入。当设置“花园”字段时，我们希望为花园面积和朝向提供默认值。此外，当“花园”字段未设置时，我们希望花园面积重置为零，并删除朝向。在这种情况下，给定字段的值修改其他字段的值。
 
-The 'onchange' mechanism provides a way for the client interface to update a
-form without saving anything to the database whenever the user has filled in
-a field value. To achieve this, we define a method where ``self`` represents
-the record in the form view and decorate it with :func:`~odoo.api.onchange`
-to specify which field it is triggered by. Any change you make on
-``self`` will be reflected on the form::
+“onchange”机制为客户端界面提供了一种更新表单的方法，而无需将任何内容保存到数据库中，每当用户填写字段值时。要实现这一点，我们定义一个方法，其中 ``self`` 表示表单视图中的记录，并用 :func:`~odoo.api.onchange` 装饰以指定触发它的字段。您对 ``self`` 的任何更改都将反映在表单中：
+
+.. code-block:: python
 
     from odoo import api, fields, models
 
     class TestOnchange(models.Model):
         _name = "test.onchange"
 
-        name = fields.Char(string="Name")
-        description = fields.Char(string="Description")
-        partner_id = fields.Many2one("res.partner", string="Partner")
+        name = fields.Char(string="名称")
+        description = fields.Char(string="描述")
+        partner_id = fields.Many2one("res.partner", string="合作伙伴")
 
         @api.onchange("partner_id")
         def _onchange_partner_id(self):
-            self.name = "Document for %s" % (self.partner_id.name)
-            self.description = "Default description for %s" % (self.partner_id.name)
+            self.name = "文档为 %s" % (self.partner_id.name)
+            self.description = "默认描述为 %s" % (self.partner_id.name)
 
-In this example, changing the partner will also change the name and the description values. It is up to
-the user whether or not to change the name and description values afterwards. Also note that we do not
-loop on ``self``, this is because the method is only triggered in a form view, where ``self`` is always
-a single record.
+在这个例子中，更改合作伙伴也会更改名称和描述值。用户可以选择是否在之后更改名称和描述值。还要注意，我们没有在 ``self`` 上循环，这是因为该方法仅在表单视图中触发，在该视图中 ``self`` 始终是单个记录。
 
-.. exercise:: Set values for garden area and orientation.
+.. 练习:: 设置花园面积和朝向的值。
 
-    Create an ``onchange`` in the ``estate.property`` model in order to set values for the
-    garden area (10) and orientation (North) when garden is set to True. When unset, clear the fields.
+    在 ``estate.property`` 模型中创建一个 ``onchange`` 方法，以便在花园设置为 True 时设置花园面积（10）和朝向（北）的值。当未设置时，清除字段。
 
-Additional Information
+附加信息
 ----------------------
 
-Onchanges methods can also return a non-blocking warning message
-(`example <https://github.com/odoo/odoo/blob/cd9af815ba591935cda367d33a1d090f248dd18d/addons/payment_authorize/models/payment.py#L34-L36>`__).
+onchange 方法还可以返回非阻塞的警告消息
+（`示例 <https://github.com/odoo/odoo/blob/cd9af815ba591935cda367d33a1d090f248dd18d/addons/payment_authorize/models/payment.py#L34-L36>`__）。
 
-How to use them?
+如何使用它们？
 ================
 
-There is no strict rule for the use of computed fields and onchanges.
+计算字段和 onchange 的使用没有严格的规则。
 
-In many cases, both computed fields and onchanges may be used to achieve the same result. Always
-prefer computed fields since they are also triggered outside of the context of a form view. Never
-ever use an onchange to add business logic to your model. This is a **very bad** idea since
-onchanges are not automatically triggered when creating a record programmatically; they are only
-triggered in the form view.
+在许多情况下，计算字段和 onchange 都可以用于实现相同的结果。始终优先使用计算字段，因为它们也会在表单视图的上下文之外触发。绝对不要使用 onchange 向模型添加业务逻辑。这是一个 **非常糟糕** 的主意，因为 onchange 在以编程方式创建记录时不会自动触发；它们仅在表单视图中触发。
 
-The usual pitfall of computed fields and onchanges is trying to be 'too smart' by adding too much
-logic. This can have the opposite result of what was expected: the end user is confused from
-all the automation.
+计算字段和 onchange 的常见陷阱是尝试通过添加过多逻辑来“过于聪明”。这可能会导致与预期结果相反的效果：最终用户会因为所有的自动化而感到困惑。
 
-Computed fields tend to be easier to debug: such a field is set by a given method, so it's easy to
-track when the value is set. Onchanges, on the other hand, may be confusing: it is very difficult to
-know the extent of an onchange. Since several onchange methods may set the same fields, it
-easily becomes difficult to track where a value is coming from.
+计算字段通常更易于调试：这样的字段是由给定方法设置的，因此很容易跟踪何时设置该值。而 onchange 则可能令人困惑：很难知道 onchange 的范围。由于多个 onchange 方法可能设置相同的字段，因此很容易变得难以追踪值的来源。
 
-When using stored computed fields, pay close attention to the dependencies. When computed fields
-depend on other computed fields, changing a value can trigger a large number of recomputations.
-This leads to poor performance.
+使用存储的计算字段时，请密切关注依赖关系。当计算字段依赖于其他计算字段时，更改一个值可能会触发大量的重新计算。这会导致性能下降。
 
-In the :doc:`next chapter <09_actions>`, we'll see how we can trigger some
-business logic when buttons are clicked.
+在 :doc:`下一章 <09_actions>` 中，我们将看到如何在点击按钮时触发一些业务逻辑。

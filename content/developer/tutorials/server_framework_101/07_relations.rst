@@ -1,242 +1,211 @@
 ===================================
-Chapter 7: Relations Between Models
+第7章：模型之间的关系
 ===================================
 
-The :doc:`previous chapter <06_basicviews>` covered the creation of custom
-views for a model containing basic fields. However, in any real business scenario we need more than
-one model. Moreover, links between models are necessary. One can easily imagine one model containing
-the customers and another one containing the list of users. You might need to refer to a customer
-or a user on any existing business model.
+在 :doc:`上一章 <06_basicviews>` 中，我们讨论了为包含基本字段的模型创建自定义视图。然而，在任何实际的业务场景中，我们需要的不止一个模型。此外，模型之间的链接是必要的。可以很容易地想象一个模型包含客户，另一个模型包含用户列表。您可能需要在任何现有的业务模型中引用客户或用户。
 
-In our real estate module, we want the following information for a property:
+在我们的房地产模块中，我们希望获取物业的以下信息：
 
-- the customer who bought the property
-- the real estate agent who sold the property
-- the property type: house, apartment, penthouse, castle...
-- a list of tags characterizing the property: cozy, renovated...
-- a list of the offers received
+- 购买物业的客户
+- 卖出物业的房地产代理
+- 物业类型：房屋、公寓、顶层公寓、城堡...
+- 表征物业的标签列表：舒适、翻新...
+- 收到的报价列表
 
 Many2one
 ========
 
-**Reference**: the documentation related to this topic can be found in
-:class:`~odoo.fields.Many2one`.
+**参考**：有关此主题的文档可以在 :class:`~odoo.fields.Many2one` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section:
+    **目标**：在本节结束时：
 
-    - a new ``estate.property.type`` model should be created with the corresponding menu, action and views.
+    - 应创建一个新的 ``estate.property.type`` 模型，并具有相应的菜单、操作和视图。
 
     .. image:: 07_relations/property_type.png
         :align: center
-        :alt: Property type
+        :alt: 物业类型
 
-    - three Many2one fields should be added to the ``estate.property`` model: property type, buyer and seller.
+    - 应向 ``estate.property`` 模型添加三个 Many2one 字段：物业类型、买家和卖家。
 
     .. image:: 07_relations/property_many2one.png
         :align: center
-        :alt: Property
+        :alt: 物业
 
-In our real estate module, we want to define the concept of property type. A property type
-is, for example, a house or an apartment. It is a standard business need to categorize
-properties according to their type, especially to refine filtering.
+在我们的房地产模块中，我们希望定义物业类型的概念。物业类型是例如房屋或公寓。根据物业类型对其进行分类是标准的业务需求，特别是为了精细化过滤。
 
-A property can have **one** type, but the same type can be assigned to **many** properties.
-This is supported by the **many2one** concept.
+一处物业可以有 **一个** 类型，但同一种类型可以分配给 **多个** 物业。这是 **many2one** 概念所支持的。
 
-A many2one is a simple link to another object. For example, in order to define a link to the
-``res.partner`` in our test model, we can write::
+Many2one 是对另一个对象的简单链接。例如，为了在我们的测试模型中定义与 ``res.partner`` 的链接，我们可以写：
 
-    partner_id = fields.Many2one("res.partner", string="Partner")
+.. code-block::
 
-By convention, many2one fields have the ``_id`` suffix. Accessing the data in the partner
-can then be easily done with::
+    partner_id = fields.Many2one("res.partner", string="合作伙伴")
+
+按照约定，many2one 字段有 ``_id`` 后缀。然后可以轻松访问合作伙伴的数据：
+
+.. code-block::
 
     print(my_test_object.partner_id.name)
 
-.. seealso::
+.. 另见::
 
-    `foreign keys <https://www.postgresql.org/docs/12/tutorial-fk.html>`_
+    `外键 <https://www.postgresql.org/docs/12/tutorial-fk.html>`_
 
-In practice a many2one can be seen as a dropdown list in a form view.
+在实践中，many2one 可以在表单视图中视为下拉列表。
 
-.. exercise:: Add the Real Estate Property Type table.
+.. 练习:: 添加房地产物业类型表。
 
-    - Create the ``estate.property.type`` model and add the following field:
+    - 创建 ``estate.property.type`` 模型，并添加以下字段：
 
     ========================= ========================= =========================
-    Field                     Type                      Attributes
+    字段                     类型                      属性
     ========================= ========================= =========================
     name                      Char                      required
     ========================= ========================= =========================
 
-    - Add the menus as displayed in this section's **Goal**
-    - Add the field ``property_type_id`` into your ``estate.property`` model and its form, tree
-      and search views
+    - 添加如本节 **目标** 中所示的菜单
+    - 将字段 ``property_type_id`` 添加到您的 ``estate.property`` 模型及其表单、树和搜索视图中
 
-    This exercise is a good recap of the previous chapters: you need to create a
-    :doc:`model <03_basicmodel>`, set the
-    :doc:`model <04_securityintro>`, add an
-    :doc:`action and a menu <05_firstui>`, and
-    :doc:`create a view <06_basicviews>`.
+    该练习是前几章的良好回顾：您需要创建一个 :doc:`模型 <03_basicmodel>`，设置 :doc:`模型 <04_securityintro>`，添加一个 :doc:`操作和菜单 <05_firstui>`，并 :doc:`创建视图 <06_basicviews>`。
 
-    Tip: do not forget to import any new Python files in ``__init__.py``, add new data files in
-    ``__manifest.py__``  or add the access rights ;-)
+    提示：不要忘记在 ``__init__.py`` 中导入任何新的 Python 文件，或在 ``__manifest__.py`` 中添加新的数据文件，或者添加访问权限 ;-)
 
-Once again, restart the server and refresh to see the results!
+再次，重新启动服务器并刷新以查看结果！
 
-In the real estate module, there are still two missing pieces of information we want on a property:
-the buyer and the salesperson. The buyer can be any individual, but on the other hand the
-salesperson must be an employee of the real estate agency (i.e. an Odoo user).
+在房地产模块中，我们仍然缺少两个想要在物业上获取的信息：买家和销售人员。买家可以是任何个人，但销售人员必须是房地产代理的员工（即 Odoo 用户）。
 
-In Odoo, there are two models which we commonly refer to:
+在 Odoo 中，我们通常提到两个模型：
 
-- ``res.partner``: a partner is a physical or legal entity. It can be a company, an individual or
-  even a contact address.
-- ``res.users``: the users of the system. Users can be 'internal', i.e. they have
-  access to the Odoo backend. Or they can be 'portal', i.e. they cannot access the backend, only the
-  frontend (e.g. to access their previous orders in eCommerce).
+- ``res.partner``：合作伙伴是一个自然人或法人。它可以是公司、个人或甚至是联系地址。
+- ``res.users``：系统的用户。用户可以是“内部”的，即他们可以访问 Odoo 后台。或者他们可以是“门户”用户，即他们无法访问后台，只能访问前端（例如，访问他们在电子商务中的先前订单）。
 
-.. exercise:: Add the buyer and the salesperson.
+.. 练习:: 添加买家和销售人员。
 
-    Add a buyer and a salesperson to the ``estate.property`` model using the two common models
-    mentioned above. They should be added in a new tab of the form view, as depicted in this section's **Goal**.
+    使用上述两个常见模型向 ``estate.property`` 模型添加买家和销售人员。它们应在表单视图的新选项卡中添加，如本节 **目标** 中所示。
 
-    The default value for the salesperson must be the current user. The buyer should not be copied.
+    销售人员的默认值必须为当前用户。买家应不可复制。
 
-    Tip: to get the default value, check the note below or look at an example
-    `here <https://github.com/odoo/odoo/blob/5bb8b927524d062be32f92eb326ef64091301de1/addons/crm/models/crm_lead.py#L92>`__.
+    提示：要获取默认值，请查看下面的注释或查看一个示例
+    `这里 <https://github.com/odoo/odoo/blob/5bb8b927524d062be32f92eb326ef64091301de1/addons/crm/models/crm_lead.py#L92>`__。
 
-.. note::
+.. 注意::
 
-    The object ``self.env`` gives access to request parameters and other useful
-    things:
+    对象 ``self.env`` 提供对请求参数和其他有用信息的访问：
 
-    - ``self.env.cr`` or ``self._cr`` is the database *cursor* object; it is
-      used for querying the database
-    - ``self.env.uid`` or ``self._uid`` is the current user's database id
-    - ``self.env.user`` is the current user's record
-    - ``self.env.context`` or ``self._context`` is the context dictionary
-    - ``self.env.ref(xml_id)`` returns the record corresponding to an XML id
-    - ``self.env[model_name]`` returns an instance of the given model
+    - ``self.env.cr`` 或 ``self._cr`` 是数据库 *游标* 对象；用于查询数据库
+    - ``self.env.uid`` 或 ``self._uid`` 是当前用户的数据库 ID
+    - ``self.env.user`` 是当前用户的记录
+    - ``self.env.context`` 或 ``self._context`` 是上下文字典
+    - ``self.env.ref(xml_id)`` 返回与 XML ID 相对应的记录
+    - ``self.env[model_name]`` 返回给定模型的实例
 
-Now let's have a look at other types of links.
+现在，让我们看看其他类型的链接。
 
 Many2many
 =========
 
-**Reference**: the documentation related to this topic can be found in
-:class:`~odoo.fields.Many2many`.
+**参考**：有关此主题的文档可以在 :class:`~odoo.fields.Many2many` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section:
+    **目标**：在本节结束时：
 
-    - a new ``estate.property.tag`` model should be created with the corresponding menu and action.
+    - 应创建一个新的 ``estate.property.tag`` 模型，并具有相应的菜单和操作。
 
     .. image:: 07_relations/property_tag.png
         :align: center
-        :alt: Property tag
+        :alt: 物业标签
 
-    - tags should be added to the ``estate.property`` model:
+    - 应向 ``estate.property`` 模型添加标签：
 
     .. image:: 07_relations/property_many2many.png
         :align: center
-        :alt: Property
+        :alt: 物业
 
-In our real estate module, we want to define the concept of property tags. A property tag
-is, for example, a property which is 'cozy' or 'renovated'.
+在我们的房地产模块中，我们希望定义物业标签的概念。物业标签是例如，物业是“舒适”或“翻新”的。
 
-A property can have **many** tags and a tag can be assigned to **many** properties.
-This is supported by the **many2many** concept.
+一处物业可以有 **多个** 标签，而一个标签也可以分配给 **多个** 物业。这是 **many2many** 概念所支持的。
 
-A many2many is a bidirectional multiple relationship: any record on one side can be related to any
-number of records on the other side. For example, in order to define a link to the
-``account.tax`` model on our test model, we can write::
+Many2many 是双向的多重关系：一侧的任何记录可以与另一侧的任意数量的记录相关联。例如，为了在我们的测试模型中定义与 ``account.tax`` 模型的链接，我们可以写：
 
-    tax_ids = fields.Many2many("account.tax", string="Taxes")
+.. code-block::
 
-By convention, many2many fields have the ``_ids`` suffix. This means that several taxes can be
-added to our test model. It behaves as a list of records, meaning that accessing the data must be
-done in a loop::
+    tax_ids = fields.Many2many("account.tax", string="税收")
+
+按照约定，many2many 字段有 ``_ids`` 后缀。这意味着可以将多个税收添加到我们的测试模型中。它表现得像一个记录列表，这意味着必须在循环中访问数据：
+
+.. code-block::
 
     for tax in my_test_object.tax_ids:
         print(tax.name)
 
-A list of records is known as a *recordset*, i.e. an ordered collection of records. It supports
-standard Python operations on collections, such as ``len()`` and ``iter()``, plus extra set
-operations like ``recs1 | recs2``.
+记录列表称为 *记录集*，即有序的记录集合。它支持对集合的标准 Python 操作，如 ``len()`` 和 ``iter()`，以及额外的集合操作，如 ``recs1 | recs2``。
 
-.. exercise:: Add the Real Estate Property Tag table.
+.. 练习:: 添加房地产物业标签表。
 
-    - Create the ``estate.property.tag`` model and add the following field:
+    - 创建 ``estate.property.tag`` 模型，并添加以下字段：
 
     ========================= ========================= =========================
-    Field                     Type                      Attributes
+    字段                     类型                      属性
     ========================= ========================= =========================
     name                      Char                      required
     ========================= ========================= =========================
 
-    - Add the menus as displayed in this section's **Goal**
-    - Add the field ``tag_ids`` to your ``estate.property`` model and in its form and tree views
+    - 添加如本节 **目标** 中所示的菜单
+    - 将字段 ``tag_ids`` 添加到您的 ``estate.property`` 模型及其表单和树视图中
 
-    Tip: in the view, use the ``widget="many2many_tags"`` attribute as demonstrated
-    `here <https://github.com/odoo/odoo/blob/5bb8b927524d062be32f92eb326ef64091301de1/addons/crm_iap_lead_website/views/crm_reveal_views.xml#L36>`__.
-    The ``widget`` attribute will be explained in detail in :doc:`a later chapter of the training <11_sprinkles>`.
-    For now, you can try to adding and removing it and see the result ;-)
+    提示：在视图中，使用 ``widget="many2many_tags"`` 属性，如在
+    `这里 <https://github.com/odoo/odoo/blob/5bb8b927524d062be32f92eb326ef64091301de1/addons/crm_iap_lead_website/views/crm_reveal_views.xml#L36>`__ 所演示的。
+    ``widget`` 属性将在培训的 :doc:`后续章节 <11_sprinkles>` 中详细解释。现在，您可以尝试添加和删除它，看看结果 ;-)
 
 One2many
 ========
 
-**Reference**: the documentation related to this topic can be found in
-:class:`~odoo.fields.One2many`.
+**参考**：有关此主题的文档可以在 :class:`~odoo.fields.One2many` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section:
+    **目标**：在本节结束时：
 
-    - a new ``estate.property.offer`` model should be created with the corresponding form and tree view.
-    - offers should be added to the ``estate.property`` model:
+    - 应创建一个新的 ``estate.property.offer`` 模型，并具有相应的表单和树视图。
+    - 应向 ``estate.property`` 模型添加报价：
 
     .. image:: 07_relations/property_offer.png
         :align: center
-        :alt: Property offers
+        :alt: 物业报价
 
-In our real estate module, we want to define the concept of property offers. A property offer
-is an amount a potential buyer offers to the seller. The offer can be lower or higher than the
-expected price.
+在我们的房地产模块中，我们希望定义物业报价的概念。物业报价是潜在买家向卖家提供的金额。报价可以低于或高于预期价格。
 
-An offer applies to **one** property, but the same property can have **many** offers.
-The concept of **many2one** appears once again. However, in this case we want to display the list
-of offers for a given property so we will use the **one2many** concept.
+一份报价适用于 **一个** 物业，但同一物业可以有 **多个** 报价。**many2one** 概念再次出现。然而，在这种情况下，我们希望显示给定物业的报价列表，因此我们将使用 **one2many** 概念。
 
-A one2many is the inverse of a many2one. For example, we defined
-on our test model a link to the ``res.partner`` model thanks to the field ``partner_id``.
-We can define the inverse relation, i.e. the list of test models linked to our partner::
+One2many 是 many2one 的反向关系。例如，我们在测试模型上定义了与 ``res.partner`` 模型的链接，借助于字段 ``partner_id``。我们可以定义反向关系，即与我们的合作伙伴链接的测试模型列表：
 
-    test_ids = fields.One2many("test_model", "partner_id", string="Tests")
+.. code-block::
 
-The first parameter is called the ``comodel`` and the second parameter is the field we want to
-inverse.
+    test_ids = fields.One2many("test_model", "partner_id", string="测试")
 
-By convention, one2many fields have the ``_ids`` suffix. They behave as a list of records, meaning
-that accessing the data must be done in a loop::
+第一个参数称为 ``comodel``，第二个参数是我们想要反向的字段。
+
+按照约定，one2many 字段有 ``_ids`` 后缀。它们表现得像一个记录列表，这意味着必须在循环中访问数据：
+
+.. code-block::
 
     for test in partner.test_ids:
         print(test.name)
 
-.. danger::
+.. 危险::
 
-    Because a :class:`~odoo.fields.One2many` is a virtual relationship,
-    there *must* be a :class:`~odoo.fields.Many2one` field defined in the comodel.
+    因为 :class:`~odoo.fields.One2many` 是一种虚拟关系，
+    必须在 co模型中定义一个 :class:`~odoo.fields.Many2one` 字段。
 
-.. exercise:: Add the Real Estate Property Offer table.
+.. 练习:: 添加房地产物业报价表。
 
-    - Create the ``estate.property.offer`` model and add the following fields:
+    - 创建 ``estate.property.offer`` 模型，并添加以下字段：
 
     ========================= ================================ ============= =================
-    Field                     Type                             Attributes    Values
+    字段                     类型                             属性        值
     ========================= ================================ ============= =================
     price                     Float
     status                    Selection                        no copy       Accepted, Refused
@@ -244,21 +213,11 @@ that accessing the data must be done in a loop::
     property_id               Many2one (``estate.property``)   required
     ========================= ================================ ============= =================
 
-    - Create a tree view and a form view with the ``price``, ``partner_id`` and ``status`` fields. No
-      need to create an action or a menu.
-    - Add the field ``offer_ids`` to your ``estate.property`` model and in its form view as
-      depicted in this section's **Goal**.
+    - 创建一个树视图和一个表单视图，包含 ``price``、``partner_id`` 和 ``status`` 字段。不需要创建操作或菜单。
+    - 将字段 ``offer_ids`` 添加到您的 ``estate.property`` 模型及其表单视图，如本节 **目标** 中所示。
 
-There are several important things to notice here. First, we don't need an action or a menu for all
-models. Some models are intended to be accessed only through another model. This is the case in our
-exercise: an offer is always accessed through a property.
+这里有几个重要的事情需要注意。首先，我们不需要为所有模型创建操作或菜单。有些模型的设计仅用于通过另一个模型访问。这正是我们练习中的情况：报价总是通过物业访问。
 
-Second, despite the fact that the ``property_id`` field is required, we did not include it in the
-views. How does Odoo know which property our offer is linked to? Well that's part of the
-magic of using the Odoo framework: sometimes things are defined implicitly. When we create
-a record through a one2many field, the corresponding many2one is populated automatically
-for convenience.
+其次，尽管 ``property_id`` 字段是必需的，但我们并没有将其包含在视图中。Odoo 如何知道我们的报价与哪个物业相关？这就是使用 Odoo 框架的魔力的一部分：有时事情是隐式定义的。当我们通过 one2many 字段创建记录时，相应的 many2one 会自动填充，以便于使用。
 
-Still alive? This chapter is definitely not the easiest one. It introduced a couple of new concepts
-while relying on everything that was introduced before. The
-:doc:`next chapter <08_compute_onchange>` will be lighter, don't worry ;-)
+还好吗？这一章绝对不是最简单的。它引入了一些新概念，同时依赖于之前介绍的所有内容。 :doc:`下一章 <08_compute_onchange>` 将更轻松，请不要担心 ;-) 

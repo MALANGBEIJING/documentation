@@ -1,91 +1,74 @@
 =======================
-Chapter 10: Constraints
+第10章：约束
 =======================
 
-The :doc:`previous chapter <09_actions>` introduced the ability to add
-some business logic to our model. We can now link buttons to business code, but how can we prevent
-users from entering incorrect data? For example, in our real estate module nothing prevents
-users from setting a negative expected price.
+在 :doc:`上一章 <09_actions>` 中，我们介绍了向模型添加一些业务逻辑的能力。现在我们可以将按钮链接到业务代码，但我们如何防止用户输入不正确的数据呢？例如，在我们的房地产模块中，没有任何机制阻止用户设置负的预期价格。
 
-Odoo provides two ways to set up automatically verified invariants:
-:func:`Python constraints <odoo.api.constrains>` and
-:attr:`SQL constraints <odoo.models.Model._sql_constraints>`.
+Odoo 提供了两种设置自动验证不变式的方法： :func:`Python 约束 <odoo.api.constrains>` 和 :attr:`SQL 约束 <odoo.models.Model._sql_constraints>`。
 
 SQL
 ===
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`reference/orm/models` and in the `PostgreSQL's documentation`_.
+**参考**：有关此主题的文档可以在 :ref:`reference/orm/models` 中找到，以及 `PostgreSQL 的文档`_。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section:
+    **目标**：在本节结束时：
 
-    - Amounts should be (strictly) positive
+    - 金额应为（严格）正数
 
     .. image:: 10_constraints/sql_01.gif
         :align: center
-        :alt: Constraints on amounts
+        :alt: 金额约束
 
-    - Property types and tags should have a unique name
+    - 物业类型和标签应具有唯一名称
 
     .. image:: 10_constraints/sql_02.gif
         :align: center
-        :alt: Constraints on names
+        :alt: 名称约束
 
-SQL constraints are defined through the model attribute
-:attr:`~odoo.models.Model._sql_constraints`. This attribute is assigned a list
-of triples containing strings ``(name, sql_definition, message)``, where ``name`` is a
-valid SQL constraint name, ``sql_definition`` is a table_constraint_ expression
-and ``message`` is the error message.
+SQL 约束通过模型属性 :attr:`~odoo.models.Model._sql_constraints` 定义。此属性分配一个三元组列表，包含字符串 ``(name, sql_definition, message)``，其中 ``name`` 是有效的 SQL 约束名称， ``sql_definition`` 是一个 table_constraint_ 表达式，而 ``message`` 是错误消息。
 
-You can find a simple example
-`here <https://github.com/odoo/odoo/blob/24b0b6f07f65b6151d1d06150e376320a44fd20a/addons/analytic/models/analytic_account.py#L20-L23>`__.
+您可以找到一个简单示例
+`这里 <https://github.com/odoo/odoo/blob/24b0b6f07f65b6151d1d06150e376320a44fd20a/addons/analytic/models/analytic_account.py#L20-L23>`__。
 
-.. exercise:: Add SQL constraints.
+.. 练习:: 添加 SQL 约束。
 
-    Add the following constraints to their corresponding models:
+    将以下约束添加到相应模型中：
 
-    - A property expected price must be strictly positive
-    - A property selling price must be positive
-    - An offer price must be strictly positive
-    - A property tag name and property type name must be unique
+    - 物业预期价格必须严格为正数
+    - 物业销售价格必须为正数
+    - 报价价格必须严格为正数
+    - 物业标签名称和物业类型名称必须唯一
 
-    Tip: search for the ``unique`` keyword in the Odoo codebase for examples of unique names.
+    提示：在 Odoo 代码库中搜索 ``unique`` 关键字以查找唯一名称的示例。
 
-Restart the server with the ``-u estate`` option to see the result. Note that you might have data
-that prevents a SQL constraint from being set. An error message similar to the following might pop up:
+使用 ``-u estate`` 选项重新启动服务器以查看结果。请注意，您可能有数据会阻止 SQL 约束的设置。可能会弹出类似以下的错误消息：
 
 .. code-block:: text
 
     ERROR rd-demo odoo.schema: Table 'estate_property_offer': unable to add constraint 'estate_property_offer_check_price' as CHECK(price > 0)
 
-For example, if some offers have a price of zero, then the constraint can't be applied. You can delete
-the problematic data in order to apply the new constraints.
+例如，如果某些报价的价格为零，则无法应用约束。您可以删除有问题的数据以应用新约束。
 
 Python
 ======
 
-**Reference**: the documentation related to this topic can be found in
-:func:`~odoo.api.constrains`.
+**参考**：有关此主题的文档可以在 :func:`~odoo.api.constrains` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, it will not be possible to accept an offer
-    lower than 90% of the expected price.
+    **目标**：在本节结束时，不可能接受低于预期价格 90% 的报价。
 
     .. image:: 10_constraints/python.gif
         :align: center
-        :alt: Python constraint
+        :alt: Python 约束
 
-SQL constraints are an efficient way of ensuring data consistency. However it may be necessary
-to make more complex checks which require Python code. In this case we need a Python constraint.
+SQL 约束是确保数据一致性的有效方式。然而，有时可能需要更复杂的检查，这需要 Python 代码。在这种情况下，我们需要一个 Python 约束。
 
-A Python constraint is defined as a method decorated with
-:func:`~odoo.api.constrains` and is invoked on a recordset. The decorator
-specifies which fields are involved in the constraint. The constraint is automatically evaluated
-when any of these fields are modified . The method is expected to
-raise an exception if its invariant is not satisfied::
+Python 约束定义为带有 :func:`~odoo.api.constrains` 装饰器的方法，并在记录集上调用。装饰器指定了哪些字段参与约束。当任何这些字段被修改时，约束会自动进行评估。方法应该在不满足其不变式时引发异常：
+
+.. code-block:: python
 
     from odoo.exceptions import ValidationError
 
@@ -95,34 +78,28 @@ raise an exception if its invariant is not satisfied::
     def _check_date_end(self):
         for record in self:
             if record.date_end < fields.Date.today():
-                raise ValidationError("The end date cannot be set in the past")
-        # all records passed the test, don't return anything
+                raise ValidationError("结束日期不能设置在过去")
+        # 所有记录都通过测试，不返回任何内容
 
-A simple example can be found
-`here <https://github.com/odoo/odoo/blob/274dd3bf503e1b612179db92e410b336bfaecfb4/addons/stock/models/stock_quant.py#L239-L244>`__.
+可以在
+`这里 <https://github.com/odoo/odoo/blob/274dd3bf503e1b612179db92e410b336bfaecfb4/addons/stock/models/stock_quant.py#L239-L244>`__ 找到一个简单的示例。
 
-.. exercise:: Add Python constraints.
+.. 练习:: 添加 Python 约束。
 
-    Add a constraint so that the selling price cannot be lower than 90% of the expected price.
+    添加一个约束，以确保销售价格不能低于预期价格的 90%。
 
-    Tip: the selling price is zero until an offer is validated. You will need to fine tune your
-    check to take this into account.
+    提示：销售价格在报价被验证之前为零。您需要微调检查以考虑到这一点。
 
-    .. warning::
+    .. 警告::
 
-        Always use the :meth:`~odoo.tools.float_utils.float_compare` and
-        :meth:`~odoo.tools.float_utils.float_is_zero` methods from `odoo.tools.float_utils` when
-        working with floats!
+        在处理浮点数时，始终使用 :meth:`~odoo.tools.float_utils.float_compare` 和 :meth:`~odoo.tools.float_utils.float_is_zero` 方法来自 `odoo.tools.float_utils` ！
 
-    Ensure the constraint is triggered every time the selling price or the expected price is changed!
+    确保在每次更改销售价格或预期价格时触发约束！
 
-SQL constraints are usually more efficient than Python constraints. When performance matters, always
-prefer SQL over Python constraints.
+SQL 约束通常比 Python 约束更有效。当性能很重要时，始终优先使用 SQL 约束。
 
-Our real estate module is starting to look good. We added some business logic, and now we make sure
-the data is consistent. However, the user interface is still a bit rough. Let's see how we can
-improve it in the :doc:`next chapter <11_sprinkles>`.
+我们的房地产模块开始变得不错。我们添加了一些业务逻辑，并且现在确保数据一致性。然而，用户界面仍然有些粗糙。让我们看看如何在 :doc:`下一章 <11_sprinkles>` 中改善它。
 
-.. _PostgreSQL's documentation:
+.. _PostgreSQL 的文档：
 .. _table_constraint:
     https://www.postgresql.org/docs/12/ddl-constraints.html

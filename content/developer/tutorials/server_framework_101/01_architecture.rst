@@ -1,106 +1,75 @@
-.. _tutorials/server_framework_101/01_architecture:
-
-================================
-Chapter 1: Architecture Overview
-================================
-
-Multitier application
+章节 1: 架构概述
 =====================
 
-Odoo follows a `multitier architecture`_, meaning that the presentation, the business
-logic and the data storage are separated. More specifically, it uses a three-tier architecture
-(image from Wikipedia):
+多层应用程序
+=====================
+
+Odoo 遵循 `多层架构`_，这意味着展示层、业务逻辑层和数据存储层是分开的。更具体地说，它采用三层架构（来自维基百科）：
 
 .. image:: 01_architecture/three_tier.svg
     :align: center
-    :alt: Three-tier architecture
+    :alt: 三层架构
 
-The presentation tier is a combination of HTML5, JavaScript and CSS. The logic tier is exclusively
-written in Python, while the data tier only supports PostgreSQL as an RDBMS.
+展示层是 HTML5、JavaScript 和 CSS 的组合。逻辑层完全用 Python 编写，而数据层仅支持 PostgreSQL 作为 RDBMS。
 
-Depending on the scope of your module, Odoo development can be done in any of these tiers.
-Therefore, before going any further, it may be a good idea to refresh your memory if you don't have
-an intermediate level in these topics.
+根据模块的范围，Odoo 开发可以在这三个层中进行。因此，在进一步学习之前，如果您对这些主题的理解不是中级水平，最好先复习一下。
 
-In order to go through this tutorial, you will need a very basic knowledge of HTML and an intermediate
-level of Python. Advanced topics will require more knowledge in the other subjects. There are
-plenty of tutorials freely accessible, so we cannot recommend one over another since it depends
-on your background.
+为了通过本教程，您需要对 HTML 有基本了解，并对 Python 有中级水平的理解。高级主题将需要更深入的知识。互联网上有很多免费教程，因此我们无法推荐其中的一个，因为这取决于您的背景。
 
-For reference this is the official `Python tutorial`_.
+作为参考，这是官方的 `Python 教程`_。
 
 .. note::
-  Since version 15.0, Odoo is actively transitioning to using its own in-house developed `OWL
-  framework <https://odoo.github.io/owl/>`_ as part of its presentation tier. The legacy JavaScript
-  framework is still supported but will be deprecated over time. This will be discussed further in
-  advanced topics.
+  从版本 15.0 开始，Odoo 正在积极过渡到使用其自家开发的 `OWL 框架 <https://odoo.github.io/owl/>`_ 作为其展示层的一部分。遗留的 JavaScript 框架仍然受到支持，但将逐步淘汰。关于这一点将在高级主题中进一步讨论。
 
-Odoo modules
+Odoo 模块
 ============
 
-Both server and client extensions are packaged as *modules* which are
-optionally loaded in a *database*. A module is a collection of functions and data that target a
-single purpose.
+服务器和客户端扩展打包为 *模块*，可选地加载到 *数据库* 中。模块是一组针对单一目的的功能和数据。
 
-Odoo modules can either add brand new business logic to an Odoo system or
-alter and extend existing business logic. One module can be created to add your
-country's accounting rules to Odoo's generic accounting support, while
-a different module can add support for real-time visualisation of a bus fleet.
+Odoo 模块可以为 Odoo 系统添加全新的业务逻辑，或者修改和扩展现有的业务逻辑。可以创建一个模块来添加您国家的会计规则到 Odoo 的通用会计支持中，而另一个模块则添加对公交车队实时可视化的支持。
 
-Everything in Odoo starts and ends with modules.
+Odoo 中的一切都以模块开始和结束。
 
-Terminology: developers group their business features in Odoo *modules*. The main user-facing
-modules are flagged and exposed as *Apps*, but a majority of the modules aren't Apps. *Modules*
-may also be referred to as *addons* and the directories where the Odoo server finds them
-form the ``addons_path``.
+术语：开发人员将其业务功能组合成 Odoo *模块*。面向用户的主要模块标记为 *应用*，但大多数模块不是应用。 *模块* 也可以称为 *附加组件*，Odoo 服务器找到它们的目录形成 `addons_path`。
 
-Composition of a module
------------------------
+模块的组成
+---------------------
 
-An Odoo module **can** contain a number of elements:
+Odoo 模块 **可以** 包含多个元素：
 
-:ref:`Business objects <reference/orm>`
-    A business object (e.g. an invoice) is declared as a Python class. The fields defined in
-    these classes are automatically mapped to database columns thanks to the
-    :abbr:`ORM (Object-Relational Mapping)` layer.
+:ref:`业务对象 <reference/orm>`
+    业务对象（例如发票）被声明为 Python 类。这些类中定义的字段会通过 :abbr:`ORM (对象关系映射)` 层自动映射到数据库列。
 
-:doc:`Object views <../../reference/user_interface/view_architectures>`
-    Define UI display
+:doc:`对象视图 <../../reference/user_interface/view_architectures>`
+    定义用户界面显示
 
-:ref:`Data files <reference/data>`
-    XML or CSV files declaring the model data:
+:ref:`数据文件 <reference/data>`
+    声明模型数据的 XML 或 CSV 文件：
 
-    * :doc:`views <../../reference/user_interface/view_architectures>` or
-      :ref:`reports <reference/reports>`,
-    * configuration data (modules parametrization, :ref:`security rules <reference/security>`),
-    * demonstration data
-    * and more
+    * :doc:`视图 <../../reference/user_interface/view_architectures>` 或
+      :ref:`报告 <reference/reports>`,
+    * 配置数据（模块参数化、:ref:`安全规则 <reference/security>`），
+    * 演示数据
+    * 以及更多
 
-:ref:`Web controllers <reference/controllers>`
-    Handle requests from web browsers
+:ref:`Web 控制器 <reference/controllers>`
+    处理来自网页浏览器的请求
 
-Static web data
-    Images, CSS or JavaScript files used by the web interface or website
+静态网页数据
+    用于网页界面或网站的图像、CSS 或 JavaScript 文件
 
-None of these elements are mandatory. Some modules may only add data files (e.g. country-specific
-accounting configuration), while others may only add business objects. During this training, we will
-create business objects, object views and data files.
+这些元素都不是强制性的。一些模块可能只添加数据文件（例如特定国家的会计配置），而其他模块可能只添加业务对象。在本培训中，我们将创建业务对象、对象视图和数据文件。
 
-Module structure
+模块结构
 ----------------
 
-Each module is a directory within a *module directory*. Module directories
-are specified by using the :option:`--addons-path <odoo-bin --addons-path>`
-option.
+每个模块都是一个位于 *模块目录* 内的目录。模块目录通过使用 :option:`--addons-path <odoo-bin --addons-path>` 选项来指定。
 
-An Odoo module is declared by its :ref:`manifest <reference/module/manifest>`.
+Odoo 模块通过其 :ref:`清单 <reference/module/manifest>` 声明。
 
-When an Odoo module includes business objects (i.e. Python files), they are organized as a
-`Python package <https://docs.python.org/3/tutorial/modules.html#packages>`_
-with a ``__init__.py`` file. This file contains import instructions for various Python
-files in the module.
+当 Odoo 模块包含业务对象（即 Python 文件）时，它们会组织为一个 `Python 包 <https://docs.python.org/3/tutorial/modules.html#packages>`_，其中包含一个 ``__init__.py`` 文件。此文件包含对模块中各种 Python 文件的导入指令。
 
-Here is a simplified module directory:
+以下是简化的模块目录：
 
 .. code-block:: bash
 
@@ -113,15 +82,12 @@ Here is a simplified module directory:
     ├── __init__.py
     └── __manifest__.py
 
-Odoo Editions
+Odoo 版本
 =============
 
-Odoo is available in `two versions`_: Odoo Enterprise (licensed & shared sources) and Odoo Community
-(open-source). In addition to services such as support or upgrades, the Enterprise version provides extra
-functionalities to Odoo. From a technical point-of-view, these functionalities are simply
-new modules installed on top of the modules provided by the Community version.
+Odoo 提供 `两个版本`_：Odoo 企业版（许可和共享源代码）和 Odoo 社区版（开源）。除了提供支持或升级等服务外，企业版还为 Odoo 提供额外的功能。从技术角度来看，这些功能只是安装在社区版模块之上的新模块。
 
-Ready to start? It is now time to :doc:`write your own application <02_newapp>`!
+准备好开始了吗？现在是时候 :doc:`编写您自己的应用程序 <02_newapp>` 了！
 
 .. _multitier architecture:
     https://en.wikipedia.org/wiki/Multitier_architecture

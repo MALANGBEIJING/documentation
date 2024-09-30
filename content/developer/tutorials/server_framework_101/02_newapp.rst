@@ -1,99 +1,72 @@
-============================
-Chapter 2: A New Application
+章节 2: 新应用程序
 ============================
 
-The purpose of this chapter is to lay the foundation for the creation of a completely new Odoo module.
-We will start from scratch with the minimum needed to have our module recognized by Odoo.
-In the upcoming chapters, we will progressively add features to build a realistic business case.
+本章的目的是为创建一个全新的 Odoo 模块奠定基础。我们将从零开始，只保留识别模块所需的最低内容。在接下来的章节中，我们将逐步添加功能，以构建一个现实的业务案例。
 
-The Real Estate Advertisement module
+房地产广告模块
 ====================================
 
-Our new module will cover a business area which is very specific and therefore not included in the
-standard set of modules: real estate. It is worth noting that before
-developing a new module, it is good practice to verify that Odoo doesn't already provide a way
-to answer the specific business case.
+我们的新模块将涵盖一个非常特定的业务领域，因此不包括在标准模块集中：房地产。值得注意的是，在开发新模块之前，最好先验证 Odoo 是否已经提供了解决特定业务案例的方法。
 
-Here is an overview of the main list view containing some advertisements:
+下面是包含一些广告的主列表视图的概述：
 
 .. image:: 02_newapp/overview_list_view_01.png
    :align: center
-   :alt: List view 01
+   :alt: 列表视图 01
 
-The top area of the form view summarizes important information for the property, such as the name,
-the property type, the postcode and so on. The first tab contains information describing the
-property: bedrooms, living area, garage, garden...
+表单视图的顶部区域总结了物业的重要信息，例如名称、物业类型、邮政编码等。第一个选项卡包含描述物业的信息：卧室、客厅、车库、花园...
 
 .. image:: 02_newapp/overview_form_view_01.png
    :align: center
-   :alt: Form view 01
+   :alt: 表单视图 01
 
-The second tab lists the offers for the property. We can see here that potential buyers can make
-offers above or below the expected selling price. It is up to the seller to accept an offer.
+第二个选项卡列出了该物业的报价。我们可以看到，潜在买家可以提出高于或低于预期售价的报价，是否接受报价由卖方决定。
 
 .. image:: 02_newapp/overview_form_view_02.png
    :align: center
-   :alt: Form view 02
+   :alt: 表单视图 02
 
-Here is a quick video showing the workflow of the module.
+这里有一个快速视频展示模块的工作流程。
 
-Hopefully, this video will be recorded soon :-)
+希望这个视频很快就会录制完成 :-)
 
-Prepare the addon directory
+准备附加组件目录
 ===========================
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`manifest <reference/module/manifest>`.
+**参考**：与此主题相关的文档可以在 :ref:`manifest <reference/module/manifest>` 中找到。
 
 .. note::
 
-   **Goal**: the goal of this section is to have Odoo recognize our new module, which will
-   be an empty shell for now. It will be listed in the Apps:
+   **目标**：本节的目标是使 Odoo 识别我们的新模块，目前它将是一个空壳。它将在应用程序列表中列出：
 
    .. image:: 02_newapp/app_in_list.png
       :align: center
-      :alt: The new module appears in the list
+      :alt: 新模块在列表中出现
 
-The first step of module creation is to create its directory. In the `tutorials`
-directory, add a new directory :file:`estate`.
+模块创建的第一步是创建它的目录。在 `tutorials` 目录中，添加一个新目录 :file:`estate`。
 
-A module must contain at least 2 files: the ``__manifest__.py`` file and a ``__init__.py`` file.
-The ``__init__.py`` file can remain empty for now and we'll come back to it in the next chapter.
-On the other hand, the ``__manifest__.py`` file must describe our module and cannot remain empty.
-Its only required field is the ``name``, but it usually contains much more information.
+一个模块至少必须包含两个文件：``__manifest__.py`` 文件和 ``__init__.py`` 文件。``__init__.py`` 文件可以暂时保持空白，我们将在下一章回来处理它。另一方面，``__manifest__.py`` 文件必须描述我们的模块，不能保持为空。它唯一的必填字段是 ``name``，但通常包含更多信息。
 
-Take a look at the
-`CRM file <https://github.com/odoo/odoo/blob/fc92728fb2aa306bf0e01a7f9ae1cfa3c1df0e10/addons/crm/__manifest__.py#L1-L67>`__
-as an example. In addition to providing the description of the module (``name``, ``category``,
-``summary``, ``website``...), it lists its dependencies (``depends``). A dependency means that the
-Odoo framework will ensure that these modules are installed before our module is installed. Moreover, if
-one of these dependencies is uninstalled, then our module and **any other that depends on it will also
-be uninstalled**. Think about your favorite Linux distribution package manager
-(``apt``, ``dnf``, ``pacman``...): Odoo works in the same way.
+请查看 `CRM 文件 <https://github.com/odoo/odoo/blob/fc92728fb2aa306bf0e01a7f9ae1cfa3c1df0e10/addons/crm/__manifest__.py#L1-L67>`__ 作为示例。除了提供模块的描述（``name``、``category``、``summary``、``website``...）外，它还列出了其依赖关系（``depends``）。依赖关系意味着 Odoo 框架会确保在安装我们的模块之前，这些模块已经安装。此外，如果其中一个依赖关系被卸载，则我们的模块和 **任何依赖于它的模块也将被卸载**。想想你最喜欢的 Linux 发行版包管理器（``apt``、``dnf``、``pacman``...）：Odoo 的工作方式与此类似。
 
-.. exercise:: Create the required addon files.
+.. exercise:: 创建所需的附加组件文件。
 
-    Create the following folders and files:
+    创建以下文件夹和文件：
 
     - ``/home/$USER/src/tutorials/estate/__init__.py``
     - ``/home/$USER/src/tutorials/estate/__manifest__.py``
 
-    The ``__manifest__.py`` file should only define the name and the dependencies of our modules.
-    The only necessary framework module for now is ``base``.
+    ``__manifest__.py`` 文件应仅定义模块的名称和依赖关系。现在唯一必要的框架模块是 ``base``。
 
-
-Restart the Odoo server and go to Apps. Click on Update Apps List, search for ``estate`` and...
-tadaaa, your module appears! Did it not appear? Maybe try removing the default 'Apps' filter ;-)
+重新启动 Odoo 服务器并转到应用程序。单击更新应用程序列表，搜索 ``estate``，然后... tadaaa，你的模块出现了！如果没有出现，可能尝试移除默认的“应用程序”过滤器 ;-)
 
 .. warning::
-   Remember to enable the :ref:`developer mode <developer-mode>` as explained in the previous
-   chapter. You won't see the :guilabel:`Update Apps List` button otherwise.
+   请记住启用 :ref:`开发者模式 <developer-mode>`，如前一章所述。否则您将看不到 :guilabel:`更新应用程序列表` 按钮。
 
-.. exercise:: Make your module an 'App'.
+.. exercise:: 使您的模块成为“应用程序”。
 
-    Add the appropriate key to your ``__manifest__.py`` so that the module appears when the 'Apps'
-    filter is on.
+    在 ``__manifest__.py`` 中添加适当的键，以便在“应用程序”过滤器打开时显示模块。
 
-You can even install the module! But obviously it's an empty shell, so no menu will appear.
+您甚至可以安装模块！但显然它是一个空壳，因此不会出现任何菜单。
 
-All good? If yes, then let's :doc:`create our first model <03_basicmodel>`!
+一切顺利吗？如果是的话，那就让我们 :doc:`创建我们的第一个模型 <03_basicmodel>` 吧！

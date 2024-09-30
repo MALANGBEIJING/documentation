@@ -1,33 +1,25 @@
 ==================================
-Chapter 3: Models And Basic Fields
+第3章：模型和基本字段
 ==================================
 
-At the end of the :doc:`previous chapter <02_newapp>`, we were able to
-create an Odoo module. However, at this point it is still an empty shell which doesn't allow us to
-store any data. In our real estate module, we want to store the information related to the
-properties (name, description, price, living area...) in a database. The Odoo framework provides
-tools to facilitate database interactions.
+在 :doc:`上一章 <02_newapp>` 结束时，我们能够创建一个 Odoo 模块。然而，此时它仍然是一个空壳，无法存储任何数据。在我们的房地产模块中，我们希望在数据库中存储与物业相关的信息（名称、描述、价格、居住面积等）。Odoo 框架提供了便于数据库交互的工具。
 
-Before moving forward in the exercise, make sure the ``estate`` module is installed, i.e. it
-must appear as 'Installed' in the Apps list.
+在继续练习之前，请确保 ``estate`` 模块已安装，即它必须在应用列表中显示为“已安装”。
 
-.. warning::
+.. 警告::
 
-   Do not use mutable global variables.
+   不要使用可变全局变量。
 
-   A single Odoo instance can run several databases in parallel within the same python process.
-   Distinct modules might be installed on each of these databases, therefore we cannot rely on
-   global variables that would be updated depending on installed modules.
+   单个 Odoo 实例可以在同一个 Python 进程中并行运行多个数据库。不同的模块可能安装在每个数据库上，因此我们不能依赖于根据安装的模块而更新的全局变量。
 
-Object-Relational Mapping
-=========================
+对象关系映射
+==========================
 
-**Reference**: the documentation related to this topic can be found in the
-:ref:`reference/orm/model` API.
+**参考**：有关此主题的文档可以在 :ref:`reference/orm/model` API 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, the table ``estate_property`` should be created:
+    **目标**：在本节结束时，应该创建表 ``estate_property``：
 
     .. code-block:: text
 
@@ -38,103 +30,85 @@ Object-Relational Mapping
             0
         (1 row)
 
-A key component of Odoo is the `ORM`_ layer.
-This layer avoids having to manually write most `SQL`_
-and provides extensibility and security services\ [#rawsql]_.
+Odoo 的一个关键组成部分是 `ORM`_ 层。该层避免了手动编写大多数 `SQL`_，并提供了可扩展性和安全服务\ [#rawsql]_。
 
-Business objects are declared as Python classes extending
-:class:`~odoo.models.Model`, which integrates them into the automated
-persistence system.
+业务对象被声明为扩展 :class:`~odoo.models.Model` 的 Python 类，这将它们集成到自动持久性系统中。
 
-Models can be configured by setting attributes in their
-definition. The most important attribute is
-:attr:`~odoo.models.Model._name`, which is required and defines the name for
-the model in the Odoo system. Here is a minimum definition of a
-model::
+通过在模型定义中设置属性，可以对模型进行配置。最重要的属性是 :attr:`~odoo.models.Model._name`，这是必需的，并定义了 Odoo 系统中模型的名称。以下是模型的最小定义：
+
+.. code-block:: python
 
     from odoo import models
 
     class TestModel(models.Model):
         _name = "test_model"
 
-This definition is enough for the ORM to generate a database table named `test_model`. By
-convention all models are located in a `models` directory and each model is defined in its own
-Python file.
+这个定义足以让 ORM 生成一个名为 `test_model` 的数据库表。根据约定，所有模型都位于 `models` 目录中，每个模型都在自己的 Python 文件中定义。
 
-Take a look at how the ``crm_recurring_plan`` table is defined and how the corresponding Python
-file is imported:
+看看 ``crm_recurring_plan`` 表是如何定义的，以及相应的 Python 文件是如何导入的：
 
-1. The model is defined in the file ``crm/models/crm_recurring_plan.py``
-   (see `here <https://github.com/odoo/odoo/blob/e80911aaead031e7523173789e946ac1fd27c7dc/addons/crm/models/crm_recurring_plan.py#L1-L9>`__)
-2. The file ``crm_recurring_plan.py`` is imported in ``crm/models/__init__.py``
-   (see `here <https://github.com/odoo/odoo/blob/e80911aaead031e7523173789e946ac1fd27c7dc/addons/crm/models/__init__.py#L15>`__)
-3. The folder ``models`` is imported in ``crm/__init__.py``
-   (see `here <https://github.com/odoo/odoo/blob/e80911aaead031e7523173789e946ac1fd27c7dc/addons/crm/__init__.py#L5>`__)
+1. 模型定义在文件 ``crm/models/crm_recurring_plan.py`` 中
+   （参见 `这里 <https://github.com/odoo/odoo/blob/e80911aaead031e7523173789e946ac1fd27c7dc/addons/crm/models/crm_recurring_plan.py#L1-L9>`__）
+2. 文件 ``crm_recurring_plan.py`` 在 ``crm/models/__init__.py`` 中导入
+   （参见 `这里 <https://github.com/odoo/odoo/blob/e80911aaead031e7523173789e946ac1fd27c7dc/addons/crm/models/__init__.py#L15>`__）
+3. 文件夹 ``models`` 在 ``crm/__init__.py`` 中导入
+   （参见 `这里 <https://github.com/odoo/odoo/blob/e80911aaead031e7523173789e946ac1fd27c7dc/addons/crm/__init__.py#L5>`__）
 
-.. exercise:: Define the real estate properties model.
+.. 练习:: 定义房地产属性模型。
 
-    Based on example given in the CRM module, create the appropriate files and folder for the
-    ``estate_property`` table.
+    根据 CRM 模块中给出的示例，为 ``estate_property`` 表创建适当的文件和文件夹。
 
-    When the files are created, add a minimum definition for the
-    ``estate.property`` model.
+    创建文件后，为 ``estate.property`` 模型添加最小定义。
 
-Any modification of the Python files requires a restart of the Odoo server. When we restart
-the server, we will add the parameters ``-d`` and ``-u``:
+任何对 Python 文件的修改都需要重新启动 Odoo 服务器。重新启动服务器时，我们将添加参数 ``-d`` 和 ``-u``：
 
 .. code-block:: console
 
     $ ./odoo-bin --addons-path=addons,../enterprise/,../tutorials/ -d rd-demo -u estate
 
-``-u estate`` means we want to upgrade the ``estate`` module, i.e. the ORM will
-apply database schema changes. In this case it creates a new table. ``-d rd-demo`` means
-that the upgrade should be performed on the ``rd-demo`` database. ``-u`` should always be used in
-combination with ``-d``.
+``-u estate`` 意味着我们希望升级 ``estate`` 模块，即 ORM 将应用数据库模式更改。在这种情况下，它创建一个新表。``-d rd-demo`` 意味着升级应在 ``rd-demo`` 数据库上执行。``-u`` 应始终与 ``-d`` 一起使用。
 
-During the startup you should see the following warnings:
+在启动过程中，您应该看到以下警告：
 
 .. code-block:: text
 
     ...
-    WARNING rd-demo odoo.models: The model estate.property has no _description
+    WARNING rd-demo odoo.models: 模型 estate.property 没有 _description
     ...
-    WARNING rd-demo odoo.modules.loading: The model estate.property has no access rules, consider adding one...
+    WARNING rd-demo odoo.modules.loading: 模型 estate.property 没有访问规则，请考虑添加一个...
     ...
 
-If this is the case, then you should be good! To be sure, double check with ``psql`` as demonstrated in
-the **Goal**.
+如果是这种情况，那么您应该没问题！为确保无误，请使用 ``psql`` 进行双重检查，如 **目标** 中所示。
 
-.. exercise:: Add a description.
+.. 练习:: 添加描述。
 
-    Add a ``_description`` to your model to get rid of one of the warnings.
+    为您的模型添加 ``_description``，以消除其中一个警告。
 
-Model fields
-============
+模型字段
+============================
 
-**Reference**: the documentation related to this topic can be found in the
-:ref:`reference/orm/fields` API.
+**参考**：有关此主题的文档可以在 :ref:`reference/orm/fields` API 中找到。
 
-Fields are used to define what the model can store and where they are stored. Fields are
-defined as attributes in the model class::
+字段用于定义模型可以存储什么以及它们存储的位置。字段作为模型类中的属性定义：
+
+.. code-block:: python
 
     from odoo import fields, models
 
     class TestModel(models.Model):
         _name = "test_model"
-        _description = "Test Model"
+        _description = "测试模型"
 
         name = fields.Char()
 
-The ``name`` field is a :class:`~odoo.fields.Char` which will be represented as a Python
-unicode ``str`` and a SQL ``VARCHAR``.
+``name`` 字段是一个 :class:`~odoo.fields.Char`，将在 Python unicode ``str`` 和 SQL ``VARCHAR`` 中表示。
 
-Types
+类型
 -----
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, several basic fields should have been added to the table
-    ``estate_property``:
+    **目标**：在本节结束时，表 ``estate_property`` 应添加多个基本字段：
 
     .. code-block:: text
 
@@ -169,20 +143,16 @@ Types
             "estate_property_write_uid_fkey" FOREIGN KEY (write_uid) REFERENCES res_users(id) ON DELETE SET NULL
 
 
-There are two broad categories of fields: 'simple' fields, which are atomic
-values stored directly in the model's table, and 'relational' fields, which link
-records (of the same or different models).
+字段分为两大类：'简单' 字段，它们是存储在模型表中的原子值，以及 '关系' 字段，它们链接记录（同一模型或不同模型）。
 
-Simple field examples are :class:`~odoo.fields.Boolean`, :class:`~odoo.fields.Float`,
-:class:`~odoo.fields.Char`, :class:`~odoo.fields.Text`, :class:`~odoo.fields.Date`
-and :class:`~odoo.fields.Selection`.
+简单字段的示例包括 :class:`~odoo.fields.Boolean`、:class:`~odoo.fields.Float`、:class:`~odoo.fields.Char`、:class:`~odoo.fields.Text`、:class:`~odoo.fields.Date` 和 :class:`~odoo.fields.Selection`。
 
-.. exercise:: Add basic fields to the Real Estate Property table.
+.. 练习:: 将基本字段添加到房地产属性表。
 
-    Add the following basic fields to the table:
+    将以下基本字段添加到表中：
 
     ========================= =========================
-    Field                     Type
+    字段                     类型
     ========================= =========================
     name                      Char
     description               Text
@@ -199,27 +169,21 @@ and :class:`~odoo.fields.Selection`.
     garden_orientation        Selection
     ========================= =========================
 
-    The ``garden_orientation`` field must have 4 possible values: 'North', 'South', 'East'
-    and 'West'. The selection list is defined as a list of tuples, see
-    `here <https://github.com/odoo/odoo/blob/b0e0035b585f976e912e97e7f95f66b525bc8e43/addons/crm/report/crm_activity_report.py#L31-L34>`__
-    for an example.
+    ``garden_orientation`` 字段必须有四个可能值：'North'、'South'、'East' 和 'West'。选择列表定义为一个元组列表，见 `这里 <https://github.com/odoo/odoo/blob/b0e0035b585f976e912e97e7f95f66b525bc8e43/addons/crm/report/crm_activity_report.py#L31-L34>`__ 的示例。
 
-When the fields are added to the model, restart the server with ``-u estate``
+当字段添加到模型后，请使用 ``-u estate`` 重新启动服务器。
 
 .. code-block:: console
 
     $ ./odoo-bin --addons-path=addons,../enterprise/,../tutorials/ -d rd-demo -u estate
 
-Connect to ``psql`` and check the structure of the table ``estate_property``. You'll notice that
-a couple of extra fields were also added to the table. We will revisit them later.
+连接到 ``psql`` 并检查 ``estate_property`` 表的结构。您会注意到几个额外的字段也已添加到表中。稍后我们会再次讨论它们。
+公共属性
+------------------
 
-Common Attributes
------------------
+.. 注意::
 
-.. note::
-
-    **Goal**: at the end of this section, the columns ``name`` and ``expected_price`` should be
-    not nullable in the table ``estate_property``:
+    **目标**：在本节结束时，列 ``name`` 和 ``expected_price`` 应在表 ``estate_property`` 中设置为不可为空：
 
     .. code-block:: console
 
@@ -233,69 +197,61 @@ Common Attributes
         expected_price     | double precision            |           | not null |
         ...
 
-Much like the model itself, fields can be configured by passing
-configuration attributes as parameters::
+与模型本身类似，字段可以通过作为参数传递配置属性进行配置：
+
+.. code-block:: python
 
     name = fields.Char(required=True)
 
-Some attributes are available on all fields, here are the most common ones:
+一些属性可用于所有字段，以下是最常见的属性：
 
 :attr:`~odoo.fields.Field.string` (``str``, default: field's name)
-    The label of the field in UI (visible by users).
+    字段在用户界面中的标签（用户可见）。
 :attr:`~odoo.fields.Field.required` (``bool``, default: ``False``)
-    If ``True``, the field can not be empty. It must either have a default
-    value or always be given a value when creating a record.
+    如果为 ``True``，则字段不能为空。它必须具有默认值，或者在创建记录时始终提供值。
 :attr:`~odoo.fields.Field.help` (``str``, default: ``''``)
-    Provides long-form help tooltip for users in the UI.
+    为用户在用户界面中提供长形式的帮助工具提示。
 :attr:`~odoo.fields.Field.index` (``bool``, default: ``False``)
-    Requests that Odoo create a `database index`_ on the column.
+    请求 Odoo 在该列上创建一个 `数据库索引`_。
 
-.. exercise:: Set attributes for existing fields.
+.. 练习:: 为现有字段设置属性。
 
-    Add the following attributes:
+    添加以下属性：
 
     ========================= =========================
-    Field                     Attribute
+    字段                     属性
     ========================= =========================
     name                      required
     expected_price            required
     ========================= =========================
 
-    After restarting the server, both fields should be not nullable.
+    重新启动服务器后，这两个字段应为不可为空。
 
-Automatic Fields
+自动字段
 ----------------
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`reference/fields/automatic`.
+**参考**：有关此主题的文档可以在 :ref:`reference/fields/automatic` 中找到。
 
-You may have noticed your model has a few fields you never defined.
-Odoo creates a few fields in all models\ [#autofields]_. These fields are
-managed by the system and can't be written to, but they can be read if
-useful or necessary:
+您可能注意到模型中有一些您未定义的字段。Odoo 在所有模型中创建了一些字段\ [#autofields]_. 这些字段由系统管理，不能写入，但在有用或必要时可以读取：
 
 :attr:`~odoo.fields.Model.id` (:class:`~odoo.fields.Id`)
-    The unique identifier for a record of the model.
+    模型记录的唯一标识符。
 :attr:`~odoo.fields.Model.create_date` (:class:`~odoo.fields.Datetime`)
-    Creation date of the record.
+    记录的创建日期。
 :attr:`~odoo.fields.Model.create_uid` (:class:`~odoo.fields.Many2one`)
-    User who created the record.
+    创建记录的用户。
 :attr:`~odoo.fields.Model.write_date` (:class:`~odoo.fields.Datetime`)
-    Last modification date of the record.
+    记录的最后修改日期。
 :attr:`~odoo.fields.Model.write_uid` (:class:`~odoo.fields.Many2one`)
-    User who last modified the record.
+    最后修改记录的用户。
 
+现在我们已经创建了第一个模型，让我们
+:doc:`添加一些安全性 <04_securityintro>`！
 
-Now that we have created our first model, let's
-:doc:`add some security <04_securityintro>`!
+.. [#autofields] 可以 :ref:`禁用某些字段的自动创建 <reference/fields/automatic/log_access>` 
+.. [#rawsql] 编写原始 SQL 查询是可能的，但需要谨慎，因为这会绕过所有 Odoo 身份验证和安全机制。
 
-
-.. [#autofields] it is possible to :ref:`disable the automatic creation of some
-                 fields <reference/fields/automatic/log_access>`
-.. [#rawsql] writing raw SQL queries is possible, but requires caution as this
-             bypasses all Odoo authentication and security mechanisms.
-
-.. _database index:
+.. _数据库索引:
     https://use-the-index-luke.com/sql/preface
 .. _ORM:
     https://en.wikipedia.org/wiki/Object-relational_mapping

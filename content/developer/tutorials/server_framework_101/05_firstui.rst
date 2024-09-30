@@ -1,291 +1,240 @@
 ========================================
-Chapter 5: Finally, Some UI To Play With
+第5章：最终，进行一些用户界面操作
 ========================================
 
-Now that we've created our new :doc:`model <03_basicmodel>` and its
-corresponding :doc:`access rights <04_securityintro>`, it is time to
-interact with the user interface.
+现在我们已经创建了新的 :doc:`模型 <03_basicmodel>` 及其相应的 :doc:`访问权限 <04_securityintro>`，是时候与用户界面进行交互了。
 
-At the end of this chapter, we will have created a couple of menus in order to access a default list
-and form view.
+在本章结束时，我们将创建几个菜单，以便访问默认的列表和表单视图。
 
-Data Files (XML)
+数据文件（XML）
 ================
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`reference/data`.
+**参考**：有关此主题的文档可以在 :ref:`reference/data` 中找到。
 
-In :doc:`04_securityintro`, we added data through a CSV file. The CSV
-format is convenient when the data to load has a simple format. When the format is more complex
-(e.g. load the structure of a view or an email template), we use the XML format. For example,
-this
-`help field <https://github.com/odoo/odoo/blob/09c59012bf80d2ccbafe21c39e604d6cfda72924/addons/crm/views/crm_lost_reason_views.xml#L61-L69>`__
-contains HTML tags. While it would be possible to load such data through a CSV file, it is more
-convenient to use an XML file.
+在 :doc:`04_securityintro` 中，我们通过 CSV 文件添加了数据。当要加载的数据格式简单时，CSV 格式很方便。当格式更复杂（例如，加载视图结构或电子邮件模板）时，我们使用 XML 格式。例如，这个
+`帮助字段 <https://github.com/odoo/odoo/blob/09c59012bf80d2ccbafe21c39e604d6cfda72924/addons/crm/views/crm_lost_reason_views.xml#L61-L69>`__
+包含 HTML 标签。虽然通过 CSV 文件加载这样的数据是可能的，但使用 XML 文件更为方便。
 
-The XML files must be added to the same folders as the CSV files and defined similarly in the
-``__manifest__.py``. The content of the data files is also sequentially loaded when a module is installed or
-updated, therefore all remarks made for CSV files hold true for XML files.
-When the data is linked to views, we add them to the ``views`` folder.
+XML 文件必须添加到与 CSV 文件相同的文件夹，并在 ``__manifest__.py`` 中以类似方式定义。当模块安装或更新时，数据文件的内容也会按顺序加载，因此对 CSV 文件所做的所有说明也适用于 XML 文件。
+当数据与视图相关联时，我们将其添加到 ``views`` 文件夹中。
 
-In this chapter, we will load our first action and menus through an XML file. Actions and menus are
-standard records in the database.
+在本章中，我们将通过 XML 文件加载第一个操作和菜单。操作和菜单是数据库中的标准记录。
 
-.. note::
+.. 注意::
 
-    When performance is important, the CSV format is preferred over the XML format. This is the case in Odoo
-    where loading a CSV file is faster than loading an XML file.
+    当性能重要时，CSV 格式优于 XML 格式。在 Odoo 中，加载 CSV 文件比加载 XML 文件更快。
 
-In Odoo, the user interface (actions, menus and views) is largely defined by creating
-and composing records defined in an XML file. A common pattern is Menu > Action > View.
-To access records the user navigates through several menu levels; the deepest level is an
-action which triggers the opening of a list of the records.
+在 Odoo 中，用户界面（操作、菜单和视图）主要通过创建和组合在 XML 文件中定义的记录来定义。一个常见的模式是菜单 > 操作 > 视图。
+用户通过几个菜单级别导航以访问记录；最深的级别是触发打开记录列表的操作。
 
-Actions
+操作
 =======
 
-**Reference**: the documentation related to this topic can be found in
-:doc:`../../reference/backend/actions`.
+**参考**：有关此主题的文档可以在 :doc:`../../reference/backend/actions` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, an action should be loaded in the system. We won't see
-    anything yet in the UI, but the file should be loaded in the log:
+    **目标**：在本节结束时，系统中应该加载一个操作。我们在用户界面中尚看不到任何内容，但日志中应该加载该文件：
 
     .. code-block:: text
 
         INFO rd-demo odoo.modules.loading: loading estate/views/estate_property_views.xml
 
-Actions can be triggered in three ways:
+操作可以通过三种方式触发：
 
-1. by clicking on menu items (linked to specific actions)
-2. by clicking on buttons in views (if these are connected to actions)
-3. as contextual actions on object
+1. 通过单击菜单项（链接到特定操作）
+2. 通过单击视图中的按钮（如果这些按钮与操作连接）
+3. 作为对象上的上下文操作
 
-We will only cover the first case in this chapter. The second case will be covered in a
-:doc:`later chapter <09_actions>` while the last is the focus of an
-advanced topic. In our Real Estate example, we would like to link a menu to the ``estate.property``
-model, so we are able to create a new record. The action can be viewed as the link between the menu
-and the model.
+本章只涵盖第一种情况。第二种情况将在 :doc:`后面的章节 <09_actions>` 中讨论，而最后一种是高级主题的重点。在我们的房地产示例中，我们希望将一个菜单链接到 ``estate.property`` 模型，以便我们能够创建新记录。操作可以视为菜单与模型之间的链接。
 
-A basic action for our `test_model` is:
+我们的 `test_model` 的基本操作如下：
 
 .. code-block:: xml
 
     <record id="test_model_action" model="ir.actions.act_window">
-        <field name="name">Test action</field>
+        <field name="name">测试操作</field>
         <field name="res_model">test_model</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-- ``id`` is an :term:`external identifier`. It can be used to refer to the record
-  (without knowing its in-database identifier).
-- ``model`` has a fixed value of ``ir.actions.act_window`` (:ref:`reference/actions/window`).
-- ``name`` is the name of the action.
-- ``res_model`` is the model which the action applies to.
-- ``view_mode`` are the views that will be available; in this case they are the list (tree) and form views.
-  We'll see :doc:`later <14_qwebintro>` that there can be other view modes.
+- ``id`` 是一个 :term:`外部标识符`。它可以用于引用记录（而不需要知道其数据库内标识符）。
+- ``model`` 的固定值为 ``ir.actions.act_window`` (:ref:`reference/actions/window`)。
+- ``name`` 是操作的名称。
+- ``res_model`` 是该操作适用的模型。
+- ``view_mode`` 是可用的视图；在此情况下，它们是列表（树）和表单视图。稍后我们会看到 :doc:`<14_qwebintro>` 可以有其他视图模式。
 
-Examples can be found everywhere in Odoo, but
-`this <https://github.com/odoo/odoo/blob/09c59012bf80d2ccbafe21c39e604d6cfda72924/addons/crm/views/crm_lost_reason_views.xml#L57-L70>`__
-is a good example of a simple action. Pay attention to the structure of the XML data file since you will
-need it in the following exercise.
+Odoo 中随处可见示例，但
+`这个 <https://github.com/odoo/odoo/blob/09c59012bf80d2ccbafe21c39e604d6cfda72924/addons/crm/views/crm_lost_reason_views.xml#L57-L70>`__
+是一个简单操作的良好示例。注意 XML 数据文件的结构，因为您将在以下练习中需要它。
 
-.. exercise:: Add an action.
+.. 练习:: 添加操作。
 
-    Create the ``estate_property_views.xml`` file in the appropriate folder and define it in the
-    ``__manifest__.py`` file.
+    在适当的文件夹中创建 ``estate_property_views.xml`` 文件，并在 ``__manifest__.py`` 文件中定义它。
 
-    Create an action for the model ``estate.property``.
+    为模型 ``estate.property`` 创建一个操作。
 
-Restart the server and you should see the file loaded in the log.
+重新启动服务器，您应该在日志中看到文件已加载。
 
-Menus
+菜单
 =====
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`reference/data/shortcuts`.
+**参考**：有关此主题的文档可以在 :ref:`reference/data/shortcuts` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, three menus should be created and the default view is
-    displayed:
+    **目标**：在本节结束时，应该创建三个菜单，并显示默认视图：
 
     .. image:: 05_firstui/estate_menu_root.png
       :align: center
-      :alt: Root menus
+      :alt: 根菜单
 
     .. image:: 05_firstui/estate_menu_action.png
       :align: center
-      :alt: First level and action menus
+      :alt: 一级和操作菜单
 
     .. image:: 05_firstui/estate_form_default.png
       :align: center
-      :alt: Default form view
+      :alt: 默认表单视图
 
-To reduce the complexity in declaring a menu (``ir.ui.menu``) and connecting it to the corresponding action,
-we can use the ``<menuitem>`` shortcut .
+为了减少声明菜单（``ir.ui.menu``）并将其连接到相应操作的复杂性，我们可以使用 ``<menuitem>`` 快捷方式。
 
-A basic menu for our ``test_model_action`` is:
+我们的 ``test_model_action`` 的基本菜单是：
 
 .. code-block:: xml
 
     <menuitem id="test_model_menu_action" action="test_model_action"/>
 
-The menu ``test_model_menu_action`` is linked to the action ``test_model_action``, and the action
-is linked to the model `test_model`. As previously mentioned, the action can be seen as the link
-between the menu and the model.
+菜单 ``test_model_menu_action`` 链接到操作 ``test_model_action``，而该操作又链接到模型 `test_model`。正如之前提到的，操作可以视为菜单与模型之间的链接。
 
-However, menus always follow an architecture, and in practice there are three levels of menus:
+然而，菜单总是遵循一种结构，实际上有三个级别的菜单：
 
-1. The root menu, which is displayed in the App switcher (the Odoo Community App switcher is a
-   dropdown menu)
-2. The first level menu, displayed in the top bar
-3. The action menus
+1. 根菜单，在应用切换器中显示（Odoo Community 应用切换器是下拉菜单）
+2. 一级菜单，在顶部栏中显示
+3. 操作菜单
 
    .. image:: 05_firstui/menu_01.png
       :align: center
-      :alt: Root menus
+      :alt: 根菜单
 
    .. image:: 05_firstui/menu_02.png
       :align: center
-      :alt: First level and action menus
+      :alt: 一级和操作菜单
 
-The easiest way to define the structure is to create it in the XML file. A basic
-structure for our ``test_model_action`` is:
+定义结构的最简单方法是在 XML 文件中创建它。我们的 ``test_model_action`` 的基本结构如下：
 
 .. code-block:: xml
 
-    <menuitem id="test_menu_root" name="Test">
-        <menuitem id="test_first_level_menu" name="First Level">
+    <menuitem id="test_menu_root" name="测试">
+        <menuitem id="test_first_level_menu" name="第一层">
             <menuitem id="test_model_menu_action" action="test_model_action"/>
         </menuitem>
     </menuitem>
 
-The name for the third menu is taken from the name of the ``action``.
+第三个菜单的名称来自 ``action`` 的名称。
 
-.. exercise:: Add menus.
+.. 练习:: 添加菜单。
 
-    Create the ``estate_menus.xml`` file in the appropriate folder and define it in the
-    ``__manifest__.py`` file. Remember the sequential loading of the data files ;-)
+    在适当的文件夹中创建 ``estate_menus.xml`` 文件，并在 ``__manifest__.py`` 文件中定义它。请记住数据文件的顺序加载 ;-)
 
-    Create the three levels of menus for the ``estate.property`` action created in the previous
-    exercise. Refer to the **Goal** of this section for the expected result.
+    为在前一练习中创建的 ``estate.property`` 操作创建三个级别的菜单。请参阅本节的 **目标** 以获取预期结果。
 
-Restart the server and **refresh the browser**\ [#refresh]_. You should now see the menus,
-and you'll even be able to create your first real estate property advertisement!
+重新启动服务器并 **刷新浏览器**\ [#refresh]_. 您现在应该能看到菜单，甚至可以创建您的第一个房地产物业广告！
 
-Fields, Attributes And View
+字段、属性和视图
 ===========================
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, the selling price should be read-only and the number
-    of bedrooms and the availability date should have default values. Additionally the selling price
-    and availability date values won't be copied when the record is duplicated.
+    **目标**：在本节结束时，销售价格应为只读，卧室数量和可用日期应具有默认值。此外，销售价格和可用日期值在记录被复制时不会被复制。
 
     .. image:: 05_firstui/attribute_and_default.gif
       :align: center
-      :alt: Interaction between model and view
+      :alt: 模型与视图之间的交互
 
-    The reserved fields ``active`` and ``state`` are added to the ``estate.property`` model.
+    保留字段 ``active`` 和 ``state`` 被添加到 ``estate.property`` 模型中。
 
-So far we have only used the generic view for our real estate property advertisements, but
-in most cases we want to fine tune the view. There are many fine-tunings possible in Odoo, but
-usually the first step is to make sure that:
+到目前为止，我们只使用了通用视图来处理我们的房地产物业广告，但在大多数情况下，我们希望细化视图。Odoo 中可以进行许多细化，但通常第一步是确保：
 
-- some fields have a default value
-- some fields are read-only
-- some fields are not copied when duplicating the record
+- 一些字段具有默认值
+- 一些字段为只读
+- 一些字段在复制记录时不被复制
 
-In our real estate business case, we would like the following:
+在我们的房地产业务案例中，我们希望：
 
-- The selling price should be read-only (it will be automatically filled in later)
-- The availability date and the selling price should not be copied when duplicating a record
-- The default number of bedrooms should be 2
-- The default availability date should be in 3 months
+- 销售价格应为只读（稍后会自动填写）
+- 可用日期和销售价格在复制记录时不应被复制
+- 默认卧室数量应为 2
+- 默认可用日期应为 3 个月后
 
-Some New Attributes
+一些新属性
 -------------------
 
-Before moving further with the view design, let's step back to our model definition. We saw that some
-attributes, such as ``required=True``, impact the table schema in the database. Other attributes
-will impact the view or provide default values.
+在继续进行视图设计之前，让我们回顾一下我们的模型定义。我们看到一些属性，如 ``required=True``，会影响数据库中的表模式。其他属性将影响视图或提供默认值。
 
-.. exercise:: Add new attributes to the fields.
+.. 练习:: 向字段添加新属性。
 
-  Find the appropriate attributes (see :class:`~odoo.fields.Field`) to:
+  找到适当的属性（见 :class:`~odoo.fields.Field`）以：
 
-  - set the selling price as read-only
-  - prevent copying of the availability date and the selling price values
+  - 设置销售价格为只读
+  - 防止复制可用日期和销售价格值
 
-Restart the server and refresh the browser. You should not be able to set any selling prices. When
-duplicating a record, the availability date should be empty.
+重新启动服务器并刷新浏览器。您将无法设置任何销售价格。复制记录时，可用日期应为空。
 
-Default Values
+默认值
 --------------
 
-Any field can be given a default value. In the field definition, add the option
-``default=X`` where ``X`` is either a Python literal value (boolean, integer,
-float, string) or a function taking a model and returning a value::
+任何字段都可以设置默认值。在字段定义中，添加选项 ``default=X``，其中 ``X`` 是 Python 文字值（布尔值、整数、浮点数、字符串）或一个函数，接受模型并返回一个值：
 
-    name = fields.Char(default="Unknown")
-    last_seen = fields.Datetime("Last Seen", default=fields.Datetime.now)
+.. code-block:: python
 
-The ``name`` field will have the value 'Unknown' by default while the ``last_seen`` field will be
-set as the current time.
+    name = fields.Char(default="未知")
+    last_seen = fields.Datetime("最后查看", default=fields.Datetime.now)
 
-.. exercise:: Set default values.
+``name`` 字段将默认具有值 '未知'，而 ``last_seen`` 字段将设置为当前时间。
 
-    Add the appropriate default attributes so that:
+.. 练习:: 设置默认值。
 
-    - the default number of bedrooms is 2
-    - the default availability date is in 3 months
+    添加适当的默认属性，使得：
 
-    Tip: this might help you: :meth:`~odoo.fields.Date.today`
+    - 默认卧室数量为 2
+    - 默认可用日期为 3 个月后
 
-Check that the default values are set as expected.
+    提示：这可能对您有所帮助： :meth:`~odoo.fields.Date.today`
 
-Reserved Fields
+检查默认值是否按预期设置。
+
+保留字段
 ---------------
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`reference/orm/fields/reserved`.
+**参考**：有关此主题的文档可以在 :ref:`reference/orm/fields/reserved` 中找到。
 
-A few field names are reserved for pre-defined behaviors. They should be defined on a
-model when the related behavior is desired.
+一些字段名称保留用于预定义行为。当相关行为被期望时，应在模型上定义这些字段。
 
-.. exercise:: Add active field.
+.. 练习:: 添加活动字段。
 
-    Add the ``active`` field to the ``estate.property`` model.
+    向 ``estate.property`` 模型添加 ``active`` 字段。
 
-Restart the server, create a new property, then come back to the list view... The property will
-not be listed! ``active`` is an example of a reserved field with a specific behavior: when
-a record has ``active=False``, it is automatically removed from any search. To display the
-created property, you will need to specifically search for inactive records.
+重新启动服务器，创建新物业，然后返回列表视图... 该物业将不再列出！ ``active`` 是具有特定行为的保留字段示例：当记录 ``active=False`` 时，它会自动从任何搜索中删除。要显示创建的物业，您需要特意搜索非活动记录。
 
 .. image:: 05_firstui/inactive.gif
   :align: center
-  :alt: Inactive records
+  :alt: 非活动记录
 
-.. exercise:: Set a default value for active field.
+.. 练习:: 为活动字段设置默认值。
 
-    Set the appropriate default value for the ``active`` field so it doesn't disappear anymore.
+    为 ``active`` 字段设置适当的默认值，以便其不再消失。
 
-Note that the default ``active=False`` value was assigned to all existing records.
+注意，默认的 ``active=False`` 值已分配给所有现有记录。
 
-.. exercise:: Add state field.
+.. 练习:: 添加状态字段。
 
-    Add a ``state`` field to the ``estate.property`` model. Five values are possible: New,
-    Offer Received, Offer Accepted, Sold and Canceled. It must be required, should not be copied
-    and should have its default value set to 'New'.
+    向 ``estate.property`` 模型添加一个 ``state`` 字段。五个可能的值：新建、收到报价、接受报价、已售出和已取消。它必须是必需的，不应被复制，并且其默认值应设置为 '新建'。
 
-    Make sure to use the correct type!
+    确保使用正确的类型！
 
-The ``state`` will be used later on for several UI enhancements.
+``state`` 将在稍后用于多个用户界面增强。
 
-Now that we are able to interact with the UI thanks to the default views, the next step is
-obvious: we want to define :doc:`our own views <06_basicviews>`.
+现在，我们能够通过默认视图与用户界面进行交互，下一步显而易见：我们希望定义 :doc:`我们自己的视图 <06_basicviews>`。
 
-.. [#refresh] A refresh is needed since the web client keeps a cache of the various menus
-              and views for performance reasons.
+.. [#refresh] 需要刷新，因为 web 客户端出于性能原因保持各种菜单和视图的缓存。

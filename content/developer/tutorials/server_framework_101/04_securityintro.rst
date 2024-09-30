@@ -1,124 +1,96 @@
 ==========================================
-Chapter 4: Security - A Brief Introduction
+第4章：安全性 - 简要介绍
 ==========================================
 
-In the :doc:`previous chapter <03_basicmodel>`, we created our first table
-intended to store business data. In a business application such as Odoo, one of the first questions
-to consider is who\ [#who]_ can access the data. Odoo provides a security mechanism to allow access
-to the data for specific groups of users.
+在 :doc:`上一章 <03_basicmodel>` 中，我们创建了第一个用于存储业务数据的表。在像 Odoo 这样的业务应用程序中，首先要考虑的问题之一是谁\ [#who]_ 可以访问数据。Odoo 提供了一种安全机制，以允许特定用户组访问数据。
 
-The topic of security is covered in more detail in :doc:`../restrict_data_access`. This chapter aims
-to cover the minimum required for our new module.
+有关安全性主题的详细信息，请参阅 :doc:`../restrict_data_access`。本章旨在涵盖我们新模块所需的最低要求。
 
-Data Files (CSV)
+数据文件（CSV）
 ================
 
-Odoo is a highly data driven system. Although behavior is customized using Python code, part of a
-module's value is in the data it sets up when loaded. One way to load data is through a CSV
-file. One example is the `list of country states
-<{GITHUB_PATH}/odoo/addons/base/data/res.country.state.csv>`_ which is loaded at installation of the
-`base` module.
+Odoo 是一个高度数据驱动的系统。尽管通过 Python 代码自定义行为，但模块的部分价值在于它在加载时设置的数据。加载数据的一种方法是通过 CSV 文件。一个例子是安装 `base` 模块时加载的 `国家州列表 <{GITHUB_PATH}/odoo/addons/base/data/res.country.state.csv>`_。
 
 .. code-block:: text
 
     "id","country_id:id","name","code"
-    state_au_1,au,"Australian Capital Territory","ACT"
-    state_au_2,au,"New South Wales","NSW"
-    state_au_3,au,"Northern Territory","NT"
-    state_au_4,au,"Queensland","QLD"
+    state_au_1,au,"澳大利亚首都领地","ACT"
+    state_au_2,au,"新南威尔士","NSW"
+    state_au_3,au,"北领地","NT"
+    state_au_4,au,"昆士兰","QLD"
     ...
 
-- ``id`` is an :term:`external identifier`. It can be used to refer to the record
-  (without knowing its in-database identifier).
-- ``country_id:id`` refers to the country by using its :term:`external identifier`.
-- ``name`` is the name of the state.
-- ``code`` is the code of the state.
+- ``id`` 是一个 :term:`外部标识符`。它可以用于引用记录（而不需要知道其数据库内标识符）。
+- ``country_id:id`` 通过其 :term:`外部标识符` 引用国家。
+- ``name`` 是州的名称。
+- ``code`` 是州的代码。
 
-These three fields are
-`defined <https://github.com/odoo/odoo/blob/2ad2f3d6567b6266fc42c6d2999d11f3066b282c/odoo/addons/base/models/res_country.py#L108-L111>`__
-in the ``res.country.state`` model.
+这三个字段在 ``res.country.state`` 模型中
+`定义 <https://github.com/odoo/odoo/blob/2ad2f3d6567b6266fc42c6d2999d11f3066b282c/odoo/addons/base/models/res_country.py#L108-L111>`__。
 
-By convention, a file importing data is located in the ``data`` folder of a module. When the data
-is related to security, it is located in the ``security`` folder. When the data is related to
-views and actions (we will cover this later), it is located in the ``views`` folder.
-Additionally, all of these files must be declared in the ``data``
-list within the ``__manifest__.py`` file. Our example file is defined
-`in the manifest of the base module <https://github.com/odoo/odoo/blob/e8697f609372cd61b045c4ee2c7f0fcfb496f58a/odoo/addons/base/__manifest__.py#L29>`__.
+根据约定，导入数据的文件位于模块的 ``data`` 文件夹中。当数据与安全性相关时，它位于 ``security`` 文件夹中。当数据与视图和操作相关时（稍后会讨论），它位于 ``views`` 文件夹中。此外，所有这些文件必须在 ``__manifest__.py`` 文件中的 ``data`` 列表中声明。我们的示例文件在 `base` 模块的清单中定义 <https://github.com/odoo/odoo/blob/e8697f609372cd61b045c4ee2c7f0fcfb496f58a/odoo/addons/base/__manifest__.py#L29>`__。
 
-Also note that the content of the data files is only loaded when a module is installed or
-updated.
+还要注意，数据文件的内容仅在安装或更新模块时加载。
 
-.. warning::
+.. 警告::
 
-    The data files are sequentially loaded following their order in the ``__manifest__.py`` file.
-    This means that if data ``A`` refers to data ``B``, you must make sure that ``B``
-    is loaded before ``A``.
+    数据文件按其在 ``__manifest__.py`` 文件中的顺序依次加载。这意味着如果数据 ``A`` 引用数据 ``B``，您必须确保 ``B`` 在 ``A`` 之前加载。
 
-    In the case of the country states, you will note that the
-    `list of countries <https://github.com/odoo/odoo/blob/e8697f609372cd61b045c4ee2c7f0fcfb496f58a/odoo/addons/base/__manifest__.py#L22>`__
-    is loaded **before** the
-    `list of country states <https://github.com/odoo/odoo/blob/e8697f609372cd61b045c4ee2c7f0fcfb496f58a/odoo/addons/base/__manifest__.py#L29>`__.
-    This is because the states refer to the countries.
+    在国家州的情况下，您会注意到
+    `国家列表 <https://github.com/odoo/odoo/blob/e8697f609372cd61b045c4ee2c7f0fcfb496f58a/odoo/addons/base/__manifest__.py#L22>`__
+    在
+    `国家州列表 <https://github.com/odoo/odoo/blob/e8697f609372cd61b045c4ee2c7f0fcfb496f58a/odoo/addons/base/__manifest__.py#L29>`__ 之前加载。
+    这是因为州引用了国家。
 
-Why is all this important for security? Because all the security configuration of a model is loaded through
-data files, as we'll see in the next section.
+这一切对安全性为什么重要？因为模型的所有安全配置都是通过数据文件加载的，正如我们将在下一节中看到的。
 
-Access Rights
+访问权限
 =============
 
-**Reference**: the documentation related to this topic can be found in
-:ref:`reference/security/acl`.
+**参考**：有关此主题的文档可以在 :ref:`reference/security/acl` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section, the following warning should not appear anymore:
+    **目标**：在本节结束时，以下警告不应再出现：
 
     .. code-block:: text
 
-        WARNING rd-demo odoo.modules.loading: The models ['estate.property'] have no access rules...
+        WARNING rd-demo odoo.modules.loading: 模型 ['estate.property'] 没有访问规则...
 
-When no access rights are defined on a model, Odoo determines that no users can access the data.
-It is even notified in the log:
+当模型上未定义访问权限时，Odoo 确定没有用户可以访问数据。它甚至会在日志中收到通知：
 
 .. code-block:: text
 
-    WARNING rd-demo odoo.modules.loading: The models ['estate.property'] have no access rules in module estate, consider adding some, like:
+    WARNING rd-demo odoo.modules.loading: 模型 ['estate.property'] 在模块 estate 中没有访问规则，请考虑添加一些，例如：
     id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
-Access rights are defined as records of the model ``ir.model.access``. Each
-access right is associated with a model, a group (or no group for global
-access) and a set of permissions: create, read, write and unlink\ [#unlink]_. Such access
-rights are usually defined in a CSV file named
-``ir.model.access.csv``.
+访问权限定义为 ``ir.model.access`` 模型的记录。每个访问权限与一个模型、一个组（或没有组以实现全局访问）以及一组权限相关：创建、读取、写入和删除\ [#unlink]_. 这种访问权限通常在名为 ``ir.model.access.csv`` 的 CSV 文件中定义。
 
-Here is an example for our previous `test_model`:
+以下是我们之前的 `test_model` 的示例：
 
 .. code-block:: text
 
     id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
     access_test_model,access_test_model,model_test_model,base.group_user,1,0,0,0
 
-- ``id`` is an :term:`external identifier`.
-- ``name`` is the name of the ``ir.model.access``.
-- ``model_id/id`` refers to the model which the access right applies to. The standard way to refer
-  to the model is ``model_<model_name>``, where ``<model_name>`` is the ``_name`` of the model
-  with the ``.`` replaced by ``_``. Seems cumbersome? Indeed it is...
-- ``group_id/id`` refers to the group which the access right applies to.
-- ``perm_read,perm_write,perm_create,perm_unlink``: read, write, create and unlink permissions
+- ``id`` 是一个 :term:`外部标识符`。
+- ``name`` 是 ``ir.model.access`` 的名称。
+- ``model_id/id`` 引用适用访问权限的模型。引用模型的标准方式是 ``model_<model_name>``，其中 ``<model_name>`` 是模型的 ``_name``，并用 ``_`` 替换 ``.``。看起来麻烦吗？确实是...
+- ``group_id/id`` 引用适用访问权限的组。
+- ``perm_read,perm_write,perm_create,perm_unlink``：读取、写入、创建和删除权限。
 
-.. exercise:: Add access rights.
+.. 练习:: 添加访问权限。
 
-    Create the ``ir.model.access.csv`` file in the appropriate folder and define it in the
-    ``__manifest__.py`` file.
+    在适当的文件夹中创建 ``ir.model.access.csv`` 文件，并在 ``__manifest__.py`` 文件中定义它。
 
-    Give the read, write, create and unlink permissions to the group ``base.group_user``.
+    为组 ``base.group_user`` 提供读取、写入、创建和删除权限。
 
-    Tip: the warning message in the log gives you most of the solution ;-)
+    提示：日志中的警告消息为您提供了大部分解决方案 ;-)
 
-Restart the server and the warning message should have disappeared!
+重新启动服务器，警告消息应该消失了！
 
-It's now time to finally :doc:`interact with the UI <05_firstui>`!
+现在是时候最终 :doc:`与用户界面互动 <05_firstui>` 了！
 
-.. [#who] meaning which Odoo user (or group of users)
+.. [#who] 指的是哪个 Odoo 用户（或用户组）
 
-.. [#unlink] 'unlink' is the equivalent of 'delete'
+.. [#unlink] 'unlink' 相当于 'delete'

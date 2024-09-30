@@ -1,67 +1,59 @@
 ==================================
-Chapter 9: Ready For Some Action?
+第9章：准备好进行一些操作了吗？
 ==================================
 
-So far we have mostly built our module by declaring fields and views. We just introduced business
-logic in the :doc:`previous chapter <08_compute_onchange>` thanks to
-computed fields and onchanges. In any real business scenario, we would want to link some business
-logic to action buttons. In our real estate example, we would like to be able to:
+到目前为止，我们主要通过声明字段和视图来构建我们的模块。我们刚刚在 :doc:`上一章 <08_compute_onchange>` 中引入了业务逻辑，这要归功于计算字段和 onchange。在任何实际的商业场景中，我们希望将一些业务逻辑与操作按钮链接起来。在我们的房地产示例中，我们希望能够：
 
-- cancel or set a property as sold
-- accept or refuse an offer
+- 取消或将物业标记为已售
+- 接受或拒绝报价
 
-One could argue that we can already do these things by changing the state manually, but
-this is not really convenient. Moreover, we want to add some extra processing: when an offer is
-accepted we want to set the selling price and the buyer for the property.
+有人可能会认为，我们已经可以通过手动更改状态来完成这些操作，但这并不方便。此外，我们想要添加一些额外的处理：当报价被接受时，我们希望为物业设置销售价格和买方。
 
-Object Type
+对象类型
 ===========
 
-**Reference**: the documentation related to this topic can be found in
-:doc:`../../reference/backend/actions` and :ref:`reference/exceptions`.
+**参考**：有关此主题的文档可以在 :doc:`../../reference/backend/actions` 和 :ref:`reference/exceptions` 中找到。
 
-.. note::
+.. 注意::
 
-    **Goal**: at the end of this section:
+    **目标**：在本节结束时：
 
-    - You should be able to cancel or set a property as sold:
+    - 您应该能够取消或将物业标记为已售：
 
     .. image:: 09_actions/property.gif
         :align: center
-        :alt: Cancel and set to sold
+        :alt: 取消并设置为已售
 
-    A canceled property cannot be sold and a sold property cannot be canceled. For the sake of
-    clarity, the ``state`` field has been added on the view.
+    已取消的物业不能被出售，已售的物业不能被取消。为了清晰起见，在视图中添加了 ``state`` 字段。
 
-    - You should be able to accept or refuse an offer:
+    - 您应该能够接受或拒绝报价：
 
     .. image:: 09_actions/offer_01.gif
         :align: center
-        :alt: Accept or refuse an offer
+        :alt: 接受或拒绝报价
 
-    - Once an offer is accepted, the selling price and the buyer should be set:
+    - 一旦报价被接受，销售价格和买方应被设置：
 
     .. image:: 09_actions/offer_02.gif
         :align: center
-        :alt: Accept an offer
+        :alt: 接受报价
 
-In our real estate module, we want to link business logic with some buttons. The most common way to
-do this is to:
+在我们的房地产模块中，我们希望将业务逻辑与一些按钮链接起来。最常见的方法是：
 
-- Add a button in the view, for example in the ``header`` of the view:
+- 在视图中添加一个按钮，例如在视图的 ``header`` 中：
 
 .. code-block:: xml
 
     <form>
         <header>
-            <button name="action_do_something" type="object" string="Do Something"/>
+            <button name="action_do_something" type="object" string="做某事"/>
         </header>
         <sheet>
             <field name="name"/>
         </sheet>
     </form>
 
-- and link this button to business logic:
+- 并将此按钮链接到业务逻辑：
 
 .. code-block:: python
 
@@ -74,64 +66,52 @@ do this is to:
 
         def action_do_something(self):
             for record in self:
-                record.name = "Something"
+                record.name = "某事"
             return True
 
-By assigning ``type="object"`` to our button, the Odoo framework will execute a Python method
-with ``name="action_do_something"`` on the given model.
+通过将 ``type="object"`` 指定给我们的按钮，Odoo 框架将执行给定模型上的 ``name="action_do_something"`` 的 Python 方法。
 
-The first important detail to note is that our method name isn't prefixed with an underscore
-(``_``). This makes our method a **public** method, which can be called directly from the Odoo
-interface (through an RPC call). Until now, all methods we created (compute, onchange) were called
-internally, so we used **private** methods prefixed by an underscore. You should always define your
-methods as private unless they need to be called from the user interface.
+需要注意的第一个重要细节是，我们的方法名称没有以下划线（``_``）开头。这使得我们的方法成为 **公共** 方法，可以直接从 Odoo 界面调用（通过 RPC 调用）。到目前为止，我们创建的所有方法（计算、onchange）都是内部调用，因此我们使用了以下划线开头的 **私有** 方法。除非需要从用户界面调用，否则您应该始终将方法定义为私有。
 
-Also note that we loop on ``self``. Always assume that a method can be called on multiple records; it's
-better for reusability.
+还要注意我们在 ``self`` 上循环。始终假设一个方法可以在多个记录上调用；这有利于可重用性。
 
-Finally, a public method should always return something so that it can be called through XML-RPC.
-When in doubt, just ``return True``.
+最后，公共方法应始终返回某些内容，以便可以通过 XML-RPC 调用。当不确定时，只需 ``return True``。
 
-There are hundreds of examples in the Odoo source code. One example is this
-`button in a view <https://github.com/odoo/odoo/blob/cd9af815ba591935cda367d33a1d090f248dd18d/addons/crm/views/crm_lead_views.xml#L9-L11>`__
-and its
-`corresponding Python method <https://github.com/odoo/odoo/blob/cd9af815ba591935cda367d33a1d090f248dd18d/addons/crm/models/crm_lead.py#L746-L760>`__
+在 Odoo 源代码中有数百个示例。一个示例是这个
+`视图中的按钮 <https://github.com/odoo/odoo/blob/cd9af815ba591935cda367d33a1d090f248dd18d/addons/crm/views/crm_lead_views.xml#L9-L11>`__
+及其
+`相应的 Python 方法 <https://github.com/odoo/odoo/blob/cd9af815ba591935cda367d33a1d090f248dd18d/addons/crm/models/crm_lead.py#L746-L760>`__。
 
-.. exercise:: Cancel and set a property as sold.
+.. 练习:: 取消并将物业标记为已售。
 
-    - Add the buttons 'Cancel' and 'Sold' to the ``estate.property`` model. A canceled property
-      cannot be set as sold, and a sold property cannot be canceled.
+    - 向 ``estate.property`` 模型添加按钮 '取消' 和 '已售'。已取消的物业不能被设置为已售，而已售的物业不能被取消。
 
-      Refer to the first image of the **Goal** for the expected result.
+      请参考 **目标** 的第一张图像以获取预期结果。
 
-      Tip: in order to raise an error, you can use the :ref:`UserError<reference/exceptions>`
-      function. There are plenty of examples in the Odoo source code ;-)
+      提示：要引发错误，可以使用 :ref:`UserError<reference/exceptions>` 函数。Odoo 源代码中有许多示例 ;-)
 
-    - Add the buttons 'Accept' and 'Refuse' to the ``estate.property.offer`` model.
+    - 向 ``estate.property.offer`` 模型添加按钮 '接受' 和 '拒绝'。
 
-      Refer to the second image of the **Goal** for the expected result.
+      请参考 **目标** 的第二张图像以获取预期结果。
 
-      Tip: to use an icon as a button, have a look
-      `at this example <https://github.com/odoo/odoo/blob/cd9af815ba591935cda367d33a1d090f248dd18d/addons/event/views/event_views.xml#L521>`__.
+      提示：要使用图标作为按钮，请查看
+      `这个示例 <https://github.com/odoo/odoo/blob/cd9af815ba591935cda367d33a1d090f248dd18d/addons/event/views/event_views.xml#L521>`__。
 
-    - When an offer is accepted, set the buyer and the selling price for the corresponding property.
+    - 当报价被接受时，为相应物业设置买方和销售价格。
 
-      Refer to the third image of the **Goal** for the expected result.
+      请参考 **目标** 的第三张图像以获取预期结果。
 
-      Pay attention: in real life only one offer can be accepted for a given property!
+      注意：在现实生活中，对于给定的物业，只能接受一个报价！
 
-Action Type
+操作类型
 ===========
 
-In :doc:`05_firstui`, we created an action that was linked to a menu. You
-may be wondering if it is possible to link an action to a button. Good news, it is! One way to do it
-is:
+在 :doc:`05_firstui` 中，我们创建了一个链接到菜单的操作。您可能会想知道是否可以将操作链接到按钮。好消息是，可以！一种方法是：
 
 .. code-block:: xml
 
-    <button type="action" name="%(test.test_model_action)d" string="My Action"/>
+    <button type="action" name="%(test.test_model_action)d" string="我的操作"/>
 
-We use ``type="action"`` and we refer to the :term:`external identifier` in the ``name``.
+我们使用 ``type="action"``，并在 ``name`` 中引用 :term:`外部标识符`。
 
-In the :doc:`next chapter <10_constraints>` we'll see how we can prevent
-encoding incorrect data in Odoo.
+在 :doc:`下一章 <10_constraints>` 中，我们将看到如何防止在 Odoo 中编码不正确的数据。
