@@ -1,26 +1,24 @@
 ================
-SCSS inheritance
+SCSS 继承
 ================
 
-Overview
+概述
 ========
 
-Managing SCSS assets in Odoo is not as straightforward as it is in some other environments, but it's
-highly efficient.
+在Odoo中管理SCSS资产并不像在其他某些环境中那样简单，但它的效率极高。
 
-Modularity is key. The inheritance scheme described further allows Odoo to:
+模块化是关键。进一步描述的继承方案允许Odoo：
 
-- customize the Bootstrap CSS framework;
-- handle two different webclient designs (Community and Enterprise);
-- handle backend and frontend bundles separately (including the user's website design);
-- contextually load only necessary assets;
-- handle multiple color-schemes (e.g.: dark-mode);
+- 自定义Bootstrap CSS框架；
+- 处理两种不同的Web客户端设计（社区版和企业版）；
+- 分别处理后端和前端捆绑（包括用户的网站设计）；
+- 上下文加载仅必要的资产；
+- 处理多种配色方案（例如：暗黑模式）；
 
-SCSS's `!default` directive
+SCSS的 `!default` 指令
 ===========================
 
-"Direct variables’ overrides" are technically possible in SCSS but may lead to inconsistent results
-in complex environments like Odoo.
+在SCSS中，"直接变量覆盖" 在技术上是可能的，但在像Odoo这样的复杂环境中可能会导致不一致的结果。
 
 .. example::
 
@@ -32,20 +30,15 @@ in complex environments like Odoo.
    .. code-block:: scss
       :caption: :file:`customization_layer.scss`
 
-      $foo: blue; // -> Don't!
+      $foo: blue; // -> 不要这样做！
 
-Indeed, since the compilation process acts across different interdependent bundles, re-assigning
-a variable in the "wrong spot" may lead to unexpected cascading results.
+事实上，由于编译过程在不同的相互依赖的捆绑之间进行，因此在"错误的位置"重新分配变量可能导致意想不到的级联结果。
 
-SCSS provides several techniques to overcome these issues
-(e.g.: `shadowing <https://sass-lang.com/documentation/variables#shadowing>`_), but the most
-critical procedure in Odoo is the use of the `!default` flag.
+SCSS提供了几种技术来克服这些问题（例如：`shadowing <https://sass-lang.com/documentation/variables#shadowing>`_），但在Odoo中最关键的过程是使用 `!default` 标志。
 
-When using the `!default` flag, the compiler assigns a value **only** if that variable is not yet
-defined.
+使用 `!default` 标志时，编译器仅在该变量尚未定义的情况下分配一个值。
 
-As a result of this technique, the priority in which variables are assigned matches the assets'
-loading order.
+由于这一技术，变量分配的优先级与资产的加载顺序相匹配。
 
 .. example::
 
@@ -57,8 +50,8 @@ loading order.
    .. code-block:: scss
       :caption: :file:`library.scss`
 
-      $foo: blue !default; // -> Already defined, line ignored.
-      $bar: black !default; // -> Not defined yet, value assigned.
+      $foo: blue !default; // -> 已经定义，行被忽略。
+      $bar: black !default; // -> 尚未定义，值被分配。
 
    .. code-block::
       :caption: :file:`component.scss`
@@ -69,38 +62,35 @@ loading order.
       }
 
 .. seealso::
-   `!default` flag on the `SASS Documentation
-   <https://sass-lang.com/documentation/variables#default-values>`_
+   `!default` 标志在 `SASS 文档 <https://sass-lang.com/documentation/variables#default-values>`_ 中的说明
 
-Odoo's SCSS inheritance system
+Odoo的SCSS继承系统
 ==============================
 
-The following diagram conceptually illustrates the compilation order in which the CSS and SCSS
-variables are defined.
+以下图表概念性地说明了定义CSS和SCSS变量的编译顺序。
 
 .. code-block:: text
 
-    ↓ [Compilation starts]
+    ↓ [编译开始]
     ⏐
     ↓ web.dark_mode_variables
-    ⏐   ├─ Primary Variables
-    ⏐   └─ Components Variables
+    ⏐   ├─ 主要变量
+    ⏐   └─ 组件变量
     ⏐
     ↓ web._assets_primary_variables
-    ⏐   ├─ Primary Variables (enterprise)
-    ⏐   ├─ Components Variables (enterprise)
-    ⏐   ├─ Primary Variables (community)
-    ⏐   └─ Components Variables (community)
+    ⏐   ├─ 主要变量（企业版）
+    ⏐   ├─ 组件变量（企业版）
+    ⏐   ├─ 主要变量（社区版）
+    ⏐   └─ 组件变量（社区版）
     ⏐
     ↓ web._assets_bootstrap
     ⏐
     ↓ web.assets_backend
     ⏐   ├─ ...
-    ⏐   ├─ CSS variables definition
-    ⏐   └─ CSS variables contextual adaptations
+    ⏐   ├─ CSS变量定义
+    ⏐   └─ CSS变量上下文适配
     ⏐
-    ● [Visual result on screen]
+    ● [在屏幕上的可视结果]
 
 .. important::
-   This diagram is incomplete and does not match the current bundles' organization. Read more on
-   :ref:`asset bundles <reference/assets_bundle>`.
+   该图表不完整，且与当前捆绑的组织结构不符。有关更多信息，请阅读：:ref:`资产捆绑 <reference/assets_bundle>`。

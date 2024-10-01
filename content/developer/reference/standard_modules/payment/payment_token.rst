@@ -1,7 +1,7 @@
 :hide-page-toc:
 
 =============
-Payment Token
+支付令牌
 =============
 
 .. autoclass:: odoo.addons.payment.models.payment_token::PaymentToken()

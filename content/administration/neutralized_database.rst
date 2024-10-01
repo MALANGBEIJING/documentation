@@ -1,36 +1,31 @@
 ====================
-Neutralized database
+中性化数据库
 ====================
 
-A neutralized database is a non-production database on which several parameters are deactivated.
-This enables one to carry out tests without the risk of launching specific automated processes that
-could impact production data (e.g., sending emails to customers). Live access is removed and
-turned into a testing environment.
+中性化数据库是一个非生产数据库，其中一些参数被禁用。这使得可以进行测试，而无需担心触发可能影响生产数据的特定自动化进程（例如，向客户发送电子邮件）。实时访问已被移除，并转变为测试环境。
 
 .. note::
-   **Any testing database created is a neutralized database:**
+   **任何创建的测试数据库都是中性化数据库：**
 
-   - testing backup databases
-   - duplicate databases
-   - for Odoo.sh: staging and development databases
+   - 测试备份数据库
+   - 数据库副本
+   - 对于 Odoo.sh：暂存和开发数据库
 
 .. important::
-   A database can also be neutralized when upgrading, as it is vital to do some tests before
-   switching to a new version.
+   在升级时，数据库也可以中性化，因为在切换到新版本之前进行一些测试是至关重要的。
 
-Deactivated features
+已停用的功能
 ====================
 
-Here is a non-exhaustive list of the deactivated features:
+以下是已停用功能的一个不完整列表：
 
-- all planned actions (e.g., automatic invoicing of subscriptions, mass mailing, etc.)
-- outgoing emails
-- bank synchronization
-- payment providers
-- delivery methods
-- :abbr:`IAP (In-App Purchase)` tokens
-- website visibility (prevent search engines from indexing your site)
+- 所有计划的操作（例如，订阅的自动开票、群发邮件等）
+- 发件电子邮件
+- 银行同步
+- 支付提供商
+- 运输方式
+- :abbr:`IAP (应用内购买)` 令牌
+- 网站可见性（防止搜索引擎索引您的网站）
 
 .. note::
-   **A red banner at the top of the screen is displayed on the neutralized database so that it can
-   be seen immediately.**
+   **中性化数据库的顶部会显示一条红色横幅，以便立即识别。**

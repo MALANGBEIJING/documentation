@@ -1,102 +1,97 @@
-:hide-page-toc:
-
 .. _supported_versions:
 
 ==================
-Supported versions
+支持的版本
 ==================
 
-Odoo provides support and bug fixing **for the 3 last major versions** of Odoo.
+Odoo 为 **最后三个主要版本** 提供支持和错误修复。
 
 .. note::
-   Odoo releases intermediary versions called **Online versions** on the :doc:`Odoo Online
-   <odoo_online>` hosting every two months. Odoo Online users can then benefit from the latest
-   features of Odoo.
+   Odoo 每两个月会在 :doc:`Odoo 在线 <odoo_online>` 托管上发布称为 **在线版本** 的中间版本。Odoo 在线用户因此可以享受 Odoo 的最新功能。
 
-   - Admins of Odoo Online databases are invited to :doc:`upgrade <upgrade>` them regularly.
-   - Online versions are *not* released for Odoo.sh and On-Premise installations.
-   - Online versions are listed below as *SaaS*.
+   - Odoo 在线数据库的管理员被建议定期 :doc:`升级 <upgrade>` 他们的数据库。
+   - 在线版本*不*为 Odoo.sh 和本地部署提供。
+   - 在线版本在下方的列表中标为 *SaaS*。
 
-This matrix shows the support status of every version.
+以下矩阵显示了每个版本的支持状态。
 
-**Major releases are in bold type.**
+**主要版本以粗体显示。**
 
 .. list-table::
    :header-rows: 1
    :widths: auto
 
    * -
-     - Odoo Online
+     - Odoo 在线
      - Odoo.sh
-     - On-Premise
-     - Release date
-     - End of support
+     - 本地部署
+     - 发布日期
+     - 支持结束日期
    * - Odoo saas~17.4
      - |green|
-     - N/A
-     - N/A
-     - July 2024
+     - 不适用
+     - 不适用
+     - 2024 年 7 月
      -
    * - Odoo saas~17.2
      - |green|
-     - N/A
-     - N/A
-     - April 2024
+     - 不适用
+     - 不适用
+     - 2024 年 4 月
      -
    * - Odoo saas~17.1
      - |green|
-     - N/A
-     - N/A
-     - January 2024
+     - 不适用
+     - 不适用
+     - 2024 年 1 月
      -
    * - **Odoo 17.0**
      - |green|
      - |green|
      - |green|
-     - November 2023
-     - October 2026 (planned)
+     - 2023 年 11 月
+     - 2026 年 10 月（计划）
    * - **Odoo 16.0**
      - |green|
      - |green|
      - |green|
-     - October 2022
-     - November 2025 (planned)
+     - 2022 年 10 月
+     - 2025 年 11 月（计划）
    * - **Odoo 15.0**
      - |green|
      - |green|
      - |green|
-     - October 2021
-     - November 2024 (planned)
+     - 2021 年 10 月
+     - 2024 年 11 月（计划）
    * - **Odoo 14.0**
      - |red|
      - |red|
      - |red|
-     - October 2020
-     - November 2023
+     - 2020 年 10 月
+     - 2023 年 11 月
    * - **Odoo 13.0**
      - |red|
      - |red|
      - |red|
-     - October 2019
-     - October 2022
-   * - Older versions
+     - 2019 年 10 月
+     - 2022 年 10 月
+   * - 旧版本
      - |red|
      - |red|
      - |red|
-     - Before 2019
-     - Before 2022
+     - 2019 年之前
+     - 2022 年之前
 
-.. admonition:: Legend
+.. admonition:: 图例
 
-    |green| Supported version
+    |green| 支持的版本
 
-    |red| End-of-support
+    |red| 支持结束
 
-    N/A Never released for this platform
+    不适用 从未为该平台发布
 
 .. important::
-   Even though we don't support older versions, you can always `upgrade from any version
-   <https://upgrade.odoo.com/>`_.
+   即使我们不再支持旧版本，您仍然可以 `从任何版本升级 <https://upgrade.odoo.com/>`_。
 
 .. |green| raw:: html
 

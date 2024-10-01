@@ -1,441 +1,313 @@
 =======
-Upgrade
+升级
 =======
 
-An upgrade involves moving a database from an older version to a newer supported version (e.g., from
-Odoo 15.0 to Odoo 17.0). Regular upgrades are crucial as each version offers new features, bug
-fixes, and security patches. Using a :doc:`supported version <supported_versions>` is strongly
-recommended. Each major version is supported for three years.
+升级涉及将数据库从旧版本迁移到较新的受支持版本（例如从 Odoo 15.0 升级到 Odoo 17.0）。定期升级至关重要，因为每个版本都会提供新功能、错误修复和安全补丁。强烈建议使用 :doc:`支持的版本 <supported_versions>`。每个主要版本的支持期为三年。
 
-Depending on the hosting type and Odoo version used, a database upgrade can be **mandatory**.
+根据托管类型和使用的 Odoo 版本，数据库升级可能是**强制性**的。
 
 .. tabs::
 
-   .. group-tab:: Odoo Online
+   .. group-tab:: Odoo 在线
 
-      - If a database is on a **major version** (e.g., 15.0, 16.0, 17.0), an upgrade is mandatory
-        every two years.
-      - If a database is on a **minor version** (e.g., 17.1, 17.2, 17.4), an upgrade is mandatory
-        a few weeks after the next version is released. Minor versions are usually released every
-        three months.
+      - 如果数据库是**主要版本**（例如 15.0、16.0、17.0），每两年必须升级一次。
+      - 如果数据库是**次要版本**（例如 17.1、17.2、17.4），在下一个版本发布后的几周内必须升级。次要版本通常每三个月发布一次。
 
    .. group-tab:: Odoo.sh
 
-      After the initial three years of support, you will have another two years to complete the
-      upgrade. You will be notified when an upgrade is required.
+      在最初的三年支持期结束后，您将有两年的时间来完成升级。系统会在需要升级时通知您。
 
       .. image:: upgrade/odoo-sh-message.png
-         :alt: The "unsupported version" popup on Odoo.sh.
+         :alt: Odoo.sh 上显示的“不支持版本”弹窗。
 
-   .. group-tab:: On-premise
+   .. group-tab:: 本地部署
 
-      You can stay on the same version indefinitely, even if it is not recommended. Note that the
-      smaller the version gap, the easier the upgrade should be.
+      您可以无限期地停留在同一版本，即使这并不被推荐。请注意，版本间的差距越小，升级的难度就越小。
 
-.. spoiler:: Automatic upgrades: Odoo Online's Rolling Release process
+.. spoiler:: 自动升级：Odoo 在线的滚动发布流程
 
-   You will receive a notification in your database a few weeks before a mandatory upgrade will be
-   automatically carried out. You are in control of the process as long as the deadline is not
-   reached.
+   在强制升级之前的几周，您将收到数据库中的通知。只要截止日期未到，您可以控制升级流程。
 
    .. image:: upgrade/rr-upgrade-message.png
-      :alt: The upgrade message prompt on the top right of the database
+      :alt: 数据库右上角的升级提示信息
 
-   Concretely, Odoo’s Upgrade Team performs a silent test upgrade of every database that should be
-   upgraded. If the test is successful and lasts less than 20 minutes, you can directly trigger the
-   upgrade from the database. If the test fails, you can test an upgrade using the `database manager
-   <https://www.odoo.com/my/databases>`_.
+   实际上，Odoo 的升级团队会对每个需要升级的数据库进行一次静默测试升级。如果测试成功且持续时间少于 20 分钟，您可以直接从数据库中触发升级。如果测试失败，您可以使用 `数据库管理器 <https://www.odoo.com/my/databases>`_ 进行测试升级。
 
-   When you are invited to upgrade, it is strongly recommended to :ref:`request an upgraded test
-   database <upgrade-request-test>` first and spend time :ref:`testing <upgrade-testing>` it.
+   当您被邀请升级时，强烈建议您首先 :ref:`请求升级的测试数据库 <upgrade-request-test>` 并花时间 :ref:`测试 <upgrade-testing>` 它。
 
-   An automatic upgrade to the next version will be triggered if no action is taken before the
-   specified due date.
+   如果在规定的截止日期之前没有采取任何行动，将自动触发升级到下一个版本。
 
-An upgrade does not cover:
+升级不包括：
 
-  - Downgrading to a previous version of Odoo
-  - :doc:`Switching editions <on_premise/community_to_enterprise>` (e.g., from Community to
-    Enterprise)
-  - :ref:`Changing hosting type <hosting/change-solution>` (e.g., from on-premise to Odoo Online)
-  - Migrating from another ERP to Odoo
+  - 降级到之前的 Odoo 版本
+  - :doc:`切换版本 <on_premise/community_to_enterprise>`（例如从社区版到企业版）
+  - :ref:`更改托管类型 <hosting/change-solution>`（例如从本地部署到 Odoo 在线）
+  - 从其他 ERP 系统迁移到 Odoo
 
 .. warning::
-   If your database contains custom modules, it cannot be upgraded until a version of your custom
-   modules is available for the target version of Odoo. For customers maintaining their own custom
-   modules, we recommend to parallelize the process by :ref:`requesting an upgraded database
-   <upgrade-request-test>` while also :doc:`upgrading the source code of your custom
-   modules </developer/howtos/upgrade_custom_db>`.
+   如果您的数据库包含自定义模块，必须在 Odoo 目标版本中有可用的自定义模块版本后才能进行升级。对于维护自己自定义模块的客户，我们建议在 :ref:`请求升级的测试数据库 <upgrade-request-test>` 的同时 :doc:`升级自定义模块的源代码 </developer/howtos/upgrade_custom_db>` 以并行处理。
 
 .. _upgrade-nutshell:
 
-Upgrading in a nutshell
+升级简要流程
 =======================
 
-#. Request an upgraded test database (see :ref:`obtaining an upgraded test database
-   <upgrade-request-test>`).
-#. If applicable, upgrade the source code of your custom module to be compatible with the new
-   version of Odoo (see :doc:`/developer/howtos/upgrade_custom_db`).
-#. Thoroughly test the upgraded database (see :ref:`testing the new version of the database
-   <upgrade-testing>`).
-#. Report any issue encountered during the testing to Odoo by going to the `Support page and
-   selecting "An issue related to my future upgrade (I am testing an upgrade)"
-   <https://www.odoo.com/help?stage=migration>`_.
-#. Once all issues are resolved and you are confident that the upgraded database can be used as
-   your main database without any issues, plan the upgrade of your production database.
-#. Request the upgrade for the production database, rendering it unavailable for the time it takes
-   to complete the process (see :ref:`upgrading the production database <upgrade-production>`).
-#. Report any issue encountered during the upgrade to Odoo by going to the `Support page and
-   selecting "An issue related to my upgrade (production)"
-   <https://www.odoo.com/help?stage=post_upgrade>`_.
+#. 请求升级的测试数据库（参见 :ref:`获取升级的测试数据库 <upgrade-request-test>`）。
+#. 如果适用，将自定义模块的源代码升级以兼容 Odoo 新版本（参见 :doc:`/developer/howtos/upgrade_custom_db`）。
+#. 彻底测试升级后的数据库（参见 :ref:`测试数据库的新版本 <upgrade-testing>`）。
+#. 在测试期间遇到的任何问题，您可以通过访问 `支持页面并选择“与未来升级相关的问题（我正在测试升级）” <https://www.odoo.com/help?stage=migration>`_ 向 Odoo 报告。
+#. 一旦所有问题都解决并且您确信升级后的数据库可以无问题地用作您的主要数据库，请计划升级您的生产数据库。
+#. 请求升级生产数据库，在升级过程中数据库将不可用（参见 :ref:`升级生产数据库 <upgrade-production>`）。
+#. 在升级过程中遇到的任何问题，您可以通过访问 `支持页面并选择“与升级相关的问题（生产环境）” <https://www.odoo.com/help?stage=post_upgrade>`_ 向 Odoo 报告。
 
 .. _upgrade-request-test:
 
-Obtaining an upgraded test database
+获取升级的测试数据库
 ===================================
 
-The `Upgrade page <https://upgrade.odoo.com>`_ is the main platform for requesting an upgraded
-database. However, depending on the hosting type, you can upgrade from the command line
-(on-premise), the Odoo Online `database manager <https://www.odoo.com/my/databases>`_, or your
-`Odoo.sh project <https://www.odoo.sh/project>`_.
+`升级页面 <https://upgrade.odoo.com>`_ 是请求升级数据库的主要平台。不过，根据托管类型，您可以通过命令行（本地部署）、Odoo 在线的 `数据库管理器 <https://www.odoo.com/my/databases>`_ 或您的 `Odoo.sh 项目 <https://www.odoo.sh/project>`_ 进行升级。
 
 .. note::
-   The Upgrade platform follows the same `Privacy Policy <https://www.odoo.com/privacy>`_ as the
-   other Odoo.com services. Visit the `General Data Protection Regulation page
-   <https://www.odoo.com/gdpr>`_ to learn more about how Odoo handles your data and privacy.
+   升级平台与 Odoo.com 的其他服务遵循相同的 `隐私政策 <https://www.odoo.com/privacy>`_。请访问 `通用数据保护条例页面 <https://www.odoo.com/gdpr>`_ 了解更多 Odoo 如何处理您的数据和隐私。
 
 .. tabs::
 
-   .. group-tab:: Odoo Online
+   .. group-tab:: Odoo 在线
 
-      Odoo Online databases can be manually upgraded via the `database manager
-      <https://www.odoo.com/my/databases>`_.
+      Odoo 在线数据库可以通过 `数据库管理器 <https://www.odoo.com/my/databases>`_ 手动升级。
 
-      The database manager displays all databases associated with the user's account. Databases
-      not on the most recent version of Odoo display an arrow in a circle icon next to their name,
-      indicating that they can be upgraded.
+      数据库管理器显示与用户账户关联的所有数据库。未使用 Odoo 最新版本的数据库名称旁边会显示一个圆圈箭头图标，表示可以升级。
 
       .. image:: upgrade/databases-page.png
-         :alt: The database manager with an upgrade button next to the name of a database.
+         :alt: 数据库管理器中显示的升级按钮。
 
-      Click the **arrow in a circle** icon to start the upgrade process. In the popup, fill in:
+      点击 **圆圈箭头** 图标以开始升级过程。在弹窗中填写以下信息：
 
-      - The **version** of Odoo you want to upgrade to, usually the latest version
-      - The **email** address that should receive the link to the upgraded database
-      - The :guilabel:`Purpose` of the upgrade, which is automatically set to :guilabel:`Test` for
-        your first upgrade request
+      - 您想升级到的 Odoo **版本**，通常是最新版本
+      - 将接收升级后数据库链接的 **电子邮件** 地址
+      - **升级目的**，第一次升级请求时默认设置为 :guilabel:`测试`
 
       .. image:: upgrade/upgrade-popup.png
-         :alt: The "Upgrade your database" popup.
+         :alt: “升级数据库”弹窗。
 
-      The :guilabel:`Upgrade in progress` tag is displayed next to the database name until
-      completion. Once the process succeeds, an email containing a link to the upgraded test
-      database is sent to the address provided. The database can also be accessed from the database
-      manager by clicking the dropdown arrow before the database name.
+      在升级完成之前，数据库名称旁边会显示 :guilabel:`升级进行中` 标签。升级成功后，包含升级测试数据库链接的电子邮件会发送到提供的地址。也可以通过在数据库名称前点击下拉箭头从数据库管理器访问数据库。
 
       .. image:: upgrade/access-upgraded-db.png
-         :alt: Clicking the menu arrow displays the upgraded test database.
+         :alt: 点击菜单箭头显示升级后的测试数据库。
 
    .. group-tab:: Odoo.sh
 
-      Odoo.sh is integrated with the upgrade platform to simplify the upgrade process.
+      Odoo.sh 集成了升级平台，以简化升级流程。
 
       .. image:: upgrade/odoo-sh-staging.png
-         :alt: Odoo.sh project and tabs
+         :alt: Odoo.sh 项目和选项卡视图
 
-      The **latest production daily automatic backup** is then sent to the Upgrade platform.
+      最新的生产每日自动备份会发送到升级平台。
 
-      Once the upgrade platform is done upgrading the backup and uploading it on the branch, it is
-      put in a **special mode**: each time a **commit is pushed** on the branch, a **restore
-      operation** of the upgraded backup and an **update of all the custom modules** occur. This
-      allows you to test your custom modules on a pristine copy of the upgraded database. The log
-      file of the upgrade process can be found in your newly upgraded staging build by going to
-      :file:`~/logs/upgrade.log`.
+      一旦升级平台完成备份的升级并将其上传到分支，它将进入一个**特殊模式**：每次向该分支推送**提交**时，都会进行**升级备份的还原操作**并**更新所有自定义模块**。这使您能够在升级后的数据库干净副本上测试自定义模块。升级过程的日志文件可以通过访问 :file:`~/logs/upgrade.log` 在您新升级的暂存构建中找到。
 
       .. important::
-         In databases where custom modules are installed, their source code must be up-to-date with
-         the target version of Odoo before the upgrade can be performed. If there are none, the
-         "update on commit" mode is skipped, the upgraded database is built as soon as it is
-         transferred from the upgrade platform, and the upgrade mode is exited.
+         在安装了自定义模块的数据库中，升级前其源代码必须与 Odoo 目标版本保持一致。如果没有自定义模块，升级过程会在数据库从升级平台传输后立即触发，并且退出升级模式。
 
-         Check out the :doc:`/developer/howtos/upgrade_custom_db` page for more information.
+         欲了解更多信息，请查阅 :doc:`/developer/howtos/upgrade_custom_db` 页面。
 
-   .. group-tab:: On-premise
+   .. group-tab:: 本地部署
 
-      The standard upgrade process can be initiated by entering the following command line on the
-      machine where the database is hosted:
+      标准升级流程可以通过在数据库所在机器上输入以下命令行来启动：
 
       .. code-block:: console
 
          $ python <(curl -s https://upgrade.odoo.com/upgrade) test -d <your db name> -t <target version>
 
       .. note::
-         This command has some requirements on the environment it runs in:
+         该命令对其运行的环境有以下要求：
 
-         - Some external commands that must be provided by the operating system, normally found in
-           any Linux distribution (including WSL). An error will be displayed if one or several of
-           them are missing.
-         - The system user that executes the command needs to be configured with access to the
-           database. Please refer to the PostgreSQL documentation of the `client environment
-           <https://www.postgresql.org/docs/current/libpq-envars.html>`_ or the `client password
-           file <https://www.postgresql.org/docs/current/libpq-pgpass.html>`_ for this requirement.
-         - The script needs to be able to reach one or multiple servers of the upgrade platform
-           both on TCP port 443 and to any random TCP port in the range between 32768 and 60999.
-           This can be in conflict with your restrictive firewall and may need an exception added
-           to the firewall configuration.
+         - 必须由操作系统提供的一些外部命令，通常在任何 Linux 发行版中可以找到（包括 WSL）。如果缺少一个或多个命令，会显示错误。
+         - 执行该命令的系统用户需要配置为可以访问数据库。请参阅 PostgreSQL 文档中的 `客户端环境 <https://www.postgresql.org/docs/current/libpq-envars.html>`_ 或 `客户端密码文件 <https://www.postgresql.org/docs/current/libpq-pgpass.html>`_ 以满足此要求。
+         - 该脚本必须能够同时连接到升级平台的一个或多个服务器，连接使用的端口为 TCP 443 和随机范围内的 TCP 端口（32768 到 60999）。这可能与您的严格防火墙冲突，可能需要在防火墙配置中添加例外。
 
-      The following command can be used to display the general help and the main commands:
+      可以使用以下命令显示一般帮助和主要命令：
 
       .. code-block:: console
 
          $ python <(curl -s https://upgrade.odoo.com/upgrade) --help
 
-      An upgraded test database can also be requested via the `Upgrade page
-      <https://upgrade.odoo.com>`_.
+      也可以通过 `升级页面 <https://upgrade.odoo.com>`_ 请求升级的测试数据库。
 
       .. important::
-         In databases where custom modules are installed, their source code must be up-to-date with
-         the target version of Odoo before the upgrade can be performed. Check out the
-         :doc:`/developer/howtos/upgrade_custom_db` page for more information.
+         在安装了自定义模块的数据库中，升级前其源代码必须与 Odoo 目标版本保持一致。欲了解更多信息，请查阅 :doc:`/developer/howtos/upgrade_custom_db` 页面。
 
       .. note::
-         - For security reasons, only the person who submitted the upgrade request can download it.
-         - For storage reasons, the database's copy is submitted without a filestore to the upgrade
-           server. Therefore, the upgraded database does not contain the production filestore.
-         - Before restoring the upgraded database, its filestore must be merged with the production
-           filestore to be able to perform tests in the same conditions as it would be in the new
-           version.
-         - The upgraded database contains:
+         - 出于安全原因，只有提交升级请求的人可以下载它。
+         - 出于存储原因，提交给升级服务器的数据库副本不包含文件存储。因此，升级后的数据库不包含生产文件存储。
+         - 在恢复升级的数据库之前，必须将其文件存储与生产文件存储合并，以便能够在新版本中执行相同条件下的测试。
+         - 升级后的数据库包含：
 
-           - A `dump.sql` file containing the upgraded database
-           - A `filestore` folder containing files extracted from in-database records into
-             attachments (if there are any) and new standard Odoo files from the targeted Odoo
-             version (e.g., new images, icons, payment provider's logos, etc.).
-             This is the folder that should be merged with the production filestore
-             in order to get the full upgraded filestore.
+           - 一个 `dump.sql` 文件，包含升级后的数据库
+           - 一个 `filestore` 文件夹，包含从数据库记录中提取到附件的文件（如果有）以及来自 Odoo 目标版本的新标准文件（例如新图片、图标、支付提供商的徽标等）。
+             这是需要与生产文件存储合并的文件夹，以获得完整的升级文件存储。
 
 .. note::
-   You can request multiple test databases if you wish to test an upgrade more than once.
+   如果您希望多次测试升级，您可以请求多个测试数据库。
 
 .. note::
-   When an upgrade request is completed, an upgrade report is attached to the successful upgrade
-   email, and it becomes available in the Discuss app for users who are part of the "Administration
-   / Settings" group. This report provides important information about the changes introduced by
-   the new version.
+   升级请求完成后，升级报告会附加到成功升级的电子邮件中，且对“管理员/设置”组的用户在 Discuss 应用中可用。该报告提供了新版本引入的重要信息。
 
 .. _upgrade-testing:
 
-Testing the new version of the database
+测试数据库的新版本
 =======================================
 
-It is essential to test the upgraded test database to ensure that you are not stuck in your
-day-to-day activities by a change in views, behavior, or an error message once the upgrade goes
-live.
+测试升级后的测试数据库至关重要，以确保升级上线后，您的日常活动不会因视图更改、行为改变或错误消息而受阻。
 
 .. note::
-   Test databases are neutralized, and some features are disabled to prevent them from impacting the
-   production database:
+   测试数据库是中性化的，某些功能已禁用，以防止它们影响生产数据库：
 
-   #. Scheduled actions are disabled.
-   #. Outgoing mail servers are disabled by archiving the existing ones and adding a fake one.
-   #. Payment providers and delivery carriers are reset to the test environment.
-   #. Bank synchronization is disabled. Should you want to test the synchronization, contact your
-      bank synchronization provider to get sandbox credentials.
+   #. 禁用计划的操作。
+   #. 禁用发件邮件服务器，通过归档现有邮件服务器并添加假邮件服务器实现。
+   #. 支付提供商和配送运营商已重置为测试环境。
+   #. 禁用银行同步。如果您希望测试同步，请联系您的银行同步提供商以获取沙盒凭据。
 
-Testing as many of your business flows as possible is strongly recommended to ensure they are
-working correctly and to get more familiar with the new version.
+强烈建议尽可能多地测试您的业务流程，以确保它们正常工作，并熟悉新版本。
 
-.. admonition:: Basic test checklist
+.. admonition:: 基本测试清单
 
-   - Are there views that are deactivated in your test database but active in your production
-     database?
-   - Are your usual views still displayed correctly?
-   - Are your reports (invoice, sales order, etc.) correctly generated?
-   - Are your website pages working correctly?
-   - Are you able to create and modify records? (sales orders, invoices, purchases, users, contacts,
-     companies, etc.)
-   - Are there any issues with your mail templates?
-   - Are there any issues with saved translations?
-   - Are your search filters still present?
-   - Can you export your data?
+   - 测试数据库中停用的视图在生产数据库中是否处于激活状态？
+   - 您的常用视图是否仍然显示正确？
+   - 您的报告（发票、销售订单等）是否正确生成？
+   - 您的网站页面是否正常运行？
+   - 您是否能够创建和修改记录？（销售订单、发票、采购、用户、联系人、公司等）
+   - 您的邮件模板是否有问题？
+   - 保存的翻译是否有问题？
+   - 您的搜索过滤器是否仍然存在？
+   - 您能否导出您的数据？
 
-.. spoiler:: Example of end-to-end testing
+.. spoiler:: 端到端测试示例
 
-   - Checking a random product in your product catalog and comparing its test and production data to
-     verify everything is the same (product category, selling price, cost price, vendor, accounts,
-     routes, etc.).
-   - Buying this product (Purchase app).
-   - Confirming the reception of this product (Inventory app).
-   - Checking if the route to receive this product is the same in your production database
-     (Inventory app).
-   - Selling this product (Sales app) to a random customer.
-   - Opening your customer database (Contacts app), selecting a customer (or company), and checking
-     its data.
-   - Shipping this product (Inventory app).
-   - Checking if the route to ship this product is the same as in your production database
-     (Inventory app).
-   - Validating a customer invoice (Invoicing or Accounting app).
-   - Crediting the invoice (issuing a credit note) and checking if it behaves as in your production
-     database.
-   - Checking your reports' results (Accounting app).
-   - Randomly checking your taxes, currencies, bank accounts, and fiscal year (Accounting app).
-   - Making an online order (Website apps) from the product selection in your shop until the
-     checkout process and checking if everything behaves as in your production database.
+   - 检查产品目录中的随机产品，并比较其测试和生产数据以验证所有信息一致（产品类别、销售价格、成本价格、供应商、账户、路线等）。
+   - 购买该产品（采购应用）。
+   - 确认收到该产品（库存应用）。
+   - 检查接收该产品的路线是否与生产数据库中的相同（库存应用）。
+   - 将该产品销售给随机客户（销售应用）。
+   - 打开客户数据库（联系人应用），选择客户（或公司）并检查其数据。
+   - 发货该产品（库存应用）。
+   - 检查发货该产品的路线是否与生产数据库中的相同（库存应用）。
+   - 验证客户发票（发票或会计应用）。
+   - 开具发票并检查其行为是否与生产数据库中的一致。
+   - 检查您的报告结果（会计应用）。
+   - 随机检查您的税务、货币、银行账户和会计年度（会计应用）。
+   - 在网上商店从产品选择到结账流程进行在线订单，并检查一切是否与生产数据库中的行为一致。
 
-   This list is **not** exhaustive. Extend the example to your other apps based on your use of Odoo.
+   此清单**不**是详尽无遗的。根据您对 Odoo 的使用情况，您可以将示例扩展到其他应用程序。
 
-If you face an issue while testing your upgraded test database, you can request the assistance of
-Odoo by going to the `Support page and selecting "An issue related to my future upgrade (I am
-testing an upgrade)" <https://www.odoo.com/help?stage=migration>`_. In any case, it is essential to
-report any problem encountered during the testing to fix it before upgrading your production
-database.
+如果您在测试升级的测试数据库时遇到问题，您可以通过访问 `支持页面并选择“与未来升级相关的问题（我正在测试升级）” <https://www.odoo.com/help?stage=migration>`_ 请求 Odoo 的协助。在任何情况下，测试期间遇到的任何问题都应报告，以便在升级生产数据库之前进行修复。
 
-You might encounter significant differences with standard views, features, fields, and models during
-testing. Those changes cannot be reverted on a case-by-case basis. However, if a change introduced
-by a new version breaks a customization, it is the responsibility of the maintainer of your custom
-module to make it compatible with the new version of Odoo.
+在测试期间，您可能会遇到与标准视图、功能、字段和模型的显著差异。这些更改无法逐一撤销。但是，如果新版本引入的更改破坏了定制，维护您的自定义模块的人有责任使其与 Odoo 的新版本兼容。
 
 .. tip::
-   Do not forget to test:
+   不要忘记测试：
 
-   - Integrations with external software (EDI, APIs, etc.)
-   - Workflows between different apps (online sales with eCommerce, converting a lead all the way to
-     a sales order, delivery of products, etc.)
-   - Data exports
-   - Automated actions
-   - Server actions in the action menu on form views, as well as by selecting multiple records on
-     list views
+   - 与外部软件的集成（EDI、API 等）
+   - 不同应用之间的工作流（在线销售与电子商务，从线索转化为销售订单，产品交付等）
+   - 数据导出
+   - 自动化操作
+   - 表单视图中的操作菜单中的服务器操作，以及选择列表视图中的多个记录
 
 .. _upgrade-production:
 
-Upgrading the production database
-=================================
+升级生产数据库
+===================================
 
-Once the :ref:`tests <upgrade-testing>` are completed and you are confident that the upgraded
-database can be used as your main database without any issues, it is time to plan the go-live day.
+一旦完成了 :ref:`测试 <upgrade-testing>`，并且您确信升级后的数据库可以无问题地用作您的主要数据库，就可以计划上线日期。
 
-Your production database will be unavailable during its upgrade. Therefore, we recommend planning
-the upgrade at a time when the use of the database is minimal.
+在升级期间，您的生产数据库将不可用。因此，我们建议您在数据库使用最少的时间段进行升级。
 
-As the standard upgrade scripts and your database are constantly evolving, it is also recommended
-to frequently request another upgraded test database to ensure that the upgrade process is still
-successful, especially if it takes a long time to finish. **Fully rehearsing the upgrade process the
-day before upgrading the production database is also recommended.**
+由于标准升级脚本和您的数据库会不断发展，我们还建议频繁请求另一个升级的测试数据库，以确保升级过程仍然成功，特别是当升级需要很长时间才能完成时。**在升级生产数据库的前一天完全排练升级过程也是推荐的。**
 
 .. important::
-   Going into production without first testing may lead to:
+   未先进行测试就投入生产可能导致：
 
-   - Users failing to adjust to the changes and new features
-   - Business interruptions (e.g., no longer having the possibility to validate an action)
-   - Poor customer experience (e.g., an eCommerce website that does not work correctly)
+   - 用户无法适应变化和新功能
+   - 业务中断（例如无法验证某个操作）
+   - 客户体验差（例如电子商务网站无法正常工作）
 
-The process of upgrading a production database is similar to upgrading a test database, but with a
-few exceptions.
+升级生产数据库的过程与升级测试数据库的过程类似，但有几个例外。
 
 .. tabs::
 
-   .. group-tab:: Odoo Online
+   .. group-tab:: Odoo 在线
 
-      The process is similar to :ref:`obtaining an upgraded test database
-      <upgrade-request-test>`, except for the purpose option, which must be set to
-      :guilabel:`Production` instead of :guilabel:`Test`.
+      该过程类似于 :ref:`获取升级的测试数据库 <upgrade-request-test>`，但**升级目的**选项必须设置为 :guilabel:`生产`，而不是 :guilabel:`测试`。
 
       .. warning::
-         Once the upgrade is requested, the database will be unavailable until the upgrade is
-         finished. Once the process is completed, it is impossible to revert to the previous
-         version.
+         一旦请求升级，数据库在升级完成之前将不可用。升级完成后，无法回退到以前的版本。
 
    .. group-tab:: Odoo.sh
 
-      The process is similar to :ref:`obtaining an upgraded test database <upgrade-request-test>` on
-      the :guilabel:`Production` branch.
+      该过程类似于在 :guilabel:`生产` 分支上 :ref:`获取升级的测试数据库 <upgrade-request-test>`。
 
       .. image:: upgrade/odoo-sh-prod.png
-         :alt: View from the upgrade tab
+         :alt: 升级选项卡视图
 
-      The process is **triggered as soon as a new commit is made** on the branch. This
-      allows the upgrade process to be synchronized with the deployment of the custom modules'
-      upgraded source code.
-      If there are no custom modules, the upgrade process is triggered immediately.
+      **在分支上进行新提交后立即触发**升级过程。这允许升级过程与自定义模块升级的源代码部署同步。
+      如果没有自定义模块，升级过程会立即触发。
 
       .. important::
-         The database is unavailable throughout the process. If anything goes wrong, the platform
-         automatically reverts the upgrade, as it would be for a regular update. In case of success,
-         a backup of the database before the upgrade is created.
+         在整个过程中数据库不可用。如果出现问题，平台会自动还原升级，就像常规更新一样。如果成功，升级前的数据库备份会被创建。
 
-      The update of your custom modules must be successful to complete the entire upgrade process.
-      Make sure the status of your staging upgrade is :guilabel:`successful` before trying it in
-      production. More information on how to upgrade your custom modules can be found on
-      :doc:`/developer/howtos/upgrade_custom_db`.
+      自定义模块的更新必须成功，才能完成整个升级过程。请确保暂存升级的状态为 :guilabel:`成功`，然后再尝试在生产中升级。有关如何升级自定义模块的更多信息，请查阅 :doc:`/developer/howtos/upgrade_custom_db`。
 
-   .. group-tab:: On-premise
+   .. group-tab:: 本地部署
 
-      The command to upgrade a database to production is similar to the one of upgrading a test
-      database except for the argument `test`, which must be replaced by `production`:
+      升级生产数据库的命令与升级测试数据库的命令类似，但 `test` 参数必须替换为 `production`：
 
       .. code-block:: console
 
          $ python <(curl -s https://upgrade.odoo.com/upgrade) production -d <your db name> -t <target version>
 
-      An upgraded production database can also be requested via the `Upgrade page
-      <https://upgrade.odoo.com>`_.
+      也可以通过 `升级页面 <https://upgrade.odoo.com>`_ 请求升级的生产数据库。
 
-      Once the database is uploaded, any modification to your production database will **not** be
-      present on your upgraded database. This is why we recommend not using it during the upgrade
-      process.
+      一旦数据库上传，任何对生产数据库的修改都**不会**出现在升级的数据库中。因此我们建议在升级过程中不要使用它。
 
       .. important::
-         When requesting an upgraded database for production purposes, the copy is submitted without
-         a filestore. Therefore, the upgraded database filestore must be merged with the production
-         filestore before deploying the new version.
+         在请求用于生产目的的升级数据库时，提交的副本不包含文件存储。因此，在部署新版本之前，升级后的数据库文件存储必须与生产文件存储合并。
 
-In case of an issue with your production database, you can request the assistance of Odoo by going
-to the `Support page and selecting "An issue related to my future upgrade (I am testing an upgrade)"
-<https://www.odoo.com/help?stage=migration>`_.
+如果您的生产数据库出现问题，您可以通过访问 `支持页面并选择“与未来升级相关的问题（我正在测试升级）” <https://www.odoo.com/help?stage=migration>`_ 请求 Odoo 的协助。
 
 .. _upgrade-sla:
 
-Service-level agreement (SLA)
+服务级别协议 (SLA)
 =============================
 
-With Odoo Enterprise, upgrading a database to the most recent version of Odoo is **free**, including
-any support required to rectify potential discrepancies in the upgraded database.
+对于 Odoo 企业版用户，升级数据库到最新版本 Odoo 是**免费的**，包括解决升级数据库中可能存在的问题的支持。
 
-Information about the upgrade services included in the Enterprise Licence is available in the
-:ref:`Odoo Enterprise Subscription Agreement <upgrade>`. However, this section clarifies what
-upgrade services you can expect.
+有关企业版许可证中包含的升级服务的信息，请参阅 :ref:`Odoo 企业版订阅协议 <upgrade>`。但是，本节澄清了您可以期望的升级服务。
 
 .. _upgrade-sla-covered:
 
-Upgrade services covered by the SLA
+SLA 覆盖的升级服务
 -----------------------------------
 
-Databases hosted on Odoo's cloud platforms (Odoo Online and Odoo.sh) or self-hosted (On-Premise) can
-benefit from upgrade services at all times for:
+Odoo 云平台（Odoo 在线和 Odoo.sh）托管的数据库或自托管（本地部署）的数据库始终可以受益于升级服务，适用于：
 
-- the upgrade of all **standard applications**;
-- the upgrade of all **customizations created with the Studio app**, as long as Studio is still
-  installed and the respective subscription is still active; and
-- the upgrade of all **developments and customizations covered by a maintenance of customizations
-  subscription**.
+- 所有**标准应用程序**的升级；
+- 所有通过 Studio 应用程序创建的**自定义功能**的升级，只要 Studio 仍然安装且相应的订阅仍然有效；
+- 所有**维护自定义功能的订阅**所涵盖的开发和自定义的升级。
 
-Upgrade services are limited to the technical conversion and adaptation of a database (standard
-modules and data) to make it compatible with the version targeted by the upgrade.
+升级服务仅限于数据库（标准模块和数据）的技术转换和调整，以使其与目标升级版本兼容。
 
 .. _upgrade-sla-not-covered:
 
-Upgrade services not covered by the SLA
+SLA 不覆盖的升级服务
 ---------------------------------------
 
-The following upgrade-related services are **not** included:
+以下与升级相关的服务**不**包含在内：
 
-- the **cleaning** of pre-existing data and configurations while upgrading;
-- the upgrade of **custom modules created in-house or by third parties**, including Odoo partners;
-- lines of **code added to standard modules**, i.e., customizations created outside the Studio app,
-  code entered manually, and :ref:`automated actions using Python code
-  <studio/automated-actions/action>`; and
-- **training** on using the upgraded version's features and workflows.
+- 升级过程中对现有数据和配置的**清理**；
+- 对**内部或第三方创建的自定义模块**（包括 Odoo 合作伙伴）的升级；
+- **添加到标准模块中的代码**，即在 Studio 应用程序外创建的自定义功能、手动输入的代码以及 :ref:`使用 Python 代码的自动化操作 <studio/automated-actions/action>`；
+- **培训**如何使用升级版本的新功能和工作流。
 
 .. seealso::
-   - :doc:`Odoo.sh documentation <odoo_sh>`
-   - :doc:`Supported Odoo versions <supported_versions>`
+   - :doc:`Odoo.sh 文档 <odoo_sh>`
+   - :doc:`受支持的 Odoo 版本 <supported_versions>`

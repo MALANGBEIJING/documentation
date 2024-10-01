@@ -1,45 +1,33 @@
 ===============
-Upgrade scripts
+升级脚本
 ===============
 
-An upgrade script is a Python file containing a function called :meth:`migrate`, which the upgrade
-process invokes during the update of a module.
+升级脚本是一个包含名为 :meth:`migrate` 的函数的 Python 文件，该函数在模块更新过程中被调用。
 
 .. method:: migrate(cr, version)
 
-   :param cr: current database cursor
+   :param cr: 当前数据库游标
    :type cr: :class:`~odoo.sql_db.Cursor`
-   :param str version: installed version of the module
+   :param str version: 模块的已安装版本
 
-Typically, this function executes one or multiple SQL queries and can also access Odoo's ORM, as
-well as the :doc:`./upgrade_utils`.
+通常，此函数执行一个或多个 SQL 查询，并且可以访问 Odoo 的 ORM，以及 :doc:`./upgrade_utils`。
 
-Writing upgrade scripts
+编写升级脚本
 =======================
 
-Upgrade scripts follow a specific tree structure with a naming convention which determines when they
-are executed.
+升级脚本遵循特定的树结构和命名约定，以确定它们的执行时机。
 
-The structure of an upgrade script path is :file:`$module/migrations/$version/{pre,post,end}-*.py`,
-where `$module` is the module for which the script will run, `$version` is the full version of the
-module (including Odoo's major version and the module's minor version) and `{pre|post|end}-*.py` is
-the file that needs to be executed. The file's name will determine the :ref:`phase
-<upgrade-scripts/phases>` and order in which it is executed for that module and version.
+升级脚本路径的结构为 :file:`$module/migrations/$version/{pre,post,end}-*.py`，其中 `$module` 是脚本将运行的模块，`$version` 是模块的完整版本（包括 Odoo 的主要版本和模块的次要版本），`{pre|post|end}-*.py` 是需要执行的文件。文件名将决定执行该模块和版本的 :ref:`阶段 <upgrade-scripts/phases>` 和顺序。
 
 .. note::
-   From Odoo 13 the top-level directory for the upgrade scripts can also be named `upgrades`. This
-   naming is preferred since it has the correct meaning: *migrate* can be confused with *moving out
-   of Odoo*. Thus :file:`$module/upgrades/$version/` is also valid.
+   从 Odoo 13 开始，升级脚本的顶级目录也可以命名为 `upgrades`。这种命名更为合适，因为 *migrate* 可能与 *moving out of Odoo* 混淆。因此 :file:`$module/upgrades/$version/` 也是有效的。
 
 .. note::
-   Upgrade scripts are only executed when the module is being updated. Therefore, the
-   module's minor version set in the `$version` directory needs to be higher than the module's
-   installed version and equal or lower to the updated version of the module.
+   只有在模块被更新时，才会执行升级脚本。因此，`$version` 目录中设置的模块次要版本需要高于已安装的模块版本，并且需要等于或低于模块的更新版本。
 
 .. example::
 
-   Directory structure of an upgrade script for a custom module named `awesome_partner` upgraded
-   to version `2.0` on Odoo 17.
+   自定义模块 `awesome_partner` 升级到 Odoo 17 的版本 `2.0` 的升级脚本目录结构。
 
    .. code-block:: text
 
@@ -48,8 +36,7 @@ the file that needs to be executed. The file's name will determine the :ref:`pha
       |   |-- 17.0.2.0/
       |   |   |-- pre-exclamation.py
 
-   Two upgrade scripts examples with the content of the :file:`pre-exclamation.py`, file adding
-   "!" at the end of partners' names:
+   两个升级脚本示例，内容为 :file:`pre-exclamation.py`，该文件在合作伙伴的名字后添加 "!"。
 
    .. code-block:: python
 
@@ -60,7 +47,7 @@ the file that needs to be executed. The file's name will determine the :ref:`pha
 
       def migrate(cr, version):
           cr.execute("UPDATE res_partner SET name = name || '!'")
-          _logger.info("Updated %s partners", cr.rowcount)
+          _logger.info("更新了 %s 个合作伙伴", cr.rowcount)
 
    .. code-block:: python
 
@@ -77,26 +64,24 @@ the file that needs to be executed. The file's name will determine the :ref:`pha
           for partner in partners:
               partner.name += "!"
 
-          _logger.info("Updated %s partners", len(partners))
+          _logger.info("更新了 %s 个合作伙伴", len(partners))
 
-   Note that in the second example, the script takes advantage of the :doc:`./upgrade_utils` to
-   access the ORM. Check the documentation to find out more about this library.
+   注意，在第二个示例中，脚本利用 :doc:`./upgrade_utils` 访问 ORM。请查看文档以了解有关此库的更多信息。
 
 .. _upgrade-scripts/phases:
 
-Phases of upgrade scripts
+升级脚本的阶段
 =========================
 
-The upgrade process consists of three phases for each version of each module:
+升级过程由每个模块的每个版本的三个阶段组成：
 
-  #. The pre-phase, before the module is loaded.
-  #. The post-phase, after the module and its dependencies are loaded and updated.
-  #. The end-phase, after all modules have been loaded and updated for that version.
+  #. 预阶段，在模块加载之前。
+  #. 后阶段，在模块及其依赖项加载和更新后。
+  #. 结束阶段，在所有模块已加载并更新到该版本后。
 
-Upgrade scripts are grouped according to the first part of their filenames into the corresponding
-phase. Within each phase, the files are executed according to their lexical order.
+升级脚本根据文件名的第一部分分组到相应的阶段。在每个阶段内，文件按词法顺序执行。
 
-.. admonition:: Execution order of example scripts for one module in one version
+.. admonition:: 单个模块在一个版本中的示例脚本执行顺序
 
    #. :file:`pre-10-do_something.py`
    #. :file:`pre-20-something_else.py`

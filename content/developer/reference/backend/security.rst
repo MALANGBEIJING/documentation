@@ -1,309 +1,222 @@
-
-.. _reference/security:
-
 ================
-Security in Odoo
+Odoo中的安全性
 ================
 
-Aside from manually managing access using custom code, Odoo provides two main
-data-driven mechanisms to manage or restrict access to data.
+除了通过自定义代码手动管理访问权限外，Odoo还提供了两种主要的数据驱动机制来管理或限制对数据的访问。
 
-Both mechanisms are linked to specific users through *groups*: a user belongs
-to any number of groups, and security mechanisms are associated to groups,
-thus applying security mechanisms to users.
+这两种机制通过*组*与特定用户相关联：用户属于任意数量的组，并且安全机制与组相关联，从而将安全机制应用于用户。
 
 .. class:: res.groups
 
     .. attribute:: name
 
-        serves as user-readable identification for the group (spells out the
-        role / purpose of the group)
+        作为用户可读的组标识（明确组的角色/目的）
 
     .. attribute:: category_id
 
-        The *module category*, serves to associate groups with an Odoo App
-        (~a set of related business models) and convert them into an exclusive
-        selection in the user form.
+        *模块类别*，用于将组与Odoo应用程序（~一组相关的业务模型）关联起来，并将它们转换为用户表单中的独占选择。
 
-        .. todo:: clarify & document special cases & relationship between
-                  groups & categories better
+        .. todo:: 更清晰地阐明和记录组与类别之间的特殊情况和关系
 
     .. attribute:: implied_ids
 
-        Other groups to set on the user alongside this one. This is a
-        convenience pseudo-inheritance relationship: it's possible to
-        explicitly remove implied groups from a user without removing the
-        implier.
+        与此组一起在用户上设置的其他组。这是一种便利的伪继承关系：可以显式地从用户中删除暗示组，而无需删除暗示者。
 
     .. attribute:: comment
 
-        Additional notes on the group e.g.
+        关于组的附加说明，例如：
 
-.. _reference/security/acl:
-
-Access Rights
+访问权限
 =============
 
-*Grants* access to an entire model for a given set of operations. If no access
-rights matches an operation on a model for a user (through their group), the
-user doesn't have access.
+*授予*对给定操作的一整个模型的访问权限。如果没有访问权限与用户（通过他们的组）在模型上的操作匹配，则该用户将无法访问。
 
-Access rights are additive, a user's accesses are the union of the accesses
-they get through all their groups e.g. given a user who is part of group A
-granting read and create access and a group B granting update access, the user
-will have all three of create, read, and update.
+访问权限是累加的，用户的访问权限是通过所有组获得的访问权限的并集，例如，假设一个用户属于授予读取和创建访问权限的组 A，以及授予更新访问权限的组 B，则该用户将具有创建、读取和更新这三种权限。
 
 .. class:: ir.model.access
 
     .. attribute:: name
 
-        The purpose or role of the group.
+        组的目的或角色。
 
     .. attribute:: model_id
 
-        The model whose access the ACL controls.
+        ACL 控制的模型。
 
     .. attribute:: group_id
 
-        The :class:`res.groups` to which the accesses are granted, an empty
-        :attr:`group_id` means the ACL is granted to *every user*
-        (non-employees e.g. portal or public users).
+        授予访问权限的 :class:`res.groups`，空的 :attr:`group_id` 意味着 ACL 授予*每个用户*（例如门户或公共用户的非员工）。
 
-    The :samp:`perm_{method}` attributes grant the corresponding CRUD access
-    when set, they are all unset by default.
+    :samp:`perm_{method}` 属性在设置时授予相应的 CRUD 访问权限，默认情况下它们都是未设置的。
 
     .. attribute:: perm_create
     .. attribute:: perm_read
     .. attribute:: perm_write
     .. attribute:: perm_unlink
 
-.. _reference/security/rules:
-
-Record Rules
+记录规则
 ============
 
-Record rules are *conditions* which must be satisfied in order for an operation
-to be allowed. Record rules are evaluated record-by-record, following access
-rights.
+记录规则是*条件*，必须满足才能允许某个操作。记录规则逐条记录进行评估，遵循访问权限。
 
-Record rules are default-allow: if access rights grant access and no rule
-applies to the operation and model for the user, the access is granted.
+记录规则是默认允许的：如果访问权限授予访问并且没有规则适用于该用户的操作和模型，则授予访问权限。
 
 .. class:: ir.rule
 
     .. attribute:: name
 
-        The description of the rule.
+        规则的描述。
 
     .. attribute:: model_id
 
-        The model to which the rule applies.
+        规则适用的模型。
 
     .. attribute:: groups
 
-        The :class:`res.groups` to which access is granted (or not). Multiple
-        groups can be specified. If no group is specified, the rule is *global*
-        which is treated differently than "group" rules (see below).
+        授予（或不授予）访问权限的 :class:`res.groups`。可以指定多个组。如果未指定组，则该规则是*全局的*，其处理方式与“组”规则（见下文）不同。
 
     .. attribute:: global
 
-        Computed on the basis of :attr:`groups`, provides easy access to the
-        global status (or not) of the rule.
+        基于 :attr:`groups` 计算，提供对规则全局状态（或非全局状态）的便捷访问。
 
     .. attribute:: domain_force
 
-        A predicate specified as a :ref:`domain <reference/orm/domains>`, the
-        rule allows the selected operations if the domain matches the record,
-        and forbids it otherwise.
+        作为 :ref:`domain <reference/orm/domains>` 指定的谓词，如果域与记录匹配，则允许所选操作，否则禁止。
 
-        The domain is a *python expression* which can use the following
-        variables:
+        域是一个*python 表达式*，可以使用以下变量：
 
         ``time``
-            Python's :mod:`python:time` module.
+            Python的 :mod:`python:time` 模块。
         ``user``
-            The current user, as a singleton recordset.
+            当前用户，作为单例记录集。
         ``company_id``
-            The current user's currently selected company as a single company id
-            (not a recordset).
+            当前用户当前选择的公司，作为单个公司ID（而不是记录集）。
         ``company_ids``
-            All the companies to which the current user has access as a list of
-            company ids (not a recordset), see
-            :ref:`howto/company/security` for more details.
+            当前用户可以访问的所有公司，作为公司ID的列表（而不是记录集），有关更多详细信息，请参见 :ref:`howto/company/security`。
 
-    The :samp:`perm_{method}` have completely different semantics than for
-    :class:`ir.model.access`: for rules, they specify which operation the rules
-    applies *for*. If an operation is not selected, then the rule is not checked
-    for it, as if the rule did not exist.
+    :samp:`perm_{method}` 的语义与 :class:`ir.model.access` 完全不同：对于规则，它们指定规则*适用于*的操作。如果未选择某个操作，则该规则不进行检查，就像该规则不存在一样。
 
-    All operations are selected by default.
+    默认情况下，所有操作都被选择。
 
     .. attribute:: perm_create
     .. attribute:: perm_read
     .. attribute:: perm_write
     .. attribute:: perm_unlink
 
-.. _reference/security/rules/global:
-
-Global rules versus group rules
+全局规则与组规则
 -------------------------------
 
-There is a large difference between global and group rules in how they compose
-and combine:
+全局规则和组规则在组合和组合方式上存在很大差异：
 
-* Global rules *intersect*, if two global rules apply then *both* must be
-  satisfied for the access to be granted, this means adding global rules always
-  restricts access further.
-* Group rules *unify*, if two group rules apply then *either* can be
-  satisfied for the access to be granted. This means adding group rules can
-  expand access, but not beyond the bounds defined by global rules.
-* The global and group rulesets *intersect*, which means the first group rule
-  being added to a given global ruleset will restrict access.
+* 全局规则*交集*，如果两个全局规则适用，则*必须*同时满足才能授予访问权限，这意味着添加全局规则会进一步限制访问权限。
+* 组规则*联合*，如果两个组规则适用，则*任一*都可以满足才能授予访问权限。这意味着添加组规则可以扩展访问权限，但不能超出全局规则定义的范围。
+* 全局规则集和组规则集*交集*，这意味着将第一组规则添加到给定的全局规则集中将限制访问权限。
 
 .. danger::
 
-    Creating multiple global rules is risky as it's possible to create
-    non-overlapping rulesets, which will remove all access.
+    创建多个全局规则是有风险的，因为可能会创建
+    不重叠的规则集，从而删除所有访问权限。
 
-.. _reference/security/fields:
-
-Field Access
+字段访问
 ============
 
-An ORM :class:`~odoo.fields.Field` can have a ``groups`` attribute
-providing a list of groups (as a comma-separated string of
-:term:`external identifiers`).
+ORM :class:`~odoo.fields.Field` 可以具有 ``groups`` 属性，提供一个组列表（作为逗号分隔的 :term:`external identifiers` 字符串）。
 
-If the current user is not in one of the listed groups, he will not have
-access to the field:
+如果当前用户不在列出的组中，他将无法访问该字段：
 
-* restricted fields are automatically removed from requested views
-* restricted fields are removed from :meth:`~odoo.models.Model.fields_get`
-  responses
-* attempts to (explicitly) read from or write to restricted fields results in
-  an access error
+* 受限字段会自动从请求的视图中删除
+* 受限字段会从 :meth:`~odoo.models.Model.fields_get` 响应中删除
+* 尝试（显式）读取或写入受限字段会导致访问错误
 
 .. todo::
 
-    field access groups apply to the Superuser in fields_get but not in
-    read/write...
+    字段访问组在 fields_get 中适用于超级用户，但在读取/写入中不适用...
 
-.. _time module: https://docs.python.org/3/library/time.html
-
-
-.. _reference/security/pitfalls:
-
-Security Pitfalls
+安全隐患
 =================
 
-As a developer, it is important to understand the security mechanisms and avoid
-common mistakes leading to insecure code.
+作为开发者，了解安全机制并避免导致不安全代码的常见错误非常重要。
 
-Unsafe Public Methods
+不安全的公共方法
 ---------------------
 
-Any public method can be executed via a :ref:`RPC call
-<api/external_api/calling_methods>` with the chosen parameters. The methods
-starting with a ``_`` are not callable from an action button or external API.
+任何公共方法都可以通过 :ref:`RPC 调用 <api/external_api/calling_methods>` 与所选参数一起执行。以 ``_`` 开头的方法不能通过操作按钮或外部 API 调用。
 
-On public methods, the record on which a method is executed and the parameters
-can not be trusted, ACL being only verified during CRUD operations.
+在公共方法上，执行该方法的记录和参数无法被信任，ACL 仅在 CRUD 操作期间进行验证。
 
 .. code-block:: python
 
-    # this method is public and its arguments can not be trusted
+    # 该方法是公共的，无法信任其参数
     def action_done(self):
         if self.state == "draft" and self.user_has_groups('base.manager'):
             self._set_state("done")
 
-    # this method is private and can only be called from other python methods
+    # 该方法是私有的，只能从其他 Python 方法调用
     def _set_state(self, new_state):
         self.sudo().write({"state": new_state})
 
-Making a method private is obviously not enough and care must be taken to use it
-properly.
+将方法设为私有显然不够，必须谨慎使用它。
 
-Bypassing the ORM
+绕过 ORM
 -----------------
 
-You should never use the database cursor directly when the ORM can do the same
-thing! By doing so you are bypassing all the ORM features, possibly the
-automated behaviours like translations, invalidation of fields, ``active``,
-access rights and so on.
+在 ORM 可以做同样事情的情况下，您绝对不应直接使用数据库游标！这样做会绕过所有 ORM 功能，可能会影响自动行为，如翻译、字段失效、``active``、访问权限等。
 
-And chances are that you are also making the code harder to read and probably
-less secure.
+而且您还可能使代码更难以阅读，并可能降低安全性。
 
 .. code-block:: python
 
-    # very very wrong
+    # 非常非常错误
     self.env.cr.execute('SELECT id FROM auction_lots WHERE auction_id in (' + ','.join(map(str, ids))+') AND state=%s AND obj_price > 0', ('draft',))
     auction_lots_ids = [x[0] for x in self.env.cr.fetchall()]
 
-    # no injection, but still wrong
+    # 没有注入，但仍然错误
     self.env.cr.execute('SELECT id FROM auction_lots WHERE auction_id in %s '\
                'AND state=%s AND obj_price > 0', (tuple(ids), 'draft',))
     auction_lots_ids = [x[0] for x in self.env.cr.fetchall()]
 
-    # better
+    # 更好
     auction_lots_ids = self.search([('auction_id','in',ids), ('state','=','draft'), ('obj_price','>',0)])
 
 
-SQL injections
+SQL 注入
 ~~~~~~~~~~~~~~
 
-Care must be taken not to introduce SQL injections vulnerabilities when using
-manual SQL queries. The vulnerability is present when user input is either
-incorrectly filtered or badly quoted, allowing an attacker to introduce
-undesirable clauses to a SQL query (such as circumventing filters or
-executing ``UPDATE`` or ``DELETE`` commands).
+在使用手动 SQL 查询时，必须小心不要引入 SQL 注入漏洞。该漏洞在用户输入未被正确过滤或错误引用时存在，允许攻击者在 SQL 查询中引入不必要的子句（例如绕过过滤器或执行 ``UPDATE`` 或 ``DELETE`` 命令）。
 
-The best way to be safe is to never, NEVER use Python string concatenation (+)
-or string parameters interpolation (%) to pass variables to a SQL query string.
+安全的最好方法是绝对不要使用 Python 字符串连接 (+) 或字符串参数插值 (%) 将变量传递给 SQL 查询字符串。
 
-The second reason, which is almost as important, is that it is the job of the
-database abstraction layer (psycopg2) to decide how to format query parameters,
-not your job! For example psycopg2 knows that when you pass a list of values
-it needs to format them as a comma-separated list, enclosed in parentheses !
+第二个原因（几乎同样重要）是，数据库抽象层（psycopg2）的工作是决定如何格式化查询参数，而不是您的工作！例如，psycopg2 知道当您传递值列表时，它需要将它们格式化为逗号分隔的列表，并用括号括起来！
 
 .. code-block:: python
 
-    # the following is very bad:
-    #   - it's a SQL injection vulnerability
-    #   - it's unreadable
-    #   - it's not your job to format the list of ids
+    # 以下是非常糟糕的：
+    #   - 这是 SQL 注入漏洞
+    #   - 它不易读
+    #   - 格式化 ID 列表不是您的工作
     self.env.cr.execute('SELECT distinct child_id FROM account_account_consol_rel ' +
                'WHERE parent_id IN ('+','.join(map(str, ids))+')')
 
-    # better
+    # 更好
     self.env.cr.execute('SELECT DISTINCT child_id '\
                'FROM account_account_consol_rel '\
                'WHERE parent_id IN %s',
                (tuple(ids),))
 
-This is very important, so please be careful also when refactoring, and most
-importantly do not copy these patterns!
+这非常重要，因此在重构时请小心，最重要的是，不要复制这些模式！
 
-Here is a memorable example to help you remember what the issue is about (but
-do not copy the code there). Before continuing, please be sure to read the
-online documentation of pyscopg2 to learn of to use it properly:
+这是一个难忘的例子，可以帮助您记住问题的所在（但不要复制那里的代码）。在继续之前，请确保阅读 psycopg2 的在线文档以了解如何正确使用它：
 
-- `The problem with query parameters <http://initd.org/psycopg/docs/usage.html#the-problem-with-the-query-parameters>`_
-- `How to pass parameters with psycopg2 <http://initd.org/psycopg/docs/usage.html#passing-parameters-to-sql-queries>`_
-- `Advanced parameter types <http://initd.org/psycopg/docs/usage.html#adaptation-of-python-values-to-sql-types>`_
-- `Psycopg documentation <https://www.psycopg.org/docs/sql.html>`_
-
-Unescaped field content
+- `查询参数的问题 <http://initd.org/psycopg/docs/usage.html#the-problem-with-the-query-parameters>`_
+- `如何使用 psycopg2 传递参数 <http://initd.org/psycopg/docs/usage.html#passing-parameters-to-sql-queries>`_
+- `高级参数类型 <http://initd.org/psycopg/docs/usage.html#adaptation-of-python-values-to-sql-types>`_
+- `Psycopg 文档 <https://www.psycopg.org/docs/sql.html>`_
+未转义的字段内容
 -----------------------
 
-When rendering content using JavaScript and XML, one may be tempted to use
-a ``t-raw`` to display rich-text content. This should be avoided as a frequent
-`XSS <https://en.wikipedia.org/wiki/Cross-site_scripting>`_ vector.
+在使用 JavaScript 和 XML 渲染内容时，可能会倾向于使用 ``t-raw`` 来显示富文本内容。应避免这样做，因为这是一种常见的 `XSS <https://en.wikipedia.org/wiki/Cross-site_scripting>`_ 向量。
 
-It is very hard to control the integrity of the data from the computation until
-the final integration in the browser DOM. A ``t-raw`` that is correctly escaped
-at the time of introduction may no longer be safe at the next bugfix or
-refactoring.
+从计算到最终在浏览器 DOM 中集成，控制数据的完整性是非常困难的。在引入时正确转义的 ``t-raw`` 在下一个 bug 修复或重构时可能不再安全。
 
 .. code-block:: javascript
 
@@ -317,19 +230,17 @@ refactoring.
         <div id="information-bar"><t t-raw="info_message" /></div>
     </div>
 
-The above code may feel safe as the message content is controlled but is a bad
-practice that may lead to unexpected security vulnerabilities once this code
-evolves in the future.
+上述代码可能看起来安全，因为消息内容是可控的，但这是不好的做法，可能会导致意外的安全漏洞，尤其是当这段代码在未来演变时。
 
 .. code-block:: javascript
 
-    // XSS possible with unescaped user provided content !
+    // 使用未转义的用户提供内容可能发生 XSS！
     QWeb.render('insecure_template', {
         info_message: "You have an <strong>important</strong> notification on " \
             + "the product <strong>" + product.name + "</strong>",
     })
 
-While formatting the template differently would prevent such vulnerabilities.
+改变模板格式可以防止这种漏洞。
 
 .. code-block:: javascript
 
@@ -353,17 +264,12 @@ While formatting the template differently would prevent such vulnerabilities.
         font-weight: bold;
     }
 
-Creating safe content using :class:`~markupsafe.Markup`
+使用 :class:`~markupsafe.Markup` 创建安全内容
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-See the `official documentation <https://markupsafe.palletsprojects.com/>`_ for
-explanations, but the big advantage of
-:class:`~markupsafe.Markup` is that it's a very rich type overrinding
-:class:`str` operations to *automatically escape parameters*.
+请参阅 `官方文档 <https://markupsafe.palletsprojects.com/>`_ 以获取解释，但 :class:`~markupsafe.Markup` 的最大优点是它是一种非常丰富的类型，重写了 :class:`str` 操作，以*自动转义参数*。
 
-This means that it's easy to create *safe* html snippets by using
-:class:`~markupsafe.Markup` on a string literal and "formatting in"
-user-provided (and thus potentially unsafe) content:
+这意味着通过对字符串文字使用 :class:`~markupsafe.Markup` 并“格式化”用户提供（因此可能不安全）内容，可以轻松创建*安全*的 HTML 片段：
 
 .. code-block:: pycon
 
@@ -372,7 +278,7 @@ user-provided (and thus potentially unsafe) content:
     >>> Markup('<em>Hello</em> %s') % '<foo>'
     Markup('<em>Hello</em> &lt;foo&gt;')
 
-though it is a very good thing, note that the effects can be odd at times:
+尽管这很好，但请注意，效果有时可能会很奇怪：
 
 .. code-block:: pycon
 
@@ -385,19 +291,15 @@ though it is a very good thing, note that the effects can be odd at times:
     >>> Markup('<a&gt;').replace('>', '&')
     Markup('<a&amp;')
 
-.. tip:: Most of the content-safe APIs actually return a
-         :class:`~markupsafe.Markup` with all that implies.
+.. tip:: 大多数内容安全 API 实际上返回一个 :class:`~markupsafe.Markup`，这意味着所有的隐含内容。
 
-The :class:`~markupsafe.escape` method (and its
-alias :class:`~odoo.tools.misc.html_escape`) turns a `str` into
-a :class:`~markupsafe.Markup` and escapes its content. It will not escape the
-content of a :class:`~markupsafe.Markup` object.
+:class:`~markupsafe.escape` 方法（及其别名 :class:`~odoo.tools.misc.html_escape`）将 `str` 转换为 :class:`~markupsafe.Markup` 并转义其内容。它不会转义 :class:`~markupsafe.Markup` 对象的内容。
 
 .. code-block:: python
 
     def get_name(self, to_html=False):
         if to_html:
-            return Markup("<strong>%s</strong>") % self.name  # escape the name
+            return Markup("<strong>%s</strong>") % self.name  # 转义名称
         else:
             return self.name
 
@@ -405,10 +307,9 @@ content of a :class:`~markupsafe.Markup` object.
     >>> escape(record.get_name())
     Markup("&lt;R&amp;D&gt;")
     >>> escape(record.get_name(True))
-    Markup("<strong>&lt;R&amp;D&gt;</strong>")  # HTML is kept
+    Markup("<strong>&lt;R&amp;D&gt;</strong>")  # HTML 被保留
 
-When generating HTML code, it is important to separate the structure (tags) from
-the content (text).
+在生成 HTML 代码时，重要的是将结构（标签）与内容（文本）分开。
 
 .. code-block:: pycon
 
@@ -424,19 +325,17 @@ the content (text).
     ... )
     Markup('Liste de tâches pour le projet &lt;R&amp;D&gt;: <ul><li>First &lt;R&amp;D&gt; task</li></ul>')
 
-    >>> Markup("<p>Foo %</p>" % bar)  # bad, bar is not escaped
-    >>> Markup("<p>Foo %</p>") % bar  # good, bar is escaped if text and kept if markup
+    >>> Markup("<p>Foo %</p>" % bar)  # 不好，bar 未转义
+    >>> Markup("<p>Foo %</p>") % bar  # 好，bar 在文本中被转义并在标记中保留
 
     >>> link = Markup("<a>%s</a>") % self.name
-    >>> message = "Click %s" % link  # bad, message is text and Markup did nothing
-    >>> message = escape("Click %s") % link  # good, format two markup objects together
+    >>> message = "Click %s" % link  # 不好，消息是文本且 Markup 没有任何作用
+    >>> message = escape("Click %s") % link  # 好，将两个标记对象一起格式化
 
-    >>> Markup(f"<p>Foo {self.bar}</p>")  # bad, bar is inserted before escaping
-    >>> Markup("<p>Foo {bar}</p>").format(bar=self.bar)  # good, sorry no fstring
+    >>> Markup(f"<p>Foo {self.bar}</p>")  # 不好，bar 在转义之前插入
+    >>> Markup("<p>Foo {bar}</p>").format(bar=self.bar)  # 好，不好意思，没有 fstring
 
-When working with translations, it is especially important to separate the HTML
-from the text. The translation methods accepts a :class:`~markupsafe.Markup`
-parameters and will escape the translation if it gets receives at least one.
+在处理翻译时，将 HTML 与文本分开尤其重要。翻译方法接受 :class:`~markupsafe.Markup` 参数，如果收到至少一个参数，则会转义翻译。
 
 .. code-block:: pycon
 
@@ -450,102 +349,76 @@ parameters and will escape the translation if it gets receives at least one.
     Markup('Message received from Georges &lt;<a href=mailto:george@abitbol.example>george@abitbol.example</a>&gt;')
 
 
-Escaping vs Sanitizing
+转义与清理
 ----------------------
 
 .. important::
 
-    Escaping is always 100% mandatory when you mix data and code, no matter how
-    safe the data
+    当混合数据和代码时，转义始终是 100% 强制性的，无论数据多么安全
 
-**Escaping** converts *TEXT* to *CODE*. It is absolutely mandatory to do it
-every time you mix *DATA/TEXT* with *CODE* (e.g. generating HTML or python code
-to be evaluated inside a `safe_eval`), because *CODE* always requires *TEXT* to
-be encoded. It is critical for security, but it's also a question of
-correctness. Even when there is no security risk (because the text is 100%
-guarantee to be safe or trusted), it is still required (e.g. to avoid breaking
-the layout in generated HTML).
+**转义** 将 *TEXT* 转换为 *CODE*。每次将 *DATA/TEXT* 与 *CODE* 混合时，绝对有必要这样做（例如，生成 HTML 或在 `safe_eval` 内评估的 Python 代码），因为 *CODE* 始终需要对 *TEXT* 进行编码。这对安全至关重要，但这也是一个正确性问题。即使没有安全风险（因为文本 100% 确保安全或可信），仍然需要这样做（例如，避免在生成的 HTML 中破坏布局）。
 
-Escaping will never break any feature, as long as the developer identifies which
-variable contains *TEXT* and which contains *CODE*.
+转义永远不会破坏任何功能，只要开发人员能够识别出哪个变量包含 *TEXT*，哪个变量包含 *CODE*。
 
 .. code-block:: python
 
     >>> from odoo.tools import html_escape, html_sanitize
-    >>> data = "<R&D>" # `data` is some TEXT coming from somewhere
+    >>> data = "<R&D>" # `data` 是来自某处的某些 TEXT
 
-    # Escaping turns it into CODE, good!
+    # 转义将其变为 CODE，好的！
     >>> code = html_escape(data)
     >>> code
     Markup('&lt;R&amp;D&gt;')
 
-    # Now you can mix it with other code...
+    # 现在可以与其他代码混合...
     >>> self.website_description = Markup("<strong>%s</strong>") % code
 
-**Sanitizing** converts *CODE* to *SAFER CODE* (but not necessary *safe* code).
-It does not work on *TEXT*. Sanitizing is only necessary when *CODE* is
-untrusted, because it comes in full or in part from some user-provided data. If
-the user-provided data is in the form of *TEXT* (e.g. the content from a form
-filled by a user), and if that data was correctly escaped before putting it in
-*CODE*, then sanitizing is useless (but can still be done). If however, the
-user-provided data was **not escaped**, then sanitizing will **not** work as
-expected.
+**清理** 将 *CODE* 转换为 *更安全的 CODE*（但不一定是 *安全* 的代码）。它不适用于 *TEXT*。清理仅在 *CODE* 不可信时是必要的，因为它完全或部分来自某些用户提供的数据。如果用户提供的数据以 *TEXT* 形式存在（例如，来自用户填写的表单的内容），并且在放入 *CODE* 之前该数据已正确转义，则清理是无用的（但仍然可以执行）。然而，如果用户提供的数据**未转义**，那么清理将**无法**按预期工作。
 
 .. code-block:: python
 
-    # Sanitizing without escaping is BROKEN: data is corrupted!
+    # 在未转义的情况下清理是损坏的：数据被破坏！
     >>> html_sanitize(data)
     Markup('')
 
-    # Sanitizing *after* escaping is OK!
+    # 在转义后清理是好的！
     >>> html_sanitize(code)
     Markup('<p>&lt;R&amp;D&gt;</p>')
 
-Sanitizing can break features, depending on whether the *CODE* is expected to
-contain patterns that are not safe. That's why `fields.Html` and
-`tools.html_sanitize()` have options to fine-tune the level of sanitization for
-styles, etc. Those options have to be carefully considered depending on where
-the data comes from, and the desired features. The sanitization safety is
-balanced against sanitization breakages: the safer the sanitisation the more
-likely it is to break things.
+清理可能会破坏功能，具体取决于 *CODE* 是否被期望包含不安全的模式。这就是 `fields.Html` 和 `tools.html_sanitize()` 有选项可以微调样式等清理级别的原因。这些选项必须仔细考虑，具体取决于数据来源以及所需功能。清理安全性与清理损坏之间的平衡：清理越安全，越有可能破坏功能。
 
 .. code-block:: python
 
     >>> code = "<p class='text-warning'>Important Information</p>"
-    # this will remove the style, which may break features
-    # but is necessary if the source is untrusted
+    # 这将移除样式，可能会破坏功能
+    # 但如果源不受信任，这是必要的
     >>> html_sanitize(code, strip_classes=True)
     Markup('<p>Important Information</p>')
-
-Evaluating content
+评估内容
 ------------------
 
-Some may want to ``eval`` to parse user provided content. Using ``eval`` should
-be avoided at all cost. A safer, sandboxed, method :class:`~odoo.tools.safe_eval`
-can be used instead but still gives tremendous capabilities to the user running
-it and must be reserved for trusted privileged users only as it breaks the
-barrier between code and data.
+有些人可能希望使用 ``eval`` 来解析用户提供的内容。使用 ``eval`` 应该避免不使用。可以使用更安全、沙箱化的方法 :class:`~odoo.tools.safe_eval`，但这仍然赋予运行它的用户巨大的能力，必须仅保留给受信任的特权用户，因为它打破了代码和数据之间的界限。
 
 .. code-block:: python
 
-    # very bad
+    # 非常糟糕
     domain = eval(self.filter_domain)
     return self.search(domain)
 
-    # better but still not recommended
+    # 更好，但仍不推荐
     from odoo.tools import safe_eval
     domain = safe_eval(self.filter_domain)
     return self.search(domain)
 
-    # good
+    # 好
     from ast import literal_eval
     domain = literal_eval(self.filter_domain)
     return self.search(domain)
 
-Parsing content does not need ``eval``
+解析内容不需要 ``eval``
 
 ==========  ==================  ================================
-Language    Data type           Suitable parser
+语言         数据类型             适用解析器
 ==========  ==================  ================================
 Python      int, float, etc.    int(), float()
 Javascript  int, float, etc.    parseInt(), parseFloat()
@@ -553,31 +426,27 @@ Python      dict                json.loads(), ast.literal_eval()
 Javascript  object, list, etc.  JSON.parse()
 ==========  ==================  ================================
 
-Accessing object attributes
+访问对象属性
 ---------------------------
 
-If the values of a record needs to be retrieved or modified dynamically, one may
-want to use the ``getattr`` and ``setattr`` methods.
+如果需要动态检索或修改记录的值，可以使用 ``getattr`` 和 ``setattr`` 方法。
 
 .. code-block:: python
 
-    # unsafe retrieval of a field value
+    # 不安全的字段值检索
     def _get_state_value(self, res_id, state_field):
         record = self.sudo().browse(res_id)
         return getattr(record, state_field, False)
 
-This code is however not safe as it allows to access any property of the record,
-including private attributes or methods.
+然而，这段代码并不安全，因为它允许访问记录的任何属性，包括私有属性或方法。
 
-The ``__getitem__`` of a recordset has been defined and accessing a dynamic
-field value can be easily achieved safely:
+记录集的 ``__getitem__`` 已被定义，可以轻松安全地访问动态字段值：
 
 .. code-block:: python
 
-    # better retrieval of a field value
+    # 更好的字段值检索
     def _get_state_value(self, res_id, state_field):
         record = self.sudo().browse(res_id)
         return record[state_field]
 
-The above method is obviously still too optimistic and additional verifications
-on the record id and field value must be done.
+上述方法显然仍然过于乐观，必须对记录 ID 和字段值进行额外验证。

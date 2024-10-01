@@ -16,10 +16,10 @@ ORM API
 .. _reference/orm/models:
 .. _reference/orm/model:
 
-Models
-======
+模型
+====
 
-Model fields are defined as attributes on the model itself::
+模型字段在模型本身中定义为属性::
 
     from odoo import models, fields
     class AModel(models.Model):
@@ -27,23 +27,20 @@ Model fields are defined as attributes on the model itself::
 
         field1 = fields.Char()
 
-.. warning:: this means you cannot define a field and a method with the same
-             name, the last one will silently overwrite the former ones.
+.. warning:: 这意味着你不能定义同名字段和方法，后者会静默地覆盖前者。
 
-By default, the field's label (user-visible name) is a capitalized version of
-the field name, this can be overridden with the ``string`` parameter. ::
+默认情况下，字段的标签（用户可见的名称）是字段名称的大写版本，可以通过 ``string`` 参数覆盖此默认行为。::
 
-        field2 = fields.Integer(string="Field Label")
+        field2 = fields.Integer(string="字段标签")
 
-For the list of field types and parameters, see :ref:`the fields reference
-<reference/fields>`.
+有关字段类型和参数的列表，请参阅 :ref:`字段参考
+<reference/fields>`。
 
-Default values are defined as parameters on fields, either as a value::
+默认值可以作为字段的参数定义，可以是一个值::
 
-    name = fields.Char(default="a value")
+    name = fields.Char(default="一个值")
 
-or as a function called to compute the default value, which should return that
-value::
+也可以是一个返回默认值的函数::
 
     def _default_name(self):
         return self.get_value()
@@ -57,10 +54,10 @@ value::
     .. autoattribute:: _auto
     .. attribute:: _log_access
 
-        Whether the ORM should automatically generate and update the
-        :ref:`reference/fields/automatic/log_access`.
+        是否自动生成并更新ORM的
+        :ref:`reference/fields/automatic/log_access`。
 
-        Defaults to whatever value was set for :attr:`~._auto`.
+        默认值为 :attr:`~._auto` 的设置值。
 
     .. autoattribute:: _table
     .. autoattribute:: _sql_constraints
@@ -85,21 +82,21 @@ value::
 
     .. autoattribute:: _fold_name
 
-AbstractModel
--------------
+抽象模型
+--------
 
 .. autoclass:: odoo.models.AbstractModel
 
-Model
------
+模型
+----
 
 .. autoclass:: odoo.models.Model
 
    .. autoattribute:: _auto
    .. autoattribute:: _abstract
 
-TransientModel
---------------
+临时模型
+--------
 
 .. autoclass:: odoo.models.TransientModel
    :members: _transient_vacuum
@@ -110,8 +107,8 @@ TransientModel
 .. _reference/fields:
 .. _reference/orm/fields:
 
-Fields
-======
+字段
+====
 
 .. currentmodule:: odoo.fields
 
@@ -119,8 +116,8 @@ Fields
 
 .. _reference/fields/basic:
 
-Basic Fields
-------------
+基础字段
+--------
 
 .. autoclass:: Boolean()
 
@@ -132,8 +129,8 @@ Basic Fields
 
 .. _reference/fields/advanced:
 
-Advanced Fields
----------------
+高级字段
+--------
 
 .. autoclass:: Binary()
 
@@ -149,58 +146,48 @@ Advanced Fields
 
 .. _reference/fields/date:
 
-Date(time) Fields
-~~~~~~~~~~~~~~~~~
+日期（时间）字段
+~~~~~~~~~~~~~
 
-:class:`Dates <odoo.fields.Date>` and :class:`Datetimes <odoo.fields.Datetime>`
-are very important fields in any kind of business application.
-Their misuse can create invisible yet painful bugs, this section
-aims to provide Odoo developers with the knowledge required
-to avoid misusing these fields.
+:class:`日期 <odoo.fields.Date>` 和 :class:`日期时间 <odoo.fields.Datetime>` 是任何商业应用中的重要字段。
+使用不当会导致隐蔽但令人痛苦的错误，本节旨在为Odoo开发者提供必要的知识，避免错误使用这些字段。
 
-When assigning a value to a Date/Datetime field, the following options are valid:
+为Date/Datetime字段分配值时，有以下选项是有效的：
 
-* A `date` or `datetime` object.
-* A string in the proper server format:
+* `date` 或 `datetime` 对象。
+* 具有正确服务器格式的字符串：
 
-  * ``YYYY-MM-DD`` for :class:`~odoo.fields.Date` fields,
-  * ``YYYY-MM-DD HH:MM:SS`` for :class:`~odoo.fields.Datetime` fields.
+  * 对于 :class:`~odoo.fields.Date` 字段为 ``YYYY-MM-DD``，
+  * 对于 :class:`~odoo.fields.Datetime` 字段为 ``YYYY-MM-DD HH:MM:SS``。
 
-* `False` or `None`.
+* `False` 或 `None`。
 
-The Date and Datetime fields class have helper methods to attempt conversion
-into a compatible type:
+日期和日期时间字段类有一些帮助方法，用于尝试转换为兼容的类型：
 
-* :func:`~odoo.fields.Date.to_date` will convert to a :class:`datetime.date`
-* :func:`~odoo.fields.Datetime.to_datetime` will convert to a :class:`datetime.datetime`.
+* :func:`~odoo.fields.Date.to_date` 会转换为 :class:`datetime.date`
+* :func:`~odoo.fields.Datetime.to_datetime` 会转换为 :class:`datetime.datetime`。
 
 .. example::
 
-    To parse date/datetimes coming from external sources::
+    解析来自外部来源的日期/日期时间::
 
         fields.Date.to_date(self._context.get('date_from'))
 
-Date / Datetime comparison best practices:
+日期/日期时间比较的最佳实践：
 
-* Date fields can **only** be compared to date objects.
-* Datetime fields can **only** be compared to datetime objects.
+* 日期字段 **只能** 与日期对象比较。
+* 日期时间字段 **只能** 与日期时间对象比较。
 
-.. warning:: Strings representing dates and datetimes can be compared
-             between each other, however the result may not be the expected
-             result, as a datetime string will always be greater than a
-             date string, therefore this practice is **heavily**
-             discouraged.
+.. warning:: 可以比较表示日期和日期时间的字符串，但是结果可能不是预期的，
+             因为日期时间字符串始终大于日期字符串，因此 **强烈** 不推荐这种做法。
 
-Common operations with dates and datetimes such as addition, subtraction or
-fetching the start/end of a period are exposed through both
-:class:`~odoo.fields.Date` and :class:`~odoo.fields.Datetime`.
-These helpers are also available by importing `odoo.tools.date_utils`.
+与日期和日期时间进行的常见操作（如加法、减法或获取某一时期的开始/结束）可以通过
+:class:`~odoo.fields.Date` 和 :class:`~odoo.fields.Datetime` 执行。
+这些帮助方法也可以通过导入 `odoo.tools.date_utils` 使用。
 
-.. note:: Timezones
+.. note:: 时区
 
-    Datetime fields are stored as `timestamp without timezone` columns in the database and are stored
-    in the UTC timezone. This is by design, as it makes the Odoo database independent from the timezone
-    of the hosting server system. Timezone conversion is managed entirely by the client side.
+    日期时间字段在数据库中以 `没有时区的时间戳` 列形式存储，并且以UTC时区存储。这是设计使然，因为这样使得Odoo数据库不依赖于托管服务器系统的时区。时区转换完全由客户端处理。
 
 .. autoclass:: Date()
     :members: today, context_today, to_date, to_string, start_of, end_of, add, subtract
@@ -210,8 +197,8 @@ These helpers are also available by importing `odoo.tools.date_utils`.
 
 .. _reference/fields/relational:
 
-Relational Fields
-~~~~~~~~~~~~~~~~~
+关系字段
+~~~~~~~~~
 
 .. autoclass:: Many2one()
 
@@ -224,8 +211,8 @@ Relational Fields
    :undoc-members:
    :member-order: bysource
 
-Pseudo-relational fields
-~~~~~~~~~~~~~~~~~~~~~~~~
+伪关系字段
+~~~~~~~~~
 
 .. autoclass:: Reference()
 
@@ -233,13 +220,10 @@ Pseudo-relational fields
 
 .. _reference/fields/compute:
 
-Computed Fields
-~~~~~~~~~~~~~~~
+计算字段
+~~~~~~~~
 
-Fields can be computed (instead of read straight from the database) using the
-``compute`` parameter. **It must assign the computed value to the field**. If
-it uses the values of other *fields*, it should specify those fields using
-:func:`~odoo.api.depends`. ::
+字段可以通过 ``compute`` 参数进行计算（而不是直接从数据库读取）。它 **必须为字段赋值**。如果它使用了其他 *字段* 的值，则应该使用 :func:`~odoo.api.depends` 来指定这些字段。::
 
     from odoo import api
     total = fields.Float(compute='_compute_total')
@@ -249,19 +233,16 @@ it uses the values of other *fields*, it should specify those fields using
         for record in self:
             record.total = record.value + record.value * record.tax
 
-* dependencies can be dotted paths when using sub-fields::
+* 使用子字段时，依赖项可以是点路径::
 
     @api.depends('line_ids.value')
     def _compute_total(self):
         for record in self:
             record.total = sum(line.value for line in record.line_ids)
 
-* computed fields are not stored by default, they are computed and
-  returned when requested. Setting ``store=True`` will store them in the
-  database and automatically enable searching.
-* searching on a computed field can also be enabled by setting the ``search``
-  parameter. The value is a method name returning a
-  :ref:`reference/orm/domains`. ::
+* 默认情况下，计算字段不会存储，它们是在被请求时计算并返回的。设置 ``store=True`` 将会把它们存储到数据库中，并自动启用搜索功能。
+* 也可以通过设置 ``search`` 参数启用对计算字段的搜索。该值是返回
+  :ref:`reference/orm/domains` 的方法名称。::
 
     upper_name = field.Char(compute='_compute_upper', search='_search_upper')
 
@@ -270,15 +251,11 @@ it uses the values of other *fields*, it should specify those fields using
             operator = 'ilike'
         return [('name', operator, value)]
 
-  The search method is invoked when processing domains before doing an
-  actual search on the model. It must return a domain equivalent to the
-  condition: ``field operator value``.
+  搜索方法在处理域时被调用，并在执行实际的模型搜索之前运行。它必须返回与条件等效的域：``field operator value``。
 
-.. TODO and/or by setting the store to True for search domains ?
+.. TODO and/or 通过为搜索域设置 store=True？
 
-* Computed fields are readonly by default. To allow *setting* values on a computed field, use the ``inverse``
-  parameter. It is the name of a function reversing the computation and
-  setting the relevant fields::
+* 计算字段默认是只读的。要允许 *设置* 计算字段的值，请使用 ``inverse`` 参数。它是一个函数名称，该函数反转计算并设置相关字段。::
 
     document = fields.Char(compute='_get_document', inverse='_set_document')
 
@@ -292,8 +269,7 @@ it uses the values of other *fields*, it should specify those fields using
             with open(record.get_document_path()) as f:
                 f.write(record.document)
 
-* multiple fields can be computed at the same time by the same method, just
-  use the same method on all fields and set all of them::
+* 可以同时通过同一个方法计算多个字段，只需在所有字段上使用相同的方法并同时设置它们的值。::
 
     discount_value = fields.Float(compute='_apply_discount')
     total = fields.Float(compute='_apply_discount')
@@ -301,91 +277,67 @@ it uses the values of other *fields*, it should specify those fields using
     @api.depends('value', 'discount')
     def _apply_discount(self):
         for record in self:
-            # compute actual discount from discount percentage
+            # 从折扣百分比计算实际折扣
             discount = record.value * record.discount
             record.discount_value = discount
             record.total = record.value - discount
 
 .. warning::
 
-    While it is possible to use the same compute method for multiple
-    fields, it is not recommended to do the same for the inverse
-    method.
+    虽然可以为多个字段使用相同的计算方法，但不建议为反向方法做同样的处理。
 
-    During the computation of the inverse, **all** fields that use
-    said inverse are protected, meaning that they can't be computed,
-    even if their value is not in the cache.
+    在执行反向计算时，**所有** 使用该反向方法的字段都是受保护的，这意味着它们不能被计算，即使它们的值不在缓存中。
 
-    If any of those fields is accessed and its value is not in cache,
-    the ORM will simply return a default value of `False` for these fields.
-    This means that the value of the inverse fields (other than the one
-    triggering the inverse method) may not give their correct value and
-    this will probably break the expected behavior of the inverse method.
+    如果这些字段中的任何一个被访问并且它的值不在缓存中，ORM 将简单地返回这些字段的默认值 `False`。
+    这意味着除了触发反向方法的字段之外，反向字段的值可能不正确，并且这可能会破坏反向方法的预期行为。
 
 .. _reference/fields/related:
 
-Related fields
-~~~~~~~~~~~~~~
+相关字段
+~~~~~~~~~
 
-A special case of computed fields are *related* (proxy) fields, which provide
-the value of a sub-field on the current record. They are defined by setting
-the ``related`` parameter and like regular computed fields they can be
-stored::
+计算字段的一个特例是 *相关*（代理）字段，它提供当前记录的子字段的值。它们通过设置 ``related`` 参数来定义，并且像常规计算字段一样可以被存储。::
 
     nickname = fields.Char(related='user_id.partner_id.name', store=True)
 
-The value of a related field is given by following a sequence of
-relational fields and reading a field on the reached model. The complete
-sequence of fields to traverse is specified by the ``related`` attribute.
+相关字段的值是通过一系列关系字段进行传递并在达到的模型上读取字段值。完整的字段序列由 ``related`` 属性指定。
 
-Some field attributes are automatically copied from the source field if
-they are not redefined: ``string``, ``help``, ``required`` (only
-if all fields in the sequence are required), ``groups``, ``digits``, ``size``,
-``translate``, ``sanitize``, ``selection``, ``comodel_name``, ``domain``,
-``context``. All semantic-free attributes are copied from the source
-field.
+如果没有重新定义某些字段属性，则这些属性会自动从源字段复制：``string``，``help``，``required``（仅在序列中的所有字段都是必需时），``groups``，``digits``，``size``，``translate``，``sanitize``，``selection``，``comodel_name``，``domain``，``context``。所有无语义的属性都从源字段复制。
 
-By default, related fields are:
+默认情况下，相关字段是：
 
-* not stored
-* not copied
-* readonly
-* computed in superuser mode
+* 不存储
+* 不复制
+* 只读
+* 在超级用户模式下计算
 
-Add the attribute ``store=True`` to make it stored, just like computed
-fields. Related fields are automatically recomputed when their
-dependencies are modified.
+添加属性 ``store=True`` 以使其像计算字段一样存储。相关字段在它们的依赖项被修改时会自动重新计算。
 
 .. tip::
 
-    You can specify precise field dependencies if you don't want
-    the related field to be recomputed on any dependency change::
+    如果你不希望相关字段在任何依赖项更改时重新计算，可以指定精确的字段依赖项。::
 
         nickname = fields.Char(
             related='partner_id.name', store=True,
             depends=['partner_id'])
-        # The nickname will only be recomputed when the partner_id
-        # is modified, not when the name is modified on the partner.
+        # 只有当 partner_id 被修改时才会重新计算昵称，而不是当 partner 的 name 被修改时。
 
 .. warning::
 
-    You cannot chain :class:`~odoo.fields.Many2many` or :class:`~odoo.fields.One2many` fields in ``related`` fields dependencies.
+    你不能在 ``related`` 字段依赖中串联 :class:`~odoo.fields.Many2many` 或 :class:`~odoo.fields.One2many` 字段。
 
-    ``related`` can be used to refer to a :class:`~odoo.fields.One2many` or
-    :class:`~odoo.fields.Many2many` field on another model on the
-    condition that it's done through a ``Many2one`` relation on the current model.
-    ``One2many`` and ``Many2many`` are not supported and the results will not be
-    aggregated correctly::
+    ``related`` 可以用来引用另一个模型上的 :class:`~odoo.fields.One2many` 或 :class:`~odoo.fields.Many2many` 字段，前提是通过当前模型上的 ``Many2one`` 关系进行操作。
+    ``One2many`` 和 ``Many2many`` 不受支持，结果不会正确聚合。::
 
       m2o_id = fields.Many2one()
       m2m_ids = fields.Many2many()
       o2m_ids = fields.One2many()
 
-      # Supported
+      # 支持
       d_ids = fields.Many2many(related="m2o_id.m2m_ids")
       e_ids = fields.One2many(related="m2o_id.o2m_ids")
 
-      # Won't work: use a custom Many2many computed field instead
+      # 不支持：请使用自定义的 Many2many 计算字段
       f_ids = fields.Many2many(related="m2m_ids.m2m_ids")
       g_ids = fields.One2many(related="o2m_ids.o2m_ids")
 
@@ -393,83 +345,70 @@ dependencies are modified.
 
 .. _reference/fields/automatic:
 
-Automatic fields
-----------------
+自动字段
+--------
 
 .. attribute:: Model.id
 
-    Identifier :class:`field <odoo.fields.Field>`
+    标识符 :class:`字段 <odoo.fields.Field>`
 
-    If length of current recordset is 1, return id of unique record in it.
+    如果当前记录集的长度为1，返回它唯一的记录的id。
 
-    Raise an Error otherwise.
+    否则抛出错误。
 
 .. attribute:: Model.display_name
 
-    Name :class:`field <odoo.fields.Char>` displayed by default in the web client
+    默认在Web客户端中显示的字段名称 :class:`字段 <odoo.fields.Char>`
 
-    By default, it equals to :attr:`~odoo.models.BaseModel._rec_name` value field
-    but the behavior can be customized by overriding :attr:`~odoo.models.BaseModel._compute_display_name`
+    默认情况下，它等于 :attr:`~odoo.models.BaseModel._rec_name` 值字段，但可以通过重写 :attr:`~odoo.models.BaseModel._compute_display_name` 来自定义行为。
 
 .. _reference/fields/automatic/log_access:
 
-Access Log fields
-~~~~~~~~~~~~~~~~~
+访问日志字段
+~~~~~~~~~~~~
 
-These fields are automatically set and updated if
-:attr:`~odoo.models.BaseModel._log_access` is enabled. It can be
-disabled to avoid creating or updating those fields on tables for which they are
-not useful.
+如果启用了 :attr:`~odoo.models.BaseModel._log_access`，则会自动设置和更新这些字段。为了避免在不必要的表上创建或更新这些字段，可以禁用它。
 
-By default, :attr:`~odoo.models.BaseModel._log_access` is set to the same value
-as :attr:`~odoo.models.BaseModel._auto`
+默认情况下，:attr:`~odoo.models.BaseModel._log_access` 设置为与 :attr:`~odoo.models.BaseModel._auto` 相同的值。
 
 .. attribute:: Model.create_date
 
-    Stores when the record was created, :class:`~odoo.fields.Datetime`
+    记录创建的时间，:class:`~odoo.fields.Datetime`
 
 .. attribute:: Model.create_uid
 
-    Stores *who* created the record, :class:`~odoo.fields.Many2one` to a
-    ``res.users``.
+    创建记录的用户，:class:`~odoo.fields.Many2one` 到 ``res.users``。
 
 .. attribute:: Model.write_date
 
-    Stores when the record was last updated, :class:`~odoo.fields.Datetime`
+    记录最后一次更新的时间，:class:`~odoo.fields.Datetime`
 
 .. attribute:: Model.write_uid
 
-    Stores who last updated the record, :class:`~odoo.fields.Many2one` to a
-    ``res.users``.
+    最后一次更新记录的用户，:class:`~odoo.fields.Many2one` 到 ``res.users``。
 
-.. warning:: :attr:`~odoo.models.BaseModel._log_access` *must* be enabled on
-             :class:`~odoo.models.TransientModel`.
+.. warning:: :attr:`~odoo.models.BaseModel._log_access` *必须* 在 :class:`~odoo.models.TransientModel` 上启用。
 
 .. _reference/orm/fields/reserved:
 
-Reserved Field names
---------------------
+保留字段名称
+------------
 
-A few field names are reserved for pre-defined behaviors beyond that of
-automated fields. They should be defined on a model when the related
-behavior is desired:
+一些字段名称被保留用于特定的预定义行为，超出了自动字段的范畴。当需要相关行为时，应在模型上定义这些字段：
 
 .. attribute:: Model.name
 
-   default value for :attr:`~odoo.models.BaseModel._rec_name`, used to
-   display records in context where a representative "naming" is
-   necessary.
+   默认值为 :attr:`~odoo.models.BaseModel._rec_name`，用于在需要代表“命名”的上下文中显示记录。
 
    :class:`~odoo.fields.Char`
 
 .. attribute:: Model.active
 
-  toggles the global visibility of the record, if ``active`` is set to
-  ``False`` the record is invisible in most searches and listing.
+  切换记录的全局可见性，如果 ``active`` 设置为 ``False``，则该记录在大多数搜索和列表中不可见。
 
   :class:`~odoo.fields.Boolean`
 
-  Special methods:
+  特殊方法：
 
   .. automethod:: Model.toggle_active
   .. automethod:: Model.action_archive
@@ -477,88 +416,72 @@ behavior is desired:
 
 .. attribute:: Model.state
 
-  lifecycle stages of the object, used by the ``states`` attribute on
-  :class:`fields <odoo.fields.Field>`.
+  对象的生命周期阶段，使用在 :class:`fields <odoo.fields.Field>` 的 ``states`` 属性上。
 
   :class:`~odoo.fields.Selection`
 
 .. attribute:: Model.parent_id
 
-  default_value of :attr:`~._parent_name`, used to organize
-  records in a tree structure and enables the ``child_of``
-  and ``parent_of`` operators in domains.
+  :attr:`~._parent_name` 的默认值，用于将记录组织为树形结构，并在域中启用 ``child_of`` 和 ``parent_of`` 操作符。
 
   :class:`~odoo.fields.Many2one`
 
 .. attribute:: Model.parent_path
 
-  When :attr:`~._parent_store` is set to True, used to store a value reflecting
-  the tree structure of :attr:`~._parent_name`, and to optimize the operators
-  ``child_of`` and ``parent_of`` in search domains.
-  It must be declared with ``index=True`` for proper operation.
+  当 :attr:`~._parent_store` 设置为True时，用户存储反映树形结构的值，并优化搜索域中的 ``child_of`` 和 ``parent_of`` 操作符。
+  必须声明为 ``index=True`` 以确保正确操作。
 
   :class:`~odoo.fields.Char`
 
 .. attribute:: Model.company_id
 
-  Main field name used for Odoo multi-company behavior.
+  Odoo多公司行为的主要字段名称。
 
-  Used by `:meth:~odoo.models._check_company` to check multi company consistency.
-  Defines whether a record is shared between companies (no value) or only
-  accessible by the users of a given company.
+  用于 `:meth:~odoo.models._check_company` 检查多公司一致性。
+  定义记录是由哪些公司共享（没有值），还是仅由特定公司的用户访问。
 
   :class:`~odoo.fields.Many2one`
   :type: :class:`~odoo.addons.base.models.res_company`
+记录集
+======
 
-Recordsets
-==========
+与模型和记录的交互是通过记录集完成的，记录集是同一模型的记录的有序集合。
 
-Interactions with models and records are performed through recordsets, an ordered
-collection of records of the same model.
+.. warning:: 与名称的含义相反，当前记录集可能包含重复项。未来这一点可能会改变。
 
-.. warning:: Contrary to what the name implies, it is currently possible for
-             recordsets to contain duplicates. This may change in the future.
-
-Methods defined on a model are executed on a recordset, and their ``self`` is
-a recordset::
+定义在模型上的方法是在记录集上执行的，并且它们的 ``self`` 是一个记录集::
 
     class AModel(models.Model):
         _name = 'a.model'
         def a_method(self):
-            # self can be anything between 0 records and all records in the
-            # database
+            # self 可以是从0条记录到数据库中的所有记录
             self.do_operation()
 
-Iterating on a recordset will yield new sets of *a single record*
-("singletons"), much like iterating on a Python string yields strings of a
-single characters::
+迭代记录集将生成新的 *单条记录* 集（“单例”），类似于在 Python 字符串上迭代时生成单个字符的字符串::
 
         def do_operation(self):
             print(self) # => a.model(1, 2, 3, 4, 5)
             for record in self:
-                print(record) # => a.model(1), then a.model(2), then a.model(3), ...
+                print(record) # => a.model(1), 然后是 a.model(2), 然后是 a.model(3), ...
 
-Field access
-------------
+字段访问
+--------
 
-Recordsets provide an "Active Record" interface: model fields can be read and
-written directly from the record as attributes.
+记录集提供了“活动记录”接口：模型字段可以直接从记录中作为属性进行读取和写入。
 
 .. note::
 
-    When accessing non-relational fields on a recordset of potentially multiple
-    records, use :meth:`~odoo.models.BaseModel.mapped`::
+    当访问多个记录集中的非关系字段时，请使用 :meth:`~odoo.models.BaseModel.mapped`::
 
         total_qty = sum(self.mapped('qty'))
 
-Field values can also be accessed like dict items, which is more elegant and
-safer than ``getattr()`` for dynamic field names.
-Setting a field's value triggers an update to the database::
+字段值也可以像字典项一样访问，这比 ``getattr()`` 更优雅且更安全，尤其是对于动态字段名称。
+设置字段值会触发数据库更新::
 
     >>> record.name
-    Example Name
+    示例名称
     >>> record.company_id.name
-    Company Name
+    公司名称
     >>> record.name = "Bob"
     >>> field = "name"
     >>> record[field]
@@ -566,63 +489,44 @@ Setting a field's value triggers an update to the database::
 
 .. warning::
 
-    Trying to read a field on multiple records will raise an error for non relational
-    fields.
+    尝试在多个记录上读取非关系字段会引发错误。
 
-Accessing a relational field (:class:`~odoo.fields.Many2one`,
+访问关系字段 (:class:`~odoo.fields.Many2one`,
 :class:`~odoo.fields.One2many`, :class:`~odoo.fields.Many2many`)
-*always* returns a recordset, empty if the field is not set.
+*总是* 返回一个记录集，如果字段未设置，则返回空集。
 
-Record cache and prefetching
-----------------------------
+记录缓存和预取
+-------------
 
-Odoo maintains a cache for the fields of the records, so that not every field
-access issues a database request, which would be terrible for performance. The
-following example queries the database only for the first statement::
+Odoo 为记录的字段维护缓存，因此并非每次字段访问都会发出数据库请求，这对性能来说将是灾难性的。以下示例仅在第一次语句时查询数据库::
 
-    record.name             # first access reads value from database
-    record.name             # second access gets value from cache
+    record.name             # 第一次访问从数据库读取值
+    record.name             # 第二次访问从缓存中获取值
 
-To avoid reading one field on one record at a time, Odoo *prefetches* records
-and fields following some heuristics to get good performance. Once a field must
-be read on a given record, the ORM actually reads that field on a larger
-recordset, and stores the returned values in cache for later use. The prefetched
-recordset is usually the recordset from which the record comes by iteration.
-Moreover, all simple stored fields (boolean, integer, float, char, text, date,
-datetime, selection, many2one) are fetched altogether; they correspond to the
-columns of the model's table, and are fetched efficiently in the same query.
+为了避免每次读取一个字段，Odoo *预取* 记录和字段，并使用一些启发式方法以获得良好的性能。一旦必须在某条记录上读取字段，ORM 实际上会读取一个较大的记录集上的该字段，并将返回的值存储在缓存中以供以后使用。预取的记录集通常是通过迭代获取记录时的记录集。
+此外，所有简单存储的字段（布尔型、整数型、浮点型、字符型、文本型、日期、日期时间、选择、Many2one）会一起获取；它们对应模型表中的列，并通过同一个查询高效地获取。
 
-Consider the following example, where ``partners`` is a recordset of 1000
-records. Without prefetching, the loop would make 2000 queries to the database.
-With prefetching, only one query is made::
+考虑以下示例，其中 ``partners`` 是一个包含1000条记录的记录集。没有预取的话，这个循环将向数据库发出2000个查询。有了预取，只需发出一个查询::
 
     for partner in partners:
-        print partner.name          # first pass prefetches 'name' and 'lang'
-                                    # (and other fields) on all 'partners'
+        print partner.name          # 第一次迭代预取所有 'partners' 的 'name' 和 'lang'
         print partner.lang
 
-The prefetching also works on *secondary records*: when relational fields are
-read, their values (which are records) are  subscribed for future prefetching.
-Accessing one of those secondary records prefetches all secondary records from
-the same model. This makes the following example generate only two queries, one
-for partners and one for countries::
+预取也适用于 *次级记录*：当读取关系字段时，它们的值（记录）会被订阅以供将来预取。访问这些次级记录之一会预取同一模型的所有次级记录。这使得以下示例仅生成两个查询，一个用于合作伙伴，一个用于国家::
 
     countries = set()
     for partner in partners:
-        country = partner.country_id        # first pass prefetches all partners
-        countries.add(country.name)         # first pass prefetches all countries
+        country = partner.country_id        # 第一次迭代预取所有合作伙伴
+        countries.add(country.name)         # 第一次迭代预取所有国家
 
 .. seealso::
-    The methods :meth:`~odoo.models.Model.search_fetch` and
-    :meth:`~odoo.models.Model.fetch` can be used to populate the cache of
-    records, typically in cases where the prefetching mechanism does not work
-    well.
-
+    :meth:`~odoo.models.Model.search_fetch` 和
+    :meth:`~odoo.models.Model.fetch` 方法可以用于填充记录缓存，尤其是在预取机制效果不佳的情况下。
 
 .. _reference/api/decorators:
 
-Method decorators
-=================
+方法装饰器
+==========
 
 .. automodule:: odoo.api
     :members: depends, depends_context, constrains, onchange, returns, autovacuum, model, model_create_multi, ondelete
@@ -636,22 +540,19 @@ Method decorators
 .. .. autodata:: returns
 .. .. autodata:: autovacuum
 
-.. todo:: With sphinx 2.0 : autodecorator
+.. todo:: 使用 sphinx 2.0 : autodecorator
 
-.. todo:: Add in Views reference
-  * It is possible to suppress the trigger from a specific field by adding
-  ``on_change="0"`` in a view::
+.. todo:: 在视图参考中添加
+  * 可以通过在视图中添加 ``on_change="0"`` 来禁止触发器::
 
     <field name="name" on_change="0"/>
 
-  will not trigger any interface update when the field is edited by the user,
-  even if there are function fields or explicit onchange depending on that
-  field.
+  在用户编辑字段时，即使有依赖的计算字段或明确的onchange，也不会触发界面更新。
 
 .. _reference/orm/environment:
 
-Environment
-===========
+环境
+====
 
 .. currentmodule:: odoo.api
 
@@ -660,17 +561,15 @@ Environment
 .. code-block:: bash
 
     >>> records.env
-    <Environment object ...>
+    <Environment 对象 ...>
     >>> records.env.uid
     3
     >>> records.env.user
     res.user(3)
     >>> records.env.cr
-    <Cursor object ...>
+    <Cursor 对象 ...>
 
-When creating a recordset from an other recordset, the environment is
-inherited. The environment can be used to get an empty recordset in an
-other model, and query that model:
+当从其他记录集创建记录集时，环境会被继承。环境可用于获取其他模型中的空记录集，并查询该模型：
 
 .. code-block:: bash
 
@@ -679,23 +578,23 @@ other model, and query that model:
     >>> self.env['res.partner'].search([('is_company', '=', True), ('customer', '=', True)])
     res.partner(7, 18, 12, 14, 17, 19, 8, 31, 26, 16, 13, 20, 30, 22, 29, 15, 23, 28, 74)
 
-Some lazy properties are available to access the environment (contextual) data:
+一些懒加载属性可以访问环境（上下文）数据：
 
 .. autoattribute:: Environment.lang
 .. autoattribute:: Environment.user
 .. autoattribute:: Environment.company
 .. autoattribute:: Environment.companies
 
-Useful environment methods
---------------------------
+有用的环境方法
+----------------
 
 .. automethod:: Environment.ref
 .. automethod:: Environment.is_superuser
 .. automethod:: Environment.is_admin
 .. automethod:: Environment.is_system
 
-Altering the environment
-------------------------
+更改环境
+--------
 
 .. currentmodule:: odoo.models
 
@@ -710,51 +609,41 @@ Altering the environment
 .. automethod:: Model.sudo
 
 .. _reference/orm/sql:
-
-SQL Execution
+SQL 执行
 -------------
 
-The :attr:`~odoo.api.Environment.cr` attribute on environments is the
-cursor for the current database transaction and allows executing SQL directly,
-either for queries which are difficult to express using the ORM (e.g. complex
-joins) or for performance reasons::
+环境中的 :attr:`~odoo.api.Environment.cr` 属性是当前数据库事务的游标，允许直接执行 SQL 查询，
+无论是因为查询难以通过 ORM 表达（例如复杂的连接），还是出于性能原因::
 
     self.env.cr.execute("some_sql", params)
 
 .. warning::
-    Executing raw SQL bypasses the ORM and, by consequent, Odoo security rules.
-    Please make sure your queries are sanitized when using user input and prefer using
-    ORM utilities if you don't really need to use SQL queries.
+    执行原始 SQL 绕过了 ORM，因此也绕过了 Odoo 的安全规则。
+    请确保在使用用户输入时对查询进行清理，并且除非确实需要使用 SQL 查询，否则请优先使用 ORM 工具。
 
-The recommended way to build SQL queries is to use the wrapper object
+构建 SQL 查询的推荐方式是使用封装对象
 
 .. autoclass:: odoo.tools.SQL
 
     .. automethod:: SQL.join
     .. automethod:: SQL.identifier
 
-One important thing to know about models is that they don't necessarily perform
-database updates right away. Indeed, for performance reasons, the framework
-delays the recomputation of fields after modifying records. And some database
-updates are delayed, too. Therefore, before querying the database, one has to
-make sure that it contains the relevant data for the query. This operation is
-called *flushing* and performs the expected database updates.
+需要了解的重要一点是，模型并不会立即执行数据库更新。实际上，为了提高性能，框架会延迟字段的重新计算，
+而某些数据库更新也会被延迟。因此，在查询数据库之前，必须确保数据库包含查询所需的相关数据。
+这一操作被称为 *flush*，它会执行预期的数据库更新。
 
 .. example::
 
     .. code-block:: python
 
-        # make sure that 'partner_id' is up-to-date in database
+        # 确保 'partner_id' 在数据库中是最新的
         self.env['model'].flush_model(['partner_id'])
 
         self.env.cr.execute(SQL("SELECT id FROM model WHERE partner_id IN %s", ids))
         ids = [row[0] for row in self.env.cr.fetchall()]
 
-Before every SQL query, one has to flush the data needed for that query. There
-are three levels for flushing, each with its own API. One can flush either
-everything, all the records of a model, or some specific records. Because
-delaying updates improves performance in general, we recommend to be *specific*
-when flushing.
+在每次 SQL 查询之前，必须 flush 该查询所需的数据。flush 有三个级别，每个级别都有其对应的 API。
+可以 flush 所有内容、模型的所有记录或特定的记录。由于延迟更新通常可以提高性能，我们建议在 flush 时尽可能 *具体*。
 
 .. automethod:: odoo.api.Environment.flush_all
 
@@ -762,29 +651,24 @@ when flushing.
 
 .. automethod:: Model.flush_recordset
 
-Because models use the same cursor and the :class:`~odoo.api.Environment`
-holds various caches, these caches must be invalidated when *altering* the
-database in raw SQL, or further uses of models may become incoherent. It is
-necessary to clear caches when using ``CREATE``, ``UPDATE`` or ``DELETE`` in
-SQL, but not ``SELECT`` (which simply reads the database).
+因为模型使用相同的游标，且 :class:`~odoo.api.Environment` 持有多个缓存，
+当在原始 SQL 中 *更改* 数据库时，必须使缓存失效，否则进一步使用模型可能会变得不一致。
+在 SQL 中使用 ``CREATE``、``UPDATE`` 或 ``DELETE`` 时，必须清除缓存，但不需要清除 ``SELECT``（它只是读取数据库）。
 
 .. example::
 
     .. code-block:: python
 
-        # make sure 'state' is up-to-date in database
+        # 确保 'state' 在数据库中是最新的
         self.env['model'].flush_model(['state'])
 
         self.env.cr.execute("UPDATE model SET state=%s WHERE state=%s", ['new', 'old'])
 
-        # invalidate 'state' from the cache
+        # 从缓存中使 'state' 失效
         self.env['model'].invalidate_model(['state'])
 
-Just like flushing, one can invalidate either the whole cache, the cache of all
-the records of a model, or the cache of specific records. One can even
-invalidate specific fields on some records or all records of a model. As the
-cache improves performance in general, we recommend to be *specific* when
-invalidating.
+和 flush 一样，可以使整个缓存失效、模型所有记录的缓存失效，或者特定记录的缓存失效。
+甚至可以使某些记录或模型的所有记录上的特定字段失效。由于缓存通常提高了性能，我们建议在使缓存失效时尽量 *具体*。
 
 .. automethod:: odoo.api.Environment.invalidate_all
 
@@ -792,49 +676,42 @@ invalidating.
 
 .. automethod:: Model.invalidate_recordset
 
-The methods above keep the caches and the database consistent with each other.
-However, if computed field dependencies have been modified in the database, one
-has to inform the models for the computed fields to be recomputed. The only
-thing the framework needs to know is *what* fields have changed on *which*
-records.
+上面的方法可以保持缓存与数据库的一致性。但是，如果计算字段的依赖关系在数据库中发生了变化，
+必须通知模型，以便重新计算这些字段。框架唯一需要知道的是 *哪些* 字段在 *哪些* 记录上发生了变化。
 
 .. example::
 
     .. code-block:: python
 
-        # make sure 'state' is up-to-date in database
+        # 确保 'state' 在数据库中是最新的
         self.env['model'].flush_model(['state'])
 
-        # use the RETURNING clause to retrieve which rows have changed
+        # 使用 RETURNING 子句来获取哪些行发生了变化
         self.env.cr.execute("UPDATE model SET state=%s WHERE state=%s RETURNING id", ['new', 'old'])
         ids = [row[0] for row in self.env.cr.fetchall()]
 
-        # invalidate the cache, and notify the update to the framework
+        # 使缓存失效，并通知框架更新
         records = self.env['model'].browse(ids)
         records.invalidate_recordset(['state'])
         records.modified(['state'])
 
-One has to figure out which records have been modified. There are many ways to
-do this, possibly involving extra SQL queries. In the example above, we take
-advantage of the ``RETURNING`` clause of PostgreSQL to retrieve the information
-without an extra query. After making the cache consistent by invalidation,
-invoke the method ``modified`` on the modified records with the fields that
-have been updated.
+必须找出哪些记录被修改了。可能有多种方式可以做到这一点，可能涉及额外的 SQL 查询。在上述示例中，我们利用 PostgreSQL 的 ``RETURNING`` 子句，
+无需额外的查询即可检索到这些信息。在通过使缓存失效保持缓存一致后，调用修改记录的 ``modified`` 方法，并指定已更新的字段。
 
 .. automethod:: Model.modified
 
 
 .. _reference/orm/models/crud:
 
-Common ORM methods
+常用 ORM 方法
 ==================
 
 .. currentmodule:: odoo.models
 
-Create/update
+创建/更新
 -------------
 
-.. todo:: api.model_create_multi information
+.. todo:: api.model_create_multi 信息
 
 .. automethod:: Model.create
 
@@ -846,7 +723,7 @@ Create/update
 
 .. automethod:: Model.write
 
-Search/Read
+搜索/读取
 -----------
 
 .. automethod:: Model.browse
@@ -867,138 +744,108 @@ Search/Read
 
 .. automethod:: Model.read_group
 
-Fields
+字段
 ~~~~~~
 
 .. automethod:: Model.fields_get
 
 .. _reference/orm/domains:
-
-Search domains
+搜索域
 ~~~~~~~~~~~~~~
 
-A domain is a list of criteria, each criterion being a triple (either a
-``list`` or a ``tuple``) of ``(field_name, operator, value)`` where:
+搜索域是一个条件列表，每个条件是一个三元组（可以是 ``list`` 或 ``tuple``），格式为 ``(字段名, 操作符, 值)``，具体如下：
 
-* ``field_name`` (``str``)
-    a field name of the current model, or a relationship traversal through
-    a :class:`~odoo.fields.Many2one` using dot-notation e.g. ``'street'``
-    or ``'partner_id.country'``
+* ``字段名`` (``str``)
+    当前模型中的字段名，或通过类 :class:`~odoo.fields.Many2one` 进行关系字段的点表示法遍历，例如 ``'street'`` 或 ``'partner_id.country'``。
 
-* ``operator`` (``str``)
-    an operator used to compare the ``field_name`` with the ``value``. Valid
-    operators are:
+* ``操作符`` (``str``)
+    用于将 ``字段名`` 与 ``值`` 进行比较的操作符。有效的操作符有：
 
     ``=``
-        equals to
+        等于
     ``!=``
-        not equals to
+        不等于
     ``>``
-        greater than
+        大于
     ``>=``
-        greater than or equal to
+        大于或等于
     ``<``
-        less than
+        小于
     ``<=``
-        less than or equal to
+        小于或等于
     ``=?``
-        unset or equals to (returns true if ``value`` is either ``None`` or
-        ``False``, otherwise behaves like ``=``)
+        未设置或等于（如果 ``值`` 为 ``None`` 或 ``False`` 则返回 true，否则行为与 ``=`` 相同）
     ``=like``
-        matches ``field_name`` against the ``value`` pattern. An underscore
-        ``_`` in the pattern stands for (matches) any single character; a
-        percent sign ``%`` matches any string of zero or more characters.
+        将 ``字段名`` 与 ``值`` 模式进行匹配。模式中的下划线 ``_`` 匹配任意单个字符，百分号 ``%`` 匹配任意数量字符（包括零个）。
     ``like``
-        matches ``field_name`` against the ``%value%`` pattern. Similar to
-        ``=like`` but wraps ``value`` with '%' before matching
+        将 ``字段名`` 与 ``%值%`` 模式进行匹配。类似于 ``=like``，但在匹配前会自动为 ``值`` 两侧添加百分号。
     ``not like``
-        doesn't match against the ``%value%`` pattern
+        不与 ``%值%`` 模式匹配。
     ``ilike``
-        case insensitive ``like``
+        忽略大小写的 ``like`` 匹配。
     ``not ilike``
-        case insensitive ``not like``
+        忽略大小写的 ``not like`` 匹配。
     ``=ilike``
-        case insensitive ``=like``
+        忽略大小写的 ``=like`` 匹配。
     ``in``
-        is equal to any of the items from ``value``, ``value`` should be a
-        list of items
+        等于 ``值`` 列表中的任意一个元素，``值`` 应该是一个项目列表。
     ``not in``
-        is unequal to all of the items from ``value``
+        不等于 ``值`` 列表中的任何一个元素。
     ``child_of``
-        is a child (descendant) of a ``value`` record (value can be either
-        one item or a list of items).
-
-        Takes the semantics of the model into account (i.e following the
-        relationship field named by
-        :attr:`~odoo.models.Model._parent_name`).
+        是 ``值`` 记录的子记录（后代），``值`` 可以是一个项目或项目列表。根据模型的语义（即遵循 :attr:`~odoo.models.Model._parent_name` 字段定义的关系）进行操作。
     ``parent_of``
-        is a parent (ascendant) of a ``value`` record (value can be either
-        one item or a list of items).
-
-        Takes the semantics of the model into account (i.e following the
-        relationship field named by
-        :attr:`~odoo.models.Model._parent_name`).
+        是 ``值`` 记录的父记录（祖先），``值`` 可以是一个项目或项目列表。根据模型的语义（即遵循 :attr:`~odoo.models.Model._parent_name` 字段定义的关系）进行操作。
     ``any``
-        matches if any record in the relationship traversal through
-        ``field_name`` (:class:`~odoo.fields.Many2one`,
-        :class:`~odoo.fields.One2many`, or :class:`~odoo.fields.Many2many`)
-        satisfies the provided domain ``value``.
+        如果在通过 ``字段名`` 进行关系字段遍历时（:class:`~odoo.fields.Many2one`、:class:`~odoo.fields.One2many` 或 :class:`~odoo.fields.Many2many`）有任何记录满足提供的域 ``值``，则匹配。
     ``not any``
-        matches if no record in the relationship traversal through
-        ``field_name`` (:class:`~odoo.fields.Many2one`,
-        :class:`~odoo.fields.One2many`, or :class:`~odoo.fields.Many2many`)
-        satisfies the provided domain ``value``.
+        如果在通过 ``字段名`` 进行关系字段遍历时（:class:`~odoo.fields.Many2one`、:class:`~odoo.fields.One2many` 或 :class:`~odoo.fields.Many2many`）没有记录满足提供的域 ``值``，则匹配。
 
-* ``value``
-    variable type, must be comparable (through ``operator``) to the named
-    field.
+* ``值``
+    变量类型，必须可以与命名字段通过 ``操作符`` 进行比较。
 
-Domain criteria can be combined using logical operators in *prefix* form:
+域条件可以使用逻辑操作符以 *前缀* 形式组合：
 
 ``'&'``
-    logical *AND*, default operation to combine criteria following one
-    another. Arity 2 (uses the next 2 criteria or combinations).
+    逻辑 *AND*，默认操作，用于组合一个接一个的条件。二元操作符（使用接下来的 2 个条件或组合）。
 ``'|'``
-    logical *OR*, arity 2.
+    逻辑 *OR*，二元操作符。
 ``'!'``
-    logical *NOT*, arity 1.
+    逻辑 *NOT*，一元操作符。
 
-    .. note:: Mostly to negate combinations of criteria
-        Individual criterion generally have a negative form (e.g. ``=`` ->
-        ``!=``, ``<`` -> ``>=``) which is simpler than negating the positive.
+    .. note:: 通常用于否定组合条件。
+        个人条件通常有负形式（例如 ``=`` -> ``!=``，``<`` -> ``>=``），这比否定正条件更简单。
 
 .. example::
 
-    To search for partners named *ABC*, with a phone or mobile number containing *7620*::
+    要搜索名称为 *ABC* 的合作伙伴，并且电话或手机号码包含 *7620*：
 
         [('name', '=', 'ABC'),
          '|', ('phone','ilike','7620'), ('mobile', 'ilike', '7620')]
 
-    To search sales orders to invoice that have at least one line with
-    a product that is out of stock::
+    要搜索至少有一行包含缺货产品的待开票销售订单：
 
         [('invoice_status', '=', 'to invoice'),
          ('order_line', 'any', [('product_id.qty_available', '<=', 0)])]
 
-Unlink
+删除记录
 ------
 
 .. automethod:: Model.unlink
 
 .. _reference/orm/records/info:
 
-Record(set) information
+记录（集）信息
 -----------------------
 
 .. autoattribute:: Model.ids
 
 .. attribute:: env
 
-    Returns the environment of the given recordset.
+    返回给定记录集的环境。
 
     :type: :class:`~odoo.api.Environment`
 
-.. todo:: Environment documentation
+.. todo:: 环境文档
 
 .. automethod:: Model.exists
 
@@ -1008,93 +855,74 @@ Record(set) information
 
 .. _reference/orm/records/operations:
 
-Operations
+操作
 ----------
 
-Recordsets are immutable, but sets of the same model can be combined using
-various set operations, returning new recordsets.
+记录集是不可变的，但可以使用各种集合操作来组合相同模型的集合，返回新的记录集。
 
-.. addition preserves order but can introduce duplicates
+.. 集合操作保持顺序，但可能引入重复项。
 
-* ``record in set`` returns whether ``record`` (which must be a 1-element
-  recordset) is present in ``set``. ``record not in set`` is the inverse
-  operation
-* ``set1 <= set2`` and ``set1 < set2`` return whether ``set1`` is a subset
-  of ``set2`` (resp. strict)
-* ``set1 >= set2`` and ``set1 > set2`` return whether ``set1`` is a superset
-  of ``set2`` (resp. strict)
-* ``set1 | set2`` returns the union of the two recordsets, a new recordset
-  containing all records present in either source
-* ``set1 & set2`` returns the intersection of two recordsets, a new recordset
-  containing only records present in both sources
-* ``set1 - set2`` returns a new recordset containing only records of ``set1``
-  which are *not* in ``set2``
+* ``record in set`` 返回 ``record``（必须是 1 个元素的记录集）是否存在于 ``set`` 中。 ``record not in set`` 是相反的操作。
+* ``set1 <= set2`` 和 ``set1 < set2`` 返回 ``set1`` 是否是 ``set2`` 的子集（分别为严格子集）。
+* ``set1 >= set2`` 和 ``set1 > set2`` 返回 ``set1`` 是否是 ``set2`` 的超集（分别为严格超集）。
+* ``set1 | set2`` 返回两个记录集的并集，一个包含两个源中所有记录的新记录集。
+* ``set1 & set2`` 返回两个记录集的交集，一个只包含两个源中都存在的记录的新记录集。
+* ``set1 - set2`` 返回一个新记录集，包含 ``set1`` 中不在 ``set2`` 中的记录。
 
-Recordsets are iterable so the usual Python tools are available for
-transformation (:func:`python:map`, :func:`python:sorted`,
-:func:`~python:itertools.ifilter`, ...) however these return either a
-:class:`python:list` or an :term:`python:iterator`, removing the ability to
-call methods on their result, or to use set operations.
+记录集是可迭代的，因此可以使用通常的 Python 工具进行转换（例如 :func:`python:map`、:func:`python:sorted`、:func:`~python:itertools.ifilter` 等），
+但是这些操作返回的要么是 :class:`python:list`，要么是 :term:`python:iterator`，从而失去了调用它们结果的方法，或使用集合操作的能力。
 
-Recordsets therefore provide the following operations returning recordsets themselves
-(when possible):
-
-Filter
+因此，记录集提供了以下操作，返回的仍然是记录集（如果可能的话）：
+过滤
 ~~~~~~
 
 .. automethod:: Model.filtered
 
 .. automethod:: Model.filtered_domain
 
-Map
-~~~
+映射
+~~~~
 
 .. automethod:: Model.mapped
 
 .. note::
 
-    Since V13, multi-relational field access is supported and works like a mapped call:
+    自从 Odoo 13 版本起，多关系字段的访问已被支持，并且行为类似于映射调用：
 
     .. code-block:: python3
 
-        records.partner_id  # == records.mapped('partner_id')
-        records.partner_id.bank_ids  # == records.mapped('partner_id.bank_ids')
-        records.partner_id.mapped('name')  # == records.mapped('partner_id.name')
+        records.partner_id  # 等价于 records.mapped('partner_id')
+        records.partner_id.bank_ids  # 等价于 records.mapped('partner_id.bank_ids')
+        records.partner_id.mapped('name')  # 等价于 records.mapped('partner_id.name')
 
-Sort
+排序
 ~~~~
 
 .. automethod:: Model.sorted
 
-Grouping
-~~~~~~~~
+分组
+~~~~
 
 .. automethod:: Model.grouped
 
 .. _reference/orm/inheritance:
 
-Inheritance and extension
+继承与扩展
 =========================
 
-Odoo provides three different mechanisms to extend models in a modular way:
+Odoo 提供了三种不同的机制来以模块化的方式扩展模型：
 
-* creating a new model from an existing one, adding new information to the
-  copy but leaving the original module as-is
-* extending models defined in other modules in-place, replacing the previous
-  version
-* delegating some of the model's fields to records it contains
+* 从现有模型创建新模型，向副本中添加新信息，同时保持原始模块不变
+* 就地扩展其他模块中定义的模型，替换之前的版本
+* 将模型的一些字段委托给它包含的记录
 
 .. image:: orm/inheritance_methods.png
     :align: center
 
-Classical inheritance
+经典继承
 ---------------------
 
-When using the :attr:`~odoo.models.Model._inherit` and
-:attr:`~odoo.models.Model._name` attributes together, Odoo creates a new
-model using the existing one (provided via
-:attr:`~odoo.models.Model._inherit`) as a base. The new model gets all the
-fields, methods and meta-information (defaults & al) from its base.
+当同时使用 :attr:`~odoo.models.Model._inherit` 和 :attr:`~odoo.models.Model._name` 属性时，Odoo 会使用现有模型（通过 :attr:`~odoo.models.Model._inherit` 提供）作为基础创建一个新模型。新模型继承了基础模型的所有字段、方法和元信息（默认值等）。
 
 .. code-block:: python
 
@@ -1118,7 +946,7 @@ fields, methods and meta-information (defaults & al) from its base.
         def call(self):
             return self.check("model 1")
 
-and using them::
+然后使用它们：
 
     a = env['inheritance.0'].create({'name': 'A'})
     b = env['inheritance.1'].create({'name': 'B'})
@@ -1126,63 +954,51 @@ and using them::
     a.call()
     b.call()
 
-will yield:
+结果为：
 
     "This is model 0 record A"
     "This is model 1 record B"
 
-the second model has inherited from the first model's ``check`` method and its
-``name`` field, but overridden the ``call`` method, as when using standard
-:ref:`Python inheritance <python:tut-inheritance>`.
+第二个模型继承了第一个模型的 ``check`` 方法及其 ``name`` 字段，但重写了 ``call`` 方法，就像标准的 :ref:`Python 继承 <python:tut-inheritance>` 一样。
 
-Extension
+扩展
 ---------
 
-When using :attr:`~odoo.models.Model._inherit` but leaving out
-:attr:`~odoo.models.Model._name`, the new model replaces the existing one,
-essentially extending it in-place. This is useful to add new fields or methods
-to existing models (created in other modules), or to customize or reconfigure
-them (e.g. to change their default sort order)::
+当使用 :attr:`~odoo.models.Model._inherit` 而不定义 :attr:`~odoo.models.Model._name` 时，新模型将替换现有模型，实际上在原地扩展了它。这种方式常用于向现有模型（在其他模块中创建的）添加新字段或方法，或自定义或重新配置它们（例如更改它们的默认排序顺序）：
+
+.. code-block:: python
 
     class Extension0(models.Model):
-    _name = 'extension.0'
-    _description = 'Extension zero'
+        _name = 'extension.0'
+        _description = 'Extension zero'
 
-    name = fields.Char(default="A")
+        name = fields.Char(default="A")
 
     class Extension1(models.Model):
-    _inherit = 'extension.0'
+        _inherit = 'extension.0'
 
-    description = fields.Char(default="Extended")
+        description = fields.Char(default="Extended")
 
 .. code-block:: python3
 
     record = env['extension.0'].create({})
     record.read()[0]
 
-will yield::
+结果为：
 
     {'name': "A", 'description': "Extended"}
 
-
 .. note::
 
-    It will also yield the various :ref:`automatic fields
-    <reference/fields/automatic>` unless they've been disabled
-
-Delegation
+    它还将返回各种 :ref:`自动字段 <reference/fields/automatic>`，除非这些字段已被禁用。
+委托
 ----------
 
-The third inheritance mechanism provides more flexibility (it can be altered
-at runtime) but less power: using the :attr:`~odoo.models.Model._inherits`
-a model *delegates* the lookup of any field not found on the current model
-to "children" models. The delegation is performed via
-:class:`~odoo.fields.Reference` fields automatically set up on the parent
-model.
+第三种继承机制提供了更多的灵活性（可以在运行时修改），但功能较弱：通过使用 :attr:`~odoo.models.Model._inherits`，模型将任何在当前模型中找不到的字段查找委托给“子”模型。委托是通过父模型上自动设置的 :class:`~odoo.fields.Reference` 字段来实现的。
 
-The main difference is in the meaning. When using Delegation, the model
-**has one** instead of **is one**, turning the relationship in a composition
-instead of inheritance::
+主要区别在于语义。当使用委托时，模型是 **拥有一个** 而不是 **是一个**，将关系从继承转变为组合：
+
+.. code-block:: python
 
     class Screen(models.Model):
         _name = 'delegation.screen'
@@ -1208,9 +1024,9 @@ instead of inheritance::
         name = fields.Char(string='Name')
         maker = fields.Char(string='Maker')
 
-        # a Laptop has a screen
+        # 一个 Laptop 拥有一个屏幕
         screen_id = fields.Many2one('delegation.screen', required=True, ondelete="cascade")
-        # a Laptop has a keyboard
+        # 一个 Laptop 拥有一个键盘
         keyboard_id = fields.Many2one('delegation.keyboard', required=True, ondelete="cascade")
 
 .. code-block:: python3
@@ -1222,35 +1038,31 @@ instead of inheritance::
     record.size
     record.layout
 
-will result in::
+结果为：
 
     13.0
     'QWERTY'
 
-and it's possible to write directly on the delegated field::
+可以直接写入委托字段的值：
 
     record.write({'size': 14.0})
 
-.. warning:: when using delegation inheritance, methods are *not* inherited,
-             only fields
+.. warning:: 使用委托继承时，方法不会被继承，只有字段会被继承。
 
 .. warning::
 
-    * `_inherits` is more or less implemented, avoid it if you can;
-    * chained `_inherits` is essentially not implemented, we cannot guarantee anything on the final behavior.
+    * `_inherits` 实现得不太完善，尽量避免使用；
+    * 链式 `_inherits` 基本上没有实现，我们无法保证其最终行为。
 
 
-Fields Incremental Definition
+字段增量定义
 -----------------------------
 
-A field is defined as class attribute on a model class. If the model
-is extended, one can also extend the field definition by redefining
-a field with the same name and same type on the subclass.
-In that case, the attributes of the field are taken from the parent class
-and overridden by the ones given in subclasses.
+字段作为类属性在模型类上定义。如果扩展了模型，也可以通过在子类上重新定义具有相同名称和类型的字段来扩展字段定义。在这种情况下，字段的属性将从父类继承，并被子类中给定的属性覆盖。
 
-For instance, the second class below only adds a tooltip on the field
-``state``::
+例如，下面的第二个类仅在字段 ``state`` 上添加了提示信息：
+
+.. code-block:: python
 
     class First(models.Model):
         _name = 'foo'
@@ -1258,11 +1070,11 @@ For instance, the second class below only adds a tooltip on the field
 
     class Second(models.Model):
         _inherit = 'foo'
-        state = fields.Selection(help="Blah blah blah")
+        state = fields.Selection(help="提示信息")
 
 .. _reference/exceptions:
 
-Error management
+错误管理
 ================
 
 .. automodule:: odoo.exceptions

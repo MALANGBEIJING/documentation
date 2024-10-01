@@ -1,7 +1,7 @@
 .. _reference/account_tax:
 
 =====
-Taxes
+税务
 =====
 
 .. automodel:: odoo.addons.account.models.account_tax.AccountTax

@@ -5,10 +5,10 @@
 
 
 =========
-User Docs
+用户文档
 =========
 
-Discover our user guides and configuration tutorials per application.
+探索我们的用户指南和每个应用程序的配置教程。
 
 
 .. toctree::

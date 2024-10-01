@@ -1,7 +1,7 @@
 :hide-page-toc:
 
 ===================
-Payment Transaction
+支付事务
 ===================
 
 .. autoclass:: odoo.addons.payment.models.payment_transaction::PaymentTransaction()

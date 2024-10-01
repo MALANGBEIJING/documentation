@@ -1,7 +1,7 @@
 :nosearch:
 
 ==========
-Accounting
+会计
 ==========
 
 .. toctree::

@@ -1,31 +1,25 @@
 ===========
-Odoo Online
+Odoo 在线
 ===========
 
-`Odoo Online <https://www.odoo.com/trial>`_ provides private databases which are fully managed and
-hosted by Odoo. It can be used for long-term production or to test Odoo thoroughly, including
-customizations that don't require code.
+`Odoo 在线 <https://www.odoo.com/trial>`_ 提供由 Odoo 完全管理和托管的私有数据库。它可以用于长期生产或彻底测试 Odoo，包括不需要代码的自定义。
 
 .. note::
-   Odoo Online is incompatible with custom modules or the Odoo App Store.
+   Odoo 在线与自定义模块或 Odoo 应用商店不兼容。
 
-Odoo Online databases are accessed using any web browser and do not require a local installation.
+Odoo 在线数据库可以通过任何网络浏览器访问，不需要本地安装。
 
-To quickly try out Odoo, shared `demo <https://demo.odoo.com>`_ instances are available. No
-registration is required, but each instance only lives for a few hours.
+要快速试用 Odoo，可使用共享的 `演示 <https://demo.odoo.com>`_ 实例。无需注册，但每个实例仅存在几个小时。
 
-Database management
+数据库管理
 ===================
 
-To manage a database, go to the `database manager <https://www.odoo.com/my/databases>`_ and sign in
-as the database administrator.
+要管理数据库，请访问 `数据库管理器 <https://www.odoo.com/my/databases>`_ 并以数据库管理员身份登录。
 
-All the main database management options are available by clicking the database name, except the
-upgrade option, which can be accessed by clicking the **arrow in a circle** icon next to the
-database name. It is only displayed if an upgrade is available.
+点击数据库名称可以访问所有主要的数据库管理选项，升级选项除外，该选项可以通过点击数据库名称旁边的 **箭头圈** 图标访问。该图标仅在有可用升级时显示。
 
 .. image:: odoo_online/database-manager.png
-   :alt: Accessing the database management options
+   :alt: 访问数据库管理选项
 
 - :ref:`odoo_online/upgrade`
 - :ref:`odoo_online/duplicate`
@@ -39,112 +33,101 @@ database name. It is only displayed if an upgrade is available.
 
 .. _odoo_online/upgrade:
 
-Upgrade
+升级
 =======
 
-Trigger a database upgrade.
+触发数据库升级。
 
 .. seealso::
-   For more information about the upgrade process, check out the :ref:`Odoo Online upgrade
-   documentation <upgrade-request-test>`.
+   欲了解更多关于升级流程的信息，请查阅 :ref:`Odoo 在线升级文档 <upgrade-request-test>`。
 
 .. _odoo_online/duplicate:
 
-Duplicate
+复制
 =========
 
-Create an exact copy of the database, which can be used to perform testing without compromising
-daily operations.
+创建数据库的精确副本，可用于测试而不影响日常操作。
 
 .. important::
-   - By checking :guilabel:`For testing purposes`, all external actions (emails, payments, delivery
-     orders, etc.) are disabled by default on the duplicated database.
-   - Duplicated databases expire automatically after 15 days.
-   - A maximum of five duplicates can be made per database. Under extraordinary circumstances,
-     contact `support <https://www.odoo.com/help>`_ to raise the limit.
+   - 勾选 :guilabel:`用于测试目的`，默认情况下会在复制的数据库上禁用所有外部操作（邮件、支付、发货订单等）。
+   - 复制的数据库将在 15 天后自动过期。
+   - 每个数据库最多可以创建五个副本。在特殊情况下，请联系 `支持 <https://www.odoo.com/help>`_ 以提高限制。
 
 .. _odoo_online/rename:
 
-Rename
+重命名
 ======
 
-Rename the database and its URL.
+重命名数据库及其 URL。
 
 .. _odoo_online/download:
 
-Download
+下载
 ========
 
-Download a ZIP file containing a backup of the database.
+下载包含数据库备份的 ZIP 文件。
 
 .. note::
-   Databases are backed up daily as per the `Odoo Cloud Hosting SLA
-   <https://www.odoo.com/cloud-sla>`_.
+   根据 `Odoo 云托管 SLA <https://www.odoo.com/cloud-sla>`_，数据库会每日备份。
 
 .. _odoo_online/domains:
 
-Domain names
+域名
 ============
 
-Use a custom :doc:`domain name </applications/websites/website/configuration/domain_names>` to
-access the database via another URL.
+使用自定义 :doc:`域名 </applications/websites/website/configuration/domain_names>` 通过另一个 URL 访问数据库。
 
 .. tip::
-   You can :ref:`register a domain name for free <domain-name/register>`.
+   您可以 :ref:`免费注册域名 <domain-name/register>`。
 
 .. _odoo_online/tags:
 
-Tags
+标签
 ====
 
-Add tags to easily identify and sort your databases.
+添加标签以便轻松识别和排序数据库。
 
 .. tip::
-   You can search for tags in the search bar.
+   您可以在搜索栏中搜索标签。
 
 .. _odoo_online/delete:
 
-Delete
+删除
 ======
 
-Delete a database instantly.
+立即删除数据库。
 
 .. danger::
-   Deleting a database means that all data is permanently lost. The deletion is instant and applies
-   to all users. It is recommended to create a backup of the database before deleting it.
+   删除数据库意味着所有数据将被永久删除。删除操作是即时的，适用于所有用户。建议在删除数据库之前创建其备份。
 
-Carefully read the warning message and only proceed if the implications of deleting a database are
-fully understood.
+仔细阅读警告信息，只有在完全理解删除数据库的后果时才继续操作。
 
 .. image:: odoo_online/delete.png
-   :alt: The warning message displayed before deleting a database
+   :alt: 删除数据库前显示的警告信息
 
 .. note::
-   - Only an administrator can delete a database.
-   - The database name is immediately made available to anyone.
-   - Deleting a database if it has expired or is linked to a subscription is impossible. In that
-     case, contact `Odoo Support <https://www.odoo.com/help>`_.
+   - 只有管理员可以删除数据库。
+   - 数据库名称会立即对任何人开放。
+   - 如果数据库已过期或与订阅相关联，无法删除。在这种情况下，请联系 `Odoo 支持 <https://www.odoo.com/help>`_。
 
 .. _odoo_online/contact-support:
 
-Contact us
+联系我们
 ==========
 
-Access the `Odoo.com support page <https://www.odoo.com/help>`_ with the database's details already
-pre-filled.
+访问带有数据库详细信息的 `Odoo.com 支持页面 <https://www.odoo.com/help>`_。
 
 .. _odoo_online/users:
 
-Invite / remove users
+邀请 / 移除用户
 =====================
 
-To invite users, fill out the new user's email address and click :guilabel:`Invite`. To add multiple
-users, click :guilabel:`Add more users`.
+要邀请用户，请填写新用户的电子邮件地址并点击 :guilabel:`邀请`。要添加多个用户，请点击 :guilabel:`添加更多用户`。
 
 .. image:: odoo_online/invite-users.png
-   :alt: Inviting a user on a database
+   :alt: 在数据库上邀请用户
 
-To remove users, select them and click :guilabel:`Remove`.
+要移除用户，请选择他们并点击 :guilabel:`移除`。
 
 .. seealso::
    - :doc:`/applications/general/users`

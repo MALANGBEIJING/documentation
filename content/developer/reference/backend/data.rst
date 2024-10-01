@@ -1,55 +1,46 @@
-
 .. _reference/data:
 
 ==========
-Data Files
+数据文件
 ==========
 
-Odoo is greatly data-driven, and a big part of modules definition is thus
-the definition of the various records it manages: UI (menus and views),
-security (access rights and record rules), reports and plain data are all
-defined via records.
+Odoo 是高度数据驱动的，模块定义的很大一部分就是定义其管理的各种记录：UI（菜单和视图）、安全性（访问权限和记录规则）、报表和普通数据都通过记录定义。
 
-Structure
+结构
 =========
 
-The main way to define data in Odoo is via XML data files: The broad structure
-of an XML data file is the following:
+在 Odoo 中定义数据的主要方式是通过 XML 数据文件：XML 数据文件的基本结构如下：
 
-* Any number of operation elements within the root element ``odoo``
+* 根元素 ``odoo`` 中的任意数量的操作元素
 
 .. code-block:: xml
 
     <?xml version="1.0" encoding="UTF-8"?>
-    <!-- the root elements of the data file -->
+    <!-- 数据文件的根元素 -->
     <odoo>
         <operation/>
         ...
     </odoo>
 
-Data files are executed sequentially, operations can only refer to the result
-of operations defined previously
+数据文件按顺序执行，操作只能引用之前定义的操作结果。
 
 .. note::
 
-    If the content of the data file is expected to be applied only once, you
-    can specify the odoo flag ``noupdate`` set to 1.  If part of
-    the data in the file is expected to be applied once, you can place this part
-    of the file in a <data noupdate="1"> domain.
+    如果预期数据文件的内容只应用一次，可以指定 Odoo 标志 ``noupdate`` 设置为 1。如果文件中的部分数据预期只应用一次，可以将该部分放入 <data noupdate="1"> 域中。
 
     .. code-block:: xml
 
         <odoo>
             <data noupdate="1">
-                <!-- Only loaded when installing the module (odoo-bin -i module) -->
+                <!-- 仅在安装模块时加载（odoo-bin -i module） -->
                 <operation/>
             </data>
 
-            <!-- (Re)Loaded at install and update (odoo-bin -i/-u) -->
+            <!-- 在安装和更新时重新加载（odoo-bin -i/-u） -->
             <operation/>
         </odoo>
 
-Core operations
+核心操作
 ===============
 
 .. _reference/data/record:
@@ -57,119 +48,83 @@ Core operations
 ``record``
 ----------
 
-``record`` appropriately defines or updates a database record, it has the
-following attributes:
+``record`` 适当地定义或更新数据库记录，它具有以下属性：
 
-``model`` (required)
-    name of the model to create (or update)
+``model`` (必需)
+    要创建（或更新）的模型名称。
 ``id``
-    the :term:`external identifier` for this record. It is strongly
-    recommended to provide one
+    此记录的 :term:`外部标识符`。强烈建议提供一个。
 
-    * for record creation, allows subsequent definitions to either modify or
-      refer to this record
-    * for record modification, the record to modify
+    * 对于记录创建，允许后续定义修改或引用此记录。
+    * 对于记录修改，指定要修改的记录。
 ``context``
-    context to use when creating the record
+    创建记录时使用的上下文。
 ``forcecreate``
-    in update mode whether the record should be created if it doesn't exist
+    在更新模式下，如果记录不存在，是否应创建记录。
 
-    Requires an :term:`external id`, defaults to ``True``.
+    需要一个 :term:`外部 id`，默认为 ``True``。
 
 ``field``
 ---------
 
-Each record can be composed of ``field`` tags, defining values to set when
-creating the record. A ``record`` with no ``field`` will use all default
-values (creation) or do nothing (update).
+每个记录可以由 ``field`` 标签组成，定义创建记录时要设置的值。没有 ``field`` 的 ``record`` 将使用所有默认值（创建）或不执行任何操作（更新）。
 
-A ``field`` has a mandatory ``name`` attribute, the name of the field to set,
-and various methods to define the value itself:
+``field`` 具有一个必需的 ``name`` 属性，即要设置的字段名称，并且可以通过各种方法定义值：
 
-Nothing
-    if no value is provided for the field, an implicit ``False`` will be set
-    on the field. Can be used to clear a field, or avoid using a default value
-    for the field.
+无
+    如果未为字段提供值，将隐式在字段上设置 ``False``。可以用于清除字段或避免使用字段的默认值。
 ``search``
-    for :ref:`relational fields <reference/fields/relational>`, should be
-    a :ref:`domain <reference/orm/domains>` on the field's model.
+    对于 :ref:`关系字段 <reference/fields/relational>`，应为该字段模型的 :ref:`域 <reference/orm/domains>`。
 
-    Will evaluate the domain, search the field's model using it and set the
-    search's result as the field's value. Will only use the first result if
-    the field is a :class:`~odoo.fields.Many2one`
+    将评估域，使用该域搜索字段的模型，并将搜索结果设置为字段的值。如果字段是 :class:`~odoo.fields.Many2one`，将仅使用第一个结果。
 ``ref``
-    if a ``ref`` attribute is provided, its value must be a valid
-    :term:`external id`, which will be looked up and set as the field's value.
+    如果提供了 ``ref`` 属性，其值必须是有效的 :term:`外部 id`，它将被查找并设置为字段的值。
 
-    Mostly for :class:`~odoo.fields.Many2one` and
-    :class:`~odoo.fields.Reference` fields
+    主要用于 :class:`~odoo.fields.Many2one` 和 :class:`~odoo.fields.Reference` 字段。
 ``type``
-    if a ``type`` attribute is provided, it is used to interpret and convert
-    the field's content. The field's content can be provided through an
-    external file using the ``file`` attribute, or through the node's body.
+    如果提供了 ``type`` 属性，则用于解释和转换字段的内容。字段的内容可以通过 ``file`` 属性提供，或通过节点的正文提供。
 
-    Available types are:
+    可用的类型包括：
 
     ``xml``, ``html``
-        extracts the ``field``'s children as a single document, evaluates
-        any :term:`external id` specified with the form ``%(external_id)s``.
-        ``%%`` can be used to output actual *%* signs.
+        提取 ``field`` 的子元素作为单个文档，评估任何通过 ``%(external_id)s`` 指定的 :term:`外部 id`。可以使用 ``%%`` 输出实际的 *%* 符号。
     ``file``
-        ensures that the field content is a valid file path in the current
-        model, saves the pair :samp:`{module},{path}` as the field value
+        确保字段内容是当前模型中的有效文件路径，将 ``{module},{path}`` 对作为字段值保存。
     ``char``
-        sets the field content directly as the field's value without
-        alterations
+        直接将字段内容设置为字段值，不进行任何修改。
     ``base64``
-        base64_-encodes the field's content, useful combined with the ``file``
-        *attribute* to load e.g. image data into attachments
+        对字段内容进行 base64 编码，与 ``file`` 属性结合使用时非常有用，例如将图像数据加载到附件中。
     ``int``
-        converts the field's content to an integer and sets it as the field's
-        value
+        将字段内容转换为整数并设置为字段值。
     ``float``
-        converts the field's content to a float and sets it as the field's
-        value
+        将字段内容转换为浮点数并设置为字段值。
     ``list``, ``tuple``
-        should contain any number of ``value`` elements with the same
-        properties as ``field``, each element resolves to an item of a
-        generated tuple or list, and the generated collection is set as the
-        field's value
+        应包含任意数量的 ``value`` 元素，这些元素具有与 ``field`` 相同的属性，每个元素解析为生成的元组或列表中的一个项目，生成的集合将设置为字段的值。
 ``eval``
-    for cases where the previous methods are unsuitable, the ``eval``
-    attributes simply evaluates whatever Python expression it is provided and
-    sets the result as the field's value.
+    对于不适合上述方法的情况，``eval`` 属性直接评估其提供的任何 Python 表达式，并将结果设置为字段的值。
 
-    The evaluation context contains various modules (``time``, ``datetime``,
-    ``timedelta``, ``relativedelta``), a function to resolve :term:`external
-    identifiers` (``ref``) and the model object for the current field if
-    applicable (``obj``)
+    评估上下文包含各种模块（``time``、``datetime``、``timedelta``、``relativedelta``），用于解析 :term:`外部标识符` 的函数（``ref``）以及当前字段的模型对象（如果适用）（``obj``）。
 
 ``delete``
 ----------
 
-The ``delete`` tag can remove any number of records previously defined. It
-has the following attributes:
+``delete`` 标签可以删除先前定义的任意数量的记录。它具有以下属性：
 
-``model`` (required)
-    the model in which a specified record should be deleted
+``model`` (必需)
+    要删除记录的模型。
 ``id``
-    the :term:`external id` of a record to remove
+    要删除的记录的 :term:`外部 id`。
 ``search``
-    a :ref:`domain <reference/orm/domains>` to find records of the model to
-    remove
+    一个 :ref:`域 <reference/orm/domains>`，用于查找要删除的模型记录。
 
-``id`` and ``search`` are exclusive
+``id`` 和 ``search`` 是互斥的。
 
 ``function``
 ------------
 
-The ``function`` tag calls a method on a model, with provided parameters.
-It has two mandatory parameters ``model`` and ``name`` specifying respectively
-the model and the name of the method to call.
+``function`` 标签调用模型上的方法，并提供相应的参数。它有两个必需的参数 ``model`` 和 ``name``，分别指定模型和要调用的方法名称。
 
-Parameters can be provided using ``eval`` (should evaluate to a sequence of
-parameters to call the method with) or ``value`` elements (see ``list``
-values).
+参数可以通过 ``eval`` 提供（应评估为调用方法的参数序列）或通过 ``value`` 元素提供（参见 ``list`` 值）。
 
 .. code-block:: xml
 
@@ -196,104 +151,80 @@ values).
 
 .. _reference/data/shortcuts:
 
-Shortcuts
+快捷方式
 =========
 
-Because some important structural models of Odoo are complex and involved,
-data files provide shorter alternatives to defining them using
-:ref:`record tags <reference/data/record>`:
+由于 Odoo 的某些重要结构模型比较复杂，数据文件提供了使用 :ref:`记录标签 <reference/data/record>` 定义它们的简化方式：
 
 ``menuitem``
 ------------
 
-Defines an ``ir.ui.menu`` record with a number of defaults and fallbacks:
+定义一个带有多个默认值和回退的 ``ir.ui.menu`` 记录：
 
 ``parent``
-    * If a ``parent`` attribute is set, it should be the :term:`external id`
-      of an other menu item, used as the new item's parent
-    * If no ``parent`` is provided, tries to interpret the ``name`` attribute
-      as a ``/``-separated sequence of menu names and find a place in the menu
-      hierarchy. In that interpretation, intermediate menus are automatically
-      created
-    * Otherwise the menu is defined as a "top-level" menu item (*not* a menu
-      with no parent)
+    * 如果设置了 ``parent`` 属性，它应该是其他菜单项的 :term:`外部 id`，用于作为新菜单项的父级。
+    * 如果未提供 ``parent``，则尝试将 ``name`` 属性解释为以 ``/`` 分隔的菜单名称序列，并在菜单层次结构中找到位置。在此解释中，会自动创建中间菜单。
+    * 否则，菜单被定义为“顶级”菜单项（*不是*没有父级的菜单）。
 ``name``
-    If no ``name`` attribute is specified, tries to get the menu name from
-    a linked action if any. Otherwise uses the record's ``id``
+    如果未指定 ``name`` 属性，尝试从关联的操作中获取菜单名称（如果有）。否则使用记录的 ``id``。
 ``groups``
-    A ``groups`` attribute is interpreted as a comma-separated sequence of
-    :term:`external identifiers` for ``res.groups`` models. If an
-    :term:`external identifier` is prefixed with a minus (``-``), the group
-    is *removed* from the menu's groups
+    ``groups`` 属性被解释为 ``res.groups`` 模型的 :term:`外部标识符` 的逗号分隔序列。如果 :term:`外部标识符` 前缀带有减号（``-``），则将该组从菜单的组中*移除*。
 ``action``
-    if specified, the ``action`` attribute should be the :term:`external id`
-    of an action to execute when the menu is open
+    如果指定，``action`` 属性应该是打开菜单时要执行的操作的 :term:`外部 id`。
 ``id``
-    the menu item's :term:`external id`
+    菜单项的 :term:`外部 id`。
 
 .. _reference/data/template:
 
 ``template``
 ------------
 
-Creates a :ref:`QWeb view <reference/view_architectures/qweb>` requiring only the ``arch``
-section of the view, and allowing a few *optional* attributes:
+创建一个 :ref:`QWeb 视图 <reference/view_architectures/qweb>`，只需要视图的 ``arch`` 部分，并允许一些*可选*属性：
 
 ``id``
-    the view's :term:`external identifier`
+    视图的 :term:`外部标识符`。
 ``name``, ``inherit_id``, ``priority``
-    same as the corresponding field on ``ir.ui.view`` (nb: ``inherit_id``
-    should be an :term:`external identifier`)
+    与 ``ir.ui.view`` 上的相应字段相同（注意：``inherit_id`` 应为 :term:`外部标识符`）。
 ``primary``
-    if set to ``True`` and combined with a ``inherit_id``, defines the view
-    as a primary
+    如果设置为 ``True`` 并与 ``inherit_id`` 结合使用，将视图定义为主视图。
 ``groups``
-    comma-separated list of group :term:`external identifiers`
+    组的 :term:`外部标识符` 的逗号分隔列表。
 ``page``
-    if set to ``"True"``, the template is a website page (linkable to,
-    deletable)
+    如果设置为 ``"True"``，则模板为网站页面（可链接、可删除）。
 ``optional``
-    ``enabled`` or ``disabled``, whether the view can be disabled (in the
-    website interface) and its default status. If unset, the view is always
-    enabled.
+    ``enabled`` 或 ``disabled``，视图是否可以在网站界面中禁用及其默认状态。如果未设置，视图始终启用。
 
 .. _reference/data/csvdatafiles:
 
-CSV data files
+CSV 数据文件
 ==============
 
-XML data files are flexible and self-descriptive, but very verbose when
-creating a number of simple records of the same model in bulk.
+XML 数据文件灵活且自描述，但在批量创建大量简单记录时非常冗长。
 
-For this case, data files can also use csv_, this is often the case for
-:ref:`access rights <reference/security/acl>`:
+在这种情况下，数据文件也可以使用 csv_，这通常用于 :ref:`访问权限 <reference/security/acl>`：
 
-* the file name is :file:`{model_name}.csv`
-* the first row lists the fields to write, with the special field ``id``
-  for :term:`external identifiers` (used for creation or update)
-* each row thereafter creates a new record
+* 文件名为 :file:`{model_name}.csv`。
+* 第一行列出要写入的字段，特殊字段 ``id`` 用于 :term:`外部标识符`（用于创建或更新）。
+* 之后的每一行都会创建一个新记录。
 
-Here's the first lines of the data file defining country states
-``res.country.state.csv``
+以下是定义国家/地区状态的数据文件 ``res.country.state.csv`` 的前几行：
 
 .. literalinclude:: data/res.country.state.csv
     :language: text
 
-rendered in a more readable format:
+以更可读的格式呈现：
 
 .. csv-table::
     :file: data/res.country.state.csv
     :header-rows: 1
     :class: table-striped table-hover table-sm
 
-For each row (record):
+对于每一行（记录）：
 
-* the first column is the :term:`external id` of the record to create or
-  update
-* the second column is the :term:`external id` of the country object to link
-  to (country objects must have been defined beforehand)
-* the third column is the ``name`` field for ``res.country.state``
-* the fourth column is the ``code`` field for ``res.country.state``
+* 第一列是要创建或更新的记录的 :term:`外部 id`。
+* 第二列是要链接的国家/地区对象的 :term:`外部 id`（必须预先定义国家/地区对象）。
+* 第三列是 ``res.country.state`` 的 ``name`` 字段。
+* 第四列是 ``res.country.state`` 的 ``code`` 字段。
 
 .. _base64: https://tools.ietf.org/html/rfc3548.html#section-3
 .. _csv: https://en.wikipedia.org/wiki/Comma-separated_values

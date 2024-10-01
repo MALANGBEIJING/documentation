@@ -1,116 +1,90 @@
-:show-content:
+===========
+本地部署
+===========
 
-==========
-On-premise
-==========
-
-Register a database
+注册数据库
 ===================
 
-To register your database, enter your subscription code in the banner in the app dashboard. If the
-registration is successful, the banner will turn green and display the database expiration date.
+要注册您的数据库，请在应用程序仪表板中的横幅中输入您的订阅码。如果注册成功，横幅将变为绿色并显示数据库的到期日期。
 
 .. tip::
-   The expiration date is also displayed at the bottom of the Settings page.
+   到期日期也会显示在设置页面的底部。
 
 .. _on-premise/duplicate:
 
-Duplicate a database
+复制数据库
 ====================
 
-Duplicate a database by accessing the database manager on your server
-(`<odoo-server>/web/database/manager`). Typically, you want to duplicate your production database
-into a neutralized testing database. It can be done by checking the neutralize box when prompted,
-which executes all :file:`neutralize.sql` scripts for every installed module.
+通过访问服务器上的数据库管理器 (`<odoo-server>/web/database/manager`) 复制数据库。通常，您需要将生产数据库复制为中性化的测试数据库。可以通过在提示时勾选中性化选项来实现，这会为每个已安装的模块执行所有 :file:`neutralize.sql` 脚本。
 
-Common error messages and solutions
+常见错误消息及解决方案
 ===================================
 
-Registration error
+注册错误
 ------------------
 
-In case of a registration error, the following message should be displayed.
+如果出现注册错误，应显示以下消息。
 
 .. image:: on_premise/error-message-sub-code.png
-   :alt: Database registration error message
+   :alt: 数据库注册错误消息
 
-To resolve the issue:
+解决问题的步骤：
 
-- Check the **validity of your Odoo Enterprise subscription** by verifying if your subscription
-  details have the tag :guilabel:`In Progress` on your `Odoo Account
-  <https://accounts.odoo.com/my/subscription>`_ or contact your Account Manager.
+- 通过验证订阅详情是否带有 :guilabel:`进行中` 标签，检查您的 **Odoo 企业版订阅的有效性**，或联系您的客户经理。
 
-- Ensure that **no other database is linked** to the subscription code, as only one database can be
-  linked per subscription.
+- 确保 **没有其他数据库与该订阅码关联**，因为每个订阅只能链接一个数据库。
 
   .. tip::
-     If a test or a development database is needed, you can :ref:`duplicate a database
-     <on-premise/duplicate>`.
+     如果需要测试或开发数据库，可以 :ref:`复制数据库 <on-premise/duplicate>`。
 
-- Verify that **no databases share the same UUID** (Universally Unique Identifier) by opening your
-  `Odoo Contract <https://accounts.odoo.com/my/subscription>`_. If two or more databases share the
-  same UUID, their name will be displayed.
+- 通过打开您的 `Odoo 合同 <https://accounts.odoo.com/my/subscription>`_，验证 **没有数据库共享相同的 UUID**（全局唯一标识符）。如果两个或多个数据库共享相同的 UUID，其名称将显示。
 
   .. image:: on_premise/unlink-db-name-collision.png
-     :alt: Database UUID error message
+     :alt: 数据库 UUID 错误消息
 
-  If that is the case, manually change the database(s) UUID or `send a support ticket
-  <https://www.odoo.com/help>`_.
+  如果出现这种情况，请手动更改数据库的 UUID 或 `发送支持工单 <https://www.odoo.com/help>`_。
 
-- As the update notification must be able to reach Odoo's subscription validation servers, ensure
-  your **network and firewall settings** allow the Odoo server to open outgoing connections
-  towards:
+- 由于更新通知必须能够访问 Odoo 的订阅验证服务器，请确保您的 **网络和防火墙设置** 允许 Odoo 服务器向以下地址发出出站连接：
 
-  - `services.odoo.com` on port `443` (or `80`)
-  - for older deployments, `services.openerp.com` on port `443` (or `80`)
+  - `services.odoo.com` 端口 `443`（或 `80`）
+  - 对于旧的部署，`services.openerp.com` 端口 `443`（或 `80`）
 
-  These ports must be kept open even after registering a database, as the update notification runs
-  once a week.
+  即使在注册数据库之后，这些端口也必须保持开放，因为更新通知每周运行一次。
 
-Too many users error
+用户过多错误
 --------------------
 
-If you have more users in a local database than provisioned in your Odoo Enterprise subscription,
-the following message should be displayed.
+如果本地数据库中的用户数量超过了您的 Odoo 企业版订阅中预留的用户数量，将显示以下消息。
 
 .. image:: on_premise/add-more-users.png
-   :alt: Too many users on a database error message
+   :alt: 数据库用户过多错误消息
 
-When the message appears, you have 30 days to act before the database expires. The countdown is
-updated every day.
+当消息出现时，您有 30 天的时间来采取行动，数据库到期前每天都会更新倒计时。
 
-To resolve the issue, either:
+解决问题的步骤：
 
-- **Add more users** to your subscription by clicking the :guilabel:`Upgrade your subscription` link
-  displayed in the message to validate the upsell quotation and pay for the extra users.
-- :ref:`Deactivate users <users/deactivate>` and **reject** the upsell quotation.
+- **添加更多用户** 到您的订阅中，点击消息中显示的 :guilabel:`升级您的订阅` 链接，验证增购报价并支付额外用户的费用。
+- :ref:`停用用户 <users/deactivate>` 并**拒绝**增购报价。
 
 .. important::
-   If you are on a monthly subscription plan, the database will automatically update to reflect the
-   added user(s). If you are on a yearly or multi-year plan, an expiration banner will appear in the
-   database. You can create the upsell quotation by clicking the banner to update the subscription
-   or `send a support ticket <https://www.odoo.com/help>`_ to resolve the issue.
+   如果您使用的是月度订阅计划，数据库将自动更新以反映新增用户。如果您使用的是年度或多年订阅计划，数据库中将出现到期横幅。您可以通过点击横幅生成增购报价以更新订阅，或者 `发送支持工单 <https://www.odoo.com/help>`_ 以解决问题。
 
-Once your database has the correct number of users, the expiration message disappears automatically
-after a few days, when the next verification occurs.
+一旦数据库的用户数量正确，过期消息将在几天后自动消失，当下次验证发生时。
 
-Database expired error
+数据库到期错误
 ----------------------
 
-If your database expires before you renew your subscription, the following message should be
-displayed.
+如果您的数据库在续订订阅之前到期，将显示以下消息。
 
 .. image:: on_premise/database-expired.png
-   :alt: Database expired error message
+   :alt: 数据库到期错误消息
 
-This message appears if you fail to act before the end of the 30-day countdown.
+如果您未能在 30 天倒计时结束前采取行动，将会出现此消息。
 
-To resolve the issue, either:
+解决问题的步骤：
 
-- Click the :guilabel:`Renew your subscription` link displayed in the message and complete the
-  process. If you pay by wire transfer, your subscription will be renewed when the payment arrives
-  which can take a few days. Credit card payments are processed immediately.
-- `Send a support ticket <https://www.odoo.com/help>`_.
+- 点击消息中显示的 :guilabel:`续订您的订阅` 链接并完成过程。如果您通过银行转账支付，您的订阅将在款项到达时续订，这可能需要几天时间。信用卡支付会立即处理。
+- `发送支持工单 <https://www.odoo.com/help>`_。
 
 .. toctree::
 

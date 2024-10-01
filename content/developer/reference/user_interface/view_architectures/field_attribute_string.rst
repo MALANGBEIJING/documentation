@@ -1,8 +1,8 @@
 .. attribute:: string
    :noindex:
 
-   The label of the field.
+   字段的标签。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
-   :default: The `string` attribute of the model's field
+   :default: 模型字段的 `string` 属性

@@ -1,7 +1,7 @@
 .. attribute:: name
    :noindex:
 
-   The name of the field to render.
+   要渲染的字段名称。
 
-   :requirement: Mandatory
+   :requirement: 必填项
    :type: str

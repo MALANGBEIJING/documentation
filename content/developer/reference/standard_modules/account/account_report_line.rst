@@ -1,5 +1,5 @@
 ===========
-Report Line
+报表行
 ===========
 
 .. automodel:: odoo.addons.account.models.account_report.AccountReportLine

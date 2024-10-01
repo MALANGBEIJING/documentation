@@ -1,5 +1,5 @@
 ======
-Report
+报表
 ======
 
 .. automodel:: odoo.addons.account.models.account_report.AccountReport

@@ -1,9 +1,7 @@
 .. attribute:: widget
    :noindex:
 
-   The rendering method and context to use in place of the default one assigned to the field's type
-   (e.g., :class:`~odoo.fields.Char`, :class:`~odoo.fields.Many2one`). See
-   :ref:`reference/js/widgets`.
+   用于替代分配给字段类型的默认渲染方法和上下文（例如，:class:`~odoo.fields.Char`，:class:`~odoo.fields.Many2one`）。参见 :ref:`reference/js/widgets`。
 
    .. example::
       .. code-block:: xml
@@ -16,6 +14,6 @@
              <field name="level_progress" widget="progressbar"/>
          </tree>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`

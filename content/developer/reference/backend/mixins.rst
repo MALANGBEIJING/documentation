@@ -2,48 +2,42 @@
 .. _reference/mixins:
 
 =========================
-Mixins and Useful Classes
+Mixins 和实用类
 =========================
 
-Odoo implements some useful classes and mixins that make it easy for you to add
-often-used behaviours on your objects. This guide will details most of them, with
-examples and use cases.
+Odoo 实现了一些实用的类和 mixins，使您能够轻松地为对象添加常用行为。本指南将详细介绍其中的大部分内容，并提供示例和用例。
 
 .. _reference/mixins/mail:
 
-Messaging features
+消息功能
 ==================
 
 .. _reference/mixins/mail/chatter:
 
-Messaging integration
+消息集成
 ---------------------
 
-Basic messaging system
+基础消息系统
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Integrating messaging features to your model is extremely easy. Simply inheriting
-the ``mail.thread`` model and adding the messaging fields (and their appropriate
-widgets) to your form view will get you up and running in no time.
+将消息功能集成到模型中非常简单。只需继承 ``mail.thread`` 模型，并将消息字段（及其相应的小部件）添加到表单视图中，即可快速启用。
 
-.. example::
+.. 例子::
 
-    Let's create a simplistic model representing a business trip. Since organizing
-    this kind of trip usually involves a lot of people and a lot of discussion, let's
-    add support for message exchange on the model.
+    让我们创建一个简单的模型，表示商务旅行。由于组织这种类型的旅行通常涉及很多人和讨论，因此我们在模型中添加消息交换支持。
 
     .. code-block:: python
 
         class BusinessTrip(models.Model):
             _name = 'business.trip'
             _inherit = ['mail.thread']
-            _description = 'Business Trip'
+            _description = '商务旅行'
 
             name = fields.Char()
-            partner_id = fields.Many2one('res.partner', 'Responsible')
-            guest_ids = fields.Many2many('res.partner', 'Participants')
+            partner_id = fields.Many2one('res.partner', '负责人')
+            guest_ids = fields.Many2many('res.partner', '参与者')
 
-    In the form view:
+    在表单视图中：
 
     .. code-block:: xml
 
@@ -51,10 +45,10 @@ widgets) to your form view will get you up and running in no time.
             <field name="name">business.trip.form</field>
             <field name="model">business.trip</field>
             <field name="arch" type="xml">
-                <form string="Business Trip">
-                    <!-- Your usual form view goes here
+                <form string="商务旅行">
+                    <!-- 您的常规表单视图在此 -->
                     ...
-                    Then comes chatter integration -->
+                    然后是 chatter 集成 -->
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="message_ids" widget="mail_thread"/>
@@ -63,391 +57,284 @@ widgets) to your form view will get you up and running in no time.
             </field>
         </record>
 
-Once you've added chatter support on your model, users can easily add messages
-or internal notes on any record of your model; every one of those will send a
-notification (to all followers for messages, to employee (*base.group_user*)
-users for internal notes). If your mail gateway and catchall address are correctly
-configured, these notifications will be sent by e-mail and can be replied-to directly
-from your mail client; the automatic routing system will route the answer to the
-correct thread.
+添加 Chatter 支持后，用户可以轻松在模型的任何记录上添加消息或内部备注；每条消息都会发送通知（消息发送给所有关注者，内部备注发送给员工用户）。如果您的邮件网关和 catchall 地址配置正确，这些通知将通过电子邮件发送，并且可以直接从邮件客户端回复；自动路由系统将回复路由到正确的线程。
 
-Server-side, some helper functions are there to help you easily send messages and
-to manage followers on your record:
+服务器端提供了一些辅助函数，帮助您轻松发送消息和管理记录的关注者：
 
-.. rubric:: Posting messages
+.. rubric:: 发布消息
 
 .. method:: message_post(self, body='', subject=None, message_type='notification', subtype=None, parent_id=False, attachments=None, **kwargs)
 
-    Post a new message in an existing thread, returning the new
-    mail.message ID.
+    在现有线程中发布新消息，返回新创建的 ``mail.message`` ID。
 
-    :param str | Markup body: body of the message. Will be escaped if `str`. Use
-        a :class:`~markupsafe.Markup` object for HTML content.
-    :param str message_type: see mail_message.message_type field
-    :param int parent_id: handle reply to a previous message by adding the
-        parent partners to the message in case of private discussion
-    :param list(tuple(str,str)) attachments: list of attachment tuples in the form
-        ``(name,content)``, where content is NOT base64 encoded
-    :param bool body_is_html: indicates whether `body` should be treated as HTML, even if `str`.
-    :param `\**kwargs`: extra keyword arguments will be used as default column values for the
-          new mail.message record
-    :return: ID of newly created mail.message
+    :param str | Markup body: 消息内容。如果是 `str`，将会进行转义。使用 :class:`~markupsafe.Markup` 对象来发送 HTML 内容。
+    :param str message_type: 参见 mail_message.message_type 字段
+    :param int parent_id: 如果是私密对话，通过添加父合作伙伴来处理回复之前的消息
+    :param list(tuple(str,str)) attachments: 附件列表，形式为 ``(name,content)``，其中内容不需 base64 编码
+    :param bool body_is_html: 指示是否将 `body` 视为 HTML，即使是 `str`。
+    :param `\**kwargs`: 额外的关键字参数将用作新 mail.message 记录的默认列值
+    :return: 新创建的 mail.message ID
     :rtype: int
 
 .. method:: message_post_with_view(views_or_xmlid, **kwargs):
 
-    Helper method to send a mail / post a message using a view_id to
-    render using the ir.qweb engine. This method is stand alone, because
-    there is nothing in template and composer that allows to handle
-    views in batch. This method will probably disappear when templates
-    handle ir ui views.
+    使用 ``view_id`` 通过 ir.qweb 引擎渲染发送邮件/发布消息的辅助方法。此方法是独立的，因为模板和撰写器中没有允许批量处理视图的功能。当模板处理 ir ui 视图时，该方法可能会消失。
 
-    :param str or ``ir.ui.view`` record: external id or record of the view that
-        should be sent
+    :param str or ``ir.ui.view`` record: 要发送的视图的外部 ID 或记录
 
 .. method:: message_post_with_template(template_id, **kwargs)
 
-    Helper method to send a mail with a template
+    使用模板发送邮件的辅助方法
 
-    :param template_id: the id of the template to render to create the body of the message
-    :param `\**kwargs`: parameter to create a mail.compose.message wizard (which inherit from mail.message)
+    :param template_id: 要渲染以创建消息内容的模板 ID
+    :param `\**kwargs`: 用于创建 mail.compose.message 向导的参数（继承自 mail.message）
 
-.. rubric:: Receiving messages
+.. rubric:: 接收消息
 
-These methods are called when a new e-mail is processed by the mail gateway. These
-e-mails can either be new thread (if they arrive via an :ref:`alias <reference/mixins/mail/alias>`)
-or simply replies from an existing thread. Overriding them allows you to set values
-on the thread's record depending on some values from the email itself (i.e. update
-a date or an e-mail address, add CC's addresses as followers, etc.).
+这些方法在邮件网关处理新电子邮件时调用。这些电子邮件可以是新线程（如果通过 :ref:`alias <reference/mixins/mail/alias>` 到达），也可以是现有线程的回复。重写这些方法可以根据电子邮件本身的某些值为线程的记录设置值（例如更新日期或电子邮件地址、添加 CC 地址作为关注者等）。
 
 .. method:: message_new(msg_dict, custom_values=None)
 
-    Called by ``message_process`` when a new message is received
-    for a given thread model, if the message did not belong to
-    an existing thread.
+    当为给定线程模型接收到新消息时，由 ``message_process`` 调用，如果该消息不属于现有线程。
 
-    The default behavior is to create a new record of the corresponding
-    model (based on some very basic info extracted from the message).
-    Additional behavior may be implemented by overriding this method.
+    默认行为是根据从消息中提取的一些基本信息创建相应模型的新记录。可以通过重写此方法实现附加行为。
 
-    :param dict msg_dict: a map containing the email details and
-        attachments. See ``message_process`` and ``mail.message.parse`` for details
-    :param dict custom_values: optional dictionary of additional
-        field values to pass to create() when creating the new thread record;
-        be careful, these values may override any other values coming from
-        the message
+    :param dict msg_dict: 包含电子邮件详细信息和附件的映射。有关详细信息，请参阅 ``message_process`` 和 ``mail.message.parse``。
+    :param dict custom_values: 传递给 create() 方法的附加字段值的可选字典；请注意，这些值可能会覆盖消息中的其他值
     :rtype: int
-    :return: the id of the newly created thread object
+    :return: 新创建的线程对象 ID
 
 .. method:: message_update(msg_dict, update_vals=None)
 
-    Called by ``message_process`` when a new message is received
-    for an existing thread. The default behavior is to update the record
-    with ``update_vals`` taken from the incoming email.
+    当接收到现有线程的新消息时，由 ``message_process`` 调用。默认行为是使用来自传入邮件的 ``update_vals`` 更新记录。
 
-    Additional behavior may be implemented by overriding this
-    method.
+    可以通过重写此方法实现附加行为。
 
-    :param dict msg_dict: a map containing the email details and attachments;
-        see ``message_process`` and ``mail.message.parse()`` for details.
-    :param dict update_vals: a dict containing values to update records given
-        their ids; if the dict is None or is void, no write operation is performed.
+    :param dict msg_dict: 包含电子邮件详细信息和附件的映射；请参阅 ``message_process`` 和 ``mail.message.parse()`` 了解详细信息。
+    :param dict update_vals: 包含要更新记录值的字典；如果字典为 None 或为空，则不执行写入操作。
     :return: True
 
-.. rubric:: Followers management
+.. rubric:: 关注者管理
 
 .. method:: message_subscribe(partner_ids=None, channel_ids=None, subtype_ids=None, force=True)
 
-    Add partners to the records followers.
+    将合作伙伴添加为记录的关注者。
 
-    :param list(int) partner_ids: IDs of the partners that will be subscribed
-        to the record
-    :param list(int) channel_ids: IDs of the channels that will be subscribed
-        to the record
-    :param list(int) subtype_ids: IDs of the subtypes that the channels/partners
-        will be subscribed to (defaults to the default subtypes if ``None``)
-    :param force: if True, delete existing followers before creating new one
-        using the subtypes given in the parameters
-    :return: Success/Failure
+    :param list(int) partner_ids: 将订阅记录的合作伙伴 ID 列表
+    :param list(int) channel_ids: 将订阅记录的频道 ID 列表
+    :param list(int) subtype_ids: 渠道/合作伙伴将订阅的子类型 ID（如果为 ``None``，则默认为默认子类型）
+    :param force: 如果为 True，则在使用参数中给定的子类型创建新关注者之前删除现有关注者
+    :return: 成功/失败
     :rtype: bool
-
 
 .. method:: message_unsubscribe(partner_ids=None, channel_ids=None)
 
-    Remove partners from the record's followers.
+    从记录的关注者中移除合作伙伴。
 
-    :param list(int) partner_ids: IDs of the partners that will be subscribed
-        to the record
-    :param list(int) channel_ids: IDs of the channels that will be subscribed
-        to the record
+    :param list(int) partner_ids: 将取消订阅记录的合作伙伴 ID 列表
+    :param list(int) channel_ids: 将取消订阅记录的频道 ID 列表
     :return: True
     :rtype: bool
-
 
 .. method:: message_unsubscribe_users(user_ids=None)
 
-    Wrapper on message_subscribe, using users.
+    通过用户进行 ``message_subscribe`` 的包装方法。
 
-    :param list(int) user_ids: IDs of the users that will be unsubscribed
-        to the record; if None, unsubscribe the current user instead.
+    :param list(int) user_ids: 将取消订阅记录的用户 ID 列表；如果为 None，则取消订阅当前用户。
     :return: True
     :rtype: bool
 
-Logging changes
-~~~~~~~~~~~~~~~
+记录变更日志
+~~~~~~~~~~~~~~
 
-The ``mail`` module adds a powerful tracking system on fields, allowing you
-to log changes to specific fields in the record's chatter. To add tracking
-to a field, simple set the tracking attribute to True.
+``mail`` 模块为字段添加了强大的跟踪系统，允许您在记录的 Chatter 中记录特定字段的更改。要跟踪字段的更改，只需将 tracking 属性设置为 True。
 
-.. example::
+.. 例子::
 
-    Let's track changes on the name and responsible of our business trips:
+    让我们跟踪商务旅行的名称和负责人的更改：
 
     .. code-block:: python
 
         class BusinessTrip(models.Model):
             _name = 'business.trip'
             _inherit = ['mail.thread']
-            _description = 'Business Trip'
+            _description = '商务旅行'
 
             name = fields.Char(tracking=True)
-            partner_id = fields.Many2one('res.partner', 'Responsible',
-                                         tracking=True)
-            guest_ids = fields.Many2many('res.partner', 'Participants')
+            partner_id = fields.Many2one('res.partner', '负责人', tracking=True)
+            guest_ids = fields.Many2many('res.partner', '参与者')
 
-    From now on, every change to a trip's name or responsible will log a note
-    on the record. The ``name`` field will be displayed in the notification as
-    well to give more context about the notification (even if the name did not
-    change).
+    从现在开始，对旅行名称或负责人的每一次更改都会在记录中记录一条备注。``name`` 字段将显示在通知中，即使名称没有更改，它也会提供更多的上下文信息。
 
-Subtypes
+子类型
 ~~~~~~~~
 
-Subtypes give you more granular control over messages. Subtypes act as a classification
-system for notifications, allowing subscribers to a document to customize the
-subtype of notifications they wish to receive.
+子类型使您能够对消息进行更细粒度的控制。子类型作为通知的分类系统，允许文档的订阅者自定义他们希望接收的通知子类型。
 
-Subtypes are created as data in your module; the model has the following fields:
+子类型作为数据在模块中创建；该模型具有以下字段：
 
-``name`` (mandatory) - :class:`~odoo.fields.Char`
-    name of the subtype, will be displayed in the notification customization
-    popup
+``name``（必填）- :class:`~odoo.fields.Char`
+    子类型名称，将显示在通知自定义弹出窗口中
 ``description`` - :class:`~odoo.fields.Char`
-    description that will be added in the message posted for this
-    subtype. If void, the name will be added instead
+    将添加到该子类型发布的消息中的描述。如果为空，则添加名称
 ``internal`` - :class:`~odoo.fields.Boolean`
-    messages with internal subtypes will be visible only by employees,
-    aka members of the ``base.group_user`` group
+    具有内部子类型的消息仅对员工可见，即 ``base.group_user`` 组的成员
 ``parent_id`` - :class:`~odoo.fields.Many2one`
-    link subtypes for automatic subscription; for example project subtypes are
-    linked to task subtypes through this link. When someone is subscribed to
-    a project, he will be subscribed to all tasks of this project with
-    subtypes found using the parent subtype
+    链接子类型以实现自动订阅；例如项目子类型通过此链接连接到任务子类型。当某人订阅项目时，他将自动订阅所有任务，其子类型通过父子类型查找
 ``relation_field`` - :class:`~odoo.fields.Char`
-    as an example, when linking project and tasks subtypes, the relation
-    field is the project_id field of tasks
+    例如，在链接项目和任务子类型时，relation_field 是任务的 project_id 字段
 ``res_model`` - :class:`~odoo.fields.Char`
-    model the subtype applies to; if False, this subtype applies to all models
+    子类型适用的模型；如果为 False，则该子类型适用于所有模型
 ``default`` - :class:`~odoo.fields.Boolean`
-    whether the subtype is activated by default when subscribing
+    订阅时是否默认激活该子类型
 ``sequence`` - :class:`~odoo.fields.Integer`
-    used to order subtypes in the notification customization popup
+    用于在通知自定义弹出窗口中对子类型进行排序
 ``hidden`` - :class:`~odoo.fields.Boolean`
-    whether the subtype is hidden in the notification customization popup
+    子类型是否隐藏在通知自定义弹出窗口中
 
-
-Interfacing subtypes with field tracking allows to subscribe to different kind
-of notifications depending on what might interest users. To do this, you
-can override the ``_track_subtype()`` function:
+通过将子类型与字段跟踪接口相结合，允许用户根据自己的兴趣订阅不同类型的通知。要实现此功能，您可以重写 ``_track_subtype()`` 函数：
 
 .. method:: _track_subtype(init_values)
 
-    Give the subtype triggered by the changes on the record according
-    to values that have been updated.
+    根据记录中的更改，返回触发的子类型。
 
-    :param dict init_values: the original values of the record; only modified fields
-                        are present in the dict
-    :returns: a subtype's full external id or False if no subtype is triggered
+    :param dict init_values: 记录的原始值；仅包含已修改的字段。
+    :returns: 触发的子类型的完整外部ID，若未触发子类型则返回False。
 
 
-.. example::
+.. 示例::
 
-    Let's add a ``state`` field on our example class and trigger a notification
-    with a specific subtype when this field change values.
+    我们在示例类中添加一个 ``state`` 字段，并在该字段更改时触发一个特定的子类型通知。
 
-    First, let's define our subtype:
+    首先，定义我们的子类型：
 
     .. code-block:: xml
 
         <record id="mt_state_change" model="mail.message.subtype">
-            <field name="name">Trip confirmed</field>
+            <field name="name">旅行确认</field>
             <field name="res_model">business.trip</field>
             <field name="default" eval="True"/>
-            <field name="description">Business Trip confirmed!</field>
+            <field name="description">商务旅行已确认！</field>
         </record>
 
-
-    Then, we need to override the ``track_subtype()`` function. This function
-    is called by the tracking system to know which subtype should be used depending
-    on the change currently being applied. In our case, we want to use our shiny new
-    subtype when the ``state`` field changes from *draft* to *confirmed*:
+    然后，我们需要重写 ``track_subtype()`` 函数。该函数由跟踪系统调用，根据当前应用的更改来决定应使用哪个子类型。在此示例中，我们希望当 ``state`` 字段从 *draft* 更改为 *confirmed* 时，使用新定义的子类型：
 
     .. code-block:: python
 
         class BusinessTrip(models.Model):
             _name = 'business.trip'
             _inherit = ['mail.thread']
-            _description = 'Business Trip'
+            _description = '商务旅行'
 
             name = fields.Char(tracking=True)
-            partner_id = fields.Many2one('res.partner', 'Responsible',
-                                         tracking=True)
-            guest_ids = fields.Many2many('res.partner', 'Participants')
-            state = fields.Selection([('draft', 'New'), ('confirmed', 'Confirmed')],
+            partner_id = fields.Many2one('res.partner', '负责人', tracking=True)
+            guest_ids = fields.Many2many('res.partner', '参与者')
+            state = fields.Selection([('draft', '新建'), ('confirmed', '已确认')],
                                      tracking=True)
 
             def _track_subtype(self, init_values):
-                # init_values contains the modified fields' values before the changes
+                # init_values 包含更改前字段的原始值
                 #
-                # the applied values can be accessed on the record as they are already
-                # in cache
+                # 应用的值可以通过缓存中的记录进行访问
                 self.ensure_one()
                 if 'state' in init_values and self.state == 'confirmed':
                     return self.env.ref('my_module.mt_state_change')
                 return super(BusinessTrip, self)._track_subtype(init_values)
 
-Customizing notifications
+自定义通知
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When sending notifications to followers, it can be quite useful to add buttons in
-the template to allow quick actions directly from the e-mail. Even a simple button
-to link directly to the record's form view can be useful; however in most cases
-you don't want to display these buttons to portal users.
+在向关注者发送通知时，在模板中添加按钮以允许用户直接从电子邮件中执行快速操作是非常有用的。即使是一个简单的按钮，直接链接到记录的表单视图也能提高效率；然而，在大多数情况下，您不希望这些按钮显示给门户用户。
 
-The notification system allows customizing notification templates in the following
-ways:
+通知系统允许以以下方式自定义通知模板：
 
-- Display *Access Buttons*: these buttons are visible at the top of the notification
-  e-mail and allow the recipient to directly access the form view of the record
-- Display *Follow Buttons*: these buttons allow the recipient to
-  directly quickly subscribe from the record
-- Display *Unfollow Buttons*: these buttons allow the recipient to
-  directly quickly unsubscribe from the record
-- Display *Custom Action Buttons*: these buttons are calls to specific routes
-  and allow you to make some useful actions directly available from the e-mail (i.e.
-  converting a lead to an opportunity, validating an expense sheet for an
-  Expense Manager, etc.)
+- 显示 *访问按钮*：这些按钮显示在通知电子邮件的顶部，允许收件人直接访问记录的表单视图。
+- 显示 *关注按钮*：这些按钮允许收件人直接快速地从记录中订阅。
+- 显示 *取消关注按钮*：这些按钮允许收件人直接快速取消订阅。
+- 显示 *自定义操作按钮*：这些按钮通过调用特定的路由，允许用户直接从电子邮件中执行某些有用的操作（例如将潜在客户转换为机会、为费用经理验证费用报表等）。
 
-These buttons settings can be applied to different groups that you can define
-yourself by overriding the function ``_notify_get_groups``.
+这些按钮设置可以应用于不同的组，您可以通过重写函数 ``_notify_get_groups`` 来自定义这些组。
 
 .. method:: _notify_get_groups(message, groups)
 
-    Give the subtype triggered by the changes on the record according
-    to values that have been updated.
+    根据记录中的更改，返回触发的子类型。
 
-    :param ``record`` message: ``mail.message`` record currently being sent
-    :param list(tuple) groups: list of tuple of the form (group_name, group_func,group_data) where:
+    :param ``record`` message: 当前正在发送的 ``mail.message`` 记录
+    :param list(tuple) groups: 组的元组列表，格式为 (group_name, group_func, group_data)，其中：
 
         group_name
-          is an identifier used only to be able to override and manipulate
-          groups. Default groups are ``user`` (recipients linked to an employee user),
-          ``portal`` (recipients linked to a portal user) and ``customer`` (recipients not
-          linked to any user). An example of override use would be to add a group
-          linked to a res.groups like Hr Officers to set specific action buttons to
-          them.
+          仅用于覆盖和操作组的标识符。默认组为 ``user``（链接到员工用户的收件人），``portal``（链接到门户用户的收件人），和 ``customer``（未链接到任何用户的收件人）。例如，可以添加一个链接到像 Hr Officers 这样的 ``res.groups`` 组，以为他们设置特定的操作按钮。
         group_func
-          is a function pointer taking a partner record as parameter. This
-          method will be applied on recipients to know whether they belong to a given
-          group or not. Only first matching group is kept. Evaluation order is the
-          list order.
+          是一个函数指针，接受一个合伙人记录作为参数。该方法将应用于收件人，以判断他们是否属于某个组。只保留第一个匹配的组。评估顺序为列表顺序。
         group_data
-          is a dict containing parameters for the notification email with the following
-          possible keys - values:
+          是一个包含通知电子邮件参数的字典，其中可能的键 - 值如下：
 
           - has_button_access
-              whether to display Access <Document> in email. True by default for
-              new groups, False for portal / customer.
+              是否在电子邮件中显示“访问<文档>”按钮。对于新组默认设置为True，对于门户/客户为False。
           - button_access
-              dict with url and title of the button
+              包含按钮的URL和标题的字典。
           - has_button_follow
-              whether to display Follow in email (if recipient is not currently
-              following the thread). True by default for new groups, False for
-              portal / customer.
+              是否在电子邮件中显示“关注”按钮（如果收件人当前未关注该线程）。对于新组默认设置为True，对于门户/客户为False。
           - button_follow
-              dict with url and title of the button
+              包含按钮的URL和标题的字典。
           - has_button_unfollow
-              whether to display Unfollow in email (if recipient is currently following the thread).
-              True by default for new groups, False for portal / customer.
+              是否在电子邮件中显示“取消关注”按钮（如果收件人当前已关注该线程）。对于新组默认设置为True，对于门户/客户为False。
           - button_unfollow
-              dict with url and title of the button
+              包含按钮的URL和标题的字典。
           - actions
-              list of action buttons to display in the notification email.
-              Each action is a dict containing url and title of the button.
+              要在通知电子邮件中显示的操作按钮列表。每个操作都是一个包含按钮的URL和标题的字典。
 
-    :returns: a subtype's full external id or False if no subtype is triggered
+    :returns: 触发的子类型的完整外部ID，若未触发子类型则返回False。
 
-
-The urls in the actions list can be generated automatically by calling the
-``_notify_get_action_link()`` function:
-
+这些操作按钮的URL可以通过调用 ``_notify_get_action_link()`` 函数自动生成：
 
 .. method:: _notify_get_action_link(self, link_type, **kwargs)
 
-    Generate a link for the given type on the current record (or on a specific
-    record if the kwargs ``model`` and ``res_id`` are set).
+    为当前记录生成给定类型的链接（或在设置了kwargs ``model`` 和 ``res_id`` 时为特定记录生成链接）。
 
-    :param str link_type: link type to be generated; can be any of these values:
+    :param str link_type: 要生成的链接类型，可以是以下任意值：
 
         ``view``
-          link to form view of the record
+          链接到记录的表单视图。
         ``assign``
-          assign the logged user to the ``user_id`` field of
-          the record (if it exists)
+          将登录用户分配给记录的 ``user_id`` 字段（如果存在）。
         ``follow``
-          self-explanatory
+          自解释。
         ``unfollow``
-          self-explanatory
+          自解释。
         ``method``
-          call a method on the record; the method's name should be
-          provided as the kwarg ``method``
+          调用记录上的方法；方法名应作为kwarg ``method`` 提供。
         ``new``
-          open an empty form view for a new record; you can specify
-          a specific action by providing its id (database id or fully resolved
-          external id) in the kwarg ``action_id``
+          打开一个空白的表单视图用于新记录；您可以通过kwarg ``action_id`` 指定一个特定的操作（数据库ID或完全解析的外部ID）。
 
-    :returns: link of the type selected for the record
+    :returns: 为记录生成的链接类型。
     :rtype: str
 
-.. example::
+.. 示例::
 
-    Let's add a custom button to the Business Trip state change notification;
-    this button will reset the state to Draft and will be only visible to a member
-    of the (imaginary) group Travel Manager (``business.group_trip_manager``)
+    让我们在商务旅行状态更改通知中添加一个自定义按钮；该按钮将把状态重置为“草稿”，并且仅对属于（假设的）旅行经理组（``business.group_trip_manager``）的成员可见。
 
     .. code-block:: python
 
         class BusinessTrip(models.Model):
             _name = 'business.trip'
             _inherit = ['mail.thread', 'mail.alias.mixin']
-            _description = 'Business Trip'
+            _description = '商务旅行'
 
-            # Pevious code goes here
+            # 之前的代码
 
             def action_cancel(self):
                 self.write({'state': 'draft'})
 
             def _notify_get_groups(self, message, groups):
-                """ Handle Trip Manager recipients that can cancel the trip at the last
-                minute and kill all the fun. """
+                """ 处理旅行经理收件人，他们可以在最后一刻取消旅行，破坏所有的乐趣。 """
                 groups = super(BusinessTrip, self)._notify_get_groups(message, groups)
 
                 self.ensure_one()
                 if self.state == 'confirmed':
                     app_action = self._notify_get_action_link('method',
                                         method='action_cancel')
-                    trip_actions = [{'url': app_action, 'title': _('Cancel')}]
+                    trip_actions = [{'url': app_action, 'title': _('取消')}]
 
                 new_group = (
                     'group_trip_manager',
@@ -460,216 +347,150 @@ The urls in the actions list can be generated automatically by calling the
 
                 return [new_group] + groups
 
+    请注意，我本可以在此方法外部定义我的评估函数，并定义一个全局函数来代替lambda函数，但为了使这些文档文件更简洁和不那么冗长，我选择了前者而不是后者。
 
-    Note that that I could have defined my evaluation function outside of this
-    method and define a global function to do it instead of a lambda, but for
-    the sake of being more brief and less verbose in these documentation files
-    that can sometimes be boring, I choose the former instead of the latter.
-
-Overriding defaults
+重写默认值
 ~~~~~~~~~~~~~~~~~~~
 
-There are several ways you can customize the behaviour of ``mail.thread`` models,
-including (but not limited to):
+有几种方式可以自定义 ``mail.thread`` 模型的行为，包括但不限于：
 
-``_mail_post_access`` - :class:`~odoo.models.Model`  attribute
-    the required access rights to be able to post a message on the model; by
-    default a ``write`` access is needed, can be set to ``read`` as well
+``_mail_post_access`` - :class:`~odoo.models.Model` 属性
+    在模型上发布消息所需的访问权限；默认情况下需要 ``write`` 访问权限，也可以设置为 ``read``。
 
-Context keys:
-    These context keys can be used to somewhat control ``mail.thread`` features
-    like auto-subscription or field tracking during calls to ``create()`` or
-    ``write()`` (or any other method where it may be useful).
+上下文键：
+    这些上下文键可以在调用 ``create()`` 或 ``write()`` （或任何其他可能有用的方法）时，控制 ``mail.thread`` 功能，如自动订阅或字段跟踪。
 
-    - ``mail_create_nosubscribe``: at create or message_post, do not subscribe
-      the current user to the record thread
-    - ``mail_create_nolog``: at create, do not log the automatic '<Document>
-      created' message
-    - ``mail_notrack``: at create and write, do not perform the value tracking
-      creating messages
-    - ``tracking_disable``: at create and write, perform no MailThread features
-      (auto subscription, tracking, post, ...)
-    - ``mail_auto_delete``: auto delete mail notifications; True by default
-    - ``mail_notify_force_send``: if less than 50 email notifications to send,
-      send them directly instead of using the queue; True by default
-    - ``mail_notify_user_signature``: add the current user signature in
-      email notifications; True by default
-
+    - ``mail_create_nosubscribe``: 在创建或 ``message_post`` 时，不会将当前用户订阅到记录线程。
+    - ``mail_create_nolog``: 在创建时，不会记录自动的“<文档> 已创建”消息。
+    - ``mail_notrack``: 在创建和写入时，不会执行创建消息的值跟踪。
+    - ``tracking_disable``: 在创建和写入时，不执行 MailThread 功能（自动订阅、跟踪、发布等）。
+    - ``mail_auto_delete``: 自动删除邮件通知；默认值为 True。
+    - ``mail_notify_force_send``: 如果要发送的电子邮件通知少于 50 封，则直接发送，而不是使用队列；默认值为 True。
+    - ``mail_notify_user_signature``: 在电子邮件通知中添加当前用户的签名；默认值为 True。
 
 .. _reference/mixins/mail/alias:
 
-Mail alias
+邮件别名
 ----------
 
-Aliases are configurable email addresses that are linked to a specific record
-(which usually inherits the ``mail.alias.mixin`` model) that will create new records when
-contacted via e-mail. They are an easy way to make your system accessible from
-the outside, allowing users or customers to quickly create records in your
-database without needing to connect to Odoo directly.
+别名是可配置的电子邮件地址，链接到特定的记录（通常继承 ``mail.alias.mixin`` 模型），在通过电子邮件联系时会创建新记录。它们是让系统从外部访问的便捷方式，允许用户或客户快速在数据库中创建记录，而无需直接连接到 Odoo。
 
-Aliases vs. Incoming Mail Gateway
+别名与传入邮件网关
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Some people use the Incoming Mail Gateway for this same purpose. You still need
-a correctly configured mail gateway to use aliases, however a single
-catchall domain will be sufficient since all routing will be done inside Odoo.
-Aliases have several advantages over Mail Gateways:
+有些人使用传入邮件网关实现同样的目的。您仍然需要正确配置的邮件网关来使用别名，但单一的 catchall 域名就足够了，因为所有路由都会在 Odoo 内部完成。别名相较于邮件网关有以下优点：
 
-* Easier to configure
-    * A single incoming gateway can be used by many aliases; this avoids having
-      to configure multiple emails on your domain name (all configuration is done
-      inside Odoo)
-    * No need for System access rights to configure aliases
-* More coherent
-    * Configurable on the related record, not in a Settings submenu
-* Easier to override server-side
-    * Mixin model is built to be extended from the start, allowing you to
-      extract useful data from incoming e-mails more easily than with a mail
-      gateway.
+* 更易配置
+    * 一个单一的传入网关可以用于多个别名；这样避免了在您的域名上配置多个电子邮件地址（所有配置都在 Odoo 内完成）。
+    * 配置别名不需要系统访问权限。
+* 更加连贯
+    * 在相关记录上进行配置，而不是在设置子菜单中。
+* 更容易在服务器端覆盖
+    * Mixin 模型从一开始就构建为可扩展，允许您比使用邮件网关更容易地从传入的电子邮件中提取有用的数据。
 
-
-Alias support integration
+别名支持集成
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Aliases are usually configured on a parent model which will then create specific
-record when contacted by e-mail. For example, Project have aliases to create tasks
-or issues, Sales Team have aliases to generate Leads.
+别名通常配置在父模型上，当通过电子邮件联系时，会创建特定的记录。例如，项目可以通过别名创建任务或问题，销售团队可以通过别名生成潜在客户。
 
-.. note:: The model that will be created by the alias **must** inherit the
-          ``mail_thread`` model.
+.. note:: 别名将创建的模型 **必须** 继承 ``mail_thread`` 模型。
 
-Alias support is added by inheriting ``mail.alias.mixin``; this mixin will
-generate a new ``mail.alias`` record for each record of the parent class that
-gets created (for example, every ``project.project`` record having its ``mail.alias``
-record initialized on creation).
+通过继承 ``mail.alias.mixin`` 添加别名支持；该混合模式会为父类中的每条记录生成一个新的 ``mail.alias`` 记录（例如，每个 ``project.project`` 记录在创建时都会初始化其 ``mail.alias`` 记录）。
 
-.. note:: Aliases can also be created manually and supported by a simple
-    :class:`~odoo.fields.Many2one` field. This guide assumes you wish a
-    more complete integration with automatic creation of the alias, record-specific
-    default values, etc.
+.. note:: 别名也可以手动创建，并通过一个简单的 :class:`~odoo.fields.Many2one` 字段支持。本指南假设您希望通过自动创建别名、记录特定的默认值等方式进行更完整的集成。
 
-Unlike ``mail.thread`` inheritance, the ``mail.alias.mixin`` **requires** some
-specific overrides to work correctly. These overrides will specify the values
-of the created alias, like the kind of record it must create and possibly
-some default values these records may have depending on the parent object:
+与 ``mail.thread`` 继承不同，``mail.alias.mixin`` **需要** 一些特定的覆盖才能正常工作。这些覆盖将指定创建的别名的值，如必须创建的记录类型以及根据父对象可能具有的一些默认值：
 
 .. method:: _get_alias_model_name(vals)
 
-    Return the model name for the alias. Incoming emails that are not
-    replies to existing records will cause the creation of a new record
-    of this alias model. The value may depend on ``vals``, the dict of
-    values passed to ``create`` when a record of this model is created.
+    返回别名的模型名称。传入的电子邮件如果不是对现有记录的回复，将会导致创建别名模型的新记录。该值可能依赖于 ``vals``，即创建该模型记录时传递的值字典。
 
-    :param vals dict: values of the newly created record that will holding
-                      the alias
-    :return: model name
+    :param vals dict: 新创建的记录的值，这些记录将持有别名。
+    :return: 模型名称。
     :rtype: str
 
 .. method:: _get_alias_values()
 
-    Return values to create an alias, or to write on the alias after its
-    creation. While not completely mandatory, it is usually required to make
-    sure that newly created records will be linked to the alias' parent (i.e.
-    tasks getting created in the right project) by setting a dictionary of
-    default values in the alias' ``alias_defaults`` field.
+    返回用于创建别名的值，或在别名创建后写入的值。虽然不是完全强制的，但通常需要确保新创建的记录将链接到别名的父记录（即，通过设置别名的 ``alias_defaults`` 字段中的默认值，确保在正确的项目中创建任务）。
 
-    :return: dictionary of values that will be written to the new alias
+    :return: 写入新别名的值的字典。
     :rtype: dict
 
-The ``_get_alias_values()`` override is particularly interesting as it allows you
-to modify the behaviour of your aliases easily. Among the fields that can be set
-on the alias, the following are of particular interest:
+``_get_alias_values()`` 覆盖特别有趣，因为它允许您轻松修改别名的行为。在别名上可以设置的字段中，以下内容尤为重要：
 
 ``alias_name`` - :class:`~odoo.fields.Char`
-    name of the email alias, e.g. 'jobs' if you want to catch emails for
-    <jobs@example.odoo.com>
+    电子邮件别名的名称，例如 'jobs'，如果您希望接收 <jobs@example.odoo.com> 的电子邮件。
 ``alias_user_id`` - :class:`~odoo.fields.Many2one` (``res.users``)
-    owner of records created upon receiving emails on this alias;
-    if this field is not set the system will attempt to find the right owner
-    based on the sender (From) address, or will use the Administrator account
-    if no system user is found for that address
+    当别名接收到电子邮件时创建的记录的所有者；如果未设置此字段，系统将尝试根据发件人（发件人）地址查找正确的所有者，或者如果找不到该地址的系统用户，将使用管理员帐户。
 ``alias_defaults`` - :class:`~odoo.fields.Text`
-    Python dictionary that will be evaluated to provide
-    default values when creating new records for this alias
+    一个 Python 字典，当为该别名创建新记录时，将计算并提供默认值。
 ``alias_force_thread_id`` - :class:`~odoo.fields.Integer`
-    optional ID of a thread (record) to which all incoming messages will be
-    attached, even if they did not reply to it; if set, this will disable the
-    creation of new records completely
+    可选的线程（记录）ID，所有传入消息都将附加到该线程，即使它们没有回复它；如果设置了此字段，将完全禁用新记录的创建。
 ``alias_contact`` - :class:`~odoo.fields.Selection`
-    Policy to post a message on the document using the mailgateway
+    使用邮件网关在文档上发布消息的策略。
 
-    - *everyone*: everyone can post
-    - *partners*: only authenticated partners
-    - *followers*: only followers of the related document or members of following channels
+    - *everyone*: 所有人都可以发布消息。
+    - *partners*: 只有经过认证的合作伙伴可以发布消息。
+    - *followers*: 只有相关文档的关注者或跟随频道的成员可以发布消息。
 
-Note that aliases make use of :ref:`delegation inheritance <reference/orm/inheritance>`,
-which means that while the alias is stored in another table, you have
-access to all these fields directly from your parent object. This allows
-you to make your alias easily configurable from the record's form view.
+注意，别名使用了 :ref:`delegation inheritance <reference/orm/inheritance>`，这意味着虽然别名存储在另一个表中，但您可以从父对象直接访问所有这些字段。这允许您从记录的表单视图中轻松配置别名。
 
-.. example::
+.. 示例::
 
-    Let's add aliases on our business trip class to create expenses on the fly via
-    e-mail.
+    让我们为商务旅行类添加别名，以通过电子邮件即时创建费用记录。
 
     .. code-block:: python
 
         class BusinessTrip(models.Model):
             _name = 'business.trip'
             _inherit = ['mail.thread', 'mail.alias.mixin']
-            _description = 'Business Trip'
+            _description = '商务旅行'
 
             name = fields.Char(tracking=True)
-            partner_id = fields.Many2one('res.partner', 'Responsible',
-                                         tracking=True)
-            guest_ids = fields.Many2many('res.partner', 'Participants')
-            state = fields.Selection([('draft', 'New'), ('confirmed', 'Confirmed')],
+            partner_id = fields.Many2one('res.partner', '负责人', tracking=True)
+            guest_ids = fields.Many2many('res.partner', '参与者')
+            state = fields.Selection([('draft', '新建'), ('confirmed', '已确认')],
                                      tracking=True)
-            expense_ids = fields.One2many('business.expense', 'trip_id', 'Expenses')
-            alias_id = fields.Many2one('mail.alias', string='Alias', ondelete="restrict",
+            expense_ids = fields.One2many('business.expense', 'trip_id', '费用')
+            alias_id = fields.Many2one('mail.alias', string='别名', ondelete="restrict",
                                        required=True)
 
             def _get_alias_model_name(self, vals):
-            """ Specify the model that will get created when the alias receives a message """
+            """ 指定当别名接收到消息时将创建的模型 """
                 return 'business.expense'
 
             def _get_alias_values(self):
-            """ Specify some default values that will be set in the alias at its creation """
+            """ 指定在创建别名时将设置的一些默认值 """
                 values = super(BusinessTrip, self)._get_alias_values()
-                # alias_defaults holds a dictionary that will be written
-                # to all records created by this alias
+                # alias_defaults 包含将写入所有由该别名创建的记录的字典
                 #
-                # in this case, we want all expense records sent to a trip alias
-                # to be linked to the corresponding business trip
+                # 在本例中，我们希望所有发送到旅行别名的费用记录都链接到相应的商务旅行
                 values['alias_defaults'] = {'trip_id': self.id}
-                # we only want followers of the trip to be able to post expenses
-                # by default
+                # 默认情况下，我们只希望旅行的关注者能够发布费用
                 values['alias_contact'] = 'followers'
                 return values
 
         class BusinessExpense(models.Model):
             _name = 'business.expense'
             _inherit = ['mail.thread']
-            _description = 'Business Expense'
+            _description = '商务费用'
 
             name = fields.Char()
-            amount = fields.Float('Amount')
-            trip_id = fields.Many2one('business.trip', 'Business Trip')
-            partner_id = fields.Many2one('res.partner', 'Created by')
+            amount = fields.Float('金额')
+            trip_id = fields.Many2one('business.trip', '商务旅行')
+            partner_id = fields.Many2one('res.partner', '创建者')
 
-    We would like our alias to be easily configurable from the form view of our
-    business trips, so let's add the following to our form view:
+    我们希望别名可以轻松地从商务旅行的表单视图进行配置，因此让我们将以下内容添加到表单视图中：
 
     .. code-block:: xml
 
-        <page string="Emails">
+        <page string="电子邮件">
             <group name="group_alias">
-                <label for="alias_name" string="Email Alias"/>
+                <label for="alias_name" string="电子邮件别名"/>
                 <div name="alias_def">
-                    <!-- display a link while in view mode and a configurable field
-                    while in edit mode -->
+                    <!-- 在查看模式下显示链接，在编辑模式下显示可配置字段 -->
                     <field name="alias_id" class="oe_read_only oe_inline"
-                            string="Email Alias" required="0"/>
+                            string="电子邮件别名" required="0"/>
                     <div class="oe_edit_only oe_inline" name="edit_alias"
                          style="display: inline;" >
                         <field name="alias_name" class="oe_inline"/>
@@ -678,36 +499,31 @@ you to make your alias easily configurable from the record's form view.
                     </div>
                 </div>
                 <field name="alias_contact" class="oe_inline"
-                        string="Accept Emails From"/>
+                        string="接受邮件来自"/>
             </group>
         </page>
 
-    Now we can change the alias address directly from the form view and change
-    who can send e-mails to the alias.
+    现在，我们可以直接从表单视图更改别名地址，并更改谁可以向别名发送电子邮件。
 
-    We can then override ``message_new()`` on our expense model to fetch the values
-    from our email when the expense will be created:
+    然后我们可以在费用模型上覆盖 ``message_new()``，以便在创建费用时从电子邮件中获取值：
 
     .. code-block:: python
 
         class BusinessExpense(models.Model):
-            # Previous code goes here
+            # 之前的代码
             # ...
 
             def message_new(self, msg, custom_values=None):
-                """ Override to set values according to the email.
+                """ 重写以根据电子邮件设置值。
 
-                In this simple example, we simply use the email title as the name
-                of the expense, try to find a partner with this email address and
-                do a regex match to find the amount of the expense."""
-                name = msg_dict.get('subject', 'New Expense')
-                # Match the last occurrence of a float in the string
-                # Example: '50.3 bar 34.5' becomes '34.5'. This is potentially the price
-                # to encode on the expense. If not, take 1.0 instead
+                在这个简单的示例中，我们只使用电子邮件标题作为费用名称，尝试找到具有该电子邮件地址的合作伙伴，并通过正则表达式匹配找到费用金额。"""
+                name = msg_dict.get('subject', '新费用')
+                # 匹配字符串中最后出现的浮点数
+                # 例如： '50.3 bar 34.5' 变为 '34.5'。这可能是要在费用中编码的价格。如果没有，默认取 1.0
                 amount_pattern = '(\d+(\.\d*)?|\.\d+)'
                 expense_price = re.findall(amount_pattern, name)
                 price = expense_price and float(expense_price[-1][0]) or 1.0
-                # find the partner by looking for it's email
+                # 根据电子邮件查找合伙人
                 partner = self.env['res.partner'].search([('email', 'ilike', email_address)],
                                                          limit=1)
                 defaults = {
@@ -720,40 +536,28 @@ you to make your alias easily configurable from the record's form view.
                 return res
 
 .. _reference/mixins/mail/activities:
-
-Activities tracking
+活动追踪
 -------------------
 
-Activities are actions users have to take on a document like making a phone call
-or organizing a meeting. Activities come with the mail module as they are
-integrated in the Chatter but are *not bundled with mail.thread*. Activities
-are records of the ``mail.activity`` class, which have a type (``mail.activity.type``),
-name, description, scheduled time (among others). Pending activities are visible
-above the message history in the chatter widget.
+活动是用户在文档上需要执行的操作，如打电话或组织会议。活动与邮件模块集成在 Chatter 中，但 *不与 mail.thread 捆绑*。活动是 ``mail.activity`` 类的记录，具有类型（``mail.activity.type``）、名称、描述、计划时间（等等）。未完成的活动显示在 Chatter 小部件中的消息历史上方。
 
-You can integrate activities using the ``mail.activity.mixin`` class on your object
-and the specific widgets to display them (via the field ``activity_ids``) in the form
-view and kanban view of your records (``mail_activity`` and ``kanban_activity``
-widgets, respectively).
+您可以通过在对象上使用 ``mail.activity.mixin`` 类并在表单视图和看板视图中显示特定的小部件（通过 ``activity_ids`` 字段）来集成活动（分别为 ``mail_activity`` 和 ``kanban_activity`` 小部件）。
 
-.. example::
+.. 示例::
 
-    Organizing a business trip is a tedious process and tracking needed activities
-    like ordering plane tickets or a cab for the airport could be useful. To do so,
-    we will add the activities mixin on our model and display the next planned activities
-    in the message history of our trip.
+    组织商务旅行是一个繁琐的过程，跟踪所需的活动（如订机票或叫车去机场）可能很有用。为此，我们将在模型上添加活动混合类，并在旅行的消息历史中显示下一个计划活动。
 
     .. code-block:: python
 
         class BusinessTrip(models.Model):
             _name = 'business.trip'
             _inherit = ['mail.thread', 'mail.activity.mixin']
-            _description = 'Business Trip'
+            _description = '商务旅行'
 
             name = fields.Char()
             # [...]
 
-    We modify the form view of our trips to display their next activities:
+    我们修改了旅行的表单视图，以显示下一个活动：
 
     .. code-block:: xml
 
@@ -761,8 +565,8 @@ widgets, respectively).
             <field name="name">business.trip.form</field>
             <field name="model">business.trip</field>
             <field name="arch" type="xml">
-                <form string="Business Trip">
-                    <!-- Your usual form view goes here -->
+                <form string="商务旅行">
+                    <!-- 您的表单视图通常放在这里 -->
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="activity_ids" widget="mail_activity"/>
@@ -772,65 +576,50 @@ widgets, respectively).
             </field>
         </record>
 
-You can find concrete examples of integration in the following models:
+您可以在以下模型中找到具体的集成示例：
 
-* ``crm.lead`` in the CRM (*crm*) Application
-* ``sale.order`` in the Sales (*sale*) Application
-* ``project.task`` in the Project (*project*) Application
+* ``crm.lead`` 在 CRM (*crm*) 应用中
+* ``sale.order`` 在销售 (*sale*) 应用中
+* ``project.task`` 在项目 (*project*) 应用中
 
 
 .. _reference/mixins/website:
 
-Website features
+网站功能
 ================
 
 .. _reference/mixins/website/utm:
 
-Visitor tracking
+访客追踪
 ----------------
 
-The ``utm.mixin`` class can be used to track online marketing/communication
-campaigns through arguments in links to specified resources. The mixin adds
-3 fields to your model:
+``utm.mixin`` 类可用于通过指定资源的链接参数跟踪在线营销/沟通活动。该混合类向您的模型添加了 3 个字段：
 
-* ``campaign_id``: :class:`~odoo.fields.Many2one` field to a ``utm.campaign``
-  object (i.e. Christmas_Special, Fall_Collection, etc.)
-* ``source_id``: :class:`~odoo.fields.Many2one` field to a ``utm.source``
-  object (i.e. Search Engine, mailing list, etc.)
-* ``medium_id``: :class:`~odoo.fields.Many2one` field to a ``utm.medium``
-  object (i.e. Snail Mail, e-Mail, social network update, etc.)
+* ``campaign_id``: :class:`~odoo.fields.Many2one` 字段，指向 ``utm.campaign`` 对象（例如 Christmas_Special、Fall_Collection 等）。
+* ``source_id``: :class:`~odoo.fields.Many2one` 字段，指向 ``utm.source`` 对象（例如搜索引擎、邮件列表等）。
+* ``medium_id``: :class:`~odoo.fields.Many2one` 字段，指向 ``utm.medium`` 对象（例如邮寄、电子邮件、社交网络更新等）。
 
-These models have a single field ``name`` (i.e. they are simply there to
-distinguish campaigns but don't have any specific behaviour).
+这些模型只有一个 ``name`` 字段（即它们只是用于区分活动，但没有任何特定行为）。
 
-Once a customer visits your website with these parameters set in the url
-(i.e. https://www.odoo.com/?campaign_id=mixin_talk&source_id=www.odoo.com&medium_id=website),
-three cookies are set in the visitor's website for these parameters.
-Once a object that inherits the utm.mixin is created from the website (i.e. lead
-form, job application, etc.), the utm.mixin code kicks in and fetches the values
-from the cookies to set them in the new record. Once this is done, you can then
-use the campaign/source/medium fields as any other field when defining reports
-and views (group by, etc.).
+当客户访问您的网站并在网址中设置了这些参数（例如 https://www.odoo.com/?campaign_id=mixin_talk&source_id=www.odoo.com&medium_id=website），系统会在访客的浏览器中为这些参数设置三个 cookie。一旦从网站创建了继承了 utm.mixin 的对象（例如线索表单、工作申请等），utm.mixin 代码将开始运行，并从 cookie 中获取值设置到新记录中。完成后，您可以像定义其他字段一样使用活动/来源/媒介字段来定义报表和视图（分组等）。
 
-To extend this behaviour, simply add a relational field to a simple model (the
-model should support the *quick create* (i.e. call to ``create()`` with a single
-``name`` value) and extend the function ``tracking_fields()``:
+要扩展此行为，只需向简单模型添加一个关系字段（该模型应支持 *快速创建*（即通过一个 ``name`` 值调用 ``create()``）并扩展 ``tracking_fields()`` 函数）：
 
 .. code-block:: python
 
     class UtmMyTrack(models.Model):
         _name = 'my_module.my_track'
-        _description = 'My Tracking Object'
+        _description = '我的追踪对象'
 
-        name = fields.Char(string='Name', required=True)
+        name = fields.Char(string='名称', required=True)
 
 
     class MyModel(models.Models):
         _name = 'my_module.my_model'
         _inherit = ['utm.mixin']
-        _description = 'My Tracked Object'
+        _description = '我的被追踪对象'
 
-        my_field = fields.Many2one('my_module.my_track', 'My Field')
+        my_field = fields.Many2one('my_module.my_track', '我的字段')
 
         @api.model
         def tracking_fields(self):
@@ -841,48 +630,36 @@ model should support the *quick create* (i.e. call to ``create()`` with a single
             ])
             return result
 
-This will tell the system to create a cookie named *odoo_utm_my_field* with the
-value found in the url parameter ``my_field``; once a new record of this model is
-created by a call from a website form, the generic override of the ``create()``
-method of ``utm.mixin`` will fetch the default values for this field from the
-cookie (and the ``my_module.my_track`` record will be creatwed on the fly if it
-does not exist yet).
+这将告诉系统创建一个名为 *odoo_utm_my_field* 的 cookie，并将网址参数 ``my_field`` 中找到的值存储在其中；一旦通过网站表单创建了此模型的新记录，utm.mixin 的通用重写 ``create()`` 方法将从 cookie 中获取该字段的默认值（如果 ``my_module.my_track`` 记录尚不存在，将会自动创建）。
 
-You can find concrete examples of integration in the following models:
+您可以在以下模型中找到具体的集成示例：
 
-* ``crm.lead`` in the CRM (*crm*) Application
-* ``hr.applicant`` in the Recruitment Process (*hr_recruitment*) Application
-* ``helpdesk.ticket`` in the Helpdesk (*helpdesk* - Odoo Enterprise only) Application
+* ``crm.lead`` 在 CRM (*crm*) 应用中
+* ``hr.applicant`` 在招聘流程 (*hr_recruitment*) 应用中
+* ``helpdesk.ticket`` 在帮助台 (*helpdesk* - 仅限 Odoo 企业版) 应用中
 
 .. _reference/mixins/website/published:
 
-Website visibility
+网站可见性
 ------------------
 
-You can quite easily add a website visibility toggle on any of your record. While
-this mixin is quite easy to implement manually, it is the most often-used after
-the ``mail.thread`` inheritance; a testament to its usefulness. The typical use
-case for this mixin is any object that has a frontend-page; being able to control
-the visibility of the page allows you to take your time while editing the page
-and only publish it when you're satisfied.
+您可以非常轻松地为任何记录添加网站可见性切换。虽然此混合类的实现相对简单，但它是仅次于 ``mail.thread`` 继承后使用最频繁的功能之一，这证明了它的实用性。此混合类的典型用例是任何具有前端页面的对象；能够控制页面的可见性允许您在编辑页面时花时间处理，只有在满意时才发布。
 
-To include the functionality, you only need to inherit ``website.published.mixin``:
+要包括此功能，您只需继承 ``website.published.mixin``：
 
 .. code-block:: python
 
     class BlogPost(models.Model):
         _name = "blog.post"
-        _description = "Blog Post"
+        _description = "博客文章"
         _inherit = ['website.published.mixin']
 
-This mixin adds 2 fields on your model:
+此混合类会在您的模型中添加两个字段：
 
-* ``website_published``: :class:`~odoo.fields.Boolean` field which represents
-  the status of the publication
-* ``website_url``: :class:`~odoo.fields.Char` field which represents
-  the URL through which the object is accessed
+* ``website_published``: :class:`~odoo.fields.Boolean` 字段，表示发布状态。
+* ``website_url``: :class:`~odoo.fields.Char` 字段，表示通过该对象访问的 URL。
 
-Note that this last field is a computed field and must be implemented for your class:
+请注意，最后一个字段是一个计算字段，必须为您的类实现：
 
 .. code-block:: python
 
@@ -890,9 +667,7 @@ Note that this last field is a computed field and must be implemented for your c
         for blog_post in self:
             blog_post.website_url = "/blog/%s" % (log_post.blog_id)
 
-Once the mechanism is in place, you just have to adapt your frontend and backend
-views to make it accessible. In the backend, adding a button in the button box is
-usually the way to go:
+机制就绪后，您只需调整前端和后端视图，使其可访问。在后端，通常在按钮框中添加一个按钮：
 
 .. code-block:: xml
 
@@ -901,13 +676,12 @@ usually the way to go:
         <field name="website_published" widget="website_button"/>
     </button>
 
-In the frontend, some security checks are needed to avoid showing 'Editing'
-buttons to website visitors:
+在前端，为了避免网站访客看到“编辑”按钮，需要进行一些安全检查：
 
 .. code-block:: xml
 
     <div id="website_published_button" class="float-right"
-         groups="base.group_website_publisher"> <!-- or any other meaningful group -->
+         groups="base.group_website_publisher"> <!-- 或任何其他有意义的组 -->
         <t t-call="website.publish_management">
           <t t-set="object" t-value="blog_post"/>
           <t t-set="publish_edit" t-value="True"/>
@@ -915,69 +689,47 @@ buttons to website visitors:
         </t>
     </div>
 
-Note that you must pass your object as the variable ``object`` to the template;
-in this example, the ``blog.post`` record was passed as the ``blog_post`` variable
-to the ``qweb`` rendering engine, it is necessary to specify this to the publish
-management template. The ``publish_edit`` variable allow the frontend
-button to link to the backend (allowing you to switch from frontend to backend
-and vice-versa easily); if set, you must specify the full external id of the action
-you want to call in the backend in the ``action`` variable (note that a Form View
-must exist for the model).
+请注意，您必须将对象作为变量 ``object`` 传递给模板；在本例中，``blog.post`` 记录作为 ``blog_post`` 变量传递给 ``qweb`` 渲染引擎，必须在发布管理模板中指定这一点。 ``publish_edit`` 变量允许前端按钮链接到后端（允许您轻松地在前端和后端之间切换）；如果设置，您必须在 ``action`` 变量中指定要在后端调用的操作的完整外部 ID（请注意，模型必须存在一个表单视图）。
 
-The action ``website_publish_button`` is defined in the mixin and adapts its
-behaviour to your object: if the class has a valid ``website_url`` compute function,
-the user is redirected to the frontend when he clicks on the button; the user
-can then publish the page directly from the frontend. This ensures
-that no online publication can happen by accident. If there is not compute function,
-the boolean ``website_published`` is simply triggered.
+``website_publish_button`` 操作是在混合类中定义的，并根据您的对象调整其行为：如果类有一个有效的 ``website_url`` 计算函数，当用户点击按钮时会重定向到前端；然后用户可以直接从前端发布页面。这确保不会意外发生在线发布。如果没有计算函数，只需触发 ``website_published`` 布尔值。
 
 .. _reference/mixins/website/seo:
-
-Website metadata
+网站元数据
 ----------------
 
-This simple mixin simply allows you to easily inject metadata in your frontend
-pages.
+这个简单的混合类可以让您轻松地在前端页面中注入元数据。
 
 .. code-block:: python
 
     class BlogPost(models.Model):
         _name = "blog.post"
-        _description = "Blog Post"
+        _description = "博客文章"
         _inherit = ['website.seo.metadata', 'website.published.mixin']
 
-This mixin adds 3 fields on your model:
+这个混合类会在您的模型中添加三个字段：
 
-* ``website_meta_title``: :class:`~odoo.fields.Char` field that allow you to set
-  an additional title to your page
-* ``website_meta_description``: :class:`~odoo.fields.Char` field that contains a
-  short description of the page (sometimes used in search engines results)
-* ``website_meta_keywords``: :class:`~odoo.fields.Char` field that contains some
-  keywords to help your page to be classified more precisely by search engines; the
-  "Promote" tool will help you select lexically-related keywords easily
+* ``website_meta_title``: :class:`~odoo.fields.Char` 字段，允许您为页面设置一个附加的标题
+* ``website_meta_description``: :class:`~odoo.fields.Char` 字段，包含页面的简短描述（有时会在搜索引擎结果中使用）
+* ``website_meta_keywords``: :class:`~odoo.fields.Char` 字段，包含一些关键词，帮助您的页面被搜索引擎更精准地分类；"推广"工具将帮助您轻松选择词汇相关的关键词
 
-These fields are editable in the frontend using the "Promote" tool from the Editor
-toolbar. Setting these fields can help search engines to better index your pages.
-Note that search engines do not base their results only on these metadata; the
-best SEO practice should still be to get referenced by reliable sources.
+这些字段可以通过编辑器工具栏中的"推广"工具在前端进行编辑。设置这些字段可以帮助搜索引擎更好地索引您的页面。请注意，搜索引擎并不仅仅基于这些元数据生成结果；最好的 SEO 实践仍然是通过可靠的来源获得引用。
 
 .. _reference/mixins/misc:
 
-Others
+其他功能
 ======
 
 .. _reference/mixins/misc/rating:
 
-Customer Rating
+客户评价
 ---------------
 
-The rating mixin allows sending email to ask for customer rating, automatic
-transitioning in a kanban processes and aggregating statistics on your ratings.
+评价混合类允许发送电子邮件请求客户评价，自动转换看板流程中的状态，并聚合您的评分统计数据。
 
-Adding rating on your model
+在模型中添加评价功能
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To add rating support, simply inherit the ``rating.mixin`` model:
+要添加评价支持，只需继承 ``rating.mixin`` 模型：
 
 .. code-block:: python
 
@@ -985,66 +737,55 @@ To add rating support, simply inherit the ``rating.mixin`` model:
         _name = 'my_module.my_model'
         _inherit = ['rating.mixin', 'mail.thread']
 
-        user_id = fields.Many2one('res.users', 'Responsible')
-        partner_id = fields.Many2one('res.partner', 'Customer')
+        user_id = fields.Many2one('res.users', '负责人')
+        partner_id = fields.Many2one('res.partner', '客户')
 
-The behaviour of the mixin adapts to your model:
+该混合类的行为会根据您的模型自动适应：
 
-* The ``rating.rating`` record will be linked to the ``partner_id`` field of your
-  model (if the field is present).
+* ``rating.rating`` 记录将会与您的模型的 ``partner_id`` 字段关联（如果字段存在）。
 
-  - this behaviour can be overridden with the function ``rating_get_partner_id()``
-    if you use another field than ``partner_id``
+  - 如果您使用的不是 ``partner_id`` 字段，该行为可以通过函数 ``rating_get_partner_id()`` 覆盖
 
-* The ``rating.rating`` record will be linked to the partner of the ``user_id``
-  field of your model (if the field is present) (i.e. the partner who is rated)
+* ``rating.rating`` 记录将会与您的模型的 ``user_id`` 字段关联的合伙人（即被评价的合伙人）。
 
-  - this behaviour can be overridden with the function ``rating_get_rated_partner_id()``
-    if you use another field than ``user_id`` (note that the function must return a
-    ``res.partner``, for ``user_id`` the system automatically fetches the partner
-    of the user)
+  - 如果您使用的不是 ``user_id`` 字段，该行为可以通过函数 ``rating_get_rated_partner_id()`` 覆盖（请注意，函数必须返回一个 ``res.partner``，对于 ``user_id`` 系统会自动获取用户的合伙人）
 
-* The chatter history will display the rating event (if your model inherits from
-  ``mail.thread``)
+* 如果您的模型继承自 ``mail.thread``，Chatter 历史将显示评分事件。
 
-Send rating requests by e-mail
+通过电子邮件发送评价请求
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you wish to send emails to request a rating, simply generate an e-mail with
-links to the rating object. A very basic email template could look like this:
+如果您希望通过电子邮件发送评价请求，只需生成一封包含评价对象链接的电子邮件。一个非常基础的电子邮件模板可能如下所示：
 
 .. code-block:: xml
 
     <record id="rating_my_model_email_template" model="mail.template">
-                <field name="name">My Model: Rating Request</field>
+                <field name="name">我的模型：评价请求</field>
                 <field name="email_from">${object.rating_get_rated_partner_id().email or '' | safe}</field>
-                <field name="subject">Service Rating Request</field>
+                <field name="subject">服务评价请求</field>
                 <field name="model_id" ref="my_module.model_my_model"/>
-                <field name="partner_to" >${object.rating_get_partner_id().id}</field>
+                <field name="partner_to">${object.rating_get_partner_id().id}</field>
                 <field name="auto_delete" eval="True"/>
                 <field name="body_html"><![CDATA[
     % set access_token = object.rating_get_access_token()
-    <p>Hi,</p>
-    <p>How satsified are you?</p>
+    <p>您好,</p>
+    <p>您对我们的服务有多满意？</p>
     <ul>
-        <li><a href="/rate/${access_token}/5">Satisfied</a></li>
-        <li><a href="/rate/${access_token}/3">Okay</a></li>
-        <li><a href="/rate/${access_token}/1">Dissatisfied</a></li>
+        <li><a href="/rate/${access_token}/5">满意</a></li>
+        <li><a href="/rate/${access_token}/3">一般</a></li>
+        <li><a href="/rate/${access_token}/1">不满意</a></li>
     </ul>
     ]]></field>
     </record>
 
-Your customer will then receive an e-mail with links to a simple webpage allowing
-them to provide a feedback on their interaction with your users (including a free-text
-feedback message).
+您的客户将会收到一封包含链接到一个简单网页的电子邮件，允许他们提供对与您用户交互的反馈（包括自由文本的反馈消息）。
 
-You can then quite easily integrate your ratings with your form view by defining
-an action for the ratings:
+然后，您可以通过为评价定义一个动作，轻松地将评价集成到您的表单视图中：
 
 .. code-block:: xml
 
     <record id="rating_rating_action_my_model" model="ir.actions.act_window">
-        <field name="name">Customer Ratings</field>
+        <field name="name">客户评价</field>
         <field name="res_model">rating.rating</field>
         <field name="view_mode">kanban,pivot,graph</field>
         <field name="domain">[('res_model', '=', 'my_module.my_model'), ('res_id', '=', active_id), ('consumed', '=', True)]</field>
@@ -1058,16 +799,15 @@ an action for the ratings:
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="%(rating_rating_action_my_model)d" type="action"
                         class="oe_stat_button" icon="fa-smile-o">
-                    <field name="rating_count" string="Rating" widget="statinfo"/>
+                    <field name="rating_count" string="评分" widget="statinfo"/>
                 </button>
             </xpath>
         </field>
     </record>
 
-Note that there are default views (kanban,pivot,graph) for ratings which allow
-you a quick bird's eye view of your customer ratings.
+请注意，系统为评价提供了默认的视图（kanban, pivot, graph），这使您可以快速概览客户评分。
 
-You can find concrete examples of integration in the following models:
+您可以在以下模型中找到具体的集成示例：
 
-* ``project.task`` in the Project (*rating_project*) Application
-* ``helpdesk.ticket`` in the Helpdesk (*helpdesk* - Odoo Enterprise only) Application
+* ``project.task`` 在项目 (*rating_project*) 应用中
+* ``helpdesk.ticket`` 在帮助台 (*helpdesk* - 仅限 Odoo 企业版) 应用中

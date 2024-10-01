@@ -1,55 +1,38 @@
-:nosearch:
-:show-content:
-:hide-page-toc:
-:show-toc:
-
 ===================
-Database management
+数据库管理
 ===================
 
-These guides provide instructions on how to install, maintain and upgrade Odoo databases.
+这些指南提供了关于如何安装、维护和升级 Odoo 数据库的说明。
 
 .. seealso::
-    :doc:`History of Versions <administration/supported_versions>`
+    :doc:`版本历史 <administration/supported_versions>`
 
-Installation
-============
+安装
+====
 
-Depending on the intended use case, there are multiple ways to install Odoo - or not install it at
-all.
+根据预期的使用场景，有多种方式来安装 Odoo，或者根本不需要安装。
 
-- :doc:`Online <administration/odoo_online>` is the easiest way to use Odoo in production or to try it.
+- :doc:`在线版 <administration/odoo_online>` 是最简单的方式，可以将 Odoo 用于生产或进行试用。
 
-- :doc:`Packaged installers <administration/on_premise/packages>` are suitable for testing Odoo and
-  developing modules. They can be used for long-term production with additional deployment and
-  maintenance work.
+- :doc:`打包安装程序 <administration/on_premise/packages>` 适合测试 Odoo 和开发模块。经过额外的部署和维护工作后，也可以用于长期生产。
 
-- :doc:`Source install <administration/on_premise/source>` provides greater flexibility, as it
-  allows, for example, running multiple Odoo versions on the same system. It is adequate to develop
-  modules and can be used as a base for production deployment.
+- :doc:`源代码安装 <administration/on_premise/source>` 提供了更大的灵活性，例如可以在同一系统上运行多个 Odoo 版本。它适合开发模块，并且可以用作生产部署的基础。
 
-- A `Docker <https://hub.docker.com/_/odoo/>`_ base image is available for development or
-  deployment.
+- 可供开发或部署使用的 `Docker <https://hub.docker.com/_/odoo/>`_ 基础镜像也可用。
 
 .. _install/editions:
 
-Editions
-========
+版本
+====
 
-There are two different editions.
+Odoo 有两个不同的版本。
 
-**Odoo Community** is the free and open-source version of the software, licensed under the `GNU
-LGPLv3 <https://github.com/odoo/odoo/blob/master/LICENSE>`_. It is the core upon which Odoo
-Enterprise is built.
+**Odoo Community** 是软件的免费开源版本，遵循 `GNU LGPLv3 <https://github.com/odoo/odoo/blob/master/LICENSE>`_ 许可协议。它是 Odoo Enterprise 构建的核心。
 
-**Odoo Enterprise** is the shared source version of the software, giving access to more
-functionalities, including functional support, upgrades, and hosting. `Pricing
-<https://www.odoo.com/pricing-plan>`_ starts from one app free.
+**Odoo Enterprise** 是软件的共享源代码版本，提供更多功能，包括功能支持、升级和托管服务。`价格 <https://www.odoo.com/pricing-plan>`_ 从一个免费应用开始。
 
 .. tip::
-   :doc:`Switch from Community to Enterprise <administration/on_premise/community_to_enterprise>` at
-   any time (except for the source install).
-
+   :doc:`随时从社区版切换到企业版 <administration/on_premise/community_to_enterprise>`（源代码安装除外）。
 
 .. toctree::
     :titlesonly:

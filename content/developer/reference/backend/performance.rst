@@ -1,78 +1,54 @@
-:custom-css: performance.css
-
 ===========
-Performance
+性能分析
 ===========
 
 .. _performance/profiling:
 
-Profiling
+性能分析
 =========
 
 .. currentmodule:: odoo.tools.profiler
 
-Profiling is about analysing the execution of a program and measure aggregated data. These data can
-be the elapsed time for each function, the executed SQL queries...
+性能分析是关于分析程序的执行并测量汇总数据。这些数据可以是每个函数的耗时，执行的 SQL 查询等。
 
-While profiling does not improve the performance of a program by itself, it can prove very helpful
-in finding performance issues and identifying which part of the program is responsible for them.
+虽然性能分析本身并不能提升程序的性能，但它可以非常有助于发现性能问题并识别导致问题的程序部分。
 
-Odoo provides an integrated profiling tool that allows recording all executed queries and stack
-traces during execution. It can be used to profile either a set of requests of a user session, or a
-specific portion of code. Profiling results can be either inspected with the integrated `speedscope
-<https://github.com/jlfwong/speedscope>`_ :dfn:`open source app allowing to visualize a flamegraph`
-view or analyzed with custom tools by first saving them in a JSON file or in the database.
+Odoo 提供了一个集成的性能分析工具，该工具允许在执行过程中记录所有执行的查询和堆栈跟踪。它可以用于分析用户会话的一组请求，或特定代码部分的执行。性能分析结果可以通过集成的 `speedscope <https://github.com/jlfwong/speedscope>`_ 可视化工具以火焰图的形式查看，也可以保存为 JSON 文件或存储在数据库中以供自定义工具分析。
 
 .. _performance/profiling/enable:
 
-Enable the profiler
+启用性能分析器
 -------------------
 
-The profiler can either be enabled from the user interface, which is the easiest way to do so but
-allows profiling only web requests, or from Python code, which allows profiling any piece of code
-including tests.
+可以通过用户界面启用性能分析器，这是一种最简单的方法，但只能对 Web 请求进行分析，也可以从 Python 代码启用，允许分析任何代码部分，包括测试代码。
 
 .. tabs::
 
-   .. tab:: Enable from the user interface
+   .. tab:: 从用户界面启用
 
-      #. :ref:`Enable the developer mode <developer-mode>`.
-      #. Before starting a profiling session, the profiler must be enabled globally on the database.
-         This can be done in two ways:
+      #. :ref:`启用开发者模式 <developer-mode>`。
+      #. 在开始分析会话之前，必须在数据库上全局启用分析器。可以通过以下两种方式完成：
 
-         - Open the :ref:`developer mode tools <developer-mode/tools>`, then toggle the
-           :guilabel:`Enable profiling` button. A wizard suggests a set of expiry times for the
-           profiling. Click on :guilabel:`ENABLE PROFILING` to enable the profiler globally.
+         - 打开 :ref:`开发者模式工具 <developer-mode/tools>`，然后切换 :guilabel:`启用分析` 按钮。一个向导会建议一组过期时间选项，选择 :guilabel:`启用分析` 按钮来全局启用分析器。
 
            .. image:: performance/enable_profiling_wizard.png
 
-         - Go to :guilabel:`Settings --> General Settings --> Performance` and set the desired time to
-           the field :guilabel:`Enable profiling until`.
+         - 前往 :guilabel:`设置 --> 常规设置 --> 性能`，并在 :guilabel:`启用分析到` 字段中设置所需的时间。
 
-      #. After the profiler is enabled on the database, users can enable it on their session. To do
-         so, toggle the :guilabel:`Enable profiling` button in the :ref:`developer mode tools
-         <developer-mode/tools>` again. By default, the recommended options :guilabel:`Record
-         sql` and :guilabel:`Record traces` are enabled. To learn more about the different options,
-         head over to :ref:`performance/profiling/collectors`.
+      #. 在数据库上启用分析器后，用户可以在他们的会话中启用它。要启用，需在 :ref:`开发者模式工具 <developer-mode/tools>` 中再次切换 :guilabel:`启用分析` 按钮。默认情况下，推荐启用 :guilabel:`记录 SQL` 和 :guilabel:`记录跟踪` 选项。有关不同选项的更多信息，请参阅 :ref:`performance/profiling/collectors`。
 
          .. image:: performance/profiling_debug_menu.png
 
-      When the profiler is enabled, all the requests made to the server are profiled and saved into
-      an `ir.profile` record. Such records are grouped into the current profiling session which
-      spans from when the profiler was enabled until it is disabled.
+      启用分析器后，所有向服务器发送的请求都会被分析，并保存为 `ir.profile` 记录。这些记录按从启用到禁用分析器的当前会话分组。
 
       .. note::
-         Odoo Online databases cannot be profiled.
+         Odoo Online 数据库无法进行性能分析。
 
-   .. tab:: Enable from Python code
+   .. tab:: 从 Python 代码启用
 
-      Starting the profiler manually can be convenient to profile a specific method or a part of the
-      code. This code can be a test, a compute method, the entire loading, etc.
+      手动启动分析器可以方便地分析特定方法或代码部分。这段代码可以是测试、计算方法或整个加载过程等。
 
-      To start the profiler from Python code, call it as a context manager. You may specify *what*
-      you want to record through the parameters. A shortcut is available for profiling test classes:
-      :code:`self.profile()`. See :ref:`performance/profiling/collectors` for more information on
-      the `collectors` parameter.
+      要从 Python 代码启动分析器，请将其作为上下文管理器调用。您可以通过参数指定 *要记录的内容*。对于测试类，提供了一个快捷方式：:code:`self.profile()`。有关 `collectors` 参数的更多信息，请参阅 :ref:`performance/profiling/collectors`。
 
       .. example::
 
@@ -97,211 +73,161 @@ including tests.
                     do_stuff()
 
          .. note::
-            The profiler is called outside of the `assertQueryCount` in order to catch queries made
-            when exiting the context manager (e.g., flush).
+            分析器在 `assertQueryCount` 之外调用，以捕获退出上下文管理器时的查询（例如，flush 操作）。
 
       .. autoclass:: Profiler()
          :special-members: __init__
 
-      When the profiler is enabled, all executions of a test method are profiled and saved into an
-      `ir.profile` record. Such records are grouped into a single profiling session. This is
-      especially useful when using the :code:`@warmup` and :code:`@users` decorators.
+      启用分析器后，所有测试方法的执行都会被分析，并保存为 `ir.profile` 记录。这些记录按单个分析会话分组。当使用 :code:`@warmup` 和 :code:`@users` 装饰器时尤其有用。
 
       .. tip::
-         It can be complicated to analyze profiling results of a method that is called several times
-         because all the calls are grouped together in the stack trace. Add an **execution context**
-         as a context manager to break down the results into multiple frames.
+         当一个方法被多次调用时，分析结果可能难以分析，因为所有调用都会在堆栈跟踪中分组在一起。可以添加一个 **执行上下文** 作为上下文管理器，将结果拆分为多个帧。
 
          .. example::
 
             .. code-block:: python
 
                for index in range(max_index):
-                   with ExecutionContext(current_index=index):  # Identify each call in speedscope results.
+                   with ExecutionContext(current_index=index):  # 在 speedscope 结果中识别每次调用。
                        do_stuff()
 
 .. _performance/profiling/analyse:
 
-Analyse the results
+分析结果
 -------------------
 
-To browse the profiling results, make sure that the :ref:`profiler is enabled globally on the
-database <performance/profiling/enable>`, then open the :ref:`developer mode tools
-<developer-mode/tools>` and click on the button in the top-right corner of the profiling
-section. A list view of the `ir.profile` records grouped by profiling session opens.
+要浏览性能分析结果，请确保 :ref:`分析器在数据库上全局启用 <performance/profiling/enable>`，然后打开 :ref:`开发者模式工具 <developer-mode/tools>`，点击性能分析部分右上角的按钮。一个 `ir.profile` 记录的列表视图将打开，按分析会话分组。
 
 .. image:: performance/profiling_web.png
    :align: center
 
-Each record has a clickable link that opens the speedscope results in a new tab.
+每个记录都有一个可点击的链接，点击后将在新标签中打开 speedscope 结果。
 
 .. image:: performance/flamegraph_example.png
    :align: center
 
-Speedscope falls out of the scope of this documentation but there are a lot of tools to try: search,
-highlight of similar frames, zoom on frame, timeline, left heavy, sandwich view...
+Speedscope 不在此文档的讨论范围内，但有很多工具可以尝试：搜索、相似帧的高亮显示、帧的缩放、时间轴、左重、夹层视图等。
 
-Depending on the profiling options that were activated, Odoo generates different view modes that you
-can access from the top menu.
+根据激活的分析选项，Odoo 会生成不同的视图模式，您可以从顶部菜单访问这些模式。
 
 .. image:: performance/speedscope_modes.png
    :align: center
 
-- The :guilabel:`Combined` view shows all the SQL queries and traces merged togethers.
-- The :guilabel:`Combined no context` view shows the same result but ignores the saved execution
-  context <performance/profiling/enable>`.
-- The :guilabel:`sql (no gap)` view shows all the SQL queries as if they were executed one after
-  another, without any Python logic. This is useful for optimizing SQL only.
-- The :guilabel:`sql (density)` view shows only all the SQL queries, leaving gap between them. This
-  can be useful to spot if eiter SQL or Python code is the problem, and to identify zones in where
-  many small queries could be batched.
-- The :guilabel:`frames` view shows the results of only the :ref:`periodic collector
-  <performance/profiling/collectors/periodic>`.
+- :guilabel:`Combined` 视图显示合并的所有 SQL 查询和跟踪。
+- :guilabel:`Combined no context` 视图显示相同结果，但忽略保存的执行上下文 <performance/profiling/enable>`。
+- :guilabel:`sql (no gap)` 视图显示所有 SQL 查询，仿佛它们一个接一个执行，没有任何 Python 逻辑。这对于优化 SQL 非常有用。
+- :guilabel:`sql (density)` 视图仅显示所有 SQL 查询，并在它们之间留下间隙。这有助于判断 SQL 还是 Python 代码是问题所在，并识别出许多小查询可能可以批量处理的区域。
+- :guilabel:`frames` 视图显示仅来自 :ref:`定期收集器 <performance/profiling/collectors/periodic>` 的结果。
 
 .. important::
-   Even though the profiler has been designed to be as light as possible, it can still impact
-   performance, especially when using the :ref:`Sync collector
-   <performance/profiling/collectors/sync>`. Keep that in mind when analyzing speedscope results.
+   尽管分析器设计得尽可能轻量化，但它仍可能影响性能，尤其是在使用 :ref:`同步收集器 <performance/profiling/collectors/sync>` 时。在分析 speedscope 结果时请牢记这一点。
 
 .. _performance/profiling/collectors:
 
-Collectors
+收集器
 ----------
 
-Whereas the profiler is about the *when* of profiling, the collectors take care of the *what*.
+分析器负责 *何时* 进行分析，而收集器负责 *分析什么*。
 
-Each collector specializes in collecting profiling data in its own format and manner. They can be
-individually enabled from the user interface through their dedicated toggle button in the
-:ref:`developer mode tools <developer-mode/tools>`, or from Python code through their key or
-class.
+每个收集器专注于以自己的格式和方式收集分析数据。可以通过开发者模式工具中的专用切换按钮，或通过 Python 代码中的键或类单独启用每个收集器。
 
-There are currently four collectors available in Odoo:
+Odoo 目前有四个可用的收集器：
 
 .. list-table::
    :header-rows: 1
 
-   * - Name
-     - Toggle button
-     - Python key
-     - Python class
-   * - :ref:`SQL collector <performance/profiling/collectors/sql>`
-     - :guilabel:`Record sql`
+   * - 名称
+     - 切换按钮
+     - Python 键
+     - Python 类
+   * - :ref:`SQL 收集器 <performance/profiling/collectors/sql>`
+     - :guilabel:`记录 SQL`
      - `sql`
      - `SqlCollector`
-   * - :ref:`Periodic collector <performance/profiling/collectors/periodic>`
-     - :guilabel:`Record traces`
+   * - :ref:`定期收集器 <performance/profiling/collectors/periodic>`
+     - :guilabel:`记录跟踪`
      - `traces_async`
      - `PeriodicCollector`
-   * - :ref:`QWeb collector <performance/profiling/collectors/qweb>`
-     - :guilabel:`Record qweb`
+   * - :ref:`QWeb 收集器 <performance/profiling/collectors/qweb>`
+     - :guilabel:`记录 qweb`
      - `qweb`
      - `QwebCollector`
-   * - :ref:`Sync collector <performance/profiling/collectors/sync>`
-     - No
+   * - :ref:`同步收集器 <performance/profiling/collectors/sync>`
+     - 无
      - `traces_sync`
      - `SyncCollector`
 
-By default, the profiler enables the SQL and the Periodic collectors. Both when it is enabled from
-the user interface or Python code.
+默认情况下，无论是通过用户界面还是 Python 代码启用分析器，都会启用 SQL 和定期收集器。
 
 .. _performance/profiling/collectors/sql:
-
-SQL collector
+SQL 收集器
 ~~~~~~~~~~~~~
 
-The SQL collector saves all the SQL queries made to the database in the current thread (for all
-cursors), as well as the stack trace. The overhead of the collector is added to the analysed thread
-for each query, which means that using it on a lot of small queries may impact execution time and
-other profilers.
+SQL 收集器会保存当前线程（针对所有游标）中向数据库发出的所有 SQL 查询，以及堆栈跟踪。每次查询时，收集器的开销都会增加到被分析的线程中，这意味着在执行大量小查询时可能会影响执行时间和其他分析器的表现。
 
-It is especially useful to debug query counts, or to add information to the :ref:`Periodic collector
-<performance/profiling/collectors/periodic>` in the combined speedscope view.
+它在调试查询计数时非常有用，或者可以将信息添加到合并的 speedscope 视图中的 :ref:`定期收集器 <performance/profiling/collectors/periodic>` 中。
 
 .. autoclass:: SQLCollector
 
 .. _performance/profiling/collectors/periodic:
 
-Periodic collector
+定期收集器
 ~~~~~~~~~~~~~~~~~~
 
-This collector runs in a separate thread and saves the stack trace of the analysed thread at every
-interval. The interval (by default 10 ms) can be defined through the :guilabel:`Interval` option in
-the user interface, or the `interval` parameter in Python code.
+该收集器在单独的线程中运行，并在每个时间间隔保存被分析线程的堆栈跟踪。可以通过用户界面中的 :guilabel:`间隔` 选项或 Python 代码中的 `interval` 参数来定义时间间隔（默认值为 10 毫秒）。
 
 .. warning::
-   If the interval is set at a very low value, profiling long requests will generate memory issues.
-   If the interval is set at a very high value, information on short function executions will be
-   lost.
+   如果时间间隔设置得太低，分析长时间请求时会导致内存问题。如果时间间隔设置得太高，短时间函数执行的信息可能会丢失。
 
-It is one of the best way to analyse performance as it should have a very low impact on the
-execution time thanks to its separate thread.
+由于它在独立线程中运行，对执行时间的影响非常小，因此它是分析性能的最佳方式之一。
 
 .. autoclass:: PeriodicCollector
 
 .. _performance/profiling/collectors/qweb:
 
-QWeb collector
+QWeb 收集器
 ~~~~~~~~~~~~~~
 
-This collector saves the Python execution time and queries of all directives. As for the :ref:`SQL
-collector <performance/profiling/collectors/sql>`, the overhead can be important when executing a
-lot of small directives. The results are different from other collectors in terms of collected data,
-and can be analysed from the `ir.profile` form view using a custom widget.
+该收集器保存所有指令的 Python 执行时间和查询。与 :ref:`SQL 收集器 <performance/profiling/collectors/sql>` 类似，在执行大量小指令时开销可能较大。与其他收集器相比，收集的数据不同，并且可以通过 `ir.profile` 表单视图中的自定义小部件进行分析。
 
-It is mainly useful for optimizing views.
+它主要用于优化视图。
 
 .. autoclass:: QwebCollector
 
 .. _performance/profiling/collectors/sync:
 
-Sync collector
+同步收集器
 ~~~~~~~~~~~~~~
 
-This collector saves the stack for every function's call and return and runs on the same thread,
-which greatly impacts performance.
+该收集器会为每个函数的调用和返回保存堆栈，并在同一个线程中运行，因此对性能影响很大。
 
-It can be useful to debug and understand complex flows, and follow their execution in the code. It
-is however not recommended for performance analysis because the overhead is high.
+它在调试和理解复杂流程时非常有用，可以跟踪代码的执行流程。然而，由于开销较大，不推荐用于性能分析。
 
 .. autoclass:: SyncCollector
 
 .. _performance/profiling/pitfalls:
 
-Performance pitfalls
+性能陷阱
 --------------------
 
-- Be careful with randomness. Multiple executions may lead to different results. E.g., a garbage
-  collector being triggered during execution.
-- Be careful with blocking calls. In some cases, external `c_call` may take some time before
-  releasing the GIL, thus leading to unexpected long frames with the :ref:`Periodic collector
-  <performance/profiling/collectors/periodic>`. This should be detected by the profiler and give a
-  warning. It is possible to trigger the profiler manually before such calls if needed.
-- Pay attention to the cache. Profiling before that the `view`/`assets`/... are in cache can lead to
-  different results.
-- Be aware of the profiler's overhead. The :ref:`SQL collector
-  <performance/profiling/collectors/sql>`'s overhead can be important when a lot of small queries
-  are executed. Profiling is practical to spot a problem but you may want to disable the profiler in
-  order to measure the real impact of a code change.
-- Profiling results can be memory intensive. In some cases (e.g., profiling an install or a long
-  request), it is possible that you reach memory limit, especially when rendering the speedscope
-  results, which can lead to an HTTP 500 error. In this case, you may need to start the server with
-  a higher memory limit: `--limit-memory-hard $((8*1024**3))`.
+- 注意随机性。多次执行可能会导致不同的结果。例如，在执行期间垃圾回收器被触发。
+- 小心阻塞调用。在某些情况下，外部 `c_call` 可能需要一些时间才能释放 GIL，从而导致 :ref:`定期收集器 <performance/profiling/collectors/periodic>` 出现意外的长帧。分析器应该能够检测到这一点并发出警告。如果需要，可以在此类调用之前手动触发分析器。
+- 注意缓存。分析之前确保 `view`/`assets`/... 已在缓存中，否则可能导致不同的结果。
+- 注意分析器的开销。执行大量小查询时，:ref:`SQL 收集器 <performance/profiling/collectors/sql>` 的开销可能很大。性能分析可以帮助发现问题，但在测量代码变更的实际影响时，您可能需要禁用分析器。
+- 分析结果可能会占用大量内存。在某些情况下（例如，分析安装过程或长时间请求），可能会达到内存限制，尤其是在渲染 speedscope 结果时，这可能导致 HTTP 500 错误。在这种情况下，您可能需要使用更高的内存限制启动服务器：`--limit-memory-hard $((8*1024**3))`。
 
 .. _reference/performance/populate:
 
-Database population
+数据库填充
 ===================
 
-Odoo CLI offers a :ref:`database population <reference/cmdline/populate>` feature through the CLI
-command :command:`odoo-bin populate`.
+Odoo CLI 提供了一个 :ref:`数据库填充 <reference/cmdline/populate>` 功能，通过 CLI 命令 :command:`odoo-bin populate` 实现。
 
-Instead of the tedious manual, or programmatic, specification of test data, one can use this feature
-to fill a database on demand with the desired number of test data. This can be used to detect
-diverse bugs or performance issues in tested flows.
+该功能可以根据需要填充数据库中的测试数据，代替手动或程序化地指定测试数据。这可以用于检测测试流程中的各种错误或性能问题。
 
 .. _reference/performance/populate/methods:
 
-To populate a given model, the following methods and attributes can be defined.
+要填充给定的模型，可以定义以下方法和属性。
 
 .. currentmodule:: odoo.models
 
@@ -311,8 +237,8 @@ To populate a given model, the following methods and attributes can be defined.
 .. automethod:: Model._populate_factories
 
 .. note::
-   You have to define at least :meth:`~odoo.models.Model._populate` or
-   :meth:`~odoo.models.Model._populate_factories` on the model to enable database population.
+   您必须在模型上至少定义 :meth:`~odoo.models.Model._populate` 或
+   :meth:`~odoo.models.Model._populate_factories` 以启用数据库填充功能。
 
 .. example::
    .. code-block:: python
@@ -325,14 +251,14 @@ To populate a given model, the following methods and attributes can be defined.
            _populate_dependencies = ["custom.some_other_model"]
 
            def _populate_factories(self):
-               # Record ids of previously populated models are accessible in the registry
+               # 可以从注册表中访问先前填充的模型的记录 ID
                some_other_ids = self.env.registry.populated_models["custom.some_other_model"]
 
                def get_some_field(values=None, random=None, **kwargs):
-                   """ Choose a value for some_field depending on other fields values.
+                   """ 根据其他字段的值选择 some_field 的值。
 
                    :param dict values:
-                   :param random: seeded :class:`random.Random` object
+                   :param random: 已种子的 :class:`random.Random` 对象
                    """
                    field_1 = values['field_1']
                    if field_1 in [value2, value3]:
@@ -350,35 +276,34 @@ To populate a given model, the following methods and attributes can be defined.
            def _populate(self, size):
                records = super()._populate(size)
 
-               # If you want to update the generated records
-               # E.g setting the parent-child relationships
+               # 如果您想更新生成的记录
+               # 例如设置父子关系
                records.do_something()
 
                return records
 
-Population tools
+填充工具
 ----------------
 
-Multiple population tools are available to easily create the needed data generators.
+提供了多种填充工具，便于轻松创建所需的数据生成器。
 
 .. automodule:: odoo.tools.populate
    :members: cartesian, compute, constant, iterate, randint, randomize
 
 .. _performance/good_practices:
 
-Good practices
+良好实践
 ==============
 
 .. _performance/good_practices/batch:
 
-Batch operations
+批处理操作
 ----------------
 
-When working with recordsets, it is almost always better to batch operations.
+在处理记录集时，几乎总是批量操作更好。
 
 .. example::
-   Don't call a method that runs SQL queries while looping over a recordset because it will do so
-   for each record of the set.
+   不要在遍历记录集时调用执行 SQL 查询的方法，因为它会对记录集中的每条记录执行查询。
 
    .. rst-class:: bad-example
    .. code-block:: python
@@ -388,8 +313,7 @@ When working with recordsets, it is almost always better to batch operations.
               domain = [('related_id', '=', record.id)]
               record.count = other_model.search_count(domain)
 
-   Instead, replace the `search_count` with a `_read_group` to execute one SQL query for the entire
-   batch of records.
+   取而代之，可以使用 `_read_group` 代替 `search_count`，以对整个记录集执行一次 SQL 查询。
 
    .. rst-class:: good-example
    .. code-block:: python
@@ -402,11 +326,9 @@ When working with recordsets, it is almost always better to batch operations.
               record.count = mapped_data.get(record, 0)
 
    .. note::
-      This example is not optimal nor correct in all cases. It is only a substitute for a
-      `search_count`. Another solution could be to prefetch and count the inverse `One2many` field.
-
+      此示例并非在所有情况下都是最佳或正确的。它只是 `search_count` 的替代方案。另一种解决方案可以是预取并计数逆向的 `One2many` 字段。
 .. example::
-   Don't create records one after another.
+   不要一个接一个地创建记录。
 
    .. rst-class:: bad-example
    .. code-block:: python
@@ -414,8 +336,7 @@ When working with recordsets, it is almost always better to batch operations.
       for name in ['foo', 'bar']:
           model.create({'name': name})
 
-   Instead, accumulate the create values and call the `create` method on the batch. Doing so has
-   mostly no impact and helps the framework optimize fields computation.
+   取而代之，先积累创建的数据，然后在批量上调用 `create` 方法。这样做通常不会有太大影响，并且有助于框架优化字段计算。
 
    .. rst-class:: good-example
    .. code-block:: python
@@ -426,28 +347,27 @@ When working with recordsets, it is almost always better to batch operations.
       records = model.create(create_values)
 
 .. example::
-   Fail to prefetch the fields of a recordset while browsing a single record inside a loop.
+   不要在循环中浏览单个记录时，未预取记录集的字段。
 
    .. rst-class:: bad-example
    .. code-block:: python
 
       for record_id in record_ids:
           model.browse(record_id)
-          record.foo  # One query is executed per record.
+          record.foo  # 每个记录都会执行一个查询。
 
-   Instead, browse the entire recordset first.
+   取而代之，先浏览整个记录集。
 
    .. rst-class:: good-example
    .. code-block:: python
 
       records = model.browse(record_ids)
       for record in records:
-          record.foo  # One query is executed for the entire recordset.
+          record.foo  # 整个记录集只执行一次查询。
 
-   We can verify that the records are prefetched in batch by reading the field `prefetch_ids` which
-   includes each of the record ids.browsing all records together is unpractical,
+   我们可以通过读取 `prefetch_ids` 字段来验证记录是否已批量预取，其中包括每个记录的 id。
 
-   If needed, the `with_prefetch` method can be used to disable batch prefetching:
+   如果需要，可以使用 `with_prefetch` 方法来禁用批量预取：
 
    .. code-block:: python
 
@@ -456,17 +376,13 @@ When working with recordsets, it is almost always better to batch operations.
 
 .. _performance/good_practices/algorithmic_complexity:
 
-Reduce the algorithmic complexity
+降低算法复杂度
 ---------------------------------
 
-Algorithmic complexity is a measure of how long an algorithm would take to complete in regard to the
-size `n` of the input. When the complexity is high, the execution time can grow quickly as the input
-becomes larger. In some cases, the algorithmic complexity can be reduced by preparing the input's
-data correctly.
+算法复杂度衡量了一个算法相对于输入大小 `n` 完成所需的时间。当复杂度很高时，随着输入的增大，执行时间会迅速增长。在某些情况下，通过正确准备输入的数据，可以降低算法复杂度。
 
 .. example::
-   For a given problem, let's consider a naive algorithm crafted with two nested loops for which the
-   complexity in in O(n²).
+   对于某个给定问题，我们考虑一个用两个嵌套循环编写的简单算法，其复杂度为 O(n²)。
 
    .. rst-class:: bad-example
    .. code-block:: python
@@ -477,7 +393,7 @@ data correctly.
                   record.foo = results['foo']
                   break
 
-   Assuming that all results have a different id, we can prepare the data to reduce the complexity.
+   假设所有结果都有不同的 id，我们可以准备数据以降低复杂度。
 
    .. rst-class:: good-example
    .. code-block:: python
@@ -487,7 +403,7 @@ data correctly.
           record.foo = mapped_result.get(record.id)
 
 .. example::
-   Choosing the bad data structure to hold the input can lead to quadratic complexity.
+   选择错误的数据结构来存储输入可能会导致二次复杂度。
 
    .. rst-class:: bad-example
    .. code-block:: python
@@ -497,9 +413,9 @@ data correctly.
           if record.id in invalid_ids:
               ...
 
-   If `invalid_ids` is a list-like data structure, the complexity of the algorithm may be quadratic.
+   如果 `invalid_ids` 是类列表的数据结构，算法的复杂度可能是二次的。
 
-   Instead, prefer using set operations like casting `invalid_ids` to a set.
+   取而代之，最好使用集合操作，例如将 `invalid_ids` 转换为集合。
 
    .. rst-class:: good-example
    .. code-block:: python
@@ -509,7 +425,7 @@ data correctly.
           if record.id in invalid_ids:
               ...
 
-   Depending on the input, recordset operations can also be used.
+   根据输入的不同，记录集操作也可以使用。
 
    .. rst-class:: good-example
    .. code-block:: python
@@ -519,17 +435,14 @@ data correctly.
           ...
 
 .. _performance/good_practices/index:
-
-Use indexes
+使用索引
 -----------
 
-Database indexes can help fasten search operations, be it from a search in the or through the user
-interface.
+数据库索引可以加快搜索操作，无论是通过代码搜索还是通过用户界面进行搜索。
 
 .. code-block:: python
 
    name = fields.Char(string="Name", index=True)
 
 .. warning::
-   Be careful not to index every field as indexes consume space and impact on performance when
-   executing one of `INSERT`, `UPDATE`, and `DELETE`.
+   注意不要为每个字段创建索引，因为索引会消耗空间，并在执行 `INSERT`、`UPDATE` 和 `DELETE` 时对性能产生影响。

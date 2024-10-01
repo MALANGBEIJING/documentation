@@ -4,11 +4,9 @@
 UI icons
 ========
 
-Odoo's user interface mostly relies on `FontAwesome4 icons <https://fontawesome.com/v4/icons/>`_.
+Odoo的用户界面主要依赖于 `FontAwesome4 icons <https://fontawesome.com/v4/icons/>`_。
 
-To cover FontAwesome's lack of iconography for specific functionalities, we designed our own
-icon-font. These icons can be rendered using the main `oi` class in conjunction with the specific
-icon class.
+为了弥补FontAwesome在特定功能图标上的不足，我们设计了自己的图标字体。这些图标可以使用主要的 `oi` 类与特定的图标类一起呈现。
 
 .. example::
 
@@ -294,8 +292,7 @@ Icons
 RTL adaptations
 ===============
 
-Directional icons have :abbr:`RTL (right-to-left)` adaptations which flip the icons by 180 degrees
-when an :abbr:`RTL (right-to-left)` language is selected.
+方向性图标具有 :abbr:`RTL (从右到左)` 适配，当选择 :abbr:`RTL (从右到左)` 语言时，这些图标会旋转180度。
 
 .. raw:: html
 

@@ -1,67 +1,56 @@
 ================
-Odoo mobile apps
+Odoo 移动应用
 ================
 
-Two kind of Odoo mobile app exist: the progressive web app (PWA) and store apps. Using the PWA is
-recommended.
+Odoo 移动应用有两种类型：渐进式 Web 应用（PWA）和商店应用。推荐使用 PWA。
 
-Progressive web app (PWA)
+渐进式 Web 应用 (PWA)
 =========================
 
-PWAs are web-based applications designed to function across different devices and platforms,
-leveraging web browsers to deliver user experiences similar to native apps.
+PWA 是基于 Web 的应用程序，旨在跨不同设备和平台运行，利用 Web 浏览器提供类似于原生应用的用户体验。
 
-The Odoo PWA features include:
+Odoo PWA 的功能包括：
 
-- Quick access by adding the PWA to a device's home screen
-- Seamless and borderless navigation experience
-- Push notifications
-- SSO authentication
+- 通过将 PWA 添加到设备的主屏幕快速访问
+- 无缝和无边界的导航体验
+- 推送通知
+- SSO 认证
 
-To install the Odoo PWA, launch a browser supporting PWAs, and sign in to an Odoo database. The
-instructions to install a PWA depend on the platform and browser used.
+要安装 Odoo PWA，请启动支持 PWA 的浏览器并登录到 Odoo 数据库。安装 PWA 的说明取决于所使用的平台和浏览器。
 
 .. tabs::
 
    .. tab:: Android
 
-      **Chrome**: open Chrome's menu (:guilabel:`⋮`), select :guilabel:`Install app`, and tap
-      :guilabel:`Install`.
+      **Chrome**: 打开 Chrome 菜单 (:guilabel:`⋮`)，选择 :guilabel:`安装应用`，然后点击 :guilabel:`安装`。
 
-      **Firefox**: open Firefox's menu (:guilabel:`⋮`), select :guilabel:`Install`, and either touch
-      and hold the Odoo icon or tap :guilabel:`Add automatically`.
+      **Firefox**: 打开 Firefox 菜单 (:guilabel:`⋮`)，选择 :guilabel:`安装`，然后长按 Odoo 图标或点击 :guilabel:`自动添加`。
 
-      The PWA can also be installed with **Samsung Internet**, **Edge**, and **Opera**.
+      也可以使用 **Samsung Internet**、**Edge** 和 **Opera** 安装 PWA。
 
    .. tab:: iOS
 
-      **Safari**: open the **Share** menu by tapping the square with an arrow pointing upwards icon,
-      select :guilabel:`Add to Home Screen`, edit the PWA details if desired, and tap
-      :guilabel:`Add`.
+      **Safari**: 点击带有向上箭头的方形图标以打开 **分享** 菜单，选择 :guilabel:`添加到主屏幕`，根据需要编辑 PWA 详细信息，然后点击 :guilabel:`添加`。
 
-      On iOS 16.4 and above, the PWA can also be installed with **Chrome**, **Firefox**, and
-      **Edge**.
+      在 iOS 16.4 及以上版本中，还可以使用 **Chrome**、**Firefox** 和 **Edge** 安装 PWA。
 
-   .. tab:: Desktop
+   .. tab:: 桌面
 
-      **Chrome** and **Edge**: click the installation icon at the right of the address bar and click
-      :guilabel:`Install`.
+      **Chrome** 和 **Edge**: 点击地址栏右侧的安装图标，然后点击 :guilabel:`安装`。
 
 .. seealso::
-   - `Google Chrome Help: Use progressive web apps
+   - `Google Chrome 帮助：使用渐进式 Web 应用
      <https://support.google.com/chrome/answer/9658361>`_
-   - `MDN Web Docs: Installing and uninstalling web apps
+   - `MDN Web 文档：安装和卸载 Web 应用
      <https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing>`_
-   - `Microsoft Support: Install, manage, or uninstall apps in Microsoft Edge <https://support.microsoft.com/en-us/topic/install-manage-or-uninstall-apps-in-microsoft-edge-0c156575-a94a-45e4-a54f-3a84846f6113>`_
+   - `Microsoft 支持：在 Microsoft Edge 中安装、管理或卸载应用 <https://support.microsoft.com/en-us/topic/install-manage-or-uninstall-apps-in-microsoft-edge-0c156575-a94a-45e4-a54f-3a84846f6113>`_
 
-Store apps
+商店应用
 ==========
 
-The Odoo mobile apps are available for download on the `Google Play Store
-<https://play.google.com/store/apps/details?id=com.odoo.mobile>`_ and `Apple App Store
-<https://apps.apple.com/app/odoo/id1272543640>`_.
+Odoo 移动应用可在 `Google Play 商店 <https://play.google.com/store/apps/details?id=com.odoo.mobile>`_ 和 `Apple App 商店 <https://apps.apple.com/app/odoo/id1272543640>`_ 下载。
 
 .. important::
-   The iOS app cannot be updated and will be deprecated at some point in the future.
+   iOS 应用无法更新，未来某个时候将被弃用。
 
-While the store apps support multi-accounts, they are not compatible with SS0 authentication.
+尽管商店应用支持多账户，它们不兼容 SSO 认证。

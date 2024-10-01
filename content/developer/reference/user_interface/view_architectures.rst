@@ -1,42 +1,39 @@
 :custom-css: showcase_tables.css
 
 ==================
-View architectures
+视图架构
 ==================
 
-Generic architecture
+通用架构
 ====================
 
-The architecture of a view is defined by XML data interpreted by the JavaScript framework.
+视图的架构由JavaScript框架解释的XML数据定义。
 
-For most views, there is a :file:`\*.rng` file defining the attributes and possible architectures.
-Some views are not ruled by such a file either because they accept HTML content, or for performance
-reasons.
+对于大多数视图，有一个 :file:`\*.rng` 文件定义属性和可能的架构。
+某些视图则不受此类文件的约束，可能是因为它们接受HTML内容，或出于性能原因。
 
 .. note::
-   The current context and user access rights may impact the view abilities.
+   当前的上下文和用户访问权限可能会影响视图的能力。
 
 .. seealso::
    :doc:`view_records`
 
 .. _reference/view_architectures/python_expression:
 
-Python expression
+Python 表达式
 =================
 
-When evaluating node attributes, e.g. the `readonly` modifier, it is possible to provide a **Python
-expression** that will be executed in an environment that has access to the following variables:
+在评估节点属性时，例如 `readonly` 修饰符，可以提供一个 **Python 表达式**，
+该表达式将在可以访问以下变量的环境中执行：
 
-- The names of all fields present in the current view, containing the value of the current record,
-  except for `column_invisible` in :ref:`list view <reference/view_architectures/list/field>`;
-  relational fields are given as a list of IDs;
-- The ID of the current record;
-- `parent`: the record that refers to the container; only inside sub-views of :ref:`relational
-  fields <studio/fields/relational-fields>`;
-- `context (dict)`: the current view's context;
-- `uid (int)`: the id of the current user;
-- `today (str)`: the current local date in the `YYYY-MM-DD` format;
-- `now (str)`: the current local datetime in the `YYYY-MM-DD hh:mm:ss` format.
+- 当前视图中所有字段的名称，包含当前记录的值，`column_invisible` 在 :ref:`列表视图 <reference/view_architectures/list/field>` 中除外；
+  关系字段以ID列表形式提供；
+- 当前记录的ID；
+- `parent`: 引用容器的记录；仅在 :ref:`关系字段 <studio/fields/relational-fields>` 的子视图中；
+- `context (dict)`: 当前视图的上下文；
+- `uid (int)`: 当前用户的ID；
+- `today (str)`: 当前本地日期，格式为 `YYYY-MM-DD`；
+- `now (str)`: 当前本地日期时间，格式为 `YYYY-MM-DD hh:mm:ss`。
 
 .. example::
    .. code-block:: xml
@@ -49,7 +46,7 @@ expression** that will be executed in an environment that has access to the foll
 
       <field name="field_a"/>
       <field name="x2m">
-          <!-- sub-view -->
+          <!-- 子视图 -->
           <form>
               <field name="field_b" invisible="parent.field_a"/>
           </form>
@@ -57,13 +54,12 @@ expression** that will be executed in an environment that has access to the foll
 
 .. _reference/view_architectures/form:
 
-Form
+表单
 ====
 
-Form views are used to display the data from a single record. They are composed of regular HTML_
-with additional semantic and structural components.
+表单视图用于显示单个记录的数据。它们由常规HTML_和附加的语义和结构组件组成。
 
-The root element of form views is `form`.
+表单视图的根元素是 `form`。
 
 .. code-block:: xml
 
@@ -73,10 +69,10 @@ The root element of form views is `form`.
 
 .. _reference/view_architectures/form/root:
 
-Root attributes
+根属性
 ---------------
 
-Optional attributes can be added to the root element `form` to customize the view.
+可选属性可以添加到根元素 `form` 以自定义视图。
 
 .. include:: view_architectures/root_attribute_string.rst
 
@@ -87,9 +83,9 @@ Optional attributes can be added to the root element `form` to customize the vie
 .. attribute:: duplicate
    :noindex:
 
-   Disable/enable record duplication on the view through the **Action** dropdown.
+   通过**操作**下拉菜单禁用/启用记录重复。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
@@ -98,18 +94,18 @@ Optional attributes can be added to the root element `form` to customize the vie
 .. attribute:: js_class
    :noindex:
 
-   The name of the JavaScript component the webclient will instantiate instead of the form view.
+   Web客户端将实例化的JavaScript组件的名称，而不是表单视图。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: disable_autofocus
    :noindex:
 
-   Disable automatic focusing on the first field in the view.
+   禁用自动聚焦于视图中的第一个字段。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `False`
 
@@ -117,30 +113,26 @@ Optional attributes can be added to the root element `form` to customize the vie
 
 .. _reference/view_architectures/form/semantic:
 
-Semantic components
+语义组件
 -------------------
 
-Semantic components tie into the Odoo system and allow interaction with it.
+语义组件与Odoo系统相结合，并允许与之交互。
 
-Form views accept the following children semantic components: :ref:`field
-<reference/view_architectures/form/field>`, :ref:`label <reference/view_architectures/form/label>`,
-:ref:`button <reference/view_architectures/form/button>`,
-:ref:`reference/view_architectures/form/chatter`, and
-:ref:`reference/view_architectures/form/attachment`.
+表单视图接受以下子语义组件：:ref:`field <reference/view_architectures/form/field>`，:ref:`label <reference/view_architectures/form/label>`，
+:ref:`button <reference/view_architectures/form/button>`，:ref:`reference/view_architectures/form/chatter`和
+:ref:`reference/view_architectures/form/attachment`。
 
-Placeholders are denoted in all caps.
+占位符以大写字母表示。
 
 .. _reference/view_architectures/form/field:
 
-`field`: display field values
+`field`: 显示字段值
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `field` element renders (and allows editing of, possibly) a single field of the current record.
+`field` 元素呈现（并可能允许编辑）当前记录的单个字段。
 
-Using the same field multiple times in a form view is supported, and the fields can receive
-different values for the `invisible` and `readonly` attributes. These fields may have the same
-values but can be displayed differently. However, the behavior is not guaranteed when several fields
-exist with different values for the `required` attribute.
+在表单视图中多次使用相同字段是支持的，字段可以接收不同的 `invisible` 和 `readonly` 属性值。
+这些字段的值可能相同，但可以以不同的方式显示。然而，当多个字段对 `required` 属性存在不同值时，行为并不保证。
 
 .. code-block:: xml
 
@@ -148,28 +140,27 @@ exist with different values for the `required` attribute.
        <field name="FIELD_NAME"/>
    </form>
 
-The `field` element can have the following attributes:
+`field` 元素可以具有以下属性：
 
 .. include:: view_architectures/field_attribute_name.rst
 
 .. attribute:: id
    :noindex:
 
-   The node id. Useful when there are several occurrences of the same field in the view (see
-   :ref:`reference/view_architectures/form/label`).
+   节点ID。用于在视图中存在多个相同字段时（见 :ref:`reference/view_architectures/form/label`）。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
-   :default: The field name
+   :default: 字段名称
 
 .. include:: view_architectures/field_attribute_string.rst
 
 .. attribute:: help
    :noindex:
 
-   The tooltip displayed when hovering the field or its label.
+   当悬停在字段或其标签上时显示的工具提示。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
@@ -178,18 +169,16 @@ The `field` element can have the following attributes:
 .. attribute:: options
    :noindex:
 
-   The configuration options for the field's widget (including default widgets), as a Python
-   expression that evaluates to a dict.
+   字段小部件（包括默认小部件）的配置选项，作为Python表达式评估为一个字典。
 
-   For relation fields, the following options are available: `no_create`, `no_quick_create`,
-   `no_open`, and `no_create_edit`.
+   对于关系字段，以下选项可用： `no_create`， `no_quick_create`， `no_open` 和 `no_create_edit`。
 
    .. example::
       .. code-block:: xml
 
          <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'FIELD_NAME', 'no_quick_create': True}"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `{}`
 
@@ -204,27 +193,25 @@ The `field` element can have the following attributes:
 .. attribute:: domain
    :noindex:
 
-   The filters to apply when displaying existing records for selection, as a Python expression that
-   evaluates to a :ref:`domain <reference/orm/domains>`.
+   显示现有记录供选择时应用的过滤器，作为Python表达式评估为 :ref:`domain <reference/orm/domains>`。
 
    .. example::
       .. code-block:: xml
 
          <field name="fname" domain="[('fname_a', '=', parent.fname_b)]"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `[]`
-   :scope: Relational fields
+   :scope: 关系字段
 
 .. attribute:: context
    :noindex:
 
-   .. todo:: extensive documentation on all the magic context values (TYPE_view_ref, group_by,
+   .. todo:: 关于所有魔法上下文值的详细文档（TYPE_view_ref，group_by，
              search_default_FIELD...
 
-   The context to use when fetching possible values and creating or searching records, as a Python
-   expression that evaluates to a dict.
+   用于获取可能值和创建或搜索记录的上下文，作为Python表达式评估为一个字典。
 
    .. example::
       .. code-block:: xml
@@ -237,87 +224,84 @@ The `field` element can have the following attributes:
              'OTHER_BUSINESS_KEY': ANY,
            }"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `{}`
-   :scope: Relational fields
+   :scope: 关系字段
 
 .. attribute:: nolabel
    :noindex:
 
-   Whether the field label should be hidden.
+   是否隐藏字段标签。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `False`
-   :scope: Fields that are a direct child of a `group` element
+   :scope: 直接为 `group` 元素的子字段
 
 .. attribute:: placeholder
    :noindex:
 
-   The help message to display on *empty* fields. It can replace field labels in complex forms.
-   However, it *should not* be an example of data, as users may confuse placeholder text with filled
-   fields.
+   在 *空* 字段上显示的帮助消息。它可以替代复杂表单中的字段标签。
+   但是，它 *不应* 是数据示例，因为用户可能会将占位符文本与已填充字段混淆。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: mode
    :noindex:
 
-   The comma-separated list of display modes (view types) to use for the field's linked records.
-   Allowed modes are: `tree`, `form`, `kanban`, and `graph`.
+   用于字段链接记录的显示模式（视图类型）的以逗号分隔的列表。允许的模式有： `tree`， `form`， `kanban` 和 `graph`。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `tree`
-   :scope: :class:`~odoo.fields.One2many` and :class:`~odoo.fields.Many2many` fields
+   :scope: :class:`~odoo.fields.One2many` 和 :class:`~odoo.fields.Many2many` 字段
 
 .. include:: view_architectures/generic_attribute_class.rst
 
 .. attribute:: filename
    :noindex:
 
-   The name of the related field providing the name of the file.
+   提供文件名称的相关字段的名称。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
-   :scope: :class:`~odoo.fields.Binary` fields
+   :scope: :class:`~odoo.fields.Binary` 字段
 
 .. attribute:: password
    :noindex:
 
-   Whether the field stores a password and thus its data should not be displayed.
+   字段是否存储密码，因此其数据不应显示。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `False`
-   :scope: :class:`~odoo.fields.Char` fields
+   :scope: :class:`~odoo.fields.Char` 字段
 
 .. attribute:: kanban_view_ref
    :noindex:
 
-   The XMLID of the specific Kanban :doc:`view record <view_records>` that should be used when
-   selecting records in a mobile environment.
+   应在移动环境中选择记录时使用的特定看板 :doc:`视图记录 <view_records>` 的XMLID。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
-   :scope: Relational fields
+   :scope: 关系字段
 
 .. attribute:: default_focus
    :noindex:
 
-   Whether the field is focused when the view opens. It can be applied to only one field of a view.
+   当视图打开时，字段是否获得焦点。它只能应用于视图中的一个字段。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `False`
 
 .. note::
-   :ref:`Relational fields <studio/fields/relational-fields>` nodes can contain specific subviews.
+   :ref:`关系字段 <studio/fields/relational-fields>` 节点可以包含特定的子视图。
 
    .. example::
       .. code-block:: xml
@@ -334,13 +318,9 @@ The `field` element can have the following attributes:
 
 .. _reference/view_architectures/form/label:
 
-`label`: display field labels
+`label`: 显示字段标签
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-When a :ref:`field <reference/view_architectures/form/field>` component is not placed directly
-inside a :ref:`group <reference/view_architectures/form/group>`, or when its `nolabel` attribute is
-set, the field's label is not automatically displayed alongside its value. The `label` component is
-the manual alternative of displaying the label of a field.
+When a :ref:`field <reference/view_architectures/form/field>` 组件不直接放置在 :ref:`group <reference/view_architectures/form/group>` 中时，或者当其 `nolabel` 属性被设置时，字段的标签不会自动显示在其值旁边。`label` 组件是手动显示字段标签的替代方式。
 
 .. code-block:: xml
 
@@ -353,29 +333,26 @@ the manual alternative of displaying the label of a field.
         </div>
     </form>
 
-The `label` element can have the following attributes:
+`label` 元素可以具有以下属性：
 
 .. attribute:: for
    :noindex:
 
-   The reference to the field associated with the label. It can be either the name of the field, or
-   its id (the `id` attribute set on the :ref:`field <reference/view_architectures/form/field>`).
+   与标签相关联的字段的引用。可以是字段的名称，或其ID（在 :ref:`field <reference/view_architectures/form/field>` 上设置的 `id` 属性）。
 
-   When there are several occurrences of the same field in the view, and there are several `label`
-   components associated with these field nodes, these labels must have unique `for` attribute; in
-   this case, referencing the `id` attribute of the corresponding field nodes.
+   当视图中有多个相同字段的出现时，且有多个与这些字段节点关联的 `label` 组件时，这些标签必须具有唯一的 `for` 属性；在这种情况下，引用相应字段节点的 `id` 属性。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
 .. attribute:: string
    :noindex:
 
-   The label to display.
+   要显示的标签。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
-   :default: The field's label coming from the field definition on the model
+   :default: 来自模型中字段定义的字段标签
 
 .. include:: view_architectures/generic_attribute_class.rst
 
@@ -383,7 +360,7 @@ The `label` element can have the following attributes:
 
 .. _reference/view_architectures/form/button:
 
-`button`: display action buttons
+`button`: 显示操作按钮
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: xml
@@ -393,7 +370,7 @@ The `label` element can have the following attributes:
        <button type="object" name="ACTION" icon="FONT_AWESOME"/>
    </form>
 
-The `button` element can have the following attributes:
+`button` 元素可以具有以下属性：
 
 .. include:: view_architectures/button_attribute_type.rst
 
@@ -416,48 +393,45 @@ The `button` element can have the following attributes:
 .. attribute:: special
    :noindex:
 
-   The behavior of the button for form views opened in dialog. It can have two different values:
+   对于在对话框中打开的表单视图，按钮的行为。可以具有两种不同的值：
 
    .. attribute:: save
       :noindex:
 
-      Save the record and close the dialog.
+      保存记录并关闭对话框。
 
    .. attribute:: cancel
       :noindex:
 
-      Close the dialog without saving.
+      关闭对话框而不保存。
 
    .. example::
       .. code-block:: xml
 
          <button special="cancel" icon="fa-trash"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: confirm
    :noindex:
 
-   The confirmation message to display (and for the user to accept) before performing the button's
-   action.
+   在执行按钮操作之前显示的确认消息（并要求用户接受）。
 
    .. example::
       .. code-block:: xml
 
          <button name="action_destroye_gate" string="Send the goa'uld" type="object" confirm="Do you confirm the action?"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: data-hotkey
    :noindex:
 
-   The hotkey (`keyboard_shortcut`_, similar to an accesskey_) that is bound to the button. It is
-   enabled when the `alt` key is pressed together with the selected character, or together with the
-   `shift` key and the selected character when `shift+` is prepended to the value.
+   绑定到按钮的热键（`keyboard_shortcut`_，类似于 accesskey_）。当按下 `alt` 键与所选字符一起时，它会被启用，或者当 `shift+` 被添加到值时，与所选字符一起按下 `shift` 键。
 
    .. example::
       .. code-block:: xml
@@ -465,20 +439,18 @@ The `button` element can have the following attributes:
          <button type="object" name="action_confirm" string="Confirm" data-hotkey="c"/>
          <button type="object" name="action_tear" string="Tear the sheet" data-hotkey="shift+k"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. _reference/view_architectures/form/chatter:
 
-Chatter widget
+聊天小部件
 ~~~~~~~~~~~~~~
 
-The :ref:`chatter widget <reference/mixins/mail/chatter>` is the communication and log tool allowing
-to email colleagues and customers directly from a record (task, order, invoice, event, note...).
+:ref:`聊天小部件 <reference/mixins/mail/chatter>` 是一种通信和日志工具，允许直接从记录（任务、订单、发票、事件、笔记等）中给同事和客户发送电子邮件。
 
-It is added with a `div` element with the class `oe_chatter` when the model inherits the
-`mail.thread` mixin.
+它通过带有类 `oe_chatter` 的 `div` 元素添加，当模型继承 `mail.thread` 混合时。
 
 .. example::
    .. code-block:: xml
@@ -496,11 +468,10 @@ It is added with a `div` element with the class `oe_chatter` when the model inhe
 
 .. _reference/view_architectures/form/attachment:
 
-Attachments preview widget
+附件预览小部件
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The attachment preview widget is added with an *empty* `div` element with the class
-`o_attachment_preview`.
+附件预览小部件是通过带有类 `o_attachment_preview` 的 *空* `div` 元素添加的。
 
 .. example::
    .. code-block:: xml
@@ -510,41 +481,28 @@ The attachment preview widget is added with an *empty* `div` element with the cl
               ...
           </sheet>
           <div class="o_attachment_preview"/>
-      <form>
+      </form>
 
 .. _reference/view_architectures/form/structural:
 
-Structural components
+结构组件
 ---------------------
+结构组件提供结构或“视觉”特征，逻辑较少。它们用作表单视图中的元素或元素集合。
 
-Structural components provide structure or "visual" features with little logic. They are used as
-elements or sets of elements in form views.
+表单视图接受以下子结构组件：:ref:`group <reference/view_architectures/form/group>`、:ref:`sheet <reference/view_architectures/form/sheet>`、:ref:`notebook <reference/view_architectures/form/notebook>`、:ref:`newline <reference/view_architectures/form/newline>`、:ref:`separator <reference/view_architectures/form/separator>`、:ref:`header <reference/view_architectures/form/header>`、:ref:`footer <reference/view_architectures/form/footer>`、:ref:`reference/view_architectures/form/button_container` 和 :ref:`reference/view_architectures/form/title_container`。
 
-Form views accept the following children structural components: :ref:`group
-<reference/view_architectures/form/group>`, :ref:`sheet <reference/view_architectures/form/sheet>`,
-:ref:`notebook <reference/view_architectures/form/notebook>`,
-:ref:`notebook <reference/view_architectures/form/notebook>`,
-:ref:`newline <reference/view_architectures/form/newline>`,
-:ref:`separator <reference/view_architectures/form/separator>`,
-:ref:`header <reference/view_architectures/form/header>`,
-:ref:`footer <reference/view_architectures/form/footer>`,
-:ref:`reference/view_architectures/form/button_container`, and
-:ref:`reference/view_architectures/form/title_container`.
-
-Placeholders are denoted in all caps.
+占位符用大写字母表示。
 
 .. _reference/view_architectures/form/group:
 
-`group`: define columns layouts
+`group`: 定义列布局
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `group` element is used to define column layouts in forms. By default, groups define 2 columns,
-and most direct children of groups take a single column.
+`group` 元素用于在表单中定义列布局。默认情况下，组定义两个列，且组的直接子元素占用一个单列。
 
-:ref:`field <reference/view_architectures/form/field>` elements that are direct children of groups
-display a `label` by default, and the label and the field itself have a `colspan` of `1` each.
+作为组直接子元素的 :ref:`field <reference/view_architectures/form/field>` 元素默认显示 `label`，并且标签和字段本身的 `colspan` 各为 `1`。
 
-Children are laid out horizontally (they try to fill the next column before changing row).
+子元素水平排列（它们会尽量填充下一个列，然后再换行）。
 
 .. code-block:: xml
 
@@ -552,40 +510,40 @@ Children are laid out horizontally (they try to fill the next column before chan
        <group>
            ...
        </group>
-  </form>
+   </form>
 
-The `group` element can have the following attributes:
+`group` 元素可以具有以下属性：
 
 .. attribute:: string
    :noindex:
 
-   The title displayed for the group.
+   显示在组中的标题。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: col
    :noindex:
 
-   The number of columns in a `group`.
+   `group` 中的列数。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: int
    :default: `2`
 
 .. attribute:: colspan
    :noindex:
 
-   The number of columns taken by a child element.
+   子元素占用的列数。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: int
    :default: `1`
 
 .. include:: view_architectures/generic_attribute_invisible.rst
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其渲染表示
 
    .. list-table::
       :class: o-showcase-table
@@ -621,13 +579,10 @@ The `group` element can have the following attributes:
 
 .. _reference/view_architectures/form/sheet:
 
-`sheet`: make the layout responsive
+`sheet`: 使布局响应式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `sheet` element can be used as a direct child of the :ref:`form
-<reference/view_architectures/form>` root element for a narrower and more responsive form layout
-(centered page, margin...). It usually contains :ref:`group
-<reference/view_architectures/form/group>` elements.
+`sheet` 元素可以用作 :ref:`form <reference/view_architectures/form>` 根元素的直接子元素，以获得更窄且更响应式的表单布局（居中页面，边距...）。它通常包含 :ref:`group <reference/view_architectures/form/group>` 元素。
 
 .. code-block:: xml
 
@@ -639,12 +594,11 @@ The `sheet` element can be used as a direct child of the :ref:`form
 
 .. _reference/view_architectures/form/notebook:
 
-`notebook` & `page`: add tabbed sections
+`notebook` & `page`: 添加选项卡式部分
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`notebook` 元素定义了一个选项卡式部分。每个选项卡通过 `page` 子元素定义。
 
-The `notebook` element defines a tabbed section. Each tab is defined through a `page` child element.
-
-The `notebook` element should not be placed within `group` elements.
+`notebook` 元素不应放置在 `group` 元素内。
 
 .. code-block:: xml
 
@@ -656,20 +610,20 @@ The `notebook` element should not be placed within `group` elements.
        </notebook>
    </form>
 
-The `page` element can have the following attributes:
+`page` 元素可以具有以下属性：
 
 .. attribute:: string
    :noindex:
 
-   The title of the tab.
+   选项卡的标题。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: `str`
    :default: `''`
 
 .. include:: view_architectures/generic_attribute_invisible.rst
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其渲染表示
 
    .. list-table::
       :class: o-showcase-table
@@ -692,12 +646,10 @@ The `page` element can have the following attributes:
 
 .. _reference/view_architectures/form/newline:
 
-`newline`: start new group rows
+`newline`: 开始新的组行
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `newline` element is used within :ref:`group <reference/view_architectures/form/group>`
-elements to end the current row early and immediately switch to a new row, without filling any
-remaining column beforehand.
+`newline` 元素用于 :ref:`group <reference/view_architectures/form/group>` 元素内，以提前结束当前行并立即切换到新行，而无需填充之前的任何剩余列。
 
 .. code-block:: xml
 
@@ -709,7 +661,7 @@ remaining column beforehand.
        </group>
    </form>
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其渲染表示
 
    .. list-table::
       :class: o-showcase-table
@@ -730,10 +682,10 @@ remaining column beforehand.
 
 .. _reference/view_architectures/form/separator:
 
-`separator`: add horizontal spacing
+`separator`: 添加水平间距
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `separator` element adds vertical spacing between elements within a group.
+`separator` 元素在组内的元素之间添加垂直间距。
 
 .. code-block:: xml
 
@@ -743,18 +695,18 @@ The `separator` element adds vertical spacing between elements within a group.
        ...
    </form>
 
-The `<separator>` element can have the following attributes:
+`<separator>` 元素可以具有以下属性：
 
 .. attribute:: string
    :noindex:
 
-   The title as a section title.
+   作为部分标题的标题。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: `str`
    :default: `''`
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其渲染表示
 
    .. list-table::
       :class: o-showcase-table
@@ -782,18 +734,13 @@ The `<separator>` element can have the following attributes:
              </form>
 
 .. tip::
-   The `separator` element can be used to achieve visual separation between elements within the same
-   inner `group` element while keeping them horizontally aligned.
+   `separator` 元素可用于在同一内部 `group` 元素内的元素之间实现视觉分隔，同时保持它们水平对齐。
 
 .. _reference/view_architectures/form/header:
 
-`header`: display workflow buttons and a status
+`header`: 显示工作流按钮和状态
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The `header` element combined with the :ref:`sheet <reference/view_architectures/form/sheet>`
-element provides a full-width location above the sheet itself generally used to display workflow
-:ref:`button <reference/view_architectures/form/button>` elements and a :ref:`field
-<reference/view_architectures/form/field>` element rendered as status widget.
+`header` 元素与 :ref:`sheet <reference/view_architectures/form/sheet>` 元素结合提供了一个宽度为整个页面的区域，通常用于显示工作流 :ref:`button <reference/view_architectures/form/button>` 元素和一个作为状态小部件渲染的 :ref:`field <reference/view_architectures/form/field>` 元素。
 
 .. code-block:: xml
 
@@ -817,11 +764,10 @@ element provides a full-width location above the sheet itself generally used to 
 
 .. _reference/view_architectures/form/footer:
 
-`footer`: display dialog buttons
+`footer`: 显示对话框按钮
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `footer` element is used to display :ref:`buttons <reference/view_architectures/form/button>`
-elements at the end of dialogs.
+`footer` 元素用于在对话框的末尾显示 :ref:`buttons <reference/view_architectures/form/button>` 元素。
 
 .. code-block:: xml
 
@@ -845,11 +791,10 @@ elements at the end of dialogs.
 
 .. _reference/view_architectures/form/button_container:
 
-Buttons container
+按钮容器
 ~~~~~~~~~~~~~~~~~
 
-A :ref:`button <reference/view_architectures/form/button>` elements container can be created with a
-`div` element with the class `button_box`.
+可以通过具有 `button_box` 类的 `div` 元素创建 :ref:`button <reference/view_architectures/form/button>` 元素的容器。
 
 .. code-block:: xml
 
@@ -859,7 +804,7 @@ A :ref:`button <reference/view_architectures/form/button>` elements container ca
        </div>
    <form>
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其渲染表示
 
    .. list-table::
       :class: o-showcase-table
@@ -876,15 +821,14 @@ A :ref:`button <reference/view_architectures/form/button>` elements container ca
                          <field name="total_inv" widget="statinfo" string="Invoices"/>
                      </button>
                  </div>
-             <form>
+             </form>
 
 .. _reference/view_architectures/form/title_container:
 
-Title container
+标题容器
 ~~~~~~~~~~~~~~~
 
-A title :ref:`field <reference/view_architectures/form/field>` element container can be created with
-a `div` element with the class `oe_title`.
+可以通过具有 `oe_title` 类的 `div` 元素创建标题 :ref:`field <reference/view_architectures/form/field>` 元素的容器。
 
 .. code-block:: xml
 
@@ -898,12 +842,9 @@ a `div` element with the class `oe_title`.
 
 .. _reference/view_architectures/settings:
 
-Settings
+设置
 ========
-
-Settings views are a customization of the :ref:`form <reference/view_architectures/form>` view. They
-are used to display settings in a centralized place. They differ from generic form views in that
-they have a search bar and a sidebar.
+设置视图是对 :ref:`form <reference/view_architectures/form>` 视图的定制。它们用于在一个集中的地方显示设置。与普通表单视图不同，它们具有搜索栏和侧边栏。
 
 .. example::
 
@@ -931,26 +872,19 @@ they have a search bar and a sidebar.
 
 .. _reference/view_architectures/settings/components:
 
-Components
+组件
 ----------
 
-Settings views accept the :ref:`field <reference/view_architectures/form/field>`, :ref:`label
-<reference/view_architectures/form/label>` and :ref:`button
-<reference/view_architectures/form/button>` elements of :ref:`form
-<reference/view_architectures/form>` views, as well as three additional children elements:
-:ref:`app <reference/view_architectures/settings/app>`, :ref:`block
-<reference/view_architectures/settings/block>`, and :ref:`setting
-<reference/view_architectures/settings/setting>`.
+设置视图接受 :ref:`field <reference/view_architectures/form/field>`、:ref:`label <reference/view_architectures/form/label>` 和 :ref:`button <reference/view_architectures/form/button>` 元素，以及三个额外的子元素：:ref:`app <reference/view_architectures/settings/app>`、:ref:`block <reference/view_architectures/settings/block>` 和 :ref:`setting <reference/view_architectures/settings/setting>`。
 
-Placeholders are denoted in all caps.
+占位符以大写字母表示。
 
 .. _reference/view_architectures/settings/app:
 
-`app`: declare the application
+`app`: 声明应用程序
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `app` element is used to declare the application on the settings view. It creates an entry with
-the logo of the application on the sidebar of the view. It also acts as delimiter when searching.
+`app` 元素用于在设置视图中声明应用程序。它在视图的侧边栏中创建一个带有应用程序徽标的条目。它还充当搜索时的分隔符。
 
 .. code-block:: xml
 
@@ -960,32 +894,32 @@ the logo of the application on the sidebar of the view. It also acts as delimite
        </app>
    </form>
 
-The `app` element can have the following attributes:
+`app` 元素可以具有以下属性：
 
 .. attribute:: string
    :noindex:
 
-   The name of the application.
+   应用程序的名称。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
 .. attribute:: name
    :noindex:
 
-   The technical name of the application (the name of the module).
+   应用程序的技术名称（模块名称）。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
 .. attribute:: logo
    :noindex:
 
-   The `relative path`_ to the logo.
+   徽标的 `relative path`_。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: path_
-   :default: A path computed with the `name` attribute: :file:`/{name}/static/description/icon.png`
+   :default: 根据 `name` 属性计算的路径： :file:`/{name}/static/description/icon.png`
 
 .. todo: document attribute notApp
 
@@ -995,11 +929,12 @@ The `app` element can have the following attributes:
 
 .. _reference/view_architectures/settings/block:
 
-`block`: declare a group of settings
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`block`: 声明一组设置
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`block`: 声明一组设置
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `block` element is used to declare a group of settings. This group can have a title and a
-description.
+`block` 元素用于声明一组设置。该组可以有一个标题和描述。
 
 .. code-block:: xml
 
@@ -1013,23 +948,23 @@ description.
        </app>
   </form>
 
-The `block` element can have the following attributes:
+`block` 元素可以具有以下属性：
 
 .. attribute:: title
    :noindex:
 
-   The title of the block of settings. One can search on its value.
+   设置块的标题。可以根据其值进行搜索。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: help
    :noindex:
 
-   The description of the block of settings. One can search on its value.
+   设置块的描述。可以根据其值进行搜索。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
@@ -1039,18 +974,14 @@ The `block` element can have the following attributes:
 
 .. _reference/view_architectures/settings/setting:
 
-`setting`: declare the setting
+`setting`: 声明设置
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `setting` element is used to declare the setting itself.
+`setting` 元素用于声明设置本身。
 
-The first :ref:`field <reference/view_architectures/form/field>` element in the setting is used as
-the main field. It is placed on the left panel if it is a boolean field, and on the top of the right
-panel otherwise. The field is also used to create the setting label if a `string` attribute is not
-defined.
+设置中的第一个 :ref:`field <reference/view_architectures/form/field>` 元素用作主字段。如果它是布尔字段，则放置在左侧面板上，否则放置在右侧面板的顶部。如果未定义 `string` 属性，则该字段还用于创建设置标签。
 
-The `setting` element can also contain additional elements (e.g., HTML). All of those elements are
-rendered in the right panel.
+`setting` 元素还可以包含其他元素（例如 HTML）。所有这些元素都会在右侧面板中呈现。
 
 .. code-block:: xml
 
@@ -1068,69 +999,61 @@ rendered in the right panel.
        </app>
    </form>
 
-The `<setting>` element can have the following attributes:
+`<setting>` 元素可以具有以下属性：
 
 .. attribute:: type
    :noindex:
 
-   By default, a setting is visually separated on two panels (left and right), and is used to edit a
-   given :ref:`field <reference/view_architectures/form/field>`. By defining `type="header"`, a
-   special kind of setting is rendered instead. This setting is used to modify the scope of the
-   other settings. For example, on the Website application, this setting is used to indicate to
-   which website the other settings apply. The header setting is visually represented as a banner on
-   top of the screen.
+   默认情况下，设置在两个面板（左侧和右侧）上进行可视化分离，用于编辑给定的 :ref:`field <reference/view_architectures/form/field>`。通过定义 `type="header"`，将渲染一种特殊类型的设置。此设置用于修改其他设置的范围。例如，在网站应用程序中，此设置用于指示其他设置适用于哪个网站。标题设置在视觉上表现为屏幕顶部的横幅。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: string
    :noindex:
 
-   The text used as the label of the setting.
+   用作设置标签的文本。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
-   :default: The first field's label
+   :default: 第一个字段的标签
 
 .. attribute:: title
    :noindex:
 
-   The text used as a tooltip.
+   用作工具提示的文本。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: help
    :noindex:
 
-   The description of the setting. This text is displayed just below the setting label (with the
-   class `text-muted`).
+   设置的描述。此文本显示在设置标签下方（带有 `text-muted` 类）。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: company_dependent
    :noindex:
 
-   Whether the setting is company-specific. If set, an icon is displayed next to the setting label.
+   设置是否特定于公司。如果设置，则在设置标签旁边显示一个图标。
 
-   It accepts only the value `'1'`.
+   仅接受值 `'1'`。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: documentation
    :noindex:
 
-   The `path`_ to the documentation on the setting. If set, a clickable icon is displayed next to
-   the setting label. The path can be both an absolute or a `relative path`_. In the latter case, it
-   is relative to `https://www.odoo.com/documentation/<version>`.
+   设置的 `path`_ 到文档。如果设置，则在设置标签旁边显示一个可点击的图标。路径可以是绝对路径或 `relative path`_。在后一种情况下，它是相对于 `https://www.odoo.com/documentation/<version>`。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: `path_`
    :default: `''`
 
@@ -1140,12 +1063,14 @@ The `<setting>` element can have the following attributes:
 
 .. _reference/view_architectures/list:
 
-List
+列表
 ====
+根元素
+========
 
-The root element of list views is `tree`\ [#treehistory]_.
+列表视图的根元素是 `tree`\ [#treehistory]_。
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -1161,10 +1086,10 @@ The root element of list views is `tree`\ [#treehistory]_.
 
 .. _reference/view_architectures/list/root:
 
-Root attributes
----------------
+根属性
+----------------
 
-Optional attributes can be added to the root element `tree` to customize the view.
+可选属性可以添加到根元素 `tree` 以自定义视图。
 
 .. include:: view_architectures/root_attribute_string.rst
 
@@ -1177,68 +1102,64 @@ Optional attributes can be added to the root element `tree` to customize the vie
 .. attribute:: import
    :noindex:
 
-   Disable/enable record import from data on the view.
+   禁用/启用从视图中的数据导入记录。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
 .. attribute:: export_xlsx
    :noindex:
 
-   Disable/enable record export to data on the view.
+   禁用/启用从视图中的数据导出记录。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
 .. attribute:: editable
    :noindex:
 
-   Make the view's records editable in-place, and allow creating new records from a row of the list.
-   It can have two different values:
+   使视图中的记录可以就地编辑，并允许从列表的一行创建新记录。它可以具有两个不同的值：
 
    .. attribute:: top
       :noindex:
 
-      New records are created from the top of the list.
+      新记录从列表的顶部创建。
 
    .. attribute:: bottom
       :noindex:
 
-      New records are created from the bottom of the list.
+      新记录从列表的底部创建。
 
-   The architecture for the inline :ref:`form <reference/view_architectures/form>` view is derived
-   from the list view. Most attributes valid on a form view's fields and buttons are thus accepted
-   by list views, although they may not have any meaning if the list view is non-editable.
+   行内 :ref:`form <reference/view_architectures/form>` 视图的架构源自列表视图。因此，表单视图字段和按钮上有效的大多数属性也被列表视图接受，尽管如果列表视图不可编辑，这些属性可能没有任何意义。
 
    .. important::
-      This behavior is disabled if the `edit` attribute is set to `False`.
+      如果将 `edit` 属性设置为 `False`，则此行为被禁用。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: multi_edit
    :noindex:
 
-   Activate the multi-editing feature that allows updating a field to the same value for multiple
-   records at once.
+   激活多编辑功能，允许一次为多个记录更新一个字段到相同的值。
 
-   It accepts only the value `'1'`.
+   仅接受值 `'1'`。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: open_form_view
    :noindex:
 
-   Display a button at the end of each row to open the record in a form view.
+   在每一行的末尾显示一个按钮，以在表单视图中打开记录。
 
-   It has no effect if the view is non-editable.
+   如果视图不可编辑，则没有效果。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `False`
 
@@ -1249,11 +1170,10 @@ Optional attributes can be added to the root element `tree` to customize the vie
 .. attribute:: decoration-<style>
    :noindex:
 
-   The style that should be applied to matching records' rows, as a Python expression that evaluates
-   to a bool.
+   应应用于匹配记录行的样式，作为 Python 表达式，该表达式计算为布尔值。
 
-   `<style>` must be replaced by one of `bf` (bold), `it` (italic), `info`, `warning`, `danger`,
-   `muted`, `primary`, and `success`.
+   `<style>` 必须替换为 `bf` (粗体), `it` (斜体), `info`, `warning`, `danger`,
+   `muted`, `primary` 和 `success` 之一。
 
    .. example::
       .. code-block:: xml
@@ -1262,38 +1182,37 @@ Optional attributes can be added to the root element `tree` to customize the vie
              ...
          </tree>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `False`
 
 .. attribute:: limit
    :noindex:
 
-   The default size of a page. It must be strictly positive.
+   默认页面大小。必须是严格正数。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: int
-   :default: `80` for list views, `40` for X2many lists in form views
+   :default: `80` 对于列表视图, `40` 对于表单视图中的 X2many 列表
 
 .. attribute:: groups_limit
    :noindex:
 
-   The default number of groups on a page when the list view is grouped. It must be strictly
-   positive.
+   当列表视图分组时，页面上默认的组数。必须是严格正数。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: int
-   :default: `80` for list views, `40` for X2many lists in form views
+   :default: `80` 对于列表视图, `40` 对于表单视图中的 X2many 列表
 
 .. attribute:: expand
    :noindex:
 
-   Whether the first level of groups should be opened by default when the list view is grouped.
+   当列表视图分组时，是否默认打开第一层组。
 
    .. warning::
-      It may be slow, depending on the number of groups.
+      根据组的数量，这可能很慢。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `False`
 
@@ -1303,27 +1222,25 @@ Optional attributes can be added to the root element `tree` to customize the vie
 
 .. _reference/view_architectures/list/components:
 
-Components
+组件
 ----------
+列表视图接受以下子元素： :ref:`field
+<reference/view_architectures/list/field>`， :ref:`button
+<reference/view_architectures/list/button>`， :ref:`groupby
+<reference/view_architectures/list/groupby>`， :ref:`header
+<reference/view_architectures/list/header>`， :ref:`control 和 create
+<reference/view_architectures/list/control>`。
 
-List views accept the following children elements: :ref:`field
-<reference/view_architectures/list/field>`, :ref:`button
-<reference/view_architectures/list/button>`, :ref:`groupby
-<reference/view_architectures/list/groupby>`, :ref:`header
-<reference/view_architectures/list/header>`, :ref:`control, and create
-<reference/view_architectures/list/control>`.
-
-Placeholders are denoted in all caps.
+占位符用大写字母表示。
 
 .. _reference/view_architectures/list/field:
 
-`field`: display field values
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`field`: 显示字段值
+===========================
 
-The `field` element renders (and allows editing of, possibly) a single field of all current records
-as a column.
+`field` 元素呈现（并可能允许编辑）当前所有记录的单个字段作为列。
 
-Using the same field multiple times in a list view is not supported
+在列表视图中多次使用同一字段是不支持的。
 
 .. code-block:: xml
 
@@ -1331,7 +1248,7 @@ Using the same field multiple times in a list view is not supported
        <field name="FIELD_NAME"/>
    </tree>
 
-The `field` element can have the following attributes:
+`field` 元素可以具有以下属性：
 
 .. include:: view_architectures/field_attribute_name.rst
 
@@ -1340,20 +1257,19 @@ The `field` element can have the following attributes:
 .. attribute:: optional
    :noindex:
 
-   Make the visibility of the field optional. The field's column can be hidden or shown through a
-   button on the view's header.
+   使字段的可见性可选。字段的列可以通过视图标题上的按钮隐藏或显示。
 
-   It can have two different values:
+   它可以具有两个不同的值：
 
    .. attribute:: show
       :noindex:
 
-      The field is shown by default.
+      字段默认显示。
 
    .. attribute:: hide
       :noindex:
 
-      The field is hidden by default.
+      字段默认隐藏。
 
    .. example::
       .. code-block:: xml
@@ -1361,7 +1277,7 @@ The `field` element can have the following attributes:
          <field name="fname_a" optional="show"/>
          <field name="fname_b" optional="hide"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
 
 .. include:: view_architectures/field_attribute_readonly.rst
@@ -1377,11 +1293,10 @@ The `field` element can have the following attributes:
 .. attribute:: decoration-<style>
    :noindex:
 
-   The style that should be applied to matching records' field, as a Python expression that
-   evaluates to a bool.
+   应该应用于匹配记录字段的样式，作为 Python 表达式，该表达式计算为布尔值。
 
-   `<style>` must be replaced by one of `bf` (bold), `it` (italic), `info`, `warning`, `danger`,
-   `muted`, `primary`, and `success`.
+   `<style>` 必须替换为 `bf` (粗体)，`it` (斜体)，`info`，`warning`，`danger`，
+   `muted`，`primary` 和 `success` 中的一个。
 
    .. example::
       .. code-block:: xml
@@ -1389,7 +1304,7 @@ The `field` element can have the following attributes:
          <field name="name" decoration-bf="1"/>
          <field name="quantity" decoration-info="state == 'draft'"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `False`
 
@@ -1398,9 +1313,7 @@ The `field` element can have the following attributes:
 .. attribute:: sum, avg
    :noindex:
 
-   The aggregate to display at the bottom of the column. The aggregation is computed on only
-   records that are currently displayed. The aggregation operation must match the corresponding
-   field's `group_operator`.
+   在列底部显示的聚合。聚合仅在当前显示的记录上计算。聚合操作必须与对应字段的 `group_operator` 匹配。
 
    .. example::
       .. code-block:: xml
@@ -1408,42 +1321,37 @@ The `field` element can have the following attributes:
          <field name="sent" sum="Total" />
          <field name="clicks_ratio" avg="Average"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: width
    :noindex:
 
-   The width to apply to the field's column when there are no records in the list, as an absolute
-   width (e.g., `100px`).
+   当列表中没有记录时，应用于字段列的宽度，作为绝对宽度（例如 `100px`）。
 
    .. important::
-      The width is set by the webclient when there are records in the list.
+      当列表中有记录时，宽度由 Web 客户端设置。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: nolabel
    :noindex:
 
-   Whether the field's column header should remain empty. If set, the column will not be sortable.
+   字段的列标题是否应保持为空。如果设置，列将不可排序。
 
-   It accepts only the value `'1'`
+   仅接受值 `'1'`。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. note::
-   When a list view is grouped, numeric fields are aggregated and displayed for each group. Also, if
-   there are too many records in a group, a pager appears on the right of the group row. For this
-   reason, it is a bad practice to have a numeric field in the last column when the list view is in
-   a situation where it can be grouped. However, it does not pose a problem for X2many fields in a
-   form view, as they cannot be grouped.
+   当列表视图分组时，数字字段会聚合并在每组中显示。此外，如果组中有太多记录，组行的右侧会出现分页器。因此，在列表视图可以分组的情况下，在最后一列中放置数字字段是不好的做法。然而，在表单视图中，X2many 字段不受到此限制，因为它们不能分组。
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -1463,9 +1371,8 @@ The `field` element can have the following attributes:
 
 .. _reference/view_architectures/list/button:
 
-`button`: display action buttons
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+`button`: 显示操作按钮
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. code-block:: xml
 
    <tree>
@@ -1473,7 +1380,7 @@ The `field` element can have the following attributes:
        <button type="object" name="ACTION" icon="FONT_AWESOME"/>
    </tree>
 
-The `button` element can have the following attributes:
+`button` 元素可以具有以下属性：
 
 .. include:: view_architectures/button_attribute_type.rst
 
@@ -1495,7 +1402,7 @@ The `button` element can have the following attributes:
 
 .. include:: view_architectures/generic_attribute_class.rst
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -1516,14 +1423,12 @@ The `button` element can have the following attributes:
 
 .. _reference/view_architectures/list/groupby:
 
-`groupby`: define group headers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`groupby`: 定义分组标题
+======================
 
-The `groupby` element is used to define group headers with :ref:`button
-<reference/view_architectures/list/button>` elements when grouping records on
-:attr:`~odoo.fields.Many2one` fields. It also accepts :ref:`field
-<reference/view_architectures/list/field>` elements, which can be used for modifiers. These fields
-thus belong on the Many2one co-model. These extra fields are fetched in batch.
+`groupby` 元素用于定义在 :attr:`~odoo.fields.Many2one` 字段上分组记录时的分组标题，伴随 :ref:`button
+<reference/view_architectures/list/button>` 元素。它还接受 :ref:`field
+<reference/view_architectures/list/field>` 元素，这些字段可以用于修饰符。因此，这些额外字段归属于 Many2one 共同模型。这些额外字段以批量方式获取。
 
 .. code-block:: xml
 
@@ -1535,20 +1440,19 @@ thus belong on the Many2one co-model. These extra fields are fetched in batch.
        </groupby>
    </tree>
 
-The `groupby` element can have the following attributes:
+`groupby` 元素可以具有以下属性：
 
 .. attribute:: name
    :noindex:
 
-   The name of the a :attr:`~odoo.fields.Many2one` field to use as header.
+   用作标题的 :attr:`~odoo.fields.Many2one` 字段的名称。
 
-   A special :ref:`button <reference/view_architectures/list/button>` element with `type="edit"` can
-   be defined to open the Many2one field's form view.
+   可以定义一个特殊的 :ref:`button <reference/view_architectures/list/button>` 元素，`type="edit"`，以打开 Many2one 字段的表单视图。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -1572,14 +1476,12 @@ The `groupby` element can have the following attributes:
              </tree>
 
 .. note::
-   Fields inside the `groupby` element are used only to fetch and store the value, but they are
-   never displayed.
+   `groupby` 元素中的字段仅用于获取和存储值，但从不显示。
 
 .. _reference/view_architectures/list/header:
 
-`header`: display workflow buttons
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+`header`: 显示工作流按钮
+==========================
 .. code-block:: xml
 
    <tree>
@@ -1589,21 +1491,19 @@ The `groupby` element can have the following attributes:
        ...
    </tree>
 
-The `header` element accepts the following children elements:
+`header` 元素接受以下子元素：
 
 .. attribute:: button
    :noindex:
 
-   The `button` element allows defining buttons in the control panel. It is the same element as the
-   :ref:`button element in list views <reference/view_architectures/list/button>`, but it accepts
-   one more attribute when placed inside a `header` element:
+   `button` 元素允许在控制面板中定义按钮。它与 :ref:`list views 中的 button 元素 <reference/view_architectures/list/button>` 相同，但在 `header` 元素中放置时接受一个额外的属性：
 
    .. attribute:: display
       :noindex:
 
-      Make the button available at all time, without having to select records.
+      使按钮始终可用，而无需选择记录。
 
-      It accepts only the value `always`.
+      仅接受值 `always`。
 
       .. example::
 
@@ -1614,11 +1514,11 @@ The `header` element accepts the following children elements:
                 <button name="toDoSelection" type="object" string="Displayed if selection"/>
             </header>
 
-      :requirement: Optional
+      :requirement: 可选
       :type: str
       :default: `''`
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -1640,11 +1540,10 @@ The `header` element accepts the following children elements:
 
 .. _reference/view_architectures/list/control:
 
-`control` & `create`: add inline create buttons
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`control` & `create`: 添加内联创建按钮
+====================================
 
-The `control` element defines a control row that accepts create buttons. Each create button is
-defined through a `create` element.
+`control` 元素定义一个控制行，接受创建按钮。每个创建按钮通过 `create` 元素定义。
 
 .. code-block:: xml
 
@@ -1656,29 +1555,28 @@ defined through a `create` element.
        ...
    </tree>
 
-The `control` element takes no attributes.
+`control` 元素不接受任何属性。
 
-The `create` element can have the following attributes:
+`create` 元素可以具有以下属性：
 
 .. attribute:: string
    :noindex:
 
-   The button's text.
+   按钮的文本。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
 .. attribute:: context
    :noindex:
 
-   The context that is merged into the view's context when performing the button's call, as a Python
-   expression that evaluates to a dict.
+   在执行按钮调用时合并到视图上下文中的上下文，作为评估为字典的 Python 表达式。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `{}`
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -1701,28 +1599,21 @@ The `create` element can have the following attributes:
              </tree>
 
 .. note::
-   Using the `control` element makes sense only if the list view is inside a
-   :class:`~odoo.fields.One2many` or :class:`~odoo.fields.Many2many` field. If any `create` element
-   is defined, it overwrites the default :guilabel:`add a line` button.
+   使用 `control` 元素只有在列表视图位于 :class:`~odoo.fields.One2many` 或 :class:`~odoo.fields.Many2many` 字段内时才有意义。如果定义了任何 `create` 元素，它将覆盖默认的 :guilabel:`add a line` 按钮。
 
-.. [#treehistory] For historical reasons, it has its origin in tree-type views later repurposed to a
-   more table/list-type display
+.. [#treehistory] 由于历史原因，它起源于树型视图，后来重新用于更表格/列表型的显示。
 
 .. _reference/view_architectures/search:
 
-Search
+搜索
 ======
+搜索视图与其他视图类型不同，因为它们不用于显示内容。尽管它们适用于特定模型，但它们用于过滤另一个视图的内容（通常是聚合视图；例如：:ref:`reference/view_architectures/list` 和 :ref:`reference/view_architectures/graph`）。
 
-Search views are different from other view types in that they are not used to display content.
-Although they apply to a specific model, they are used to filter another view's content (usually
-aggregated views; e.g., :ref:`reference/view_architectures/list` and
-:ref:`reference/view_architectures/graph`).
+搜索视图的根元素是 `search`。
 
-The root element of search views is `search`.
+它不接受任何属性。
 
-It takes no attributes.
-
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -1738,25 +1629,19 @@ It takes no attributes.
 
 .. _reference/view_architectures/search/components:
 
-Components
-----------
+组件
+----
 
-Search views accept the following children elements: :ref:`field
-<reference/view_architectures/search/field>`, :ref:`filter
-<reference/view_architectures/search/filter>`, :ref:`separator
-<reference/view_architectures/search/separator>`, :ref:`group
-<reference/view_architectures/search/group>`, and :ref:`searchpanel
-<reference/view_architectures/search/searchpanel>`.
+搜索视图接受以下子元素：:ref:`field <reference/view_architectures/search/field>`、:ref:`filter <reference/view_architectures/search/filter>`、:ref:`separator <reference/view_architectures/search/separator>`、:ref:`group <reference/view_architectures/search/group>` 和 :ref:`searchpanel <reference/view_architectures/search/searchpanel>`。
 
-Placeholders are denoted in all caps.
+占位符以大写字母表示。
 
 .. _reference/view_architectures/search/field:
 
-`field`: filter based on field values
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`field`: 基于字段值进行过滤
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `field` element defines domains or contexts with user-provided values. When search domains are
-generated, field domains are joined with each other and with filters using the **AND** operator.
+`field` 元素定义域或上下文，使用用户提供的值。当生成搜索域时，字段域与其他域和过滤器使用 **AND** 运算符连接。
 
 .. code-block:: xml
 
@@ -1764,14 +1649,14 @@ generated, field domains are joined with each other and with filters using the *
        <field name="FIELD_NAME"/>
    </search>
 
-The `field` element can have the following attributes:
+`field` 元素可以具有以下属性：
 
 .. attribute:: name
    :noindex:
 
-   The name of the field to filter on.
+   要过滤的字段名称。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
 .. include:: view_architectures/field_attribute_string.rst
@@ -1779,54 +1664,44 @@ The `field` element can have the following attributes:
 .. attribute:: operator
    :noindex:
 
-   By default, fields generate domains of the form :samp:`[(name, {operator}, value)]`, where `name`
-   is the field's name and `value` is the value provided by the user, possibly filtered or
-   transformed (e.g., a user is expected to provide the *label* of a selection field's value, not
-   the value itself).
+   默认情况下，字段生成形式为 :samp:`[(name, {operator}, value)]` 的域，其中 `name` 是字段的名称，`value` 是用户提供的值，可能被过滤或转换（例如，用户应提供选择字段值的 *label*，而不是值本身）。
 
-   The `operator` attribute allows overriding the default operator, which depends on the field's
-   type (e.g., `=` for float fields, but `ilike` for char fields and `child_of` for many2one).
+   `operator` 属性允许覆盖默认运算符，这取决于字段的类型（例如，对于浮点字段为 `=`，但对于字符字段为 `ilike`，对于多对一字段为 `child_of`）。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `=`
 
 .. attribute:: filter_domain
    :noindex:
 
-   The domain to use as the field's search domain, as a Python expression that evaluates to a
-   :ref:`domain <reference/orm/domains>`.
+   作为字段的搜索域使用的域，作为评估为 :ref:`domain <reference/orm/domains>` 的 Python 表达式。
 
-   It  can use the `self` variable to inject the provided value in the custom domain. It can be used
-   to generate significantly more flexible domains than with the `operator` attribute alone (e.g.,
-   search on multiple fields at once).
+   它可以使用 `self` 变量在自定义域中注入提供的值。与单独使用 `operator` 属性相比，它可以生成显著更灵活的域（例如，按多个字段进行搜索）。
 
-   If both the `operator` and `filter_domain` attributes are provided, `filter_domain` takes
-   precedence.
+   如果同时提供了 `operator` 和 `filter_domain` 属性，则 `filter_domain` 优先。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `[]`
 
 .. attribute:: context
    :noindex:
 
-   The context to merge into the context of the view that the search view is targeting, as a Python
-   expression that evaluates to a dict.
+   合并到搜索视图上下文中的上下文，作为评估为字典的 Python 表达式。
 
-   It can contain user-provided values, which are available under the `self` variable.
+   它可以包含用户提供的值，这些值在 `self` 变量下可用。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `{}`
 
 .. attribute:: domain
    :noindex:
 
-   The filters to apply to the completion results for fields that allow for auto-completion (e.g.,
-   :class:`~odoo.fields.Many2one`).
+   应用于允许自动补全的字段的补全结果的过滤器（例如，:class:`~odoo.fields.Many2one`）。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `[]`
 
@@ -1834,7 +1709,7 @@ The `field` element can have the following attributes:
 
 .. include:: view_architectures/generic_attribute_invisible.rst
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -1854,12 +1729,10 @@ The `field` element can have the following attributes:
 
 .. _reference/view_architectures/search/filter:
 
-`filter`: create pre-defined filters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`filter`: 创建预定义过滤器
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `filter` element is used to create pre-defined filters that can be toggled in the search view.
-It allows adding data to the search context :dfn:`the context passed to the data view for
-searching/filtering`, or appending new sections to the search filter.
+`filter` 元素用于创建可以在搜索视图中切换的预定义过滤器。它允许向搜索上下文添加数据 :dfn:`传递给数据视图进行搜索/过滤的上下文`，或向搜索过滤器附加新部分。
 
 .. code-block:: xml
 
@@ -1867,81 +1740,74 @@ searching/filtering`, or appending new sections to the search filter.
        <filter string="LABEL" domain="DOMAIN"/>
    </search>
 
-The `filter` element can have the following attributes:
+`filter` 元素可以具有以下属性：
 
 .. attribute:: name
    :noindex:
 
-   The technical name of the filter. It can be used to :ref:`enable it by default
-   <reference/view_architectures/search/defaults>` or as an :ref:`inheritance hook
-   <reference/view_records/inheritance>`.
+   过滤器的技术名称。它可以用于 :ref:`enable it by default <reference/view_architectures/search/defaults>` 或作为 :ref:`inheritance hook <reference/view_records/inheritance>`。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
 .. attribute:: string
    :noindex:
 
-   The label of the filter.
+   过滤器的标签。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
 .. attribute:: help
    :noindex:
 
-   The tooltip displayed when hovering the filter.
+   当鼠标悬停在过滤器上时显示的工具提示。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: domain
    :noindex:
 
-   The domain to append to the action's domain as part of the search domain.
+   作为搜索域的一部分附加到操作域的域。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `[]`
 
 .. attribute:: date
    :noindex:
 
-   The name of the `date` or `datetime` field to filter on.
+   要过滤的 `date` 或 `datetime` 字段的名称。
 
-   When used, this attribute creates a set of filters available in a sub-menu of the
-   :guilabel:`Filters` menu. The available filters are time-dependent but not dynamic in the sense
-   that their domains are evaluated at the time of the control panel instantiation.
+   使用时，此属性会在 :guilabel:`Filters` 菜单中创建一组可用的过滤器，但不是动态的，因为它们的域在控制面板实例化时评估。
 
    .. example::
       .. code-block:: xml
 
          <filter string="Creation Date" name="filter_create_date" date="create_date"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: default_period
    :noindex:
 
-   The default period of the time-based filter (with a `date` attribute). It must be one of, or a
-   comma-separated list of, `today`, `this_week`, `this_month`, `last_month`,
-   `antepenultimate_month`, `fourth_quarter`, `third_quarter`, `second_quarter`, `first_quarter`,
-   `this_year`, `last_year` or `antepenultimate_year`.
+   时间基于过滤器的默认周期（带有 `date` 属性）。它必须是以下之一，或以逗号分隔的列表：`today`、`this_week`、`this_month`、`last_month`、`antepenultimate_month`、`fourth_quarter`、`third_quarter`、`second_quarter`、`first_quarter`、`this_year`、`last_year` 或 `antepenultimate_year`。
 
-   The filter must be in the default set of filters activated at the view initialization.
+   过滤器必须在视图初始化时激活的默认过滤器集中的过滤器。
 
    .. example::
       .. code-block:: xml
 
          <filter string="Creation Date" name="filter_create_date" date="create_date" default_period="this_year,last_year"/>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `this_month`
-   :scope: Filters with a non-empty `date` attribute
+   :scope: 具有非空 `date` 属性的过滤器
 
 .. include:: view_architectures/generic_attribute_invisible.rst
 
@@ -1950,15 +1816,9 @@ The `filter` element can have the following attributes:
 .. attribute:: context
    :noindex:
 
-   The context merged into the action's domain to generate the search domain
+   合并到操作的域中的上下文，以生成搜索域。
 
-   The context key `group_by` set with a field as value can be used to define a group available in
-   the :guilabel:`Group By` menu. When the field is of type `date` or `datetime`, the filter
-   generates a submenu of the :guilabel:`Group By` menu with the following interval options
-   available: :guilabel:`Year`, :guilabel:`Quarter`, :guilabel:`Month`, :guilabel:`Week`, and
-   :guilabel:`Day`. When the filter is in the default set of filters activated at the view
-   initialization, the records are grouped by month by default. This can be changed by using the
-   syntax `date_field:interval`.
+   上下文键 `group_by` 设置为字段作为值可用于定义在 :guilabel:`Group By` 菜单中可用的组。当字段为 `date` 或 `datetime` 类型时，过滤器会在 :guilabel:`Group By` 菜单中生成一个子菜单，具有以下可用的间隔选项：:guilabel:`Year`、:guilabel:`Quarter`、:guilabel:`Month`、:guilabel:`Week` 和 :guilabel:`Day`。当过滤器在视图初始化时激活的默认过滤器集中时，记录按月分组为默认值。这可以通过使用语法 `date_field:interval` 来更改。
 
    .. example::
       .. code-block:: xml
@@ -1967,17 +1827,14 @@ The `filter` element can have the following attributes:
          <filter string="Creation Date" name="groupby_create_date" context="{'group_by': 'create_date:week'}"/>
 
    .. note::
-      The results of `read_groups` grouped on a field may be influenced by its `group_expand`
-      attribute, allowing to display empty groups when needed. For more information, please refer to
-      :class:`~odoo.fields.Field`.
+      对于在字段上分组的 `read_groups` 的结果可能会受到其 `group_expand` 属性的影响，允许在需要时显示空组。有关此类字段的更多信息，请参见 :class:`~odoo.fields.Field`。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `{}`
 
 .. caution::
-   Sequences of filters (without non-filters elements separating them) are treated as inclusively
-   composited: they will be composed with `OR` rather than the usual `AND`.
+   一系列过滤器（没有非过滤器元素将它们分隔）被视为包含性组合：它们将使用 `OR` 组合，而不是通常的 `AND`。
 
    .. example::
       .. code-block:: xml
@@ -1985,7 +1842,7 @@ The `filter` element can have the following attributes:
          <filter domain="[('state', '=', 'draft')]"/>
          <filter domain="[('state', '=', 'done')]"/>
 
-      Records whose `state` field is `draft` or `done` are shown.
+      显示 `state` 字段为 `draft` 或 `done` 的记录。
 
    .. example::
       .. code-block:: xml
@@ -1994,9 +1851,9 @@ The `filter` element can have the following attributes:
          <separator/>
          <filter domain="[('delay', '&lt;', 15)]"/>
 
-      Records whose `state` field is `draft` **and** `delay` field is below 15.
+      显示 `state` 字段为 `draft` **且** `delay` 字段小于 15 的记录。
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构及其呈现
 
    .. list-table::
       :class: o-showcase-table
@@ -2014,12 +1871,10 @@ The `filter` element can have the following attributes:
 
 .. _reference/view_architectures/search/separator:
 
-`separator`: separate groups of filters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`separator`: 分隔过滤器组
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `separator` element is used to separates groups of :ref:`filters
-<reference/view_architectures/search/filter>` in simple search views. For more complex search views,
-the :ref:`group <reference/view_architectures/search/group>` element is recommended.
+`separator` 元素用于在简单搜索视图中分隔 :ref:`filters <reference/view_architectures/search/filter>` 组。对于更复杂的搜索视图，建议使用 :ref:`group <reference/view_architectures/search/group>` 元素。
 
 .. code-block:: xml
 
@@ -2029,16 +1884,14 @@ the :ref:`group <reference/view_architectures/search/group>` element is recommen
        <FILTERS/>
    </search>
 
-The `separator` element takes no attributes.
+`separator` 元素不接受任何属性。
 
 .. _reference/view_architectures/search/group:
 
-`group`: separate groups of filters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`group`: 分隔过滤器组
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The `group` element is used to separate groups of :ref:`filters
-<reference/view_architectures/search/filter>` in cluttered search views. In simpler search views, it
-can be substituted for the :ref:`separator <reference/view_architectures/search/group>` element.
+`group` 元素用于在拥挤的搜索视图中分隔 :ref:`filters <reference/view_architectures/search/filter>` 组。在简单的搜索视图中，可以用 :ref:`separator <reference/view_architectures/search/group>` 元素替代。
 
 .. code-block:: xml
 
@@ -2048,15 +1901,14 @@ can be substituted for the :ref:`separator <reference/view_architectures/search/
        </group>
    </search>
 
-The `group` element takes no attributes.
+`group` 元素不接受任何属性。
 
 .. _reference/view_architectures/search/searchpanel:
 
-`searchpanel`: display search panels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`searchpanel`: 显示搜索面板
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `searchpanel` element displays a search panel to the left of multi-records views. It allows for
-quickly filtering data on the basis of given fields.
+`searchpanel` 元素在多记录视图的左侧显示搜索面板。它允许根据给定字段快速过滤数据。
 
 .. code-block:: xml
 
@@ -2066,17 +1918,16 @@ quickly filtering data on the basis of given fields.
        </searchpanel>
    </search>
 
-The `searchpanel` element accepts only `field` children elements.
+`searchpanel` 元素仅接受 `field` 子元素。
 
-The `field` element used as a child element of a `searchpanel` element can have the following
-attributes:
+作为 `searchpanel` 元素的子元素使用的 `field` 元素可以具有以下属性：
 
 .. attribute:: name
    :noindex:
 
-   The name of the field to filter on.
+   要过滤的字段名称。
 
-   :requirement: Mandatory
+   :requirement: 强制
    :type: str
 
 .. include:: view_architectures/field_attribute_string.rst
@@ -2084,20 +1935,19 @@ attributes:
 .. attribute:: select
    :noindex:
 
-   The behavior and display of the field. It can have two different values:
+   字段的行为和显示。它可以具有两个不同的值：
 
    .. attribute:: one
       :noindex:
 
-      At most one value can be selected. Supported field types are `many2one` and `selection`.
+      最多只能选择一个值。支持的字段类型为 `many2one` 和 `selection`。
 
    .. attribute:: multi
       :noindex:
 
-      Several values can be selected. Supported field types are `many2one`, `many2many` and
-      `selection`.
+      可以选择多个值。支持的字段类型为 `many2one`、`many2many` 和 `selection`。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `one`
 
@@ -2106,76 +1956,69 @@ attributes:
 .. attribute:: icon
    :noindex:
 
-   The icon of the field.
+   字段的图标。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: color
    :noindex:
 
-   The color of the field.
+   字段的颜色。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
-When the `field` element has the `select=one` attribute set, it can have the following additional
-attributes:
+当 `field` 元素的 `select=one` 属性设置时，可以具有以下附加属性：
 
 .. attribute:: hierarchize
    :noindex:
 
-   Whether child categories should appear under their parent category, or at the same hierarchy
-   level.
+   子类别是否应出现在其父类别下，或在同一层级。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
-   :scope: :class:`~odoo.fields.Many2one` fields
+   :scope: :class:`~odoo.fields.Many2one` 字段
 
-When the `field` element has the `select=multi` attribute set, it can have the following additional
-attributes:
+当 `field` 元素的 `select=multi` 属性设置时，可以具有以下附加属性：
 
 .. attribute:: enable_counters
    :noindex:
 
-   Whether the record counters is computed and displayed if non-zero.
+   如果非零，是否计算并显示记录计数。
 
    .. tip::
-      This attribute exists to avoid impacting performance. Another way to address performance
-      issues is to override the `search_panel_select_range` and `search_panel_select_multi_range`
-      methods.
+      此属性存在以避免影响性能。解决性能问题的另一种方法是重写 `search_panel_select_range` 和 `search_panel_select_multi_range` 方法。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `False`
 
 .. attribute:: expand
    :noindex:
 
-   Whether categories and filters with no records should be shown.
+   是否应显示没有记录的类别和过滤器。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `False`
 
 .. attribute:: limit
    :noindex:
 
-   The maximal number of values to fetch for the field. If the limit is reached, no values are
-   displayed on the search panel, and an error message is shown instead. If set to 0, all values are
-   fetched.
+   要获取的字段的最大值。如果达到限制，则不显示任何值，并显示错误消息。如果设置为 0，则获取所有值。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: int
    :default: `200`
 
 .. attribute:: domain
    :noindex:
 
-   The conditions that the records have to satisfy.
+   记录必须满足的条件。
 
    .. example::
       .. code-block:: xml
@@ -2185,32 +2028,29 @@ attributes:
              <field name="manager_id" select="multi" domain="[('department_id', '=', department_id)]"/>
          </searchpanel>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: :ref:`Python expression <reference/view_architectures/python_expression>`
    :default: `[]`
 
 .. attribute:: groupby
    :noindex:
 
-   The name of the field name on which values should be grouped.
+   应按其值分组的字段名称。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
-   :scope: :class:`~odoo.fields.Many2one` and :class:`~odoo.fields.Many2many` fields
+   :scope: :class:`~odoo.fields.Many2one` 和 :class:`~odoo.fields.Many2many` 字段
 
 .. _reference/view_architectures/search/defaults:
 
-Search defaults
----------------
+搜索默认值
+------------
 
-Search fields and filters can be configured through the action's `context` using
-:samp:`search_default_{name}` keys. For fields, the value must be the value to set to the field. For
-filters, it must be a boolean value or a number.
+搜索字段和过滤器可以通过操作的 `context` 使用 :samp:`search_default_{name}` 键进行配置。对于字段，值必须是要设置到字段的值。对于过滤器，必须是布尔值或数字。
 
 .. example::
-   With `foo`, a field, and `bar`, a filter, the following action context will search `foo` on
-   `acro` and enable `bar` by default:
+   对于字段 `foo` 和过滤器 `bar`，以下操作上下文将在 `acro` 上搜索 `foo` 并默认启用 `bar`：
 
    .. code-block:: python
 
@@ -2219,11 +2059,10 @@ filters, it must be a boolean value or a number.
           'search_default_bar': 1
       }
 
-A numeric value (between 1 and 99) can be used to define the order of default *groupby* filters.
+可以使用数字值（介于 1 和 99 之间）来定义默认 *groupby* 过滤器的顺序。
 
 .. example::
-   With `foo` and `bar`, two *groupby* filters, the following action context will first enable
-   `bar`, then `foo`.
+   对于 `foo` 和 `bar`，两个 *groupby* 过滤器，以下操作上下文将首先启用 `bar`，然后启用 `foo`。
 
    .. code-block:: python
 
@@ -2234,20 +2073,16 @@ A numeric value (between 1 and 99) can be used to define the order of default *g
 
 .. _reference/view_architectures/kanban:
 
-Kanban
+看板
 ======
 
-Kanban views are a used as a `kanban board <https://en.wikipedia.org/wiki/Kanban_board>`_
-visualisation: they display records as "cards", halfway between a :ref:`list
-<reference/view_architectures/list>` view and a non-editable :ref:`form
-<reference/view_architectures/form>` view.
+看板视图用于 `kanban board <https://en.wikipedia.org/wiki/Kanban_board>`_ 可视化：它们将记录显示为“卡片”，介于 :ref:`list <reference/view_architectures/list>` 视图和非可编辑 :ref:`form <reference/view_architectures/form>` 视图之间。
 
-Records may be grouped in columns for use in workflow visualisation or manipulation (e.g., tasks or
-work-progress management), or ungrouped (used simply to visualize records).
+记录可以按列分组以用于工作流可视化或操作（例如，任务或工作进度管理），或不分组（仅用于可视化记录）。
 
-The root element of Kanban views is `kanban`.
+看板视图的根元素是 `kanban`。
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构和表现形式
 
    .. list-table::
       :class: o-showcase-table
@@ -2262,15 +2097,14 @@ The root element of Kanban views is `kanban`.
              </kanban>
 
 .. note::
-   Kanban views load and display a maximum of ten columns. Any column after that is closed but can
-   still be opened by the user.
+   看板视图最多加载和显示十列。之后的任何列都将关闭，但用户仍然可以打开它们。
 
 .. _reference/view_architectures/kanban/root:
 
-Root attributes
+根属性
 ---------------
 
-Optional attributes can be added to the root element `kanban` to customize the view.
+可以将可选属性添加到根元素 `kanban` 以自定义视图。
 
 .. include:: view_architectures/root_attribute_string.rst
 
@@ -2287,110 +2121,105 @@ Optional attributes can be added to the root element `kanban` to customize the v
 .. attribute:: class
    :noindex:
 
-   Add HTML classes to the root HTML element of the view.
+   向视图的根 HTML 元素添加 HTML 类。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: examples
    :noindex:
 
-   The key in the `KanbanExamplesRegistry` of the examples than can be browsed when creating a new
-   column in the grouped kanban view.
+   `KanbanExamplesRegistry` 中的键，可以在分组看板视图中创建新列时浏览的示例。
 
    .. seealso::
-      `Use of the examples attribute in the utm module
+      `在 utm 模块中使用 examples 属性
       <{GITHUB_PATH}/addons/utm/static/src/js/utm_campaign_kanban_examples.js>`_
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: group_create
    :noindex:
 
-   Whether the :guilabel:`Add a new column` bar is visible.
+   是否可见 :guilabel:`添加新列` 栏。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
 .. attribute:: group_delete
    :noindex:
 
-   Whether columns can be deleted via the cog menu.
+   是否可以通过齿轮菜单删除列。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
 .. attribute:: group_edit
    :noindex:
 
-   Whether columns can be edited via the cog menu.
+   是否可以通过齿轮菜单编辑列。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
 .. attribute:: groups_draggable
    :noindex:
 
-   Whether columns can be reordered.
+   是否可以重新排序列。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
 .. attribute:: records_draggable
    :noindex:
 
-   Whether records can be dragged when the kanban view is grouped.
+   是否可以在分组的看板视图中拖动记录。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
 .. attribute:: archivable
    :noindex:
 
-   Whether records belonging to a column can be archived and unarchived when the `active` field is
-   defined on the model.
+   是否可以在模型上定义 `active` 字段时存档和取消存档属于某列的记录。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
    :default: `True`
 
 .. attribute:: quick_create
    :noindex:
 
-   Whether it should be possible to create records without switching to the form view.
+   是否可以在不切换到表单视图的情况下创建记录。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: bool
-   :default: `True` when the kanban view is grouped by many2one, selection, char, or boolean fields,
-             otherwise `False`
+   :default: `True` 当看板视图按 many2one、selection、char 或 boolean 字段分组时，否则为 `False`
 
 .. attribute:: quick_create_view
    :noindex:
 
-   The reference of the :ref:`form <reference/view_architectures/form>` view to open when using the
-   quick creation of records.
+   在使用快速创建记录时打开的 :ref:`form <reference/view_architectures/form>` 视图的引用。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
 .. attribute:: on_create
    :noindex:
 
-   The custom action to call when clicking on :guilabel:`Create`.
+   单击 :guilabel:`创建` 时要调用的自定义操作。
 
-   If set to `'quick_create'`, the quick creation of records is used instead. If the quick creation
-   is disabled, the standard create action is called.
+   如果设置为 `'quick_create'`，则使用记录的快速创建。如果禁用快速创建，则调用标准创建操作。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
@@ -2400,25 +2229,18 @@ Optional attributes can be added to the root element `kanban` to customize the v
 
 .. _reference/view_architectures/kanban/components:
 
-Components
+组件
 ----------
+看板视图接受以下子元素：:ref:`field <reference/view_architectures/kanban/field>`、:ref:`header <reference/view_architectures/kanban/header>`、:ref:`progressbar <reference/view_architectures/kanban/progressbar>` 和 :ref:`templates <reference/view_architectures/kanban/templates>`。
 
-Kanban views accept the following children elements: :ref:`field
-<reference/view_architectures/kanban/field>`, :ref:`header
-<reference/view_architectures/kanban/header>`, :ref:`progressbar
-<reference/view_architectures/kanban/progressbar>`, and :ref:`templates
-<reference/view_architectures/kanban/templates>`.
-
-Placeholders are denoted in all caps.
+占位符以大写字母表示。
 
 .. _reference/view_architectures/kanban/field:
 
-`field`: display field values
+`field`: 显示字段值
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `field` element declares fields to use in the :ref:`templates
-<reference/view_architectures/kanban/templates>`. If the field is simply displayed, it does not need
-to be pre-declared.
+`field` 元素声明要在 :ref:`templates <reference/view_architectures/kanban/templates>` 中使用的字段。如果字段只是显示，则不需要预先声明。
 
 .. code-block:: xml
 
@@ -2427,11 +2249,11 @@ to be pre-declared.
        ...
    </kanban>
 
-The `field` element can have the following attributes:
+`field` 元素可以具有以下属性：
 
 .. include:: view_architectures/field_attribute_name.rst
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构和表现形式
 
    .. list-table::
       :class: o-showcase-table
@@ -2453,10 +2275,10 @@ The `field` element can have the following attributes:
 
 .. _reference/view_architectures/kanban/header:
 
-`header`: display buttons in the control panel
+`header`: 在控制面板中显示按钮
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `header` element is used to insert custom buttons in the control panel.
+`header` 元素用于在控制面板中插入自定义按钮。
 
 .. code-block:: xml
 
@@ -2467,32 +2289,27 @@ The `header` element is used to insert custom buttons in the control panel.
        ...
    </kanban>
 
-The `header` element accepts only `button` children elements, similar to :ref:`list views' button
-<reference/view_architectures/list/button>` elements.
+`header` 元素仅接受 `button` 子元素，与 :ref:`list views' button <reference/view_architectures/list/button>` 元素类似。
 
-The `button` element used as a child element of the `header` element can have the following
-additional attributes:
+用作 `header` 元素子元素的 `button` 元素可以具有以下附加属性：
 
 .. attribute:: display
    :noindex:
 
-   The display mode of the button. It can have two different values:
+   按钮的显示模式。可以具有两种不同的值：
 
    .. attribute:: display
       :noindex:
 
-      The button is displayed only when some records are selected; their action applies to the
-      selected records.
-
+      按钮仅在选择了一些记录时显示；它们的操作适用于所选记录。
 
    .. attribute:: always
       :noindex:
 
-      The button is displayed at all times, even if no records are selected.
+      按钮始终显示，即使没有记录被选择。
 
    .. important::
-      Only the `always` display mode is available because it is not yet possible to select records
-      in a kanban view.
+      由于目前还无法在看板视图中选择记录，因此仅提供 `always` 显示模式。
 
    .. example::
       .. code-block:: xml
@@ -2502,16 +2319,15 @@ additional attributes:
              <button name="toDoSelection" type="object" string="Displayed if selection"/>
          </header>
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `display`
 
 .. _reference/view_architectures/kanban/progressbar:
 
-`progressbar`: show progress bars on top of columns
+`progressbar`: 在列上方显示进度条
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The `progressbar` element is used to define a progress bar to display on top of kanban columns.
+`progressbar` 元素用于定义显示在看板列顶部的进度条。
 
 .. code-block:: xml
 
@@ -2520,38 +2336,34 @@ The `progressbar` element is used to define a progress bar to display on top of 
        ...
    </kanban>
 
-The `progressbar` element can have the following attributes:
+`progressbar` 元素可以具有以下属性：
 
 .. attribute:: field
    :noindex:
 
-   The name of the field on which the progress bar's sub-groups
-   are based.
+   进度条子组基于的字段名称。
 
-   :requirement: Mandatory
+   :requirement: 必需
    :type: str
 
 .. attribute:: colors
    :noindex:
 
-   The mapping of the progress bar's field values to the color values `muted`, `success`, `warning`,
-   and `danger`.
+   将进度条字段值映射到颜色值 `muted`、`success`、`warning` 和 `danger`。
 
-   :requirement: Mandatory
-   :type: `JSON
-          <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON>`_
+   :requirement: 必需
+   :type: `JSON <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON>`_
 
 .. attribute:: sum_field
    :noindex:
 
-   The name of the field to use in a sum displayed next to the progress bar. If not set, the total
-   number of records is displayed instead.
+   用于在进度条旁边显示的求和字段名称。如果未设置，则显示记录的总数。
 
-   :requirement: Optional
+   :requirement: 可选
    :type: str
    :default: `''`
 
-.. admonition:: Possible structure and representation of its rendering
+.. admonition:: 可能的结构和表现形式
 
    .. list-table::
       :class: o-showcase-table
@@ -2572,21 +2384,16 @@ The `progressbar` element can have the following attributes:
 
 .. _reference/view_architectures/kanban/templates:
 
-`templates`: define cards structure
+`templates`: 定义卡片结构
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `templates` elements is used to define the :ref:`QWeb templates <reference/qweb>` that structure
-the kanban cards.
+`templates` 元素用于定义结构化看板卡片的 :ref:`QWeb 模板 <reference/qweb>`。
 
-Cards structure definition can be split into multiple templates for clarity, but at least one root
-template `kanban-box` must be defined.
+卡片结构定义可以拆分为多个模板以提高可读性，但必须定义至少一个根模板 `kanban-box`。
 
-Two additional templates can be defined: `kanban-menu` and `kanban-tooltip`. If defined, the
-`kanban-menu` template is rendered inside a dropdown that can be toggled with a vertical ellipsis
-(:guilabel:`⋮`) on the top right of the card. The `kanban-tooltip` template is rendered inside a
-tooltip when hovering kanban cards.
+可以定义两个额外的模板：`kanban-menu` 和 `kanban-tooltip`。如果定义了 `kanban-menu` 模板，它将在卡片右上角的下拉菜单中渲染，用户可以通过点击垂直省略号（:guilabel:`⋮`）来切换。`kanban-tooltip` 模板在鼠标悬停看板卡片时渲染在工具提示中。
 
-The templates are written in :ref:`JavaScript QWeb <reference/qweb/javascript>`
+模板使用 :ref:`JavaScript QWeb <reference/qweb/javascript>` 编写。
 
 .. code-block:: xml
 
@@ -2601,32 +2408,26 @@ The templates are written in :ref:`JavaScript QWeb <reference/qweb/javascript>`
        </templates>
    </kanban>
 
-The following variables are available in the rendering context:
+在渲染上下文中可以使用以下变量：
 
 .. attribute:: widget
    :noindex:
 
-   The current :js:class:`KanbanRecord`. It can be used to fetch some meta-information. The methods
-   are also available directly in the template context and don't need to be accessed via `widget`.
+   当前的 :js:class:`KanbanRecord`。可以用来获取一些元信息。方法也可以直接在模板上下文中使用，无需通过 `widget` 访问。
 
    :type: str
 
 .. attribute:: record
    :noindex:
 
-   An object with all the requested fields as its attributes. Each field has two attributes: `value`
-   and `raw_value`. The former is formatted according to current user parameters while the latter is
-   the raw value from a :meth:`~odoo.models.Model.read` (except for the `date` and `datetime` fields
-   that are `formatted according to the user locale <https://github.com/odoo/odoo/blob/a678bd4e
-   /addons/web_kanban/static/src/js/kanban_record.js#L102>`_).
+   具有所有请求字段作为其属性的对象。每个字段都有两个属性：`value` 和 `raw_value`。前者根据当前用户参数格式化，而后者是 :meth:`~odoo.models.Model.read` 的原始值（`date` 和 `datetime` 字段除外，这些字段会根据用户区域设置格式化 <https://github.com/odoo/odoo/blob/a678bd4e/addons/web_kanban/static/src/js/kanban_record.js#L102>`_）。
 
    :type: str
 
 .. attribute:: context
    :noindex:
 
-   The current context propagated from either the action that opens the kanban view, or the one2many
-   or many2many field that embeds the kanban view in a form view.
+   从打开看板视图的操作或将看板视图嵌入表单视图的 one2many 或 many2many 字段传播的当前上下文。
 
    :type: str
 
@@ -2638,48 +2439,41 @@ The following variables are available in the rendering context:
 .. attribute:: selection_mode
    :noindex:
 
-   Whether the kanban view is opened when selecting a many2one or many2many field in mobile
-   environment.
+   在移动环境中选择 many2one 或 many2many 字段时打开看板视图。
 
    :type: bool
 
-While most of the kanban templates are standard :ref:`QWeb templates <reference/qweb>`, the kanban
-view processes `field`, `button` and `a` elements is a special way:
+虽然大多数看板模板是标准的 :ref:`QWeb 模板 <reference/qweb>`，但看板视图以特殊方式处理 `field`、`button` 和 `a` 元素：
 
-- By default, fields are replaced by their formatted value, unless the `widget` attribute is
-  specified, in which case their rendering and behavior depends on the corresponding widget. The
-  `widget` attribute can have different values including:
+- 默认情况下，字段用其格式化值替换，除非指定了 `widget` 属性，在这种情况下，其渲染和行为取决于相应的小部件。`widget` 属性可以具有不同的值，包括：
 
   .. attribute:: handle
      :noindex:
 
-     Allow reordering records with a drag and drop when their are sorted based on `sequence` (or
-     `integer`) fields.
+     允许在基于 `sequence`（或 `integer`）字段的情况下拖放记录以重新排序。
 
-     .. todo:: list all widgets and move the attribute definition in the <field> section
+     .. todo:: 列出所有小部件并将属性定义移到 <field> 部分
 
-- Buttons and links with a `type` attribute perform different operations than their standard HTML
-  function. The `type` attribute can have the values `action` and `object` of :ref:`regular buttons
-  <reference/view_architectures/list/button>`, or the following values:
+- 带有 `type` 属性的按钮和链接执行不同于其标准 HTML 功能的操作。`type` 属性可以具有 `action` 和 `object` 等值，或者以下值：
 
   .. attribute:: open
      :noindex:
 
-     Clicking the element opens the card's record in form view in read-only mode.
+     点击该元素在只读模式下打开卡片的记录。
 
   .. attribute:: edit
      :noindex:
 
-     Clicking the element opens the card's record in form view in editable mode.
+     点击该元素在可编辑模式下打开卡片的记录。
 
   .. attribute:: delete
      :noindex:
 
-     Clicking the element deletes the card's record and removes the card.
+     点击该元素删除卡片的记录并移除卡片。
 
 .. todo::
-  - kanban-specific CSS
-  - kanban structures/widgets (vignette, details, ...)
+  - 看板特定的 CSS
+  - 看板结构/小部件（小插图、详细信息等）
 
 .. ALL VIEWS BELOW HAVE NOT YET BEEN CONVERTED TO THE NEW REFERENCE DOCUMENTATION FORMAT
 
@@ -2687,124 +2481,86 @@ view processes `field`, `button` and `a` elements is a special way:
 
 QWeb
 ====
+QWeb 视图是标准 :ref:`reference/qweb` 模板，它们位于视图的 ``arch`` 中。由于 QWeb 视图没有特定的根元素，因此其类型必须明确指定（不能从 ``arch`` 字段的根元素推断）。
 
-QWeb views are standard :ref:`reference/qweb` templates inside a view's
-``arch``. They don't have a specific root element. Because QWeb views don't
-have a specific root element, their type must be specified explicitly (it can
-not be inferred from the root element of the ``arch`` field).
+QWeb 视图有两个用例：
 
-QWeb views have two use cases:
+* 它们可以用作前端模板，在这种情况下，应使用 :ref:`reference/data/template` 作为快捷方式。
+* 它们可以作为实际的 QWeb 视图（在操作内部打开），在这种情况下，它们应定义为常规视图，具有显式的 ``type``（不能推断）和模型。
 
-* they can be used as frontend templates, in which case
-  :ref:`reference/data/template` should be used as a shortcut.
-* they can be used as actual qweb views (opened inside an action), in which
-  case they should be defined as regular view with an explicit ``type`` (it
-  can not be inferred) and a model.
+Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下：
 
-The main additions of qweb-as-view to the basic qweb-as-template are:
-
-* qweb-as-view has a special case for a ``<nav>`` element bearing the CSS
-  class ``o_qweb_cp_buttons``: its contents should be buttons and will be
-  extracted and moved to the control panel's button area, the ``<nav>`` itself
-  will be removed, this is a work-around to control panel views not existing
-  yet
-* qweb-as-view rendering adds several items to the standard qweb rendering
-  context:
+* Qweb 作为视图对带有 CSS 类 ``o_qweb_cp_buttons`` 的 ``<nav>`` 元素有一个特例：其内容应为按钮，并将提取并移动到控制面板的按钮区域，而 ``<nav>`` 本身将被移除，这是针对尚不存在的控制面板视图的解决方法。
+* Qweb 作为视图的渲染将多个项添加到标准 Qweb 渲染上下文中：
 
   .. rst-class:: o-definition-list
 
   ``model``
-    the model to which the qweb view is bound
+    Qweb 视图绑定的模型
   ``domain``
-    the domain provided by the search view
+    搜索视图提供的域
   ``context``
-    the context provided by the search view
+    搜索视图提供的上下文
   ``records``
-    a lazy proxy to ``model.search(domain)``, this can be used if you just
-    want to iterate the records and not perform more complex operations
-    (e.g. grouping)
-* qweb-as-view also provides additional rendering hooks:
+    ``model.search(domain)`` 的懒代理，这可以用于遍历记录而不执行更复杂的操作（例如分组）
 
-  - ``_qweb_prepare_context(view_id, domain)`` prepares the rendering context
-    specific to qweb-as-view
-  - ``qweb_render_view(view_id, domain)`` is the method called by the client
-    and will call the context-preparation methods and ultimately
-    ``env['ir.qweb'].render()``.
+* Qweb 作为视图还提供额外的渲染钩子：
+
+  - ``_qweb_prepare_context(view_id, domain)`` 准备特定于 Qweb 作为视图的渲染上下文
+  - ``qweb_render_view(view_id, domain)`` 是客户端调用的方法，将调用上下文准备方法并最终调用 ``env['ir.qweb'].render()``。
 
 .. _reference/view_architectures/graph:
 
-Graph
+图表
 =====
 
-The graph view is used to visualize aggregations over a number of records or
-record groups. Its root element is ``<graph>`` which can take the following
-attributes:
+图表视图用于可视化多个记录或记录组的汇总。其根元素是 ``<graph>``，可以接受以下属性：
 
 .. rst-class:: o-definition-list
 
-``type`` (optional)
-  one of ``bar`` (default), ``pie`` and ``line``, the type of graph to use
+``type`` (可选)
+  图表的类型之一：``bar``（默认）、``pie`` 和 ``line``。
 
-``stacked`` (optional)
-  only used for ``bar`` charts. Set to ``0`` to prevent the bars within a group
-  to be stacked initially.
+``stacked`` (可选)
+  仅用于 ``bar`` 图。设置为 ``0`` 以防止在组内的条形图初始堆叠。
 
-``disable_linking`` (optional)
-  set to ``1`` to prevent from redirecting clicks on graph to list view
+``disable_linking`` (可选)
+  设置为 ``1`` 以防止在图表上单击时重定向到列表视图。
 
-``order`` (optional)
-  if set, x-axis values will be sorted by default according their measure with
-  respect to the given order (``asc`` or ``desc``). Only used for ``bar`` and
-  ``pie`` charts.
+``order`` (可选)
+  如果设置，x 轴值将根据给定的顺序（``asc`` 或 ``desc``）默认排序。仅用于 ``bar`` 和 ``pie`` 图。
 
-``string`` (optional)
-  string displayed in the breadcrumbs when redirecting to list view.
+``string`` (可选)
+  重定向到列表视图时在面包屑中显示的字符串。
 
 .. include:: view_architectures/root_attribute_sample.rst
 
-The only allowed element within a graph view is ``field`` which can have the
-following attributes:
+图表视图中唯一允许的元素是 ``field``，其可以具有以下属性：
 
 .. rst-class:: o-definition-list
 
-``name`` (mandatory)
-  the name of a field to use in the view. If used for grouping (rather
-  than aggregating)
+``name`` (必需)
+  要在视图中使用的字段名称。如果用于分组（而不是聚合）
 
-``invisible`` (optional)
-  if true, the field will not appear either in the active measures nor in the
-  selectable measures.
+``invisible`` (可选)
+  如果为真，则该字段既不会出现在活动度量中，也不会在可选择的度量中。
 
-``type`` (optional)
-  if set to ``measure``, the field will be used as an aggregated value within a
-  group instead of a grouping criteria. It only works for the last field
-  with that attribute but it is useful for other fields with string attribute
-  (see below).
+``type`` (可选)
+  如果设置为 ``measure``，则该字段将用作组内的聚合值，而不是分组标准。仅对具有该属性的最后一个字段有效，但对于其他字段的字符串属性（见下文）是有用的。
 
-``interval`` (optional)
-  on date and datetime fields, groups by the specified interval (``day``,
-  ``week``, ``month``, ``quarter`` or ``year``) instead of grouping on the
-  specific datetime (fixed second resolution) or date (fixed day resolution).
-  Default is ``month``.
+``interval`` (可选)
+  对于日期和日期时间字段，根据指定的间隔（``day``、``week``、``month``、``quarter`` 或 ``year``）进行分组，而不是基于特定日期（固定秒分辨率）或日期（固定天分辨率）进行分组。默认值为 ``month``。
 
-``string`` (optional)
-  only used for field with ``type="measure"``. The name that will be used to
-  display the field in the graph view, overrides the default python String
-  attribute of the field.
+``string`` (可选)
+  仅用于 ``type="measure"`` 的字段。将用于在图表视图中显示该字段的名称，覆盖字段的默认 Python 字符串属性。
 
-The measures are automatically generated from the model fields; only the
-aggregatable fields are used. Those measures are also alphabetically
-sorted on the string of the field.
+度量值是从模型字段自动生成的；仅使用可聚合的字段。这些度量值也按字段字符串的字母顺序排序。
 
 .. warning::
 
-   graph view aggregations are performed on database content, non-stored
-   function fields can not be used in graph views
+   图表视图的汇总是在数据库内容上执行的，不能在图表视图中使用非存储的函数字段。
 
-
-In Graph views, a ``field`` can have a ``widget`` attribute to dictate its format.
-The widget should be a field formatter, of which the most interesting are
-``float_time``, and ``monetary``.
+在图表视图中，``field`` 可以具有 ``widget`` 属性来指示其格式。该小部件应为字段格式化器，其中最有趣的包括 ``float_time`` 和 ``monetary``。
 
 .. code-block:: xml
 
@@ -2812,21 +2568,22 @@ The widget should be a field formatter, of which the most interesting are
 
 .. _reference/view_architectures/pivot:
 
-Pivot
+透视图
 =====
-
-The pivot view is used to visualize aggregations as a `pivot table`_. Its root
-element is ``<pivot>`` which can take the following attributes:
+透视图
+=====
+透视视图用于可视化汇总数据作为 `透视表`_。其根元素是 ``<pivot>``，可以接受以下属性：
 
 .. rst-class:: o-definition-list
 
-``disable_linking`` (optional)
-  Set to ``1`` to remove table cell's links to list view.
-``display_quantity`` (optional)
-  Set to ``1`` to display the Quantity column by default.
-``default_order`` (optional)
-  The name of the measure and the order (asc or desc) to use as default order
-  in the view.
+``disable_linking`` (可选)
+  设置为 ``1`` 以移除表格单元格链接到列表视图的功能。
+
+``display_quantity`` (可选)
+  设置为 ``1`` 以默认显示数量列。
+
+``default_order`` (可选)
+  要在视图中使用的度量名称和顺序（asc 或 desc）。
 
   .. code-block:: xml
 
@@ -2834,58 +2591,44 @@ element is ``<pivot>`` which can take the following attributes:
         <field name="foo" type="measure"/>
      </pivot>
 
-The only allowed element within a pivot view is ``field`` which can have the
-following attributes:
+透视视图中唯一允许的元素是 ``field``，其可以具有以下属性：
 
 .. rst-class:: o-definition-list
 
-``name`` (mandatory)
-  the name of a field to use in the view. If used for grouping (rather
-  than aggregating)
+``name`` (必需)
+  要在视图中使用的字段名称。如果用于分组（而不是聚合）
 
-``string`` (optional)
-  the name that will be used to display the field in the pivot view,
-  overrides the default python String attribute of the field.
+``string`` (可选)
+  在透视视图中显示字段的名称，覆盖字段的默认 Python 字符串属性。
 
-``type`` (optional)
-  indicates whether the field should be used as a grouping criteria or as an
-  aggregated value within a group. Possible values are:
+``type`` (可选)
+  指示字段应作为分组标准还是作为组内的聚合值。可能的值有：
 
   .. rst-class:: o-definition-list
 
-  ``row`` (default)
-    groups by the specified field, each group gets its own row.
+  ``row`` (默认)
+    按指定字段进行分组，每个组获得自己的行。
   ``col``
-    creates column-wise groups
+    创建按列分组
   ``measure``
-    field to aggregate within a group
+    在组内聚合的字段
   ``interval``
-    on date and datetime fields, groups by the specified interval (``day``,
-    ``week``, ``month``, ``quarter`` or ``year``) instead of grouping on the
-    specific datetime (fixed second resolution) or date (fixed day resolution).
+    对于日期和日期时间字段，根据指定的间隔（``day``、``week``、``month``、``quarter`` 或 ``year``）进行分组，而不是基于特定日期（固定秒分辨率）或日期（固定天分辨率）进行分组。
 
-``invisible`` (optional)
-  if true, the field will not appear either in the active measures nor
-  in the selectable measures (useful for fields that do not make sense aggregated,
-  such as fields in different units, e.g. € and $).
+``invisible`` (可选)
+  如果为真，则该字段既不会出现在活动度量中，也不会在可选择的度量中（对于不适合聚合的字段很有用，例如不同单位的字段，如 € 和 $）。
 
 .. include:: view_architectures/root_attribute_sample.rst
 
-The measures are automatically generated from the model fields; only the
-aggregatable fields are used. Those measures are also alphabetically
-sorted on the string of the field.
+度量值是从模型字段自动生成的；仅使用可聚合的字段。这些度量值也按字段字符串的字母顺序排序。
 
 .. warning::
 
-    like the graph view, the pivot aggregates data on database content
-    which means that non-stored function fields can not be used in pivot views
+    与图表视图一样，透视视图在数据库内容上汇总数据，这意味着不能在透视视图中使用非存储的函数字段。
 
+在透视视图中，``field`` 可以具有 ``widget`` 属性来指示其格式。该小部件应为字段格式化器，其中最有趣的包括 ``date``、``datetime``、``float_time`` 和 ``monetary``。
 
-In Pivot view a ``field`` can have a ``widget`` attribute to dictate its format.
-The widget should be a field formatter, of which the most interesting are
-``date``, ``datetime``, ``float_time``, and ``monetary``.
-
-For instance a timesheet pivot view could be defined as::
+例如，可以定义一个工时透视视图如下：
 
     <pivot string="Timesheet">
         <field name="employee_id" type="row"/>
@@ -2895,111 +2638,81 @@ For instance a timesheet pivot view could be defined as::
 
 .. _reference/view_architectures/calendar:
 
-Calendar
+日历
 ========
 
-Calendar views display records as events in a daily, weekly, monthly or yearly
-calendar.
+日历视图将记录显示为日历中的事件，按照每天、每周、每月或每年的方式排列。
 
-.. note:: By default the calendar view will be centered around the current date
-   (today). You can pass a specific initial date to the context of the action in
-   order to set the initial focus of the calendar on the period (see `mode`) around
-   this date (the context key to use being `initial_date`)
+.. note:: 默认情况下，日历视图将以当前日期（今天）为中心。您可以将特定的初始日期传递到操作的上下文中，以设置日历的初始焦点在该日期周围的期间（请参见 `mode`）。
 
-Their root element is ``<calendar>``. Available attributes on the
-calendar view are:
+其根元素是 ``<calendar>``。可用于日历视图的属性包括：
 
 :string:
-  string (default: ``''``)
+  字符串（默认：``''``）
 
-  This view title is displayed only if you open an action that has no name and
-  whose target is 'new' (opening a dialog)
+  该视图标题仅在打开没有名称且目标为“new”（打开对话框）的操作时显示。
 
 :create:
-  bool (default: ``True``)
+  布尔值（默认：``True``）
 
-  Disable/enable record creation on the view.
+  禁用/启用视图上的记录创建。
 
 :edit:
-  bool (default: ``True``)
+  布尔值（默认：``True``）
 
-  Disable/enable record edition on the view.
+  禁用/启用视图上的记录编辑。
 
 :delete:
-  bool (default: ``True``)
+  布尔值（默认：``True``）
 
-  Disable/enable record deletion on the view through the **Action** dropdown.
+  禁用/启用通过 **Action** 下拉菜单删除记录。
 
 .. rst-class:: o-definition-list
 
-``date_start`` (required)
-    name of the record's field holding the start date for the event
+``date_start`` (必需)
+    记录的字段名称，包含事件的开始日期。
 ``date_stop``
-    name of the record's field holding the end date for the event, if
-    ``date_stop`` is provided records become movable (via drag and drop)
-    directly in the calendar
+    记录的字段名称，包含事件的结束日期，如果提供了 ``date_stop``，则记录可以在日历中直接拖放。
 ``date_delay``
-    alternative to ``date_stop``, provides the duration of the event instead of
-    its end date (unit: day)
+    替代 ``date_stop``，提供事件的持续时间而不是结束日期（单位：天）。
 ``color``
-    name of a record field to use for *color segmentation*. Records in the
-    same color segment are allocated the same highlight color in the calendar,
-    colors are allocated semi-randomly.
-    Displayed the display_name/avatar of the visible record in the sidebar
+    用于 *颜色分割* 的记录字段名称。同一颜色段中的记录将在日历中分配相同的高亮颜色。
+    显示可见记录的 display_name/avatar 在侧边栏中。
 ``form_view_id``
-    view to open when the user create or edit an event. Note that if this attribute
-    is not set, the calendar view will fall back to the id of the form view in the
-    current action, if any.
+    用户创建或编辑事件时打开的视图。如果未设置此属性，则日历视图将回退到当前操作中的表单视图的 ID（如果有）。
 ``event_open_popup``
-    If the option 'event_open_popup' is set to true, then the calendar view will
-    open events (or records) in a FormViewDialog. Otherwise, it will open events
-    in a new form view (with a do_action)
+    如果选项 'event_open_popup' 设置为 true，则日历视图将在 FormViewDialog 中打开事件（或记录）。否则，将在新表单视图中打开事件（使用 do_action）。
 ``quick_create``
-    enables quick-event creation on click: only asks the user for a ``name``
-    (the field to which this values is saved can be controlled through
-    ``rec_name``) and tries to create a new event with just that and the clicked
-    event time. Falls back to a full form dialog if the quick creation fails
+    启用单击快速创建事件：只要求用户输入 ``name``（将此值保存的字段可以通过 ``rec_name`` 控制），并尝试创建具有此值和单击事件时间的新事件。如果快速创建失败，则回退到完整的表单对话框。
 ``quick_create_view_id``
-    View to open when the attribute ``quick_create`` is set and the user creates
-    an event instead of the default dialog.
+    当设置了 ``quick_create`` 属性时，用户创建事件时打开的视图，而不是默认对话框。
 ``create_name_field``
-    name of the record's field holding the textual representation of the record,
-    this is used when creating records through the 'quick create' mechanism
+    记录的字段名称，包含记录的文本表示，这在通过“快速创建”机制创建记录时使用。
 ``all_day``
-    name of a boolean field on the record indicating whether the corresponding
-    event is flagged as day-long (and duration is irrelevant)
+    记录上一个布尔字段的名称，指示相应事件是否标记为整天（持续时间无关紧要）。
 ``mode``
-    Default display mode when loading the calendar.
-    Possible attributes are: ``day``, ``week``, ``month``, ``year``
+    加载日历时的默认显示模式。可能的属性有：``day``、``week``、``month``、``year``。
 ``scales``
-    Comma-separated list of scales to provide. By default, all scales are
-    available. See mode for possible scale values.
-``create``, ``delete``
-    allows disabling the corresponding action in the view by setting the
-    corresponding attribute to ``false``
+    逗号分隔的可用刻度列表。默认情况下，所有刻度都是可用的。有关可能的刻度值，请参见模式。
+``create``、``delete``
+    通过将相应属性设置为 ``false`` 来禁用视图中对应的操作。
+
 ``<field>``
-  declares fields to aggregate or to use in kanban *logic*. If the field is
-  simply displayed in the calendar cards.
+  声明要聚合或在日历 *逻辑* 中使用的字段。如果字段仅在日历卡中显示。
 
-  Fields can have additional attributes:
+字段可以具有附加属性：
 
-  .. rst-class:: o-definition-list
+.. rst-class:: o-definition-list
 
-  ``invisible``
-    use "True" to hide the value in the cards
-  ``avatar_field``
-    only for x2many field, to display the avatar instead of the display_name
-    in the cards
-  ``write_model`` and ``write_field`` and ``filter_field``
-    you can add a filter and save the result in the defined model, the
-    filter is added in the sidebar. The ``filter_field`` is optional and allows
-    you to specify the field that will hold the status of the filter.
-  ``filters`` and ``color``
-    use "True" to add this field in filter in the sidebar. You can specify
-    a ``color`` field used to colorize the checkbox.
-
-
-Model Commons
+``invisible``
+    使用 "True" 隐藏卡中的值。
+``avatar_field``
+    仅适用于 x2many 字段，以在卡中显示头像而不是 display_name。
+``write_model`` 和 ``write_field`` 以及 ``filter_field``
+    您可以添加一个过滤器并将结果保存在定义的模型中，过滤器将添加到侧边栏中。``filter_field`` 是可选的，允许您指定将保存过滤器状态的字段。
+``filters`` 和 ``color``
+    使用 "True" 将此字段添加到侧边栏中的过滤器中。您可以指定一个用于给复选框上色的 ``color`` 字段。
+模型通用
 -------------
 
 .. currentmodule:: odoo.addons.base.models.ir_ui_view
@@ -3008,485 +2721,370 @@ Model Commons
 
 .. _reference/view_architectures/activity:
 
-Activity
+活动
 ========
 
-The Activity view is used to display the activities linked to the records. The
-data are displayed in a chart with the records forming the rows and the activity
-types the columns. The first cell of each row displays a (customizable, see
-``templates``, quite similarly to :ref:`reference/view_architectures/kanban`) card representing
-the corresponding record. When clicking on others cells, a detailed description
-of all activities of the same type for the record is displayed.
+活动视图用于显示与记录相关联的活动。数据以图表形式显示，记录形成行，活动类型形成列。每行的第一个单元格显示对应记录的一个（可自定义的，见 ``templates``，与 :ref:`reference/view_architectures/kanban` 非常相似）卡片。当点击其他单元格时，将显示该记录所有相同类型活动的详细描述。
 
 .. warning::
 
-   The Activity view is only available when the ``mail`` module is installed,
-   and for the models that inherit from the ``mail.activity.mixin``.
+   活动视图仅在安装了 ``mail`` 模块时可用，并且适用于继承 ``mail.activity.mixin`` 的模型。
 
-The root element of the Activity view is ``<activity>``, it accepts the following
-attributes:
+活动视图的根元素是 ``<activity>``，它接受以下属性：
 
 .. rst-class:: o-definition-list
 
-``string`` (mandatory)
-    A title, which should describe the view
+``string`` (必需)
+    一个标题，应描述该视图
 
-Possible children of the view element are:
+视图元素的可能子元素有：
 
 .. rst-class:: o-definition-list
 
 ``field``
-  declares fields to use in activity *logic*. If the field is simply displayed
-  in the activity view, it does not need to be pre-declared.
+  声明要在活动 *逻辑* 中使用的字段。如果字段仅在活动视图中显示，则无需预先声明。
 
-  Possible attributes are:
+  可能的属性包括：
 
   .. rst-class:: o-definition-list
 
-  ``name`` (required)
-    the name of the field to fetch
+  ``name`` (必需)
+    要提取的字段名称
 
 ``templates``
-  defines the :ref:`reference/qweb` templates. Cards definition may be
-  split into multiple templates for clarity, but activity views *must* define at
-  least one root template ``activity-box``, which will be rendered once for each
-  record.
+  定义 :ref:`reference/qweb` 模板。卡片定义可以拆分为多个模板以提高清晰度，但活动视图 *必须* 定义至少一个根模板 ``activity-box``，该模板将为每条记录渲染一次。
 
-  The activity view uses mostly-standard :ref:`javascript qweb
-  <reference/qweb/javascript>` and provides the following context variables
-  (see :ref:`reference/view_architectures/kanban` for more details):
+  活动视图使用大多数标准 :ref:`javascript qweb <reference/qweb/javascript>` 并提供以下上下文变量（有关更多详细信息，请参见 :ref:`reference/view_architectures/kanban`）：
 
   .. rst-class:: o-definition-list
 
   ``widget``
-    the current :js:class:`ActivityRecord`, can be used to fetch some
-    meta-information. These methods are also available directly in the
-    template context and don't need to be accessed via ``widget``
+    当前的 :js:class:`ActivityRecord`，可用于提取一些元信息。这些方法也可以直接在模板上下文中使用，无需通过 ``widget`` 访问。
+  
   ``record``
-    an object with all the requested fields as its attributes. Each field has
-    two attributes ``value`` and ``raw_value``
+    具有所有请求字段作为其属性的对象。每个字段都有两个属性 ``value`` 和 ``raw_value``。
 
 .. _reference/view_architectures/cohort:
 
-Cohort
+队列
 ======
 
 .. raw:: html
 
-   <span class="badge" style="background-color:#AD5E99">Enterprise feature</span>
+   <span class="badge" style="background-color:#AD5E99">企业特性</span>
 
-The cohort view is used to display and understand the way some data changes over
-a period of time.  For example, imagine that for a given business, clients can
-subscribe to some service.  The cohort view can then display the total number
-of subscriptions each month, and study the rate at which client leave the service
-(churn). When clicking on a cell, the cohort view will redirect you to a new action
-in which you will only see the records contained in the cell's time interval;
-this action contains a list view and a form view.
+队列视图用于展示和理解某些数据随时间的变化方式。例如，想象一下，对于某个业务，客户可以订阅某种服务。队列视图可以显示每月的订阅总数，并研究客户流失的速率。当点击单元格时，队列视图会将您重定向到一个新操作，在该操作中，您只会看到单元格时间范围内的记录；该操作包含列表视图和表单视图。
 
-.. note:: By default the cohort view will use the same list and form views as those
-   defined on the action. You can pass a list view and a form view
-   to the context of the action in order to set/override the views that will be
-   used (the context keys to use being `form_view_id` and `list_view_id`)
+.. note:: 默认情况下，队列视图将使用与操作定义的相同列表和表单视图。您可以将列表视图和表单视图传递到操作的上下文中，以设置/覆盖将使用的视图（要使用的上下文键为 `form_view_id` 和 `list_view_id`）。
 
-For example, here is a very simple cohort view:
+例如，这里是一个非常简单的队列视图：
 
 .. code-block:: xml
 
     <cohort string="Subscription" date_start="date_start" date_stop="date" interval="month"/>
 
-The root element of the Cohort view is <cohort>, it accepts the following
-attributes:
+队列视图的根元素是 <cohort>，它接受以下属性：
 
 .. rst-class:: o-definition-list
 
-``string`` (mandatory)
-    A title, which should describe the view
+``string`` (必需)
+    一个标题，应描述该视图。
 
-``date_start`` (mandatory)
-    A valid date or datetime field. This field is understood by the view as the
-    beginning date of a record
+``date_start`` (必需)
+    有效的日期或日期时间字段。该字段被视图理解为记录的开始日期。
 
-``date_stop`` (mandatory)
-    A valid date or datetime field. This field is understood by the view as the
-    end date of a record.  This is the field that will determine the churn.
+``date_stop`` (必需)
+    有效的日期或日期时间字段。该字段被视图理解为记录的结束日期。此字段将决定流失。
 
-``disable_linking`` (optional)
-  Set to ``1`` to prevent from redirecting clicks on cohort cells to list view.
+``disable_linking`` (可选)
+  设置为 ``1`` 以防止点击队列单元格重定向到列表视图。
 
-``mode`` (optional)
-    A string to describe the mode. It should be either 'churn' or
-    'retention' (default). Churn mode will start at 0% and accumulate over time
-    whereas retention will start at 100% and decrease over time.
+``mode`` (可选)
+    描述模式的字符串。应为 'churn' 或 'retention'（默认）。流失模式将从 0% 开始并随时间累积，而保留将从 100% 开始并随时间减少。
 
-``timeline`` (optional)
-    A string to describe the timeline. It should be either 'backward' or 'forward' (default).
-    Forward timeline will display data from date_start to date_stop, whereas backward timeline
-    will display data from date_stop to date_start (when the date_start is in future / greater
-    than date_stop).
+``timeline`` (可选)
+    描述时间线的字符串。应为 'backward' 或 'forward'（默认）。前向时间线将显示从 date_start 到 date_stop 的数据，而后向时间线将显示从 date_stop 到 date_start 的数据（当 date_start 在未来时 / 大于 date_stop）。
 
-``interval`` (optional)
-    A string to describe a time interval. It should be 'day', 'week', 'month''
-    (default) or 'year'.
+``interval`` (可选)
+    描述时间间隔的字符串。应为 'day'、'week'、'month'（默认）或 'year'。
 
-``measure`` (optional)
-    A field that can be aggregated.  This field will be used to compute the values
-    for each cell.  If not set, the cohort view will count the number of occurrences.
+``measure`` (可选)
+    一个可以聚合的字段。该字段将用于计算每个单元格的值。如果未设置，则队列视图将计算发生次数。
 
-``<field>`` (optional)
-  allows to specify a particular field in order to manage it from the available measures, it's
-  main use is for hiding a field from the selectable measures:
+``<field>`` (可选)
+  允许指定特定字段以管理可用度量，它的主要用途是将字段隐藏在可选择的度量中：
 
   .. rst-class:: o-definition-list
 
-  ``name`` (mandatory)
-    the name of the field to use in the view.
-  ``string`` (optional)
-    the name that would be used to display the field in the cohort view, overrides the
-    default python String attribute of the field.
-  ``invisible`` (optional)
-    if true, the field will not appear either in the active measures nor in the selectable
-    measures (useful for fields that do not make sense aggregated, such as fields in different
-    units, e.g. € and $).
-    If the value is a domain, the domain is evaluated in the context of the current row's
-    record, if ``True`` the corresponding attribute is set on the cell.
+  ``name`` (必需)
+    要在视图中使用的字段名称。
+  
+  ``string`` (可选)
+    在队列视图中将用于显示该字段的名称，覆盖字段的默认 Python 字符串属性。
+  
+  ``invisible`` (可选)
+    如果为真，则该字段既不会出现在活动度量中，也不会在可选择的度量中（对于不适合聚合的字段很有用，例如不同单位的字段，如 € 和 $）。
+  
+    如果值是域，则在当前行的记录上下文中评估域，如果 ``True``，则在单元格上设置相应的属性。
 
 .. include:: view_architectures/root_attribute_sample.rst
 
 .. _reference/view_architectures/grid:
 
-Grid
-====
-
+网格
+======
 .. raw:: html
 
-   <span class="badge" style="background-color:#AD5E99">Enterprise feature</span>
+   <span class="badge" style="background-color:#AD5E99">企业功能</span>
 
-Limitations
+限制
 -----------
 
-This view is a work in progress and may have to be expanded or altered.
+该视图仍在开发中，可能需要扩展或修改。
 
-* only ``date`` column fields have been tested, ``selection`` and ``many2one``
-  are nominally implemented and supported but have not been tested,
-  ``datetime`` is not implemented at all.
-* column cells are hardly configurable and must be numerical
-* cell adjustment is disabled by default and must be configured to be enabled
-* ``create``, ``edit`` and ``delete`` ACL metadata doesn't get automatically
-  set on the view root due to limitations in ``fields_view_get``
-  post-processing (there's a fixed explicit list of the view types getting
-  those attributes)
+* 仅对 ``date`` 列字段进行了测试， ``selection`` 和 ``many2one`` 字段在名义上已实现并受支持，但尚未经过测试， ``datetime`` 字段完全未实现。
+* 列单元格的配置很困难，必须为数字类型。
+* 单元格调整默认禁用，必须配置为启用。
+* 由于 ``fields_view_get`` 后处理的限制， ``create``、``edit`` 和 ``delete`` ACL 元数据不会自动设置在视图根目录中（有一个固定的显式视图类型列表会获取这些属性）。
 
-Schema
+架构
 ------
 
-The grid view has its own schema and additional validation in this module. The
-view architecture is:
+网格视图有自己的架构和额外的验证。视图架构为：
 
 ``<grid>`` (1)
-    architecture root element
+    架构根元素
 
-    * mandatory ``string`` attribute
-    * optional ``create``, ``edit`` and ``delete`` attributes
-    * optional ``adjustment`` and ``adjust_name`` attributes
+    * 必须的 ``string`` 属性
+    * 可选的 ``create``、``edit`` 和 ``delete`` 属性
+    * 可选的 ``adjustment`` 和 ``adjust_name`` 属性
 
-      ``adjustment`` can be either ``object`` or ``action`` to indicate
-      whether a cell's adjustment should be performed through a method call
-      or an action execution. ``adjust_name`` provides respectively the method
-      name and the action id.
+      ``adjustment`` 可以是 ``object`` 或 ``action``，以指示单元格的调整应通过方法调用还是执行操作。 ``adjust_name`` 分别提供方法名称和操作 ID。
 
-      In both cases, the adjustment parameters are provided as a
-      ``grid_adjust`` context member, in the ``object`` case, the parameters
-      are also provided as positional function parameters (next to an empty
-      list of ids):
+      在这两种情况下，调整参数作为 ``grid_adjust`` 上下文成员提供，在 ``object`` 的情况下，参数也作为位置函数参数提供（紧接在一个空列表的 ID 旁边）：
 
       ``row_domain``
-        the domain matching the entire row of the adjusted cell
+        匹配调整单元格整行的域。
       ``column_field``
-        the name of the column for the adjusted cell
+        调整单元格的列名称。
       ``column_value``
-        the value of the column for the adjusted cell
+        调整单元格的列值。
       ``cell_field``
-        the measure field of the adjusted cell
+        调整单元格的度量字段。
       ``change``
-        the difference between the old value of the cell and the adjusted one,
-        may be positive or negative
+        旧单元格值与调整后的值之间的差异，可以是正数或负数。
 
-    * optional ``hide_line_total`` and ``hide_column_total`` attributes
+    * 可选的 ``hide_line_total`` 和 ``hide_column_total`` 属性
 
       ``hide_line_total``
-        set to true to hide total line (default false)
+        设置为 true 以隐藏总行（默认 false）。
       ``hide_column_total``
-        set to true to hide total column (default false)
+        设置为 true 以隐藏总列（默认 false）。
 
-    * optional ``barchart_total`` attribute
+    * 可选的 ``barchart_total`` 属性
 
       ``barchart_total``
-        set to ``true`` in order to display a bar chart at the bottom of the grid, based on
-        the totals of the columns (default false).
+        设置为 ``true`` 以在网格底部显示基于列总数的条形图（默认 false）。
 
-    * optional ``create_inline`` and ``display_empty`` attributes
+    * 可选的 ``create_inline`` 和 ``display_empty`` 属性
 
       ``create_inline``
-        set to ``true`` in order to display an additional row at bottom of the grid with an
-        ``Add a line`` button (default false). When this option is set to ``true``, the ``Add a line`` button
-        from the control panel is hidden. When no data is available and when ``display_empty`` is
-        not set (so when the help content is displayed), the the ``Add a line`` button from the
-        control panel is shown in order to let the user create a first record.
+        设置为 ``true`` 以在网格底部显示额外行并带有 ``添加一行`` 按钮（默认 false）。当此选项设置为 ``true`` 时，控制面板中的 ``添加一行`` 按钮将被隐藏。当没有可用数据且未设置 ``display_empty``（因此显示帮助内容）时，控制面板中的 ``添加一行`` 按钮将显示，以便用户创建第一条记录。
       ``display_empty``
-        set to ``true`` in order to keep displaying the grid when there is no data (default false). This can
-        be useful when you want the user to be able to keep track of the current period (as dates
-        are displayed in the columns headers). As a reminder, when no data are present and when this
-        attribute is no set, the help content is displayed instead of the grid.
+        设置为 ``true`` 以在没有数据时继续显示网格（默认 false）。当你希望用户能够跟踪当前期间（日期显示在列标题中）时，这可能很有用。提醒一下，当没有数据时，如果未设置此属性，将显示帮助内容而不是网格。
 
 ``<button>`` (0+)
-    Regular Odoo action buttons, displayed in the view header
+    常规 Odoo 操作按钮，显示在视图标题中
 
-    * mandatory ``string`` attribute (the button label)
-    * mandatory ``type`` attribute, either ``object`` or ``action``
+    * 必须的 ``string`` 属性（按钮标签）
+    * 必须的 ``type`` 属性，可以是 ``object`` 或 ``action``
 
-      .. note:: workflow buttons are not supported
+      .. note:: 不支持工作流按钮。
 
-    * mandatory ``name`` attribute, either the name of the method to call, or
-      the ID of the action to execute
-    * optional ``context``
+    * 必须的 ``name`` 属性，可以是调用的方法名称或要执行的操作的 ID。
+    * 可选的 ``context``
 
-    The server callback is provided with all the record ids displayed in the
-    view, either as the ids passed to the method (``object`` button) or as
-    the context's ``active_ids`` (``action`` buttons)
+    服务器回调提供了在视图中显示的所有记录 ID，无论是作为传递给方法的 ID（``object`` 按钮）还是作为上下文中的 ``active_ids``（``action`` 按钮）。
 
 ``<field type="row">`` (1+)
-    Row grouping fields, will be replaced by the search view's groupby filter
-    if any.
+    行分组字段，如果有搜索视图的分组过滤器，将被替换。
 
-    The order of ``row`` fields in the view provides their grouping depth:
-    if the first field is ``school`` and the second is ``age`` the records
-    will be grouped by ``school`` first and by ``age`` within each school.
+    视图中 ``row`` 字段的顺序提供了它们的分组深度：
+    如果第一个字段是 ``school``，第二个字段是 ``age``，则记录将首先按 ``school`` 分组，然后在每个学校内按 ``age`` 分组。
 
 ``<field type="col">`` (1)
-    Column grouping field.
+    列分组字段。
 
-    The col field can contain 0+ ``<range>`` elements which specify
-    customisable column ranges. ``range`` elements have the following
-    mandatory attributes
+    列字段可以包含 0+ 个 ``<range>`` 元素，用于指定可自定义的列范围。 ``range`` 元素有以下强制属性：
 
     ``name``
-        can be used to override the default range (the first one by default)
-        through the ``grid_range`` context value
+        可以用来通过 ``grid_range`` 上下文值覆盖默认范围（默认是第一个）。
     ``string``
-        the range button's label (user-visible)
+        范围按钮的标签（用户可见）。
     ``span``
-        symbolic name of the span of all columns to display at once in the
-        view, may trigger pagination.
+        要在视图中一次显示的所有列的跨度的符号名称，可能触发分页。
 
-        For ``date`` fields, valid spans are currently ``week`` and ``month``.
+        对于 ``date`` 字段，目前有效的跨度是 ``week`` 和 ``month``。
     ``step``
-        symbolic name of the step between one column and the previous/next
+        在一列和前一列或下一列之间的符号名称。
 
-        For ``date`` fields, the only valid span is currently ``day``.
+        对于 ``date`` 字段，目前唯一有效的跨度是 ``day``。
 ``<field type="measure">`` (1)
-    Cell field, automatically accumulated (by ``read_group``).
+    单元格字段，由 ``read_group`` 自动累积。
 
-    The measure field can take a ``widget`` attribute to customise its
-    display.
-
-Server interactions
+    度量字段可以采用 ``widget`` 属性来定制其显示。
+服务器交互
 -------------------
 
-Aside from optional buttons, the grid view currently calls two methods:
+除了可选按钮，网格视图当前调用两个方法：
 
-* ``read_grid`` (provided on all models by the module) returns almost the
-  entirety of the grid's content as a dict:
+* ``read_grid``（由模块在所有模型上提供）返回网格内容的几乎全部信息，格式为字典：
 
-  * the row titles is a list of dictionaries with the following keys:
+  * 行标题是一个字典列表，具有以下键：
 
-    ``values`` (required)
-        this maps to a dictionary with a key per ``row`` field, the values are
-        *always* of the form ``[value, label]``.
-    ``domain`` (required)
-        the domain of any record at the source of this row, in case it's
-        necessary to copy a record during cell adjustment
+    ``values``（必需）
+        这映射到一个字典，每个 ``row`` 字段都有一个键，值总是以 ``[value, label]`` 形式表示。
+    ``domain``（必需）
+        任何记录的域，这些记录是该行的来源，以防在单元格调整期间需要复制记录。
 
-  * the column titles is a list of dictionaries with at least one key:
+  * 列标题是一个字典列表，至少具有一个键：
 
-    ``values`` (required)
-        see row title values
-    ``domain`` (required)
-        see column domain value
-    ``current`` (optional)
-        boolean, marks/highlights a column
+    ``values``（必需）
+        见行标题值。
+    ``domain``（必需）
+        见列域值。
+    ``current``（可选）
+        布尔值，标记/高亮显示一列。
 
-  * the grid data as a list (of rows) of list (of cells) of cell dicts each
-    with the following keys:
+  * 网格数据作为一个列表（行）由列表（单元格）组成，每个单元格字典具有以下键：
 
     ``value``
-        the numeric value associated with the cell
+        与单元格关联的数值。
     ``domain``
-        the domain matching the cell's records (should be assumed opaque)
+        与单元格记录匹配的域（应假定为不透明）。
     ``size``
-        the number of records grouped in the cell
-    ``readonly`` (optional)
-        a boolean indicating that this specific cell should not be
-        client-editable
-    ``classes`` (optional)
-        a list of classes (as strings) to add on the cell's container (between
-        the cell's TD and the cell's potentially-editable element).
+        分组在单元格中的记录数。
+    ``readonly``（可选）
+        布尔值，指示该特定单元格不应可被客户端编辑。
+    ``classes``（可选）
+        要添加到单元格容器（在单元格的 TD 和潜在可编辑元素之间）的类列表（作为字符串）。
 
-        In case of conflicts between this list and the base classes (prefixed
-        with ``o_grid_cell_``), the classes in this list are ignored.
+        如果此列表与基本类（以 ``o_grid_cell_`` 为前缀）发生冲突，则忽略此列表中的类。
 
-    Note that the grid data is *dense*, if querying the database yields no
-    group matching a cell a cell will generate an "empty" cell with default
-    values for required keys.
-  * ``prev`` and ``next`` which can be either falsy (no pagination) or a
-    context item to merge into the view's own context to ``read_grid`` the
-    previous or next page, it should be assumed to be opaque
+    请注意，网格数据是 *稠密* 的，如果查询数据库未返回与单元格匹配的组，则单元格将生成一个带有默认值的“空”单元格。
+  * ``prev`` 和 ``next`` 可以是 falsy（无分页）或上下文项，以合并到视图自己的上下文中以 ``read_grid`` 上一页或下一页，假定其为不透明。
 
-* ``read_grid_domain(field, range)`` (provided on al models by the module)
-  returns the domain matching the current configured "span" of the grid. This
-  is also done internally by ``read_grid``, but can be useful or necessary to
-  call independently to use with separate e.g. ``search_count`` or
-  ``read_group``.
+* ``read_grid_domain(field, range)``（由模块在所有模型上提供）返回与当前配置的网格“跨度”匹配的域。这也是 ``read_grid`` 内部完成的，但独立调用以与单独的 ``search_count`` 或 ``read_group`` 一起使用可能是有用的或必要的。
 
-* ``adjust_grid``, for which there currently isn't a blanket implementation
-  and whose semantics are likely to evolve with time and use cases
+* ``adjust_grid``，当前没有整体实现，其语义可能会随着时间和使用案例的演变而变化。
 
-Server Hooks
+服务器钩子
 ------------
 
-``read_grid`` calls a number of hooks allowing the customisation of its
-operations from within without having to override the entire method:
+``read_grid`` 调用多个钩子，允许从内部自定义其操作，而无需覆盖整个方法：
 
 ``_grid_format_cell(group, cell_field)``
-    converts the output of a read_group (group-by-group) into cells in the
-    format described above (as part of "the grid data")
+    将 read_group 的输出（按组）转换为单元格，格式如上所述（作为“网格数据”的一部分）。
 ``_grid_make_empty_cell(row_domain, column_domain, view_domain)``
-    generates an empty version of a cell (if there is no corresponding group)
+    生成单元格的空版本（如果没有对应的组）。
 ``_grid_column_info(name, range)``
-    generates a ColumnMetadata object based on the column type, storing values
-    either returned directly (as part of ``read_grid``) or used query and
-    reformat ``read_group`` into ``read_grid``:
+    根据列类型生成 ColumnMetadata 对象，存储的值可以直接返回（作为 ``read_grid`` 的一部分）或用于查询并将 ``read_group`` 重新格式化为 ``read_grid``：
 
     ``grouping``
-        the actual grouping field/query for the columns
+        列的实际分组字段/查询。
     ``domain``
-        domain to apply to ``read_group`` in case the column field is
-        paginated, can be an empty list
-    ``prev`` and ``next``
-        context segments which will be sent to ``read_grid`` for pages before
-        and after the current one. If ``False``, disables pagination in that
-        direction
+        在列字段分页的情况下，应用于 ``read_group`` 的域，可以是空列表。
+    ``prev`` 和 ``next``
+        发送到 ``read_grid`` 的上下文段，用于当前页之前和之后的页。如果 ``False``，则在该方向上禁用分页。
     ``values``
-        column values to display on the "current page", each value is a
-        dictionary with the following keys:
+        要在“当前页面”上显示的列值，每个值都是一个字典，具有以下键：
 
         ``values``
-            dictionary mapping field names to values for the entire column,
-            usually just ``name`` -> a value
+            字典，将字段名称映射到整个列的值，通常为 ``name`` -> 值。
         ``domain``
-            domain matching this specific column
+            与该特定列匹配的域。
         ``is_current``
-            ``True`` if the current column should be specifically outlined in
-            the grid, ``False`` otherwise
+            ``True`` 如果当前列应该在网格中特别突出显示， ``False`` 否则。
         ``format``
-            how to format the values of that column/type from ``read_group``
-            formatting to ``read_grid`` formatting (matching ``values`` in
-            ColumnInfo)
+            如何将 ``read_group`` 中的值格式化为 ``read_grid`` 格式（与 ColumnInfo 中的 ``values`` 匹配）。
 
 ACL
 ---
 
-* if the view is not editable, individual cells won't be editable
-* if the view is not creatable, the ``Add a Line`` button will not be
-  displayed (it currently creates a new empty record)
-
-Context Keys
+* 如果视图不可编辑，则单个单元格将不可编辑。
+* 如果视图不可创建，则不会显示 ``添加一行`` 按钮（该按钮当前会创建一个新空记录）。
+上下文键
 ------------
 
 ``grid_range``
-    selects which range should be used by default if the view has multiple
-    ranges
+    选择在视图有多个范围时默认使用哪个范围。
 ``grid_anchor``
-    if applicable, used as the default anchor of column ranges instead of
-    whatever ``read_grid`` defines as its default.
+    （如果适用）用作列范围的默认锚点，而不是 ``read_grid`` 定义的默认值。
 
-    For date fields, the reference date around which the initial span will be
-    computed. The default date anchor is "today" (in the user's timezone)
+    对于日期字段，参考日期用于计算初始跨度。默认日期锚点为“今天”（以用户的时区为准）。
 
 .. _reference/view_architectures/gantt:
 
-Gantt
+甘特图
 =====
 
 .. raw:: html
 
-   <span class="badge" style="background-color:#AD5E99">Enterprise feature</span>
+   <span class="badge" style="background-color:#AD5E99">企业特性</span>
 
-Gantt views appropriately display Gantt charts (for scheduling).
+甘特图视图适当地显示甘特图（用于调度）。
 
-The root element of gantt views is ``<gantt/>``, it has no children but can
-take the following attributes:
+甘特图视图的根元素是 ``<gantt/>``，它没有子元素，但可以包含以下属性：
 
 :string:
-  string (default: ``''``)
+  字符串（默认: ``''``）
 
-  This view title is displayed only if you open an action that has no name and
-  whose target is 'new' (opening a dialog)
+  仅在打开没有名称且目标为 'new'（打开对话框）的操作时显示该视图标题。
 
 :create:
-  bool (default: ``True``)
+  布尔值（默认: ``True``）
 
-  Disable/enable record creation on the view.
+  启用/禁用在视图中创建记录。
 
 :edit:
-  bool (default: ``True``)
+  布尔值（默认: ``True``）
 
-  Disable/enable record edition on the view.
+  启用/禁用在视图中编辑记录。
 
 :delete:
-  bool (default: ``True``)
+  布尔值（默认: ``True``）
 
-  Disable/enable record deletion on the view through the **Action** dropdown.
+  启用/禁用通过 **操作** 下拉菜单删除记录。
 
 .. rst-class:: o-definition-list
 
-``date_start`` (required)
-  name of the field providing the start datetime of the event for each
-  record.
-``date_stop`` (required)
-  name of the field providing the end duration of the event for each
-  record.
+``date_start``（必需）
+  提供每条记录事件的开始日期时间字段的名称。
+``date_stop``（必需）
+  提供每条记录事件的结束持续时间字段的名称。
 ``dependency_field``
-  name of the ``many2many`` field that provides the dependency relation between two records.
-  If B depends on A, ``dependency_field`` is the field that allows getting A
-  from B. Both this field and ``dependency_inverted_field`` field are used to
-  draw dependency arrows between pills and reschedule them.
-``dependency_inverted_field`` (required if ``dependency_field`` is provided)
-  name of the ``many2many`` field that provides the invert dependency relation than
-  ``dependency_field``. If B depends on A, ``dependency_inverted_field`` is
-  the field that allows getting B from A.
+  提供两个记录之间依赖关系的 ``many2many`` 字段名称。
+  如果 B 依赖于 A，``dependency_field`` 是允许从 B 获取 A 的字段。
+  此字段和 ``dependency_inverted_field`` 字段都用于绘制药丸之间的依赖箭头并重新调度它们。
+``dependency_inverted_field``（在提供 ``dependency_field`` 时必需）
+  提供与 ``dependency_field`` 相反的依赖关系的 ``many2many`` 字段名称。
+  如果 B 依赖于 A，``dependency_inverted_field`` 是允许从 A 获取 B 的字段。
 ``color``
-  name of the field used to color the pills according to its value
+  用于根据其值为药丸着色的字段名称。
 ``decoration-{$name}``
-  `python expression`_ that evaluates to a bool
+  `python 表达式`_，返回布尔值。
 
-  allow changing the style of a cell's text based on the corresponding
-  record's attributes.
+  根据相应记录的属性更改单元格文本的样式。
 
-  ``{$name}`` can be one of the following `bootstrap contextual color`_ (``danger``,
-  ``info``, ``secondary``, ``success`` or ``warning``).
+  ``{$name}`` 可以是以下 `bootstrap 上下文颜色`_（``danger``、``info``、``secondary``、``success`` 或 ``warning``）之一。
 
-  Define a conditional display of a record in the style of a row's text based on the corresponding
-  record's attributes.
+  根据相应记录的属性定义记录在行文本中的条件显示。
 
-  Values are Python expressions. For each record, the expression is evaluated
-  with the record's attributes as context values and if ``true``, the
-  corresponding style is applied to the row. Here are some of the other values
-  available in the context:
+  值为 Python 表达式。对于每条记录，表达式在记录的属性作为上下文值的情况下进行评估，如果为 ``true``，则相应的样式应用于行。以下是上下文中可用的其他值：
 
-  * ``uid``: the id of the current user,
-  * ``today``: the current local date as a string of the form ``YYYY-MM-DD``,
-  * ``now``: same as ``today`` with the addition of the current time.
-    This value is formatted as ``YYYY-MM-DD hh:mm:ss``.
+  * ``uid``: 当前用户的 ID，
+  * ``today``: 当前本地日期，格式为 ``YYYY-MM-DD``，
+  * ``now``: 与 ``today`` 相同，并添加当前时间。该值格式为 ``YYYY-MM-DD hh:mm:ss``。
 
   .. code-block:: xml
 
@@ -3496,84 +3094,67 @@ take the following attributes:
       ...
     </gantt>
 ``default_group_by``
-  name of a field to group tasks by
+  用于按字段分组任务的名称。
 ``disable_drag_drop``
-  if set to true, the gantt view will not have any drag&drop support
+  如果设置为 true，则甘特图将不支持任何拖放功能。
 ``consolidation``
-  field name to display consolidation value in record cell
+  在记录单元格中显示合并值的字段名称。
 ``consolidation_max``
-  dictionary with the "group by" field as key and the maximum consolidation
-  value that can be reached before displaying the cell in red
-  (e.g. ``{"user_id": 100}``)
+  字典，键为“按组”字段，值为达到的最大合并值，超过该值后将以红色显示单元格（例如 ``{"user_id": 100}``）。
 ``consolidation_exclude``
-  name of the field that describes if the task has to be excluded
-  from the consolidation
-  if set to true it displays a striped zone in the consolidation line
+  描述任务是否必须排除的字段名称。
+  如果设置为 true，则在合并行中显示带有条纹的区域。
 ``create``, ``cell_create``, ``edit``, ``delete``, ``plan``
-    allows *dis*\ abling the corresponding action in the view by setting the
-    corresponding attribute to ``false`` (default: ``true``).
+    允许通过将相应属性设置为 ``false`` 来禁用视图中的相应操作（默认: ``true``）。
 
-    * ``create``: If enabled, an ``Add`` button will be available in the control
-      panel to create records.
-    * ``cell_create``: If enabled and ``create`` enabled, a "**+**" button will be
-      displayed while hovering on a time slot cell to create a new record on that slot.
-    * ``edit``: If enabled, the opened records will be in edit mode (thus editable).
-    * ``plan``: If enabled and ``edit`` enabled, a "magnifying glass" button will be displayed
-      on time slots to plan unassigned records into that time slot.
+    * ``create``: 如果启用，则控制面板中将有一个 ``添加`` 按钮以创建记录。
+    * ``cell_create``: 如果启用且 ``create`` 启用，当悬停在时间槽单元格上时，将显示一个“**+**”按钮，以在该槽中创建新记录。
+    * ``edit``: 如果启用，打开的记录将处于编辑模式（因此可编辑）。
+    * ``plan``: 如果启用且 ``edit`` 启用，则将在时间槽上显示一个“放大镜”按钮，以计划未分配的记录到该时间槽中。
 
     .. example::
 
-        When you do not want to create records on the gantt view and the beginning and end
-        dates are required on the model, the planning feature should be disabled
-        because no record will ever be found.
+        当您不想在甘特图视图上创建记录并且模型上的开始和结束日期是必需的时，规划功能应被禁用，因为将永远找不到记录。
 ``offset``
-  Depending on the scale, the number of units to add to today to compute the
-  default period. Examples: An offset of +1 in default_scale week will open the
-  gantt view for next week, and an offset of -2 in default_scale month will open
-  the gantt view of 2 months ago.
+  根据比例，添加到今天的单位数以计算默认周期。示例：在默认比例为周时，+1 的偏移量将打开下周的甘特图，而在默认比例为月时，-2 的偏移量将打开两个月前的甘特图。
 ``progress``
-  name of a field providing the completion percentage for the record's event,
-  between 0 and 100
+  提供记录事件完成百分比的字段名称，范围在 0 到 100 之间。
 ``string``
-  title of the gantt view
+  甘特图的标题。
 ``precision``
-  JSON object specifying snapping precisions for the pills in each scale.
+  JSON 对象，指定药丸在每个比例中的捕捉精度。
 
-  Possible values for scale ``day`` are (default: ``hour``):
+  对于比例 ``day`` 的可能值（默认: ``hour``）：
 
-  - ``hour``: records times snap to full hours (ex: 7:12 becomes 8:00)
+  - ``hour``: 记录时间捕捉到整小时（例如: 7:12 变为 8:00）。
 
-  - ``hour:half``: records times snap to half hours (ex: 7:12 becomes 7:30)
+  - ``hour:half``: 记录时间捕捉到半小时（例如: 7:12 变为 7:30）。
 
-  - ``hour:quarter``: records times snap to half hours (ex: 7:12 becomes 7:15)
+  - ``hour:quarter``: 记录时间捕捉到四分之一小时（例如: 7:12 变为 7:15）。
 
-  Possible values for scale ``week`` are (default: ``day:half``):
+  对于比例 ``week`` 的可能值（默认: ``day:half``）：
 
-  - ``day``: records times snap to full days (ex: 7:28 AM becomes 11:59:59 PM of the previous day, 10:32 PM becomes 12:00 PM of the current day)
+  - ``day``: 记录时间捕捉到整天（例如: 7:28 AM 变为前一天的 11:59:59 PM，10:32 PM 变为当天的 12:00 PM）。
 
-  - ``day:half``: records times snap to half hours (ex: 7:28 AM becomes 12:00 PM)
+  - ``day:half``: 记录时间捕捉到半天（例如: 7:28 AM 变为 12:00 PM）。
 
-  Possible values for scale ``month`` are (default: ``day:half``):
+  对于比例 ``month`` 的可能值（默认: ``day:half``）：
 
-  - ``day``: records times snap to full days (ex: 7:28 AM becomes 11:59:59 PM of the previous day, 10:32 PM becomes 12:00 PM of the current day)
+  - ``day``: 记录时间捕捉到整天（例如: 7:28 AM 变为前一天的 11:59:59 PM，10:32 PM 变为当天的 12:00 PM）。
 
-  - ``day:half``: records times snap to half hours (ex: 7:28 AM becomes 12:00 PM)
+  - ``day:half``: 记录时间捕捉到半天（例如: 7:28 AM 变为 12:00 PM）。
 
-  Scale ``year`` always snap to full day.
+  比例 ``year`` 始终捕捉到整天。
 
-  Example of precision attribute: ``{"day": "hour:quarter", "week": "day:half", "month": "day"}``
+  精度属性的示例: ``{"day": "hour:quarter", "week": "day:half", "month": "day"}``。
 ``total_row``
-  boolean to control whether the row containing the total count of records should
-  be displayed. (default: ``false``)
+  布尔值，用于控制是否应显示包含记录总数的行。（默认: ``false``）。
 ``collapse_first_level``
-  boolean to control whether it is possible to collapse each row if grouped by
-  one field. (default: ``false``, the collapse starts when grouping by two fields)
+  布尔值，用于控制是否可以在按一个字段分组时折叠每一行。（默认: ``false``，当按两个字段分组时开始折叠）。
 ``display_unavailability``
-  boolean to mark the dates returned by the ``gantt_unavailability`` function of
-  the model as available inside the gantt view. Records can still be scheduled
-  in them, but their unavailability is visually displayed. (default: ``false``)
+  布尔值，标记由模型的 ``gantt_unavailability`` 函数返回的日期在甘特图中可用。记录仍然可以在其中进行调度，但其不可用性会以可视方式显示。（默认: ``false``）。
 ``default_scale``
-  default scale when rendering the view. Possible values are (default: ``month``):
+  渲染视图时的默认比例。可能的值（默认: ``month``）：
 
   * ``day``
   * ``week``
@@ -3581,47 +3162,38 @@ take the following attributes:
   * ``year``
 
 ``scales``
-  comma-separated list of allowed scales for this view. By default, all scales
-  are allowed. For possible scale values to use in this list, see ``default_scale``.
+  逗号分隔的允许此视图的比例列表。默认情况下，所有比例都是允许的。有关可在此列表中使用的可能比例值，请参见 ``default_scale``。
 
 ``templates``
-  defines the :ref:`reference/qweb` template ``gantt-popover`` which is used
-  when the user hovers over one of the records in the gantt view.
+  定义 :ref:`reference/qweb` 模板 ``gantt-popover``，该模板在用户悬停在甘特图视图中的一条记录上时使用。
 
-  The gantt view uses mostly-standard :ref:`javascript qweb
-  <reference/qweb/javascript>` and provides the following context variables:
+  甘特图视图主要使用标准 :ref:`javascript qweb
+  <reference/qweb/javascript>`，并提供以下上下文变量：
 
   .. rst-class:: o-definition-list
 
   ``widget``
-    the current :js:class:`GanttRow`, can be used to fetch some
-    meta-information. The ``getColor`` method to convert in a color integer is
-    also available directly in the template context without using ``widget``.
+    当前的 :js:class:`GanttRow`，可用于获取一些元信息。 ``getColor`` 方法用于将其转换为颜色整数，也可以直接在模板上下文中使用，而无需使用 ``widget``。
 
   ``on_create``
-    If specified when clicking the add button on the view, instead of opening a generic dialog, launch a client action.
-    this should hold the xmlid of the action (eg: ``on_create="%(my_module.my_wizard)d"``
+    如果在视图的添加按钮上指定，则单击该按钮时将启动客户端操作，而不是打开通用对话框。
+    这应持有操作的 xmlid（例如: ``on_create="%(my_module.my_wizard)d"``）。
 
 ``form_view_id``
-  view to open when the user create or edit a record. Note that if this attribute
-  is not set, the gantt view will fall back to the id of the form view in the
-  current action, if any.
+  用户创建或编辑记录时要打开的视图。请注意，如果未设置此属性，则甘特图将回退到当前操作中的表单视图的 ID（如果有）。
 
 ``dynamic_range``
-  if set to true, the gantt view will start at the first record,
-  instead of starting at the beginning of the year/month/day.
+  如果设置为 true，甘特图将从第一条记录开始，而不是从年/月/日的开始处开始。
 
 ``pill_label``
-  If set to true, the time appears in the pill label when the scale is set on week or month. (e.g.
-  `7:00 AM - 11:00 AM (4h) - DST Task 1`)
+  如果设置为 true，则当比例设置为周或月时，时间会出现在药丸标签中。（例如：`7:00 AM - 11:00 AM (4h) - DST Task 1`）。
 
 ``thumbnails``
-  This allows to display a thumbnail next to groups name if the group is a relationnal field.
-  This expects a python dict which keys are the name of the field on the active model.
-  Values are the names of the field holding the thumbnail on the related model.
+  如果组是关系字段，则允许在组名称旁边显示缩略图。它期望一个 python 字典，键是活动模型上字段的名称。
+  值是持有相关模型上缩略图的字段名称。
 
-  Example: tasks have a field user_id that reference res.users. The res.users model has a field image that holds the avatar,
-  then:
+  示例：任务具有一个字段 user_id，引用 res.users。res.users 模型具有一个字段 image，保存头像，
+  然后：
 
   .. code-block:: xml
 
@@ -3632,71 +3204,70 @@ take the following attributes:
       >
       </gantt>
 
-  will display the users avatars next to their names when grouped by user_id.
+  在按 user_id 分组时，将显示用户头像。
 
 .. include:: view_architectures/root_attribute_sample.rst
 
 .. _reference/view_architectures/map:
 
-Map
+地图
 ===
 
 .. raw:: html
 
-   <span class="badge" style="background-color:#AD5E99">Enterprise feature</span>
+   <span class="badge" style="background-color:#AD5E99">企业特性</span>
 
-This view is able to display records on a map and the routes between them. The records are represented by pins. It also allows the visualization of fields from the model in a popup tied to the record's pin.
+此视图能够在地图上显示记录及其之间的路线。记录由图钉表示。它还允许在与记录的图钉关联的弹出窗口中可视化模型的字段。
 
 .. note::
 
-    The model on which the view is applied should contain a `res.partner` many2one since the view relies on the `res.partner`'s address and coordinates fields to localize the records.
+    应用此视图的模型应包含一个 `res.partner` many2one，因为该视图依赖于 `res.partner` 的地址和坐标字段来定位记录。
 
 API
 ---
 
-The view uses location data platforms' API to fetch the tiles (the map's background), do the geoforwarding (converting addresses to a set of coordinates) and fetch the routes.
-The view implements two API, OpenStreetMap and MapBox. OpenStreetMap is used by default and is able to fetch `tiles`_ and do `geoforwarding`_. This API does not require a token.
-As soon as a valid `MapBox`_ token is provided in the general settings the view switches to the MapBox API. This API is faster and allows the computation of routes. A token can be obtained by `signing up`_ to MapBox.
+该视图使用位置数据平台的 API 来获取图块（地图背景）、进行地理前向（将地址转换为一组坐标）和获取路线。
+该视图实现了两个 API，OpenStreetMap 和 MapBox。默认情况下使用 OpenStreetMap，能够获取 `tiles`_ 并进行 `geoforwarding`_。此 API 不需要令牌。
+只要在常规设置中提供有效的 `MapBox`_ 令牌，视图将切换到 MapBox API。此 API 更快，并允许计算路线。可以通过 `signing up`_ 到 MapBox 获取令牌。
 
-Structural components
+结构组件
 ---------------------
 
-The view's root element is ``<map>``. It can have the following attributes:
-
+视图的根元素是 ``<map>``。它可以具有以下属性：
 
 .. rst-class:: o-definition-list
 
 ``res_partner``
-    Contains the `res.partner` many2one. If not provided the view resorts to create an empty map.
+    包含 `res.partner` many2one。如果未提供，视图将创建一个空地图。
 ``default_order``
-    If a field is provided the view overrides the model's default order. The field must be part of the model on which the view is applied, not from `res.partner`.
+    如果提供字段，视图将覆盖模型的默认排序。该字段必须是应用视图的模型的一部分，而不是来自 `res.partner` 的字段。
 ``routing``
-    if ``1`` display the routes between the records. The view needs a valid MapBox token and at least two located records (i.e the records have a `res.partner` many2one and the partner has an address or valid coordinates).
+    如果 ``1`` 显示记录之间的路线。视图需要一个有效的 MapBox 令牌和至少两个定位的记录（即记录具有 `res.partner` many2one，并且合作伙伴具有地址或有效坐标）。
 ``hide_name``
-    if ``1`` hide the name from the pin's popup (default: ``0``).
+    如果 ``1`` 隐藏图钉弹出窗口中的名称（默认: ``0``）。
 ``hide_address``
-    if ``1`` hide the address from the pin's popup (default: ``0``).
+    如果 ``1`` 隐藏图钉弹出窗口中的地址（默认: ``0``）。
 ``hide_title``
-    if ``1`` hide the title from the pin list (default: ``0``).
+    如果 ``1`` 隐藏图钉列表中的标题（默认: ``0``）。
 ``panel_title``
-    String to display as title of the pin list. If not provided, the title is the action's name or "Items" if the view is not in an action.
+    要显示为图钉列表标题的字符串。如果未提供，则标题为操作的名称，如果视图不在操作中，则为“项目”。
 ``limit``
-    Maximum number of records to fetch (default: ``80``). It must be a positive integer.
+    要获取的最大记录数（默认: ``80``）。必须是正整数。
 
-The ``<map>`` element can contain multiple ``<field>`` elements. Each ``<field>`` element is interpreted as a line in the pin's popup. The field's attributes are the following:
+``<map>`` 元素可以包含多个 ``<field>`` 元素。每个 ``<field>`` 元素被解释为图钉弹出窗口中的一行。字段的属性如下：
 
 .. rst-class:: o-definition-list
 
 ``name``
-    The field to display.
+    要显示的字段。
 ``string``
-    String to display before the field's content. It can be used as a description.
+    在字段内容之前显示的字符串。可以用作描述。
 
-For example here is a map:
+例如，这里是一个地图：
     .. code-block:: xml
 
         <map res_partner="partner_id" default_order="date_begin" routing="1" hide_name="1">
-            <field name="partner_id" string="Customer Name"/>
+            <field name="partner_id" string="客户名称"/>
         </map>
 
 .. _`accesskey`: https://www.w3.org/TR/html5/editing.html#the-accesskey-attribute

@@ -1,106 +1,77 @@
 =======
-Actions
+操作
 =======
 
-Actions define the behavior of the system in response to user actions: login,
-action button, selection of an invoice, ...
+操作定义了系统对用户操作的响应行为：登录、操作按钮、选择发票等。
 
-Actions can be stored in the database or returned directly as dictionaries in
-e.g. button methods. All actions share two mandatory attributes:
+操作可以存储在数据库中，也可以直接作为字典返回，例如在按钮方法中。所有操作共享两个必填属性：
 
 ``type``
-    the category of the current action, determines which fields may be
-    used and how the action is interpreted
+    当前操作的类别，决定可以使用哪些字段以及如何解释操作。
 ``name``
-    short user-readable description of the action, may be displayed in the
-    client's interface
+    操作的简短用户可读描述，可能会显示在客户端界面中。
 
-A client can get actions in 4 forms:
+客户端可以通过 4 种形式获取操作：
 
 *  ``False``
-      if any action dialog is currently open, close it
-*  A string
-      if a :ref:`client action <reference/actions/client>` matches, interpret as
-      a client action's tag, otherwise treat as a number
-*  A number
-      read the corresponding action record from the database, may be a database
-      identifier or an :term:`external id`
-*  A dictionary
-      treat as a client action descriptor and execute
+      如果当前有任何操作对话框打开，关闭它。
+*  字符串
+      如果与 :ref:`客户端操作 <reference/actions/client>` 匹配，则解释为客户端操作的标记，否则视为数字。
+*  数字
+      从数据库中读取相应的操作记录，可能是数据库标识符或 :term:`外部 id`。
+*  字典
+      解释为客户端操作描述符并执行。
 
 .. _reference/bindings:
 
-Bindings
+绑定
 ========
 
-Aside from their two mandatory attributes, all actions also share *optional*
-attributes used to present an action in an arbitrary model's contextual menu:
+除了两个必填属性外，所有操作还共享一些*可选*属性，用于在任意模型的上下文菜单中呈现操作：
 
 ``binding_model_id``
-    specifies which model the action is bound to
+    指定操作绑定到的模型。
 
-    .. note:: For Server Actions, use ``model_id``.
+    .. note:: 对于服务器操作，使用 ``model_id``。
 
 ``binding_type``
-    specifies the type of binding, which is mostly which contextual menu the
-    action will appear under
+    指定绑定类型，主要决定操作将出现在哪个上下文菜单下。
 
-    ``action`` (default)
-        Specifies that the action will appear in the :menuselection:`Action`
-        contextual menu of the bound model.
+    ``action`` (默认)
+        指定操作将出现在绑定模型的 :menuselection:`操作` 上下文菜单中。
     ``report``
-        Specifies that the action will appear in the :menuselection:`Print`
-        contextual menu of the bound model.
+        指定操作将出现在绑定模型的 :menuselection:`打印` 上下文菜单中。
+
 ``binding_view_types``
-    a comma-separated list of view types for which the action appears in the
-    contextual menu, mostly "list" and / or "form". Defaults to ``list,form``
-    (both list and form )
+    操作出现在上下文菜单中的视图类型的逗号分隔列表，通常是“列表”和/或“表单”。默认为 ``list,form``（同时包含列表和表单）。
 
 .. _reference/actions/window:
 
-Window Actions (``ir.actions.act_window``)
+窗口操作 (``ir.actions.act_window``)
 ==========================================
 
-The most common action type, used to present visualisations of a model through
-:doc:`views <../user_interface/view_records>`: a window action defines a set of view types
-(and possibly specific views) for a model (and possibly specific record of the
-model).
+最常见的操作类型，用于通过 :doc:`视图 <../user_interface/view_records>` 显示模型：窗口操作定义了一组视图类型（以及可能的特定视图）用于模型（以及可能的特定记录）。
 
-Its fields are:
+其字段包括：
 
 ``res_model``
-    model to present views for
+    显示视图的模型。
 ``views``
-    a list of ``(view_id, view_type)`` pairs. The second element of each pair
-    is the category of the view (tree, form, graph, ...) and the first is
-    an optional database id (or ``False``). If no id is provided, the client
-    should fetch the default view of the specified type for the requested
-    model (this is automatically done by
-    :meth:`~odoo.models.Model.fields_view_get`). The first type of the
-    list is the default view type and will be open by default when the action
-    is executed. Each view type should be present at most once in the list
-``res_id`` (optional)
-    if the default view is ``form``, specifies the record to load (otherwise
-    a new record should be created)
-``search_view_id`` (optional)
-    ``(id, name)`` pair, ``id`` is the database identifier of a specific
-    search view to load for the action. Defaults to fetching the default
-    search view for the model
-``target`` (optional)
-    whether the views should be open in the main content area (``current``),
-    in full screen mode (``fullscreen``) or in a dialog/popup (``new``). Use
-    ``main`` instead of ``current`` to clear the breadcrumbs. Defaults to
-    ``current``.
-``context`` (optional)
-    additional context data to pass to the views
-``domain`` (optional)
-    filtering domain to implicitly add to all view search queries
-``limit`` (optional)
-    number of records to display in lists by default. Defaults to 80 in the
-    web client
+    ``(view_id, view_type)`` 对的列表。每对的第二个元素是视图的类别（树、表单、图表等），第一个是可选的数据库 id（或 ``False``）。如果未提供 id，客户端应获取请求模型的默认视图类型。列表中的第一个视图类型是默认视图类型，操作执行时将默认打开。每种视图类型在列表中最多只能出现一次。
+``res_id`` (可选)
+    如果默认视图是 ``form``，指定要加载的记录（否则应创建新记录）。
+``search_view_id`` (可选)
+    ``(id, name)`` 对，``id`` 是要为该操作加载的特定搜索视图的数据库标识符。默认为获取模型的默认搜索视图。
+``target`` (可选)
+    指定视图应在主内容区域（``current``）、全屏模式（``fullscreen``）或对话框/弹出窗口（``new``）中打开。使用 ``main`` 而不是 ``current`` 以清除面包屑。默认为 ``current``。
+``context`` (可选)
+    传递给视图的附加上下文数据。
+``domain`` (可选)
+    隐式添加到所有视图搜索查询的过滤域。
+``limit`` (可选)
+    默认情况下显示的列表记录数。Web 客户端默认值为 80。
 
-For instance, to open customers (partner with the ``customer`` flag set) with
-list and form views::
+例如，打开带有列表和表单视图的客户（设置了 ``customer`` 标志的合作伙伴）::
 
     {
         "type": "ir.actions.act_window",
@@ -109,8 +80,7 @@ list and form views::
         "domain": [["customer", "=", true]],
     }
 
-Or to open the form view of a specific product (obtained separately) in a new
-dialog::
+或者在新对话框中打开特定产品的表单视图（单独获取）::
 
     {
         "type": "ir.actions.act_window",
@@ -120,20 +90,16 @@ dialog::
         "target": "new",
     }
 
-In-database window actions have a few different fields which should be ignored
-by clients, mostly to use in composing the ``views`` list:
+数据库中的窗口操作具有一些不同的字段，客户端应忽略这些字段，主要用于构建 ``views`` 列表：
 
-``view_mode`` (default= ``tree,form`` )
-    comma-separated list of view types as a string (/!\\ No spaces /!\\). All of these types will be
-    present in the generated ``views`` list (with at least a ``False`` view_id)
+``view_mode`` (默认= ``tree,form`` )
+    逗号分隔的视图类型列表，作为字符串（/!\\ 没有空格 /!\\）。这些类型都将出现在生成的 ``views`` 列表中（至少有一个 ``False`` 的 view_id）。
 ``view_ids``
-    M2M\ [#notquitem2m]_ to view objects, defines the initial content of
-    ``views``
+    M2M\ [#notquitem2m]_ 到视图对象，定义 ``views`` 的初始内容。
 
-    .. note:: Act_window views can also be defined cleanly through ``ir.actions.act_window.view``.
+    .. note:: 可以通过 ``ir.actions.act_window.view`` 干净地定义 Act_window 视图。
 
-        If you plan to allow multiple views for your model, prefer using
-        ir.actions.act_window.view instead of the action ``view_ids``
+        如果您计划为模型提供多个视图，建议使用 ir.actions.act_window.view 而不是操作中的 ``view_ids``。
 
         .. code-block:: xml
 
@@ -145,30 +111,26 @@ by clients, mostly to use in composing the ``views`` list:
             </record>
 
 ``view_id``
-    specific view added to the ``views`` list in case its type is part of the
-    ``view_mode`` list and not already filled by one of the views in
-    ``view_ids``
+    如果其类型是 ``view_mode`` 列表的一部分且尚未填充，特定视图将添加到 ``views`` 列表中。
 
-These are mostly used when defining actions from :ref:`reference/data`:
+这些字段主要用于 :ref:`参考/数据` 中定义操作时：
 
 .. code-block:: xml
 
     <record model="ir.actions.act_window" id="test_action">
-        <field name="name">A Test Action</field>
+        <field name="name">一个测试操作</field>
         <field name="res_model">some.model</field>
         <field name="view_mode">graph</field>
         <field name="view_id" ref="my_specific_view"/>
     </record>
 
-will use the "my_specific_view" view even if that's not the default view for
-the model.
+将使用 "my_specific_view" 视图，即使它不是模型的默认视图。
 
-The server-side composition of the ``views`` sequence is the following:
+服务器端 ``views`` 序列的组成如下：
 
-* get each ``(id, type)`` from ``view_ids`` (ordered by ``sequence``)
-* if ``view_id`` is defined and its type isn't already filled, append its
-  ``(id, type)``
-* for each unfilled type in ``view_mode``, append ``(False, type)``
+* 从 ``view_ids`` 中获取每个 ``(id, type)``（按 ``sequence`` 排序）。
+* 如果定义了 ``view_id`` 且其类型尚未填充，则追加其 ``(id, type)``。
+* 对于 ``view_mode`` 中未填充的每种类型，追加 ``(False, type)``。
 
 .. todo::
 
@@ -176,28 +138,25 @@ The server-side composition of the ``views`` sequence is the following:
     * ``groups_id``?
     * ``filter``?
 
-.. [#notquitem2m] technically not an M2M: adds a sequence field and may be
-                  composed of just a view type, without a view id.
+.. [#notquitem2m] 技术上并不是 M2M：添加了序列字段，并且可能仅由视图类型组成，没有视图 id。
 
 .. _reference/actions/url:
 
-URL Actions (``ir.actions.act_url``)
+URL 操作 (``ir.actions.act_url``)
 ====================================
 
-Allow opening a URL (website/web page) via an Odoo action. Can be customized
-via two fields:
+允许通过 Odoo 操作打开 URL（网站/网页）。可以通过两个字段自定义：
 
 ``url``
-    the address to open when activating the action
-``target`` (default= ``new``)
-    the available values are :
+    激活操作时要打开的地址。
+``target`` (默认= ``new``)
+    可用的值为：
 
-    * ``new``: opens the URL in a new window/page
-    * ``self``: opens the URL in the current window/page (replaces the actual content)
-    * ``download``: redirects to a download URL
+    * ``new``：在新窗口/页面中打开 URL。
+    * ``self``：在当前窗口/页面中打开 URL（替换实际内容）。
+    * ``download``：重定向到下载 URL。
 
-
-    example:
+    示例：
 
 ::
 
@@ -207,53 +166,49 @@ via two fields:
         "target": "self",
     }
 
-This will replace the current content section by the Odoo home page.
+这将用 Odoo 首页替换当前内容部分。
 
 .. _reference/actions/server:
 
-Server Actions (``ir.actions.server``)
+服务器操作 (``ir.actions.server``)
 ======================================
 
 .. autoclass:: odoo.addons.base.models.ir_actions.IrActionsServer
 
-Allow triggering complex server code from any valid action location. Only
-two fields are relevant to clients:
+允许从任何有效的操作位置触发复杂的服务器代码。对于客户端，只有两个字段是相关的：
 
 ``id``
-    the in-database identifier of the server action to run
-``context`` (optional)
-    context data to use when running the server action
+    要运行的服务器操作的数据库标识符。
+``context`` (可选)
+    运行服务器操作时要使用的上下文数据。
 
-In-database records are significantly richer and can perform a number of
-specific or generic actions based on their ``state``. Some fields (and
-corresponding behaviors) are shared between states:
+数据库中的记录丰富得多，可以根据其 ``state`` 执行多种特定或通用操作。一些字段（及其相应的行为）在状态之间共享：
 
 ``model_id``
-    Odoo model linked to the action.
+    与操作相关的 Odoo 模型。
 
 ``state``
 
-* ``code``: Executes python code given through the ``code`` argument.
+* ``code``: 执行通过 ``code`` 参数提供的 Python 代码。
 
-* ``object_create``: Creates a new record of model ``crud_model_id`` following ``fields_lines`` specifications.
+* ``object_create``: 根据 ``fields_lines`` 规范创建模型 ``crud_model_id`` 的新记录。
 
-* ``object_write``: Updates the current record(s) following ``fields_lines`` specifications
+* ``object_write``: 根据 ``fields_lines`` 规范更新当前记录。
 
-* ``multi``: Executes several actions given through the ``child_ids`` argument.
+* ``multi``: 执行通过 ``child_ids`` 参数提供的多个操作。
 
-State fields
+状态字段
 ------------
 
-Depending on its state, the behavior is defined through different fields.
-The concerned state is given after each field.
+根据其状态，行为通过不同的字段定义。每个字段的相关状态将在后面标明。
 
-``code`` (code)
-  Specify a piece of Python code to execute when the action is called
+``code`` (代码)
+  指定操作被调用时要执行的一段 Python 代码。
 
   .. code-block:: xml
 
       <record model="ir.actions.server" id="print_instance">
-          <field name="name">Res Partner Server Action</field>
+          <field name="name">Res Partner 服务器操作</field>
           <field name="model_id" ref="model_res_partner"/>
           <field name="state">code</field>
           <field name="code">
@@ -263,13 +218,12 @@ The concerned state is given after each field.
 
   .. note::
 
-      The code segment can define a variable called ``action``, which will be
-      returned to the client as the next action to execute:
+      代码段可以定义一个名为 ``action`` 的变量，该变量将作为下一个要执行的操作返回给客户端：
 
       .. code-block:: xml
 
           <record model="ir.actions.server" id="print_instance">
-              <field name="name">Res Partner Server Action</field>
+              <field name="name">Res Partner 服务器操作</field>
               <field name="model_id" ref="model_res_partner"/>
               <field name="state">code</field>
               <field name="code">
@@ -283,117 +237,87 @@ The concerned state is given after each field.
               </field>
           </record>
 
-      will ask the client to open a form for the record if it fulfills some
-      condition
+      如果满足某些条件，将要求客户端打开记录的表单。
 
-  ..  This tends to be the only action type created from :ref:`data files
-      <reference/data>`, other types aside from
-      :ref:`reference/actions/server/multi` are simpler than Python code to define
-      from the UI, but not from :ref:`data files <reference/data>`.
+  ..  这往往是从 :ref:`数据文件 <reference/data>` 创建的唯一操作类型，其他类型比 Python 代码更容易从 UI 定义，但不适合从 :ref:`数据文件 <reference/data>` 定义。
 
-``crud_model_id`` (create)(required)
-    model in which to create a new record
-``link_field_id`` (create)
-    many2one to ``ir.model.fields``, specifies the current record's m2o field
-    on which the newly created record should be set (models should match)
+``crud_model_id`` (创建)(必填)
+    要创建新记录的模型。
+``link_field_id`` (创建)
+    many2one 到 ``ir.model.fields``，指定应在其上设置新创建记录的当前记录的 m2o 字段（模型应匹配）。
 
-``fields_lines`` (create/write)
-    fields to override when creating or copying the record.
-    :class:`~odoo.fields.One2many` with the fields:
+``fields_lines`` (创建/更新)
+    创建或复制记录时要覆盖的字段。 :class:`~odoo.fields.One2many`，包含以下字段：
 
     ``col1``
-        ``ir.model.fields`` to set in the concerned model
-        (``crud_model_id`` for creates, ``model_id`` for updates)
+        在相关模型中设置的 ``ir.model.fields``（对于创建为 ``crud_model_id``，对于更新为 ``model_id``）。
     ``value``
-        value for the field, interpreted via ``type``
-    ``type`` (value|reference|equation)
-        If ``value``, the ``value`` field is interpreted as a literal value
-        (possibly converted), if ``equation`` the ``value`` field is
-        interpreted as a Python expression and evaluated
+        字段的值，通过 ``type`` 解释。
+    ``type`` (值|引用|表达式)
+        如果是 ``value``，则 ``value`` 字段被解释为文字值（可能被转换）；如果是 ``equation``，则 ``value`` 字段被解释为 Python 表达式并进行求值。
 
-``child_ids`` (multi)
-    Specify the multiple sub-actions (``ir.actions.server``) to enact in state multi.
-    If sub-actions themselves return actions, the last
-    one will be returned to the client as the multi's own next action
+``child_ids`` (多)
+    指定在 ``multi`` 状态下执行的多个子操作（``ir.actions.server``）。如果子操作本身返回操作，则最后一个操作将作为 multi 自身的下一个操作返回给客户端。
 
 .. _reference/actions/server/context:
 
-Evaluation context
+评估上下文
 ------------------
 
-A number of keys are available in the evaluation context of or surrounding
-server actions:
+服务器操作的评估上下文中提供了一些关键字或与其相关：
 
-* ``model`` model object linked to the action via ``model_id``
-* ``record``/``records`` record/recorset on which the action is triggered, can be void.
-* ``env`` Odoo Environment
-* ``datetime``, ``dateutil``, ``time``, ``timezone`` corresponding Python modules
-* ``log: log(message, level='info')`` logging function to record debug information in ir.logging table
-* ``Warning`` constructor for the ``Warning`` exception
+* ``model`` 与操作相关的模型对象，链接到 ``model_id``。
+* ``record``/``records`` 触发操作的记录/记录集，可能为空。
+* ``env`` Odoo 环境。
+* ``datetime``、``dateutil``、``time``、``timezone`` 对应的 Python 模块。
+* ``log: log(message, level='info')`` 用于记录调试信息到 ir.logging 表的日志记录函数。
+* ``Warning`` 用于构造 ``Warning`` 异常。
 
 .. _reference/actions/report:
 
-Report Actions (``ir.actions.report``)
+报告操作 (``ir.actions.report``)
 ======================================
 
-Triggers the printing of a report.
+触发报告打印。
 
-If you define your report through a `<record>` instead of a `<report>` tag and
-want the action to show up in the Print menu of the model's views, you will
-also need to specify ``binding_model_id`` from :ref:`reference/bindings`. It's
-not necessary to set ``binding_type`` to ``report``, since
-``ir.actions.report`` will implicitly default to that.
+如果您通过 `<record>` 而不是 `<report>` 标签定义报告，并希望操作显示在模型视图的打印菜单中，还需要指定 :ref:`reference/bindings` 中的 ``binding_model_id``。不必设置 ``binding_type`` 为 ``report``，因为 ``ir.actions.report`` 将隐式默认为此。
 
-
-``name`` (mandatory)
-    used as the file name if ``print_report_name`` is not specified.
-    Otherwise, only useful as a mnemonic/description of the report
-    when looking for one in a list of some sort
-``model`` (mandatory)
-    the model your report will be about
-``report_type`` (default=qweb-pdf)
-    either ``qweb-pdf`` for PDF reports or ``qweb-html`` for HTML
-``report_name`` (mandatory)
-    the name (:term:`external id`) of the qweb template used to render the report
+``name`` (必填)
+    用作文件名，如果未指定 ``print_report_name``。否则，名称仅用于在列表中查找报告时提供助记符/描述。
+``model`` (必填)
+    报告所涉及的模型。
+``report_type`` (默认=qweb-pdf)
+    可以是 ``qweb-pdf``（用于 PDF 报告）或 ``qweb-html``（用于 HTML）。
+``report_name`` (必填)
+    用于呈现报告的 qweb 模板的名称 (:term:`外部 id`)。
 ``print_report_name``
-    python expression defining the name of the report.
+    定义报告名称的 Python 表达式。
 ``groups_id``
-    :class:`~odoo.fields.Many2many` field to the groups allowed to view/use
-    the current report
+    :class:`~odoo.fields.Many2many` 字段，表示允许查看/使用当前报告的组。
 ``multi``
-    if set to ``True``, the action will not be displayed on a form view.
+    如果设置为 ``True``，则操作不会显示在表单视图中。
 ``paperformat_id``
-    :class:`~odoo.fields.Many2one` field to the paper format you wish to
-    use for this report (if not specified, the company format will be used)
+    :class:`~odoo.fields.Many2one` 字段，表示您希望用于此报告的纸张格式（如果未指定，则使用公司格式）。
 ``attachment_use``
-    if set to ``True``, the report is only generated once the first time it is
-    requested, and re-printed from the stored report afterwards instead of
-    being re-generated every time.
+    如果设置为 ``True``，则报告只会在第一次请求时生成一次，然后从存储的报告中重新打印，而不是每次都重新生成。
 
-    Can be used for reports which must only be generated once (e.g. for legal
-    reasons)
+    可用于只能生成一次的报告（例如出于法律原因）。
 ``attachment``
-    python expression that defines the name of the report; the record is
-    accessible as the variable ``object``
+    定义报告名称的 Python 表达式；记录作为变量 ``object`` 可访问。
 
 .. _reference/actions/client:
 
-Client Actions (``ir.actions.client``)
+客户端操作 (``ir.actions.client``)
 ======================================
 
-Triggers an action implemented entirely in the client.
+触发完全在客户端实现的操作。
 
 ``tag``
-    the client-side identifier of the action, an arbitrary string which
-    the client should know how to react to
-``params`` (optional)
-    a Python dictionary of additional data to send to the client, alongside
-    the client action tag
-``target`` (optional)
-    whether the client action should be open in the main content area
-    (``current``), in full screen mode (``fullscreen``) or in a dialog/popup
-    (``new``). Use ``main`` instead of ``current`` to clear the breadcrumbs.
-    Defaults to ``current``.
+    操作的客户端标识符，客户端应该知道如何响应的任意字符串。
+``params`` (可选)
+    发送给客户端的附加数据的 Python 字典，与客户端操作标记一起发送。
+``target`` (可选)
+    客户端操作应在主内容区域（``current``）、全屏模式（``fullscreen``）还是在对话框/弹出窗口中打开（``new``）。使用 ``main`` 代替 ``current`` 以清除面包屑。默认为 ``current``。
 
 ::
 
@@ -402,46 +326,43 @@ Triggers an action implemented entirely in the client.
         "tag": "pos.ui"
     }
 
-tells the client to start the Point of Sale interface, the server has no idea
-how the POS interface works.
+告知客户端启动销售点界面，服务器并不知道销售点界面是如何工作的。
 
 .. seealso::
-   - :ref:`Tutorial: Client Actions <howtos/web/client_actions>`
+   - :ref:`教程：客户端操作 <howtos/web/client_actions>`。
 
 .. _reference/actions/cron:
 
-Automated Actions (``ir.cron``)
+自动化操作 (``ir.cron``)
 ===============================
 
-Actions triggered automatically on a predefined frequency.
+按预定频率自动触发的操作。
 
 ``name``
-    Name of the automated action (Mainly used in log display)
+    自动化操作的名称（主要用于日志显示）。
 
 ``interval_number``
-    Number of *interval_type* uom between two executions of the action
+    两次操作执行之间的 *interval_type* 单位数。
 
 ``interval_type``
-    Unit of measure of frequency interval (``minutes``, ``hours``, ``days``, ``weeks``, ``months``)
+    频率间隔的单位（``分钟``、``小时``、``天``、``周``、``月``）。
 
 ``numbercall``
-    Number of times this action has to be run.
-    If the action is expected to run indefinitely, set to ``-1``.
+    此操作需要运行的次数。如果操作预期无限期运行，请设置为 ``-1``。
 
 ``doall``
-    Boolean precising whether the missed actions have to be executed in case of
-    server restarts.
+    布尔值，指示在服务器重启时是否必须执行错过的操作。
 
 ``model_id``
-    Model on which this action will be called
+    将调用此操作的模型。
 
 ``code``
-    Code content of the action.
-    Can be a simple call to the model's method :
+    操作的代码内容。
+    可以是对模型方法的简单调用：
 
     .. code-block:: python
 
         model.<method_name>()
 
 ``nextcall``
-    Next planned execution date of this action (date/time format)
+    此操作的下一次计划执行日期（日期/时间格式）。

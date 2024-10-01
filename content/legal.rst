@@ -4,7 +4,7 @@
 :orphan:
 
 =====
-Legal
+合法合规
 =====
 
 .. toctree::

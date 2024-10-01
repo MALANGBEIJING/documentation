@@ -1,7 +1,7 @@
 :hide-page-toc:
 
 ==============
-Payment Method
+支付方式
 ==============
 
 .. autoclass:: odoo.addons.payment.models.payment_method.PaymentMethod()

@@ -1,121 +1,100 @@
 =======
-Hosting
+托管
 =======
 
 .. _hosting/change-solution:
 
-Change hosting solution
+更改托管解决方案
 =======================
 
-The instructions to change the hosting type of a database depend on the current solution used and to
-which solution the database should be moved.
+更改数据库托管类型的说明取决于当前使用的解决方案以及数据库需要迁移到的解决方案。
 
-Transferring an on-premise database
+迁移本地数据库
 ===================================
 
-To Odoo Online
+到 Odoo 在线
 --------------
 
 .. important::
-   - Odoo Online is *not* compatible with **non-standard apps**.
-   - The database's current version must be :doc:`supported <supported_versions>`.
+   - Odoo 在线*不*兼容**非标准应用**。
+   - 数据库的当前版本必须是 :doc:`支持的版本 <supported_versions>`。
 
-#. Create a :ref:`duplicate of the database <on-premise/duplicate>`.
-#. In this duplicate, uninstall all **non-standard apps**.
-#. Use the database manager to grab a *dump with filestore*.
-#. `Submit a support ticket <https://www.odoo.com/help>`_ including the following:
+#. 创建一个 :ref:`数据库的副本 <on-premise/duplicate>`。
+#. 在此副本中，卸载所有**非标准应用**。
+#. 使用数据库管理器获取一个*带文件存储的转储*。
+#. `提交支持工单 <https://www.odoo.com/help>`_，并包含以下内容：
 
-   - your **subscription number**,
-   - the **URL** you want to use for the database (e.g., `company.odoo.com`), and
-   - the **dump** as an attachment or as a link to the file (required for 60 MB+ files).
+   - 您的**订阅号**，
+   - 您想要用于数据库的**URL**（例如 `company.odoo.com`），以及
+   - **转储文件**作为附件或文件链接（60 MB 以上的文件需要提供链接）。
 
-#. Odoo then makes sure the database is compatible before putting it online. In case of technical
-   issues during the process, Odoo might contact you.
+#. Odoo 确保数据库兼容后将其上线。如果在过程中出现技术问题，Odoo 可能会与您联系。
 
 .. note::
-   If you have time constraints, `submit a support ticket <https://www.odoo.com/help>`_ as soon as
-   possible to schedule the transfer.
+   如果有时间限制，请尽快`提交支持工单 <https://www.odoo.com/help>`_以安排转移。
 
-To Odoo.sh
+到 Odoo.sh
 ----------
 
-Follow the instructions found in :ref:`the Import your database section
-<odoo_sh_import_your_database>` of the Odoo.sh *Create your project* documentation.
+按照 Odoo.sh *创建项目*文档中 :ref:`导入您的数据库部分 <odoo_sh_import_your_database>` 的说明进行操作。
 
-Transferring an Odoo Online database
+迁移 Odoo 在线数据库
 ====================================
 
 .. important::
-   Odoo Online's :ref:`intermediary versions <supported_versions>` are not supported by Odoo.sh or
-   on-premise. Therefore, if the database to transfer is running an intermediary version, it must be
-   upgraded first to the next :ref:`major version <supported_versions>`, waiting for its release if
-   necessary.
+   Odoo 在线的 :ref:`中间版本 <supported_versions>` 不受 Odoo.sh 或本地托管支持。因此，如果要迁移的数据库正在运行中间版本，则必须先升级到下一个 :ref:`主要版本 <supported_versions>`，如果需要，等待其发布。
 
    .. example::
-      Transferring an online database running on Odoo 16.3 would require first upgrading it to Odoo
-      17.0.
+      要迁移运行 Odoo 16.3 的在线数据库，首先需要将其升级到 Odoo 17.0。
 
    .. tip::
-      Click the gear icon (:guilabel:`⚙`) next to the database name on the `Odoo Online database
-      manager <https://www.odoo.com/my/databases/>`_ to display its version number.
+      单击 `Odoo 在线数据库管理器 <https://www.odoo.com/my/databases/>`_ 上数据库名称旁边的齿轮图标 (:guilabel:`⚙`) 以显示其版本号。
 
    .. warning::
-      If there is an active Odoo subscription linked to the database being migrated, reach out to
-      the Customer Service Manager or `submit a support ticket <https://www.odoo.com/help>`_  to
-      complete the subscription transfer.
+      如果与迁移中的数据库关联的 Odoo 订阅仍然有效，请联系客户服务经理或`提交支持工单 <https://www.odoo.com/help>`_以完成订阅转移。
 
-To on-premise
+到本地
 -------------
 
-#. Sign in to `the Odoo Online database manager <https://www.odoo.com/my/databases/>`_ and click the
-   gear icon (:guilabel:`⚙`) next to the database name to :guilabel:`Download` a backup. If the
-   download fails due to the file being too large, `contact Odoo support
-   <https://www.odoo.com/help>`_.
-#. Restore the database from the database manager on your local server using the backup.
+#. 登录 `Odoo 在线数据库管理器 <https://www.odoo.com/my/databases/>`_，并单击数据库名称旁边的齿轮图标 (:guilabel:`⚙`) 以 :guilabel:`下载` 备份。如果由于文件过大导致下载失败，请`联系 Odoo 支持 <https://www.odoo.com/help>`_。
+#. 使用数据库管理器在您的本地服务器上从备份恢复数据库。
 
-To Odoo.sh
+到 Odoo.sh
 ----------
 
-#. Sign in to `the Odoo Online database manager <https://www.odoo.com/my/databases/>`_ and click the
-   gear icon (:guilabel:`⚙`) next to the database name to :guilabel:`Download` a backup. If the
-   download fails due to the file being too large, `contact Odoo support
-   <https://www.odoo.com/help>`_.
-#. Follow the instructions found in :ref:`the Import your database section
-   <odoo_sh_import_your_database>` of the Odoo.sh *Create your project* documentation.
+#. 登录 `Odoo 在线数据库管理器 <https://www.odoo.com/my/databases/>`_，并单击数据库名称旁边的齿轮图标 (:guilabel:`⚙`) 以 :guilabel:`下载` 备份。如果由于文件过大导致下载失败，请`联系 Odoo 支持 <https://www.odoo.com/help>`_。
+#. 按照 Odoo.sh *创建项目*文档中 :ref:`导入您的数据库部分 <odoo_sh_import_your_database>` 的说明进行操作。
 
-Transferring an Odoo.sh database
+迁移 Odoo.sh 数据库
 ================================
 
-To Odoo Online
+到 Odoo 在线
 --------------
 
 .. important::
-   Odoo Online is *not* compatible with **non-standard apps**.
+   Odoo 在线*不*兼容**非标准应用**。
 
-#. Uninstall all **non-standard apps** in a staging build before doing it in the production build.
-#. `Create a support ticket <https://www.odoo.com/help>`_ including the following:
+#. 在进行生产构建之前，先在暂存构建中卸载所有**非标准应用**。
+#. `创建支持工单 <https://www.odoo.com/help>`_ 并包含以下内容：
 
-   - your **subscription number**,
-   - the **URL** you want to use for the database (e.g., `company.odoo.com`),
-   - which **branch** should be migrated,
-   - in which **region** you want the database to be hosted (Americas, Europe, or Asia),
-   - which user(s) will be the **administrator(s)**, and
-   - **when** (and in which timezone) you want the database to be up and running.
+   - 您的**订阅号**，
+   - 您想要用于数据库的**URL**（例如 `company.odoo.com`），
+   - 应该迁移的**分支**，
+   - 您希望数据库托管的**区域**（美洲、欧洲或亚洲），
+   - 将成为**管理员**的用户，以及
+   - 您希望数据库**上线的时间**（以及时区）。
 
-#. Odoo then makes sure the database is compatible before putting it online. In case of technical
-   issues during the process, Odoo might contact you.
+#. Odoo 确保数据库兼容后将其上线。如果在过程中出现技术问题，Odoo 可能会与您联系。
 
 .. note::
-   - If you have time constraints, `submit a support ticket <https://www.odoo.com/help>`_ as soon as
-     possible to schedule the transfer.
-   - Select the **region** closest to most of your users to reduce latency.
-   - Future **administrator(s)** must have an Odoo.com account.
-   - The **date and time** you want the database to be up and running are helpful to organize the
-     switch from the Odoo.sh server to the Odoo Online servers.
-   - Databases are **not reachable** during their migration.
+   - 如果有时间限制，请尽快`提交支持工单 <https://www.odoo.com/help>`_以安排转移。
+   - 选择**最接近大多数用户的区域**以减少延迟。
+   - 未来的**管理员**必须有 Odoo.com 账户。
+   - 您希望数据库上线的**日期和时间**有助于安排从 Odoo.sh 服务器到 Odoo 在线服务器的切换。
+   - 在迁移期间，数据库将**无法访问**。
 
-To on-premise
+到本地
 -------------
 
-#. Download a :ref:`backup of your Odoo.sh production database <odoo_sh_branches_backups>`.
-#. Restore the database from the database manager on your local server using the backup.
+#. 下载您的 Odoo.sh 生产数据库的 :ref:`备份 <odoo_sh_branches_backups>`。
+#. 使用数据库管理器在您的本地服务器上从备份恢复数据库。

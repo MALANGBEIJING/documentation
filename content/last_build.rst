@@ -1,8 +1,5 @@
-:orphan:
-:nosearch:
-
 ===============
-Last build date
+上次构建日期
 ===============
 
-The last time the documentation was built in version |version| was on |today|.
+文档在版本 |version| 中上次构建的时间是 |today|。

@@ -1,7 +1,7 @@
 .. _reference/account_tax_repartition:
 
 ================
-Tax Repartitions
+税收分配
 ================
 
 .. automodel:: odoo.addons.account.models.account_tax.AccountTaxRepartitionLine

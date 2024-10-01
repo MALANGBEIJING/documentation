@@ -1,7 +1,7 @@
 :hide-page-toc:
 
 =======
-Payment
+支付
 =======
 
 .. toctree::

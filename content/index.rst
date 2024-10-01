@@ -1,7 +1,7 @@
 :nosearch:
 
 ==================
-Odoo Documentation
+Odoo 文档
 ==================
 
 

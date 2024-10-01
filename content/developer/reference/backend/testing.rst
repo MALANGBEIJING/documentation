@@ -1,29 +1,20 @@
-.. _reference/testing:
-
-============
-Testing Odoo
+测试 Odoo
 ============
 
-There are many ways to test an application.  In Odoo, we have three kinds of
-tests
+有很多方法可以测试应用程序。在 Odoo 中，我们有三种测试类型：
 
-- Python unit tests (see `Testing Python code`_): useful for testing model business logic
-- JS unit tests (see `Testing JS code`_): useful to test the javascript code in isolation
-- Tours (see `Integration Testing`_): tours simulate a real situation. They ensures that the
-  python and the javascript parts properly talk to each other.
+- Python 单元测试（参见 `测试 Python 代码`_）：用于测试模型业务逻辑
+- JS 单元测试（参见 `测试 JS 代码`_）：用于在隔离状态下测试 JavaScript 代码
+- Tours（参见 `集成测试`_）：模拟真实场景，确保 Python 和 JavaScript 部分正常交互。
 
 .. _testing/python:
 
-Testing Python code
+测试 Python 代码
 ===================
 
-Odoo provides support for testing modules using `Python's unittest library
-<https://docs.python.org/3/library/unittest.html>`_.
+Odoo 提供对使用 `Python 的 unittest 库 <https://docs.python.org/3/library/unittest.html>`_ 进行模块测试的支持。
 
-To write tests, simply define a ``tests`` sub-package in your module, it will
-be automatically inspected for test modules. Test modules should have a name
-starting with ``test_`` and should be imported from ``tests/__init__.py``,
-e.g.
+要编写测试，只需在模块中定义一个 ``tests`` 子包，它将自动检查测试模块。测试模块的名称应以 ``test_`` 开头，并应从 ``tests/__init__.py`` 导入，例如：
 
 .. code-block:: text
 
@@ -34,18 +25,15 @@ e.g.
     |   ├── test_bar.py
     |   └── test_foo.py
 
-and ``__init__.py`` contains::
+并且 ``__init__.py`` 包含::
 
     from . import test_foo, test_bar
 
 .. warning::
 
-    test modules which are not imported from ``tests/__init__.py`` will not be
-    run
+    未从 ``tests/__init__.py`` 导入的测试模块将不会被运行。
 
-The test runner will simply run any test case, as described in the official
-`unittest documentation`_, but Odoo provides a number of utilities and helpers
-related to testing Odoo content (modules, mainly):
+测试运行器将简单地运行任何测试用例，如官方 `unittest 文档`_ 所描述，但 Odoo 提供了一些与测试 Odoo 内容（主要是模块）相关的实用程序和助手。
 
 .. autoclass:: odoo.tests.TransactionCase
     :members: browse_ref, ref
@@ -58,22 +46,18 @@ related to testing Odoo content (modules, mainly):
 
 .. autofunction:: odoo.tests.tagged
 
-By default, tests are run once right after the corresponding module has been
-installed. Test cases can also be configured to run after all modules have
-been installed, and not run right after the module installation::
+默认情况下，测试在对应模块安装后自动运行。测试用例还可以配置为在所有模块安装后运行，而不是在模块安装后立即运行：
 
   # coding: utf-8
   from odoo.tests import HttpCase, tagged
 
-  # This test should only be executed after all modules have been installed.
+  # 此测试仅在所有模块安装后执行。
   @tagged('-at_install', 'post_install')
   class WebsiteVisitorTests(HttpCase):
     def test_create_visitor_on_tracked_page(self):
         Page = self.env['website.page']
 
-The most common situation is to use
-:class:`~odoo.tests.TransactionCase` and test a property of a model
-in each method::
+最常见的情况是使用 :class:`~odoo.tests.TransactionCase` 并在每个方法中测试模型的属性：
 
     class TestModelA(TransactionCase):
         def test_some_action(self):
@@ -83,11 +67,11 @@ in each method::
                 record.field,
                 expected_field_value)
 
-        # other tests...
+        # 其他测试...
 
 .. note::
 
-    Test methods must start with ``test_``
+    测试方法必须以 ``test_`` 开头。
 
 .. autoclass:: odoo.tests.Form
     :members:
@@ -98,51 +82,36 @@ in each method::
 .. autoclass:: odoo.tests.O2MProxy
     :members: new, edit, remove
 
-Running tests
+运行测试
 -------------
 
-Tests are automatically run when installing or updating modules if
-:option:`--test-enable <odoo-bin --test-enable>` was enabled when starting the
-Odoo server.
+如果启动 Odoo 服务器时启用了 :option:`--test-enable <odoo-bin --test-enable>`，测试将在安装或更新模块时自动运行。
 
-.. _unittest documentation: https://docs.python.org/3/library/unittest.html
+.. _unittest 文档: https://docs.python.org/3/library/unittest.html
 
 .. _developer/reference/testing/selection:
 
-Test selection
+测试选择
 --------------
 
-In Odoo, Python tests can be tagged to facilitate the test selection when
-running tests.
+在 Odoo 中，Python 测试可以标记，以便在运行测试时便于选择。
 
-Subclasses of :class:`odoo.tests.BaseCase` (usually through
-:class:`~odoo.tests.TransactionCase` or
-:class:`~odoo.tests.HttpCase`) are automatically tagged with
-``standard`` and ``at_install`` by default.
+:class:`odoo.tests.BaseCase` 的子类（通常通过 :class:`~odoo.tests.TransactionCase` 或 :class:`~odoo.tests.HttpCase`）默认会自动标记为 ``standard`` 和 ``at_install``。
 
-Invocation
+调用
 ~~~~~~~~~~
 
-:option:`--test-tags <odoo-bin --test-tags>` can be used to select/filter tests
-to run on the command-line. It implies :option:`--test-enable <odoo-bin --test-enable>`,
-so it's not necessary to specify :option:`--test-enable <odoo-bin --test-enable>`
-when using :option:`--test-tags <odoo-bin --test-tags>`.
+:option:`--test-tags <odoo-bin --test-tags>` 可用于选择/过滤要在命令行上运行的测试。这意味着 :option:`--test-enable <odoo-bin --test-enable>` 是隐含的，因此在使用 :option:`--test-tags <odoo-bin --test-tags>` 时不必指定 :option:`--test-enable <odoo-bin --test-enable>`。
 
-This option defaults to ``+standard`` meaning tests tagged ``standard``
-(explicitly or implicitly) will be run by default when starting Odoo
-with :option:`--test-enable <odoo-bin --test-enable>`.
+此选项默认值为 ``+standard``，这意味着标记为 ``standard`` 的测试（显式或隐式）将在启动 Odoo 时默认运行，并使用 :option:`--test-enable <odoo-bin --test-enable>`。
 
-When writing tests, the :func:`~odoo.tests.tagged` decorator can be
-used on **test classes** to add or remove tags.
+在编写测试时，可以在 **测试类** 上使用 :func:`~odoo.tests.tagged` 装饰器来添加或移除标签。
 
-The decorator's arguments are tag names, as strings.
+装饰器的参数是标签名称，作为字符串。
 
-.. danger:: :func:`~odoo.tests.tagged` is a class decorator, it has no
-            effect on functions or methods
+.. danger:: :func:`~odoo.tests.tagged` 是一个类装饰器，对函数或方法没有影响。
 
-Tags can be prefixed with the minus (``-``) sign, to *remove* them instead of
-add or select them e.g. if you don't want your test to be executed by
-default you can remove the ``standard`` tag:
+标签可以用负号（``-``）前缀，以 *移除* 标签，而不是添加或选择它们，例如，如果您不希望测试默认执行，可以移除 ``standard`` 标签：
 
 .. code-block:: python
 
@@ -152,38 +121,25 @@ default you can remove the ``standard`` tag:
     class NiceTest(TransactionCase):
         ...
 
-This test will not be selected by default, to run it the relevant tag will
-have to be selected explicitly:
+此测试将不会被默认选择，要运行它，必须显式选择相关标签：
 
 .. code-block:: console
 
     $ odoo-bin --test-tags nice
 
-Note that only the tests tagged ``nice`` are going to be executed. To run
-*both* ``nice`` and ``standard`` tests, provide multiple values to
-:option:`--test-tags <odoo-bin --test-tags>`: on the command-line, values
-are *additive* (you're selecting all tests with *any* of the specified tags)
+请注意，仅会执行标记为 ``nice`` 的测试。要运行 *both* ``nice`` 和 ``standard`` 测试，请在 :option:`--test-tags <odoo-bin --test-tags>` 中提供多个值：在命令行上，值是 *累加的*（选择具有 *任何* 指定标签的所有测试）。
 
 .. code-block:: console
 
     $ odoo-bin --test-tags nice,standard
 
-The config switch parameter also accepts the ``+`` and ``-`` prefixes. The
-``+`` prefix is implied and therefore, totally optional. The ``-`` (minus)
-prefix is made to deselect tests tagged with the prefixed tags, even if they
-are selected by other specified tags e.g. if there are ``standard`` tests which
-are also tagged as ``slow`` you can run all standard tests *except* the slow
-ones:
+配置开关参数也接受 ``+`` 和 ``-`` 前缀。``+`` 前缀是隐含的，因此完全可选。``-``（负号）前缀用于取消选择带有前缀标签的测试，即使这些测试被其他指定标签选择，例如，如果有 ``standard`` 测试，同时标记为 ``slow``，您可以运行所有标准测试 *除了* 慢速测试：
 
 .. code-block:: console
 
     $ odoo-bin --test-tags 'standard,-slow'
 
-When you write a test that does not inherit from the
-:class:`~odoo.tests.BaseCase`, this test will not have the default tags,
-you have to add them explicitly to have the test included in the default test
-suite.  This is a common issue when using a simple ``unittest.TestCase`` as
-they're not going to get run:
+当您编写一个不继承 :class:`~odoo.tests.BaseCase` 的测试时，该测试将没有默认标签，您必须显式添加它们才能将测试包括在默认测试套件中。这在使用简单的 ``unittest.TestCase`` 时是一个常见问题，因为它们不会被运行：
 
 .. code-block:: python
 
@@ -194,107 +150,84 @@ they're not going to get run:
     class SmallTest(unittest.TestCase):
         ...
 
-Besides tags you can also specify specific modules, classes or functions to
-test. The full syntax of the format accepted by :option:`--test-tags <odoo-bin --test-tags>`
-is:
+除了标签，您还可以指定要测试的特定模块、类或函数。 :option:`--test-tags <odoo-bin --test-tags>` 接受的格式的完整语法是：
 
 .. code-block:: text
 
     [-][tag][/module][:class][.method]
 
-So if you want to test the `stock_account` module, you can use:
+因此，如果您想测试 `stock_account` 模块，可以使用：
 
     .. code-block:: console
 
         $ odoo-bin --test-tags /stock_account
 
-If you want to test a specific function with a unique name, it can be specified
-directly:
+如果您想测试具有唯一名称的特定函数，可以直接指定：
 
     .. code-block:: console
 
         $ odoo-bin --test-tags .test_supplier_invoice_forwarded_by_internal_user_without_supplier
 
-This is equivalent to
+这等同于
 
     .. code-block:: console
 
         $ odoo-bin --test-tags /account:TestAccountIncomingSupplierInvoice.test_supplier_invoice_forwarded_by_internal_user_without_supplier
 
-if the name of the test is unambiguous. Multiple modules, classes and functions
-can be specified at once separated by a `,` like with regular tags.
+如果测试的名称不明确。多个模块、类和函数可以同时用逗号分隔，如同常规标签一样。
 
 .. _reference/testing/tags:
-
-Special tags
+特殊标签
 ~~~~~~~~~~~~
 
-- ``standard``: All Odoo tests that inherit from
-  :class:`~odoo.tests.BaseCase` are implicitly tagged standard.
-  :option:`--test-tags <odoo-bin --test-tags>` also defaults to ``standard``.
+- ``standard``: 所有继承自 :class:`~odoo.tests.BaseCase` 的 Odoo 测试都隐式标记为 standard。 :option:`--test-tags <odoo-bin --test-tags>` 默认也为 ``standard``。
 
-  That means untagged test will be executed by default when tests are enabled.
-- ``at_install``: Means that the test will be executed right after the module
-  installation and before other modules are installed. This is a default
-  implicit tag.
-- ``post_install``: Means that the test will be executed after all the modules
-  are installed. This is what you want for HttpCase tests most of the time.
+  这意味着未标记的测试将在启用测试时默认执行。
+- ``at_install``: 表示测试将在模块安装后立即执行，并且在其他模块安装之前执行。这是一个默认的隐式标签。
+- ``post_install``: 表示测试将在所有模块安装后执行。这通常是您希望用于 HttpCase 测试的情况。
 
-  Note that this is *not exclusive* with ``at_install``, however since you
-  will generally not want both ``post_install`` is usually paired with
-  ``-at_install`` when tagging a test class.
+  请注意，这与 ``at_install`` *不是互斥* 的，但是通常情况下，您不希望同时使用这两者，因此 ``post_install`` 通常与 ``-at_install`` 配对使用时标记测试类。
 
-Examples
+示例
 ~~~~~~~~
 
 .. important::
 
-    Tests will be executed only in installed modules. If you're starting from
-    a clean database, you'll need to install the modules with the
-    :option:`-i <odoo-bin -i>` switch at least once. After that it's no longer
-    needed, unless you need to upgrade the module, in which case
-    :option:`-u <odoo-bin -u>` can be used. For simplicity, those switches are
-    not specified in the examples below.
+    测试仅会在已安装的模块中执行。如果您从干净的数据库开始，您需要至少安装一次模块，并使用 :option:`-i <odoo-bin -i>` 开关。之后就不再需要，除非您需要升级模块，此时可以使用 :option:`-u <odoo-bin -u>`。为了简洁起见，下面的示例中未指定这些开关。
 
-Run only the tests from the sale module:
+仅运行销售模块中的测试：
 
 .. code-block:: console
 
     $ odoo-bin --test-tags /sale
 
-Run the tests from the sale module but not the ones tagged as slow:
+运行销售模块中的测试，但不包括标记为慢的测试：
 
 .. code-block:: console
 
     $ odoo-bin --test-tags '/sale,-slow'
 
-Run only the tests from stock or tagged as slow:
+仅运行库存模块中的测试或标记为慢的测试：
 
 .. code-block:: console
 
     $ odoo-bin --test-tags '-standard, slow, /stock'
 
-.. note:: ``-standard`` is implicit (not required), and present for clarity
+.. note:: ``-standard`` 是隐式的（不需要），并且为了清晰起见而存在。
 
-Testing JS code
+测试 JS 代码
 ===============
 
-Testing a complex system is an important safeguard to prevent regressions and to
-guarantee that some basic functionality still works. Since Odoo has a non trivial
-codebase in Javascript, it is necessary to test it. In this section, we will
-discuss the practice of testing JS code in isolation: these tests stay in the
-browser, and are not supposed to reach the server.
+测试复杂系统是防止回归和保证某些基本功能正常工作的重要保障。由于 Odoo 的 JavaScript 代码库并不简单，因此有必要对其进行测试。在本节中，我们将讨论在隔离状态下测试 JS 代码的实践：这些测试保持在浏览器中，不应到达服务器。
 
 .. _reference/testing/qunit:
 
-Qunit test suite
+Qunit 测试套件
 ----------------
 
-The Odoo framework uses the QUnit_ library testing framework as a test runner.
-QUnit defines the concepts of *tests* and *modules* (a set of related tests),
-and gives us a web based interface to execute the tests.
+Odoo 框架使用 QUnit_ 库测试框架作为测试运行器。QUnit 定义了 *测试* 和 *模块*（一组相关测试）的概念，并为我们提供了一个基于 Web 的界面来执行测试。
 
-For example, here is what a pyUtils test could look like:
+例如，这里是一个 pyUtils 测试的示例：
 
 .. code-block:: javascript
 
@@ -309,85 +242,55 @@ For example, here is what a pyUtils test could look like:
         assert.strictEqual(result, 2, "should properly evaluate modulo operator");
     });
 
-The main way to run the test suite is to have a running Odoo server, then
-navigate a web browser to ``/web/tests``.  The test suite will then be executed
-by the web browser Javascript engine.
+运行测试套件的主要方法是让 Odoo 服务器运行，然后在 Web 浏览器中导航到 ``/web/tests``。然后，测试套件将由 Web 浏览器的 JavaScript 引擎执行。
 
 .. image:: testing/tests.png
     :align: center
 
-The web UI has many useful features: it can run only some submodules, or
-filter tests that match a string. It can show every assertions, failed or passed,
-rerun specific tests, ...
+Web UI 有许多有用的功能：可以仅运行某些子模块，或过滤匹配某个字符串的测试。它可以显示每个断言，无论是失败还是通过，可以重新运行特定测试等。
 
 .. warning::
 
-    While the test suite is running, make sure that:
+    当测试套件正在运行时，请确保：
 
-    - your browser window is focused,
-    - it is not zoomed in/out. It needs to have exactly 100% zoom level.
+    - 浏览器窗口处于聚焦状态，
+    - 没有缩放。它需要保持在 100% 的缩放级别。
 
-    If this is not the case, some tests will fail, without a proper explanation.
+    如果不是这样，某些测试将失败，且没有适当的解释。
 
-Testing Infrastructure
+测试基础设施
 ----------------------
 
-Here is a high level overview of the most important parts of the testing
-infrastructure:
+以下是测试基础设施中最重要部分的高级概述：
 
-- there is an asset bundle named `web.qunit_suite`_.  This bundle contains
-  the main code (assets common + assets backend), some libraries, the QUnit test
-  runner and the test bundles listed below.
+- 有一个名为 `web.qunit_suite`_ 的资产包。此包包含主要代码（公共资产 + 后端资产）、一些库、QUnit 测试运行器和下面列出的测试包。
 
-- a bundle named `web.tests_assets`_ includes most of the assets and utils required
-  by the test suite: custom QUnit asserts, test helpers, lazy loaded assets, etc.
+- 一个名为 `web.tests_assets`_ 的包包括测试套件所需的大部分资产和工具：自定义 QUnit 断言、测试助手、延迟加载的资产等。
 
-- another asset bundle, `web.qunit_suite_tests`_, contains all the test scripts.
-  This is typically where the test files are added to the suite.
+- 另一个资产包 `web.qunit_suite_tests`_ 包含所有测试脚本。这通常是添加测试文件到套件的地方。
 
-- there is a `controller`_ in web, mapped to the route */web/tests*. This controller
-  simply renders the *web.qunit_suite* template.
+- 在 Web 中有一个 `controller`_，映射到路由 */web/tests*。该控制器仅渲染 *web.qunit_suite* 模板。
 
-- to execute the tests, one can simply point its browser to the route */web/tests*.
-  In that case, the browser will download all assets, and QUnit will take over.
+- 要执行测试，只需将浏览器指向路由 */web/tests*。在这种情况下，浏览器将下载所有资产，QUnit 将接管。
 
-- there is some code in `qunit_config.js`_ which logs in the console some
-  information when a test passes or fails.
+- 在 `qunit_config.js`_ 中有一些代码，它在控制台中记录测试通过或失败时的一些信息。
 
-- we want the runbot to also run these tests, so there is a test (in `test_js.py`_)
-  which simply spawns a browser and points it to the *web/tests* url.  Note that
-  the browser_js method spawns a Chrome headless instance.
-
-
-Modularity and testing
+- 我们希望运行机器人也能运行这些测试，因此在 `test_js.py`_ 中有一个测试，它简单地生成一个浏览器并指向 *web/tests* URL。请注意，browser_js 方法生成的是 Chrome 无头实例。
+模块化和测试
 ----------------------
 
-With the way Odoo is designed, any addon can modify the behaviour of other parts
-of the system.  For example, the *voip* addon can modify the *FieldPhone* widget
-to use extra features.  This is not really good from the perspective of the
-testing system, since this means that a test in the addon web will fail whenever
-the voip addon is installed (note that the runbot runs the tests with all addons
-installed).
+由于 Odoo 的设计方式，任何插件都可以修改系统其他部分的行为。例如，*voip* 插件可以修改 *FieldPhone* 小部件以使用额外功能。从测试系统的角度来看，这并不是一个好的做法，因为这意味着插件的测试将在安装 voip 插件时失败（请注意，runbot 在所有插件安装时运行测试）。
 
-At the same time, our testing system is good, because it can detect whenever
-another module breaks some core functionality.  There is no complete solution to
-this issue.  For now, we solve this on a case by case basis.
+同时，我们的测试系统也很出色，因为它可以检测到其他模块何时破坏某些核心功能。对此问题没有完整的解决方案。现在，我们逐个案例解决此问题。
 
-Usually, it is not a good idea to modify some other behaviour.  For our voip
-example, it is certainly cleaner to add a new *FieldVOIPPhone* widget and
-modify the few views that needs it.  This way, the *FieldPhone* widget is not
-impacted, and both can be tested.
+通常，修改其他行为并不是一个好主意。就我们的 voip 示例而言，当然更干净的做法是添加一个新的 *FieldVOIPPhone* 小部件，并修改需要它的几个视图。这样，*FieldPhone* 小部件就不会受到影响，两个小部件都可以进行测试。
 
-Adding a new test case
+添加新测试用例
 ----------------------
 
-Let us assume that we are maintaining an addon *my_addon*, and that we
-want to add a test for some javascript code (for example, some utility function
-myFunction, located in *my_addon.utils*). The process to add a new test case is
-the following:
+假设我们正在维护一个插件 *my_addon*，并且我们想要为某些 JavaScript 代码（例如位于 *my_addon.utils* 中的实用函数 myFunction）添加测试。添加新测试用例的过程如下：
 
-1. create a new file *my_addon/static/tests/utils_tests.js*. This file contains the basic code to
-   add a QUnit module *my_addon > utils*.
+1. 创建一个新文件 *my_addon/static/tests/utils_tests.js*。该文件包含添加 QUnit 模块 *my_addon > utils* 的基本代码。
 
     .. code-block:: javascript
 
@@ -403,8 +306,7 @@ the following:
         });
         });
 
-
-2. In *my_addon/assets.xml*, add the file to the main test assets:
+2. 在 *my_addon/assets.xml* 中，将文件添加到主测试资产中：
 
     .. code-block:: xml
 
@@ -417,10 +319,9 @@ the following:
             </template>
         </odoo>
 
-3. Restart the server and update *my_addon*, or do it from the interface (to
-   make sure the new test file is loaded)
+3. 重启服务器并更新 *my_addon*，或从界面执行此操作（以确保加载新的测试文件）。
 
-4. Add a test case after the definition of the *utils* sub test suite:
+4. 在 *utils* 子测试套件的定义后添加测试用例：
 
     .. code-block:: javascript
 
@@ -431,38 +332,22 @@ the following:
             assert.strictEqual(result, expectedResult);
         });
 
-5. Visit */web/tests/* to make sure the test is executed
+5. 访问 */web/tests/* 确保测试被执行。
 
-Helper functions and specialized assertions
--------------------------------------------
+辅助函数和专业断言
+---------------------------
 
-Without help, it is quite difficult to test some parts of Odoo. In particular,
-views are tricky, because they communicate with the server and may perform many
-rpcs, which needs to be mocked.  This is why we developed some specialized
-helper functions, located in `test_utils.js`_.
+没有帮助，测试 Odoo 的某些部分是相当困难的。特别是，视图比较棘手，因为它们与服务器通信，并且可能执行许多 RPC，这需要被模拟。这就是我们开发一些专业辅助函数的原因，这些函数位于 `test_utils.js`_。
 
-- Mock test functions: these functions help setting up a test environment. The
-  most important use case is mocking the answers given by the Odoo server. These
-  functions use a `mock server`_. This is a javascript class that simulates
-  answers to the most common model methods: read, search_read, nameget, ...
+- 模拟测试函数：这些函数帮助设置测试环境。最重要的用例是模拟 Odoo 服务器给出的答案。这些函数使用 `mock server`_。这是一个 JavaScript 类，模拟对最常见模型方法的答案：read、search_read、nameget 等。
 
-- DOM helpers: useful to simulate events/actions on some specific target. For
-  example, testUtils.dom.click performs a click on a target.  Note that it is
-  safer than doing it manually, because it also checks that the target exists,
-  and is visible.
+- DOM 辅助工具：用于模拟某些特定目标上的事件/操作。例如，testUtils.dom.click 在目标上执行点击。请注意，这比手动执行更安全，因为它还检查目标是否存在且可见。
 
-- create helpers: they are probably the most important functions exported by
-  `test_utils.js`_.  These helpers are useful to create a widget, with a mock
-  environment, and a lot of small detail to simulate as much as possible the
-  real conditions.  The most important is certainly `createView`_.
+- 创建辅助工具：它们可能是 `test_utils.js`_ 导出的最重要的函数。这些辅助工具对于创建一个小部件、带有模拟环境以及尽可能多地模拟真实条件的细节非常有用。最重要的当然是 `createView`_。
 
-- `qunit assertions`_: QUnit can be extended with specialized assertions. For
-  Odoo, we frequently test some DOM properties. This is why we made some
-  assertions to help with that.  For example, the *containsOnce* assertion takes
-  a widget/jQuery/HtmlElement and a selector, then checks if the target contains
-  exactly one match for the css selector.
+- `qunit 断言`_: QUnit 可以通过专业断言进行扩展。对于 Odoo，我们经常测试一些 DOM 属性。这就是我们制作一些断言来帮助实现这一目标的原因。例如，*containsOnce* 断言接受一个小部件/jQuery/HtmlElement 和一个选择器，然后检查目标是否准确包含 CSS 选择器的匹配项。
 
-For example, with these helpers, here is what a simple form test could look like:
+例如，使用这些辅助工具，简单表单测试的示例可能如下所示：
 
 .. code-block:: javascript
 
@@ -486,66 +371,40 @@ For example, with these helpers, here is what a simple form test could look like
         form.destroy();
     });
 
-Notice the use of the testUtils.createView helper and of the containsOnce
-assertion.  Also, the form controller was properly destroyed at the end of
-the test.
-
-Best Practices
+注意使用了 testUtils.createView 辅助工具和 containsOnce 断言。此外，表单控制器在测试结束时已被正确销毁。
+最佳实践
 --------------
 
-In no particular order:
+没有特定顺序：
 
-- all test files should be added in *some_addon/static/tests/*
-- for bug fixes, make sure that the test fails without the bug fix, and passes
-  with it.  This ensures that it actually works.
-- try to have the minimal amount of code necessary for the test to work.
-- usually, two small tests are better than one large test.  A smaller test is
-  easier to understand and to fix.
-- always cleanup after a test.  For example, if your test instantiates a widget,
-  it should destroy it at the end.
-- no need to have full and complete code coverage.  But adding a few tests helps
-  a lot: it makes sure that your code is not completely broken, and whenever a
-  bug is fixed, it is really much easier to add a test to an existing test suite.
-- if you want to check some negative assertion (for example, that a HtmlElement
-  does not have a specific css class), then try to add the positive assertion in
-  the same test (for example, by doing an action that changes the state). This
-  will help avoid the test to become dead in the future (for example, if the css
-  class is changed).
+- 所有测试文件应添加到 *some_addon/static/tests/* 中。
+- 对于错误修复，确保在没有错误修复的情况下测试失败，并在有修复的情况下测试通过。这确保它确实有效。
+- 尽量减少测试所需的代码量。
+- 通常，两个小测试比一个大测试更好。较小的测试更容易理解和修复。
+- 始终在测试后进行清理。例如，如果你的测试实例化了一个小部件，它应该在结束时销毁。
+- 不必实现完整和完整的代码覆盖率。但添加一些测试会有很大帮助：这可以确保你的代码不会完全损坏，并且每当修复错误时，向现有测试套件中添加测试会容易得多。
+- 如果你想检查一些负断言（例如，某个 HtmlElement 不具有特定的 css 类），那么尝试在同一测试中添加正断言（例如，通过执行一个改变状态的操作）。这将有助于避免测试在未来变得无效（例如，如果 css 类被更改）。
 
-Tips
+提示
 ----
 
-- running only one test: you can (temporarily!) change the *QUnit.test(...)*
-  definition into *QUnit.only(...)*.  This is useful to make sure that QUnit
-  only runs this specific test.
-- debug flag: most create utility functions have a debug mode (activated by the
-  debug: true parameter).  In that case, the target widget will be put in the DOM
-  instead of the hidden qunit specific fixture, and more information will be
-  logged. For example, all mocked network communications will be available in the
-  console.
-- when working on a failing test, it is common to add the debug flag, then
-  comment the end of the test (in particular, the destroy call).  With this, it
-  is possible to see the state of the widget directly, and even better, to
-  manipulate the widget by clicking/interacting with it.
+- 仅运行一个测试：你可以（临时地！）将 *QUnit.test(...)*
+  定义更改为 *QUnit.only(...)*。这对于确保 QUnit 仅运行这个特定测试非常有用。
+- 调试标志：大多数创建实用函数都有调试模式（通过 debug: true 参数激活）。在这种情况下，目标小部件将放置在 DOM 中，而不是隐藏的 qunit 特定工具中，并且会记录更多信息。例如，所有模拟的网络通信将在控制台中可用。
+- 在处理失败的测试时，通常会添加调试标志，然后注释掉测试的结尾（尤其是 destroy 调用）。这样，可以直接查看小部件的状态，甚至更好，可以通过单击/与其交互来操控小部件。
 
-.. _reference/testing/integration-testing:
-
-Integration Testing
+集成测试
 ===================
 
-Testing Python code and JS code separately is very useful, but it does not prove that the web client
-and the server work together.  In order to do that, we can write another kind of test: tours.  A
-tour is a mini scenario of some interesting business flow.  It explains a sequence of steps that
-should be followed.  The test runner will then create a PhantomJs browser, point it to the proper
-url and simulate the click and inputs, according to the scenario.
+单独测试 Python 代码和 JS 代码非常有用，但这并不能证明 Web 客户端和服务器能够协同工作。为了做到这一点，我们可以编写另一种类型的测试：游览。游览是一些有趣业务流程的迷你场景。它描述了应遵循的步骤顺序。测试运行程序将创建一个 PhantomJs 浏览器，指向正确的 URL，并根据场景模拟点击和输入。
 
-Writing a test tour
+编写测试游览
 -------------------
 
-Structure
+结构
 ~~~~~~~~~
 
-To write a test tour for `your_module`, start with creating the required files:
+要为 `your_module` 编写测试游览，请首先创建所需的文件：
 
 .. code-block:: text
 
@@ -560,9 +419,9 @@ To write a test tour for `your_module`, start with creating the required files:
     |   └── test_calling_the_tour.py
     └── __manifest__.py
 
-You can then:
+然后，你可以：
 
-- update :file:`__manifest__.py` to add :file:`your_tour.js` in the assets.
+- 更新 :file:`__manifest__.py` 以将 :file:`your_tour.js` 添加到资产中。
 
   .. code-block:: python
 
@@ -572,48 +431,47 @@ You can then:
          ],
      },
 
-- update :file:`__init__.py` in the folder :file:`tests` to import :file:`test_calling_the_tour`.
+- 更新 :file:`tests` 文件夹中的 :file:`__init__.py` 以导入 :file:`test_calling_the_tour`。
 
 .. seealso::
    - :ref:`Assets Bundle <reference/assets_bundle>`
    - :ref:`testing/python`
 
-Javascript
+JavaScript
 ~~~~~~~~~~
 
-#. Setup your tour by registering it.
+#. 通过注册设置你的游览。
 
    .. code-block:: javascript
 
       /** @odoo-module **/
       import tour from 'web_tour.tour';
       tour.register('rental_product_configurator_tour', {
-          url: '/web',  // Here, you can specify any other starting url
+          url: '/web',  // 在这里，你可以指定任何其他起始 URL
           test: true,
       }, [
-          // Your sequence of steps
+          // 你的步骤序列
       ]);
 
-#. Add any step you want.
+#. 添加你想要的任何步骤。
 
-Every step contains at least a trigger. You can either use the `predefined steps
-<{GITHUB_PATH}/addons/web_tour/static/src/tour_service/tour_utils.js#L426>`_ or write your own personalized
-step.
+每个步骤至少包含一个触发器。你可以使用预定义步骤
+<{GITHUB_PATH}/addons/web_tour/static/src/tour_service/tour_utils.js#L426} 或者编写自己的个性化步骤。
 
-Here are some example of steps:
+以下是一些步骤示例：
 
 .. example::
 
    .. code-block:: javascript
 
-      // First step
+      // 第一步
       tour.stepUtils.showAppsMenuItem(),
-      // Second step
+      // 第二步
       {
           trigger: '.o_app[data-menu-xmlid="your_module.maybe_your_module_menu_root"]',
-          edition: 'community'  // Optional
+          edition: 'community'  // 可选
       }, {
-          // Third step
+          // 第三步
       },
 
 .. example::
@@ -622,7 +480,7 @@ Here are some example of steps:
 
       {
           trigger: '.js_product:has(strong:contains(Chair floor protection)) .js_add',
-          extra_trigger: '.oe_advanced_configurator_modal',  // This ensure we are in the wizard
+          extra_trigger: '.oe_advanced_configurator_modal',  // 确保我们在向导中
       },
 
 .. example::
@@ -631,234 +489,179 @@ Here are some example of steps:
 
       {
           trigger: 'a:contains("Add a product")',
-          // Extra-trigger to make sure a line is added before trying to add another one
+          // 额外触发器以确保在尝试添加另一行之前添加一行
           extra_trigger: '.o_field_many2one[name="product_template_id"] .o_external_button',
       },
 
-Here are some possible arguments for your personalized steps:
+以下是你个性化步骤的一些可能参数：
 
-- **trigger**: Selector/element to ``run`` an action on. The tour will
-  wait until the element exists and is visible before ``run``-ing the
-  action *on it*.
-- **extra_trigger**: Optional secondary condition for the step to
-  ``run``. Will be waited for like the **trigger** element but the
-  action will not run on the extra trigger.
+- **trigger**：要在其上“运行”某个操作的选择器/元素。游览将在元素存在并可见之前等待该元素，然后在其上“运行”该操作。
+- **extra_trigger**：用于步骤“运行”的可选辅助条件。将像 **trigger** 元素一样等待，但操作不会在额外触发器上运行。
 
-  Useful to have a precondition, or two different and unrelated
-  conditions.
-- **run**: Action to perform on the *trigger* element.
+  适合用作前置条件，或两个不同且无关的条件。
+- **run**：要在 *trigger* 元素上执行的操作。
 
-  By default, tries to set the **trigger**'s content to ``Text`` if
-  it's an ``input``, otherwise ``click`` it.
+  默认情况下，尝试将 **trigger** 的内容设置为 ``Text``（如果是 ``input``），否则单击它。
 
-  The action can also be:
+  该操作也可以是：
 
-  - A function, synchronous, executed with the trigger's ``Tip`` as
-    context (``this``) and the action helpers as parameter.
-  - The name of one of the action helpers, which will be run on the
-    trigger element:
+  - 一个函数，同步，在触发器的 ``Tip`` 上执行，作为上下文（``this``）并传入操作助手。
+  - 要在触发器元素上运行的操作助手之一的名称：
 
-    .. rst-class::  o-definition-list
+    .. rst-class:: o-definition-list
 
     ``click``
-        Clicks the element, performing all the relevant intermediate
-        events.
+        单击元素，执行所有相关的中间事件。
     :samp:`text {content}`
-        Clicks (focuses) the element then sets ``content`` as the
-        element's value (if an input), option (if a select), or
-        content.
-    ``dblclick``, ``tripleclick``
-        Same as ``click`` with multiple repetitions.
+        单击（聚焦）元素，然后将 ``content`` 设置为元素的值（如果是输入），选项（如果是选择），或内容。
+    ``dblclick``、``tripleclick``
+        与 ``click`` 相同，但重复多次。
     ``clicknoleave``
-        By default, ``click`` (and variants) will trigger "exit"
-        events on the trigger element (mouseout, mouseleave). This
-        helper suppresses those (note: further clicks on other
-        elements will not trigger those events implicitly).
+        默认情况下，``click``（及其变体）将触发触发器元素的“退出”事件（mouseout、mouseleave）。此助手将抑制这些事件（注意：对其他元素的进一步单击不会隐式触发这些事件）。
     ``text_blur``
-        Similar to ``text`` but follows the edition with ``focusout``
-        and ``blur`` events.
+        类似于 ``text``，但跟随 ``focusout`` 和 ``blur`` 事件。
     :samp:`drag_and_drop {target}`
-       Simulates the dragging of the **trigger** element over to the
-       ``target``.
-- **edition**: Optional,
+       模拟将 **trigger** 元素拖动到 ``target``。
+- **edition**：可选，
 
-  - If you don't specify an edition, the step will be active in both community and enterprise.
-  - Sometimes, a step will be different in enterprise or in community. You can then write two
-    steps, one for the enterprise edition and one for the community one.
-  - Generally, you want to specify an edition for steps that use the main menu as the main
-    menus are different in community and enterprise.
-- **position**: Optional, ``"top"``, ``"right"``, ``"bottom"``, or
-  ``"left"``. Where to position the tooltip relative to the **target**
-  when running interactive tours.
-- **content**: Optional but recommended, the content of the tooltip in
-  interactive tours, also logged to the console so very useful to
-  trace and debug automated tours.
-- **auto**: Whether the tour manager should wait for the user to
-  perform the action if the tour is interactive, defaults to
-  ``false``.
-- **in_modal**: If set the **trigger** element will be searched only
-  in the top modal window, defaults to ``false``.
-- **timeout**: How long to wait until the step can ``run``, in
-  milliseconds, 10000 (10 seconds).
+  - 如果不指定版本，步骤将在社区版和企业版中都是活动的。
+  - 有时，企业版或社区版的步骤将有所不同。你可以为企业版和社区版编写两个步骤。
+  - 通常，你希望为使用主菜单的步骤指定版本，因为主菜单在社区版和企业版中不同。
+- **position**：可选，“top”、“right”、“bottom”或“left”。运行交互式游览时，工具提示相对于 **target** 的位置。
+- **content**：可选但建议，交互式游览中的工具提示内容，也记录到控制台，因此非常有用以跟踪和调试自动化游览。
+- **auto**：游览管理器在交互式时是否应等待用户执行操作，默认为 ``false``。
+- **in_modal**：如果设置，**trigger** 元素只会在顶部模态窗口中搜索，默认为 ``false``。
+- **timeout**：直到步骤可以 ``run`` 的等待时间，以毫秒为单位，默认为 10000（10 秒）。
 
 .. important::
 
-   The last step(s) of a tour should always return the client to a
-   "stable" state (e.g. no ongoing editions) and ensure all
-   side-effects (network requests) have finished running to avoid race
-   conditions or errors during teardown.
+   游览的最后一步（们）应始终将客户端返回到“稳定”状态（例如，没有正在进行的编辑）并确保所有副作用（网络请求）已完成，以避免竞争条件或在清理过程中出现错误。
 
 .. seealso::
-   - `jQuery documentation about find <https://api.jquery.com/find/>`_
-
+   - `jQuery 文档关于 find <https://api.jquery.com/find/>`_
 Python
 ~~~~~~
 
-To start a tour from a python test, make the class inherit from
-:class:`~odoo.tests.HTTPCase`, and call `start_tour`:
+要从 Python 测试启动游览，请使类继承自 :class:`~odoo.tests.HTTPCase`，并调用 `start_tour`：
 
 .. code-block:: python
 
    def test_your_test(self):
-       # Optional Setup
+       # 可选的设置
        self.start_tour("/web", 'your_module.your_tour_name', login="admin")
-       # Optional verifications
+       # 可选的验证
 
-Debugging tips
+调试技巧
 --------------
 
-Observing tours in a browser
+观察浏览器中的游览
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There are two ways with different tradeoffs:
+有两种方法，各有利弊：
 
 ``watch=True``
 **************
 
-When running a tour locally via the test suite, the ``watch=True``
-parameter can be added to the ``browser_js`` or ``start_tour``
-call::
+当通过测试套件在本地运行游览时，可以将 ``watch=True`` 参数添加到 ``browser_js`` 或 ``start_tour`` 调用中：
 
     self.start_tour("/web", code, watch=True)
 
-This will automatically open a Chrome window with the tour being
-run inside it.
+这将自动打开一个 Chrome 窗口，其中运行游览。
 
-**Advantages**
-  - always works if the tour has Python setup / surrounding code, or multiple steps
-  - runs entirely automatically (just select the test which launches the tour)
-  - transactional (*should* always be runnable multiple times)
-**Drawbacks**
-  - only works locally
-  - only works if the test / tour can run correctly locally
+**优点**
+  - 如果游览具有 Python 设置/周围代码或多个步骤，则始终有效
+  - 完全自动运行（只需选择启动游览的测试）
+  - 事务性（*应该*始终可以多次运行）
 
-Run via browser
+**缺点**
+  - 仅在本地有效
+  - 仅在测试/游览可以正确本地运行时有效
+
+通过浏览器运行
 ***************
 
-Tours can also be launched via the browser UI, either by calling
+游览也可以通过浏览器 UI 启动，方法是在 JavaScript 控制台中调用
 
 .. code-block:: javascript
 
     odoo.startTour(tour_name);
 
-in the javascript console, or by enabling :ref:`tests mode
-<frontend/framework/tests_debug_mode>` by setting ``?debug=tests`` in
-the URL, then selecting **Start Tour** in the debug menu and picking a
-tour:
+或者通过在 URL 中设置 ``?debug=tests`` 启用 :ref:`测试模式 <frontend/framework/tests_debug_mode>`，然后在调试菜单中选择 **Start Tour** 并选择一个游览：
 
 .. image:: testing/tours.png
    :align: center
 
-**Advantages**
-  - easier to run
-  - can be used on production or test sites, not just local instances
-  - allows running in "Onboarding" mode (manual steps)
-**Drawbacks**
-  - harder to use with test tours involving Python setup
-  - may not work multiple times depending on tour side-effects
+**优点**
+  - 更容易运行
+  - 可以在生产或测试站点上使用，而不仅仅是本地实例
+  - 允许在“入职”模式下运行（手动步骤）
+
+**缺点**
+  - 对于涉及 Python 设置的测试游览更难使用
+  - 可能由于游览副作用无法多次工作
 
 .. tip::
 
-   It's possible to use this method to observe or interact with tours
-   which require Python setup:
+   使用此方法可以观察或与需要 Python 设置的游览进行交互：
 
-   - add a *python* breakpoint before the relevant tour is started
-     (``start_tour`` or ``browser_js`` call)
-   - when the breakpoint is hit, open the instance in your browser
-   - run the tour
+   - 在相关游览开始之前添加 *python* 断点
+     （``start_tour`` 或 ``browser_js`` 调用）
+   - 当命中断点时，在浏览器中打开实例
+   - 运行游览
 
-   At this point the Python setup will be visible to the browser, and
-   the tour will be able to run.
+   此时，Python 设置将对浏览器可见，并且游览将能够运行。
 
-   You may want to comment the ``start_tour`` or ``browser_js`` call
-   if you also want the test to continue afterwards, depending on the
-   tour's side-effects.
+   如果你还想让测试在游览的副作用之后继续，你可能需要注释掉 ``start_tour`` 或 ``browser_js`` 调用。
 
-Screenshots and screencasts during browser_js tests
+在 browser_js 测试期间的屏幕截图和屏幕录像
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When running tests that use ``HttpCase.browser_js`` from the command line, the Chrome
-browser is used in headless mode. By default, if a test fails, a PNG screenshot is
-taken at the moment of the failure and written in
+当从命令行运行使用 ``HttpCase.browser_js`` 的测试时，Chrome 浏览器以无头模式使用。默认情况下，如果测试失败，将在失败时拍摄 PNG 屏幕截图并写入
 
 .. code-block:: console
 
   '/tmp/odoo_tests/{db_name}/screenshots/'
 
-Two new command line arguments were added since Odoo 13.0 to control this behavior:
-:option:`--screenshots <odoo-bin --screenshots>` and :option:`--screencasts <odoo-bin --screencasts>`
+自 Odoo 13.0 以来，新增了两个命令行参数来控制此行为：
+:option:`--screenshots <odoo-bin --screenshots>` 和 :option:`--screencasts <odoo-bin --screencasts>`
 
-Introspecting / debugging steps
+检查 / 调试步骤
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When trying to fix / debug a tour, the screenshots (on failure) are
-not necessarily sufficient. In that case it can be useful to see
-what's happening at some or each step.
+在尝试修复 / 调试游览时，屏幕截图（在失败时）不一定足够。在这种情况下，查看每个步骤发生的事情可能会很有用。
 
-While this is pretty easy when in an "onboarding" (as they're mostly
-driven explicitly by the user) it's more complicated when running
-"test" tours, or when running tours through the test suite. In that
-case there are two main tricks:
+当处于“入职”模式时，这非常简单（因为它们主要由用户显式驱动），但在运行“测试”游览时或通过测试套件运行游览时就更复杂。在这种情况下，有两个主要技巧：
 
-- Have a step with a ``run() { debugger; }`` action.
+- 有一个步骤带有 ``run() { debugger; }`` 动作。
 
-  This can be added to an existing step, or can be a new dedicated
-  step. Once the step's **trigger** is matched, the execution will
-  stop all javascript execution.
+  这可以添加到现有步骤中，或者可以是一个新的专用步骤。一旦步骤的 **trigger** 匹配，执行将停止所有 JavaScript 执行。
 
-  **Advantages**
-    - very simple
-    - the tour restarts as soon as you resume execution
-  **Drawbacks**
-    - page interaction is limited as all javascript is blocked
-    - debugging the inside of the tour manager is not very useful
-- Add a step with a trigger which never succeeds and a very long
-  ``timeout``.
+  **优点**
+    - 非常简单
+    - 游览在你恢复执行后会重新启动
 
-  The browser will wait for the **trigger** until the ``timeout``
-  before it fails the tour, this allows inspecting and interacting
-  with the page until the developer is ready to resume, by manually
-  enabling the **trigger** (a nonsense class is useful there, as it
-  can be triggered by adding the class to any visible element of the
-  page).
+  **缺点**
+    - 页面交互受限，因为所有 JavaScript 被阻止
+    - 调试游览管理器内部并不是很有用
 
-  **Advantages**
-    - allows interacting with the page
-    - easy to apply to a step which times out (just add a long
-      ``timeout`` then look around)
-    - no useless (for this situation) debugger UI
-  **Drawbacks**
-    - more manual, especially when resuming
+- 添加一个带有触发器的步骤，该触发器永远不会成功，并且 ``timeout`` 非常长。
 
+  浏览器将等待 **trigger** 直到 ``timeout`` 之前才会失败游览，这允许在开发人员准备恢复之前检查和与页面交互，通过手动启用 **trigger**（使用无意义的类是有用的，因为可以通过将该类添加到页面的任何可见元素来触发它）。
+
+  **优点**
+    - 允许与页面交互
+    - 容易应用于超时的步骤（只需添加一个长 ``timeout`` 然后查看周围）
+    - 没有对这个情况无用的调试器 UI
+
+  **缺点**
+    - 更加手动，特别是在恢复时
 Performance Testing
 ===================
 
-Query counts
+查询计数
 ------------
 
-One of the ways to test performance is to measure database queries. Manually, this can be tested with the
-`--log-sql` CLI parameter. If you want to establish the maximum number of queries for an operation,
-you can use the :meth:`~odoo.tests.BaseCase.assertQueryCount` method, integrated in Odoo test classes.
+测试性能的一个方法是测量数据库查询。手动测试可以使用 `--log-sql` CLI 参数。如果您想为某个操作建立最大查询数量，可以使用集成在 Odoo 测试类中的 :meth:`~odoo.tests.BaseCase.assertQueryCount` 方法。
 
 .. code-block:: python
 

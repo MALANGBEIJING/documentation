@@ -1,80 +1,56 @@
 =================
-Odoo.com accounts
+Odoo.com 账户
 =================
 
-This documentation is dedicated to edits made to an Odoo.com account. The following processes
-describe how to delete an Odoo.com account, and how to change the password on an Odoo.com account.
+本文件专门说明对 Odoo.com 账户进行的编辑操作。以下过程描述了如何删除 Odoo.com 账户以及如何更改 Odoo.com 账户的密码。
 
-Delete Odoo.com account
+删除 Odoo.com 账户
 =======================
 
-To delete an Odoo.com account, start by clicking the profile icon in the upper-right corner
-(represented by the username and icon) to reveal a drop-down menu. From the drop-down menu, select
-:guilabel:`My Odoo.com account`, which reveals the user portal.
+要删除 Odoo.com 账户，首先点击右上角的个人资料图标（由用户名和图标表示）以显示下拉菜单。在下拉菜单中，选择 :guilabel:`我的 Odoo.com 账户`，以进入用户门户。
 
-From the user portal, the delete option can be accessed by going to :menuselection:`My Account -->
-Edit Security Settings --> Delete Account`. It can also be accessed by going to
-`https://www.odoo.com/my/home <https://www.odoo.com/my/home>`_.
+从用户门户中，可以通过导航到 :menuselection:`我的账户 --> 编辑安全设置 --> 删除账户` 来访问删除选项。也可以通过访问 `https://www.odoo.com/my/home <https://www.odoo.com/my/home>`_ 进行访问。
 
 .. danger::
-   Deleting an Odoo account is irreversible. Be careful performing this action, as the Odoo.com
-   account is **not** retrievable once deleted.
+   删除 Odoo 账户是不可逆的。执行此操作时请小心，因为 Odoo.com 账户一旦删除，将**无法**恢复。
 
-Upon clicking the :guilabel:`Delete Account` button, a pop-up window appears, requesting
-confirmation for the account deletion.
+点击 :guilabel:`删除账户` 按钮后，会出现一个弹出窗口，要求确认删除账户。
 
 .. image:: odoo_account/delete-account.png
    :align: center
-   :alt: Clicking on the Delete Account button will populate a window verifying the change.
+   :alt: 点击删除账户按钮后，将显示一个确认更改的窗口。
 
-To confirm the deletion, enter the :guilabel:`Password` and the :guilabel:`Login` for the account
-being deleted. Then, click the :guilabel:`Delete Account` button to confirm the deletion.
+要确认删除，请输入要删除账户的 :guilabel:`密码` 和 :guilabel:`登录名`。然后点击 :guilabel:`删除账户` 按钮以确认删除。
 
 .. _odoocom/change_password:
 
-Odoo.com account password change
+更改 Odoo.com 账户密码
 ================================
 
-To change an Odoo.com account password, first login into the Odoo.com user account from the Odoo.com
-login page. After logging-in, go to the upper-right corner of the screen, and click the :guilabel:`▼
-(down arrow)` icon next to the profile icon. Then, select :guilabel:`My Account`, and a portal
-dashboard appears.
+要更改 Odoo.com 账户密码，请首先从 Odoo.com 登录页面登录到 Odoo.com 用户账户。登录后，进入屏幕右上角，点击个人资料图标旁边的 :guilabel:`▼（向下箭头）` 图标。然后选择 :guilabel:`我的账户`，会显示门户仪表板。
 
-To change the Odoo.com password, click on the :guilabel:`Edit Security Settings` link, below the
-:menuselection:`Account Security` section. Next, make the necessary changes by typing in the current
-:guilabel:`Password`, :guilabel:`New Password`, and verify the new password. Lastly, click on
-:guilabel:`Change Password` to complete the password change.
+要更改 Odoo.com 密码，请点击 :guilabel:`编辑安全设置` 链接，该链接位于 :menuselection:`账户安全` 部分下方。接下来，通过输入当前的 :guilabel:`密码`、:guilabel:`新密码` 并确认新密码来进行必要的更改。最后，点击 :guilabel:`更改密码` 完成密码更改。
 
 .. note::
-   If a customer would like to change the login, contact Odoo support `here
-   <https://www.odoo.com/help>`_.
+   如果客户想更改登录名，请`联系 Odoo 支持 <https://www.odoo.com/help>`_。
 
 .. note::
-   Passwords for Odoo.com users and portal users remain separate, even if the same email address is
-   used.
+   即使使用相同的电子邮件地址，Odoo.com 用户和门户用户的密码仍然是分开的。
 
-Add two-factor authentication
+添加双因素认证
 =============================
 
-To add two-factor authentication, login into the Odoo.com user account from the Odoo.com login page.
-After logging-in, go to the upper-right corner of the screen, and click the :guilabel:`▼ (down
-arrow)` icon next to the :guilabel:`profile icon`. Then, select :guilabel:`My Account`, and a portal
-dashboard appears.
+要添加双因素认证，请从 Odoo.com 登录页面登录到 Odoo.com 用户账户。登录后，进入屏幕右上角，点击个人资料图标旁边的 :guilabel:`▼（向下箭头）` 图标。然后选择 :guilabel:`我的账户`，会显示门户仪表板。
 
-If the user would like to turn on two-factor authentication (2FA) for Odoo.com access, click on the
-:guilabel:`Edit Security Settings` link below the :menuselection:`Account Security` section.
+如果用户希望为 Odoo.com 访问启用双因素认证 (2FA)，请点击 :menuselection:`账户安全` 部分下方的 :guilabel:`编辑安全设置` 链接。
 
-Click on :guilabel:`Enable two-factor authentication` to turn on :abbr:`2FA (two-factor
-authentication)`. Then, confirm the current password in the :guilabel:`Password` field. Next, click
-on :guilabel:`Confirm Password`. Following that, activate :abbr:`2FA (two-factor authentication)` in
-a :abbr:`2FA (two-factor authentication)` app (Google Authenticator, Authy, etc.), by scanning the
-:guilabel:`QR code` or entering a :guilabel:`Verification Code`.
+点击 :guilabel:`启用双因素认证` 以启用 :abbr:`2FA (双因素认证)`。然后，在 :guilabel:`密码` 字段中确认当前密码。接下来，点击 :guilabel:`确认密码`。随后，在 :abbr:`2FA (双因素认证)` 应用（如 Google Authenticator、Authy 等）中，通过扫描 :guilabel:`二维码` 或输入 :guilabel:`验证码` 来激活 :abbr:`2FA (双因素认证)`。
 
-Finally, click on :guilabel:`Enable two-factor authentication` to complete the setup.
+最后，点击 :guilabel:`启用双因素认证` 以完成设置。
 
 .. note::
-   Under :guilabel:`My Account` Odoo.com users can also access the following:
+   在 :guilabel:`我的账户` 下，Odoo.com 用户还可以访问以下内容：
 
-   - :guilabel:`My Partner dashboard`
-   - :guilabel:`My In-App Services`
-   - :guilabel:`My Apps Dashboard`
+   - :guilabel:`我的合作伙伴仪表板`
+   - :guilabel:`我的应用内服务`
+   - :guilabel:`我的应用仪表板`

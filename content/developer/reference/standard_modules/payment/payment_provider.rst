@@ -1,7 +1,7 @@
 :hide-page-toc:
 
 ================
-Payment Provider
+支付提供商
 ================
 
 .. autoclass:: odoo.addons.payment.models.payment_provider.PaymentProvider()
