@@ -2175,7 +2175,7 @@ msgid ""
 "configured from the command-line interface "
 "<reference/cmdline/server/emails>`"
 msgstr ""
-":ref:`通过命令行界面 <reference/cmdline/server/emails> 配置外发邮件服务器的 Odoo 数据库的技术启动`。"
+":ref:`通过命令行接口 <reference/cmdline/server/emails> 配置外发邮件服务器的 Odoo 数据库的技术启动`。"
 
 #: ../../content/applications/general/email_communication/azure_oauth.rst:3
 msgid "Connect Microsoft Outlook 365 to Odoo using Azure OAuth"
@@ -4185,7 +4185,7 @@ msgid ""
 "On Odoo Online, the command line interface is equivalent to the default Odoo"
 " mail server, using the same limit as if there was no outgoing mail server "
 "in place."
-msgstr "在 Odoo 云端版上，命令行界面相当于默认的 Odoo 邮件服务器，使用的限制与没有外发邮件服务器时相同。"
+msgstr "在 Odoo 云端版上，命令行接口相当于默认的 Odoo 邮件服务器，使用的限制与没有外发邮件服务器时相同。"
 
 #: ../../content/applications/general/email_communication/email_servers_outbound.rst:235
 msgid ""
@@ -4198,7 +4198,7 @@ msgstr "在 Odoo 云端版上，该页面还会显示您的每日电子邮件使
 msgid ""
 "On Odoo.sh, to use the command-line interface, an outgoing mail server can "
 "be configured on the configuration file."
-msgstr "在 Odoo.sh 上，要使用命令行界面，可在配置文件中配置外发邮件服务器。"
+msgstr "在 Odoo.sh 上，要使用命令行接口，可在配置文件中配置外发邮件服务器。"
 
 #: ../../content/applications/general/email_communication/email_servers_outbound.rst:243
 msgid ""

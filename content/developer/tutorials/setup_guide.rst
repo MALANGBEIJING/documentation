@@ -69,7 +69,7 @@
 使用 `odoo-bin` 启动
 ----------------------
 
-所有依赖项设置完成后，可以通过运行 `odoo-bin` 启动 Odoo，`odoo-bin` 是服务器的命令行界面。
+所有依赖项设置完成后，可以通过运行 `odoo-bin` 启动 Odoo，`odoo-bin` 是服务器的命令行接口。
 
 .. code-block:: console
 

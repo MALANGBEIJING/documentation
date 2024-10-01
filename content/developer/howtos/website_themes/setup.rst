@@ -151,7 +151,7 @@ Odoo.sh
 运行 Odoo
 ------------
 
-一旦设置了所有依赖项，可以通过运行 `odoo-bin` 启动 Odoo，这是服务器的命令行界面。它位于 Odoo Community 目录的根目录下。
+一旦设置了所有依赖项，可以通过运行 `odoo-bin` 启动 Odoo，这是服务器的命令行接口。它位于 Odoo Community 目录的根目录下。
 
 - :ref:`运行 Odoo <install/source/running_odoo>`
 - `Docker <https://hub.docker.com/_/odoo/>`_

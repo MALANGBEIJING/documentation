@@ -6026,7 +6026,7 @@ msgstr "修改后的行显示如下：`admin_passwd = newpassword1234`"
 #: ../../content/administration/on_premise/deploy.rst:812
 #: ../../content/administration/on_premise/deploy.rst:852
 msgid "Command-line interface"
-msgstr "命令行界面"
+msgstr "命令行接口"
 
 #: ../../content/administration/on_premise/deploy.rst:814
 msgid ""
@@ -6318,7 +6318,7 @@ msgid ""
 "Odoo command line interface. These options take the absolute path to the "
 "GeoIP database file and use it as the GeoIP database. For example:"
 msgstr ""
-"如果不想在 :file:`/usr/share/GeoIP/` 中定位 geoip 数据库，请使用 Odoo 命令行界面的 "
+"如果不想在 :file:`/usr/share/GeoIP/` 中定位 geoip 数据库，请使用 Odoo 命令行接口的 "
 ":option:`--geoip-city-db <odoo-bin --geoip-city-db>` 和 :option:`--geoip-"
 "country-db <odoo-bin --geoip-country-db>` 选项。这些选项获取 GeoIP 数据库文件的绝对路径，并将其用作 "
 "GeoIP 数据库。例如："
@@ -7044,7 +7044,7 @@ msgid ""
 "Once all dependencies are set up, Odoo can be launched by running `odoo-"
 "bin`, the command-line interface of the server. It is located at the root of"
 " the Odoo Community directory."
-msgstr "一旦设置了所有依赖项，就可以通过运行服务器的命令行界面“odoo-bin”来启动Odoo。它位于Odoo社区目录的根目录。"
+msgstr "一旦设置了所有依赖项，就可以通过运行服务器的命令行接口“odoo-bin”来启动Odoo。它位于Odoo社区目录的根目录。"
 
 #: ../../content/administration/on_premise/source.rst:433
 msgid ""

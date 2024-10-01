@@ -1,10 +1,10 @@
 .. _reference/cmdline:
 
 ============================
-命令行界面 (CLI)
+命令行接口 (CLI)
 ============================
 
-CLI :dfn:`命令行界面` 提供与 Odoo 相关的多种功能。您可以使用它来 :ref:`运行服务器 <reference/cmdline/server>`、:ref:`以 Python 控制台环境启动 Odoo <reference/cmdline/shell>`、:ref:`搭建 Odoo 模块骨架 <reference/cmdline/scaffold>`、:ref:`填充数据库 <reference/cmdline/populate>`，或 :ref:`统计代码行数 <reference/cmdline/cloc>`。
+CLI :dfn:`命令行接口` 提供与 Odoo 相关的多种功能。您可以使用它来 :ref:`运行服务器 <reference/cmdline/server>`、:ref:`以 Python 控制台环境启动 Odoo <reference/cmdline/shell>`、:ref:`搭建 Odoo 模块骨架 <reference/cmdline/scaffold>`、:ref:`填充数据库 <reference/cmdline/populate>`，或 :ref:`统计代码行数 <reference/cmdline/cloc>`。
 
 .. important::
    调用 CLI 的命令取决于您如何安装 Odoo。在下面的示例中，我们假设您是 :doc:`从源代码运行 Odoo </administration/on_premise/source>`，使用 :file:`odoo-bin` 文件。如果您通过 :doc:`发行包安装 Odoo </administration/on_premise/packages>` 或使用 `Docker <https://hub.docker.com/_/odoo/>`，则必须调整命令。
