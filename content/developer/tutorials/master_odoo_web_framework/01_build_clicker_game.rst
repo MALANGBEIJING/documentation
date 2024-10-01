@@ -1,86 +1,73 @@
+构建点击游戏
 ===============================
-Chapter 1: Build a Clicker game
-===============================
 
-For this project, we will build together a `clicker game <https://en.wikipedia.org/wiki/Incremental_game>`_,
-completely integrated with Odoo. In this game, the goal is to accumulate a large number of clicks, and
-to automate the system. The interesting part is that we will use the Odoo user interface as our playground.
-For example, we will hide bonuses in some random parts of the web client.
+在本项目中，我们将一起构建一个 `点击游戏 <https://en.wikipedia.org/wiki/Incremental_game>`_，
+与 Odoo 完全集成。在这个游戏中，目标是积累大量点击，并自动化系统。有趣的是，我们将使用 Odoo 用户界面作为我们的游乐场。例如，我们将在网页客户端的某些随机位置隐藏奖金。
 
-To get started, you need a running Odoo server and a development environment. Before getting
-into the exercises, make sure you have followed all the steps described in this
-:ref:`tutorial introduction <tutorials/master_odoo_web_framework/setup>`.
+要开始，您需要一个正在运行的 Odoo 服务器和一个开发环境。在进行练习之前，请确保您遵循了
+:ref:`教程介绍 <tutorials/master_odoo_web_framework/setup>` 中描述的所有步骤。
 
-.. admonition:: Goal
+.. admonition:: 目标
 
    .. image:: 01_build_clicker_game/final.png
       :align: center
 
-.. spoiler:: Solutions
+.. spoiler:: 解决方案
 
-   The solutions for each exercise of the chapter are hosted on the
-   `official Odoo tutorials repository
-   <https://github.com/odoo/tutorials/commits/{CURRENT_MAJOR_BRANCH}-master-odoo-web-framework-solutions/awesome_clicker>`_.
+   本章每个练习的解决方案托管在
+   `官方 Odoo 教程库
+   <https://github.com/odoo/tutorials/commits/{CURRENT_MAJOR_BRANCH}-master-odoo-web-framework-solutions/awesome_clicker>`_。
 
 
-1. Create a systray item
+1. 创建一个系统托盘项目
 ========================
 
-To get started, we want to display a counter in the systray.
+要开始，我们希望在系统托盘中显示一个计数器。
 
-#. Create a `clicker_systray_item.js` (and `xml`) file with a hello world Owl component.
-#. Register it to the systray registry, and make sure it is visible.
-#. Update the content of the item so that it displays the following string: `Clicks: 0`, and
-   add a button on the right to increment the value.
+#. 创建一个 `clicker_systray_item.js`（和 `xml`）文件，包含一个 Hello World Owl 组件。
+#. 将其注册到系统托盘注册表，并确保其可见。
+#. 更新项目的内容，使其显示以下字符串：`点击次数：0`，并在右侧添加一个按钮以递增该值。
 
 .. image:: 01_build_clicker_game/systray.png
    :align: center
 
-And voila, we have a completely working clicker game!
+就这样，我们有了一个完全运行的点击游戏！
 
 .. seealso::
 
-   - :ref:`Documentation on the systray registry <frontend/registries/systray>`
-   - `Example: adding a systray item to the registry
+   - :ref:`系统托盘注册表的文档 <frontend/registries/systray>`
+   - `示例：将系统托盘项目添加到注册表
      <https://github.com/odoo/odoo/blob/c4fb9c92d7826ddbc183d38b867ca4446b2fb709/addons/web/static/src/webclient/user_menu/user_menu.js#L41-L42>`_
 
-2. Count external clicks
+2. 计算外部点击
 ========================
 
-Well, to be honest, it is not much fun yet. So let us add a new feature: we want all clicks in the
-user interface to count, so the user is incentivized to use Odoo as much as possible! But obviously,
-the intentional clicks on the main counter should still count more.
+老实说，现在还没有太多乐趣。所以让我们添加一个新功能：我们希望用户界面中的所有点击都计入，以便激励用户尽可能多地使用 Odoo！但显然，主要计数器上的故意点击应该算得更多。
 
-#. Use `useExternalListener` to listen on all clicks on `document.body`.
-#. Each of these clicks should increase the counter value by 1.
-#. Modify the code so that each click on the counter increased the value by 10
-#. Make sure that a click on the counter does not increase the value by 11!
-#. Also additional challenge: make sure the external listener capture the events, so we don't
-   miss any clicks.
+#. 使用 `useExternalListener` 监听 `document.body` 上的所有点击。
+#. 每个点击都应该将计数器值增加 1。
+#. 修改代码，使得每次点击计数器时增加 10
+#. 确保点击计数器不会增加 11！
+#. 另外，额外的挑战：确保外部监听器捕获事件，以便我们不会错过任何点击。
 
 .. seealso::
 
-   - `Owl documentation on useExternalListener <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#useexternallistener>`_
-   - `MDN page on event capture <https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_capture>`_
+   - `Owl 文档中的 useExternalListener <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#useexternallistener>`_
+   - `MDN 关于事件捕获的页面 <https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_capture>`_
 
-
-3. Create a client action
+3. 创建客户端操作
 =========================
 
-Currently, the current user interface is quite small: it is just a systray item. We certainly need
-more room to display more of our game. To do that, let us create a client action. A client action
-is a main action, managed by the web client, that displays a component.
+目前，当前用户界面相当小：它只是一个系统托盘项目。我们当然需要更多的空间来显示我们的游戏。为此，让我们创建一个客户端操作。客户端操作是由 web 客户端管理的主要操作，用于显示组件。
 
-#. Create a `client_action.js` (and `xml`) file, with a hello world component.
-#. Register that client action in the action registry under the name `awesome_clicker.client_action`
-#. Add a button on the systray item with the text `Open`. Clicking on it should open the
-   client action `awesome_clicker.client_action` (use the action service to do that).
-#. To avoid disrupting employees' workflow, we prefer the client action to open within a popover
-   rather than in fullscreen mode. Modify the `doAction` call to open it in a popover.
+#. 创建一个 `client_action.js`（和 `xml`）文件，包含一个 Hello World 组件。
+#. 在操作注册表中注册该客户端操作，名称为 `awesome_clicker.client_action`
+#. 在系统托盘项目上添加一个文本为 `打开` 的按钮。点击它应该打开客户端操作 `awesome_clicker.client_action`（使用操作服务来做到这一点）。
+#. 为了避免干扰员工的工作流程，我们更喜欢客户端操作在弹出窗口中打开，而不是全屏模式。修改 `doAction` 调用以在弹出窗口中打开。
 
    .. tip::
 
-      You can use `target: "new"` in the `doAction` to open the action in a popover:
+      您可以在 `doAction` 中使用 `target: "new"` 来在弹出窗口中打开操作：
 
       .. code-block:: js
 
@@ -96,17 +83,15 @@ is a main action, managed by the web client, that displays a component.
 
 .. seealso::
 
-   - :ref:`How to create a client action <howtos/javascript_client_action>`
+   - :ref:`如何创建客户端操作 <howtos/javascript_client_action>`
 
-4. Move the state to a service
+4. 将状态移动到服务
 ==============================
 
-For now, our client action is just a hello world component. We want it to display our game state, but
-that state is currently only available in the systray item. So it means that we need to change the
-location of our state to make it available for all our components. This is a perfect use case for services.
+目前，我们的客户端操作只是一个 Hello World 组件。我们希望它显示我们的游戏状态，但该状态目前仅在系统托盘项目中可用。因此，这意味着我们需要更改状态的位置，以使其可用于我们所有的组件。这是服务的完美用例。
 
-#. Create a `clicker_service.js` file with the corresponding service.
-#. This service should export a reactive value (the number of clicks) and a few functions to update it:
+#. 创建一个 `clicker_service.js` 文件，包含相应的服务。
+#. 该服务应导出一个反应值（点击次数）和一些更新它的函数：
 
    .. code-block:: js
 
@@ -119,26 +104,23 @@ location of our state to make it available for all our components. This is a per
             }
          };
 
-#. Access the state in both the systray item and the client action (don't forget to `useState` it). Modify
-   the systray item to remove its own local state and use it. Also, you can remove the `+10 clicks` button.
-#. Display the state in the client action, and add a `+10` clicks button in it.
+#. 在系统托盘项目和客户端操作中访问状态（别忘了 `useState` 它）。修改系统托盘项目以删除其自己的本地状态并使用它。此外，您可以删除 `+10 clicks` 按钮。
+#. 在客户端操作中显示状态，并在其中添加一个 `+10` 点击的按钮。
 
 .. image:: 01_build_clicker_game/increment_button.png
    :align: center
 
 .. seealso::
 
-   - :ref:`Short explanation on services <tutorials/discover_js_framework/services>`
+   - :ref:`关于服务的简短解释 <tutorials/discover_js_framework/services>`
 
-5. Use a custom hook
+5. 使用自定义钩子
 ====================
 
-Right now, every part of the code that will need to use our clicker service will have to import `useService` and
-`useState`. Since it is quite common, let us use a custom hook. It is also useful to put more emphasis on the
-`clicker` part, and less emphasis on the `service` part.
+现在，每个需要使用我们的点击服务的代码部分都必须导入 `useService` 和 `useState`。由于这相当常见，让我们使用一个自定义钩子。将点击部分放在更显著的位置，而不是服务部分。
 
-#. Export a `useClicker` hook.
-#. Update all current uses of the clicker service to the new hook:
+#. 导出一个 `useClicker` 钩子。
+#. 更新所有当前使用点击服务的代码以使用新钩子：
 
    .. code-block:: js
 
@@ -146,165 +128,146 @@ Right now, every part of the code that will need to use our clicker service will
 
 .. seealso::
 
-   - `Documentation on hooks: <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md>`_
+   - `关于钩子的文档： <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md>`_
 
-6. Humanize the displayed value
+6. 使显示值更易读
 ===============================
 
-We will in the future display large numbers, so let us get ready for that. There is a `humanNumber` function that
-format numbers in a easier to comprehend way: for example, `1234` could be formatted as `1.2k`
+我们将来会显示较大的数字，因此让我们为此做好准备。可以使用 `humanNumber` 函数以更易于理解的方式格式化数字：例如，`1234` 可以格式化为 `1.2k`
 
-#. Use it to display our counters (both in the systray item and the client action).
-#. Create a `ClickValue` component that display the value.
+#. 使用它来显示我们的计数器（在系统托盘项目和客户端操作中）。
+#. 创建一个 `ClickValue` 组件来显示值。
 
    .. note::
 
-      Owl allows component that contains just text nodes!
+      Owl 允许只包含文本节点的组件！
 
 .. image:: 01_build_clicker_game/humanized_number.png
    :align: center
 
 .. seealso::
 
-   - `definition of humanNumber function <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/core/utils/numbers.js#L119>`_
+   - `humanNumber 函数的定义 <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/core/utils/numbers.js#L119>`_
 
-7. Add a tooltip in `ClickValue` component
+7. 在 `ClickValue` 组件中添加工具提示
 ==========================================
 
-With the `humanNumber` function, we actually lost some precision on our interface. Let us display the real number
-as a tooltip.
+使用 `humanNumber` 函数，我们实际上在界面上失去了一些精度。让我们作为工具提示显示真实数字。
 
-#. Tooltip needs an html element. Change the `ClickValue` to wrap the value in a `<span/>` element
-#. Add a dynamic `data-tooltip` attribute to display the exact value.
+#. 工具提示需要一个 HTML 元素。将 `ClickValue` 更改为将值包装在 `<span/>` 元素中。
+#. 添加动态 `data-tooltip` 属性以显示确切值。
 
 .. image:: 01_build_clicker_game/humanized_tooltip.png
    :align: center
 
 .. seealso::
 
-   - `Documentation in the tooltip service <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/core/tooltip/tooltip_service.js#L17>`_
+   - `工具提示服务的文档 <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/core/tooltip/tooltip_service.js#L17>`_
 
-8. Buy ClickBots
+8. 购买 ClickBots
 ================
 
-Let us make our game even more interesting: once a player get to 1000 clicks for the first time, the game
-should unlock a new feature: the player can buy robots for 1000 clicks. These robots will generate 10 clicks
-every 10 seconds.
+让我们让游戏更有趣：一旦玩家第一次获得 1000 次点击，游戏应该解锁一个新功能：玩家可以用 1000 次点击购买机器人。这些机器人每 10 秒会生成 10 次点击。
 
-#. Add a `level` number to our state. This is a number that will be incremented at some milestones, and
-   open new features
-#. Add a `clickBots` number to our state. It represents the number of robots that have been purchased.
-#. Modify the client action to display the number of click bots (only if `level >= 1`), with a `Buy`
-   button that is enabled if `clicks >= 1000`. The `Buy` button should increment the number of clickbots by 1.
-#. Set a 10s interval in the service that will increment the number of clicks by `10*clickBots`.
-#. Make sure the Buy button is disabled if the player does not have enough clicks.
+#. 在我们的状态中添加一个 `level` 数字。这个数字将在某些里程碑时增加，并解锁新功能。
+#. 在我们的状态中添加一个 `clickBots` 数字。它表示已购买的机器人数量。
+#. 修改客户端操作以显示点击机器人数量（仅在 `level >= 1` 时），并添加一个按钮 `购买`，该按钮在 `clicks >= 1000` 时可用。`购买`按钮应该将点击机器人的数量增加 1。
+#. 在服务中设置一个 10 秒的间隔，每 10 秒将点击次数增加 `10 * clickBots`。
+#. 确保当玩家没有足够的点击时，购买按钮被禁用。
 
 .. image:: 01_build_clicker_game/clickbot.png
    :align: center
 
-9. Refactor to a class model
+9. 重构为类模型
 ============================
 
-The current code is written in a somewhat functional style. But to do so, we have to export the state and all its
-update functions in our clicker object.  As this project grows, this may become more and more complex. To make it
-simpler, let us split our business logic out of our service and into a class.
+当前代码以某种函数式风格编写。但为此，我们必须在点击对象中导出状态及其所有更新函数。随着项目的增长，这可能会变得越来越复杂。为了简化，让我们将业务逻辑从服务中分离出来，放入一个类中。
 
-#. Create a `clicker_model` file that exports a reactive class. Move all the state and update functions from
-   the service into the model.
+#. 创建一个 `clicker_model` 文件，导出一个反应类。将所有状态和更新函数从服务移到模型中。
 
    .. tip::
 
-      You can extends the ClickerModel with the `Reactive` class from
-      :file:`@web/core/utils/reactive`. The `Reactive` class wrap the model into a reactive proxy.
+      您可以使用 :file:`@web/core/utils/reactive` 中的 `Reactive` 类扩展 ClickerModel。`Reactive` 类将模型包装到一个响应代理中。
 
-#. Rewrite the clicker service to instantiate and export the clicker model class.
+#. 重写点击服务以实例化和导出点击模型类。
 
 .. seealso::
 
-   - `Example of subclassing Reactive <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/model/relational_model/datapoint.js#L32>`_
+   - `子类化 Reactive 的示例 <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/model/relational_model/datapoint.js#L32>`_
 
-10. Notify when a milestone is reached
+10. 达到里程碑时通知
 ======================================
 
-There is not much feedback that something changed when we reached 1k clicks. Let us use the `effect` service
-to communicate that information clearly. The problem is that our click model does not have access to services.
-Also, we want to keep as much as possible the UI concern out of the model. So, we can explore a new strategy
-for communication: event buses.
+当我们达到 1000 次点击时，几乎没有反馈说明发生了变化。让我们使用 `effect` 服务清晰地传达该信息。问题是我们的点击模型无法访问服务。此外，我们希望尽可能将 UI 问题与模型分开。因此，我们可以探索一种新的通信策略：事件总线。
 
-#. Update the clicker model to instantiate a bus, and to trigger a `MILESTONE_1k` event when we reach 1000 clicks
-   for the first time.
-#. Change the clicker service to listen to the same event on the model bus.
-#. When that happens, use the `effect` service to display a rainbow man.
-#. Add some text to explain that the user can now buy clickbots.
+#. 更新点击模型以实例化一个总线，并在我们第一次达到 1000 次点击时触发 `MILESTONE_1k` 事件。
+#. 更改点击服务以侦听模型总线上的同一事件。
+#. 当发生这种情况时，使用 `effect` 服务显示彩虹人。
+#. 添加一些文本以解释用户现在可以购买点击机器人。
 
 .. image:: 01_build_clicker_game/milestone.png
    :align: center
 
 .. seealso::
 
-   - `Owl documentation on event bus <https://github.com/odoo/owl/blob/master/doc/reference/utils.md#eventbus>`_
-   - :ref:`Documentation on effect service <frontend/services/effect>`
+   - `Owl 文档中的事件总线 <https://github.com/odoo/owl/blob/master/doc/reference/utils.md#eventbus>`_
+   - :ref:`效果服务的文档 <frontend/services/effect>`
 
-11. Add BigBots
+11. 添加 BigBots
 ===============
 
-Clearly, we need a way to provide the player with more choices. Let us add a new type of clickbot: `BigBots`,
-which are just more powerful: they provide with 100 clicks each 10s, but they cost 5000 clicks
+显然，我们需要一种方法为玩家提供更多选择。让我们添加一种新的点击机器人类型：`BigBots`，它们更强大：每 10 秒提供 100 次点击，但它们的成本是 5000 次点击。
 
-#. increment `level` when it gets to 5k (so it should be 2)
-#. Update the state to keep track of bigbots
-#. bigbots should be available at `level >=2`
-#. Display the corresponding information in the client action
+#. 当它达到 5000 时增加 `level`（所以应该是 2）。
+#. 更新状态以跟踪 bigbots。
+#. 当 `level >= 2` 时应提供 bigbots。
+#. 在客户端操作中显示相应的信息。
 
 .. tip::
 
-   If you need to use `<` or `>` in a template as a javascript expression, be careful since it might class with
-   the xml parser. To solve that, you can use one of the special aliases: `gt, gte, lt` or `lte`. See the
-   `Owl documentation page on template expressions <https://github.com/odoo/owl/blob/master/doc/reference/templates.md#expression-evaluation>`_.
+   如果您需要在模板中使用 `<` 或 `>` 作为 JavaScript 表达式，请小心，因为它可能与 XML 解析器冲突。为了解决这个问题，您可以使用其中一个特殊别名：`gt, gte, lt` 或 `lte`。请参阅 `Owl 文档页面上的模板表达式 <https://github.com/odoo/owl/blob/master/doc/reference/templates.md#expression-evaluation>`_。
 
 .. image:: 01_build_clicker_game/bigbot.png
    :align: center
 
-12. Add a new type of resource: power
+12. 添加一种新类型的资源：能量
 =====================================
 
-Now, to add another scaling point, let us add a new type of resource: a power multiplier. This is a number
-that can be increased at `level >= 3`, and multiplies the action of the bots (so, instead of providing
-one click, clickbots now provide us with `multiplier` clicks).
+现在，为了增加一个新的扩展点，让我们添加一种新类型的资源：能量乘数。这是一个可以在 `level >= 3` 时增加的数字，并且会乘以机器人的操作（因此，点击机器人现在提供 `乘数` 次点击）。
 
-#. increment `level` when it gets to 100k (so it should be 3).
-#. update the state to keep track of the power (initial value is 1).
-#. change bots to use that number as a multiplier.
-#. Update the user interface to display and let the user purchase a new power level (costs: 50k).
+#. 当它达到 100000 时增加 `level`（所以应该是 3）。
+#. 更新状态以跟踪能量（初始值为 1）。
+#. 让机器人使用该数字作为乘数。
+#. 更新用户界面以显示并让用户购买新的能量级别（成本：50000）。
 
 .. image:: 01_build_clicker_game/bigbot.png
    :align: center
 
-13. Define some random rewards
+13. 定义一些随机奖励
 ==============================
 
-We want the user to obtain sometimes bonuses, to reward using Odoo.
+我们希望用户偶尔获得一些奖金，以奖励使用 Odoo。
 
-#. Define a list of rewards in `click_rewards.js`. A reward is an object with:
-   - a `description` string.
-   - a `apply` function that take the game state in argument and can modify it.
-   - a `minLevel` number (optional) that describes at which unlock level the bonus is available.
-   - a `maxLevel` number (optional) that describes at which unlock level a bonus is no longer available.
+#. 在 `click_rewards.js` 中定义一个奖励列表。奖励是一个包含以下内容的对象：
+   - 一个 `description` 字符串。
+   - 一个 `apply` 函数，它接受游戏状态作为参数并可以修改它。
+   - 一个 `minLevel` 数字（可选），描述该奖金可用的解锁级别。
+   - 一个 `maxLevel` 数字（可选），描述该奖金不再可用的解锁级别。
 
-   For example:
+   例如：
 
    .. code-block:: js
 
       export const rewards = [
          {
-            description: "Get 1 click bot",
+            description: "获得 1 个点击机器人",
             apply(clicker) {
                   clicker.increment(1);
             },
             maxLevel: 3,
          },
          {
-            description: "Get 10 click bot",
+            description: "获得 10 个点击机器人",
             apply(clicker) {
                   clicker.increment(10);
             },
@@ -312,7 +275,7 @@ We want the user to obtain sometimes bonuses, to reward using Odoo.
             maxLevel: 4,
          },
          {
-            description: "Increase bot power!",
+            description: "增加机器人能量！",
             apply(clicker) {
                   clicker.multipler += 1;
             },
@@ -320,128 +283,77 @@ We want the user to obtain sometimes bonuses, to reward using Odoo.
          },
       ];
 
-   You can add whatever you want to that list!
+   您可以随意向该列表添加内容！
 
-#. Define a function `getReward` that will select a random reward from the list of rewards that matches
-   the current unlock level.
-#. Extract the code that choose randomly in an array in a function `choose` that you can move to another `utils.js` file.
+#. 定义一个 `getReward` 函数，从当前解锁级别的奖励列表中随机选择一个奖励。
+#. 将选择随机数组的代码提取到一个 `choose` 函数中，您可以将其移到另一个 `utils.js` 文件中。
 
-14. Provide a reward when opening a form view
+14. 打开表单视图时提供奖励
 =============================================
 
-#. Patch the form controller. Each time a form controller is created, it should randomly decides (1% chance)
-   if a reward should be given.
-#. If the answer is yes, call a method `getReward` on the model.
-#. That method should choose a reward, send a sticky notification, with a button `Collect` that will
-   then apply the reward, and finally, it should open the `clicker` client action.
+#. 修补表单控制器。每次创建表单控制器时，它应该随机决定（1% 的机会）是否应该给予奖励。
+#. 如果答案是肯定的，请在模型上调用 `getReward` 方法。
+#. 该方法应该选择一个奖励，发送一个粘性通知，附带一个 `收集` 按钮，然后应用奖励，最后打开 `clicker` 客户端操作。
 
 .. image:: 01_build_clicker_game/reward.png
    :align: center
 
 .. seealso::
 
-   - :ref:`Documentation on patching a class <frontend/patching_class>`
-   - `Definition of patch function <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/core/utils/patch.js#L71>`_
-   - `Example of patching a class <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/pos_mercury/static/src/app/screens/receipt_screen/receipt_screen.js#L6>`_
+   - :ref:`关于修补类的文档 <frontend/patching_class>`
+   - `修补函数的定义 <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/core/utils/patch.js#L71>`_
+   - `修补类的示例 <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/pos_mercury/static/src/app/screens/receipt_screen/receipt_screen.js#L6>`_
 
-15. Add commands in command palette
+15. 在命令面板中添加命令
 ===================================
 
-#. Add a command `Open Clicker Game` to the command palette.
-#. Add another command: `Buy 1 click bot`.
+#. 向命令面板添加命令 `打开点击游戏`。
+#. 添加另一个命令：`购买 1 个点击机器人`。
 
 .. image:: 01_build_clicker_game/command_palette.png
    :align: center
 
 .. seealso::
 
-   - `Example of use of command provider registry <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/core/debug/debug_providers.js#L10>`_
+   - `命令提供者注册表的使用示例 <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/src/core/debug/debug_providers.js#L10>`_
 
-16. Add yet another resource: trees
+16. 添加另一种资源：树
 ===================================
 
-It is now time to introduce a completely new type of resources. Here is one that should not be too controversial: trees.
-We will now allow the user to plant (collect?) fruit trees. A tree costs 1 million clicks, but it will provide us with
-fruits (either pears or cherries).
+现在是引入一种全新类型的资源的时候了。这里有一个不应该太有争议的类型：树。
+我们现在允许用户种植（收集？）果树。一棵树的成本是 100 万点击，但它将为我们提供
+水果（梨或樱桃）。
 
-#. Update the state to keep track of various types of trees: pear/cherries, and their fruits.
-#. Add a function that computes the total number of trees and fruits.
-#. Define a new unlock level at `clicks >= 1 000 000`.
-#. Update the client user interface to display the number of trees and fruits, and also, to buy trees.
-#. Increment the fruit number by 1 for each tree every 30s.
+#. 更新状态以跟踪各种类型的树：梨/樱桃及其水果。
+#. 添加一个计算树和水果总数的函数。
+#. 定义一个新的解锁级别，点击次数 >= 1000000。
+#. 更新客户端用户界面以显示树和水果的数量，并允许购买树。
+#. 每 30 秒将水果数量增加 1。
 
 .. image:: 01_build_clicker_game/trees.png
    :align: center
 
-17. Use a dropdown menu for the systray item
+17. 在系统托盘项目中使用下拉菜单
 ============================================
 
-Our game starts to become interesting. But for now, the systray only displays the total number of clicks. We
-want to see more information: the total number of trees and fruits. Also, it would be useful to have a quick
-access to some commands and some more information. Let us use a dropdown menu!
+我们的游戏开始变得有趣。但目前，系统托盘只显示总点击次数。我们希望看到更多信息：树和水果的总数。此外，快速访问一些命令和更多信息也很有用。让我们使用下拉菜单！
 
-#. Replace the systray item by a dropdown menu.
-#. It should display the numbers of clicks, trees, and fruits, each with a nice icon.
-#. Clicking on it should open a dropdown menu that displays more detailed information: each types of trees
-   and fruits.
-#. Also, a few dropdown items with some commands: open the clicker game, buy a clickbot, ...
+#. 用下拉菜单替换系统托盘项目。
+#. 它应该显示点击次数、树木和水果的数量，每个数量都有一个漂亮的图标。
+#. 点击它应该打开一个下拉菜单，显示更详细的信息：每种类型的树和水果。
+#. 此外，几项下拉项目包括一些命令：打开点击游戏，购买点击机器人，...
 
 .. image:: 01_build_clicker_game/dropdown.png
    :align: center
 
-18. Use a Notebook component
+18. 使用 Notebook 组件
 ============================
 
-We now keep track of a lot more information. Let us improve our client interface by organizing the information
-and features in various tabs, with the `Notebook` component:
+现在我们跟踪的信息更多了。让我们通过在不同选项卡中组织信息和功能来改善我们的客户端界面，使用 `Notebook` 组件：
 
-#. Use the `Notebook` component.
-#. All `click` content should be displayed in one tab.
-#. All `tree/fruits` content should be displayed in another tab.
+#. 使用 `Notebook` 组件。
+#. 所有 `click` 内容应显示在一个选项卡中。
+#. 所有 `tree/fruits` 内容应显示在另一个选项卡中。
 
 .. image:: 01_build_clicker_game/notebook.png
-   :align: center
-
-.. seealso::
-
-   - :ref:`Odoo: Documentation on Notebook component <frontend/owl/notebook>`
-   - `Owl: Documentation on slots <https://github.com/odoo/owl/blob/master/doc/reference/slots.md>`_
-   - `Tests of Notebook component <https://github.com/odoo/odoo/blob/c638913df191dfcc5547f90b8b899e7738c386f1/addons/web/static/tests/core/notebook_tests.js#L27>`_
-
-19.  Persist the game state
-===========================
-
-You certainly noticed a big flaw in our game: it is transient. The game state is lost each time the user closes the
-browser tab. Let us fix that. We will use the local storage to persist the state.
-
-#. Import `browser` from :file:`@web/core/browser/browser` to access the localstorage.
-#. Serialize the state every 10s (in the same interval code) and store it on the local storage.
-#. When the `clicker` service is started, it should load the state from the local storage (if any), or initialize itself
-   otherwise.
-
-20. Introduce state migration system
-====================================
-
-Once you persist state somewhere, a new problem arises: what happens when you update your code, so the shape of the state
-changes, and the user opens its browser with a state that was created with an old version? Welcome to the world of
-migration issues!
-
-It is probably wise to tackle the problem early. What we will do here is add a version number to the state, and introduce
-a system to automatically update the states if it is not up to date.
-
-#. Add a version number to the state.
-#. Define an (empty) list of migrations. A migration is an object with a `fromVersion` number, a `toVersion` number, and a `apply` function.
-#. Whenever the code loads the state from the local storage, it should check the version number. If the state is not
-   uptodate, it should apply all necessary migrations.
-
-21. Add another type of trees
-=============================
-
-To test our migration system, let us add a new type of trees: peaches.
-
-#. Add `peach` trees.
-#. Increment the state version number.
-#. Define a migration.
-
-.. image:: 01_build_clicker_game/peach_tree.png
    :align: center

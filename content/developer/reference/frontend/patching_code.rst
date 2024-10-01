@@ -1,90 +1,77 @@
 =============
-Patching code
+修改代码
 =============
 
-Sometimes, we need to customize the way the UI works.  Many common needs are
-covered by some supported API. For example, all registries are good extension
-points: the field registry allows adding/removing specialized field components,
-or the main component registry allows adding components that should be displayed
-all the time.
+有时，我们需要自定义用户界面的工作方式。许多常见的需求可以通过一些支持的API来实现。例如，所有注册表都是很好的扩展点：字段注册表允许添加/删除特定的字段组件，主组件注册表允许添加应始终显示的组件。
 
-However, there are situations for which it is not sufficient. In those cases, we
-may need to modify an object or a class in place. To achieve that, Odoo
-provides the utility function `patch`. It is mostly useful to override/update
-the behavior of some other component/piece of code that one does not control.
+然而，有些情况是这些方法无法满足的。在这种情况下，我们可能需要直接修改对象或类。为此，Odoo 提供了实用函数 `patch`。它主要用于覆盖/更新无法控制的其他组件/代码段的行为。
 
-Description
+描述
 ===========
 
-The patch function is located in `@web/core/utils/patch`:
+`patch` 函数位于 `@web/core/utils/patch`：
 
 .. js:function:: patch(objToPatch, extension)
 
-    :param object objToPatch: the object that should be patched
-    :param object extension: an object mapping each key to an extension
-    :returns: a function to remove the patch
+    :param object objToPatch: 需要修改的对象
+    :param object extension: 一个对象，映射每个键到扩展
+    :returns: 一个用于移除补丁的函数
 
-    The `patch` function modifies in place the `objToPatch` object (or class) and
-    applies all key/value described in the `extension` object.  An unpatch
-    function is returned, so it can be used to remove the patch later if necessary.
+    `patch` 函数会直接修改 `objToPatch` 对象（或类），并应用 `extension` 对象中描述的所有键/值。返回一个解除补丁的函数，以便在必要时移除补丁。
 
-    Most patch operations provide access to the parent value by using the
-    native `super` keyword (see below in the examples).
+    大多数补丁操作通过使用原生的 `super` 关键字来访问父类的值（请参见下面的示例）。
 
-Patching a simple object
+修改简单对象
 ========================
 
-Here is a simple example of how an object can be patched:
+以下是一个如何修改对象的简单示例：
 
 .. code-block:: javascript
 
   import { patch } from "@web/core/utils/patch";
 
   const object = {
-    field: "a field",
+    field: "一个字段",
     fn() {
-      // do something
+      // 执行某些操作
     },
   };
 
   patch(object, {
     fn() {
-      // do things
+      // 执行其他操作
     },
   });
 
-
-When patching functions, we usually want to be able to access the ``parent``
-function.  To do so, we can simply use the native ``super`` keyword:
+当修改函数时，我们通常希望能够访问 "父" 函数。为此，我们可以简单地使用原生的 ``super`` 关键字：
 
 .. code-block:: javascript
 
   patch(object, {
     fn() {
       super.fn(...arguments);
-      // do other things
+      // 执行其他操作
     },
   });
 
 .. warning::
 
-    ``super`` can only be used in a method not a function. This means that the
-    following constructs are invalid for javascript.
+    ``super`` 只能在方法中使用，不能在函数中使用。这意味着以下 JavaScript 构造是无效的。
 
     .. code-block:: javascript
 
       const obj = {
         a: function () {
-          // Throws: "Uncaught SyntaxError: 'super' keyword unexpected here"
+          // 抛出错误: "Uncaught SyntaxError: 'super' 关键字在此处意外出现"
           super.a();
         },
         b: () => {
-          // Throws: "Uncaught SyntaxError: 'super' keyword unexpected here"
+          // 抛出错误: "Uncaught SyntaxError: 'super' 关键字在此处意外出现"
           super.b();
         },
       };
 
-Getters and setters are supported too:
+Getters 和 Setters 也受到支持：
 
 .. code-block:: javascript
 
@@ -99,14 +86,12 @@ Getters and setters are supported too:
 
 .. _frontend/patching_class:
 
-Patching a javascript class
+修改 JavaScript 类
 ===========================
 
-The ``patch`` function is designed to work with anything: object or ES6 class.
+`patch` 函数设计为适用于任何对象：对象或 ES6 类。
 
-However, since javascript classes work with the prototypal inheritance, when
-one wishes to patch a standard method from a class, then we actually need to patch
-the `prototype`:
+但是，由于 JavaScript 类使用原型继承，当需要修改类中的标准方法时，实际上需要修改 `prototype`：
 
 .. code-block:: javascript
 
@@ -115,20 +100,17 @@ the `prototype`:
     myPrototypeFn() {...}
   }
 
-  // this will patch static properties!!!
+  // 这将修改静态属性!!!
   patch(MyClass, {
     myStaticFn() {...},
   });
 
-  // this is probably the usual case: patching a class method
+  // 这是常见情况：修改类方法
   patch(MyClass.prototype, {
     myPrototypeFn() {...},
   });
 
-
-Also, Javascript handles the constructor in a special native way which makes it
-impossible to be patched. The only workaround is to call a method in the original
-constructor and patch that method instead:
+此外，JavaScript 以特殊的方式处理构造函数，使其无法被修改。唯一的解决方法是调用原始构造函数中的某个方法，并修改该方法：
 
 .. code-block:: javascript
 
@@ -150,14 +132,12 @@ constructor and patch that method instead:
 
 .. warning::
 
-    It is impossible to patch directly the `constructor` of a class!
+    无法直接修改类的 `constructor`！
 
-Patching a component
+修改组件
 ====================
 
-Components are defined by javascript classes, so all the information above still
-holds.  For these reasons, Owl components should use the `setup` method, so they
-can easily be patched as well (see the section on :ref:`best practices<frontend/owl/best_practices>`).
+组件是通过 JavaScript 类定义的，因此上述所有信息依然适用。出于这些原因，Owl 组件应该使用 `setup` 方法，这样它们也可以轻松地被修改（请参阅 :ref:`最佳实践 <frontend/owl/best_practices>` 章节）。
 
 .. code-block:: javascript
 
@@ -167,26 +147,21 @@ can easily be patched as well (see the section on :ref:`best practices<frontend/
     },
   });
 
-Removing a patch
+移除补丁
 ================
 
-The `patch` function returns its counterpart. This is mostly useful for
-testing purposes, when we patch something at the beginning of a test, and
-unpatch it at the end.
+`patch` 函数返回其相对的函数。这在测试时非常有用，当我们在测试开始时修改某些内容，并在测试结束时移除补丁。
 
 .. code-block:: javascript
 
     const unpatch = patch(object, { ... });
-    // test stuff here
+    // 在此处进行测试
     unpatch();
 
-Applying the same patch to multiple objects
+对多个对象应用相同的补丁
 ===========================================
 
-It could happen that one wants to apply the same patch to multiple objects but
-because of the way the `super` keyword works, the `extension` can only be used
-for patching once and cannot be copied/cloned (`check the documentation of the keyword <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super#description>`_).
-A function returning the object used to patch can be used to make it unique.
+有时，我们可能希望对多个对象应用相同的补丁，但由于 `super` 关键字的工作方式，`extension` 只能用于一次补丁，无法复制/克隆（参见 `super 关键字的文档 <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super#description>`_）。可以使用一个函数来返回用于补丁的对象，从而使其唯一。
 
 .. code-block:: javascript
 
@@ -216,8 +191,7 @@ A function returning the object used to patch can be used to make it unique.
 
 .. warning::
 
-  If an `extension` is based on another then the two extensions should
-  be applied separately. Do not copy/clone an extension.
+  如果一个 `extension` 基于另一个 `extension`，那么这两个扩展应该分别应用。不要复制/克隆扩展。
 
   .. code-block:: javascript
 
@@ -238,7 +212,7 @@ A function returning the object used to patch can be used to make it unique.
       };
 
       const invalid_ext2 = {
-        ...ext1, // this will not work: super will not refer to the correct object in methods coming from ext1
+        ...ext1, // 这将无法工作：super 将无法在来自 ext1 的方法中引用正确的对象
         method2() {
           super.method2();
           doOtherThings();
@@ -246,7 +220,7 @@ A function returning the object used to patch can be used to make it unique.
       };
 
       patch(object, invalid_ext2);
-      object.method1(); // throws: Uncaught TypeError: (intermediate value).method1 is not a function
+      object.method1(); // 抛出错误: Uncaught TypeError: (intermediate value).method1 is not a function
 
       const valid_ext2 = {
         method2() {
@@ -255,6 +229,6 @@ A function returning the object used to patch can be used to make it unique.
         },
       };
 
-      patch(object, ext1); // first patch base extension
-      patch(object, valid_ext2); // then the new one
-      object.method1(); // works as expected
+      patch(object, ext1); // 首先应用基础扩展补丁
+      patch(object, valid_ext2); // 然后应用新扩展补丁
+      object.method1(); // 正常工作

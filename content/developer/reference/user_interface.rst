@@ -1,7 +1,7 @@
 :nosearch:
 
 ==============
-User interface
+用户界面
 ==============
 
 .. toctree::

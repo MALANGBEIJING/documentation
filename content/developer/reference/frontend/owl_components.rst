@@ -1,31 +1,23 @@
 .. _frontend/components:
 
 ==============
-Owl components
+Owl 组件
 ==============
 
-The Odoo Javascript framework uses a custom component framework called Owl. It
-is a declarative component system, loosely inspired by Vue and React. Components
-are defined using :doc:`QWeb templates <qweb>`, enriched with some Owl
-specific directives. The official
-`Owl documentation <https://github.com/odoo/owl/blob/master/doc/readme.md>`_
-contains a complete reference and a tutorial.
+Odoo 的 Javascript 框架使用一个自定义的组件框架，称为 Owl。它是一个声明式组件系统，灵感来源于 Vue 和 React。组件通过 :doc:`QWeb 模板 <qweb>` 定义，并结合一些 Owl 特定的指令。官方的
+`Owl 文档 <https://github.com/odoo/owl/blob/master/doc/readme.md>`_ 包含完整的参考和教程。
 
 .. important::
 
-   Although the code can be found in the `web` module, it is maintained from a
-   separate GitHub repository. Any modification to Owl should therefore be made
-   through a pull request on https://github.com/odoo/owl.
+   虽然代码可以在 `web` 模块中找到，但它是从一个独立的 GitHub 仓库进行维护的。因此，任何对 Owl 的修改都应通过 https://github.com/odoo/owl 的 pull request 来完成。
 
 .. note::
-   Currently, all Odoo versions (starting in version 14) share the same Owl version.
+   目前，所有 Odoo 版本（从版本 14 开始）共享相同的 Owl 版本。
 
-Using Owl components
+使用 Owl 组件
 ====================
 
-The `Owl documentation`_ already documents in detail the Owl framework, so this
-page will only provide Odoo specific information. But first, let us see how we
-can make a simple component in Odoo.
+`Owl 文档`_ 已经详细介绍了 Owl 框架，因此此页面仅提供 Odoo 的特定信息。首先，让我们看看如何在 Odoo 中创建一个简单的组件。
 
 .. code-block:: javascript
 
@@ -46,24 +38,13 @@ can make a simple component in Odoo.
             <t t-esc="state.value">
         </div>`;
 
-This example shows that Owl is available as a library in the global namespace as
-`owl`: it can simply be used like most libraries in Odoo. Note that we
-defined here the template as a static property, but without using the `static`
-keyword, which is not available in some browsers (Odoo javascript code should
-be Ecmascript 2019 compliant).
+此示例表明 Owl 作为库在全局命名空间中可用，命名为 `owl`：它可以像 Odoo 中的大多数库一样简单地使用。请注意，这里我们将模板定义为静态属性，但没有使用 `static` 关键字，因为某些浏览器不支持该关键字（Odoo 的 JavaScript 代码应符合 Ecmascript 2019 标准）。
 
-We define here the template in the javascript code, with the help of the `xml`
-helper. However, it is only useful to get started. In practice, templates in
-Odoo should be defined in an xml file, so they can be translated. In that case,
-the component should only define the template name.
+我们在此示例中在 JavaScript 代码中定义了模板，借助 `xml` 帮助器。然而，这仅在初期有用。实际上，Odoo 中的模板应该定义在 XML 文件中，以便可以进行翻译。在这种情况下，组件只需定义模板名称。
 
-In practice, most components should define 2 or 3 files, located at the same
-place: a javascript file (`my_component.js`), a template file (`my_component.xml`)
-and optionally a scss (or css) file (`my_component.scss`). These files should
-then be added to some assets bundle. The web framework will take care of
-loading the javascript/css files, and loading the templates into Owl.
+实际上，大多数组件应定义 2 或 3 个文件，位于相同位置：一个 JavaScript 文件 (`my_component.js`)，一个模板文件 (`my_component.xml`)，以及可选的一个 SCSS（或 CSS）文件 (`my_component.scss`)。这些文件应添加到某个资产包中。Web 框架将负责加载 JavaScript/CSS 文件，并将模板加载到 Owl 中。
 
-Here is how the component above should be defined:
+以下是如何定义上述组件的：
 
 .. code-block:: javascript
 
@@ -74,7 +55,7 @@ Here is how the component above should be defined:
     }
     MyComponent.template = 'myaddon.MyComponent';
 
-And the template is now located in the corresponding xml file:
+模板现在位于相应的 XML 文件中：
 
 .. code-block:: xml
 
@@ -91,90 +72,79 @@ And the template is now located in the corresponding xml file:
 
 .. note::
 
-   Template names should follow the convention `addon_name.ComponentName`.
-
+   模板名称应遵循 `addon_name.ComponentName` 的约定。
 
 .. seealso::
-    - `Owl Repository <https://github.com/odoo/owl>`_
+    - `Owl 仓库 <https://github.com/odoo/owl>`_
 
 .. _frontend/owl/best_practices:
 
-Best practices
+最佳实践
 ==============
 
-First of all, components are classes, so they have a constructor. But constructors
-are special methods in javascript that are not overridable in any way. Since this
-is an occasionally useful pattern in Odoo, we need to make sure that no component
-in Odoo directly uses the constructor method. Instead, components should use the
-`setup` method:
+首先，组件是类，因此它们有构造函数。但构造函数是 JavaScript 中的特殊方法，无法以任何方式被覆盖。由于这是 Odoo 中偶尔有用的模式，因此我们需要确保 Odoo 中的任何组件都不直接使用构造函数。相反，组件应该使用 `setup` 方法：
 
 .. code-block:: javascript
 
-    // correct:
+    // 正确的写法:
     class MyComponent extends Component {
         setup() {
-            // initialize component here
+            // 在这里初始化组件
         }
     }
 
-    // incorrect. Do not do that!
+    // 错误的写法，请不要这样做！
     class IncorrectComponent extends Component {
         constructor(parent, props) {
-            // initialize component here
+            // 在这里初始化组件
         }
     }
 
-Another good practice is to use a consistent convention for template names:
-`addon_name.ComponentName`. This prevents name collision between odoo addons.
+另一个好的做法是使用一致的模板命名约定：`addon_name.ComponentName`。这样可以防止 Odoo 插件之间的命名冲突。
 
-Reference List
+参考列表
 ==============
 
-The Odoo web client is built with `Owl <https://github.com/odoo/owl>`_ components.
-To make it easier, the Odoo javascript framework provides a suite of generic
-components that can be reused in some common situations, such as dropdowns,
-checkboxes or datepickers. This page explains how to use these generic components.
+Odoo Web 客户端是使用 `Owl <https://github.com/odoo/owl>`_ 组件构建的。
+为了方便使用，Odoo JavaScript 框架提供了一套通用组件，可以在一些常见场景中重用，例如下拉菜单、复选框或日期选择器。本页面解释了如何使用这些通用组件。
 
 .. list-table::
    :widths: 30 70
    :header-rows: 1
 
-   * - Technical Name
-     - Short Description
+   * - 技术名称
+     - 简短描述
    * - :ref:`ActionSwiper <frontend/owl/actionswiper>`
-     - a swiper component to perform actions on touch swipe
+     - 用于触摸滑动执行操作的滑动组件
    * - :ref:`CheckBox <frontend/owl/checkbox>`
-     - a simple checkbox component with a label next to it
+     - 带标签的简单复选框组件
    * - :ref:`ColorList <frontend/owl/colorlist>`
-     - a list of colors to choose from
+     - 颜色选择列表
    * - :ref:`Dropdown <frontend/owl/dropdown>`
-     - full-featured dropdown
+     - 全功能下拉菜单
    * - :ref:`Notebook <frontend/owl/notebook>`
-     - a component to navigate between pages using tabs
+     - 使用选项卡导航页面的组件
    * - :ref:`Pager <frontend/pager>`
-     - a small component to handle pagination
+     - 小型分页组件
    * - :ref:`SelectMenu <frontend/select_menu>`
-     - a dropdown component to choose between different options
+     - 用于选择不同选项的下拉菜单组件
    * - :ref:`TagsList <frontend/tags_list>`
-     - a list of tags displayed in rounded pills
+     - 显示为圆形标签的标签列表
 
 .. _frontend/owl/actionswiper:
 
 ActionSwiper
 ------------
 
-Location
+位置
 ~~~~~~~~
 
 `@web/core/action_swiper/action_swiper`
 
-Description
+描述
 ~~~~~~~~~~~
 
-This is a component that can perform actions when an element is swiped
-horizontally. The swiper is wrapping a target element to add actions to it.
-The action is executed once the user has released the swiper passed
-a portion of its width.
+这是一个组件，当元素水平滑动时执行动作。Swiper 包裹目标元素以向其添加操作。一旦用户在滑动超过其宽度的一部分后释放滑动器，动作便会执行。
 
 .. code-block:: xml
 
@@ -182,23 +152,19 @@ a portion of its width.
     <SomeElement/>
   </ActionSwiper>
 
-The simplest way to use the component is to use it around your target element directly
-in an xml template as shown above. But sometimes, you may want to extend an existing element
-and would not want to duplicate the template. It is possible to do just that.
+使用该组件的最简单方法是直接在 XML 模板中围绕目标元素使用它，如上所示。但是有时，你可能希望扩展现有元素，而不希望重复模板。这是可以做到的。
 
-If you want to extend the behavior of an existing element, you must place the element
-inside, by wrapping it directly. Also, you can conditionnally add props to manage when the
-element might be swipable, its animation and the minimum portion to swipe to perform the action.
+如果你想扩展现有元素的行为，你必须将该元素放入组件中，直接包裹它。此外，你可以有条件地添加属性，以管理元素何时可滑动、其动画以及执行操作所需滑动的最小部分。
 
-You can use the component to interact easily with records, messages, items in lists and much more.
+你可以使用该组件轻松与记录、消息、列表中的项目等进行交互。
 
 .. image:: owl_components/actionswiper.png
   :width: 400 px
-  :alt: Example of ActionSwiper usage
+  :alt: 使用 ActionSwiper 的示例
   :align: center
 
-The following example creates a basic ActionSwiper component.
-Here, the swipe is enabled in both directions.
+以下示例创建了一个基本的 ActionSwiper 组件。
+在此，左右滑动均已启用。
 
 .. code-block:: xml
 
@@ -217,61 +183,53 @@ Here, the swipe is enabled in both directions.
       }"
   >
     <div>
-      Swipable item
+      可滑动项目
     </div>
   </ActionSwiper>
 
-.. note:: Actions are permuted when using right-to-left (RTL) languages.
+.. note:: 使用从右到左（RTL）语言时，操作会互换。
 
-Props
+属性
 ~~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `animationOnMove`
       - `Boolean`
-      - optional boolean to determine if a translate effect is present during the swipe
+      - 可选布尔值，确定滑动过程中是否存在平移效果
     * - `animationType`
       - `String`
-      - optional animation that is used after the swipe ends (`bounce` or `forwards`)
+      - 可选动画，用于滑动结束后 (`bounce` 或 `forwards`)
     * - `onLeftSwipe`
       - `Object`
-      - if present, the actionswiper can be swiped to the left
+      - 如果存在，actionswiper 可以向左滑动
     * - `onRightSwipe`
       - `Object`
-      - if present, the actionswiper can be swiped to the right
+      - 如果存在，actionswiper 可以向右滑动
     * - `swipeDistanceRatio`
       - `Number`
-      - optional minimum width ratio that must be swiped to perform the action
+      - 可选的最小宽度比例，必须滑动才能执行操作
 
-You can use both `onLeftSwipe` and `onRightSwipe` props at the same time.
+你可以同时使用 `onLeftSwipe` 和 `onRightSwipe` 属性。
 
-The `Object`'s used for the left/right swipe must contain:
+用于左右滑动的 `Object` 必须包含：
 
-    - `action`, which is the callable `Function` serving as a callback.
-      Once the swipe has been completed in the given direction, that action
-      is performed.
-    - `icon` is the icon class to use, usually to represent the action.
-      It must be a `string`.
-    - `bgColor` is the background color, given to decorate the action.
-      can be one of the following `bootstrap contextual color
-      <https://getbootstrap.com/docs/3.3/components/#available-variations>`_ (`danger`,
-      `info`, `secondary`, `success` or `warning`).
+    - `action`，这是可调用的 `Function`，作为回调。一旦滑动在给定方向完成，便执行该操作。
+    - `icon` 是使用的图标类，通常用于表示该操作。它必须是一个 `string`。
+    - `bgColor` 是背景颜色，用于装饰操作。可以是以下之一 `bootstrap contextual color
+      <https://getbootstrap.com/docs/3.3/components/#available-variations>`_ (`danger`、`info`、`secondary`、`success` 或 `warning`)。
 
-    Those values must be given to define the behavior and the visual aspect
-    of the swiper.
+    这些值必须定义以确定滑动器的行为和视觉效果。
 
-Example: Extending existing components
+示例：扩展现有组件
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the following example, you can use `xpath`'s to wrap an existing element
-in the ActionSwiper component. Here, a swiper has been added to mark
-a message as read in mail.
+在以下示例中，你可以使用 `xpath` 将现有元素包装在 ActionSwiper 组件中。这里，在邮件中添加了一个滑动器，用于标记消息为已读。
 
 .. code-block:: xml
 
@@ -294,373 +252,348 @@ a message as read in mail.
 CheckBox
 --------
 
-Location
+位置
 ~~~~~~~~
 
 `@web/core/checkbox/checkbox`
 
-Description
+描述
 ~~~~~~~~~~~
 
-This is a simple checkbox component with a label next to it. The checkbox is
-linked to the label: the checkbox is toggled whenever the label is clicked.
+这是一个简单的复选框组件，旁边带有一个标签。复选框与标签链接：每当单击标签时，复选框会切换状态。
 
 .. code-block:: xml
 
   <CheckBox value="boolean" disabled="boolean" t-on-change="onValueChange">
-    Some Text
+    一些文本
   </CheckBox>
 
-Props
+属性
 ~~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `value`
       - `boolean`
-      - if true, the checkbox is checked, otherwise it is unchecked
+      - 如果为 true，则复选框被选中，否则未选中
     * - `disabled`
       - `boolean`
-      - if true, the checkbox is disabled, otherwise it is enabled
+      - 如果为 true，则复选框禁用，否则启用
 
 .. _frontend/owl/colorlist:
 
 ColorList
 ---------
 
-Location
+位置
 ~~~~~~~~
 
 `@web/core/colorlist/colorlist`
 
-Description
+描述
 ~~~~~~~~~~~
 
-The ColorList let you choose a color from a predefined list. By default, the component displays the current
-selected color, and is not expandable until the `canToggle` props is present. Different props can change its
-behavior, to always expand the list, or make it act as a toggler once it is clicked, to display the list of
-available colors until a choice is selected.
+ColorList 允许你从预定义的列表中选择颜色。默认情况下，组件显示当前选择的颜色，直到出现 `canToggle` 属性，该属性允许展开列表。不同的属性可以改变其行为，例如总是展开列表，或者在点击时将其作为切换器，一直到选择颜色为止。
 
-Props
+属性
 ~~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `canToggle`
       - `boolean`
-      - optional. Whether the colorlist can expand the list on click
+      - 可选，是否可以通过点击展开颜色列表
     * - `colors`
       - `array`
-      - list of colors to display in the component. Each color has a unique `id`
+      - 显示在组件中的颜色列表。每个颜色都有唯一的 `id`
     * - `forceExpanded`
       - `boolean`
-      - optional. If true, the list is always expanded
+      - 可选。如果为 true，列表始终处于展开状态
     * - `isExpanded`
       - `boolean`
-      - optional. If true, the list is expanded by default
+      - 可选。如果为 true，列表默认展开
     * - `onColorSelected`
       - `function`
-      - callback executed once a color is selected
+      - 选择颜色后执行的回调
     * - `selectedColor`
       - `number`
-      - optional. The color `id` that is selected
+      - 可选。已选择的颜色 `id`
 
-Color `id`'s are the following:
+颜色 `id` 如下：
 
 .. list-table::
     :header-rows: 1
 
     * - Id
-      - Color
+      - 颜色
     * - `0`
-      - `No color`
+      - `无颜色`
     * - `1`
-      - `Red`
+      - `红色`
     * - `2`
-      - `Orange`
+      - `橙色`
     * - `3`
-      - `Yellow`
+      - `黄色`
     * - `4`
-      - `Light blue`
+      - `浅蓝色`
     * - `5`
-      - `Dark purple`
+      - `深紫色`
     * - `6`
-      - `Salmon pink`
+      - `鲑鱼粉`
     * - `7`
-      - `Medium blue`
+      - `中蓝色`
     * - `8`
-      - `Dark blue`
+      - `深蓝色`
     * - `9`
-      - `Fuchsia`
+      - `紫红色`
     * - `12`
-      - `Green`
+      - `绿色`
     * - `11`
-      - `Purple`
+      - `紫色`
 
 .. _frontend/owl/dropdown:
 
 Dropdown
 --------
 
-Location
+位置
 ~~~~~~~~
 
-`@web/core/dropdown/dropdown` and `@web/core/dropdown/dropdown_item`
+`@web/core/dropdown/dropdown` 和 `@web/core/dropdown/dropdown_item`
 
-Description
+描述
 ~~~~~~~~~~~
 
-Dropdowns are surprisingly complicated components. They need to provide many
-features such as:
+下拉菜单组件比想象的复杂。它们需要提供许多功能，例如：
 
-- Toggle the item list on click
-- Direct siblings dropdowns: when one is open, toggle others on hover
-- Close on outside click
-- Optionally close the item list when an item is selected
-- Call a function when the item is selected
-- Support sub dropdowns, up to any level
-- SIY: style it yourself
-- Configurable hotkey to open/close a dropdown or select a dropdown item
-- Keyboard navigation (arrows, tab, shift+tab, home, end, enter and escape)
-- Reposition itself whenever the page scrolls or is resized
-- Smartly chose the direction it should open (right-to-left direction is automatically handled).
+- 单击切换项目列表
+- 直接的兄弟下拉菜单：当一个打开时，悬停切换其他菜单
+- 单击外部区域关闭
+- 选择项目后可选关闭项目列表
+- 选择项目时调用函数
+- 支持子下拉菜单，层级不限
+- 自行设计样式
+- 可配置快捷键打开/关闭下拉菜单或选择项目
+- 键盘导航（方向键、Tab 键、Shift+Tab、Home、End、Enter 和 Esc）
+- 页面滚动或调整大小时重新定位
+- 自动选择打开方向（支持从右到左语言的自动处理）。
 
-To solve these issues once and for all, the Odoo framework provides a set of two
-components: a `Dropdown` component (the actual dropdown), and `DropdownItem`,
-for each element in the item list.
+为了彻底解决这些问题，Odoo 框架提供了一套组件：`Dropdown`（实际下拉菜单）和 `DropdownItem`（每个列表项）。
 
 .. code-block:: xml
 
   <Dropdown>
     <t t-set-slot="toggler">
-      <!-- "toggler" slot content is rendered inside a button -->
-      Click me to toggle the dropdown menu !
+      <!-- "toggler" 插槽内容渲染在按钮内部 -->
+      点击我以切换下拉菜单！
     </t>
-    <!-- "default" slot content is rendered inside a div -->
-    <DropdownItem onSelected="selectItem1">Menu Item 1</DropdownItem>
-    <DropdownItem onSelected="selectItem2">Menu Item 2</DropdownItem>
+    <!-- "default" 插槽内容渲染在 div 中 -->
+    <DropdownItem onSelected="selectItem1">菜单项 1</DropdownItem>
+    <DropdownItem onSelected="selectItem2">菜单项 2</DropdownItem>
   </Dropdown>
 
-Props
+属性
 ~~~~~
 
-A `<Dropdown/>` component is simply a `<div class="dropdown"/>` having a
-`<button class="dropdown-toggle"/>` next to menu div
-(`<div class="dropdown-menu"/>`). The button is responsible for the menu
-being present in the DOM or not.
-
+一个 `<Dropdown/>` 组件实际上是一个 `<div class="dropdown"/>`，旁边有一个 `<button class="dropdown-toggle"/>` 按钮。
+按钮负责决定菜单 `<div class="dropdown-menu"/>` 是否存在于 DOM 中。
 
 .. list-table::
    :widths: 20 20 60
    :header-rows: 1
 
    * - Dropdown
-     - Type
-     - Description
+     - 类型
+     - 描述
    * - `startOpen`
-     - boolean
-     - initial dropdown open state (defaults to `false`)
+     - `boolean`
+     - 初始下拉菜单打开状态（默认为 `false`）
    * - `menuClass`
-     - string
-     - additional css class applied to the dropdown menu `<div class="dropdown-menu"/>`
+     - `string`
+     - 应用于下拉菜单 `<div class="dropdown-menu"/>` 的附加 CSS 类
    * - `togglerClass`
-     - string
-     - additional css class applied to the toggler `<button class="dropdown-toggle"/>`
+     - `string`
+     - 应用于切换器 `<button class="dropdown-toggle"/>` 的附加 CSS 类
    * - `hotkey`
-     - string
-     - hotkey to toggle the opening through keyboard
+     - `string`
+     - 用于通过键盘切换打开的快捷键
    * - `tooltip`
-     - string
-     - add a tooltip on the toggler
+     - `string`
+     - 在切换器上添加工具提示
    * - `beforeOpen`
-     - function
-     - hook to execute logic just before opening. May be asynchronous.
+     - `function`
+     - 打开前执行的钩子函数。可以是异步的。
    * - `manualOnly`
-     - boolean
-     - if true, only toggle the dropdown when the button is clicked on (defaults to `false`)
+     - `boolean`
+     - 如果为 true，则仅在单击按钮时切换下拉菜单（默认为 `false`）
    * - `disabled`
-     - boolean
-     - disable (if true) the dropdown button (defaults to `false`)
+     - `boolean`
+     - 禁用（如果为 true）下拉按钮（默认为 `false`）
    * - `title`
-     - string
-     - title attribute content for the `<button class="dropdown-toggle"/>` (default: none)
+     - `string`
+     - `<button class="dropdown-toggle"/>` 的 title 属性内容（默认：无）
    * - `position`
-     - string
-     - defines the desired menu opening position. RTL direction is automatically applied. Should be a valid :ref:`usePosition <frontend/hooks/useposition>` hook position. (default: `bottom-start`)
+     - `string`
+     - 定义菜单打开方向。自动应用 RTL 方向。应该是有效的 :ref:`usePosition <frontend/hooks/useposition>` 钩子位置。（默认：`bottom-start`）
    * - `toggler`
-     - `"parent"` or `undefined`
-     - when set to `"parent"` the `<button class="dropdown-toggle"/>` is not
-       rendered (thus `toggler` slot is ignored) and the toggling feature is handled by the parent node (e.g. use
-       case: pivot cells). (default: `undefined`)
+     - `"parent"` 或 `undefined`
+     - 设置为 `"parent"` 时，`<button class="dropdown-toggle"/>` 不会渲染（因此忽略 `toggler` 插槽），切换功能由父节点处理（例如用于透视单元格）。默认：`undefined`
 
-
-A `<DropdownItem/>` is simply a span (`<span class="dropdown-item"/>`).
-When a `<DropdownItem/>` is selected, it calls its `onSelected` prop. If this prop is a method, make sure it is bound if the method need to use the `this` value.
+一个 `<DropdownItem/>` 组件实际上是一个 `<span class="dropdown-item"/>`。当选择 `<DropdownItem/>` 时，它会调用其 `onSelected` 属性。如果此属性是方法，确保它已绑定（如果该方法需要使用 `this` 值）。
 
 .. list-table::
    :widths: 20 20 60
    :header-rows: 1
 
    * - DropdownItem
-     - Type
-     - Description
+     - 类型
+     - 描述
    * - `onSelected`
-     - Function
-     - a function that will be called when the dropdown item is selected.
+     - `Function`
+     - 选择下拉菜单项时调用的函数
    * - `parentClosingMode`
      - `none` | `closest` | `all`
-     - when the item is selected, control which parent dropdown will get closed:
-       none, closest or all (default = `all`)
+     - 选择项目时，控制关闭哪个父下拉菜单：无、最近或全部（默认 = `all`）
    * - `hotkey`
-     - string
-     - optional hotkey to select the item
+     - `string`
+     - 可选的快捷键，用于选择项目
    * - `href`
-     - string
-     - if provided the DropdownItem will become an `<a href="value" class="dropdown-item"/>` instead of a `<span class="dropdown-item"/>`. (default: not provided)
+     - `string`
+     - 如果提供，`DropdownItem` 将变为 `<a href="value" class="dropdown-item"/>` 而不是 `<span class="dropdown-item"/>`。（默认：未提供）
    * - `title`
-     - string
-     - optional title attribute which will be passed to the root node of the DropdownItem. (default: not provided)
+     - `string`
+     - 可选的 title 属性，传递给 DropdownItem 的根节点。（默认：未提供）
    * - `dataset`
-     - Object
-     - optional object containing values that should be added to the root element's dataset. This can be used so that the element is easier to find programmatically, for example in tests or tours.
+     - `Object`
+     - 可选对象，包含应添加到根元素 dataset 的值。此方法可用于使元素在程序化查找（例如测试或引导）中更易识别。
 
-Technical notes
+技术说明
 ~~~~~~~~~~~~~~~
 
-The rendered DOM is structured like this:
+渲染的 DOM 结构如下：
 
 .. code-block:: html
 
    <div class="dropdown">
-       <button class="dropdown-toggle">Click me !</button>
-       <!-- following <div/> will or won't appear in the DOM depending on the state controlled by the preceding button -->
+       <button class="dropdown-toggle">点击我！</button>
+       <!-- 下面的 <div/> 根据上面的按钮状态决定是否出现在 DOM 中 -->
        <div class="dropdown-menu">
-           <span class="dropdown-item">Menu Item 1</span>
-           <span class="dropdown-item">Menu Item 2</span>
+           <span class="dropdown-item">菜单项 1</span>
+           <span class="dropdown-item">菜单项 2</span>
        </div>
    </div>
 
-To properly use a `<Dropdown/>` component, you need to populate two
-`OWL slots <https://github.com/odoo/owl/blob/master/doc/reference/slots.md>`_ :
+要正确使用 `<Dropdown/>` 组件，你需要填充两个
+`OWL 插槽 <https://github.com/odoo/owl/blob/master/doc/reference/slots.md>`_：
 
+- `toggler` 插槽：包含下拉菜单的 *toggler* 元素，渲染在 `button` 内部（除非 `toggler` 属性设置为 `parent`），
+- `default` 插槽：包含下拉菜单项的元素，渲染在 `<div class="dropdown-menu"/>` 内。虽然并非强制，但通常至少在 `menu` 插槽中会有一个 `DropdownItem`。
 
-- `toggler` slot: it contains the *toggler* elements of your dropdown and is
-  rendered inside the dropdown `button` (unless the `toggler` prop is set to `parent`),
-- `default` slot: it contains the *elements* of the dropdown menu itself and is
-  rendered inside the `<div class="dropdown-menu"/>`. Although it is not mandatory, there is usually at least one
-  `DropdownItem` inside the `menu` slot.
+当多个下拉菜单共享 DOM 中的同一父元素时，它们会相互通知其状态变化。
+这意味着当其中一个下拉菜单打开时，其他下拉菜单会在鼠标悬停时自动打开，无需单击。
 
-
-When several dropdowns share the same parent element in the DOM, then they are
-considered part of a group, and will notify each other about their state changes.
-This means that when one of these dropdowns is open, the others will automatically
-open themselves on mouse hover, without the need for a click.
-
-
-Example: Direct Siblings Dropdown
+示例：直接的兄弟下拉菜单
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When one dropdown toggler is clicked (**File** , **Edit** or **About**), the
-others will open themselves on hover.
+当单击一个下拉菜单切换器（**File** 、**Edit** 或 **About**）时，其他菜单将会在悬停时自动打开。
 
 .. code-block:: xml
 
   <div>
     <Dropdown>
-      <t t-set-slot="toggler">File</t>
-      <DropdownItem onSelected="() => this.onItemSelected('file-open')">Open</DropdownItem>
-      <DropdownItem onSelected="() => this.onItemSelected('file-new-document')">New Document</DropdownItem>
-      <DropdownItem onSelected="() => this.onItemSelected('file-new-spreadsheet')">New Spreadsheet</DropdownItem>
+      <t t-set-slot="toggler">文件</t>
+      <DropdownItem onSelected="() => this.onItemSelected('file-open')">打开</DropdownItem>
+      <DropdownItem onSelected="() => this.onItemSelected('file-new-document')">新建文档</DropdownItem>
+      <DropdownItem onSelected="() => this.onItemSelected('file-new-spreadsheet')">新建表格</DropdownItem>
     </Dropdown>
     <Dropdown>
-      <t t-set-slot="toggler">Edit</t>
-      <DropdownItem onSelected="() => this.onItemSelected('edit-undo')">Undo</DropdownItem>
-      <DropdownItem onSelected="() => this.onItemSelected('edit-redo')">Redo</DropdownItem>
-      <DropdownItem onSelected="() => this.onItemSelected('edit-find')">Search</DropdownItem>
+      <t t-set-slot="toggler">编辑</t>
+      <DropdownItem onSelected="() => this.onItemSelected('edit-undo')">撤销</DropdownItem>
+      <DropdownItem onSelected="() => this.onItemSelected('edit-redo')">重做</DropdownItem>
+      <DropdownItem onSelected="() => this.onItemSelected('edit-find')">查找</DropdownItem>
     </Dropdown>
     <Dropdown>
-      <t t-set-slot="toggler">About</t>
-      <DropdownItem onSelected="() => this.onItemSelected('about-help')">Help</DropdownItem>
-      <DropdownItem onSelected="() => this.onItemSelected('about-update')">Check update</DropdownItem>
+      <t t-set-slot="toggler">关于</t>
+      <DropdownItem onSelected="() => this.onItemSelected('about-help')">帮助</DropdownItem>
+      <DropdownItem onSelected="() => this.onItemSelected('about-update')">检查更新</DropdownItem>
     </Dropdown>
   </div>
 
-Example: Multi-level Dropdown (with `t-call`)
+示例：多层次下拉菜单（带 `t-call`）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This example shows how one could make a `File` dropdown menu, with submenus for
-the `New` and `Save as...` sub elements.
+此示例展示了如何创建一个 `文件` 下拉菜单，带有 `新建` 和 `另存为...` 子菜单项。
 
 .. code-block:: xml
 
   <t t-name="addon.Dropdown.File">
     <Dropdown>
-      <t t-set-slot="toggler">File</t>
-      <DropdownItem onSelected="() => this.onItemSelected('file-open')">Open</DropdownItem>
+      <t t-set-slot="toggler">文件</t>
+      <DropdownItem onSelected="() => this.onItemSelected('file-open')">打开</DropdownItem>
       <t t-call="addon.Dropdown.File.New"/>
-      <DropdownItem onSelected="() => this.onItemSelected('file-save')">Save</DropdownItem>
+      <DropdownItem onSelected="() => this.onItemSelected('file-save')">保存</DropdownItem>
       <t t-call="addon.Dropdown.File.Save.As"/>
     </Dropdown>
   </t>
 
   <t t-name="addon.Dropdown.File.New">
     <Dropdown>
-      <t t-set-slot="toggler">New</t>
-      <DropdownItem onSelected="() => this.onItemSelected('file-new-document')">Document</DropdownItem>
-      <DropdownItem onSelected="() => this.onItemSelected('file-new-spreadsheet')">Spreadsheet</DropdownItem>
+      <t t-set-slot="toggler">新建</t>
+      <DropdownItem onSelected="() => this.onItemSelected('file-new-document')">文档</DropdownItem>
+      <DropdownItem onSelected="() => this.onItemSelected('file-new-spreadsheet')">表格</DropdownItem>
     </Dropdown>
   </t>
 
   <t t-name="addon.Dropdown.File.Save.As">
     <Dropdown>
-      <t t-set-slot="toggler">Save as...</t>
+      <t t-set-slot="toggler">另存为...</t>
       <DropdownItem onSelected="() => this.onItemSelected('file-save-as-csv')">CSV</DropdownItem>
       <DropdownItem onSelected="() => this.onItemSelected('file-save-as-pdf')">PDF</DropdownItem>
     </Dropdown>
   </t>
 
-Example: Multi-level Dropdown (nested)
+示例：多层次下拉菜单（嵌套）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: xml
 
   <Dropdown>
-    <t t-set-slot="toggler">File</t>
-    <DropdownItem onSelected="() => this.onItemSelected('file-open')">Open</DropdownItem>
+    <t t-set-slot="toggler">文件</t>
+    <DropdownItem onSelected="() => this.onItemSelected('file-open')">打开</DropdownItem>
     <Dropdown>
-      <t t-set-slot="toggler">New</t>
-      <DropdownItem onSelected="() => this.onItemSelected('file-new-document')">Document</DropdownItem>
-      <DropdownItem onSelected="() => this.onItemSelected('file-new-spreadsheet')">Spreadsheet</DropdownItem>
+      <t t-set-slot="toggler">新建</t>
+      <DropdownItem onSelected="() => this.onItemSelected('file-new-document')">文档</DropdownItem>
+      <DropdownItem onSelected="() => this.onItemSelected('file-new-spreadsheet')">表格</DropdownItem>
     </Dropdown>
-    <DropdownItem onSelected="() => this.onItemSelected('file-save')">Save</DropdownItem>
+    <DropdownItem onSelected="() => this.onItemSelected('file-save')">保存</DropdownItem>
     <Dropdown>
-      <t t-set-slot="toggler">Save as...</t>
+      <t t-set-slot="toggler">另存为...</t>
       <DropdownItem onSelected="() => this.onItemSelected('file-save-as-csv')">CSV</DropdownItem>
       <DropdownItem onSelected="() => this.onItemSelected('file-save-as-pdf')">PDF</DropdownItem>
     </Dropdown>
   </Dropdown>
 
-Example: Recursive Multi-level Dropdown
+示例：递归多层次下拉菜单
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In this example, we recursively call a template to display a tree-like structure.
+在此示例中，我们递归调用一个模板以显示类似树结构的下拉菜单。
 
 .. code-block:: xml
 
   <t t-name="addon.MainTemplate">
     <div>
       <t t-call="addon.RecursiveDropdown">
-        <t t-set="name" t-value="'Main Menu'" />
+        <t t-set="name" t-value="'主菜单'" />
         <t t-set="items" t-value="state.menuItems" />
       </t>
     </div>
@@ -671,11 +604,11 @@ In this example, we recursively call a template to display a tree-like structure
       <t t-set-slot="toggler"><t t-esc="name"/></t>
         <t t-foreach="items" t-as="item" t-key="item.id">
 
-          <!-- If this item has no child: make it a <DropdownItem/> -->
+          <!-- 如果此项目没有子项：将其设为 <DropdownItem/> -->
           <t t-if="!item.childrenTree.length">
             <DropdownItem onSelected="() => this.onItemSelected(item)" t-esc="item.name"/>
           </t>
-          <!-- Else: recursively call the current dropdown template. -->
+          <!-- 否则：递归调用当前的下拉菜单模板。 -->
           <t t-else="" t-call="addon.RecursiveDropdown">
             <t t-set="name" t-value="item.name" />
             <t t-set="items" t-value="item.childrenTree" />
@@ -691,74 +624,69 @@ In this example, we recursively call a template to display a tree-like structure
 Notebook
 --------
 
-Location
+位置
 ~~~~~~~~
 
 `@web/core/notebook/notebook`
 
-Description
+描述
 ~~~~~~~~~~~
 
-The Notebook is made to display multiple pages in a tabbed interface. Tabs can be located
-at the top of the element to display horizontally, or at the left for a vertical layout.
+Notebook 用于在标签界面中显示多个页面。标签可以位于元素的顶部，水平显示，也可以在左侧垂直布局。
 
-There are two ways to define your Notebook pages to instanciate, either by using `slot`'s,
-or by passing a dedicated `props`.
+有两种方法可以定义要实例化的 Notebook 页面：一种是使用 `slot`，另一种是通过传递专用的 `props`。
 
-A page can be disabled with the `isDisabled` attribute, set directly on the slot node, or
-in the page declaration, if the Notebook is used with the `pages` given as props. Once disabled,
-the corresponding tab is greyed out and set as inactive as well.
+可以通过 `isDisabled` 属性禁用某个页面，该属性可以直接设置在插槽节点上，或者在页面声明中禁用。如果使用 `pages` 作为 props 传递，则一旦禁用，相应的标签也会变灰并被设置为不可用。
 
-Props
+属性
 ~~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `anchors`
       - `object`
-      - optional. Allow anchors navigation to elements inside tabs that are not visible.
+      - 可选。允许锚点导航到不可见选项卡中的元素。
     * - `className`
       - `string`
-      - optional. Classname set on the root of the component.
+      - 可选。设置在组件根部的类名。
     * - `defaultPage`
       - `string`
-      - optional. Page `id` to display by default.
+      - 可选。默认显示的页面 `id`。
     * - `icons`
       - `array`
-      - optional. List of icons used in the tabs.
+      - 可选。选项卡中使用的图标列表。
     * - `orientation`
       - `string`
-      - optional. Whether tabs direction is `horizontal` or `vertical`.
+      - 可选。选项卡方向是 `horizontal`（水平）还是 `vertical`（垂直）。
     * - `onPageUpdate`
       - `function`
-      - optional. Callback executed once the page has changed.
+      - 可选。页面更改后执行的回调。
     * - `pages`
       - `array`
-      - optional. Contain the list of `page`'s to populate from a template.
+      - 可选。包含用于模板的 `page` 列表。
 
 .. example::
 
-   The first approach is to set the pages in the slots of the component.
+   第一种方法是在组件的插槽中设置页面。
 
    .. code-block:: xml
 
     <Notebook orientation="'vertical'">
-      <t t-set-slot="page_1" title="'Page 1'" isVisible="true">
-        <h1>My First Page</h1>
-        <p>It's time to build Owl components. Did you read the documentation?</p>
+      <t t-set-slot="page_1" title="'页面 1'" isVisible="true">
+        <h1>我的第一页</h1>
+        <p>是时候构建 Owl 组件了。你读过文档了吗？</p>
       </t>
-      <t t-set-slot="page_2" title="'2nd page'" isVisible="true">
-        <p>Wise owl's silent flight. Through the moonlit forest deep, guides my path to code</p>
+      <t t-set-slot="page_2" title="'第二页'" isVisible="true">
+        <p>智者猫头鹰的无声飞行。穿越月光洒满的森林，指引我编程的道路</p>
       </t>
     </Notebook>
 
-   The other way to define your pages is by passing the props. This can be useful if some pages share
-   the same structure. Create first a component for each page template that you may use.
+   另一种定义页面的方法是通过传递 props。如果某些页面具有相同的结构，此方法会很有用。首先为每个页面模板创建一个组件。
 
    .. code-block:: javascript
 
@@ -776,19 +704,19 @@ Props
           return [
             {
               Component: MyTemplateComponent,
-              title: "Page 1",
+              title: "页面 1",
               props: {
-                title: "My First Page",
-                text: "This page is not visible",
+                title: "我的第一页",
+                text: "此页面不可见",
               },
             },
             {
               Component: MyTemplateComponent,
               id: "page_2",
-              title: "Page 2",
+              title: "页面 2",
               props: {
-                title: "My second page",
-                text: "You're at the right place!",
+                title: "我的第二页",
+                text: "你来对地方了！",
               },
             },
           ]
@@ -798,11 +726,11 @@ Props
         <Notebook defaultPage="'page_2'" pages="pages" />
       `;
 
-  Both examples are shown here:
+  这两个示例如下所示：
 
   .. image:: owl_components/notebook.png
      :width: 400 px
-     :alt: Examples with vertical and horizontal layout
+     :alt: 垂直和水平布局的示例
      :align: center
 
 
@@ -811,127 +739,124 @@ Props
 Pager
 -----
 
-Location
+位置
 ~~~~~~~~
 
 `@web/core/pager/pager`
 
-Description
+描述
 ~~~~~~~~~~~
 
-The Pager is a small component to handle pagination. A page is defined by an `offset` and a `limit` (the size of the page). It displays the current page and the `total` number of elements, for instance, "9-12 / 20". In the previous example, `offset` is 8, `limit` is 4 and `total` is 20. It has two buttons ("Previous" and "Next") to navigate between pages.
+Pager 是一个用于处理分页的小型组件。一个页面由 `offset` 和 `limit` 定义（页面的大小）。它显示当前页面和 `total` 元素的总数，例如“9-12 / 20”。在前面的示例中，`offset` 是 8，`limit` 是 4，`total` 是 20。它有两个按钮（“上一页”和“下一页”）用于在页面之间导航。
 
 .. note::
-    The pager can be used anywhere but its main use is in the control panel. See the :ref:`usePager <frontend/hooks/usepager>` hook in order to manipulate the pager of the control panel.
+    Pager 可以用于任何地方，但它的主要用途是在控制面板中。请参阅 :ref:`usePager <frontend/hooks/usepager>` 钩子以操作控制面板的分页器。
 
 .. code-block:: xml
 
   <Pager offset="0" limit="80" total="50" onUpdate="doSomething" />
 
-Props
+属性
 ~~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `offset`
       - `number`
-      - Index of the first element of the page. It starts with 0 but the pager displays `offset + 1`.
+      - 页面第一个元素的索引。它从 0 开始，但分页器显示 `offset + 1`。
     * - `limit`
       - `number`
-      - Size of the page. The sum of `offset` and `limit` corresponds to the index of the last element of the page.
+      - 页面大小。`offset` 和 `limit` 的总和对应页面最后一个元素的索引。
     * - `total`
       - `number`
-      - Total number of elements the page can reach.
+      - 页面可以到达的元素总数。
     * - `onUpdate`
       - `function`
-      - Function that is called when page is modified by the pager. This function can be async, the pager cannot be edited while this function is executing.
+      - 当分页器修改页面时调用的函数。该函数可以是异步的，在函数执行期间，分页器不可编辑。
     * - `isEditable`
       - `boolean`
-      - Allows to click on the current page to edit it (`true` by default).
+      - 允许单击当前页面进行编辑（默认 `true`）。
     * - `withAccessKey`
       - `boolean`
-      - Binds access key `p` on the previous page button and `n` on the next page one (`true` by default).
+      - 将快捷键 `p` 绑定到上一页按钮，将 `n` 绑定到下一页按钮（默认 `true`）。
 
 .. _frontend/select_menu:
 
 SelectMenu
 ----------
 
-Location
+位置
 ~~~~~~~~
 
 `@web/core/select_menu/select_menu`
 
-Description
+描述
 ~~~~~~~~~~~
 
-This component can be used when you want to do more than using the native `select` element. You can define your own option template, allowing to search
-between your options, or group them in subsections.
+当你想要做的操作超过原生 `select` 元素的功能时，可以使用此组件。你可以自定义选项模板，允许在选项中进行搜索，或将它们分组到子部分中。
 
 .. note::
-    Prefer the native HTML `select` element, as it provides by default accessibility features, and has a better user interface on mobile devices.
-    This component is designed to be used for more complex use cases, to overcome limitations of the native element.
+    请优先使用原生 HTML `select` 元素，因为它默认提供无障碍功能，并且在移动设备上有更好的用户界面。该组件设计用于更复杂的用例，克服原生元素的限制。
 
-Props
+属性
 ~~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `choices`
       - `array`
-      - optional. List of `choice`'s to display in the dropdown.
+      - 可选。显示在下拉列表中的 `choice` 列表。
     * - `class`
       - `string`
-      - optional. Classname set on the root of the SelectMenu component.
+      - 可选。设置在 SelectMenu 组件根部的类名。
     * - `groups`
       - `array`
-      - optional. List of `group`'s, containing `choices` to display in the dropdown.
+      - 可选。包含下拉列表中显示的 `choices` 的 `group` 列表。
     * - `multiSelect`
       - `boolean`
-      - optional. Enable multiple selections. When multiple selection is enabled, selected values are displayed as :ref:`tag <frontend/tags_list>`'s in the SelectMenu input.
+      - 可选。启用多重选择。当启用多重选择时，所选值会显示为 :ref:`tag <frontend/tags_list>` 在 SelectMenu 输入框中。
     * - `togglerClass`
       - `string`
-      - optional. classname set on the toggler button.
+      - 可选。设置在切换按钮上的类名。
     * - `required`
       - `boolean`
-      - optional. Whether the selected value can be unselected.
+      - 可选。是否可以取消选择所选值。
     * - `searchable`
       - `boolean`
-      - optional. Whether a search box is visible in the dropdown.
+      - 可选。下拉列表中是否显示搜索框。
     * - `searchPlaceholder`
       - `string`
-      - optional. Text displayed as the search box placeholder.
+      - 可选。显示在搜索框中的占位文本。
     * - `value`
       - `any`
-      - optional. Current selected value. It can be from any kind of type.
+      - 可选。当前选定的值。可以是任意类型。
     * - `onSelect`
       - `function`
-      - optional. Callback executed when an option is chosen.
+      - 可选。选择选项时执行的回调。
 
-The shape of a `choice` is the following:
+`choice` 的结构如下：
 
-    - `value` is actual value of the choice. It is usually a technical string, but can be from `any` type.
-    - `label` is the displayed text associated with the option. This one is usually a more friendly and translated `string`.
+    - `value` 是选项的实际值。它通常是一个技术字符串，但可以是任意类型。
+    - `label` 是与选项关联的显示文本。通常是更友好的翻译 `string`。
 
-The shape of a `group` is the following:
+`group` 的结构如下：
 
-    - `choices` is the list of `choice`'s to display for this group.
-    - `label` is the displayed text associated with the group. This is a `string` displayed at the top of the group.
+    - `choices` 是此组中要显示的 `choice` 列表。
+    - `label` 是与组关联的显示文本。这是一个显示在组顶部的 `string`。
 
 .. example::
 
-   In the following example, the SelectMenu will display four choices. One of them is displayed on top of the options,
-   since no groups are associated with it, but the other ones are separated by the label of their group.
+   在以下示例中，SelectMenu 将显示四个选项。其中一个显示在选项的顶部，因为没有与其关联的组，而其他选项则按其组的标签分开显示。
 
    .. code-block:: javascript
 
@@ -942,31 +867,31 @@ The shape of a `group` is the following:
           return [
               {
                 value: "value_1",
-                label: "First value"
+                label: "第一个值"
               }
           ]
         }
         get groups() {
           return [
             {
-                label: "Group A",
+                label: "组 A",
                 choices: [
                     {
                       value: "value_2",
-                      label: "Second value"
+                      label: "第二个值"
                     },
                     {
                       value: "value_3",
-                      label: "Third value"
+                      label: "第三个值"
                     }
                 ]
             },
             {
-                label: "Group B",
+                label: "组 B",
                 choices: [
                     {
                       value: "value_4",
-                      label: "Fourth value"
+                      label: "第四个值"
                     }
                 ]
             }
@@ -981,7 +906,7 @@ The shape of a `group` is the following:
         />
       `;
 
-   You can also customize the appearance of the toggler and set a custom template for the choices, using the appropriate component `slot`'s.
+   你还可以自定义切换按钮的外观，并为选项设置自定义模板，使用相应的组件 `slot`。
 
    .. code-block:: javascript
 
@@ -991,7 +916,7 @@ The shape of a `group` is the following:
           groups="groups"
           value="'value_2'"
         >
-          Make a choice!
+          选择一个选项！
           <t t-set-slot="choice" t-slot-scope="choice">
             <span class="coolClass" t-esc="'👉 ' + choice.data.label + ' 👈'" />
           </t>
@@ -1000,18 +925,17 @@ The shape of a `group` is the following:
 
    .. image:: owl_components/select_menu.png
       :width: 400 px
-      :alt: Example of SelectMenu usage and customization
+      :alt: SelectMenu 使用和自定义示例
       :align: center
 
-   When SelectMenu is used with multiple selection, the `value` props must be an `Array` containing the values of the selected choices.
+   当 SelectMenu 与多重选择一起使用时，`value` 属性必须是包含所选选项值的 `Array`。
 
    .. image:: owl_components/select_menu_multiSelect.png
       :width: 350 px
-      :alt: Example of SelectMenu used with multiple selection
+      :alt: 使用多重选择的 SelectMenu 示例
       :align: center
 
-   For more advanced use cases, you can customize the bottom area of the dropdown, using the `bottomArea` slot. Here, we choose to display
-   a button with the corresponding value set in the search input.
+   对于更高级的用例，你可以自定义下拉菜单的底部区域，使用 `bottomArea` 插槽。在此，我们选择显示一个按钮，按钮的对应值设置为搜索输入中的值。
 
    .. code-block:: javascript
 
@@ -1019,11 +943,11 @@ The shape of a `group` is the following:
         <SelectMenu
             choices="choices"
         >
-            <span class="select_menu_test">Select something</span>
+            <span class="select_menu_test">选择一个选项</span>
             <t t-set-slot="bottomArea" t-slot-scope="select">
                 <div t-if="select.data.searchValue">
                     <button class="btn text-primary" t-on-click="() => this.onCreate(select.data.searchValue)">
-                        Create this article "<i t-esc="select.data.searchValue" />"
+                        创建此项目 "<i t-esc="select.data.searchValue" />"
                     </button>
                 </div>
             </t>
@@ -1032,7 +956,7 @@ The shape of a `group` is the following:
 
    .. image:: owl_components/select_menu_bottomArea.png
       :width: 400 px
-      :alt: Example of SelectMenu's bottom area customization
+      :alt: SelectMenu 的底部区域自定义示例
       :align: center
 
 .. _frontend/tags_list:
@@ -1040,55 +964,54 @@ The shape of a `group` is the following:
 TagsList
 --------
 
-Location
+位置
 ~~~~~~~~
 
 `@web/core/tags_list/tags_list`
 
-Description
+描述
 ~~~~~~~~~~~
 
-This component can display a list of tags in rounded pills. Those tags can either simply list a few values, or can be editable, allowing the removal of items.
-It can be possible to limit the number of displayed items using the `itemsVisible` props. If the list is longer than this limit, the number of additional items is
-shown in a circle next to the last tag.
+此组件可以以圆形标签形式显示标签列表。标签可以简单地列出一些值，也可以是可编辑的，允许移除项目。
+你可以使用 `itemsVisible` 属性限制显示的项目数量。如果列表长度超过此限制，则在最后一个标签旁边显示一个圆形标记，其中显示其他项目的数量。
 
-Props
+属性
 ~~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `displayBadge`
       - `boolean`
-      - optional. Whether the tag is displayed as a badge.
+      - 可选。是否将标签显示为徽章。
     * - `displayText`
       - `boolean`
-      - optional. Whether the tag is displayed with a text or not.
+      - 可选。是否显示标签文本。
     * - `itemsVisible`
       - `number`
-      - optional. Limit of visible tags in the list.
+      - 可选。列表中可见标签的限制数量。
     * - `tags`
       - `array`
-      - list of `tag`'s elements given to the component.
+      - 传递给组件的 `tag` 元素列表。
 
-The shape of a `tag` is the following:
+`tag` 的结构如下：
 
-    - `colorIndex` is an optional color id.
-    - `icon` is an optional icon displayed just before the displayed text.
-    - `id` is a unique identifier for the tag.
-    - `img` is an optional image displayed in a circle, just before the displayed text.
-    - `onClick` is an optional callback that can be given to the element. This allows the parent element to handle any functionality depending on the tag clicked.
-    - `onDelete` is an optional callback that can be given to the element. This makes the removal of the item from the list of tags possible, and must be handled by the parent element.
-    - `text` is the displayed `string` associated with the tag.
+    - `colorIndex` 是可选的颜色 ID。
+    - `icon` 是在显示文本之前显示的可选图标。
+    - `id` 是标签的唯一标识符。
+    - `img` 是显示在显示文本之前的可选图片，位于圆形中。
+    - `onClick` 是可以传递给元素的可选回调。这允许父元素处理点击标签时的任何功能。
+    - `onDelete` 是可以传递给元素的可选回调。这使得可以从标签列表中删除该项目，并且必须由父元素处理。
+    - `text` 是与标签关联的显示 `string`。
 
 .. example::
 
-   In the next example, a TagsList component is used to display multiple tags.
-   It's at the developer to handle from the parent what would happen when the tag is pressed, or when the delete button is clicked.
+   在下一个示例中，使用 TagsList 组件显示多个标签。
+   由开发者从父组件处理点击标签时会发生什么，或点击删除按钮时会发生什么。
 
    .. code-block:: javascript
 
@@ -1098,16 +1021,16 @@ The shape of a `tag` is the following:
         setup() {
           this.tags = [{
               id: "tag1",
-              text: "Earth"
+              text: "地球"
           }, {
               colorIndex: 1,
               id: "tag2",
-              text: "Wind",
+              text: "风",
               onDelete: () => {...}
           }, {
               colorIndex: 2,
               id: "tag3",
-              text: "Fire",
+              text: "火",
               onClick: () => {...},
               onDelete: () => {...}
           }];
@@ -1116,9 +1039,9 @@ The shape of a `tag` is the following:
       Parent.components = { TagsList };
       Parent.template = xml`<TagsList tags="tags" />`;
 
-   Depending the attributes given to each tag, their appearance and behavior will differ.
+   根据传递给每个标签的属性，它们的外观和行为会有所不同。
 
    .. image:: owl_components/tags_list.png
       :width: 350 px
-      :alt: Examples of TagsList using different props and attributes
+      :alt: 使用不同属性和选项的 TagsList 示例
       :align: center

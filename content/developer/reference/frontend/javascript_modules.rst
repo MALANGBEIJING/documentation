@@ -4,64 +4,49 @@
 Javascript Modules
 ==================
 
-Odoo supports three different kinds of javascript files:
+Odoo 支持三种不同类型的 JavaScript 文件：
 
-- :ref:`plain javascript files <frontend/modules/plain_js>` (no module system),
-- :ref:`native javascript module <frontend/modules/native_js>`.
-- :ref:`Odoo modules <frontend/modules/odoo_module>` (using a custom module system),
+- :ref:`普通 JavaScript 文件 <frontend/modules/plain_js>`（无模块系统），
+- :ref:`原生 JavaScript 模块 <frontend/modules/native_js>`，
+- :ref:`Odoo 模块 <frontend/modules/odoo_module>`（使用自定义模块系统）。
 
-As described in the :ref:`assets management page <reference/assets>`,
-all javascript files are bundled together and served to the browser.
-Note that native javascript files are processed by the Odoo server and transformed into Odoo custom modules.
+正如 :ref:`资产管理页面 <reference/assets>` 中所述，所有 JavaScript 文件都会被捆绑在一起并提供给浏览器。
+请注意，原生 JavaScript 文件由 Odoo 服务器处理并转换为 Odoo 自定义模块。
 
-Let us briefly explain the purpose behind each kind of javascript file. Plain
-javascript files should be reserved only for external libraries and some small
-specific low level purposes. All new javascript files should be created in the
-native javascript module system. The custom module system is only useful for old,
-not yet converted files.
+让我们简要说明每种类型的 JavaScript 文件的目的。普通 JavaScript 文件应仅保留用于外部库和一些小的特定低级用途。所有新的 JavaScript 文件都应在原生 JavaScript 模块系统中创建。自定义模块系统仅对旧的、尚未转换的文件有用。
 
 .. _frontend/modules/plain_js:
 
 Plain Javascript files
 ======================
 
-Plain javascript files can contain arbitrary content. It is advised to use the
-*iife* :dfn:`immediately invoked function execution` style when writing such a file:
+普通 JavaScript 文件可以包含任意内容。建议在编写此类文件时使用 *iife* :dfn:`立即调用函数执行` 风格：
 
 .. code-block:: javascript
 
   (function () {
-    // some code here
+    // 这里是一些代码
     let a = 1;
     console.log(a);
   })();
 
-The advantages of such files is that we avoid leaking local variables to the
-global scope.
+这样的文件的优点是避免将局部变量泄露到全局作用域。
 
-Clearly, plain javascript files do not offer the benefits of a module system, so
-one needs to be careful about the order in the bundle (since the browser will
-execute them precisely in that order).
+显然，普通 JavaScript 文件没有模块系统的好处，因此需要小心捆绑中的顺序（因为浏览器将精确按照该顺序执行它们）。
 
 .. note::
-  In Odoo, all external libraries are loaded as plain javascript files.
+  在 Odoo 中，所有外部库都作为普通 JavaScript 文件加载。
 
 .. _frontend/modules/native_js:
 
 Native Javascript Modules
 =========================
 
-Most new Odoo javascript code should use the native javascript module system. This
-is simpler, and brings the benefits of a better developer experience with a better
-integration with the IDE.
+大多数新的 Odoo JavaScript 代码应使用原生 JavaScript 模块系统。这种方法更简单，并提供更好的开发者体验以及与 IDE 的更好集成。
 
-There is a very important point to know: Odoo needs to know which files
-should be translated into :ref:`Odoo modules <frontend/modules/odoo_module>` and which
-files should not be translated. This is an opt-in system: Odoo will look at the
-first line of a JS file and check if it contains the string *@odoo-module*. If so, it will
-automatically be converted to an Odoo module.
+有一个非常重要的点需要了解：Odoo 需要知道哪些文件应转换为 :ref:`Odoo 模块 <frontend/modules/odoo_module>`，而哪些文件不应转换。这是一个选择性系统：Odoo 将查看 JS 文件的第一行，并检查其是否包含字符串 *@odoo-module*。如果是，它将自动转换为 Odoo 模块。
 
-For example, let us consider the following module, located in :file:`web/static/src/file_a.js`:
+例如，考虑以下模块，位于 :file:`web/static/src/file_a.js`：
 
 .. code-block:: javascript
 
@@ -72,9 +57,7 @@ For example, let us consider the following module, located in :file:`web/static/
       return someFunction(val + 3);
   }
 
-Note the comment in the first line: it describes that this file should be converted.
-Any file without this comment will be kept as-is (which will most likely be an
-error). This file will then be translated into an Odoo module that look like this:
+请注意第一行中的注释：它描述了此文件应被转换。任何没有此注释的文件将保持原样（这很可能是错误）。此文件将转换为一个 Odoo 模块，如下所示：
 
 .. code-block:: javascript
 
@@ -91,17 +74,11 @@ error). This file will then be translated into an Odoo module that look like thi
    return __exports;
    )};
 
-So, as you can see, the transformation is basically adding `odoo.define` on top,
-and updating the import/export statements.
+因此，正如您所看到的，转换基本上是在顶部添加 `odoo.define`，并更新导入/导出语句。
 
-Another important point is that the translated module has an official name:
-*@web/file_a*. This is the actual name of the module. Every relative imports
-will be converted as well. Every file located in an Odoo addon
-:file:`some_addon/static/src/path/to/file.js` will be assigned a name prefixed by the
-addon name like this: *@some_addon/path/to/file*.
+另一个重要点是，翻译后的模块具有官方名称：*@web/file_a*。这是真正的模块名称。每个相对导入也将被转换。每个位于 Odoo 附加模块 :file:`some_addon/static/src/path/to/file.js` 中的文件将分配一个以附加模块名称为前缀的名称，如下所示：*@some_addon/path/to/file*。
 
-Relative imports work, but only if the modules are in the same Odoo addon. So, imagine that we have
-the following file structure:
+相对导入可以正常工作，但仅当模块在同一 Odoo 附加模块中时。因此，假设我们有以下文件结构：
 
 ::
 
@@ -116,14 +93,14 @@ the following file structure:
               src/
                   file_c.js
 
-The file :file:`file_b` can import :file:`file_a` like this:
+文件 :file:`file_b` 可以这样导入 :file:`file_a`：
 
 .. code-block:: javascript
 
   /** @odoo-module **/
   import {something} from `./file_a`
 
-But :file:`file_c` need to use the full name:
+但 :file:`file_c` 需要使用完整名称：
 
 .. code-block:: javascript
 
@@ -134,13 +111,9 @@ But :file:`file_c` need to use the full name:
 Aliased modules
 ---------------
 
-Because :ref:`Odoo modules <frontend/modules/odoo_module>` follow a different module naming pattern, a system exists to allow a smooth
-transition towards the new system. Currently, if a file is converted to a module (and therefore
-follow the new naming convention), other files not yet converted to ES6-like syntax in the project
-won't be able to require the module. Aliases are here to map old names with new ones by creating a
-small proxy function. The module can then be called by its new *and* old name.
+由于 :ref:`Odoo 模块 <frontend/modules/odoo_module>` 遵循不同的模块命名模式，因此存在一个系统来平滑过渡到新系统。目前，如果一个文件被转换为模块（因此遵循新的命名约定），项目中尚未转换为 ES6 类似语法的其他文件将无法要求该模块。别名用于通过创建一个小代理函数将旧名称映射到新名称。然后可以通过其新旧名称调用模块。
 
-To add such alias, the comment tag on top of the file should look like this:
+要添加此类别名，文件顶部的注释标签应如下所示：
 
 .. code-block:: javascript
 
@@ -151,7 +124,7 @@ To add such alias, the comment tag on top of the file should look like this:
       return someFunction(val + 3);
   }
 
-Then, the translated module will also create an alias with the requested name:
+然后，翻译后的模块还将创建一个与请求名称相对应的别名：
 
 .. code-block:: javascript
 
@@ -159,12 +132,8 @@ Then, the translated module will also create an alias with the requested name:
       return require('@web/file_a')[Symbol.for("default")];
   });
 
-The default behaviour of aliases is to re-export the ``default`` value of the
-module they alias. This is because "classic" modules generally export a single
-value which would be used directly, roughly matching the semantics of default
-exports.
-However it is also possible to delegate more directly, and follow the exact
-behaviour of the aliased module:
+别名的默认行为是重新导出模块的 ``default`` 值。这是因为“经典”模块通常导出一个单一值，直接使用，与默认导出语义大致相符。
+然而，您也可以更直接地委托，并遵循别名模块的确切行为：
 
 .. code-block:: javascript
 
@@ -175,8 +144,7 @@ behaviour of the aliased module:
       return someFunction(val + 3);
   }
 
-In that case, this will define an alias with exactly the values exported by the
-original module:
+在这种情况下，这将定义一个具有原始模块导出的确切值的别名：
 
 .. code-block:: javascript
 
@@ -185,23 +153,20 @@ original module:
   });
 
 .. note::
-   Only one alias can be defined using this method. If you were to need another one to have, for
-   example, three names to call the same module, you would have to add a proxy manually.
-   This is not good practice and should be avoided unless there is no other options.
+   只能通过此方法定义一个别名。如果您需要另一个别名，例如希望调用同一模块的三个名称，则必须手动添加代理。
+   这不是最佳实践，除非没有其他选择，应该避免这样做。
 
 Limitations
 -----------
 
-For performance reasons, Odoo does not use a full javascript
-parser to transform native modules. There are, therefore, a number of limitations including but not
-limited to:
+出于性能原因，Odoo 不使用完整的 JavaScript 解析器来转换原生模块。因此，存在一些限制，包括但不限于：
 
-- an `import` or `export` keyword cannot be preceded by a non-space character,
-- a multiline comment or string cannot have a line starting by `import` or `export`
+- `import` 或 `export` 关键字不能由非空格字符前导，
+- 多行注释或字符串不能包含以 `import` 或 `export` 开头的行
 
   .. code-block:: javascript
 
-    // supported
+    // 支持
     import X from "xxx";
     export X;
       export default X;
@@ -216,18 +181,18 @@ limited to:
      */
 
 
-    // not supported
+    // 不支持
 
     var a= 1;import X from "xxx";
     /*
       import X ...
     */
 
-- when you export an object, it can't contain a comment
+- 导出对象时，它不能包含注释
 
   .. code-block:: javascript
 
-      // supported
+      // 支持
       export {
         a as b,
         c,
@@ -239,46 +204,33 @@ limited to:
       } from "./file_a"
 
 
-      // not supported
+      // 不支持
       export {
-        a as b, // this is a comment
+        a as b, // 这是一个注释
         c,
         d,
       }
 
       export {
-        a /* this is a comment */
+        a /* 这是一个注释 */
       } from "./file_a"
 
-- Odoo needs a way to determine if a module is described by a path (like :file:`./views/form_view`)
-  or a name (like `web.FormView`). It has to use a heuristic to do just that: if there is a `/` in
-  the name, it is considered a path.  This means that Odoo does not really support module names with
-  a `/` anymore.
+- Odoo 需要一种方法来确定模块是由路径描述（如 :file:`./views/form_view`）还是名称（如 `web.FormView`）。它必须使用启发式方法来做到这一点：如果名称中有 `/`，则被视为路径。这意味着 Odoo 不再真正支持带有 `/` 的模块名称。
 
-As "classic" modules are not deprecated and there is currently no plan to remove them, you can and should keep using
-them if you encounter issues with, or are constrained by the limitations of, native modules. Both styles can coexist
-within the same Odoo addon.
-
+由于“经典”模块未被弃用，目前没有计划删除它们，因此如果您遇到问题或受到原生模块限制的约束，您可以并且应该继续使用它们。这两种样式可以在同一 Odoo 附加模块中共存。
 
 .. _frontend/modules/odoo_module:
 
 Odoo Module System
 ==================
 
-Odoo has defined a small module system (located in the file
-:file:`addons/web/static/src/js/boot.js`, which needs to be loaded first). The Odoo
-module system, inspired by AMD, works by defining the function `define`
-on the global odoo object. We then define each javascript module by calling that
-function.  In the Odoo framework, a module is a piece of code that will be executed
-as soon as possible.  It has a name and potentially some dependencies.  When its
-dependencies are loaded, a module will then be loaded as well.  The value of the
-module is then the return value of the function defining the module.
+Odoo 定义了一个小模块系统（位于文件 :file:`addons/web/static/src/js/boot.js` 中，首先需要加载该文件）。Odoo 模块系统受 AMD 启发，工作原理是定义全局 odoo 对象上的 `define` 函数。然后，我们通过调用该函数定义每个 JavaScript 模块。在 Odoo 框架中，模块是将尽快执行的一段代码。它有一个名称和潜在的依赖项。当其依赖项加载时，模块也会被加载。模块的值就是定义该模块的函数的返回值。
 
-As an example, it may look like this:
+例如，它可能如下所示：
 
 .. code-block:: javascript
 
-    // in file a.js
+    // 在文件 a.js 中
     odoo.define('module.A', function (require) {
         "use strict";
 
@@ -287,19 +239,18 @@ As an example, it may look like this:
         return A;
     });
 
-    // in file b.js
+    // 在文件 b.js 中
     odoo.define('module.B', function (require) {
         "use strict";
 
         var A = require('module.A');
 
-        var B = ...; // something that involves A
+        var B = ...; // 与 A 相关的某些内容
 
         return B;
     });
 
-An alternative way to define a module is to give explicitly a list of dependencies
-in the second argument.
+定义模块的另一种方法是在第二个参数中显式给出依赖项列表。
 
 .. code-block:: javascript
 
@@ -309,35 +260,25 @@ in the second argument.
         var A = require('module.A');
         var B = require('module.B');
 
-        // some code
+        // 一些代码
     });
 
 
-If some dependencies are missing/non ready, then the module will simply not be
-loaded.  There will be a warning in the console after a few seconds.
+如果某些依赖项缺失/未就绪，则模块将简单地不被加载。几秒钟后，控制台将显示警告。
 
-Note that circular dependencies are not supported. It makes sense, but it means that one
-needs to be careful.
+请注意，不支持循环依赖。这是有意义的，但这意味着需要小心。
 
 Defining a module
 -----------------
 
-The `odoo.define` method is given three arguments:
+`odoo.define` 方法有三个参数：
 
-- `moduleName`: the name of the javascript module.  It should be a unique string.
-  The convention is to have the name of the odoo addon followed by a specific
-  description. For example, `web.Widget` describes a module defined in the `web`
-  addon, which exports a `Widget` class (because the first letter is capitalized)
+- `moduleName`：JavaScript 模块的名称。它应该是唯一的字符串。
+  约定是将 Odoo 附加模块的名称后跟特定描述。例如，`web.Widget` 描述在 `web` 附加模块中定义的模块，该模块导出一个 `Widget` 类（因为首字母大写）。
 
-  If the name is not unique, an exception will be thrown and displayed in the
-  console.
+  如果名称不唯一，将抛出异常并在控制台中显示。
 
-- `dependencies`: the second argument is optional. If given, it should be a list
-  of strings, each corresponding to a javascript module.  This describes the
-  dependencies that are required to be loaded before the module is executed. If
-  the dependencies are not explicitly given here, then the module system will
-  extract them from the function by calling toString on it, then using a regexp
-  to find all the `require` statements.
+- `dependencies`：第二个参数是可选的。如果给出，它应该是字符串列表，每个字符串对应一个 JavaScript 模块。它描述了在执行模块之前需要加载的依赖项。如果没有显式给出依赖项，则模块系统将通过调用其函数的 toString，然后使用正则表达式查找所有 `require` 语句来提取它们。
 
   .. code-block:: javascript
 
@@ -346,37 +287,29 @@ The `odoo.define` method is given three arguments:
 
          var ajax = require('web.ajax');
 
-         // some code here
+         // 一些代码
          return something;
      });
 
-- finally, the last argument is a function which defines the module. Its return
-  value is the value of the module, which may be passed to other modules requiring
-  it.  Note that there is a small exception for asynchronous modules, see the
-  next section.
+- 最后，最后一个参数是定义模块的函数。它的返回值就是模块的值，可以传递给其他要求它的模块。请注意，对于异步模块，有一个小的例外，见下节。
 
-If an error happens, it will be logged (in debug mode) in the console:
+如果发生错误，将记录（调试模式下）在控制台中：
 
-* `Missing dependencies`:
-  These modules do not appear in the page. It is possible that the JavaScript
-  file is not in the page or that the module name is wrong
-* `Failed modules`:
-  A javascript error is detected
-* `Rejected modules`:
-  The module returns a rejected Promise. It (and its dependent modules) is not
-  loaded.
-* `Rejected linked modules`:
-  Modules who depend on a rejected module
-* `Non loaded modules`:
-  Modules who depend on a missing or a failed module
+* `缺失依赖项`：
+  这些模块未出现在页面中。可能是 JavaScript 文件不在页面中或模块名称错误
+* `失败的模块`：
+  检测到 JavaScript 错误
+* `被拒绝的模块`：
+  模块返回一个被拒绝的 Promise。它（以及其依赖的模块）未加载。
+* `被拒绝的链接模块`：
+  依赖于被拒绝模块的模块
+* `未加载的模块`：
+  依赖于缺失或失败的模块
 
 Asynchronous modules
 --------------------
 
-It can happen that a module needs to perform some work before it is ready.  For
-example, it could do an rpc to load some data.  In that case, the module can
-simply return a promise. The module system will simply
-wait for the promise to complete before registering the module.
+可能发生某个模块需要在准备好之前执行一些工作。例如，它可以执行 rpc 来加载一些数据。在这种情况下，模块可以简单地返回一个承诺。模块系统将在注册模块之前等待承诺完成。
 
 .. code-block:: javascript
 
@@ -386,7 +319,7 @@ wait for the promise to complete before registering the module.
         var ajax = require('web.ajax');
 
         return ajax.rpc(...).then(function (result) {
-            // some code here
+            // 一些代码
             return something;
         });
     });

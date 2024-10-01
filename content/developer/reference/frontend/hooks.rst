@@ -4,67 +4,62 @@
 Hooks
 =====
 
-`Owl hooks <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md>`_ are a
-way to factorize code, even if it depends on some component lifecycle. Most hooks
-provided by Owl are related to the lifecycle of a component, but some of them (such as
-`useComponent <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#usecomponent>`_)
-provide a way to build specific hooks.
+`Owl hooks <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md>`_ 是一种
+代码重构的方法，即使它依赖于某些组件生命周期。Owl 提供的大多数 hooks 与
+组件的生命周期有关，但其中一些（例如 `useComponent <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#usecomponent>`_）提供了一种构建特定 hooks 的方法。
 
-Using these hooks, it is possible to build many customized hooks that help solve
-a specific problem, or make some common tasks easier. The rest of this page
-documents the list of hooks provided by the Odoo web framework.
+使用这些 hooks，可以构建许多自定义 hooks，帮助解决特定问题或简化一些常见任务。
+本页面的其余部分记录了 Odoo Web 框架提供的 hooks 列表。
 
 .. list-table::
    :widths: 30 70
    :header-rows: 1
 
-   * - Name
-     - Short Description
+   * - 名称
+     - 简短描述
    * - :ref:`useAssets <frontend/hooks/useassets>`
-     - load assets
+     - 加载资产
    * - :ref:`useAutofocus <frontend/hooks/useAutofocus>`
-     - focus automatically an element referenced by autofocus
+     - 自动聚焦引用的元素
    * - :ref:`useBus <frontend/hooks/usebus>`
-     - subscribe and unsubscribe to a bus
+     - 订阅和取消订阅总线
    * - :ref:`usePager <frontend/hooks/usepager>`
-     - Display the pager of the control panel of a view.
+     - 显示视图控制面板的分页器。
    * - :ref:`usePosition <frontend/hooks/useposition>`
-     - position an element relative to a target
+     - 将元素相对于目标进行定位
    * - :ref:`useSpellCheck <frontend/hooks/useSpellCheck>`
-     - activate spellcheck on focus for input or textarea
+     - 在输入框或文本区域获得焦点时激活拼写检查
 
 .. _frontend/hooks/useassets:
 
 useAssets
 =========
 
-Location
+位置
 --------
 
 `@web/core/assets`
 
-Description
+描述
 -----------
 
-See the section on :ref:`lazy loading assets <frontend/assets/lazy_loading>` for
-more details.
-
+有关更多详细信息，请参见 :ref:`懒加载资产 <frontend/assets/lazy_loading>` 部分。
 
 .. _frontend/hooks/useAutofocus:
 
 useAutofocus
 ============
 
-Location
+位置
 --------
 
 `@web/core/utils/hooks`
 
-Description
+描述
 -----------
 
-Focus an element referenced by a t-ref="autofocus" in the current component as
-soon as it appears in the DOM and if it was not displayed before.
+在当前组件的 DOM 中引用 `t-ref="autofocus"` 的元素出现时自动聚焦，
+并且如果它之前没有显示过。
 
 .. code-block:: javascript
 
@@ -88,23 +83,22 @@ API
 
 .. js:function:: useAutofocus()
 
-    :returns: the element reference.
+    :returns: 元素引用。
 
 .. _frontend/hooks/usebus:
 
 useBus
 ======
 
-Location
+位置
 --------
 
 `@web/core/utils/hooks`
 
-Description
+描述
 -----------
 
-Add and clear an event listener to a bus. This hook ensures that
-the listener is properly cleared when the component is unmounted.
+向总线添加和清除事件监听器。此 hook 确保在组件卸载时正确清除监听器。
 
 .. code-block:: javascript
 
@@ -123,24 +117,25 @@ API
 
 .. js:function:: useBus(bus, eventName, callback)
 
-    :param EventBus bus: the target event bus
-    :param string eventName: the name of the event that we want to listen to
-    :param function callback: listener callback
+    :param EventBus bus: 目标事件总线
+    :param string eventName: 我们想要监听的事件名称
+    :param function callback: 监听器回调
 
 .. _frontend/hooks/usepager:
 
 usePager
 ========
 
-Location
+位置
 --------
 
 `@web/search/pager_hook`
 
-Description
+描述
 -----------
 
-Display the :ref:`Pager <frontend/pager>` of the control panel of a view. This hooks correctly sets `env.config` to provide the props to the pager.
+显示视图控制面板的 :ref:`分页器 <frontend/pager>`。此 hook 正确设置 `env.config`
+以提供分页器的属性。
 
 .. code-block:: javascript
 
@@ -171,24 +166,23 @@ API
 
 .. js:function:: usePager(getPagerProps)
 
-    :param function getPagerProps: function that returns the pager props.
+    :param function getPagerProps: 返回分页器属性的函数。
 
 .. _frontend/hooks/useposition:
 
 usePosition
 ===========
 
-Location
+位置
 --------
 
 `@web/core/position_hook`
 
-Description
+描述
 -----------
 
-Helps positioning an HTMLElement (the `popper`) relatively to another
-HTMLElement (the `reference`). This hook ensures the positioning is updated when
-the window is resized/scrolled.
+帮助将 HTMLElement（`popper`）相对于另一个 HTMLElement（`reference`）进行定位。
+此 hook 确保在窗口调整大小/滚动时更新定位。
 
 .. code-block:: javascript
 
@@ -196,65 +190,61 @@ the window is resized/scrolled.
 
     class MyPopover extends owl.Component {
       setup() {
-        // Here, the reference is the target props, which is an HTMLElement
+        // 这里，参考是目标属性，它是一个 HTMLElement
         usePosition(this.props.target);
       }
     }
     MyPopover.template = owl.tags.xml`
       <div t-ref="popper">
-        I am positioned through a wonderful hook!
+        我通过一个神奇的 hook 进行定位！
       </div>
     `;
 
 .. important::
-   You should indicate your `popper` element using a `t-ref directive <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#useref>`_.
+   您应该使用 `t-ref 指令 <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#useref>`_ 指定您的 `popper` 元素。
 
 API
 ---
 
 .. js:function:: usePosition(reference[, options])
 
-    :param reference: the target HTMLElement to be positioned from
-    :type reference: HTMLElement or ()=>HTMLElement
-    :param Options options: the positioning options (see table below)
+    :param reference: 参考的 HTMLElement 要进行定位
+    :type reference: HTMLElement 或 ()=>HTMLElement
+    :param Options options: 定位选项（见下表）
 
 .. list-table::
    :widths: 20 20 60
    :header-rows: 1
 
-   * - Option
-     - Type
-     - Description
+   * - 选项
+     - 类型
+     - 描述
    * - `popper`
      - string
-     - this is a `useRef reference <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#useref>`_ for the element that will get positioned.
-       Default is `"popper"`.
+     - 这是要被定位的元素的 `useRef 参考 <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#useref>`_。
+       默认值为 `"popper"`。
    * - `container`
      - HTMLElement
-     - the container from which the popper is expected not to overflow. If
-       overflowing occurs, other popper positions are tried until a not
-       overflowing one is found. (default: the `<html/>` node)
+     - popper 不应溢出的容器。如果发生溢出，将尝试其他 popper 位置，直到找到一个不溢出的为止。
+       （默认：`<html/>` 节点）
    * - `margin`
      - number
-     - added margin between popper and reference elements (default: `0`)
+     - popper 和参考元素之间添加的边距（默认：`0`）
    * - `position`
      - Direction[-Variant]
-     - the desired position. It is a string composed of one `Direction` and one
-       `Variant` separated by a dash character.
-       `Direction` could be: `top`, `bottom`, `right`, `left`.
-       `Variant` could be: `start`, `middle`, `end`, `fit`.
-       The variant can be omitted (default variant is `middle`).
-       The `fit` variant means that the popper would have the exact same width or height,
-       depending on the chosen direction.
-       Examples of valid positions: `right-end`, `top-start`, `left-middle`,
-       `left`, `bottom-fit`. (default position: `bottom`)
+     - 所需位置。它是由一个 `Direction` 和一个 `Variant` 用短横线分隔的字符串。
+       `Direction` 可以是：`top`、`bottom`、`right`、`left`。
+       `Variant` 可以是：`start`、`middle`、`end`、`fit`。
+       变体可以省略（默认变体为 `middle`）。
+       `fit` 变体意味着 popper 将具有相同的宽度或高度，具体取决于所选方向。
+       有效位置的示例：`right-end`、`top-start`、`left-middle`、`left`、`bottom-fit`。 （默认位置：`bottom`）
    * - `onPositioned`
      - (el: HTMLElement, position: PositioningSolution) => void
-     - a callback that will be called everytime a positioning occurs
-       (e.g. on component mounted/patched, document scroll, window resize...).
-       Can be used i.e. for dynamic styling regarding the current position.
-       The `PositioningSolution` is an object having the following type:
-       `{ direction: Direction, variant: Variant, top: number, left: number }`.
+     - 每次发生定位时调用的回调
+       （例如，在组件挂载/补丁、文档滚动、窗口调整大小时...）。
+       可用于根据当前位置进行动态样式调整。
+       `PositioningSolution` 是一个具有以下类型的对象：
+       `{ direction: Direction, variant: Variant, top: number, left: number }`。
 
 .. example::
 
@@ -279,10 +269,10 @@ API
         }
       }
       DropMenu.template = owl.tags.xml`
-        <button t-ref="toggler">Toggle Menu</button>
+        <button t-ref="toggler">切换菜单</button>
         <div t-ref="menu">
           <t t-slot="default">
-            This is the menu default content.
+            这是菜单的默认内容。
           </t>
         </div>
       `;
@@ -292,26 +282,23 @@ API
 useSpellCheck
 =============
 
-Location
+位置
 --------
 
 `@web/core/utils/hooks`
 
-Description
+描述
 -----------
 
-Activate the spellcheck state to an input or textarea on focus by a `t-ref="spellcheck"` in
-the current component. This state is then removed on blur, as well as the red outline, which
-improves readability of the content.
+在当前组件的输入框或文本区域上，通过 `t-ref="spellcheck"` 在获得焦点时激活拼写检查状态。
+然后在失去焦点时移除该状态以及红色轮廓，从而提高内容的可读性。
 
-The hook can also be used on any HTML element with the `contenteditable` attribute. To disable
-spellcheck completely on elements that might be enabled by the hook, set explicitly the
-`spellcheck` attribute as `false` on the element.
+该 hook 还可以用于任何具有 `contenteditable` 属性的 HTML 元素。要完全禁用可能由 hook 启用的元素上的拼写检查，请在元素上显式设置 `spellcheck` 属性为 `false`。
 
 .. example::
 
-   In the following example, the spellcheck will be enabled on the first input, the textarea and
-   the div with `contenteditable="true"`.
+   在以下示例中，拼写检查将在第一个输入框、文本区域和
+   `contenteditable="true"` 的 div 上启用。
 
    .. code-block:: javascript
 
@@ -342,16 +329,15 @@ API
 
 .. js:function:: useSpellCheck([options])
 
-    :param Options options: the spellcheck options (see table below)
+    :param Options options: 拼写检查选项（见下表）
 
 .. list-table::
    :widths: 20 20 60
    :header-rows: 1
 
-   * - Option
-     - Type
-     - Description
+   * - 选项
+     - 类型
+     - 描述
    * - `refName`
      - string
-     - this is a `useRef reference <{OWL_PATH}/doc/reference/hooks.md#useref>`_ for the element that will be
-       spellcheck enabled.
+     - 这是要启用拼写检查的元素的 `useRef 参考 <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md#useref>`_。

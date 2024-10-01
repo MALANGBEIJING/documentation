@@ -1,56 +1,45 @@
 .. _reference/cmdline:
 
 ============================
-Command-line interface (CLI)
+命令行界面 (CLI)
 ============================
 
-The CLI :dfn:`command-line interface` offers several functionalities related to Odoo. You can use it
-to :ref:`run the server <reference/cmdline/server>`, :ref:`launch Odoo as a Python console
-environment <reference/cmdline/shell>`, :ref:`scaffold an Odoo module <reference/cmdline/scaffold>`,
-:ref:`populate a database <reference/cmdline/populate>`, or :ref:`count the number of lines of code
-<reference/cmdline/cloc>`.
+CLI :dfn:`命令行界面` 提供与 Odoo 相关的多种功能。您可以使用它来 :ref:`运行服务器 <reference/cmdline/server>`、:ref:`以 Python 控制台环境启动 Odoo <reference/cmdline/shell>`、:ref:`搭建 Odoo 模块骨架 <reference/cmdline/scaffold>`、:ref:`填充数据库 <reference/cmdline/populate>`，或 :ref:`统计代码行数 <reference/cmdline/cloc>`。
 
 .. important::
-   The command to use to call the CLI depends on how you installed Odoo. In the examples below, we
-   assume that you are :doc:`running Odoo from source </administration/on_premise/source>` with the
-   :file:`odoo-bin` file. If you installed Odoo :doc:`from a distribution package
-   </administration/on_premise/packages>` or with `Docker <https://hub.docker.com/_/odoo/>`_, you
-   must adapt the command.
+   调用 CLI 的命令取决于您如何安装 Odoo。在下面的示例中，我们假设您是 :doc:`从源代码运行 Odoo </administration/on_premise/source>`，使用 :file:`odoo-bin` 文件。如果您通过 :doc:`发行包安装 Odoo </administration/on_premise/packages>` 或使用 `Docker <https://hub.docker.com/_/odoo/>`，则必须调整命令。
 
    .. tabs::
 
-      .. tab:: Run Odoo from source
+      .. tab:: 从源代码运行 Odoo
 
-         #. Navigate to the root of the directory where you downloaded the source files of Odoo
-            Community.
-         #. Run all CLI commands with :command:`./odoo-bin`
+         #. 导航到您下载 Odoo Community 源文件的目录根目录。
+         #. 使用 :command:`./odoo-bin` 运行所有 CLI 命令。
 
-      .. tab:: Odoo was installed from a distribution package
+      .. tab:: Odoo 从发行包安装
 
-         When Odoo was installed, an executable named `odoo` was added to your user's PATH. Replace
-         all occurrences of :command:`odoo-bin` with :command:`odoo` in the examples below.
+         当安装 Odoo 时，会将名为 `odoo` 的可执行文件添加到您的用户 PATH 中。在下面的示例中，将所有 :command:`odoo-bin` 替换为 :command:`odoo`。
 
-      .. tab:: Odoo was installed with Docker
+      .. tab:: Odoo 使用 Docker 安装
 
-         Please refer to the `documentation of the official Docker image of Odoo
-         <https://hub.docker.com/_/odoo/>`_.
+         请参阅 `Odoo 官方 Docker 镜像的文档 <https://hub.docker.com/_/odoo/>`_。
 
 .. _reference/cmdline/help:
 
-Help & version
+帮助与版本
 ==============
 
 .. program:: odoo-bin
 
 .. option:: -h, --help
 
-    shows help text with all available options
+    显示所有可用选项的帮助文本
 
 .. option:: --version
 
-   shows Odoo version e.g. "Odoo Server {BRANCH}"
+   显示 Odoo 版本，例如 "Odoo Server {BRANCH}"
 
-.. tip:: You can enable auto-completion in your shell by running
+.. tip:: 您可以通过运行以下命令在 shell 中启用自动补全
 
   .. code-block:: bash
 
@@ -60,351 +49,319 @@ Help & version
 
 .. _reference/cmdline/server:
 
-Running the server
+运行服务器
 ==================
 
 .. program:: odoo-bin
 
 .. option:: -d <database>, --database <database>
 
-    database(s) used when installing or updating modules.
-    Providing a comma-separated list restrict access to databases provided in
-    list.
+    安装或更新模块时使用的数据库。
+    提供以逗号分隔的列表可限制访问列表中的数据库。
 
-    For advanced database options, take a look :ref:`below <reference/cmdline/server/database>`.
+    有关高级数据库选项，请查看 :ref:`下面 <reference/cmdline/server/database>`。
 
 .. option:: -i <modules>, --init <modules>
 
-    comma-separated list of modules to install before running the server
-    (requires :option:`-d`).
+    以逗号分隔的模块列表，服务器启动前安装这些模块
+    （需要 :option:`-d`）。
 
 .. option:: -u <modules>, --update <modules>
 
-    comma-separated list of modules to update before running the server.
-    Use ``all`` for all modules. (requires :option:`-d`).
+    以逗号分隔的模块列表，在服务器启动前更新这些模块。
+    使用 ``all`` 表示所有模块。（需要 :option:`-d`）。
 
 .. option:: --addons-path <directories>
 
-    comma-separated list of directories in which modules are stored. These
-    directories are scanned for modules.
+    以逗号分隔的目录列表，其中存储模块。这些
+    目录将被扫描以查找模块。
 
-    .. (nb: when and why?)
+    .. (nb: 何时以及为何使用？)
 
 .. option:: --upgrade-path <upgrade_path>
 
-   specify an additional upgrade path.
+   指定一个额外的升级路径。
 
 .. option:: --load <modules>
 
-   list of server-wide modules to load. Those modules are supposed to provide
-   features not necessarily tied to a particular database. This is in contrast
-   to modules that are always bound to a specific database when they are
-   installed (i.e. the majority of Odoo addons). Default is ``base,web``.
+   需加载的服务器范围内模块列表。这些模块应提供
+   不一定与特定数据库相关的功能。这与
+   在安装时总是绑定到特定数据库的模块相对（即大多数 Odoo 附加组件）。默认是 ``base,web``.
 
 .. option:: -c <config>, --config <config>
 
-    path to an alternate :ref:`configuration file <reference/cmdline/config>`.
-    If not defined, Odoo checks ``ODOO_RC`` environmental variable
-    and default location :file:`{$HOME}/.odoorc`.
-    See configuration file section :ref:`below <reference/cmdline/config>`.
+    指向备用 :ref:`配置文件 <reference/cmdline/config>` 的路径。
+    如果未定义，Odoo 会检查 ``ODOO_RC`` 环境变量
+    和默认位置 :file:`{$HOME}/.odoorc`。
+    请参阅 :ref:`下面 <reference/cmdline/config>` 的配置文件部分。
 
 .. option:: -D <data-dir-path>, --data-dir <data-dir-path>
 
-   directory path where to store Odoo data (eg. filestore, sessions).
-   If not specified, Odoo will fallback
-   to a predefined path. On Unix systems its
-   one defined in ``$XDG_DATA_HOME`` environmental variable
-   or :file:`~/.local/share/Odoo` or :file:`/var/lib/Odoo`.
+   存储 Odoo 数据的目录路径（例如，文件存储，会话）。
+   如果未指定，Odoo 将回退到预定义路径。在 Unix 系统上，
+   该路径在 ``$XDG_DATA_HOME`` 环境变量中定义
+   或者 :file:`~/.local/share/Odoo` 或 :file:`/var/lib/Odoo`。
 
 .. option:: -s, --save
 
-    saves the server configuration to the current configuration file
-    (:file:`{$HOME}/.odoorc` by default, and can be overridden using
-    :option:`-c`).
+    将服务器配置保存到当前配置文件
+    （默认是 :file:`{$HOME}/.odoorc`，可以通过
+    :option:`-c` 重写）。
 
 .. option:: --without-demo
 
-    disables demo data loading for modules installed
-    comma-separated, use ``all`` for all modules.
-    Requires :option:`-d` and :option:`-i`.
+    禁用为安装的模块加载演示数据
+    以逗号分隔，使用 ``all`` 表示所有模块。
+    需要 :option:`-d` 和 :option:`-i`。
 
 .. option:: --pidfile=<pidfile>
 
-    path to a file where the server pid will be stored
+    指向一个文件的路径，服务器 PID 将存储在该文件中。
 
 .. option:: --stop-after-init
 
-    stops the server after its initialization.
+    服务器初始化后停止。
 
 .. option:: --geoip-city-db <path>
 
-   Absolute path to the GeoIP City database file.
+   GeoIP 城市数据库文件的绝对路径。
 
 .. option:: --geoip-country-db <path>
 
-   Absolute path to the GeoIP Country database file.
+   GeoIP 国家数据库文件的绝对路径。
 
 
 .. _reference/cmdline/testing:
 
-Testing Configuration
+测试配置
 =====================
 
 .. option:: --test-enable
 
-    runs tests after module installation
+    安装模块后运行测试
 
 .. option:: --test-file <file>
 
-    runs a python test file
+    运行一个 Python 测试文件
 
 .. option:: --test-tags [-][tag][/module][:class][.method]
 
-    Comma-separated list of specs to filter which tests to execute. Enable unit tests if set.
+    以逗号分隔的规范列表，用于过滤要执行的测试。如果设置，将启用单元测试。
 
-    Example: `--test-tags :TestClass.test_func,/test_module,external`
+    示例： `--test-tags :TestClass.test_func,/test_module,external`
 
-    * The `-` specifies if we want to include or exclude tests matching this spec.
-    * The tag will match tags added on a class with a :func:`~odoo.tests.common.tagged` decorator
-      (all :ref:`test classes <reference/testing>` have `standard` and `at_install` tags
-      until explicitly removed, see the decorator documentation).
-    * `*` will match all tags.
-    * If tag is omitted on include mode, its value is `standard`.
-    * If tag is omitted on exclude mode, its value is `*`.
-    * The module, class, and method will respectively match the module name, test class name and test method name.
+    * `-` 指定是否要包括或排除匹配该规范的测试。
+    * 标签将匹配在类上添加的标签，使用 :func:`~odoo.tests.common.tagged` 装饰器
+      （所有 :ref:`测试类 <reference/testing>` 具有 `standard` 和 `at_install` 标签，直到明确删除，参见装饰器文档）。
+    * `*` 将匹配所有标签。
+    * 如果在包含模式中省略标签，其值为 `standard`。
+    * 如果在排除模式中省略标签，其值为 `*`。
+    * 模块、类和方法将分别匹配模块名称、测试类名称和测试方法名称。
 
-    Filtering and executing the tests happens twice: right
-    after each module installation/update and at the end
-    of the modules loading. At each stage tests are filtered
-    by `--test-tags` specs and additionally by dynamic specs
-    `at_install` and `post_install` correspondingly.
+    过滤和执行测试发生两次：在每个模块安装/更新后和模块加载结束时。在每个阶段，测试通过 `--test-tags` 规范过滤，并且额外按动态规范 `at_install` 和 `post_install` 进行过滤。
 
 .. option:: --screenshots
 
-    Specify directory where to write screenshots when an HttpCase.browser_js test
-    fails. It defaults to :file:`/tmp/odoo_tests/{db_name}/screenshots`
+    指定目录，以便在 HttpCase.browser_js 测试失败时写入截图。默认值为 :file:`/tmp/odoo_tests/{db_name}/screenshots`
 
 .. option:: --screencasts
 
-    Enable screencasts and specify directory where to write screencasts files.
-    The ``ffmpeg`` utility needs to be installed to encode frames into a video
-    file. Otherwise frames will be kept instead of the video file.
+    启用录屏并指定目录以写入录屏文件。
+    需要安装 `ffmpeg` 工具来将帧编码为视频文件。否则，帧将被保留而不是视频文件。
 
 .. _reference/cmdline/server/database:
 
-Database
+数据库
 --------
 
 .. option:: -r <user>, --db_user <user>
 
-    database username, used to connect to PostgreSQL.
+    数据库用户名，用于连接 PostgreSQL。
 
 .. option:: -w <password>, --db_password <password>
 
-    database password, if using `password authentication`_.
+    数据库密码，如果使用 `密码认证`_。
 
 .. option:: --db_host <hostname>
 
-    host for the database server
+    数据库服务器的主机
 
-    * ``localhost`` on Windows
-    * UNIX socket otherwise
+    * 在 Windows 上为 ``localhost``
+    * 否则为 UNIX 套接字
 
 .. option:: --db_port <port>
 
-    port the database listens on, defaults to 5432
+    数据库监听的端口，默认为 5432
 
 .. option:: --db-filter <filter>
 
-    hides databases that do not match ``<filter>``. The filter is a
-    `regular expression`_, with the additions that:
+    隐藏不匹配 ``<filter>`` 的数据库。过滤器是一个
+    `正则表达式`_，附加条件如下：
 
-    - ``%h`` is replaced by the whole hostname the request is made on.
-    - ``%d`` is replaced by the subdomain the request is made on, with the
-      exception of ``www`` (so domain ``odoo.com`` and ``www.odoo.com`` both
-      match the database ``odoo``).
+    - ``%h`` 被请求的主机名替换。
+    - ``%d`` 被请求的子域名替换，除了 ``www`` （因此域 ``odoo.com`` 和 ``www.odoo.com`` 都匹配数据库 ``odoo``）。
 
-      These operations are case sensitive. Add option ``(?i)`` to match all
-      databases (so domain ``odoo.com`` using ``(?i)%d`` matches the database
-      ``Odoo``).
+      这些操作是区分大小写的。添加选项 ``(?i)`` 以匹配所有
+      数据库（例如，域 ``odoo.com`` 使用 ``(?i)%d`` 匹配数据库
+      ``Odoo``）。
 
-    Since version 11, it's also possible to restrict access to a given database
-    listen by using the --database parameter and specifying a comma-separated
-    list of databases
+    自版本 11 起，也可以通过使用 --database 参数和指定以逗号分隔的数据库列表来限制对给定数据库的访问。
 
-    When combining the two parameters, db-filter supersedes the comma-separated
-    database list for restricting database list, while the comma-separated list
-    is used for performing requested operations like upgrade of modules.
+    当组合两个参数时，db-filter 优先于逗号分隔的数据库列表来限制数据库列表，而逗号分隔的列表则用于执行请求的操作，例如模块升级。
 
     .. code-block:: bash
 
-        $ odoo-bin --db-filter ^11.*$
+        $ odoo-bin --db-filter
 
-    Restrict access to databases whose name starts with 11
+ ^11.*$
+
+    限制访问数据库名以 11 开头的数据库。
 
     .. code-block:: bash
 
         $ odoo-bin --database 11firstdatabase,11seconddatabase
 
-    Restrict access to only two databases, 11firstdatabase and 11seconddatabase
+    限制访问仅两个数据库，11firstdatabase 和 11seconddatabase。
 
     .. code-block:: bash
 
         $ odoo-bin --database 11firstdatabase,11seconddatabase -u base
 
-    Restrict access to only two databases, 11firstdatabase and 11seconddatabase,
-    and update base module on one database: 11firstdatabase.
-    If database 11seconddatabase doesn't exist, the database is created and base modules
-    is installed
+    限制访问仅两个数据库，11firstdatabase 和 11seconddatabase，
+    并在一个数据库上更新 base 模块：11firstdatabase。
+    如果数据库 11seconddatabase 不存在，将创建该数据库并安装 base 模块。
 
     .. code-block:: bash
 
         $ odoo-bin --db-filter ^11.*$ --database 11firstdatabase,11seconddatabase -u base
 
-    Restrict access to databases whose name starts with 11,
-    and update base module on one database: 11firstdatabase.
-    If database 11seconddatabase doesn't exist, the database is created and base modules
-    is installed
+    限制访问数据库名以 11 开头的数据库，
+    并在一个数据库上更新 base 模块：11firstdatabase。
+    如果数据库 11seconddatabase 不存在，将创建该数据库并安装 base 模块。
 
 .. option:: --db-template <template>
 
-    when creating new databases from the database-management screens, use the
-    specified `template database`_. Defaults to ``template0``.
+    从数据库管理屏幕创建新数据库时，使用指定的 `模板数据库`_。默认值为 ``template0``.
 
 .. option:: --pg_path </path/to/postgresql/binaries>
 
-    Path to the PostgreSQL binaries that are used by the database manager to
-    dump and restore databases. You have to specify this option only if these
-    binaries are located in a non-standard directory.
+    数据库管理器用于转储和还原数据库的 PostgreSQL 二进制文件的路径。仅当这些
+    二进制文件位于非标准目录中时，您需要指定此选项。
 
 .. option:: --no-database-list
 
-    Suppresses the ability to list databases available on the system
+    阻止列出系统上可用的数据库
 
 .. option:: --db_sslmode
 
-    Control the SSL security of the connection between Odoo and PostgreSQL.
-    Value should be one of 'disable', 'allow', 'prefer', 'require',
-    'verify-ca' or 'verify-full'
-    Default value is 'prefer'
+    控制 Odoo 和 PostgreSQL 之间连接的 SSL 安全性。
+    值应该是 'disable'、'allow'、'prefer'、'require'、'verify-ca' 或 'verify-full'
+    默认值为 'prefer'
 
 .. option:: --unaccent
 
-   Try to enable the unaccent extension when creating new databases
+   尝试在创建新数据库时启用 unaccent 扩展。
 
 .. _reference/cmdline/server/emails:
 
-Emails
+电子邮件
 ------
 
 .. option:: --email-from <address>
 
-    Email address used as <FROM> when Odoo needs to send mails
+    当 Odoo 需要发送邮件时使用的 <FROM> 邮件地址。
 
 .. option:: --from-filter <address or domain>
 
-    Define which email address the SMTP configuration will apply to. The field can be a domain name
-    or an entire email address, or it can remain empty. If the sender's email address does not
-    match this set filter, then the email will be encapsulated using a combination of the two
-    system parameters: ``mail.default.from`` and ``mail.catchall.domain``. For example, "Admin"
-    <admin\@example.com> => "Admin" <notifications\@mycompany.com>.
+    定义 SMTP 配置将应用于的电子邮件地址。该字段可以是域名
+    或整个电子邮件地址，或者可以保持为空。如果发件人的电子邮件地址不匹配此设置的过滤器，则邮件将通过组合两个系统参数封装：``mail.default.from`` 和 ``mail.catchall.domain``。例如，"Admin" <admin\@example.com> => "Admin" <notifications\@mycompany.com>。
 
 .. option:: --smtp <server>
 
-    Address of the SMTP server to connect to in order to send mails
+    连接到以便发送邮件的 SMTP 服务器地址。
 
 .. option:: --smtp-port <port>
 
 .. option:: --smtp-ssl
 
-    If set, odoo should use SSL/STARTSSL SMTP connections
+    如果设置，odoo 应该使用 SSL/STARTSSL SMTP 连接。
 
 .. option:: --smtp-user <name>
 
-    Username to connect to the SMTP server
+    连接到 SMTP 服务器的用户名。
 
 .. option:: --smtp-password <password>
 
-    Password to connect to the SMTP server
+    连接到 SMTP 服务器的密码。
 
 .. option:: --smtp-ssl-certificate-filename <path/to/cert.pem>
 
-    An SSL certificate is to be used for authentication. If set, then `smtp-ssl-private-key` is
-    required.
+    用于身份验证的 SSL 证书。如果设置，则需要 `smtp-ssl-private-key`。
 
 .. option:: --smtp-ssl-private-key-filename <path/to/key.pem>
 
-    An SSL private key is used for authentication. If set, then `smtp-ssl-certificate` is required.
+    用于身份验证的 SSL 私钥。如果设置，则需要 `smtp-ssl-certificate`。
 
 .. _reference/cmdline/server/internationalisation:
 
-Internationalisation
+国际化
 --------------------
 
-Use these options to translate Odoo to another language. See i18n section of
-the user manual. Option '-d' is mandatory. Option '-l' is mandatory in case
-of importation
+使用这些选项将 Odoo 翻译成另一种语言。有关 i18n 的说明，请参见用户手册。选项 '-d' 是强制性的。如果导入时，选项 '-l' 也是强制性的。
 
 .. option:: --load-language <languages>
 
-    specifies the languages (separated by commas) for the translations you
-    want to be loaded
+    指定要加载的翻译语言（用逗号分隔）
 
 .. option:: -l, --language <language>
 
-    specify the language of the translation file. Use it with --i18n-export
-    or --i18n-import
+    指定翻译文件的语言。与 --i18n-export 或 --i18n-import 一起使用。
 
 .. option:: --i18n-export <filename>
 
-    export all sentences to be translated to a CSV file, a PO file or a TGZ
-    archive and exit.
+    将所有句子导出到 CSV 文件、PO 文件或 TGZ 压缩文件并退出。
 
 .. option:: --i18n-import <filename>
 
-    import a CSV or a PO file with translations and exit. The '-l' option is
-    required.
+    导入带翻译的 CSV 或 PO 文件并退出。需要 '-l' 选项。
 
 .. option:: --i18n-overwrite
 
-    overwrites existing translation terms on updating a module or importing
-    a CSV or a PO file.
+    在更新模块或导入 CSV 或 PO 文件时覆盖现有翻译条目。
 
 .. option:: --modules
 
-    specify modules to export. Use in combination with --i18n-export
+    指定要导出的模块。与 --i18n-export 一起使用。
 
 .. _reference/cmdline/advanced:
 
-Advanced Options
+高级选项
 ----------------
 
 .. _reference/cmdline/dev:
 
-Developer features
+开发者功能
 ~~~~~~~~~~~~~~~~~~
 
 .. option:: --dev <feature,feature,...,feature>
 
-    comma-separated list of features. For development purposes only. Do not use it in production.
-    Possible features are:
+    以逗号分隔的功能列表。仅供开发用途。请勿在生产中使用。
+    可能的功能有：
 
-    * ``all``: all the features below are activated
+    * ``all``：激活下面的所有功能
 
-    * ``xml``: read QWeb template from xml file directly instead of database.
-      Once a template has been modified in database, it will be not be read from
-      the xml file until the next update/init. Particularly, templates are not
-      translated on using this option.
+    * ``xml``：直接从 xml 文件读取 QWeb 模板，而不是从数据库中读取。
+      一旦模板在数据库中被修改，它将不会从
+      xml 文件中读取，直到下次更新/初始化。特别是，使用此选项时，
+      模板不会被翻译。
 
-    * ``reload``: restart server when python file are updated (may not be detected
-      depending on the text editor used)
+    * ``reload``：在更新 Python 文件时重启服务器（可能无法检测到，具体取决于所使用的文本编辑器）。
 
-    * ``qweb``: break in the evaluation of QWeb template when a node contains ``t-debug='debugger'``
+    * ``qweb``：在 QWeb 模板的评估过程中断，当节点包含 ``t-debug='debugger'`` 时。
 
-    * ``(i)p(u)db``: start the chosen python debugger in the code when an
-      unexpected error is raised before logging and returning the error.
+    * ``(i)p(u)db``：在引发意外错误之前，启动选定的 Python 调试器。
 
-    * ``werkzeug``: display the full traceback on the frontend page in case of exception
+    * ``werkzeug``：在出现异常时，在前端页面上显示完整的回溯信息。
 
 
 .. _reference/cmdline/server/http:
@@ -414,96 +371,85 @@ HTTP
 
 .. option:: --no-http
 
-    do not start the HTTP or long-polling workers (may still start :ref:`cron <reference/actions/cron>`
-    workers)
+    不启动 HTTP 或长轮询工作进程（可能仍然启动 :ref:`cron <reference/actions/cron>` 工作进程）。
 
-    .. warning:: has no effect if :option:`--test-enable` is set, as tests
-                 require an accessible HTTP server
+    .. warning:: 如果设置了 :option:`--test-enable`，则没有效果，因为测试
+                 需要可访问的 HTTP 服务器。
 
 .. option:: --http-interface <interface>
 
-    TCP/IP address on which the HTTP server listens, defaults to ``0.0.0.0``
-    (all addresses)
+    HTTP 服务器监听的 TCP/IP 地址，默认为 ``0.0.0.0``
+    （所有地址）。
 
 .. option:: -p <port>
 .. option:: --http-port <port>
 
-    Port on which the HTTP server listens, defaults to 8069.
+    HTTP 服务器监听的端口，默认为 8069。
 
 .. option:: --gevent-port <port>
 
-    TCP port for websocket connections in multiprocessing or gevent mode,
-    defaults to 8072. Not used in default (threaded) mode.
+    在多进程或 gevent 模式下，用于 websocket 连接的 TCP 端口，
+    默认为 8072。默认（线程）模式下不使用。
 
 .. option:: --proxy-mode
 
-    enables the use of ``X-Forwarded-*`` headers through `Werkzeug's proxy
-    support`_.
+    启用通过 `Werkzeug 的代理支持`_ 使用 ``X-Forwarded-*`` 头。
 
-    It ignores all ``X-Forwarded-*`` headers in case ``X-Forwarded-Host`` is
-    missing from the request.
+    如果请求中缺少 ``X-Forwarded-Host``，则会忽略所有 ``X-Forwarded-*`` 头。
 
-    It always gets the real IP from the last entry of the ``X-Forwarded-For``
-    chain. Configure your web server accordingly using directives such as
-    nginx's `set_real_ip_from <https://nginx.org/en/docs/http/ngx_http_realip_module.html>`_
-    in case there are other trusted proxies along the chain that must be ignored.
+    它始终从 ``X-Forwarded-For`` 链的最后一条记录获取真实 IP。根据需要配置您的 Web 服务器，使用诸如
+    nginx 的 `set_real_ip_from <https://nginx.org/en/docs/http/ngx_http_realip_module.html>`_
+    指令，如果需要忽略链中的其他受信任代理。
 
-    ``X-Forwarded-Proto`` and ``X-Forwarded-Host`` are used to update the
-    request root URL, which in turn is used to update the ``web.base.url``
-    system parameter upon a successful admin authentication. This system
-    parameter is used to generate all links for the current database; see
-    :ref:`domain-name/web-base-url`.
+    ``X-Forwarded-Proto`` 和 ``X-Forwarded-Host`` 用于更新请求根 URL，从而用于在成功的管理员身份验证后更新
+    ``web.base.url`` 系统参数。此系统参数用于生成当前数据库的所有链接；参见 :ref:`domain-name/web-base-url`。
 
-
-    .. warning:: proxy mode *must not* be enabled outside of a reverse proxy
-                 scenario
+    .. warning:: 代理模式 *不得* 在反向代理场景之外启用。
 
 .. option:: --x-sendfile
 
-    delegates serving attachments files to the static web server and sets both
-    ``X-Sendfile`` (apache) and ``X-Accel-*`` (nginx) http headers on stream
-    responses. See :ref:`deploy/streaming` for web server configuration.
+    将附件文件的服务委托给静态 Web 服务器，并在流响应中设置
+    ``X-Sendfile``（apache）和 ``X-Accel-*``（nginx）http 头。有关 Web 服务器配置，请参见 :ref:`deploy/streaming`。
 
 .. _reference/cmdline/server/logging:
 
-Logging
+日志记录
 ~~~~~~~
 
-By default, Odoo displays all logging of level_ ``INFO``, ``WARNING`` and ``ERROR``. All logs
-independently of the level are output on ``stderr``. Various options are available to redirect
-logging to other destinations and to customize the verbosity.
+默认情况下，Odoo 显示所有级别为 ``INFO``、``WARNING`` 和 ``ERROR`` 的日志。所有日志
+无论级别如何都输出到 ``stderr``。有多种选项可用于将日志重定向到其他目的地并自定义详细程度。
 
 .. option:: --logfile <file>
 
-    sends logging output to the specified file instead of ``stderr``. On Unix, the
-    file `can be managed by external log rotation programs
-    <https://docs.python.org/3/library/logging.handlers.html#watchedfilehandler>`_
-    and will automatically be reopened when replaced
+    将日志输出发送到指定的文件，而不是 ``stderr``。在 Unix 上，该
+    文件可以由外部日志轮换程序管理
+    <https://docs.python.org/3/library/logging.handlers.html#watchedfilehandler>_
+    并将在替换时自动重新打开。
 
 .. option:: --syslog
 
-    logs to the system's event logger: `syslog on unices <https://docs.python.org/3/library/logging.handlers.html#sysloghandler>`_
-    and `the Event Log on Windows <https://docs.python.org/3/library/logging.handlers.html#nteventloghandler>`_.
+    将日志记录到系统事件记录器： `UNIX 上的 syslog <https://docs.python.org/3/library/logging.handlers.html#sysloghandler>`_
+    和 `Windows 上的事件日志 <https://docs.python.org/3/library/logging.handlers.html#nteventloghandler>`_。
 
-    Neither is configurable
+    这两者都不可配置。
 
 .. option:: --log-db <dbname>
 
-    logs to the ``ir.logging`` model (``ir_logging`` table) of the specified
-    database. The database can be the name of a database in the "current"
-    PostgreSQL, or `a PostgreSQL URI`_ for e.g. log aggregation.
+    将日志记录到指定数据库的 ``ir.logging`` 模型（``ir_logging`` 表）。数据库可以是 "当前"
+    PostgreSQL 中的数据库
+
+名称，或 `PostgreSQL URI`_ 以便进行日志聚合。
 
 .. option:: --log-handler <handler-spec>
 
-    :samp:`{LOGGER}:{LEVEL}`, enables ``LOGGER`` at the provided ``LEVEL``
-    e.g. ``odoo.models:DEBUG`` will enable all logging messages at or above
-    ``DEBUG`` level in the models.
+    :samp:`{LOGGER}:{LEVEL}`，在提供的 ``LEVEL`` 下启用 ``LOGGER``
+    例如 ``odoo.models:DEBUG`` 将启用模型中所有级别为或高于 ``DEBUG`` 的所有日志消息。
 
-    * The colon ``:`` is mandatory
-    * The logger can be omitted to configure the root (default) handler
-    * If the level is omitted, the logger is set to ``INFO``
+    * 冒号 ``:`` 是强制性的。
+    * 可以省略记录器以配置根（默认）处理程序。
+    * 如果省略级别，记录器将设置为 ``INFO``。
 
-    The option can be repeated to configure multiple loggers e.g.
+    此选项可以重复以配置多个记录器，例如：
 
     .. code-block:: console
 
@@ -511,137 +457,116 @@ logging to other destinations and to customize the verbosity.
 
 .. option:: --log-web
 
-    enables DEBUG logging of HTTP requests and responses, equivalent to
-    ``--log-handler=odoo.http:DEBUG``
+    启用 HTTP 请求和响应的 DEBUG 日志记录，相当于
+    ``--log-handler=odoo.http:DEBUG``。
 
 .. option:: --log-sql
 
-    enables DEBUG logging of SQL querying, equivalent to
-    ``--log-handler=odoo.sql_db:DEBUG``
+    启用 SQL 查询的 DEBUG 日志记录，相当于
+    ``--log-handler=odoo.sql_db:DEBUG``。
 
 .. option:: --log-level <level>
 
-    Shortcut to more easily set predefined levels on specific loggers. "real"
-    levels (``critical``, ``error``, ``warn``, ``debug``) are set on the
-    ``odoo`` and ``werkzeug`` loggers (except for ``debug`` which is only
-    set on ``odoo``).
+    快捷方式，用于更轻松地在特定记录器上设置预定义级别。 "真实" 级别（``critical``、``error``、``warn``、``debug``）设置在 ``odoo`` 和 ``werkzeug`` 记录器上（除了 ``debug``，仅在 ``odoo`` 上设置）。
 
-    Odoo also provides debugging pseudo-levels which apply to different sets
-    of loggers:
+    Odoo 还提供调试伪级别，适用于不同的记录器集合：
 
     ``debug_sql``
-        sets the SQL logger to ``debug``
+        将 SQL 记录器设置为 ``debug``。
 
-        equivalent to ``--log-sql``
+        相当于 ``--log-sql``。
     ``debug_rpc``
-        sets the ``odoo`` and HTTP request loggers to ``debug``
+        将 ``odoo`` 和 HTTP 请求记录器设置为 ``debug``。
 
-        equivalent to ``--log-level debug --log-request``
+        相当于 ``--log-level debug --log-request``。
     ``debug_rpc_answer``
-        sets the ``odoo`` and HTTP request and response loggers to
-        ``debug``
+        将 ``odoo`` 和 HTTP 请求及响应记录器设置为 ``debug``。
 
-        equivalent to ``--log-level debug --log-request --log-response``
+        相当于 ``--log-level debug --log-request --log-response``。
 
     .. note::
 
-        In case of conflict between :option:`--log-level` and
-        :option:`--log-handler`, the latter is used
+        如果 :option:`--log-level` 和
+        :option:`--log-handler` 之间存在冲突，则使用后者。
 
 .. _reference/cdmline/workers:
 
-Multiprocessing
+多进程
 ~~~~~~~~~~~~~~~
 
 .. option:: --workers <count>
 
-    if ``count`` is not 0 (the default), enables multiprocessing and sets up
-    the specified number of HTTP workers (sub-processes processing HTTP
-    and RPC requests).
+    如果 ``count`` 不为 0（默认为 0），则启用多进程并设置
+    指定数量的 HTTP 工作进程（子进程处理 HTTP
+    和 RPC 请求）。
 
-    .. note:: multiprocessing mode is only available on Unix-based systems
+    .. note:: 多进程模式仅在基于 Unix 的系统上可用。
 
-    A number of options allow limiting and recycling workers:
+    有几个选项可以限制和回收工作进程：
 
     .. option:: --limit-request <limit>
 
-        Number of requests a worker will process before being recycled and
-        restarted.
+        工作进程在被回收和重启之前将处理的请求数量。
 
-        Defaults to *8196*.
+        默认值为 *8196*。
 
     .. option:: --limit-memory-soft <limit>
 
-        Maximum allowed virtual memory per worker in bytes. If the limit is exceeded,
-        the worker is killed and recycled at the end of the current request.
+        每个工作进程允许的最大虚拟内存（以字节为单位）。如果超过该限制，
+        工作进程将在当前请求结束时被杀死并回收。
 
-        Defaults to *2048MiB (2048\*1024\*1024B)*.
+        默认值为 *2048MiB (2048\*1024\*1024B)*。
 
     .. option:: --limit-memory-hard <limit>
 
-        Hard limit on virtual memory in bytes, any worker exceeding the limit will be
-        immediately killed without waiting for the end of the current request
-        processing.
+        虚拟内存的硬限制（以字节为单位），任何超出该限制的工作进程将立即被杀死，而不等待当前请求处理的结束。
 
-        Defaults to *2560MiB (2560\*1024\*1024B)*.
+        默认值为 *2560MiB (2560\*1024\*1024B)*。
 
     .. option:: --limit-time-cpu <limit>
 
-        Prevents the worker from using more than <limit> CPU seconds for each
-        request. If the limit is exceeded, the worker is killed.
+        防止工作进程在每个请求中使用超过 <limit> 的 CPU 秒。如果超过该限制，工作进程将被杀死。
 
-        Defaults to *60*.
+        默认值为 *60*。
 
     .. option:: --limit-time-real <limit>
 
-        Prevents the worker from taking longer than <limit> seconds to process
-        a request. If the limit is exceeded, the worker is killed.
+        防止工作进程处理请求所需的时间超过 <limit> 秒。如果超过该限制，工作进程将被杀死。
 
-        Differs from :option:`--limit-time-cpu` in that this is a "wall time"
-        limit including e.g. SQL queries.
+        与 :option:`--limit-time-cpu` 不同，这是一项“实际时间”限制，包括例如 SQL 查询。
 
-        Defaults to *120*.
+        默认值为 *120*。
 
 .. option:: --max-cron-threads <count>
 
-    number of workers dedicated to :ref:`cron <reference/actions/cron>` jobs. Defaults to *2*.
-    The workers are threads in multi-threading mode and processes in multi-processing mode.
+    专用于 :ref:`cron <reference/actions/cron>` 作业的工作进程数量。默认值为 *2*。
+    在多线程模式下，工作进程是线程；在多进程模式下，工作进程是进程。
 
-    For multi-processing mode, this is in addition to the HTTP worker processes.
+    对于多进程模式，这是在 HTTP 工作进程之外的。
 
 .. _reference/cmdline/config:
 
-Configuration file
+配置文件
 ==================
 
 .. program:: odoo-bin
 
-Most of the command-line options can also be specified via a configuration
-file. Most of the time, they use similar names with the prefix ``-`` removed
-and other ``-`` are replaced by ``_`` e.g. :option:`--db-template` becomes
-``db_template``.
+大多数命令行选项也可以通过配置文件指定。大多数情况下，它们使用类似名称，去掉前缀 ``-``，并将其他 ``-`` 替换为 ``_``，例如 :option:`--db-template` 变为 ``db_template``。
 
-Some conversions don't match the pattern:
+某些转换不符合该模式：
 
-* :option:`--db-filter` becomes ``dbfilter``
-* :option:`--no-http` corresponds to the ``http_enable`` boolean
-* logging presets (all options starting with ``--log-`` except for
-  :option:`--log-handler` and :option:`--log-db`) just add content to
-  ``log_handler``, use that directly in the configuration file
-* :option:`--smtp` is stored as ``smtp_server``
-* :option:`--database` is stored as ``db_name``
-* :option:`--i18n-import` and :option:`--i18n-export` aren't available at all
-  from configuration files
+* :option:`--db-filter` 变为 ``dbfilter``。
+* :option:`--no-http` 对应于 ``http_enable`` 布尔值。
+* 日志预设（所有以 ``--log-`` 开头的选项，除了 :option:`--log-handler` 和 :option:`--log-db`）仅将内容添加到 ``log_handler``，直接在配置文件中使用它。
+* :option:`--smtp` 存储为 ``smtp_server``。
+* :option:`--database` 存储为 ``db_name``。
+* :option:`--i18n-import` 和 :option:`--i18n-export` 在配置文件中根本不可用。
 
 .. _reference/cmdline/config_file:
 
-The default configuration file is :file:`{$HOME}/.odoorc` which
-can be overridden using :option:`--config <odoo-bin -c>`. Specifying
-:option:`--save <odoo-bin -s>` will save the current configuration state back
-to that file. The configuration items relative to the command-line are to be
-specified in the section ``[options]``.
+默认配置文件为 :file:`{$HOME}/.odoorc`，可以使用 :option:`--config <odoo-bin -c>` 重写。指定 :option:`--save <odoo-bin -s>` 将当前配置状态保存回该文件。与命令行相关的配置项应在 ``[options]`` 部分指定。
 
-Here is a sample file:
+以下是示例文件：
 
 .. code-block:: ini
 
@@ -668,8 +593,7 @@ Here is a sample file:
 Shell
 =====
 
-The Odoo command line also allows launching Odoo as a Python console environment, enabling direct
-interaction with the :ref:`orm <reference/orm>` and its functionalities.
+Odoo 命令行还允许将 Odoo 启动为 Python 控制台环境，能够直接与 :ref:`orm <reference/orm>` 及其功能进行交互。
 
 .. code-block:: console
 
@@ -677,7 +601,7 @@ interaction with the :ref:`orm <reference/orm>` and its functionalities.
 
 .. example::
 
-   Adding an exclamation mark to all contacts' names:
+   向所有联系人的名称添加感叹号：
 
    .. code-block:: python
 
@@ -693,30 +617,25 @@ interaction with the :ref:`orm <reference/orm>` and its functionalities.
       In [4]: env.cr.commit()
 
    .. important::
-      By default, the shell is running in transaction mode. This means that any change made to the
-      database is rolled back when exiting the shell. To commit changes, use `env.cr.commit()`.
+      默认情况下，shell 以事务模式运行。这意味着对数据库的任何更改在退出 shell 时都会回滚。要提交更改，请使用 `env.cr.commit()`。
 
 .. option:: --shell-interface (ipython|ptpython|bpython|python)
 
-   Specify a preferred REPL to use in shell mode. This shell is started with the `env` variable
-   already initialized to be able to access the ORM and other Odoo modules.
+   指定在 shell 模式下使用的首选 REPL。此 shell 已使用 `env` 变量初始化，以便能够访问 ORM 和其他 Odoo 模块。
 
 .. seealso::
    :ref:`reference/orm/environment`
 
 .. _reference/cmdline/scaffold:
 
-Scaffolding
+搭建骨架
 ===========
 
 .. program:: odoo-bin scaffold
 
-Scaffolding is the automated creation of a skeleton structure to simplify
-bootstrapping (of new modules, in the case of Odoo). While not necessary it
-avoids the tedium of setting up basic structures and looking up what all
-starting requirements are.
+搭建骨架是自动创建一个骨架结构，以简化（在 Odoo 的情况下是新模块的）引导过程。虽然不是必需的，但它避免了设置基本结构和查找所有启动要求的单调。
 
-Scaffolding is available via the :command:`odoo-bin scaffold` subcommand.
+通过 :command:`odoo-bin scaffold` 子命令可以实现搭建骨架。
 
 .. code-block:: console
 
@@ -724,33 +643,28 @@ Scaffolding is available via the :command:`odoo-bin scaffold` subcommand.
 
 .. option:: name (required)
 
-    the name of the module to create, may munged in various manners to
-    generate programmatic names (e.g. module directory name, model names, …)
+    要创建的模块的名称，可以以各种方式修改以生成程序化名称（例如，模块目录名称、模型名称等）。
 
 .. option:: destination (default=current directory)
 
-    directory in which to create the new module, defaults to the current
-    directory
+    创建新模块的目录，默认为当前目录。
 
 .. option:: -t <template>
 
-    a template directory, files are passed through jinja2_ then copied to
-    the ``destination`` directory
+    一个模板目录，文件经过 jinja2_ 处理后复制到 ``destination`` 目录。
 
-
-This will create module *my_module* in directory */addons/*.
+这将在目录 */addons/* 中创建模块 *my_module*。
 
 .. _reference/cmdline/populate:
 
-Database Population
+数据库填充
 ===================
 
-.. program:: odoo-bin populate
+.. program:: o
 
-Odoo CLI supports database population features. If the feature is
-:ref:`implemented on a given model <reference/performance/populate/methods>`, it allows automatic
-data generation of the model's records to test your modules in databases containing non-trivial
-amounts of records.
+doo-bin populate
+
+Odoo CLI 支持数据库填充功能。如果该功能在给定模型上 :ref:`实现 <reference/performance/populate/methods>`，它允许自动生成模型记录的数据，以在包含大量记录的数据库中测试您的模块。
 
 .. code-block:: console
 
@@ -758,13 +672,12 @@ amounts of records.
 
 .. option:: --models
 
-    list of models for which the database should be filled
+    数据库应填充的模型列表。
 
 .. option:: --size (small|medium|large)
 
-    population size, the actual records number depends on the model's `_populate_sizes` attribute.
-    The generated records content is specified by the :meth:`~odoo.models._populate_factories` method
-    of a given model (cf. the :file:`populate` folder of modules for further details).
+    填充大小，实际记录数量取决于模型的 `_populate_sizes` 属性。
+    生成的记录内容由给定模型的 :meth:`~odoo.models._populate_factories` 方法指定（有关详细信息，请参见模块的 :file:`populate` 文件夹）。
 
 .. seealso::
    :ref:`reference/performance/populate`
@@ -776,22 +689,15 @@ Cloc
 
 .. program:: odoo-bin cloc
 
-Odoo Cloc is a tool to count the number of relevant lines written in
-Python, Javascript, CSS, SCSS, or XML. This can be used as a rough metric for pricing
-maintenance of extra modules.
+Odoo Cloc 是一个工具，用于计算 Python、JavaScript、CSS、SCSS 或 XML 中编写的相关行数。这可以作为定价额外模块维护的粗略指标。
 
-Command-line options
+命令行选项
 --------------------
 .. option:: -d <database>, --database <database>
 
-| Process the code of all extra modules installed on the provided database,
-  and of all server actions and computed fields manually created in the provided
-  database.
-| The :option:`--addons-path` option is required to specify the path(s) to the
-  module folder(s).
-| If combined with :option:`--path`, the count will be that of the sum of both
-  options' results (with possible overlaps). At least one of these two options is
-  required to specify which code to process.
+| 处理提供的数据库中安装的所有额外模块的代码，以及在提供的数据库中手动创建的所有服务器操作和计算字段。
+| 需要 :option:`--addons-path` 选项来指定模块文件夹的路径。
+| 如果与 :option:`--path` 结合使用，则计数将是这两个选项结果的总和（可能重叠）。至少需要其中一个选项来指定要处理的代码。
 
 .. code-block:: console
 
@@ -803,17 +709,15 @@ Command-line options
 
 .. option:: -p <path>, --path <path>
 
-| Process the files in the provided path.
-| If combined with :option:`--database`, the count will be that of the sum of both
-  options' results (with possible overlaps). At least one of these two options is
-  required to specify which code to process.
+| 处理提供路径中的文件。
+| 如果与 :option:`--database` 结合使用，则计数将是这两个选项结果的总和（可能重叠）。至少需要其中一个选项来指定要处理的代码。
 
 .. code-block:: console
 
    $ odoo-bin cloc -p addons/account
 
 
-Multiple paths can be provided by repeating the option.
+可以通过重复该选项提供多个路径。
 
 .. code-block:: console
 
@@ -825,14 +729,13 @@ Multiple paths can be provided by repeating the option.
 
 .. option:: --addons-path <directories>
 
-| Comma-separated list of directories in which modules are stored. These directories
-  are scanned for modules.
-| Required if the :option:`--database` option is used.
-
+| 以逗号分隔的目录列表，其中存储模块。这些目录
+| 将被扫描以查找模块。
+| 如果使用 :option:`--database` 选项，则必需。
 
 .. option:: -c <directories>
 
-Specify a configuration file to use in place of the :option:`--addons-path` option.
+指定一个配置文件，以替代 :option:`--addons-path` 选项。
 
 .. code-block:: console
 
@@ -841,104 +744,87 @@ Specify a configuration file to use in place of the :option:`--addons-path` opti
 
 .. option:: -v, --verbose
 
-Show the details of lines counted for each file.
+显示每个文件计数的详细信息。
 
 
-Processed files
+处理的文件
 ---------------
 
 .. _reference/cmdline/cloc/database-option:
 
-With the :option:`--database` option
+使用 :option:`--database` 选项
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Odoo Cloc counts the lines in each file of extra installed modules in a
-given database. In addition, it counts the Python lines of server actions and
-custom computed fields that have been directly created in the database or
-imported. Finally, it counts the lines of code of Javascript, CSS, and SCSS files,
-and of QWeb views from imported modules.
+Odoo Cloc 计算给定数据库中每个额外安装模块的行数。此外，它还计算直接在数据库中创建的服务器操作和自定义计算字段的 Python 行数，或导入的行数。最后，它计算 JavaScript、CSS 和 SCSS 文件的代码行数，以及导入模块的 QWeb 视图。
 
-Some files are excluded from the count by default:
+默认情况下，某些文件会被排除在计数之外：
 
-- The manifest (:file:`__manifest__.py` or :file:`__openerp__.py`)
-- The contents of the folder :file:`static/lib`
-- The tests defined in the folder :file:`tests` and :file:`static/tests`
-- The migrations scripts defined in the folder :file:`migrations` and `upgrades`
-- The XML files declared in the ``demo`` or ``demo_xml`` sections of the manifest
+- 清单文件 (:file:`__manifest__.py` 或 :file:`__openerp__.py`)
+- 文件夹 :file:`static/lib` 的内容
+- 在文件夹 :file:`tests` 和 :file:`static/tests` 中定义的测试
+- 在文件夹 :file:`migrations` 和 `upgrades` 中定义的迁移脚本
+- 在清单的 ``demo`` 或 ``demo_xml`` 部分中声明的 XML 文件
 
-For special cases, a list of files that should be ignored by Odoo Cloc can be defined
-per module. This is specified by the ``cloc_exclude`` entry of the manifest:
+对于特殊情况，可以为每个模块定义应由 Odoo Cloc 忽略的文件列表。这通过清单的 ``cloc_exclude`` 条目指定：
 
 .. code-block:: python
 
     "cloc_exclude": [
-        "lib/common.py", # exclude a single file
-        "data/*.xml",    # exclude all XML files in a specific folder
-        "example/**/*",  # exclude all files in a folder hierarchy recursively
-        "**/*.scss",     # exclude all scss file from the module
+        "lib/common.py", # 排除单个文件
+        "data/*.xml",    # 排除特定文件夹中的所有 XML 文件
+        "example/**/*",  # 递归排除文件夹层次中的所有文件
+        "**/*.scss",     # 排除模块中的所有 scss 文件
     ]
 
-| The pattern ``**/*`` can be used to ignore an entire module. This can be useful
-  to exclude a module from maintenance service costs.
-| For more information about the pattern syntax, see `glob
-  <https://docs.python.org/3/library/pathlib.html#pathlib.Path.glob>`_.
+| 模式 ``**/*`` 可用于忽略整个模块。这在排除维护服务成本的模块时非常有用。
+| 有关模式语法的更多信息，请参见 `glob
+  <https://docs.python.org/3/library/pathlib.html#pathlib.Path.glob>`_。
 
 .. _reference/cmdline/cloc/path-option:
 
-With the :option:`--path` option
+使用 :option:`--path` 选项
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This method works the same as with the :ref:`--database option
-<reference/cmdline/cloc/database-option>` if a manifest file is present in the given
-folder. Otherwise, it counts all files.
+如果给定文件夹中存在清单文件，则该方法的工作方式与 :ref:`--database 选项 <reference/cmdline/cloc/database-option>` 相同。否则，它将计算所有文件。
 
 
-Identifying Extra Modules
+识别额外模块
 -------------------------
 
-To distinguish between standard and extra modules, Odoo Cloc uses the following heuristic:
-modules that are located (real file system path, after following symbolic links)
-in the same parent directory as the ``base``, ``web`` or ``web_enterprise``
-standard modules are considered standard. Other modules are treated as extra modules.
+为了区分标准模块和额外模块，Odoo Cloc 使用以下启发式方法：
+位于（真实文件系统路径，跟随符号链接后）与 ``base``、``web`` 或 ``web_enterprise`` 标准模块位于同一父目录中的模块被视为标准模块。其他模块被视为额外模块。
 
 
-Error Handling
+错误处理
 --------------
 
-Some file cannot be counted by Odoo Cloc.
-Those file are reported at the end of the output.
+某些文件无法被 Odoo Cloc 计数。
+这些文件在输出的末尾报告。
 
-Max file size exceeded
+最大文件大小超出限制
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Odoo Cloc rejects any file larger than 25MB. Usually, source files are smaller
-than 1 MB. If a file is rejected, it may be:
+Odoo Cloc 拒绝任何大于 25MB 的文件。通常，源文件小于 1 MB。如果文件被拒绝，可能是：
 
-- A generated XML file that contains lots of data. It should be excluded in the manifest.
-- A JavaScript library that should be placed in the :file:`static/lib` folder.
+- 生成的 XML 文件包含大量数据。应在清单中排除。
+- JavaScript 库应放置在 :file:`static/lib` 文件夹中。
 
-Syntax Error
+语法错误
 ~~~~~~~~~~~~
 
-Odoo Cloc cannot count the lines of code of a Python file with a syntax problem.
-If an extra module contains such files, they should be fixed to allow the module to
-load. If the module works despite the presence of those files, they are probably
-not loaded and should therefore be removed from the module, or at least excluded
-in the manifest via ``cloc_exclude``.
+Odoo Cloc 无法计算存在语法问题的 Python 文件的代码行数。
+如果额外模块包含此类文件，则应修复以允许模块加载。如果模块在存在这些文件的情况下仍然正常工作，则它们可能不会被加载，因此应将其从模块中删除，或至少通过 ``cloc_exclude`` 在清单中排除。
 
-TSConfig Generator
+TSConfig 生成器
 ==================
 
 .. program:: odoo-bin tsconfig
 
-When working on javascript, there are ways to help your editor providing you with
-powerful auto-completion. One of those ways is the use of a tsconfig.json file.
-Originally meant for typescript, editors can use its information with plain javascript also.
-With this config file, you will now have full auto-completion across modules.
+在处理 JavaScript 时，有一些方法可以帮助您的编辑器提供强大的自动补全。其中一种方法是使用 tsconfig.json 文件。
+最初用于 TypeScript，编辑器也可以使用其信息与普通 JavaScript 一起使用。
+使用此配置文件，您现在将在模块之间拥有完整的自动补全。
 
-The command to generate this files takes as many unnamed arguments as you need. Those are relative paths
-to your addon directories. In the example below, we move up one folder to save the tsconfig file in the folder
-containing community and enterprise.
+生成此文件的命令可以接收任意数量的未命名参数。这些参数是相对于您的插件目录的路径。在下面的示例中，我们向上移动一个文件夹，以便将 tsconfig 文件保存在包含社区和企业的文件夹中。
 
 .. code-block:: console
 

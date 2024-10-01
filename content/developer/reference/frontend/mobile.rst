@@ -1,153 +1,127 @@
 .. _reference/mobile:
 
 =================
-Mobile JavaScript
+移动JavaScript
 =================
 
-Introduction
+简介
 ============
 
-In Odoo 10.0 we released a mobile app which allows you to access all **Odoo apps**
-(even your customized modules).
+在Odoo 10.0中，我们发布了一款移动应用，允许您访问所有**Odoo应用**（甚至是您自定义的模块）。
 
-The application is a combination of **Odoo Web** and **Native Mobile components**. In other words it
-is a Odoo Web instance loaded inside a native, mobile, WebView container.
+该应用是**Odoo Web**和**本机移动组件**的结合。换句话说，它是一个在本机移动WebView容器中加载的Odoo Web实例。
 
-This page documents how you can access mobile native components like Camera,
-Vibration, Notification and Toast through Odoo Web (via JavaScript). For this, you
-do not need to be a mobile developer, if you know Odoo JavaScript API you can
-access all available mobile features.
+本页面文档说明如何通过Odoo Web（通过JavaScript）访问移动原生组件，如相机、振动、通知和Toast。您无需成为移动开发人员，只需了解Odoo JavaScript API即可访问所有可用的移动功能。
 
 .. warning::
-   These features work with **Odoo Enterprise 10.0+** only
+   这些功能仅适用于**Odoo Enterprise 10.0+**
 
-How does it work?
+它是如何工作的？
 =================
 
-Internal workings of the mobile application:
+移动应用的内部工作原理：
 
 .. image:: mobile/mobile_working.jpg
 
-Of course, it is a web page that loads on a Mobile Native Web container. But it
-is integrated in such a way that you can access native resources from your web
-JavaScript.
+当然，它是一个加载在移动原生Web容器上的网页。但它的集成方式使您可以从Web JavaScript访问原生资源。
 
-WebPages (Odoo Web) is on the top of each layer, where the second layer is a Bridge
-between Odoo Web (JS) and the native mobile components.
+WebPages（Odoo Web）位于每层的顶部，第二层是Odoo Web（JS）与本机移动组件之间的桥接。
 
-When any call from JavaScript is triggered it passes through Bridge and Bridge
-passes it to the native invoker to perform that action.
+当JavaScript中的任何调用被触发时，它会通过桥接传递，桥接将其传递给原生调用者以执行该操作。
 
-When the native component has done its work, it is passed to the Bridge again and
-you get the output in JavaScript.
+当原生组件完成其工作后，它会再次传递给桥接，您将获得JavaScript中的输出。
 
-Process time taken by the Native component depends on what you are requesting
-from the Native resources. For example the Camera or GPS Location.
+原生组件所花费的处理时间取决于您从原生资源请求的内容。例如，相机或GPS位置。
 
-How to use it?
+如何使用它？
 ==============
 
-Just like the Odoo Web Framework, the Mobile API can be used anywhere by getting the object from
-**web_mobile.rpc**
+与Odoo Web框架一样，移动API可以通过获取**web_mobile.rpc**中的对象在任何地方使用。
 
 .. image:: mobile/odoo_mobile_api.png
 
-The mobile RPC object provides a list of methods that are available (this only works with the mobile
-app).
+移动RPC对象提供了一系列可用的方法（这仅适用于移动应用）。
 
-Check if the method is available and then execute it.
+检查方法是否可用，然后执行它。
 
-Methods
+方法
 -------
 
-.. note:: Each of the methods returns a JQuery Deferred object which returns
-   a data JSON dictionary
+.. note:: 每个方法返回一个jQuery Deferred对象，该对象返回数据JSON字典。
 
-Show Toast in device
+在设备上显示Toast
 ~~~~~~~~~~~~~~~~~~~~
 
 .. js:function:: showToast
 
-    :param object args: **message** text to display
+    :param object args: **message** 要显示的文本
 
-A toast provides simple feedback about an operation in a small popup. It only
-fills the amount of space required for the message and the current activity
-remains visible and interactive.
+Toast提供有关操作的简单反馈，显示在小弹出窗口中。它只填充消息所需的空间，当前活动保持可见和交互。
 
 .. code-block:: javascript
 
-    mobile.methods.showToast({'message': 'Message sent'});
+    mobile.methods.showToast({'message': '消息已发送'});
 
 .. image:: mobile/toast.png
 
-Vibrating device
+振动设备
 ~~~~~~~~~~~~~~~~
 
 .. js:function:: vibrate
 
-    :param object args: Vibrates constantly for the specified period of time
-           (in milliseconds).
+    :param object args: 按指定的时间（以毫秒为单位）持续振动。
 
-Vibrate mobile device with given duration.
+用给定的持续时间振动移动设备。
 
 .. code-block:: javascript
 
     mobile.methods.vibrate({'duration': 100});
 
-Show snackbar with action
+显示带有操作的Snackbar
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. js:function:: showSnackBar
 
-    :param object args: (*required*) **Message** to show in snackbar and action **button label** in Snackbar (optional)
-    :returns:  ``True`` if the user clicks on the Action button, ``False`` if SnackBar auto dismissed after some time.
+    :param object args: (*必需*) **Message** 在Snackbar中显示的消息和操作 **button label** （可选）
+    :returns:  ``True`` 如果用户点击操作按钮，``False`` 如果Snackbar在一段时间后自动消失。
 
-Snackbars provide lightweight feedback about an operation. They show a brief
-message at the bottom of the screen on mobile or in the lower left corner on larger devices.
-Snackbars appear above all the other elements on the screen and only one can be
-displayed at a time.
+Snackbars提供有关操作的轻量级反馈。它们在移动设备的屏幕底部或较大设备的左下角显示简短消息。Snackbars显示在屏幕上的所有其他元素之上，并且一次只能显示一个。
 
 .. code-block:: javascript
 
-    mobile.methods.showSnackBar({'message': 'Message is deleted', 'btn_text': 'Undo'}).then(function(result){
+    mobile.methods.showSnackBar({'message': '消息已删除', 'btn_text': '撤销'}).then(function(result){
         if(result){
-            // Do undo operation
+            // 执行撤销操作
         }else{
-            // Snack Bar dismissed
+            // Snackbar已消失
         }
     });
 
 .. image:: mobile/snackbar.png
 
-Showing notification
+显示通知
 ~~~~~~~~~~~~~~~~~~~~
 
 .. js:function:: showNotification
 
-    :param object args: **title** (first row) of the notification, **message** (second row) of the notification, in a standard notification.
+    :param object args: **title** （第一行）通知的标题，**message** （第二行）通知的消息，以标准通知的形式。
 
-A notification is a message you can display to the user outside of your
-application's normal UI. When you tell the system to issue a notification, it
-first appears as an icon in the notification area. To see the details of the
-notification, the user opens the notification drawer. Both the notification
-area and the notification drawer are system-controlled areas that the user can
-view at any time.
+通知是您可以在应用程序的正常用户界面之外显示给用户的消息。当您告诉系统发布通知时，它首先作为图标出现在通知区域。要查看通知的详细信息，用户打开通知抽屉。通知区域和通知抽屉都是系统控制的区域，用户可以随时查看。
 
 .. code-block:: javascript
 
-    mobile.showNotification({'title': 'Simple Notification', 'message': 'This is a test for a simple notification'})
+    mobile.showNotification({'title': '简单通知', 'message': '这是一个简单通知的测试'})
 
 .. image:: mobile/mobile_notification.png
 
-
-Create contact in device
+在设备中创建联系人
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. js:function:: addContact
 
-    :param object args: Dictionary with contact details. Possible keys (name, mobile, phone, fax, email, website, street, street2, country_id, state_id, city, zip, parent_id, function and image)
+    :param object args: 包含联系人的详细信息的字典。可能的键（name、mobile、phone、fax、email、website、street、street2、country_id、state_id、city、zip、parent_id、function 和 image）
 
-Create a new device contact with the given contact details.
+使用给定的联系信息创建新的设备联系人。
 
 .. code-block:: javascript
 
@@ -160,47 +134,47 @@ Create a new device contact with the given contact details.
         'website': 'http://www.agrolait.com',
         'street': '69 rue de Namur',
         'street2': false,
-        'country_id': [21, 'Belgium'],
+        'country_id': [21, '比利时'],
         'state_id': false,
         'city': 'Wavre',
         'zip': '1300',
         'parent_id': [8, 'Agrolait'],
-        'function': 'Analyst',
-        'image': '<<BASE 64 Image Data>>'
+        'function': '分析师',
+        'image': '<<BASE 64 图像数据>>'
     }
 
     mobile.methods.addContact(contact);
 
 .. image:: mobile/mobile_contact_create.png
 
-Scanning barcodes
+扫描条形码
 ~~~~~~~~~~~~~~~~~
 
 .. js:function:: scanBarcode
 
-    :returns: Scanned ``code`` from any barcode
+    :returns: 从任何条形码扫描的 ``code``
 
-The barcode API detects barcodes in real-time, on the device, in any orientation.
+条形码API实时检测设备上的条形码，无论方向如何。
 
-The barcode API can read the following barcode formats:
+条形码API可以读取以下条形码格式：
 
-* 1D barcodes: EAN-13, EAN-8, UPC-A, UPC-E, Code-39, Code-93, Code-128, ITF, Codabar
-* 2D barcodes: QR Code, Data Matrix, PDF-417, AZTEC
+* 1D条形码：EAN-13、EAN-8、UPC-A、UPC-E、Code-39、Code-93、Code-128、ITF、Codabar
+* 2D条形码：QR码、数据矩阵、PDF-417、AZTEC
 
 .. code-block:: javascript
 
     mobile.methods.scanBarcode().then(function(code){
         if(code){
-            // Perform operation with the scanned code
+            // 使用扫描的代码执行操作
         }
     });
 
-Switching account in device
+在设备中切换帐户
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. js:function:: switchAccount
 
-Use switchAccount to switch from one account to another on the device.
+使用switchAccount在设备上从一个帐户切换到另一个帐户。
 
 .. code-block:: javascript
 

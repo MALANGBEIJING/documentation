@@ -1,7 +1,7 @@
 :nosearch:
 
 ========
-Upgrades
+升级
 ========
 
 .. toctree::

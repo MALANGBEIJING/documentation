@@ -1,143 +1,113 @@
 ============
-External API
+外部 API
 ============
 
-Odoo is usually extended internally via modules, but many of its features and
-all of its data are also available from the outside for external analysis or
-integration with various tools. Part of the :ref:`reference/orm/model` API is
-easily available over XML-RPC_ and accessible from a variety of languages.
+Odoo 通常通过模块进行内部扩展，但它的许多功能和所有数据也可供外部分析或与各种工具集成。部分 :ref:`reference/orm/model` API 可以通过 XML-RPC_ 轻松访问，并可通过多种语言进行访问。
 
 .. important::
-   Starting with PHP8, the XML-RPC extension may not be available by default.
-   Check out the `manual <https://www.php.net/manual/en/xmlrpc.installation.php>`_
-   for the installation steps.
+   从 PHP8 开始，XML-RPC 扩展可能默认不可用。请查看 `手册 <https://www.php.net/manual/en/xmlrpc.installation.php>`_ 了解安装步骤。
 
 .. note::
-   Access to data via the external API is only available on *Custom* Odoo pricing plans. Access to
-   the external API is not available on *One App Free* or *Standard* plans. For more information
-   visit the `Odoo pricing page <https://www.odoo.com/pricing-plan>`_ or reach out to your Customer
-   Success Manager.
+   通过外部 API 访问数据仅在 *Custom* Odoo 定价计划上可用。在 *One App Free* 或 *Standard* 计划中无法访问外部 API。有关更多信息，请访问 `Odoo 定价页面 <https://www.odoo.com/pricing-plan>`_ 或联系您的客户成功经理。
 
 .. seealso::
-   - :doc:`Tutorial on web services <../howtos/web_services>`
+   - :doc:`网络服务教程 <../howtos/web_services>`
 
-Connection
+连接
 ==========
 
-Configuration
+配置
 -------------
 
-If you already have an Odoo server installed, you can just use its parameters.
+如果您已经安装了 Odoo 服务器，可以直接使用其参数。
 
 .. important::
 
-    For Odoo Online instances (<domain>.odoo.com), users are created without a
-    *local* password (as a person you are logged in via the Odoo Online
-    authentication system, not by the instance itself). To use XML-RPC on Odoo
-    Online instances, you will need to set a password on the user account you
-    want to use:
+    对于 Odoo 在线实例（<domain>.odoo.com），用户是在没有 *local* 密码的情况下创建的（作为用户，您是通过 Odoo 在线身份验证系统登录，而不是通过实例本身）。要在 Odoo 在线实例上使用 XML-RPC，您需要为要使用的用户帐户设置密码：
 
-    * Log in your instance with an administrator account.
-    * Go to :menuselection:`Settings --> Users & Companies --> Users`.
-    * Click on the user you want to use for XML-RPC access.
-    * Click on :guilabel:`Action` and select :guilabel:`Change Password`.
-    * Set a :guilabel:`New Password` value then click :guilabel:`Change Password`.
+    * 使用管理员帐户登录到您的实例。
+    * 转到 :menuselection:`设置 --> 用户与公司 --> 用户`。
+    * 点击您希望用于 XML-RPC 访问的用户。
+    * 点击 :guilabel:`操作` 并选择 :guilabel:`更改密码`。
+    * 设置 :guilabel:`新密码` 值，然后点击 :guilabel:`更改密码`。
 
-    The *server url* is the instance's domain (e.g.
-    *https://mycompany.odoo.com*), the *database name* is the name of the
-    instance (e.g. *mycompany*). The *username* is the configured user's login
-    as shown by the *Change Password* screen.
+    *server url* 是实例的域名（例如 *https://mycompany.odoo.com*），*database name* 是实例的名称（例如 *mycompany*）。*username* 是配置用户的登录名，如 *更改密码* 屏幕所示。
 
 .. tabs::
 
    .. code-tab:: python
 
-       url = <insert server URL>
-       db = <insert database name>
+       url = <插入服务器 URL>
+       db = <插入数据库名称>
        username = 'admin'
-       password = <insert password for your admin user (default: admin)>
+       password = <插入管理员用户的密码（默认：admin）>
 
    .. code-tab:: ruby
 
-       url = <insert server URL>
-       db = <insert database name>
+       url = <插入服务器 URL>
+       db = <插入数据库名称>
        username = "admin"
-       password = <insert password for your admin user (default: admin)>
+       password = <插入管理员用户的密码（默认：admin）>
 
    .. code-tab:: php
 
-       $url = <insert server URL>;
-       $db = <insert database name>;
+       $url = <插入服务器 URL>;
+       $db = <插入数据库名称>;
        $username = "admin";
-       $password = <insert password for your admin user (default: admin)>;
+       $password = <插入管理员用户的密码（默认：admin)>;
 
    .. code-tab:: java
 
-       final String url = <insert server URL>,
-                     db = <insert database name>,
+       final String url = <插入服务器 URL>,
+                     db = <插入数据库名称>,
                username = "admin",
-               password = <insert password for your admin user (default: admin)>;
+               password = <插入管理员用户的密码（默认：admin）>;
 
    .. code-tab:: go
 
        var (
-           url = <insert server URL>
-           db = <insert database name>
+           url = <插入服务器 URL>
+           db = <插入数据库名称>
            username = "admin"
-           password = <insert password for your admin user (default: admin)>
+           password = <插入管理员用户的密码（默认：admin）>
        )
 
 .. _api/external_api/keys:
 
-API Keys
+API 密钥
 ~~~~~~~~
 
 .. versionadded:: 14.0
 
-Odoo has support for **api keys** and (depending on modules or settings) may
-**require** these keys to perform webservice operations.
+Odoo 支持 **api keys**，并且（根据模块或设置）可能 **需要** 这些密钥来执行 Web 服务操作。
 
-The way to use API Keys in your scripts is to simply replace your **password**
-by the key. The login remains in-use. You should store the API Key as carefully
-as the password as they essentially provide the same access to your user
-account (although they can not be used to log-in via the interface).
+在脚本中使用 API 密钥的方式是简单地用密钥替换 **password**。登录仍然保持使用。您应像密码一样小心存储 API 密钥，因为它们本质上提供对您的用户帐户的相同访问权限（尽管不能通过界面登录）。
 
-In order to add a key to your account, simply go to your
-:guilabel:`Preferences` (or :guilabel:`My Profile`):
+要向您的帐户添加密钥，只需转到您的 :guilabel:`偏好设置`（或 :guilabel:`我的资料`）：
 
 .. image:: external_api/preferences.png
    :align: center
 
-then open the :guilabel:`Account Security` tab, and click
-:guilabel:`New API Key`:
+然后打开 :guilabel:`帐户安全` 标签，并点击 :guilabel:`新 API 密钥`：
 
 .. image:: external_api/account-security.png
    :align: center
 
-Input a description for the key, **this description should be as clear and
-complete as possible**: it is the only way you will have to identify your keys
-later and know whether you should remove them or keep them around.
+输入密钥的描述，**此描述应尽可能清晰和完整**：这是您以后识别密钥的唯一方式，并知道是否应该删除它们或保留它们。
 
-Click :guilabel:`Generate Key`, then copy the key provided. **Store this key
-carefully**: it is equivalent to your password, and just like your password
-the system will not be able to retrieve or show the key again later on. If you lose
-this key, you will have to create a new one (and probably delete the one you
-lost).
+点击 :guilabel:`生成密钥`，然后复制提供的密钥。**小心存储此密钥**：它相当于您的密码，和您的密码一样，系统将无法在稍后检索或显示密钥。如果您丢失此密钥，您将必须创建一个新的密钥（并可能删除您丢失的那个）。
 
-Once you have keys configured on your account, they will appear above the
-:guilabel:`New API Key` button, and you will be able to delete them:
+配置后，密钥将显示在 :guilabel:`新 API 密钥` 按钮上方，您将能够删除它们：
 
 .. image:: external_api/delete-key.png
    :align: center
 
-**A deleted API key can not be undeleted or re-set**. You will have to generate
-a new key and update all the places where you used the old one.
+**已删除的 API 密钥无法恢复或重置**。您将不得不生成新的密钥，并更新您使用旧密钥的所有地方。
 
-Test database
+测试数据库
 ~~~~~~~~~~~~~
 
-To make exploration simpler, you can also ask https://demo.odoo.com for a test
-database:
+为了简化探索，您还可以请求 https://demo.odoo.com 获取测试数据库：
 
 .. tabs::
 
@@ -162,16 +132,9 @@ database:
          list($url, $db, $username, $password) = array($info['host'], $info['database'], $info['user'], $info['password']);
 
       .. note::
-         These examples use the `Ripcord <https://code.google.com/p/ripcord/>`_
-         library, which provides a simple XML-RPC API. Ripcord requires that
-         `XML-RPC support be enabled
-         <https://php.net/manual/en/xmlrpc.installation.php>`_ in your PHP
-         installation.
+         这些示例使用 `Ripcord <https://code.google.com/p/ripcord/>`_ 库，该库提供简单的 XML-RPC API。Ripcord 要求在您的 PHP 安装中启用 `XML-RPC 支持 <https://php.net/manual/en/xmlrpc.installation.php>`_。
 
-         Since calls are performed over
-         `HTTPS <https://en.wikipedia.org/wiki/HTTP_Secure>`_, it also requires that
-         the `OpenSSL extension
-         <https://php.net/manual/en/openssl.installation.php>`_ be enabled.
+         由于调用是通过 `HTTPS <https://en.wikipedia.org/wiki/HTTP_Secure>`_ 执行的，因此还要求启用 `OpenSSL 扩展 <https://php.net/manual/en/openssl.installation.php>`_。
 
    .. group-tab:: Java
 
@@ -190,10 +153,9 @@ database:
                  password = info.get("password");
 
       .. note::
-         These examples use the `Apache XML-RPC library <https://ws.apache.org/xmlrpc/>`_.
+         这些示例使用 `Apache XML-RPC 库 <https://ws.apache.org/xmlrpc/>`_。
 
-         The examples do not include imports as these imports couldn't be
-         pasted in the code.
+         示例不包括导入，因为这些导入无法粘贴在代码中。
 
    .. group-tab:: Go
 
@@ -211,24 +173,16 @@ database:
          password = info["password"].(string)
 
       .. note::
-         These examples use the `github.com/kolo/xmlrpc library <https://github.com/kolo/xmlrpc>`_.
+         这些示例使用 `github.com/kolo/xmlrpc 库 <https://github.com/kolo/xmlrpc>`_。
 
-         The examples do not include imports as these imports couldn't be
-         pasted in the code.
+         示例不包括导入，因为这些导入无法粘贴在代码中。
 
-Logging in
+登录
 ----------
 
-Odoo requires users of the API to be authenticated before they can query most
-data.
+Odoo 要求 API 用户在查询大多数数据之前进行身份验证。
 
-The ``xmlrpc/2/common`` endpoint provides meta-calls which don't require
-authentication, such as the authentication itself or fetching version
-information. To verify if the connection information is correct before trying
-to authenticate, the simplest call is to ask for the server's version. The
-authentication itself is done through the ``authenticate`` function and
-returns a user identifier (``uid``) used in authenticated calls instead of
-the login.
+``xmlrpc/2/common`` 端点提供无需身份验证的元调用，例如身份验证本身或获取版本信息。要在尝试身份验证之前验证连接信息是否正确，最简单的调用是请求服务器的版本。身份验证本身是通过 ``authenticate`` 函数完成的，并返回用于认证调用的用户标识符（``uid``），而不是登录名。
 
 .. tabs::
 
@@ -264,7 +218,7 @@ the login.
           log.Fatal(err)
       }
 
-Result:
+结果：
 
 .. code-block:: json
 
@@ -306,28 +260,24 @@ Result:
 
 .. _api/external_api/calling_methods:
 
-Calling methods
+调用方法
 ===============
 
-The second endpoint is ``xmlrpc/2/object``. It is used to call methods of odoo
-models via the ``execute_kw`` RPC function.
+第二个端点是 ``xmlrpc/2/object``。它用于通过 ``execute_kw`` RPC 函数调用 Odoo 模型的方法。
 
-Each call to ``execute_kw`` takes the following parameters:
+每次调用 ``execute_kw`` 都需要以下参数：
 
-* the database to use, a string
-* the user id (retrieved through ``authenticate``), an integer
-* the user's password, a string
-* the model name, a string
-* the method name, a string
-* an array/list of parameters passed by position
-* a mapping/dict of parameters to pass by keyword (optional)
+* 要使用的数据库，字符串
+* 用户 ID（通过 ``authenticate`` 检索），整数
+* 用户的密码，字符串
+* 模型名称，字符串
+* 方法名称，字符串
+* 按位置传递的参数数组/列表
+* 传递的关键字参数映射/字典（可选）
 
 .. example::
 
-   For instance, to see if we can read the ``res.partner`` model, we can call
-   ``check_access_rights`` with ``operation`` passed by position and
-   ``raise_exception`` passed by keyword (in order to get a true/false result
-   rather than true/error):
+   例如，要查看我们是否可以读取 ``res.partner`` 模型，我们可以调用 ``check_access_rights``，将 ``operation`` 按位置传递，将 ``raise_exception`` 作为关键字传递（以便获得 true/false 结果，而不是 true/error）：
 
    .. tabs::
 
@@ -376,24 +326,23 @@ Each call to ``execute_kw`` takes the following parameters:
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       true
 
-List records
+列出记录
 ------------
 
-Records can be listed and filtered via :meth:`~odoo.models.Model.search`.
+可以通过 :meth:`~odoo.models.Model.search` 列出和过滤记录。
 
-:meth:`~odoo.models.Model.search` takes a mandatory
-:ref:`domain <reference/orm/domains>` filter (possibly empty), and returns the
-database identifiers of all records matching the filter.
+:meth:`~odoo.models.Model.search` 需要一个强制的
+:ref:`domain <reference/orm/domains>` 过滤器（可以为空），并返回与过滤器匹配的所有记录的数据库标识符。
 
 .. example::
 
-   To list customer companies, for instance:
+   例如，要列出客户公司：
 
    .. tabs::
 
@@ -431,18 +380,16 @@ database identifiers of all records matching the filter.
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       [7, 18, 12, 14, 17, 19, 8, 31, 26, 16, 13, 20, 30, 22, 29, 15, 23, 28, 74]
 
-Pagination
+分页
 ~~~~~~~~~~
 
-By default a search will return the ids of all records matching the
-condition, which may be a huge number. ``offset`` and ``limit`` parameters are
-available to only retrieve a subset of all matched records.
+默认情况下，搜索将返回所有匹配条件的记录的 ID，这可能是一个巨大的数字。 ``offset`` 和 ``limit`` 参数可用于仅检索所有匹配记录的子集。
 
 .. example::
 
@@ -484,20 +431,16 @@ available to only retrieve a subset of all matched records.
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       [13, 20, 30, 22, 29]
 
-Count records
+计数记录
 -------------
 
-Rather than retrieve a possibly gigantic list of records and count them,
-:meth:`~odoo.models.Model.search_count` can be used to retrieve
-only the number of records matching the query. It takes the same
-:ref:`domain <reference/orm/domains>` filter as
-:meth:`~odoo.models.Model.search` and no other parameter.
+与其检索可能庞大的记录列表并对其进行计数，不如使用 :meth:`~odoo.models.Model.search_count` 来仅检索与查询匹配的记录数量。它接受与 :meth:`~odoo.models.Model.search` 相同的 :ref:`domain <reference/orm/domains>` 过滤器，而不需要其他参数。
 
 .. example::
 
@@ -537,25 +480,19 @@ only the number of records matching the query. It takes the same
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       19
 
 .. note::
-   Calling ``search`` then ``search_count`` (or the other way around) may not
-   yield coherent results if other users are using the server: stored data
-   could have changed between the calls.
+   调用 ``search`` 然后 ``search_count``（或反之）可能不会产生一致的结果，如果其他用户正在使用服务器：在调用之间存储的数据可能已更改。
 
-Read records
+读取记录
 ------------
 
-Record data are accessible via the :meth:`~odoo.models.Model.read` method,
-which takes a list of ids (as returned by
-:meth:`~odoo.models.Model.search`), and optionally a list of fields to
-fetch. By default, it fetches all the fields the current user can read,
-which tends to be a huge amount.
+记录数据可以通过 :meth:`~odoo.models.Model.read` 方法访问，该方法接受一个 ID 列表（如 :meth:`~odoo.models.Model.search` 返回的），并可选地接受要获取的字段列表。默认情况下，它获取当前用户可以读取的所有字段，这通常是大量字段。
 
 .. example::
 
@@ -565,21 +502,21 @@ which tends to be a huge amount.
 
           ids = models.execute_kw(db, uid, password, 'res.partner', 'search', [[['is_company', '=', True]]], {'limit': 1})
           [record] = models.execute_kw(db, uid, password, 'res.partner', 'read', [ids])
-          # count the number of fields fetched by default
+          # 计数默认获取的字段数量
           len(record)
 
       .. code-tab:: ruby
 
           ids = models.execute_kw(db, uid, password, 'res.partner', 'search', [[['is_company', '=', true]]], {limit: 1})
           record = models.execute_kw(db, uid, password, 'res.partner', 'read', [ids]).first
-          # count the number of fields fetched by default
+          # 计数默认获取的字段数量
           record.length
 
       .. code-tab:: php
 
           $ids = $models->execute_kw($db, $uid, $password, 'res.partner', 'search', array(array(array('is_company', '=', true))), array('limit'=>1));
           $records = $models->execute_kw($db, $uid, $password, 'res.partner', 'read', array($ids));
-          // count the number of fields fetched by default
+          // 计数默认获取的字段数量
           count($records[0]);
 
       .. code-tab:: java
@@ -598,7 +535,7 @@ which tends to be a huge amount.
                   asList(ids)
               )
           ))[0];
-          // count the number of fields fetched by default
+          // 计数默认获取的字段数量
           record.size();
 
       .. code-tab:: go
@@ -622,16 +559,16 @@ which tends to be a huge amount.
          }, &records); err != nil {
              log.Fatal(err)
          }
-         // count the number of fields fetched by default
+         // 计数默认获取的字段数量
          count := len(records)
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       121
 
-   Conversely, picking only three fields deemed interesting.
+   相反，只选择三个认为有趣的字段。
 
    .. tabs::
 
@@ -672,26 +609,21 @@ which tends to be a huge amount.
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       [{"comment": false, "country_id": [21, "Belgium"], "id": 7, "name": "Agrolait"}]
 
 .. note::
-   Even if the ``id`` field is not requested, it is always returned.
+   即使 ``id`` 字段未请求，它也始终会返回。
 
-List record fields
+列出记录字段
 ------------------
 
-:meth:`~odoo.models.Model.fields_get` can be used to inspect
-a model's fields and check which ones seem to be of interest.
+:meth:`~odoo.models.Model.fields_get` 可用于检查模型的字段并查看哪些字段似乎感兴趣。
 
-Because it returns a large amount of meta-information (it is also used by client
-programs) it should be filtered before printing, the most interesting items
-for a human user are ``string`` (the field's label), ``help`` (a help text if
-available) and ``type`` (to know which values to expect, or to send when
-updating a record).
+因为它返回大量的元信息（也被客户端程序使用），所以应该在打印之前进行过滤，对人类用户来说最感兴趣的项目是 ``string``（字段的标签）、``help``（如果可用，帮助文本）和 ``type``（以了解期望的值，或在更新记录时发送的值）。
 
 .. example::
 
@@ -734,59 +666,53 @@ updating a record).
                log.Fatal(err)
            }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       {
           "ean13": {
               "type": "char",
-              "help": "BarCode",
+              "help": "条形码",
               "string": "EAN13"
           },
           "property_account_position_id": {
               "type": "many2one",
-              "help": "The fiscal position will determine taxes and accounts used for the partner.",
-              "string": "Fiscal Position"
+              "help": "财务位置将确定用于合作伙伴的税收和帐户。",
+              "string": "财务位置"
           },
           "signup_valid": {
               "type": "boolean",
               "help": "",
-              "string": "Signup Token is Valid"
+              "string": "注册令牌有效"
           },
           "date_localization": {
               "type": "date",
               "help": "",
-              "string": "Geo Localization Date"
+              "string": "地理定位日期"
           },
           "ref_company_ids": {
               "type": "one2many",
               "help": "",
-              "string": "Companies that refers to partner"
+              "string": "指向合作伙伴的公司"
           },
           "sale_order_count": {
               "type": "integer",
               "help": "",
-              "string": "# of Sales Order"
+              "string": "# 销售订单"
           },
           "purchase_order_count": {
               "type": "integer",
               "help": "",
-              "string": "# of Purchase Order"
+              "string": "# 采购订单"
           },
 
-Search and read
+搜索和读取
 ---------------
 
-Because it is a very common task, Odoo provides a
-:meth:`~odoo.models.Model.search_read` shortcut which, as its name suggests, is
-equivalent to a :meth:`~odoo.models.Model.search` followed by a
-:meth:`~odoo.models.Model.read`, but avoids having to perform two requests
-and keep ids around.
+由于这是一个非常常见的任务，Odoo 提供了一个 :meth:`~odoo.models.Model.search_read` 快捷方式，顾名思义，它等同于 :meth:`~odoo.models.Model.search` 后跟 :meth:`~odoo.models.Model.read`，但避免了执行两个请求并保留 ID。
 
-Its arguments are similar to :meth:`~odoo.models.Model.search`'s, but it
-can also take a list of ``fields`` (like :meth:`~odoo.models.Model.read`,
-if that list is not provided it will fetch all fields of matched records).
+其参数与 :meth:`~odoo.models.Model.search` 的参数类似，但它还可以接受一个 ``fields`` 列表（如 :meth:`~odoo.models.Model.read`，如果未提供该列表，则会获取所有匹配记录的字段）。
 
 .. example::
 
@@ -834,7 +760,7 @@ if that list is not provided it will fetch all fields of matched records).
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
@@ -871,15 +797,12 @@ if that list is not provided it will fetch all fields of matched records).
           }
       ]
 
-Create records
+创建记录
 --------------
 
-Records of a model are created using :meth:`~odoo.models.Model.create`. The
-method creates a single record and returns its database identifier.
+可以使用 :meth:`~odoo.models.Model.create` 创建模型的记录。该方法创建一条记录并返回其数据库标识符。
 
-:meth:`~odoo.models.Model.create` takes a mapping of fields to values, used
-to initialize the record. For any field which has a default value and is not
-set through the mapping argument, the default value will be used.
+:meth:`~odoo.models.Model.create` 接受一个字段到值的映射，用于初始化记录。对于任何具有默认值并且未通过映射参数设置的字段，将使用默认值。
 
 .. example::
 
@@ -887,22 +810,22 @@ set through the mapping argument, the default value will be used.
 
       .. code-tab:: python
 
-         id = models.execute_kw(db, uid, password, 'res.partner', 'create', [{'name': "New Partner"}])
+         id = models.execute_kw(db, uid, password, 'res.partner', 'create', [{'name': "新伙伴"}])
 
       .. code-tab:: ruby
 
-         id = models.execute_kw(db, uid, password, 'res.partner', 'create', [{name: "New Partner"}])
+         id = models.execute_kw(db, uid, password, 'res.partner', 'create', [{name: "新伙伴"}])
 
       .. code-tab:: php
 
-         $id = $models->execute_kw($db, $uid, $password, 'res.partner', 'create', array(array('name'=>"New Partner")));
+         $id = $models->execute_kw($db, $uid, $password, 'res.partner', 'create', array(array('name'=>"新伙伴")));
 
       .. code-tab:: java
 
          final Integer id = (Integer)models.execute("execute_kw", asList(
              db, uid, password,
              "res.partner", "create",
-             asList(new HashMap() {{ put("name", "New Partner"); }})
+             asList(new HashMap() {{ put("name", "新伙伴"); }})
          ));
 
       .. code-tab:: go
@@ -912,40 +835,32 @@ set through the mapping argument, the default value will be used.
              db, uid, password,
              "res.partner", "create",
              []map[string]string{
-                 {"name": "New Partner"},
+                 {"name": "新伙伴"},
              },
          }, &id); err != nil {
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       78
 
 .. warning::
-   While most value types are what would expect (integer for
-   :class:`~odoo.fields.Integer`, string for :class:`~odoo.fields.Char`
-   or :class:`~odoo.fields.Text`),
+   虽然大多数值类型是您期望的（整型用于 :class:`~odoo.fields.Integer`，字符串用于 :class:`~odoo.fields.Char` 或 :class:`~odoo.fields.Text`），
 
-   - :class:`~odoo.fields.Date`, :class:`~odoo.fields.Datetime` and
-     :class:`~odoo.fields.Binary` fields use string values
-   - :class:`~odoo.fields.One2many` and :class:`~odoo.fields.Many2many`
-     use a special command protocol detailed in :meth:`the documentation to
-     the write method <odoo.models.Model.write>`.
+   - :class:`~odoo.fields.Date`、:class:`~odoo.fields.Datetime` 和
+     :class:`~odoo.fields.Binary` 字段使用字符串值
+   - :class:`~odoo.fields.One2many` 和 :class:`~odoo.fields.Many2many`
+     使用详细说明在 :meth:`写入方法的文档 <odoo.models.Model.write>` 中的特殊命令协议。
 
-Update records
+更新记录
 --------------
 
-Records can be updated using :meth:`~odoo.models.Model.write`. It takes
-a list of records to update and a mapping of updated fields to values similar
-to :meth:`~odoo.models.Model.create`.
+可以使用 :meth:`~odoo.models.Model.write` 更新记录。它接受要更新的记录列表和字段到值的映射，类似于 :meth:`~odoo.models.Model.create`。
 
-Multiple records can be updated simultaneously, but they will all get the same
-values for the fields being set. It is not possible to perform
-"computed" updates (where the value being set depends on an existing value of
-a record).
+可以同时更新多个记录，但它们将对设置的字段获得相同的值。无法执行“计算”更新（即设置的值依赖于记录的现有值）。
 
 .. example::
 
@@ -953,20 +868,20 @@ a record).
 
       .. code-tab:: python
 
-         models.execute_kw(db, uid, password, 'res.partner', 'write', [[id], {'name': "Newer partner"}])
-         # get record name after having changed it
+         models.execute_kw(db, uid, password, 'res.partner', 'write', [[id], {'name': "更新的伙伴"}])
+         # 获取更改后的记录名称
          models.execute_kw(db, uid, password, 'res.partner', 'read', [[id], ['display_name']])
 
       .. code-tab:: ruby
 
-         models.execute_kw(db, uid, password, 'res.partner', 'write', [[id], {name: "Newer partner"}])
-         # get record name after having changed it
+         models.execute_kw(db, uid, password, 'res.partner', 'write', [[id], {name: "更新的伙伴"}])
+         # 获取更改后的记录名称
          models.execute_kw(db, uid, password, 'res.partner', 'read', [[id], ['display_name']])
 
       .. code-tab:: php
 
-         $models->execute_kw($db, $uid, $password, 'res.partner', 'write', array(array($id), array('name'=>"Newer partner")));
-         // get record name after having changed it
+         $models->execute_kw($db, $uid, $password, 'res.partner', 'write', array(array($id), array('name'=>"更新的伙伴")));
+         // 获取更改后的记录名称
          $models->execute_kw($db, $uid, $password,
              'res.partner', 'read', array(array($id), array('display_name')));
 
@@ -977,10 +892,10 @@ a record).
              "res.partner", "write",
              asList(
                  asList(id),
-                 new HashMap() {{ put("name", "Newer Partner"); }}
+                 new HashMap() {{ put("name", "更新的伙伴"); }}
              )
          ));
-         // get record name after having changed it
+         // 获取更改后的记录名称
          asList((Object[])models.execute("execute_kw", asList(
              db, uid, password,
              "res.partner", "read",
@@ -995,12 +910,12 @@ a record).
              "res.partner", "write",
              []any{
                  []int64{id},
-                 map[string]string{"name": "Newer partner"},
+                 map[string]string{"name": "更新的伙伴"},
              },
          }, &result); err != nil {
              log.Fatal(err)
          }
-         // get record name after having changed it
+         // 获取更改后的记录名称
          var record []any
          if err := models.Call("execute_kw", []any{
              db, uid, password,
@@ -1012,17 +927,16 @@ a record).
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
-      [[78, "Newer partner"]]
+      [[78, "更新的伙伴"]]
 
-Delete records
+删除记录
 --------------
 
-Records can be deleted in bulk by providing their ids to
-:meth:`~odoo.models.Model.unlink`.
+可以通过提供其 ID 批量删除记录，使用 :meth:`~odoo.models.Model.unlink`。
 
 .. example::
 
@@ -1031,19 +945,19 @@ Records can be deleted in bulk by providing their ids to
       .. code-tab:: python
 
          models.execute_kw(db, uid, password, 'res.partner', 'unlink', [[id]])
-         # check if the deleted record is still in the database
+         # 检查已删除记录是否仍在数据库中
          models.execute_kw(db, uid, password, 'res.partner', 'search', [[['id', '=', id]]])
 
       .. code-tab:: ruby
 
          models.execute_kw(db, uid, password, 'res.partner', 'unlink', [[id]])
-         # check if the deleted record is still in the database
+         # 检查已删除记录是否仍在数据库中
          models.execute_kw(db, uid, password, 'res.partner', 'search', [[['id', '=', id]]])
 
       .. code-tab:: php
 
          $models->execute_kw($db, $uid, $password, 'res.partner', 'unlink', array(array($id)));
-         // check if the deleted record is still in the database
+         // 检查已删除记录是否仍在数据库中
          $models->execute_kw(
              $db, $uid, $password, 'res.partner', 'search', array(array(array('id', '=', $id)))
          );
@@ -1054,7 +968,7 @@ Records can be deleted in bulk by providing their ids to
              db, uid, password,
              "res.partner", "unlink",
              asList(asList(id))));
-         // check if the deleted record is still in the database
+         // 检查已删除记录是否仍在数据库中
          asList((Object[])models.execute("execute_kw", asList(
              db, uid, password,
              "res.partner", "search",
@@ -1073,7 +987,7 @@ Records can be deleted in bulk by providing their ids to
          }, &result); err != nil {
              log.Fatal(err)
          }
-         // check if the deleted record is still in the database
+         // 检查已删除记录是否仍在数据库中
          var record []any
          if err := models.Call("execute_kw", []any{
              db, uid, password,
@@ -1085,70 +999,58 @@ Records can be deleted in bulk by providing their ids to
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       []
 
-Inspection and introspection
+检查和自省
 ----------------------------
 
-While we previously used :meth:`~odoo.models.Model.fields_get` to query a
-model and have been using an arbitrary model from the start, Odoo stores
-most model metadata inside a few meta-models which allow both querying the
-system and altering models and fields (with some limitations) on the fly over
-XML-RPC.
+在我们之前使用 :meth:`~odoo.models.Model.fields_get` 查询模型并从一开始就使用任意模型的同时，Odoo 将大多数模型元数据存储在少数元模型中，这些元模型允许通过 XML-RPC 查询系统并动态修改模型和字段（有限制）。
 
 .. _reference/webservice/inspection/models:
 
 ``ir.model``
 ~~~~~~~~~~~~
 
-Provides information about Odoo models via its various fields.
+通过其各个字段提供有关 Odoo 模型的信息。
 
 ``name``
-    a human-readable description of the model
+    模型的可读描述
 ``model``
-    the name of each model in the system
+    系统中每个模型的名称
 ``state``
-    whether the model was generated in Python code (``base``) or by creating
-    an ``ir.model`` record (``manual``)
+    模型是通过 Python 代码生成的（``base``）还是通过创建 ``ir.model`` 记录（``manual``）
 ``field_id``
-    list of the model's fields through a :class:`~odoo.fields.One2many` to
-    :ref:`reference/webservice/inspection/fields`
+    通过 :class:`~odoo.fields.One2many` 列出模型的字段，指向 :ref:`reference/webservice/inspection/fields`
 ``view_ids``
-    :class:`~odoo.fields.One2many` to the :doc:`../reference/user_interface/view_architectures`
-    defined for the model
+    :class:`~odoo.fields.One2many` 指向为模型定义的 :doc:`../reference/user_interface/view_architectures`
 ``access_ids``
-    :class:`~odoo.fields.One2many` relation to the
-    :ref:`reference/security/acl` set on the model
+    :class:`~odoo.fields.One2many` 关系，指向模型上设置的 :ref:`reference/security/acl`
 
-``ir.model`` can be used to
+``ir.model`` 可以用来
 
-- Query the system for installed models (as a precondition to operations
-  on the model or to explore the system's content).
-- Get information about a specific model (generally by listing the fields
-  associated with it).
-- Create new models dynamically over RPC.
+- 查询系统中已安装的模型（作为对模型操作的先决条件或探索系统内容）。
+- 获取有关特定模型的信息（通常通过列出与之关联的字段）。
+- 通过 RPC 动态创建新模型。
 
 .. important::
-   * Custom model names must start with ``x_``.
-   * The ``state`` must be provided and set to ``manual``, otherwise the model will
-     not be loaded.
-   * It is not possible to add new *methods* to a custom model, only fields.
+   * 自定义模型名称必须以 ``x_`` 开头。
+   * 必须提供 ``state`` 并将其设置为 ``manual``，否则模型将无法加载。
+   * 不能通过自定义模型添加新的 *方法*，只能添加字段。
 
 .. example::
 
-   A custom model will initially contain only the "built-in" fields available
-   on all models:
+   自定义模型最初将仅包含所有模型上的“内置”字段：
 
    .. tabs::
 
       .. code-tab:: python
 
          models.execute_kw(db, uid, password, 'ir.model', 'create', [{
-             'name': "Custom Model",
+             'name': "自定义模型",
              'model': "x_custom_model",
              'state': 'manual',
          }])
@@ -1157,7 +1059,7 @@ Provides information about Odoo models via its various fields.
       .. code-tab:: php
 
          $models->execute_kw($db, $uid, $password, 'ir.model', 'create', array(array(
-             'name' => "Custom Model",
+             'name' => "自定义模型",
              'model' => 'x_custom_model',
              'state' => 'manual'
          )));
@@ -1166,7 +1068,7 @@ Provides information about Odoo models via its various fields.
       .. code-tab:: ruby
 
          models.execute_kw(db, uid, password, 'ir.model', 'create', [{
-             name: "Custom Model",
+             name: "自定义模型",
              model: 'x_custom_model',
              state: 'manual'
          }])
@@ -1179,7 +1081,7 @@ Provides information about Odoo models via its various fields.
                  db, uid, password,
                  "ir.model", "create",
                  asList(new HashMap<String, Object>() {{
-                     put("name", "Custom Model");
+                     put("name", "自定义模型");
                      put("model", "x_custom_model");
                      put("state", "manual");
                  }})
@@ -1205,7 +1107,7 @@ Provides information about Odoo models via its various fields.
              "ir.model", "create",
              []map[string]string{
                  {
-                     "name":  "Custom Model",
+                     "name":  "自定义模型",
                      "model": "x_custom_model",
                      "state": "manual",
                  },
@@ -1225,38 +1127,38 @@ Provides information about Odoo models via its various fields.
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       {
           "create_uid": {
               "type": "many2one",
-              "string": "Created by"
+              "string": "创建者"
           },
           "create_date": {
               "type": "datetime",
-              "string": "Created on"
+              "string": "创建时间"
           },
           "__last_update": {
               "type": "datetime",
-              "string": "Last Modified on"
+              "string": "最后修改时间"
           },
           "write_uid": {
               "type": "many2one",
-              "string": "Last Updated by"
+              "string": "最后更新者"
           },
           "write_date": {
               "type": "datetime",
-              "string": "Last Updated on"
+              "string": "最后更新时间"
           },
           "display_name": {
               "type": "char",
-              "string": "Display Name"
+              "string": "显示名称"
           },
           "id": {
               "type": "integer",
-              "string": "Id"
+              "string": "ID"
           }
       }
 
@@ -1265,35 +1167,28 @@ Provides information about Odoo models via its various fields.
 ``ir.model.fields``
 ~~~~~~~~~~~~~~~~~~~
 
-Provides information about the fields of Odoo models and allows adding
-custom fields without using Python code.
+提供有关 Odoo 模型字段的信息，并允许添加自定义字段，而无需使用 Python 代码。
 
 ``model_id``
-    :class:`~odoo.fields.Many2one` to
-    :ref:`reference/webservice/inspection/models` to which the field belongs
+    :class:`~odoo.fields.Many2one` 指向 :ref:`reference/webservice/inspection/models` 的字段
 ``name``
-    the field's technical name (used in ``read`` or ``write``)
+    字段的技术名称（用于 ``read`` 或 ``write``）
 ``field_description``
-    the field's user-readable label (e.g. ``string`` in ``fields_get``)
+    字段的用户可读标签（例如，``fields_get`` 中的 ``string``）
 ``ttype``
-    the :ref:`type <reference/orm/fields>` of field to create
+    创建字段的 :ref:`type <reference/orm/fields>`
 ``state``
-    whether the field was created via Python code (``base``) or via
-    ``ir.model.fields`` (``manual``)
-``required``, ``readonly``, ``translate``
-    enables the corresponding flag on the field
+    字段是通过 Python 代码创建的（``base``）还是通过 ``ir.model.fields``（``manual``）
+``required``、``readonly``、``translate``
+    启用字段上的相应标志
 ``groups``
-    :ref:`field-level access control <reference/security/fields>`, a
-    :class:`~odoo.fields.Many2many` to ``res.groups``
-``selection``, ``size``, ``on_delete``, ``relation``, ``relation_field``, ``domain``
-    type-specific properties and customizations, see :ref:`the fields
-    documentation <reference/orm/fields>` for details
+    :ref:`字段级访问控制 <reference/security/fields>`，指向 ``res.groups`` 的 :class:`~odoo.fields.Many2many`
+``selection``、``size``、``on_delete``、``relation``、``relation_field``、``domain``
+    特定于类型的属性和自定义，详见 :ref:`字段文档 <reference/orm/fields>`。
 
 .. important::
-   - Like custom models, only new fields created with ``state="manual"`` are activated as actual
-     fields on the model.
-   - Computed fields can not be added via ``ir.model.fields``, some field meta-information
-     (defaults, onchange) can not be set either.
+   - 与自定义模型一样，仅使用 ``state="manual"`` 创建的新字段才会作为实际字段在模型上激活。
+   - 计算字段无法通过 ``ir.model.fields`` 添加，一些字段元信息（默认值、onchange）也无法设置。
 
 .. example::
 
@@ -1302,7 +1197,7 @@ custom fields without using Python code.
       .. code-tab:: python
 
          id = models.execute_kw(db, uid, password, 'ir.model', 'create', [{
-             'name': "Custom Model",
+             'name': "自定义模型",
              'model': "x_custom",
              'state': 'manual',
          }])
@@ -1313,13 +1208,13 @@ custom fields without using Python code.
              'state': 'manual',
              'required': True,
          }])
-         record_id = models.execute_kw(db, uid, password, 'x_custom', 'create', [{'x_name': "test record"}])
+         record_id = models.execute_kw(db, uid, password, 'x_custom', 'create', [{'x_name': "测试记录"}])
          models.execute_kw(db, uid, password, 'x_custom', 'read', [[record_id]])
 
       .. code-tab:: php
 
          $id = $models->execute_kw($db, $uid, $password, 'ir.model', 'create', array(array(
-             'name' => "Custom Model",
+             'name' => "自定义模型",
              'model' => 'x_custom',
              'state' => 'manual'
          )));
@@ -1330,13 +1225,13 @@ custom fields without using Python code.
              'state' => 'manual',
              'required' => true
          )));
-         $record_id = $models->execute_kw($db, $uid, $password, 'x_custom', 'create', array(array('x_name' => "test record")));
+         $record_id = $models->execute_kw($db, $uid, $password, 'x_custom', 'create', array(array('x_name' => "测试记录")));
          $models->execute_kw($db, $uid, $password, 'x_custom', 'read', array(array($record_id)));
 
       .. code-tab:: ruby
 
          id = models.execute_kw(db, uid, password, 'ir.model', 'create', [{
-             name: "Custom Model",
+             name: "自定义模型",
              model: "x_custom",
              state: 'manual'
          }])
@@ -1347,7 +1242,7 @@ custom fields without using Python code.
              state: "manual",
              required: true
          }])
-         record_id = models.execute_kw(db, uid, password, 'x_custom', 'create', [{x_name: "test record"}])
+         record_id = models.execute_kw(db, uid, password, 'x_custom', 'create', [{x_name: "测试记录"}])
          models.execute_kw(db, uid, password, 'x_custom', 'read', [[record_id]])
 
       .. code-tab:: java
@@ -1357,7 +1252,7 @@ custom fields without using Python code.
                  db, uid, password,
                  "ir.model", "create",
                  asList(new HashMap<String, Object>() {{
-                     put("name", "Custom Model");
+                     put("name", "自定义模型");
                      put("model", "x_custom");
                      put("state", "manual");
                  }})
@@ -1379,7 +1274,7 @@ custom fields without using Python code.
                  db, uid, password,
                  "x_custom", "create",
                  asList(new HashMap<String, Object>() {{
-                     put("x_name", "test record");
+                     put("x_name", "测试记录");
                  }})
          ));
 
@@ -1398,7 +1293,7 @@ custom fields without using Python code.
              "ir.model", "create",
              []map[string]string{
                  {
-                     "name":  "Custom Model",
+                     "name":  "自定义模型",
                      "model": "x_custom",
                      "state": "manual",
                  },
@@ -1427,7 +1322,7 @@ custom fields without using Python code.
              db, uid, password,
              "x_custom", "create",
              []map[string]string{
-                 {"x_name": "test record"},
+                 {"x_name": "测试记录"},
              },
          }, &recordId); err != nil {
              log.Fatal(err)
@@ -1441,20 +1336,20 @@ custom fields without using Python code.
              log.Fatal(err)
          }
 
-   Result:
+   结果：
 
    .. code-block:: json
 
       [
           {
-              "create_uid": [1, "Administrator"],
-              "x_name": "test record",
+              "create_uid": [1, "管理员"],
+              "x_name": "测试记录",
               "__last_update": "2014-11-12 16:32:13",
-              "write_uid": [1, "Administrator"],
+              "write_uid": [1, "管理员"],
               "write_date": "2014-11-12 16:32:13",
               "create_date": "2014-11-12 16:32:13",
               "id": 1,
-              "display_name": "test record"
+              "display_name": "测试记录"
           }
       ]
 

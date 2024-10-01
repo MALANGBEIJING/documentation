@@ -1,103 +1,69 @@
-==================
-Framework Overview
-==================
+框架概述
+==========
 
-Introduction
-============
+引言
+----
 
-The Odoo Javascript framework is a set of features/building blocks provided by
-the ``web/`` addon to help build odoo applications running in the browser. At
-the same time, the Odoo Javascript framework is a single page application,
-usually known as the *web client* (available at the url ``/web``).
+Odoo JavaScript框架是由``web/``插件提供的一套功能和构建模块，用于构建在浏览器中运行的Odoo应用程序。同时，Odoo JavaScript框架是一个单页面应用程序，通常称为*web客户端*（可在URL ``/web`` 访问）。
 
-The web client started as an application made with a custom class and widget
-system, but it is now transitioning to using native javascript classes instead,
-and Owl as a component system. This explains why both systems are currently in
-use in the codebase.
+web客户端最初是一个基于自定义类和小部件系统构建的应用程序，但现在正在过渡到使用本机JavaScript类和Owl组件系统。这解释了为什么在代码库中同时使用这两种系统。
 
-From a high-level perspective, the web client is a single-page application: it
-does not need to request a full page from the server each time the user performs
-an action. Instead, it only requests what it needs and then replaces/updates the
-current screen accordingly. Also, it manages the url to keep it in sync with
-the current state.
+从高层次的视角看，web客户端作为单页面应用程序运行，这意味着它不需要每次用户操作时从服务器请求完整页面。相反，它只请求所需的数据，然后相应地替换或更新当前屏幕。此外，它管理URL以保持与当前状态的同步。
 
-The javascript framework (all or some parts) is also used in other situations,
-such as the Odoo website or the point of sale. This reference is mostly focused
-on the web client.
+JavaScript框架还用于其他情况，例如Odoo网站或销售点，但本参考主要集中在web客户端。
 
 .. note::
 
-    It is common in the Odoo ecosystem to see the words *frontend* and *backend*
-    as synonyms for the odoo website (public) and the web client, respectively.
-    This terminology is not to be confused with the more common use of
-    browser-code (frontend) and server (backend).
+    在Odoo生态系统中，*前端*和*后端*这两个术语通常分别指代Odoo网站（公共）和web客户端。请勿将此与浏览器代码（前端）和服务器代码（后端）的更常见定义混淆。
 
 .. note::
 
-    In this documentation, the word *component* always refers to new Owl
-    components, and *widget* refers to old Odoo widgets.
+    在本文档中，*组件*始终指新的Owl组件，而*小部件*则指旧的Odoo小部件。
 
 .. note::
 
-    All new development should be done in Owl, if possible!
+    如果可能，所有新开发应优先使用Owl。
 
-Code structure
-==============
+代码结构
+--------
 
-The ``web/static/src`` folder contains all the ``web/`` javascript (and css and
-templates) codebase. Here is a list of the most important folders:
+``web/static/src`` 文件夹包含所有 ``web/`` 的JavaScript（以及CSS和模板）代码库。以下是一些重要文件夹的列表：
 
-- ``core/`` most of the low level features
-- ``fields/`` all field components
-- ``views/`` all javascript views components (``form``, ``list``, ...)
-- ``search/`` control panel, search bar, search panel, ...
-- ``webclient/`` the web client specific code: navbar, user menu, action service, ...
+- ``core/``：大多数底层功能。
+- ``fields/``：所有字段组件。
+- ``views/``：所有JavaScript视图组件（例如，``form``、``list``）。
+- ``search/``：控制面板、搜索栏、搜索面板等。
+- ``webclient/``：特定于web客户端的代码，例如导航栏、用户菜单、操作服务等。
 
-The ``web/static/src`` is the root folder. Everything inside can simply be
-imported by using the ``@web`` prefix. For example, here is how one can import
-the ``memoize`` function located in ``web/static/src/core/utils/functions``:
+`web/static/src` 文件夹是根文件夹。内部的所有内容都可以通过使用 `@web` 前缀简单导入。例如，以下是如何导入位于 `web/static/src/core/utils/functions` 中的 `memoize` 函数：
 
-.. code-block:: javascript
+```javascript
+import { memoize } from "@web/core/utils/functions";
+```
 
-    import { memoize } from "@web/core/utils/functions";
+WebClient架构
+-------------
 
-WebClient Architecture
-======================
+如上所述，web客户端是一个Owl应用程序。以下是其模板的简化版本：
 
-As mentioned above, the web client is an owl application. Here is a slightly
-simplified version of its template:
+```xml
+<t t-name="web.WebClient">
+    <body class="o_web_client">
+        <NavBar/>
+        <ActionContainer/>
+        <MainComponentsContainer/>
+    </body>
+</t>
+```
 
-.. code-block:: xml
+该结构基本上是导航栏、当前操作和一些附加组件的包装器。`ActionContainer` 是一个高阶组件，负责显示当前的操作控制器，因此一个客户端操作或特定视图在操作类型为 `act_window` 的情况下。在这方面，管理操作是它工作的一个重要部分：操作服务在内存中保持所有活动操作的堆栈（在面包屑中表示），并协调每次更改。
 
-    <t t-name="web.WebClient">
-        <body class="o_web_client">
-            <NavBar/>
-            <ActionContainer/>
-            <MainComponentsContainer/>
-        </body>
-    </t>
+另一个有趣的地方是 `MainComponentsContainer`：它只是一个组件，用于显示在 `main_components` 注册表中注册的所有组件。这使得系统的其他部分可以扩展web客户端。
 
-As we can see, it basically is a wrapper for a navbar, the current action and
-some additional components. The ``ActionContainer`` is a higher order component
-that will display the current action controller (so, a client action, or a
-specific view in the case of actions of type ``act_window``). Managing actions
-is a huge part of its work: the action service keeps in memory a stack of
-all active actions (represented in the breadcrumbs), and coordinates each
-change.
+环境
+----
 
-Another interesting thing to note is the ``MainComponentsContainer``: it is
-simply a component that displays all components registered in the
-``main_components`` registry. This is how other parts of the system can extend
-the web client.
-
-.. _frontend/framework/environment:
-
-Environment
-===========
-
-As an Owl application, the Odoo web client defines its own environment (components
-can access it using ``this.env``). Here is a description of what Odoo adds to
-the shared ``env`` object:
+作为一个Owl应用程序，Odoo web客户端定义了自己的环境（组件可以使用`this.env`访问它）。以下是Odoo为共享`env`对象添加的内容：
 
 .. list-table::
    :widths: 25 75
@@ -106,155 +72,105 @@ the shared ``env`` object:
    * - Key
      - Value
    * - `qweb`
-     - required by Owl (contains all templates)
+     - Owl所需，包含所有模板。
    * - `bus`
-     - :ref:`main bus <frontend/framework/bus>`, used to coordinate some generic events
+     - :ref:`主事件总线 <frontend/framework/bus>`，用于协调一些通用事件。
    * - `services`
-     - all deployed :ref:`services <frontend/services>` (should usually be accessed
-       with the `useService` hook)
+     - 所有已部署的 :ref:`服务 <frontend/services>`（通常通过 `useService` 钩子访问）。
    * - `debug`
-     - string. If non empty, the web client is in :ref:`debug mode <frontend/framework/debug_mode>`
+     - 字符串。如果非空，则web客户端处于 :ref:`调试模式 <frontend/framework/debug_mode>`。
    * - `_t`
-     - translation function
+     - 翻译函数。
    * - `isSmall`
-     - boolean. If true, the web client is currently in mobile mode (screen width <= 767px)
+     - 布尔值。如果为真，则web客户端当前处于移动模式（屏幕宽度 ≤ 767px）。
 
-So, for example, to translate a string in a component (note: templates are
-automatically translated, so no specific action is required in that case), one
-can do this:
+例如，在组件中使用翻译函数：
 
+```javascript
+const someString = this.env._t('some text');
+```
 
-.. code-block:: javascript
-
-    const someString = this.env._t('some text');
-
-.. note::
-
-   Having a reference to the environment is quite powerful, because it provides
-   access to all services. This is useful in many cases: for example,
-   user menu items are mostly defined as a string, and a function taking the `env`
-   as unique argument. This is enough to express all user menu needs.
-
-Building Blocks
-===============
-
-Most of the web client is built with a few types of abstractions: registries,
-services, components and hooks.
-
-Registries
-----------
-
-:ref:`Registries <frontend/registries>` are basically a simple key/value mapping
-that stores some specific kind of objects. They are an important part of the
-extensibility of the UI: once some object is registered, the rest of the web
-client can use it. For example, the field registry contains all field components
-(or widgets) that can be used in views.
-
-.. code-block:: javascript
-
-    import { registry } from "./core/registry";
-
-    class MyFieldChar extends owl.Component {
-        // some code
-    }
-
-    registry.category("fields").add("my_field_char", MyFieldChar);
-
-Note that we import the main registry from ``@web/core/registry`` then open the
-sub registry ``fields``.
-
-Services
+构建模块
 --------
 
-:ref:`Services <frontend/services>` are long lived pieces of code that provide a
-feature. They may be imported by components (with ``useService``) or by other
-services. Also, they can declare a set of dependencies. In that sense, services
-are basically a DI (dependency injection) system. For example, the ``notification``
-service provides a way to display a notification, or the ``rpc`` service is the
-proper way to perform a request to the Odoo server.
+web客户端依赖于几种抽象类型：注册表、服务、组件和钩子。
 
-The following example registers a simple service that displays a notification
-every 5 second:
+注册表
+~~~~~~
 
-.. code-block:: javascript
+注册表作为一个键/值映射存储特定类型的对象，是UI可扩展性的重要组成部分。一旦某个对象被注册，web客户端的其余部分就可以使用它。例如，字段注册表包含所有可以在视图中使用的字段组件：
 
-    import { registry } from "./core/registry";
+```javascript
+import { registry } from "./core/registry";
 
-    const serviceRegistry = registry.category("services");
+class MyFieldChar extends owl.Component {
+    // some code
+}
 
-    const myService = {
-        dependencies: ["notification"],
-        start(env, { notification }) {
-            let counter = 1;
-            setInterval(() => {
-                notification.add(`Tick Tock ${counter++}`);
-            }, 5000);
-        }
-    };
+registry.category("fields").add("my_field_char", MyFieldChar);
+```
 
-    serviceRegistry.add("myService", myService);
+服务
+~~~~~
 
-Components and Hooks
---------------------
+服务是提供特性的一段长寿命代码，可以被组件（使用`useService`）或其他服务导入。此外，它们可以声明一组依赖项。在这个意义上，服务基本上是一个依赖注入（DI）系统。例如，`notification` 服务提供了一种显示通知的方式：
 
-:ref:`Components <frontend/components>` and :ref:`hooks <frontend/hooks>` are ideas coming from the
-`Owl component system <https://github.com/odoo/owl/blob/master/doc/readme.md>`_.
-Odoo components are simply owl components that are part of the web client.
+```javascript
+import { registry } from "./core/registry";
 
-`Hooks <https://github.com/odoo/owl/blob/master/doc/reference/hooks.md>`_ are a
-way to factorize code, even if it depends on lifecycle. This is a
-composable/functional way to inject a feature in a component. They can be seen
-as a kind of mixin.
+const serviceRegistry = registry.category("services");
 
-.. code-block:: javascript
-
-    function useCurrentTime() {
-        const state = useState({ now: new Date() });
-        const update = () => state.now = new Date();
-        let timer;
-        onWillStart(() => timer = setInterval(update, 1000));
-        onWillUnmount(() => clearInterval(timer));
-        return state;
+const myService = {
+    dependencies: ["notification"],
+    start(env, { notification }) {
+        let counter = 1;
+        setInterval(() => {
+            notification.add(`Tick Tock ${counter++}`);
+        }, 5000);
     }
+};
 
-Context
-=======
+serviceRegistry.add("myService", myService);
+```
 
-An important concept in the Odoo javascript is the *context*: it provides a way
-for code to give more context to a function call or a rpc, so other parts of the
-system can properly react to that information. In some way, it is like a bag of
-information that is propagated everywhere. It is useful in some situations, such
-as letting the Odoo server know that a model rpc comes from a specific form view,
-or activating/disabling some features in a component.
+组件和钩子
+~~~~~~~~~~~
 
-There are two different contexts in the Odoo web client: the *user context* and
-the *action context* (so, we should be careful when using the word *context*: it
-could mean a different thing depending on the situation).
+Odoo组件是集成到web客户端的Owl组件。钩子提供了一种封装代码的方法，特别是当涉及生命周期时：
 
-.. note::
-   The `context` object may be useful in many cases, but one should be careful
-   not to overuse it! Many problems can be solved in a standard way without
-   modifying the context.
+```javascript
+function useCurrentTime() {
+    const state = useState({ now: new Date() });
+    const update = () => state.now = new Date();
+    let timer;
+    onWillStart(() => timer = setInterval(update, 1000));
+    onWillUnmount(() => clearInterval(timer));
+    return state;
+}
+```
 
-.. _frontend/framework/user_context:
+上下文
+------
 
-User Context
-------------
+Odoo JavaScript中的*上下文*概念允许代码为函数调用或RPC提供更多信息，以便系统的其他部分可以正确响应。这在某种程度上像是一个信息包，被传播到各个地方。它在一些情况下非常有用，例如让Odoo服务器知道某个模型RPC来自于特定的表单视图，或者在组件中激活/禁用某些功能。
 
-The *user context* is a small object containing various informations related to
-the current user. It is available through the `user` service:
+Odoo web客户端有两种不同的上下文：*用户上下文*和*操作上下文*（因此，当使用*上下文*这个词时，我们应该小心，因为在不同情况下它可能意味着不同的东西）。
 
-.. code-block:: javascript
+用户上下文
+~~~~~~~~~~~
 
-    class MyComponent extends Component {
-        setup() {
-            const user = useService("user");
-            console.log(user.context);
-        }
+*用户上下文*是一个小对象，包含与当前用户相关的各种信息。它可以通过 `user` 服务访问：
+
+```javascript
+class MyComponent extends Component {
+    setup() {
+        const user = useService("user");
+        console.log(user.context);
     }
+}
+```
 
-It contains the following information:
-
+它包含以下信息：
 
 .. list-table::
     :widths: 20 20 60
@@ -265,387 +181,313 @@ It contains the following information:
       - Description
     * - `allowed_company_ids`
       - `number[]`
-      - the list of active company ids for the user
+      - 用户的活动公司ID列表。
     * - `lang`
       - `string`
-      - the user language code (such as "en_us")
+      - 用户语言代码（例如，“en_us”）。
     * - `tz`
       - `string`
-      - the user current timezone (for example "Europe/Brussels")
+      - 用户当前时区（例如，“Europe/Brussels”）。
 
-In practice, the `orm` service automatically adds the user context to each of
-its requests. This is why it is usually not necessary to import it directly in
-most cases.
+实际上，`orm` 服务会自动将用户上下文添加到其请求中。这就是为什么在大多数情况下不需要直接导入它。
 
-.. note::
-   The first element of the `allowed_company_ids` is the main company of the user.
+操作上下文
+~~~~~~~~~~~
 
-Action Context
---------------
+`ir.actions.act_window` 和 `ir.actions.client` 支持一个可选的 `context` 字段。该字段是一个`char`，表示一个对象。每当相应的操作在web客户端中加载时，这个上下文字段将被评估为一个对象，并传递给与操作对应的组件。
 
-The :ref:`ir.actions.act_window<reference/actions/window>` and
-:ref:`ir.actions.client<reference/actions/client>` support an optional `context` field.
-This field is a `char` that represents an object. Whenever the corresponding
-action is loaded in the web client, this context field will be evaluated as an
-object and given to the component that corresponds to the action.
+```xml
+<field name="context">{'search_default_customer': 1}</field>
+```
 
-.. code-block:: xml
+它可以以多种不同方式使用。例如，视图将操作上下文添加到所有发往服务器的请求中。另一个重要用途是默认启用某些搜索过滤器（如上例所示）。
 
-    <field name="context">{'search_default_customer': 1}</field>
+有时，当我们手动（因此，程序性地，在JavaScript中）执行新操作时，能够扩展操作上下文是有用的。这可以通过 `additional_context` 参数完成。
 
-It can be used in many different ways. For example, the views add the
-action context to every requests made to the server. Another important use is to
-activate some search filter by default (see example above).
+```javascript
+// in setup
+let actionService = useService("action");
 
-Sometimes, when we execute new actions manually (so, programmatically, in javascript),
-it is useful to be able to extend the action context. This can be done with the
-`additional_context` argument.
+// in some event handler
+actionService.doAction("addon_name.something", {
+    additional_context: {
+        default_period_id: defaultPeriodId
+    }
+});
+```
 
-.. code-block:: javascript
+在这个示例中，xml_id为
 
-    // in setup
-    let actionService = useService("action");
+`addon_name.something`的操作将被加载，并且其上下文将与`default_period_id`值一起扩展。这是一个非常重要的用例，允许开发者通过提供一些信息来组合操作。
 
-    // in some event handler
-    actionService.doAction("addon_name.something", {
-        additional_context:{
-            default_period_id: defaultPeriodId
-        }
-    });
+Python解释器
+===================
 
-In this example, the action with xml_id `addon_name.something` will be loaded,
-and its context will be extended with the `default_period_id` value. This is a
-very important usecase that lets developers combine actions together by providing
-some information to the next action.
+Odoo框架提供了一个内置的小型Python解释器。其目的是评估小的Python表达式。这很重要，因为Odoo中的视图具有用Python编写的修饰符，但它们需要由浏览器进行评估。
 
-.. _frontend/framework/pyjs:
+例如：
 
-Python Interpreter
-==================
+```javascript
+import { evaluateExpr } from "@web/core/py_js/py";
 
-The Odoo framework features a built-in small python interpreter. Its purpose
-is to evaluate small python expressions. This is important, because views in
-Odoo have modifiers written in python, but they need to be evaluated by the
-browser.
+evaluateExpr("1 + 2*{'a': 1}.get('b', 54) + v", { v: 33 }); // 返回 142
+```
 
-Example:
-
-.. code-block:: javascript
-
-   import { evaluateExpr } from "@web/core/py_js/py";
-
-   evaluateExpr("1 + 2*{'a': 1}.get('b', 54) + v", { v: 33 }); // returns 142
-
-
-The ``py`` javascript code exports 5 functions:
+`py` JavaScript代码导出了五个函数：
 
 .. js:function:: tokenize(expr)
 
-  :param string expr: the expression to tokenize
-  :returns: Token[] a list of token
+   :param string expr: 要标记化的表达式
+   :returns: Token[] 一个标记列表
 
 .. js:function:: parse(tokens)
 
-  :param Token[] tokens: a list of tokens
-  :returns: AST an abstract syntax tree structure representing the expression
+   :param Token[] tokens: 一组标记
+   :returns: AST 一个表示表达式的抽象语法树结构
 
 .. js:function:: parseExpr(expr)
 
-  :param string expr: a string representing a valid python expression
-  :returns: AST an abstract syntax tree structure representing the expression
+   :param string expr: 一个有效的Python表达式字符串
+   :returns: AST 一个表示表达式的抽象语法树结构
 
 .. js:function:: evaluate(ast[, context])
 
-  :param AST ast: a AST structure that represents an expression
-  :param Object context: an object that provides an additional evaluation context
-  :returns: any the resulting value of the expression, with respect to the context
+   :param AST ast: 一个表示表达式的AST结构
+   :param Object context: 提供额外评估上下文的对象
+   :returns: any 表达式结果值，基于上下文
 
 .. js:function:: evaluateExpr(expr[, context])
 
-  :param string expr: a string representing a valid python expression
-  :param Object context: an object that provides an additional evaluation context
-  :returns: any the resulting value of the expression, with respect to the context
+   :param string expr: 一个有效的Python表达式字符串
+   :param Object context: 提供额外评估上下文的对象
+   :returns: any 表达式结果值，基于上下文
 
-.. _frontend/framework/domains:
+域
+====
 
-Domains
-=======
+广义上讲，Odoo中的域表示与指定条件匹配的一组记录。在JavaScript中，它们通常表示为条件列表（或前缀表示法中的操作符：`|`、`&`或`!`），或作为字符串表达式。它们不必被标准化（如果必要，`&`操作符是隐含的）。例如：
 
-Broadly speaking, domains in Odoo represent a set of records that matches some
-specified conditions. In javascript, they are usually represented either as a
-list of conditions (or of operators: `|`, `&` or `!` in prefix notation), or as string
-expressions. They don't have to be normalized (the `&` operator is implied if
-necessary). For example:
+```javascript
+// 条件列表
+[]
+[["a", "=", 3]]
+[["a", "=", 1], ["b", "=", 2], ["c", "=", 3]]
+["&", "&", ["a", "=", 1], ["b", "=", 2], ["c", "=", 3]]
+["&", "!", ["a", "=", 1], "|", ["a", "=", 2], ["a", "=", 3]]
 
-.. code-block:: javascript
+// 字符串表达式
+"[('some_file', '>', a)]"
+"[('date','>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"
+"[('date', '!=', False)]"
+```
 
-  // list of conditions
-  []
-  [["a", "=", 3]]
-  [["a", "=", 1], ["b", "=", 2], ["c", "=", 3]]
-  ["&", "&", ["a", "=", 1], ["b", "=", 2], ["c", "=", 3]]
-  ["&", "!", ["a", "=", 1], "|", ["a", "=", 2], ["a", "=", 3]]
+字符串表达式比列表表达式更强大：它们可以包含Python表达式和未评估的值，这取决于某些评估上下文。然而，操作字符串表达式更困难。
 
-  // string expressions
-  "[('some_file', '>', a)]"
-  "[('date','>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"
-  "[('date', '!=', False)]"
+由于域在web客户端中非常重要，Odoo提供了一个`Domain`类：
 
-String expressions are more powerful than list expressions: they can contain
-python expressions and unevaluated values, that depends on some evaluation context.
-However, manipulating string expressions is more difficult.
+```javascript
+new Domain([["a", "=", 3]]).contains({ a: 3 }); // true
 
-Since domains are quite important in the web client, Odoo provides a `Domain`
-class:
+const domain = new Domain(["&", "&", ["a", "=", 1], ["b", "=", 2], ["c", "=", 3]]);
+domain.contains({ a: 1, b: 2, c: 3 }); // true
+domain.contains({ a: -1, b: 2, c: 3 }); // false
 
-.. code-block:: javascript
+// 下一个表达式返回 ["|", ("a", "=", 1), ("b", "<=", 3)]
+Domain.or([[["a", "=", 1]], "[('b', '<=', 3)]"]).toString();
+```
 
-    new Domain([["a", "=", 3]]).contains({ a: 3 }) // true
-
-    const domain = new Domain(["&", "&", ["a", "=", 1], ["b", "=", 2], ["c", "=", 3]]);
-    domain.contains({ a: 1, b: 2, c: 3 }); // true
-    domain.contains({ a: -1, b: 2, c: 3 }); // false
-
-    // next expression returns ["|", ("a", "=", 1), ("b", "<=", 3)]
-    Domain.or([[["a", "=", 1]], "[('b', '<=', 3)]"]).toString();
-
-Here is the `Domain` class description:
+以下是`Domain`类的描述：
 
 .. js:class:: Domain([descr])
 
-  :param descr: a domain description
-  :type descr: string | any[] | Domain
+   :param descr: 域描述
+   :type descr: string | any[] | Domain
 
-  .. js:method:: contains(record)
+   .. js:method:: contains(record)
 
-    :param Object record: a record object
-    :returns: boolean
+      :param Object record: 记录对象
+      :returns: boolean
 
-    Returns true if the record matches all the condition specified by the domain
+      返回true如果记录匹配域指定的所有条件
 
-  .. js:method:: toString()
+   .. js:method:: toString()
 
-    :returns: string
+      :returns: string
 
-    Returns a string description for the domain
+      返回域的字符串描述
 
-  .. js:method:: toList([context])
+   .. js:method:: toList([context])
 
-    :param Object context: evaluation context
-    :returns: any[]
+      :param Object context: 评估上下文
+      :returns: any[]
 
-    Returns a list description for the domain. Note that this method takes an
-    optional `context` object that will be used to replace all free variables.
+      返回域的列表描述。请注意，此方法接受一个可选的`context`对象，该对象将用于替换所有自由变量。
 
-    .. code-block:: javascript
+      ```javascript
+      new Domain(`[('a', '>', b)]`).toList({ b: 3 }); // [['a', '>', 3]]
+      ```
 
-      new Domain(`[('a', '>', b)]`).toList({ b:3 }); // [['a', '>', 3]]
-
-The `Domain` class also provides 4 useful static methods to combine domains:
-
-.. code-block:: javascript
-
-    // ["&", ("a", "=", 1), ("uid", "<=", uid)]
-    Domain.and([[["a", "=", 1]], "[('uid', '<=', uid)]"]).toString();
-
-    // ["|", ("a", "=", 1), ("uid", "<=", uid)]
-    Domain.or([[["a", "=", 1]], "[('uid', '<=', uid)]"]).toString();
-
-    // ["!", ("a", "=", 1)]
-    Domain.not([["a", "=", 1]]).toString();
-
-    // ["&", ("a", "=", 1), ("uid", "<=", uid)]
-    Domain.combine([[["a", "=", 1]], "[('uid', '<=', uid)]"], "AND").toString();
-
+### 组合域的静态方法
 
 .. staticmethod:: Domain.and(domains)
 
-  :param domains: a list of domain representations
-  :type domains: string[] | any[][] | Domain[]
-  :returns: Domain
+   :param domains: 域表示的列表
+   :type domains: string[] | any[][] | Domain[]
+   :returns: Domain
 
-  Returns a domain representing the intersection of all domains.
+   返回表示所有域交集的域。
 
 .. staticmethod:: Domain.or(domains)
 
-  :param domains: a list of domain representations
-  :type domains: string[] | any[][] | Domain[]
-  :returns: Domain
+   :param domains: 域表示的列表
+   :type domains: string[] | any[][] | Domain[]
+   :returns: Domain
 
-  Returns a domain representing the union of all domains.
+   返回表示所有域并集的域。
 
 .. staticmethod:: Domain.not(domain)
 
-  :param domain: a domain representation
-  :type domain: string | any[] | Domain
-  :returns: Domain
+   :param domain: 域表示
+   :type domain: string | any[] | Domain
+   :returns: Domain
 
-  Returns a domain representing the negation of the domain argument
+   返回表示域参数的否定的域。
 
 .. staticmethod:: Domain.combine(domains, operator)
 
-  :param domains: a list of domain representations
-  :type domains: string[] | any[][] | Domain[]
-  :param operator: an operator
-  :type operator: 'AND' or 'OR'
+   :param domains: 域表示的列表
+   :type domains: string[] | any[][] | Domain[]
+   :param operator: 操作符
+   :type operator: 'AND' or 'OR'
 
-  :returns: Domain
+   :returns: Domain
 
-  Returns a domain representing either the intersection or the union of all the
-  domains, depending on the value of the operator argument.
+   返回表示所有域的交集或并集的域，具体取决于操作符的值。
 
-.. _frontend/framework/bus:
+总线
+====
 
-Bus
-===
+web客户端的`env`对象包含一个事件总线，命名为`bus`。其目的是允许系统各部分在不耦合的情况下进行协调。`env.bus`是一个Owl的`EventBus`，应当用于感兴趣的全局事件。
 
-The web client :ref:`environment <frontend/framework/environment>` object contains an event
-bus, named `bus`. Its purpose is to allow various parts of the system to properly
-coordinate themselves, without coupling them. The `env.bus` is an owl
-`EventBus <https://github.com/odoo/owl/blob/master/doc/reference/event_bus.md>`_,
-that should be used for global events of interest.
+```javascript
+// 例如，在某些服务代码中：
+env.bus.on("WEB_CLIENT_READY", null, doSomething);
+```
 
-
-.. code-block:: javascript
-
-   // for example, in some service code:
-   env.bus.on("WEB_CLIENT_READY", null, doSomething);
-
-Here is a list of the events that can be triggered on this bus:
+### 事件列表
 
 .. list-table::
    :header-rows: 1
 
-   * - Message
-     - Payload
-     - Trigger
+   * - 消息
+     - 负载
+     - 触发
    * - ``ACTION_MANAGER:UI-UPDATED``
-     - a mode indicating what part of the ui has been updated ('current', 'new' or 'fullscreen')
-     - the rendering of the action requested to the action manager is done
+     - 表示UI更新的模式（'current'、'new'或'fullscreen'）
+     - 操作请求完成后，更新操作管理器的呈现
    * - ``ACTION_MANAGER:UPDATE``
-     - next rendering info
-     - the action manager has finished computing the next interface
+     - 下一次呈现信息
+     - 操作管理器完成下一界面的计算
    * - ``MENUS:APP-CHANGED``
-     - none
-     - the menu service's current app has changed
+     - 无
+     - 菜单服务的当前应用程序已更改
    * - ``ROUTE_CHANGE``
-     - none
-     - the url hash was changed
+     - 无
+     - URL哈希已更改
    * - ``RPC:REQUEST``
-     - rpc id
-     - a rpc request has just started
+     - rpc ID
+     - RPC请求刚刚开始
    * - ``RPC:RESPONSE``
-     - rpc id
-     - a rpc request is completed
+     - rpc ID
+     - RPC请求已完成
    * - ``WEB_CLIENT_READY``
-     - none
-     - the web client has been mounted
+     - 无
+     - web客户端已挂载
    * - ``FOCUS-VIEW``
-     - none
-     - the main view should focus itself
+     - 无
+     - 主视图应聚焦
    * - ``CLEAR-CACHES``
-     - none
-     - all internal caches should be cleared
+     - 无
+     - 应该清除所有内部缓存
    * - ``CLEAR-UNCOMMITTED-CHANGES``
-     - list of functions
-     - all views with uncommitted changes should clear them, and push a callback in the list
+     - 函数列表
+     - 所有具有未提交更改的视图应清除它们，并在列表中推送回调
 
-
-Browser Object
-==============
-
-The javascript framework also provides a special object ``browser`` that
-provides access to many browser APIs, like ``location``, ``localStorage``
-or ``setTimeout``.  For example, here is how one could use the
-``browser.setTimeout`` function:
-
-.. code-block:: javascript
-
-    import { browser } from "@web/core/browser/browser";
-
-    // somewhere in code
-    browser.setTimeout(someFunction, 1000);
-
-It is mostly interesting for testing purposes: all code using the browser object
-can be tested easily by mocking the relevant functions for the duration of the
-test.
-
-It contains the following content:
-
-.. list-table::
-
-  * - `addEventListener`
-    - `cancelAnimationFrame`
-    - `clearInterval`
-  * - `clearTimeout`
-    - `console`
-    - `Date`
-  * - `fetch`
-    - `history`
-    - `localStorage`
-  * - `location`
-    - `navigator`
-    - `open`
-  * - `random`
-    - `removeEventListener`
-    - `requestAnimationFrame`
-  * - `sessionStorage`
-    - `setInterval`
-    - `setTimeout`
-  * - `XMLHttpRequest`
-    -
-    -
-
-.. _frontend/framework/debug_mode:
-
-Debug mode
+浏览器对象
 ==========
 
-Odoo can sometimes operate in a special mode called the `debug` mode. It is used
-for two main purposes:
+JavaScript框架还提供了一个特殊的对象``browser``，它提供对许多浏览器API的访问，例如``location``、``localStorage``或``setTimeout``。例如，以下是如何使用``browser.setTimeout``函数：
 
-- display additional information/fields for some particular screens,
-- provide some additional tools to help developer debug the Odoo interface.
+```javascript
+import { browser } from "@web/core/browser/browser";
 
-The `debug` mode is described by a string. An empty string means that the `debug`
-mode is not active. Otherwise, it is active.  If the string contains `assets` or
-`tests`, then the corresponding specific sub modes are activated (see below). Both
-modes can be active at the same time, for example with the string `assets,tests`.
+// 代码中的某处
+browser.setTimeout(someFunction, 1000);
+```
 
-The `debug` mode current value can be read in the :ref:`environment<frontend/framework/environment>`:
-`env.debug`.
+它主要在测试过程中很有用：使用浏览器对象的所有代码都可以轻松通过模拟相关功能来进行测试。
+
+它包含以下内容：
+
+.. list-table::
+   :header-rows: 1
+
+   * - addEventListener
+     - cancelAnimationFrame
+     - clearInterval
+   * - clearTimeout
+     - console
+     - Date
+   * - fetch
+     - history
+     - localStorage
+   * - location
+     - navigator
+     - open
+   * - random
+     - removeEventListener
+     - requestAnimationFrame
+   * - sessionStorage
+     - setInterval
+     - setTimeout
+   * - XMLHttpRequest
+     - 
+
+调试模式
+========
+
+Odoo可以在一种特殊模式下运行，称为`调试`模式。它主要用于两个目的：
+
+- 显示某些特定屏幕的附加信息/字段。
+- 提供一些额外工具来帮助开发人员调试Odoo界面。
+
+`调试`模式由一个字符串描述。空字符串表示`调试`模式不活动。否则，它是活动的。如果字符串包含`assets`或`tests`，则
+
+相应的特定子模式被激活（见下文）。这两种模式可以同时激活，例如字符串为 `assets,tests`。
+
+可以在 :ref:`环境 <frontend/framework/environment>` 中读取当前的 `debug` 模式值：
+`env.debug`。
 
 .. tip::
 
-    To show menus, fields or view elements only in debug mode, you should target
-    the group `base.group_no_one`:
+    要仅在调试模式下显示菜单、字段或视图元素，应定位到组 `base.group_no_one`：
 
-    .. code-block:: xml
-
-        <field name="fname" groups="base.group_no_one"/>
+```xml
+<field name="fname" groups="base.group_no_one"/>
+```
 
 .. seealso::
-   - :ref:`Activate the debug mode <developer-mode>`
+   - :ref:`激活调试模式 <developer-mode>`
 
+资产模式
+~~~~~~~~~
 
-.. _frontend/framework/assets_debug_mode:
+`debug=assets` 子模式对于调试JavaScript代码非常有用：一旦激活， :ref:`资产 <reference/assets>` 包将不再被压缩，并且会生成源映射。这对于调试各种JavaScript代码很有用。
 
-Assets mode
------------
+测试模式
+~~~~~~~~~
 
-The `debug=assets` sub mode is useful to debug javascript code: once activated,
-the :ref:`assets<reference/assets>` bundles are no longer minified, and source-maps
-are generated as well. This makes it useful to debug all kind of javascript code.
-
-.. _frontend/framework/tests_debug_mode:
-
-Tests mode
-----------
-
-There is another sub mode named `tests`: if enabled, the server injects the
-bundle `web.assets_tests` in the page. This bundle contains mostly test tours
-(tours whose purpose is to test a feature, not to show something interesting to
-users). The `tests` mode is then useful to be able to run these tours.
+还有一个名为 `tests` 的子模式；如果启用，服务器将在页面中注入 `web.assets_tests` 包。此包主要包含测试游览（其目的是测试功能，而不是为用户展示有趣的内容）。`tests`模式对运行这些游览很有用。
 
 .. seealso::
     - `Owl Repository <https://github.com/odoo/owl>`_

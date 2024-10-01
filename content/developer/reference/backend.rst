@@ -2,7 +2,7 @@
 :hide-page-toc:
 
 ================
-Server framework
+服务器框架
 ================
 
 .. toctree::

@@ -1,58 +1,47 @@
 ===========
-Odoo Editor
+Odoo 编辑器
 ===========
 
-Odoo Editor is Odoo's own rich text editor. Its sources can be found in the
-`odoo-editor directory
-<{GITHUB_PATH}/addons/web_editor/static/src/js/editor/odoo-editor>`_.
+Odoo 编辑器是 Odoo 自己的富文本编辑器。其源代码可以在
+`odoo-editor 目录
+<{GITHUB_PATH}/addons/web_editor/static/src/js/editor/odoo-editor>`_ 中找到。
 
 Powerbox
 ========
 
-The Powerbox is a piece of user interface that contains
-:ref:`commands <reference/frontend/odoo_editor/powerbox/command>` organized
-into :ref:`categories <reference/frontend/odoo_editor/powerbox/category>`. It
-appears when typing `/` in the editor. The commands can be filtered when the
-user inputs text, and navigated with the arrow keys.
+Powerbox 是一个包含
+:ref:`命令 <reference/frontend/odoo_editor/powerbox/command>` 的用户界面部分，这些命令被组织在
+:ref:`类别 <reference/frontend/odoo_editor/powerbox/category>` 中。当在编辑器中输入 `/` 时，它会出现。用户输入文本时可以过滤命令，并且可以使用方向键进行导航。
 
 .. image:: odoo_editor/powerbox.png
    :align: center
-   :alt: The Powerbox opened after typing "/".
+   :alt: 输入 "/" 后打开的 Powerbox。
 
-Modifying the Powerbox
-----------------------
+修改 Powerbox
+-------------
 
-Only one Powerbox should be instantiated at the time, and that job is done by
-the editor itself. Its Powerbox instance can be found in its `powerbox` instance
-variable.
-To change the Powerbox's contents and options, change the options passed to the
-editor before it gets instantiated.
+同一时间只能实例化一个 Powerbox，编辑器负责此工作。其 Powerbox 实例可以在其 `powerbox` 实例变量中找到。
+要更改 Powerbox 的内容和选项，需要在实例化编辑器之前更改传递给编辑器的选项。
 
 .. important::
-   Never instantiate the Powerbox yourself. Always use the current editor's own
-   instance instead.
+   永远不要自己实例化 Powerbox。始终使用当前编辑器的实例。
 
 .. example::
-    Say we want to add a new command `Document` to the Powerbox, just for the
-    `mass_mailing` module. We want to add it to a new category called
-    `Documentation` and we want it all the way at the top of the Powerbox.
+    假设我们想为 `mass_mailing` 模块向 Powerbox 添加一个新命令 `Document`。我们希望将其添加到一个名为
+    `Documentation` 的新类别中，并且我们希望它位于 Powerbox 的最上方。
 
-    `mass_mailing` `extends
+    `mass_mailing` 扩展了
     <{GITHUB_PATH}/addons/mass_mailing/static/src/js/wysiwyg.js>`_
-    `web_editor`'s `Wysiwyg class
-    <{GITHUB_PATH}/addons/web_editor/static/src/js/wysiwyg/wysiwyg.js>`_, which
-    instantiates the editor in its `start` method. Before doing so, it
-    calls its own `_getPowerboxOptions` method, which can conveniently be
-    overridden to add our new commands.
+    `web_editor` 的 `Wysiwyg 类
+    <{GITHUB_PATH}/addons/web_editor/static/src/js/wysiwyg/wysiwyg.js>`_，其中在其 `start` 方法中实例化了编辑器。在此之前，它调用了自己的 `_getPowerboxOptions` 方法，我们可以方便地覆盖它来添加我们的新命令。
 
-    Since `mass_mailing` already overrides `_getPowerboxOptions`, let's just add
-    our new command to it:
+    由于 `mass_mailing` 已经覆盖了 `_getPowerboxOptions`，我们只需向其添加我们的新命令：
 
     .. code-block:: javascript
 
       _getPowerboxOptions: function () {
           const options = this._super();
-          // (existing code before the return statement)
+          // (返回语句之前的现有代码)
           options.categories.push({
               name: _t('Documentation'),
               priority: 300,
@@ -60,42 +49,33 @@ editor before it gets instantiated.
           options.commands.push({
               name: _t('Document'),
               category: _t('Documentation'),
-              description: _t("Add this text to your mailing's documentation"),
+              description: _t("将此文本添加到邮件的文档中"),
               fontawesome: 'fa-book',
-              priority: 1, // This is the only command in its category anyway.
+              priority: 1, // 这是该类别中唯一的命令。
           });
           return options;
       }
 
     .. important::
-      In order to allow the names and descriptions of your commands and
-      categories to be translated, make sure to wrap them in the `_t` function.
+      为了使命令和类别的名称和描述支持翻译，请确保将它们包裹在 `_t` 函数中。
 
     .. tip::
-      To avoid out-of-control escalations, don't use random numbers for your
-      priorities: look at which other priorities already exist and choose your
-      value accordingly (like you would do for a `z-index`).
+      为了避免不受控制的扩展，请不要为优先级使用随机数：查看现有优先级并相应选择值（就像处理 `z-index` 一样）。
 
-Opening a custom Powerbox
--------------------------
+打开自定义 Powerbox
+-------------------
 
-It is possible to open the Powerbox with a custom set of categories and
-commands, bypassing all pre-existing ones. To do that, call the `open` method of
-the Powerbox and pass it your custom commands and categories.
+可以使用自定义的类别和命令打开 Powerbox，绕过所有预先存在的命令。为此，调用 Powerbox 的 `open` 方法并传递自定义命令和类别。
 
 .. image:: odoo_editor/powerbox-custom.png
    :align: center
-   :alt: The Powerbox opened with custom categories and commands when pasting an
-         image URL.
+   :alt: 粘贴图片 URL 时，Powerbox 使用自定义类别和命令打开。
 
 .. example::
-    We need the current instance of the Powerbox, which can be found in the
-    current editor. In the `Wysiwyg class
-    <{GITHUB_PATH}/addons/web_editor/static/src/js/wysiwyg/wysiwyg.js>`_, you
-    will find it as `this.odooEditor.powerbox`.
+    我们需要当前 Powerbox 实例，可以在当前编辑器中找到。在 `Wysiwyg 类
+    <{GITHUB_PATH}/addons/web_editor/static/src/js/wysiwyg/wysiwyg.js>`_ 中，可以通过 `this.odooEditor.powerbox` 获取。
 
-    Now to open it with our custom "Document" command in a custom
-    "Documentation" category:
+    现在，用我们的自定义 "Document" 命令在自定义 "Documentation" 类别中打开它：
 
     .. code-block:: javascript
 
@@ -103,9 +83,9 @@ the Powerbox and pass it your custom commands and categories.
           [{
               name: _t('Document'),
               category: _t('Documentation'),
-              description: _t("Add this text to your mailing's documentation"),
+              description: _t("将此文本添加到邮件的文档中"),
               fontawesome: 'fa-book',
-              priority: 1, // This is the only command in its category anyway.
+              priority: 1, // 这是该类别中唯一的命令。
           }],
           [{
               name: _t('Documentation'),
@@ -113,119 +93,106 @@ the Powerbox and pass it your custom commands and categories.
           }]
       );
 
-Filtering commands
-------------------
+过滤命令
+--------
 
-There are three ways to filter commands:
+有三种方法可以过滤命令：
 
-#. Via the `powerboxFilters`
-   :ref:`Powerbox option <reference/frontend/odoo_editor/powerbox/options>`.
-#. Via a given
-   :ref:`command <reference/frontend/odoo_editor/powerbox/command>`'s
-   `isDisabled` entry.
-#. The user can filter commands by simply typing text after opening the
-   Powerbox. It will fuzzy-match that text with the names of the categories and
-   commands.
+#. 通过 `powerboxFilters`
+   :ref:`Powerbox 选项 <reference/frontend/odoo_editor/powerbox/options>`。
+#. 通过给定命令的
+   :ref:`isDisabled 条目 <reference/frontend/odoo_editor/powerbox/command>`。
+#. 用户可以在打开 Powerbox 后输入文本来过滤命令。它将对文本与类别和命令的名称进行模糊匹配。
 
 .. image:: odoo_editor/powerbox-filtered.png
    :align: center
-   :alt: The Powerbox with its commands filtered using the word "head".
+   :alt: 使用单词 "head" 过滤后的 Powerbox 命令。
 
-Reference
----------
+参考
+-----
 
 .. _reference/frontend/odoo_editor/powerbox/category:
 
-Category
-~~~~~~~~
+类别
+~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `name`
       - `string`
-      - the name of the category
+      - 类别的名称
     * - `priority`
       - `number`
-      - used to order the category: a category with a higher priority is
-        displayed higher into the Powerbox (categories with the same priority
-        are ordered alphabetically)
+      - 用于对类别进行排序：优先级较高的类别会显示在 Powerbox 更靠上的位置（具有相同优先级的类别按字母顺序排列）
 
 .. note::
-    If several categories exist with the same name, they will be grouped into
-    one. Its priority will be that defined in the version of the category that
-    was declared last.
+    如果有多个类别名称相同，它们将被合并为一个。其优先级将以最后声明的类别的优先级为准。
 
 .. _reference/frontend/odoo_editor/powerbox/command:
 
-Command
-~~~~~~~
+命令
+~~~~~
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `name`
       - `string`
-      - the name of the command
+      - 命令的名称
     * - `category`
       - `string`
-      - the name of the category the command belongs to
+      - 命令所属的类别名称
     * - `description`
       - `string`
-      - a short text to describe the command
+      - 描述命令的简短文本
     * - `fontawesome`
       - `string`
-      - the name of a *Font Awesome* that will serve as the command's icon
+      - 用作命令图标的 *Font Awesome* 名称
     * - `priority`
       - `number`
-      - used to order the command: a command with a higher priority is displayed
-        higher into the Powerbox (commands with the same priority are ordered
-        alphabetically)
+      - 用于对命令进行排序：优先级较高的命令显示在 Powerbox 更靠上位置（具有相同优先级的命令按字母顺序排列）
     * - `callback`
       - `function` (`() => void`)
-      - the function to execute when the command is picked (can be asynchronous)
-    * - `isDisabled` (optional)
+      - 命令被选中时执行的函数（可以是异步的）
+    * - `isDisabled` (可选)
       - `function` (`() => void`)
-      - a function used to disable the command under certain conditions (when it
-        returns `true`, the command will be disabled)
+      - 在某些条件下用于禁用命令的函数（当返回 `true` 时，命令将被禁用）
 
 .. note::
-    If the command points to a category that doesn't exist yet, that category
-    will be created and appended at the end of the Powerbox.
+    如果命令指向尚不存在的类别，则该类别将被创建并追加到 Powerbox 的末尾。
 
 .. _reference/frontend/odoo_editor/powerbox/options:
 
-Options
-~~~~~~~
+选项
+~~~~~
 
-The following options can be passed to OdooEditor, that will then be passed to
-the instance of the Powerbox:
+以下选项可以传递给 OdooEditor，然后传递给 Powerbox 实例：
 
 .. list-table::
     :widths: 20 20 60
     :header-rows: 1
 
-    * - Name
-      - Type
-      - Description
+    * - 名称
+      - 类型
+      - 描述
     * - `commands`
-      - `array of commands`
-      - commands to add to the default defined by the editor
+      - `命令数组`
+      - 要添加到编辑器默认定义的命令
     * - `categories`
-      - `array of categories`
-      - categories to add to the default defined by the editor
+      - `类别数组`
+      - 要添加到编辑器默认定义的类别
     * - `powerboxFilters`
-      - `array of functions` (`commands => commands`)
-      - functions used to filter commands displayed in the Powerbox
+      - `函数数组` (`commands => commands`)
+      - 用于过滤 Powerbox 中显示的命令的函数
     * - `getContextFromParentRect`
       - `function` (`() => DOMRect`)
-      - a function that returns the `DOMRect` of an ancestor of the editor (can
-        be useful when the editor is in an iframe)
+      - 一个返回编辑器祖先的 `DOMRect` 的函数（当编辑器在 iframe 中时可能有用）

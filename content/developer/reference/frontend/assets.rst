@@ -1,67 +1,37 @@
-
 .. _reference/assets:
 
 ======
-Assets
+资产
 ======
 
-Managing assets in Odoo is not as straightforward as it is in some other apps.
-One of the reasons is that we have a variety of situations where some, but not all
-of the assets are required. For example, the needs of the web client, the point of
-sale app, the website or even the mobile application are different. Also, some
-assets may be large, but are seldom needed: in that case we may want them
-to be :ref:`loaded lazily (on demand) <frontend/assets/lazy_loading>`.
+在Odoo中管理资产并不像在其他某些应用程序中那样简单。其原因之一是我们面临着多种情况，有些资产是必需的，而有些则不是。例如，网页客户端、销售点应用程序、网站甚至移动应用程序的需求各不相同。此外，一些资产可能很大，但很少使用：在这种情况下，我们可能希望它们被 :ref:`惰性加载（按需） <frontend/assets/lazy_loading>`。
 
-Asset types
+资产类型
 ===========
 
-There are three different asset types: code (`js` files), style (`css` or `scss`
-files) and templates (`xml` files).
+有三种不同的资产类型：代码（`js` 文件）、样式（`css` 或 `scss` 文件）和模板（`xml` 文件）。
 
-Code
-    Odoo supports :ref:`three different kinds of javascript files<frontend/js_modules>`.
-    All these files are then processed (native JS modules are transformed into odoo
-    modules), then minified (if not in `debug=assets` :ref:`mode <frontend/framework/assets_debug_mode>`)
-    and concatenated. The result is then saved as a file attachment. These file
-    attachments are usually loaded via a `<script>` tag in the `<head>` part of
-    the page (as a static file).
+代码
+    Odoo 支持 :ref:`三种不同类型的 JavaScript 文件 <frontend/js_modules>`。所有这些文件都将被处理（本地 JS 模块被转换为 Odoo 模块），然后被压缩（如果不在 `debug=assets` :ref:`模式 <frontend/framework/assets_debug_mode>` 下），并连接在一起。结果将作为文件附件保存。这些文件附件通常通过 `<head>` 部分的 `<script>` 标签加载（作为静态文件）。
 
-Style
-    Styling can be done with either `css` or `scss <https://sass-lang.com/>`_. Like
-    the javascript files, these files are processed (`scss` files are converted into
-    `css`), then minified (again, if not in `debug=assets` :ref:`mode <frontend/framework/assets_debug_mode>`)
-    and concatenated. The result is then saved as a file attachment. They are
-    then usually loaded via a `<link>` tag in the `<head>` part of the page (as
-    a static file).
+样式
+    样式可以使用 `css` 或 `scss <https://sass-lang.com/>`_ 来完成。与 JavaScript 文件一样，这些文件也会被处理（`scss` 文件被转换为 `css`），然后被压缩（同样，如果不在 `debug=assets` :ref:`模式 <frontend/framework/assets_debug_mode>` 下）并连接在一起。结果随后被保存为文件附件。它们通常通过 `<head>` 部分的 `<link>` 标签加载（作为静态文件）。
 
-Template
-    Templates (static `xml` files) are handled in a different way: they are simply
-    read from the file system whenever they are needed, and concatenated.
+模板
+    模板（静态的 `xml` 文件）以不同的方式处理：它们仅在需要时从文件系统读取，并连接在一起。
 
-    Whenever the browser loads odoo, it calls the `/web/webclient/qweb/` controller
-    to fetch the :ref:`templates <reference/qweb>`.
+    每当浏览器加载 Odoo 时，它会调用 `/web/webclient/qweb/` 控制器以获取 :ref:`模板 <reference/qweb>`。
 
-It is useful to know that in most cases, a browser only performs a request the
-first time it loads a page. This is because each of these assets are
-associated with a checksum, which is injected into the page source. The checksum
-is then added to the url, which means that it is possible to safely set the cache
-headers to a long period.
+值得一提的是，在大多数情况下，浏览器仅在第一次加载页面时才会发出请求。这是因为每个资产都与一个校验和关联，该校验和被注入到页面源代码中。校验和随后被添加到 URL，这意味着可以安全地将缓存头设置为较长的时间。
 
 .. _reference/assets_bundle:
 
-Bundles
+捆绑
 =======
 
-Odoo assets are grouped by *bundles*. Each bundle (a *list of file paths*
-of specific types: `xml`, `js`, `css` or `scss`) is listed in the
-:ref:`module manifest <reference/module/manifest>`. Files can be declared using
-`glob <https://en.wikipedia.org/wiki/Glob_(programming)>`_ syntax, meaning that
-you can declare several asset files using a single line.
+Odoo 资产按 *捆绑* 分组。每个捆绑（特定类型的 *文件路径列表*：`xml`、`js`、`css` 或 `scss`）在 :ref:`模块清单 <reference/module/manifest>` 中列出。可以使用 `glob <https://en.wikipedia.org/wiki/Glob_(programming)>`_ 语法声明文件，这意味着您可以使用一行声明多个资产文件。
 
-The bundles are defined in each module's :file:`__manifest__.py`,
-with a dedicated `assets` key which contains a dictionary. The dictionary maps
-bundle names (keys) to the list of files they contain (values). It looks
-like this:
+捆绑在每个模块的 :file:`__manifest__.py` 中定义，具有一个专用的 `assets` 键，其中包含一个字典。该字典将捆绑名称（键）映射到它们包含的文件列表（值）。它看起来像这样：
 
 .. code-block:: python
 
@@ -80,42 +50,29 @@ like this:
         ],
     },
 
-Here is a list of some important bundles that most odoo developers will need to
-know:
+以下是一些大多数 Odoo 开发人员需要了解的重要捆绑列表：
 
-- `web.assets_common`: this bundle contains most assets which are common to the
-  web client, the website and also the point of sale. This is supposed to contain
-  lower level building blocks for the odoo framework. Note that it contains the
-  :file:`boot.js` file, which defines the odoo module system.
+- `web.assets_common`：此捆绑包含大多数通用资产，这些资产适用于网页客户端、网站以及销售点。它应包含 Odoo 框架的底层构建块。请注意，它包含 :file:`boot.js` 文件，该文件定义了 Odoo 模块系统。
 
-- `web.assets_backend`: this bundle contains the code specific to the web client
-  (notably the web client/action manager/views/static XML templates)
+- `web.assets_backend`：此捆绑包含特定于网页客户端的代码（尤其是网页客户端/操作管理器/视图/静态 XML 模板）。
 
-- `web.assets_frontend`: this bundle is about all that is specific to the public
-  website: ecommerce, portal, forum, blog, ...
+- `web.assets_frontend`：此捆绑与公共网站的所有内容有关：电子商务、门户、论坛、博客等。
 
-- `web.qunit_suite_tests`: all javascript qunit testing code (tests, helpers, mocks)
+- `web.qunit_suite_tests`：所有 JavaScript QUnit 测试代码（测试、助手、模拟）。
 
-- `web.qunit_mobile_suite_tests`: mobile specific qunit testing code
+- `web.qunit_mobile_suite_tests`：特定于移动的 QUnit 测试代码。
 
-
-Operations
+操作
 ----------
 
-Typically, handling assets is simple: you just need to add some new files
-to a frequently used bundle like `assets_common` or `assets_backend`. But there are other operations
-available to cover some more specific use cases.
+通常，处理资产是简单的：您只需将一些新文件添加到像 `assets_common` 或 `assets_backend` 这样的常用捆绑中。但是，还有其他操作可用于处理一些更特定的用例。
 
-Note that all directives targeting a certain asset file (i.e. `before`, `after`,
-`replace` and `remove`) need that file to be declared beforehand, either
-in manifests higher up in the hierarchy or in ``ir.asset`` records with a lower
-sequence.
+请注意，所有针对特定资产文件的指令（即 `before`、`after`、`replace` 和 `remove`）都需要提前声明该文件，或者在更高层次的清单中声明，或在 ``ir.asset`` 记录中具有较低的序列。
 
 `append`
 ~~~~~~~~
 
-This operation adds one or multiple file(s). Since it is the most common
-operation, it can be done by simply using the file name:
+此操作添加一个或多个文件。由于这是最常见的操作，可以通过简单地使用文件名来完成：
 
 .. code-block:: python
 
@@ -123,18 +80,14 @@ operation, it can be done by simply using the file name:
       'my_addon/static/src/js/**/*',
   ],
 
-By default, adding a simple string to a bundle will append the files matching the
-glob pattern at the end of the bundle. Obviously, the pattern may also be directly
-a single file path.
+默认情况下，将简单字符串添加到捆绑中将会将匹配的文件添加到捆绑的末尾。当然，模式也可以直接是单个文件路径。
 
 `prepend`
 ~~~~~~~~~
 
-Add one or multiple file(s) at the beginning of the bundle.
+在捆绑的开头添加一个或多个文件。
 
-Useful when you need to put a certain file before the others in a bundle (for
-example with css files). The `prepend` operation is invoked with the following
-syntax: `('prepend', <path>)`.
+在捆绑中需要将特定文件放在其他文件之前时（例如与 CSS 文件），非常有用。`prepend` 操作通过以下语法调用： `('prepend', <path>)`。
 
 .. code-block:: python
 
@@ -145,12 +98,9 @@ syntax: `('prepend', <path>)`.
 `before`
 ~~~~~~~~
 
-Add one or multiple file(s) before a specific file.
+在特定文件之前添加一个或多个文件。
 
-Prepending a file at the beginning of a bundle might not be precise enough. The
-`before` directive can be used to add the given file(s) right *before* the target
-file. It is declared by replacing the normal path with a 3-element tuple
-`('before', <target>, <path>)`.
+在捆绑的开头插入文件可能不够精确。`before` 指令可用于将给定文件添加到目标文件的 *前面*。它通过将正常路径替换为 3 元组 `('before', <target>, <path>)` 声明。
 
 .. code-block:: python
 
@@ -161,11 +111,9 @@ file. It is declared by replacing the normal path with a 3-element tuple
 `after`
 ~~~~~~~
 
-Add one or multiple file(s) after a specific file.
+在特定文件之后添加一个或多个文件。
 
-Same as `before`, with the matching file(s) appended right *after* the target file.
-It is declared by replacing the normal path with a 3-element tuple
-`('after', <target>, <path>)`.
+与 `before` 相同，匹配的文件将在目标文件 *之后* 添加。它通过将正常路径替换为 3 元组 `('after', <target>, <path>)` 声明。
 
 .. code-block:: python
 
@@ -176,12 +124,9 @@ It is declared by replacing the normal path with a 3-element tuple
 `include`
 ~~~~~~~~~
 
-Use nested bundles.
+使用嵌套捆绑。
 
-The `include` directive is a way to use a bundle in other bundles to minimize
-the size of your manifest. In Odoo we use sub bundles (prefixed with an underscore
-by convention) to batch files used in multiple other bundles. You can then
-specify the sub bundle as a pair `('include', <bundle>)` like this:
+`include` 指令是将捆绑用于其他捆绑的一种方式，以最小化清单的大小。在 Odoo 中，我们使用子捆绑（按约定以一个下划线开头）来批量处理在多个其他捆绑中使用的文件。您可以像这样指定子捆绑：`('include', <bundle>)`：
 
 .. code-block:: python
 
@@ -192,11 +137,9 @@ specify the sub bundle as a pair `('include', <bundle>)` like this:
 `remove`
 ~~~~~~~~
 
-Remove one or multiple file(s).
+删除一个或多个文件。
 
-In some cases, you may want to remove one or multiple files from a bundle. This
-can be done using the `remove` directive by specifying a pair
-`('remove', <target>)`:
+在某些情况下，您可能希望从捆绑中删除一个或多个文件。这可以使用 `remove` 指令通过指定一对 `('remove', <target>)` 完成：
 
 .. code-block:: python
 
@@ -207,11 +150,9 @@ can be done using the `remove` directive by specifying a pair
 `replace`
 ~~~~~~~~~
 
-Replace an asset file with one or multiple file(s).
+用一个或多个文件替换资产文件。
 
-Let us say that an asset needs not only to be removed, but you also want to insert
-your new version of that asset at the same exact position. This can be done with
-the `replace` directive, using a 3-element tuple `('replace', <target>, <path>)`:
+假设资产不仅需要被移除，而且您还想在同一确切位置插入您新版本的资产。这可以通过 `replace` 指令完成，使用 3 元组 `('replace', <target>, <path>)`：
 
 .. code-block:: python
 
@@ -220,38 +161,22 @@ the `replace` directive, using a 3-element tuple `('replace', <target>, <path>)`
   ],
 
 
-Loading order
+加载顺序
 -------------
 
-The order in which assets are loaded is sometimes critical and must be deterministic,
-mostly for stylesheets priorities and setup scripts. Assets in Odoo are processed
-as follows:
+资产加载的顺序有时是关键的，必须是确定性的，主要用于样式表优先级和设置脚本。Odoo 中的资产处理如下：
 
-#. When an asset bundle is called (e.g. `t-call-assets="web.assets_common"`), an empty
-   list of assets is generated
+#. 当调用资产捆绑时（例如 `t-call-assets="web.assets_common"`），将生成一个空资产列表。
 
-#. All records of type `ir.asset` matching the bundle are fetched and sorted
-   by sequence number. Then all records with a sequence strictly less than 16 are
-   processed and applied to the current list of assets.
+#. 将获取所有与捆绑匹配的类型为 `ir.asset` 的记录，并按序列号排序。然后处理所有序列严格小于 16 的记录，并将其应用于当前资产列表。
 
-#. All modules declaring assets for said bundle in their manifest apply their
-   assets operations to this list. This is done following the order of modules dependencies
-   (e.g. `web` assets is processed before `website`). If a directive tries to add
-   a file already present in the list, nothing is done for that file. In other word,
-   only the first occurrence of a file is kept in the list.
+#. 声明对该捆绑的资产的所有模块将对该列表应用它们的资产操作。这是根据模块依赖关系的顺序进行的（例如，`web` 资产在 `website` 之前处理）。如果指令尝试添加已经存在于列表中的文件，则不会对该文件进行任何操作。换句话说，列表中只保留文件的第一次出现。
 
-#. The remaining `ir.asset` records (those with a sequence greater than or equal
-   to 16) are then processed and applied as well.
+#. 然后处理剩余的 `ir.asset` 记录（序列大于或等于 16）。
 
-Assets declared in the manifest may need to be loaded in a particular order, for
-example :file:`jquery.js` must be loaded before all other jquery scripts when loading the
-lib folder. One solution would be to create an :ref:`ir.asset <frontend/assets/ir_asset>`
-record with a lower sequence or a 'prepend' directive, but there is another simpler
-way to do so.
+在清单中声明的资产可能需要以特定顺序加载，例如 :file:`jquery.js` 必须在加载 lib 文件夹中的所有其他 jquery 脚本之前加载。一种解决方案是创建一个 :ref:`ir.asset <frontend/assets/ir_asset>` 记录，具有较低的序列或使用 'prepend' 指令，但还有另一种更简单的方法。
 
-Since the unicity of each file path in the list of assets is guaranteed, you can
-mention any specific file before a glob that includes it. That file will thus appear
-in the list before all the others included in the glob.
+由于资产列表中每个文件路径的唯一性得到了保证，因此您可以在包含它的 glob 之前提到任何特定文件。该文件将因此在所有其他包含在 glob 中的文件之前出现在列表中。
 
 .. code-block:: python
 
@@ -262,18 +187,14 @@ in the list before all the others included in the glob.
 
 .. note::
 
-    A module *b* removing/replacing the assets declared in a module *a* will have
-    to depend on it. Trying to operate on assets that have yet to be declared will
-    result in an error.
+    模块 *b* 删除/替换在模块 *a* 中声明的资产时，必须依赖于它。尝试对尚未声明的资产进行操作将导致错误。
 
 .. _frontend/assets/lazy_loading:
 
-Lazy loading
+惰性加载
 ============
 
-It is sometimes useful to load files and/or asset bundles dynamically, for
-example to only load a library once it is needed. To do that, the Odoo framework
-provides a few helper functions, located in :file:`@web/core/assets`.
+有时动态加载文件和/或资产捆绑是有用的，例如仅在需要时加载库。为此，Odoo 框架提供了一些帮助函数，位于 :file:`@web/core/assets` 中。
 
 .. code-block:: javascript
 
@@ -284,11 +205,10 @@ provides a few helper functions, located in :file:`@web/core/assets`.
 
 .. js:function:: loadAssets(assets)
 
-    :param Object assets: a description of various assets that should be loaded
+    :param Object assets: 应该加载的各种资产的描述
     :returns: Promise<void>
 
-    Load the assets described by the `assets` parameter. It is an object that
-    may contain the following keys:
+    加载由 `assets` 参数描述的资产。它是一个可能包含以下键的对象：
 
     .. list-table::
       :widths: 20 20 60
@@ -299,69 +219,62 @@ provides a few helper functions, located in :file:`@web/core/assets`.
         - Description
       * - `jsLibs`
         - `string[]`
-        - a list of urls of javascript files
+        - JavaScript 文件的 URL 列表
       * - `cssLibs`
         - `string[]`
-        - a list of urls of css files
+        - CSS 文件的 URL 列表
 
 
 .. js:function:: useAssets(assets)
 
-    :param Object assets: a description of various assets that should be loaded
+    :param Object assets: 应该加载的各种资产的描述
 
-    This hook is useful when components need to load some assets in their
-    `onWillStart` method. It internally calls `loadAssets`.
+    当组件需要在其 `onWillStart` 方法中加载某些资产时，此钩子非常有用。它会在内部调用 `loadAssets`。
 
 .. _frontend/assets/ir_asset:
 
-The asset model (`ir.asset`)
+资产模型（`ir.asset`）
 ============================
 
-In most cases the assets declared in the manifest will largely suffice. Yet for
-more flexibility, the framework also supports dynamic assets declared in the
-database.
+在大多数情况下，清单中声明的资产将足够了。然而，为了获得更多灵活性，框架还支持在数据库中声明动态资产。
 
-This is done by creating `ir.asset` records. Those will be processed as if they
-were found in a module manifest, and they give the same expressive power as their
-manifest counterparts.
+这通过创建 `ir.asset` 记录完成。这些记录将被处理，就像在模块清单中找到的一样，它们提供与清单对应物相同的表达能力。
 
 .. autoclass:: odoo.addons.base.models.ir_asset.IrAsset
 
 .. rst-class:: o-definition-list
 
 `name`
-    Name of the asset record (for identification purpose).
+    资产记录的名称（用于标识目的）。
 
 `bundle`
-    Bundle in which the asset will be applied.
+    资产将应用的捆绑。
 
-`directive` (default= `append`)
-    This field determines how the `path` (and `target` if needed) will be interpreted.
-    Here is the list of available directives along with their required arguments:
+`directive`（默认 = `append`）
+    此字段决定 `path`（以及必要时的 `target`）将如何解释。
+    以下是可用指令及其所需参数的列表：
 
     - **append**: `path`
     - **prepend**: `path`
     - **before**: `target`, `path`
     - **after**: `target`, `path`
-    - **include**: `path` (interpreted as a **bundle name**)
-    - **remove**: `path` (interpreted as a **target asset** to remove)
+    - **include**: `path`（解释为 **捆绑名称**）
+    - **remove**: `path`（解释为要删除的 **目标资产**）
     - **replace**: `target`, `path`
 
 `path`
-    A string defining one of the following:
+    定义以下内容的字符串：
 
-    - a **relative path** to an asset file in the addons file system;
-    - a **glob pattern** to a set of asset files in the addons file system;
-    - a **URL** to an attachment or external asset file;
-    - a **bundle name**, when using the `include` directive.
+    - 到 addons 文件系统中资产文件的 **相对路径**；
+    - 到 addons 文件系统中一组资产文件的 **glob 模式**；
+    - 到附件或外部资产文件的 **URL**；
+    - 使用 `include` 指令时的 **捆绑名称**。
 
 `target`
-    Target file to specify a position in the bundle. Can only be used with the
-    directives `replace`, `before` and `after`.
+    目标文件，用于指定捆绑中的位置。只能与 `replace`、`before` 和 `after` 指令一起使用。
 
-`active` (default= `True`)
-    Whether the record is active
+`active`（默认 = `True`）
+    记录是否处于活动状态
 
-`sequence` (default= `16`)
-    Loading order of the asset records (ascending). A sequence lower than 16 means
-    that the asset will be processed *before* the ones declared in the manifest.
+`sequence`（默认 = `16`）
+    资产记录的加载顺序（升序）。序列小于 16 的资产将在声明的资产之前处理。

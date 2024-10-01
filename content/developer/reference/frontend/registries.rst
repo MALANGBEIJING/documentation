@@ -4,11 +4,7 @@
 Registries
 ==========
 
-Registries are (ordered) key/value maps. They are the main web client extension
-points: many features provided by the Odoo javascript framework simply look up
-into a registry whenever it needs a definition for some object (such as fields,
-views, client actions or services). Customizing the web client is then simply
-done by adding specific values in the correct registry.
+Registries 是有序的键/值映射表。它们是 Odoo JavaScript 框架的主要扩展点：框架的许多功能只需在需要定义某个对象（如字段、视图、客户端动作或服务）时查找相应的注册表。自定义 Web 客户端的方式就是在正确的注册表中添加特定值。
 
 .. code-block:: javascript
 
@@ -20,10 +16,7 @@ done by adding specific values in the correct registry.
 
    console.log(myRegistry.get("hello"));
 
-A useful feature of registries is that they maintain a set of sub registries,
-obtained by the `category` method. If the sub registry does not exist yet, it
-is created on the fly. All registries used by the web client are obtained
-in such a way from one root registry, exported in `@web/core/registry`.
+注册表的一个有用功能是它们维护了一组子注册表，通过 `category` 方法获取。如果子注册表尚不存在，则会动态创建。Web 客户端使用的所有注册表都是通过这种方式从一个根注册表（在 `@web/core/registry` 中导出）获取的。
 
 .. code-block:: javascript
 
@@ -38,139 +31,120 @@ Registry API
 
 .. js:class:: Registry()
 
-    Creates a new registry. Note that a registry is an event bus, so one can
-    listen to the `UPDATE` event if necessary. Registries are ordered: the
-    :js:meth:`getAll <Registry.getAll>` method returns a list of
-    values ordered according to their sequence number.
+    创建一个新的注册表。请注意，注册表是一个事件总线，因此可以根据需要监听 `UPDATE` 事件。注册表是有序的：:js:meth:`getAll <Registry.getAll>` 方法返回按序列号排序的值列表。
 
     .. js:method:: add(key, value[, options])
 
-        :param string key: key for the new entry
-        :param any value: value for the new entry
-        :param Object options: options
-        :param boolean [options.force]: do not throw if key already exists
-        :param number [options.sequence]: sequence number (useful to order entries)
+        :param string key: 新条目的键
+        :param any value: 新条目的值
+        :param Object options: 选项
+        :param boolean [options.force]: 如果键已存在，是否强制添加
+        :param number [options.sequence]: 序列号（用于排序条目）
         :returns: Registry
 
-        Inserts a value at a specific key. If the key is already used, this method
-        throws an error (unless the option `force` is set to true). The option
-        `sequence` is useful to insert the value at a specific position. This method
-        also triggers an `UPDATE` event.
+        在指定键处插入一个值。如果该键已经被使用，此方法将抛出错误（除非选项 `force` 设置为 true）。`sequence` 选项用于在特定位置插入值。此方法还会触发 `UPDATE` 事件。
 
-        Returns the same registry, so `add` method calls can be chained.
+        返回同一注册表，因此 `add` 方法调用可以被链式调用。
 
     .. js:method:: get(key[, defaultValue])
 
-        :param string key: key for the entry
-        :param defaultValue any: return value if no entry for key exists
+        :param string key: 条目的键
+        :param defaultValue any: 如果不存在该键，返回的默认值
 
-        Returns the value corresponding to the `key` argument. If the registry does
-        not contain that key, this method returns `defaultValue` if given, or throws
-        an error otherwise.
+        返回与 `key` 参数对应的值。如果注册表中没有该键，则此方法返回 `defaultValue`（如果提供），否则抛出错误。
 
     .. js:method:: contains(key)
 
-        :param string key: key for the entry
+        :param string key: 条目的键
         :returns: boolean
 
-        Returns `true` if `key` is present in the registry
+        如果 `key` 存在于注册表中，则返回 `true`。
 
     .. js:method:: getAll()
 
         :returns: any[]
 
-        Returns the list of all elements in the registry. It is ordered
-        according to the sequence numbers.
+        返回注册表中所有元素的列表。根据序列号排序。
 
     .. js:method:: remove(key)
 
-        :param string key: the key for the entry that should be removed
+        :param string key: 要移除的条目键
 
-        Removes a key/value pair from the registry. This operation triggers an
-        `UPDATE` event.
+        从注册表中删除键/值对。此操作触发 `UPDATE` 事件。
 
     .. js:method:: category(subcategory)
 
-        :param string subcategory: the name for the sub category
+        :param string subcategory: 子类别的名称
         :returns: Registry
 
-        Returns the sub registry associated with the `subcategory`. If it does not
-        exist yet, the sub registry is created on the fly.
+        返回与 `subcategory` 关联的子注册表。如果尚不存在，则会动态创建子注册表。
 
-Reference List
-==============
+参考列表
+========
 
 .. list-table::
    :widths: 30 70
    :header-rows: 1
 
-   * - Category
-     - Content
+   * - 类别
+     - 内容
    * - :ref:`effects <frontend/registries/effects>`
-     - implementation for all available effects
+     - 所有可用效果的实现
    * - :ref:`formatters <frontend/registries/formatters>`
-     - utility functions to format values (mostly used for field values)
+     - 用于格式化值的实用函数（主要用于字段值）
    * - :ref:`main_components <frontend/registries/main_components>`
-     - top level components
+     - 顶级组件
    * - :ref:`parsers <frontend/registries/parsers>`
-     - utility functions to parse values (mostly used for field values)
+     - 用于解析值的实用函数（主要用于字段值）
    * - :ref:`services <frontend/registries/services>`
-     - all services that should be activated
+     - 应该激活的所有服务
    * - :ref:`systray <frontend/registries/systray>`
-     - components displayed in the systray zone in the navbar
+     - 在导航栏中 systray 区域中显示的组件
    * - :ref:`user_menuitems <frontend/registries/usermenu>`
-     - menu items displayed in the user menu (top right of navbar)
+     - 用户菜单中显示的菜单项（导航栏右上角）
 
 .. _frontend/registries/effects:
 
-Effect registry
----------------
+效果注册表
+----------
 
-The `effects` registry contains the implementations of all available effects.
-See the section on the :ref:`effect service <frontend/services/effect_registry>`
-for more details.
+`effects` 注册表包含所有可用效果的实现。更多详细信息，请参阅 :ref:`效果服务 <frontend/services/effect_registry>` 部分。
 
 .. _frontend/registries/formatters:
 
-Formatter registry
-------------------
+格式化程序注册表
+--------------
 
-The `formatters` registry contains functions to format values. Each formatter
-has the following API:
+`formatters` 注册表包含用于格式化值的函数。每个格式化程序都有以下 API：
 
 .. js:function:: format(value[, options])
 
-    :param value: a value of a specific type, or `false` if no value is given
+    :param value: 一个特定类型的值，如果未提供值，则为 `false`
     :type value: T | false
-    :param Object options: various options
+    :param Object options: 各种选项
     :returns: string
 
-    Formats a value and returns a string
+    格式化值并返回字符串
 
 .. seealso::
-    - :ref:`Parsers registry <frontend/registries/parsers>`
+    - :ref:`解析器注册表 <frontend/registries/parsers>`
 
 .. _frontend/registries/main_components:
 
-Main components registry
-------------------------
+主组件注册表
+------------
 
-The main component registry (`main_components`) is useful for adding top level
-components in the web client.  The webclient has a `MainComponentsContainer` as
-direct child. This component is basically a live representation of the ordered
-list of components registered in the main components registry.
+`main_components` 注册表用于添加 Web 客户端中的顶级组件。Web 客户端有一个 `MainComponentsContainer` 作为直接子级。该组件基本上是主组件注册表中按顺序排列的组件的实时表示。
 
 API
     .. code-block:: text
 
         interface {
-            Component: Owl Component class
+            Component: Owl 组件类
             props?: any
         }
 
-
-For example, the `LoadingIndicator` component can be added in the registry like
-this:
+例如，可以像这样将 `LoadingIndicator` 组件添加到注册表中：
 
 .. code-block:: javascript
 
@@ -180,34 +154,30 @@ this:
 
 .. _frontend/registries/parsers:
 
-Parser registry
----------------
+解析器注册表
+----------
 
-The `parsers` registry contains functions to parse values. Each parser
-has the following API:
+`parsers` 注册表包含用于解析值的函数。每个解析器都有以下 API：
 
 .. js:function:: parse(value[, options])
     :noindex:
 
-    :param value: a string representing a value
+    :param value: 表示值的字符串
     :type value: string
-    :param Object options: various options (parser specific)
-    :returns: T a valid value
+    :param Object options: 各种选项（解析器特定）
+    :returns: T 一个有效值
 
-    Parses a string and returns a value. If the string does not represent a valid
-    value, parsers can fail and throw errors.
+    解析字符串并返回值。如果字符串不代表有效值，解析器可能会失败并抛出错误。
 
 .. seealso::
-    - :ref:`Formatters registry <frontend/registries/formatters>`
+    - :ref:`格式化程序注册表 <frontend/registries/formatters>`
 
 .. _frontend/registries/services:
 
-Service registry
-----------------
+服务注册表
+----------
 
-The service registry (category: `services`) contains all
-:ref:`services <frontend/services>` that should be activated by the Odoo
-framework.
+`services` 注册表包含 Odoo 框架中应激活的所有 :ref:`服务 <frontend/services>`。
 
 .. code-block:: javascript
 
@@ -216,7 +186,7 @@ framework.
     const myService = {
         dependencies: [...],
         start(env, deps) {
-            // some code here
+            // 一些代码
         }
     };
 
@@ -224,39 +194,32 @@ framework.
 
 .. _frontend/registries/systray:
 
-Systray registry
-----------------
+Systray 注册表
+--------------
 
-The systray is the zone on the right of the navbar that contains various small
-components, that usually display some sort of information (like the number of
-unread messages), notifications and/or let the user interact with them.
+Systray 是导航栏右侧的区域，包含各种小组件，通常显示一些信息（如未读消息数）、通知和/或让用户与它们交互。
 
-The `systray` registry contains a description of these systray items, as objects
-with the following three keys:
+`systray` 注册表包含这些 systray 项的描述，作为包含以下三个键的对象：
 
-- `Component`: the component class that represents the item. Its root element
-  should be a `<li>` tag, otherwise it might not be styled properly.
-- `props (optional)`: props that should be given to the component
-- `isDisplayed (optional)`: a function that takes the :ref:`env <frontend/framework/environment>`
-  and returns a boolean. If true, the systray item is displayed. Otherwise it is
-  removed.
+- `Component`: 代表该项目的组件类。其根元素应为 `<li>` 标签，否则样式可能不正确。
+- `props (可选)`: 应该传递给组件的属性
+- `isDisplayed (可选)`: 一个函数，接受 :ref:`env <frontend/framework/environment>` 并返回布尔值。如果为 true，则显示 systray 项目。否则，它将被移除。
 
-For example:
+例如：
 
 .. code-block:: javascript
 
     import { registry } from "@web/core/registry";
 
     class MySystrayItem extends Component {
-        // some component ...
+        // 一些组件代码...
     }
 
     registry.category("systray").add("myAddon.myItem", {
         Component: MySystrayItem,
     });
 
-
-The systray registry is an ordered registry (with the `sequence` number):
+Systray 注册表是有序的（带有 `sequence` 编号）：
 
 .. code-block:: javascript
 
@@ -265,31 +228,26 @@ The systray registry is an ordered registry (with the `sequence` number):
     };
     registry.category("systray").add("myaddon.some_description", item, { sequence: 43 });
 
-The sequence number defaults to 50. If given, this number will be used
-to order the items. The lowest sequence is on the right and the highest sequence
-is on the left in the systray menu.
+序列号默认为 50。如果给定，该编号将用于对项目进行排序。序列号最小的项目在 systray 菜单的右侧，最大的项目在左侧。
 
 .. _frontend/registries/usermenu:
 
-Usermenu registry
------------------
+用户菜单注册表
+--------------
 
-The user menu registry (category: `user_menuitems`) contains all menu items that
-are shown when opening the user menu (the navbar element with the user name, on
-the top right).
+用户菜单注册表（类别：`user_menuitems`）包含在打开用户菜单时显示的所有菜单项（导航栏右上角的用户姓名元素）。
 
-User menu items are defined by a function taking the :ref:`env <frontend/framework/environment>`
-and returning a plain object, containing the following information:
+用户菜单项由一个函数定义，该函数接受 :ref:`env <frontend/framework/environment>` 并返回一个普通对象，包含以下信息：
 
-* `description` : the menu item text,
-* `href` : (optional) if given (and truthy), the item text is put in a `a` tag with given attribute href,
-* `callback` : callback to call when the item is selected,
-* `hide`: (optional) indicates if the item should be hidden (default: `false`),
-* `sequence`: (optional) determines the rank of the item among the other dropwdown items (default: 100).
+* `description` : 菜单项文本,
+* `href` : (可选) 如果提供并且为真，则项目文本将放入带有给定 `href` 属性的 `a` 标签中,
+* `callback` : 选择该项目时调用的回调函数,
+* `hide`: (可选) 表示该项目是否应隐藏（默认值：`false`）,
+* `sequence`: (可选) 确定该项目在其他下拉菜单项中的顺序（默认值：100）。
 
-The user menu calls all the functions defining items every time it is opened.
+用户菜单在每次打开时调用定义项目的所有函数。
 
-Example:
+示例：
 
 .. code-block:: javascript
 

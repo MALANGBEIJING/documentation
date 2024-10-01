@@ -2,7 +2,7 @@
 :hide-page-toc:
 
 =============
-Web framework
+Web框架
 =============
 
 .. toctree::

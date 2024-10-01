@@ -1,134 +1,108 @@
 ===========
-Extract API
+提取 API
 ===========
 
-Odoo provides a service to automate the processing of documents of type **invoices**, **expenses**
-or **resumes**.
+Odoo 提供了一项服务，自动处理 **发票**、**费用** 或 **简历** 类型的文档。
 
-The service scans documents using an :abbr:`OCR (Optical Character Recognition)` engine and then
-uses :abbr:`AI(Artificial Intelligence)`-based algorithms to extract fields of interest such as the
-total, due date, or invoice lines for *invoices*, the total, date for *expenses*,
-or the name, email, phone number for *resumes*.
+该服务使用 :abbr:`OCR (光学字符识别)` 引擎扫描文档，然后使用基于 :abbr:`AI(人工智能)` 的算法提取感兴趣的字段，例如发票的总额、到期日或发票行，费用的总额、日期，或简历的姓名、电子邮件、电话号码。
 
-This service is a paid service. Each document processing will cost you one credit.
-Credits can be bought on `iap.odoo.com <https://iap.odoo.com/iap/in-app-services/259?sortby=date>`_.
+该服务为付费服务。每处理一份文档将消耗一个积分。积分可以在 `iap.odoo.com <https://iap.odoo.com/iap/in-app-services/259?sortby=date>`_ 上购买。
 
-You can either use this service directly in the Accounting, Expense, or Recruitment App or through
-the API. The Extract API, which is detailed in the next section, allows you to integrate our
-service directly into your own projects.
+您可以直接在会计、费用或招聘应用中使用此服务，也可以通过 API 使用。提取 API 的详细信息将在下一节中介绍，允许您将我们的服务直接集成到您自己的项目中。
 
-
-Overview
+概述
 ========
 
-The extract API uses the JSON-RPC2_ protocol; its endpoint routes are located at
-`https://extract.api.odoo.com`.
+提取 API 使用 JSON-RPC2_ 协议；其端点路由位于 `https://extract.api.odoo.com`。
 
 .. _extract_api/version:
 
-Version
+版本
 -------
 
-The version of the Extract API is specified in the route.
+提取 API 的版本在路由中指定。
 
-The latest versions are:
-    - invoices: 122
-    - expenses: 132
-    - applicant: 102
+最新版本为：
+    - 发票：122
+    - 费用：132
+    - 申请人：102
 
-Flow
+流程
 ----
 
-The flow is the same for each document type.
+每种文档类型的流程相同。
 
-#. | Call :ref:`/parse <extract_api/parse>` to submit your documents (one call for each
-     document). On success, you receive a `document_token` in the response.
-#. | You then have to regularly poll :ref:`/get_result <extract_api/get_result>` to get the
-     document's parsing status.
-   | Alternatively, you can provide a `webhook_url` at the time of the call to
-     :ref:`/parse <extract_api/parse>` and you will be notified (via a POST request) when the
-     result is ready.
+#. | 调用 :ref:`/parse <extract_api/parse>` 提交您的文档（每个文档一个调用）。成功后，您将在响应中收到 `document_token`。
+#. | 然后，您必须定期轮询 :ref:`/get_result <extract_api/get_result>` 以获取文档的解析状态。
+   | 或者，您可以在调用 :ref:`/parse <extract_api/parse>` 时提供 `webhook_url`，在结果准备好时将通过 POST 请求通知您。
 
-The HTTP POST method should be used for all of them. A python implementation of the full flow for
-invoices can be found :download:`here <extract_api/implementation.py>` and a token for integration
-testing is provided in the
-:ref:`integration testing section <latestextract_api/integration_testing>`.
+所有请求均应使用 HTTP POST 方法。关于发票的完整流程的 Python 实现可以在 :download:`此处 <extract_api/implementation.py>` 找到，集成测试的令牌在
+:ref:`集成测试部分 <latestextract_api/integration_testing>` 中提供。
 
-
-Parse
+解析
 =====
 
-Request the processing of a document from the OCR. The route will return a `document_token`,
-you can use it to obtain the result of your request.
+请求 OCR 处理文档。该路由将返回一个 `document_token`，您可以使用它来获取请求的结果。
 
 .. _extract_api/parse:
 
-Routes
+路由
 ------
 
     - /api/extract/invoice/2/parse
     - /api/extract/expense/2/parse
     - /api/extract/applicant/2/parse
 
-Request
+请求
 -------
 
 .. rst-class:: o-definition-list
 
-``jsonrpc`` (required)
-    see JSON-RPC2_
-``method`` (required)
-    see JSON-RPC2_
-``id`` (required)
-    see JSON-RPC2_
+``jsonrpc`` (必需)
+    参见 JSON-RPC2_
+``method`` (必需)
+    参见 JSON-RPC2_
+``id`` (必需)
+    参见 JSON-RPC2_
 ``params``
     .. rst-class:: o-definition-list
 
-    ``account_token`` (required)
-        The token of the account from which credits will be taken. Each successful call costs one
-        token.
-    ``version`` (required)
-        The version will determine the format of your requests and the format of the server response.
-        You should use the :ref:`latest version available <extract_api/version>`.
-    ``documents`` (required)
-        The document must be provided as a string in the ASCII encoding. The list should contain
-        only one string. If multiple strings are provided only the first string corresponding to a
-        pdf will be processed. If no pdf is found, the first string will be processed. This field
-        is a list only for legacy reasons. The supported extensions are *pdf*, *png*, *jpg* and
-        *bmp*.
-    ``dbuuid`` (optional)
-        Unique identifier of the Odoo database.
-    ``webhook_url`` (optional)
-        A webhook URL can be provided. An empty POST request will be sent to
-        ``webhook_url/document_token`` when the result is ready.
-    ``user_infos`` (optional)
-        Information concerning the person sending the document to the extract service. It can be
-        the client or the supplier (depending on the ``perspective``). This information is not
-        required in order for the service to work but it greatly improves the quality of the result.
+    ``account_token`` (必需)
+        将扣除积分的帐户令牌。每次成功调用将消耗一个令牌。
+    ``version`` (必需)
+        版本将决定请求的格式和服务器响应的格式。
+        您应使用 :ref:`最新可用版本 <extract_api/version>`。
+    ``documents`` (必需)
+        文档必须以 ASCII 编码的字符串提供。列表应仅包含一个字符串。如果提供多个字符串，仅处理第一个对应于 pdf 的字符串。如果没有找到 pdf，则处理第一个字符串。该字段仅出于兼容性原因是列表。支持的扩展名为 *pdf*、*png*、*jpg* 和 *bmp*。
+    ``dbuuid`` (可选)
+        Odoo 数据库的唯一标识符。
+    ``webhook_url`` (可选)
+        可以提供 webhook URL。结果准备好时，将向 ``webhook_url/document_token`` 发送一个空的 POST 请求。
+    ``user_infos`` (可选)
+        有关发送文档到提取服务的人的信息。它可以是客户或供应商（具体取决于 ``perspective``）。此信息在服务工作时并不是必需的，但可以大大提高结果的质量。
 
         .. rst-class:: o-definition-list
 
-        ``user_company_vat`` (optional)
-            VAT number of the user.
-        ``user_company_name`` (optional)
-            Name of the user’s company.
-        ``user_company_country_code`` (optional)
-            Country code of the user. Format:
-            `ISO3166 alpha-2 <https://www.iban.com/country-codes>`_.
-        ``user_lang`` (optional)
-            The user language. Format: *language_code + _ + locale* (e.g. fr_FR, en_US).
-        ``user_email`` (optional)
-            The user email.
-        ``purchase_order_regex`` (optional)
-            Regex for purchase order identification. Will default to Odoo PO format if not provided.
-        ``perspective`` (optional)
+        ``user_company_vat`` (可选)
+            用户的增值税号码。
+        ``user_company_name`` (可选)
+            用户公司名称。
+        ``user_company_country_code`` (可选)
+            用户的国家代码。格式：
+            `ISO3166 alpha-2 <https://www.iban.com/country-codes>`_。
+        ``user_lang`` (可选)
+            用户语言。格式：*language_code + _ + locale*（例如 fr_FR，en_US）。
+        ``user_email`` (可选)
+            用户电子邮件。
+        ``purchase_order_regex`` (可选)
+            采购订单识别的正则表达式。如果未提供，则默认为 Odoo PO 格式。
+        ``perspective`` (可选)
             .. rst-class:: o-definition-list
 
-            Can be ``client`` or ``supplier``. This field is useful for invoices only.
-            ``client`` means that the user information provided are related to the client of the
-            invoice.
-            ``supplier`` means that it's related to the supplier.
-            If not provided, client will be used.
+            可以是 ``client`` 或 ``supplier``。此字段仅对发票有用。
+            ``client`` 表示提供的信息与发票的客户相关。
+            ``supplier`` 表示它与供应商相关。
+            如果未提供，将使用 client。
 
 .. code-block:: js
 
@@ -155,37 +129,37 @@ Request
     }
 
 .. note::
-    The ``user_infos`` parameter is optional but it greatly improves the quality of the result,
-    especially for invoices. The more information you can provide, the better.
+    ``user_infos`` 参数是可选的，但可以大大提高结果的质量，
+    尤其是对于发票。您提供的信息越多，结果越好。
 
-Response
+响应
 --------
 
 .. rst-class:: o-definition-list
 
 ``jsonrpc``
-    see JSON-RPC2_
+    参见 JSON-RPC2_
 ``id``
-    see JSON-RPC2_
+    参见 JSON-RPC2_
 ``result``
     .. rst-class:: o-definition-list
 
     ``status``
-        The code indicating the status of the request. See the table below.
+        表示请求状态的代码。见下表。
     ``status_msg``
-        A string giving verbose details about the request status.
+        字符串，提供有关请求状态的详细信息。
     ``document_token``
-        Only present if the request is successful.
+        仅在请求成功时存在。
 
 ===========================  ==============================================================
-status                       status_msg
+状态                        状态消息
 ===========================  ==============================================================
-`success`                    Success
-`error_unsupported_version`  Unsupported version
-`error_internal`             An error occurred
-`error_no_credit`            You don't have enough credit
-`error_unsupported_format`   Unsupported file format
-`error_maintenance`          Server is currently under maintenance, please try again later
+`success`                    成功
+`error_unsupported_version`  不支持的版本
+`error_internal`             发生错误
+`error_no_credit`            您的积分不足
+`error_unsupported_format`   不支持的文件格式
+`error_maintenance`          服务器当前正在维护，请稍后再试
 ===========================  ==============================================================
 
 .. code-block:: js
@@ -201,41 +175,40 @@ status                       status_msg
     }
 
 .. note::
-    The API does not actually use the JSON-RPC error scheme. Instead the API has its own error
-    scheme bundled inside a successful JSON-RPC result.
+    API 实际上并不使用 JSON-RPC 错误方案。相反，API 在成功的 JSON-RPC 结果中捆绑了自己的错误方案。
 
-Get results
+获取结果
 ===========
 
 .. _extract_api/get_result:
 
-Routes
+路由
 ------
 
     - /api/extract/invoice/2/get_result
     - /api/extract/expense/2/get_result
     - /api/extract/applicant/2/get_result
 
-Request
+请求
 -------
 
 .. rst-class:: o-definition-list
 
-``jsonrpc`` (required)
-    see JSON-RPC2_
-``method`` (required)
-    see JSON-RPC2_
-``id`` (required)
-    see JSON-RPC2_
+``jsonrpc`` (必需)
+    参见 JSON-RPC2_
+``method`` (必需)
+    参见 JSON-RPC2_
+``id`` (必需)
+    参见 JSON-RPC2_
 ``params``
     .. rst-class:: o-definition-list
 
-    ``version`` (required)
-        The version should match the version passed to the :ref:`/parse <extract_api/parse>` request.
-    ``document_token`` (required)
-        The ``document_token`` for which you want to get the current parsing status.
-    ``account_token`` (required)
-        The token of the account that was used to submit the document.
+    ``version`` (必需)
+        版本应与传递给 :ref:`/parse <extract_api/parse>` 请求的版本匹配。
+    ``document_token`` (必需)
+        您要获取当前解析状态的 ``document_token``。
+    ``account_token`` (必需)
+        用于提交文档的帐户的令牌。
 
 .. code-block:: js
 
@@ -250,47 +223,45 @@ Request
         "id": string,
     }
 
-Response
+响应
 --------
 
-When getting the results from the parse, the detected field vary a lot depending on the type of
-document. Each response is a list of dictionaries, one for each document. The keys of the dictionary
-are the name of the field and the value is the value of the field.
+从解析中获取结果时，检测到的字段因文档类型而异。每个响应都是一个字典列表，每个字典代表一个文档。字典的键是字段的名称，值是字段的值。
 
 .. rst-class:: o-definition-list
 
 ``jsonrpc``
-    see JSON-RPC2_
+    参见 JSON-RPC2_
 ``id``
-    see JSON-RPC2_
+    参见 JSON-RPC2_
 ``result``
     .. rst-class:: o-definition-list
 
     ``status``
-        The code indicating the status of the request. See the table below.
+        表示请求状态的代码。见下表。
     ``status_msg``
-        A string giving verbose details about the request status.
+        字符串，提供有关请求状态的详细信息。
     ``results``
-        Only present if the request is successful.
+        仅在请求成功时存在。
 
         .. rst-class:: o-definition-list
 
         ``full_text_annotation``
-            Contains the unprocessed full result from the OCR for the document
+            包含文档的未处理完整结果的 OCR。
 
 ================================  =============================================================
-status                            status_msg
+状态                            状态消息
 ================================  =============================================================
-`success`                         Success
-`error_unsupported_version`       Unsupported version
-`error_internal`                  An error occurred
-`error_maintenance`               Server is currently under maintenance, please try again later
-`error_document_not_found`        The document could not be found
-`error_unsupported_size`          The document has been rejected because it is too small
-`error_no_page_count`             Unable to get page count of the PDF file
-`error_pdf_conversion_to_images`  Couldn't convert the PDF to images
-`error_password_protected`        The PDF file is protected by a password
-`error_too_many_pages`            The document contains too many pages
+`success`                         成功
+`error_unsupported_version`       不支持的版本
+`error_internal`                  发生错误
+`error_maintenance`               服务器当前正在维护，请稍后再试
+`error_document_not_found`        找不到文档
+`error_unsupported_size`          文档被拒绝，因为它太小
+`error_no_page_count`             无法获取 PDF 文件的页面数
+`error_pdf_conversion_to_images`  无法将 PDF 转换为图像
+`error_password_protected`        PDF 文件受密码保护
+`error_too_many_pages`            文档包含太多页面
 ================================  =============================================================
 
 .. code-block:: js
@@ -313,7 +284,7 @@ status                            status_msg
         }
     }
 
-Common fields
+公共字段
 ~~~~~~~~~~~~~
 
 .. _latestextract_api/get_result/feature_result:
@@ -321,21 +292,18 @@ Common fields
 ``feature_result``
 ******************
 
-Each field of interest we want to extract from the document such as the total or the due date are
-also called **features**. An exhaustive list of all the extracted features associated to a type of
-document can be found in the sections below.
+我们希望从文档中提取的每个感兴趣的字段，如总额或到期日，也称为 **特征**。提取与文档类型相关的所有特征的详尽列表可以在下面的部分找到。
 
-For each feature, we return a list of candidates and we spotlight the candidate our model predicts
-to be the best fit for the feature.
+对于每个特征，我们返回一组候选项，并突出显示我们的模型预测为该特征的最佳匹配候选项。
 
 .. rst-class:: o-definition-list
 
-``selected_value`` (optional)
-    The best candidate for this feature.
-``selected_values`` (optional)
-    The best candidates for this feature.
-``candidates`` (optional)
-    List of all the candidates for this feature ordered by decreasing confidence score.
+``selected_value`` (可选)
+    该特征的最佳候选项。
+``selected_values`` (可选)
+    该特征的最佳候选项。
+``candidates`` (可选)
+    该特征的所有候选项列表，按信心得分降序排列。
 
 .. code-block:: js
 
@@ -344,24 +312,22 @@ to be the best fit for the feature.
        "candidates": [candidate_12, candidate_3, candidate_4, ...]
    }
 
-candidate
+候选项
 *********
 
-For each candidate we give its representation and position in the document. Candidates are sorted
-by decreasing order of suitability.
+对于每个候选项，我们给出其表示和在文档中的位置。候选项按适用性降序排序。
 
 .. rst-class:: o-definition-list
 
 ``content``
-    Representation of the candidate.
+    候选项的表示。
 ``coords``
     .. rst-class:: o-definition-list
 
-    ``[center_x, center_y, width, height, rotation_angle]``. The position and dimensions are
-    relative to the size of the page and are therefore between 0 and 1.
-    The angle is a clockwise rotation measured in degrees.
+    ``[center_x, center_y, width, height, rotation_angle]``。位置和尺寸相对于页面的大小，因此在 0 到 1 之间。
+    角度是顺时针旋转，以度为单位测量。
 ``page``
-    Page of the original document on which the candidate is located (starts at 0).
+    候选项所在的原始文档的页码（从 0 开始）。
 
 .. code-block:: js
 
@@ -375,90 +341,87 @@ by decreasing order of suitability.
     ]
 
 
-Invoices
+发票
 ~~~~~~~~
 
-Invoices are complex and can have a lot of different fields. The following table gives an exhaustive
-list of all the fields we can extract from an invoice.
+发票比较复杂，可以有很多不同的字段。以下表格提供了我们可以从发票中提取的所有字段的详尽列表。
 
 +-------------------------+------------------------------------------------------------------------+
-| Feature name            | Specifities                                                            |
+| 特征名称                | 特殊说明                                                            |
 +=========================+========================================================================+
-| ``SWIFT_code``          | ``content`` is a dictionary encoded as a string.                       |
+| ``SWIFT_code``          | ``content`` 是以字典编码的字符串。                                   |
 |                         |                                                                        |
-|                         | It contains information about the detected SWIFT code                  |
-|                         | (or `BIC <https://www.iso9362.org/isobic/overview.html>`_).            |
+|                         | 它包含关于检测到的 SWIFT 代码的信息                                  |
+|                         | （或 `BIC <https://www.iso9362.org/isobic/overview.html>`_）。          |
 |                         |                                                                        |
-|                         | Keys:                                                                  |
+|                         | 键：                                                                  |
 |                         |                                                                        |
 |                         | .. rst-class:: o-definition-list                                       |
 |                         |                                                                        |
 |                         | ``bic``                                                                |
-|                         |     detected BIC (string).                                             |
-|                         | ``name`` (optional)                                                    |
-|                         |     bank name (string).                                                |
+|                         |     检测到的 BIC（字符串）。                                           |
+|                         | ``name`` (可选)                                                        |
+|                         |     银行名称（字符串）。                                              |
 |                         | ``country_code``                                                       |
-|                         |     ISO3166 alpha-2 country code of the bank (string).                 |
-|                         | ``city`` (optional)                                                    |
-|                         |     city of the bank (string).                                         |
+|                         |     银行的 ISO3166 alpha-2 国家代码（字符串）。                        |
+|                         | ``city`` (可选)                                                        |
+|                         |     银行所在城市（字符串）。                                          |
 |                         | ``verified_bic``                                                       |
-|                         |     True if the BIC has been found in our DB (bool).                   |
+|                         |     如果在我们的数据库中找到 BIC，则为 True（布尔值）。              |
 |                         |                                                                        |
-|                         | Name and city are present only if verified_bic is true.                |
+|                         | 名称和城市仅在 verified_bic 为 true 时存在。                         |
 +-------------------------+------------------------------------------------------------------------+
-| ``iban``                | ``content`` is a string                                                |
+| ``iban``                | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``aba``                 | ``content`` is a string                                                |
+| ``aba``                 | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``VAT_Number``          | ``content`` is a string                                                |
+| ``VAT_Number``          | ``content`` 是字符串                                                  |
 |                         |                                                                        |
-|                         | Depending on the value of perspective in the user_infos, this will be  |
-|                         | the VAT number of the supplier or the client. If perspective is        |
-|                         | client, it'll be the supplier's VAT number. If it's supplier, it's the |
-|                         | client's VAT number.                                                   |
+|                         | 根据用户信息中的 perspective 值，这将是供应商或客户的增值税号码。     |
+|                         | 如果 perspective 为 client，则为供应商的增值税号码。如果为 supplier，  |
+|                         | 则为客户的增值税号码。                                               |
 +-------------------------+------------------------------------------------------------------------+
-| ``qr-bill``             | ``content`` is a string                                                |
+| ``qr-bill``             | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``payment_ref``         | ``content`` is a string                                                |
+| ``payment_ref``         | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``purchase_order``      | ``content`` is a string                                                |
+| ``purchase_order``      | ``content`` 是字符串                                                  |
 |                         |                                                                        |
-|                         | Uses ``selected_values`` instead of ``selected_value``                 |
+|                         | 使用 ``selected_values`` 而不是 ``selected_value``                    |
 +-------------------------+------------------------------------------------------------------------+
-| ``country``             | ``content`` is a string                                                |
+| ``country``             | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``currency``            | ``content`` is a string                                                |
+| ``currency``            | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``date``                | ``content`` is a string                                                |
+| ``date``                | ``content`` 是字符串                                                  |
 |                         |                                                                        |
-|                         | Format : *YYYY-MM-DD*                                                  |
+|                         | 格式： *YYYY-MM-DD*                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``due_date``            | Same as for ``date``                                                   |
+| ``due_date``            | 同 ``date``                                                         |
 +-------------------------+------------------------------------------------------------------------+
-| ``total_tax_amount``    | ``content`` is a float                                                 |
+| ``total_tax_amount``    | ``content`` 是浮动值                                                 |
 +-------------------------+------------------------------------------------------------------------+
-| ``invoice_id``          | ``content`` is a string                                                |
+| ``invoice_id``          | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``subtotal``            | ``content`` is a float                                                 |
+| ``subtotal``            | ``content`` 是浮动值                                                 |
 +-------------------------+------------------------------------------------------------------------+
-| ``total``               | ``content`` is a float                                                 |
+| ``total``               | ``content`` 是浮动值                                                 |
 +-------------------------+------------------------------------------------------------------------+
-| ``supplier``            | ``content`` is a string                                                |
+| ``supplier``            | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``client``              | ``content`` is a string                                                |
+| ``client``              | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``email``               | ``content`` is a string                                                |
+| ``email``               | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``website``             | ``content`` is a string                                                |
+| ``website``             | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
 
 
-``feature_result`` for the ``invoice_lines`` feature
+``feature_result`` 对于 ``invoice_lines`` 特征
 ****************************************************
 
-It follows a more specific structure. It is basically a list of dictionaries where each dictionary
-represents an invoice line. Each value follows a
-:ref:`latestextract_api/get_result/feature_result` structure.
+它遵循更具体的结构。它基本上是一个字典列表，每个字典代表一条发票行。每个值遵循
+:ref:`latestextract_api/get_result/feature_result` 结构。
 
 .. code-block:: js
 
@@ -479,61 +442,55 @@ represents an invoice line. Each value follows a
     ]
 
 
-Expense
+费用
 ~~~~~~~
 
-The expenses are less complex than invoices. The following table gives an exhaustive list of all the
-fields we can extract from an expense report.
+费用的复杂程度低于发票。以下表格提供了我们可以从费用报告中提取的所有字段的详尽列表。
 
 +-------------------------+------------------------------------------------------------------------+
-| Feature name            | Specifities                                                            |
+| 特征名称                | 特殊说明                                                            |
 +=========================+========================================================================+
-| ``description``         | ``content`` is a string                                                |
+| ``description``         | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``country``             | ``content`` is a string                                                |
+| ``country``             | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``date``                | ``content`` is a string                                                |
+| ``date``                | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``total``               | ``content`` is a float                                                 |
+| ``total``               | ``content`` 是浮动值                                                 |
 +-------------------------+------------------------------------------------------------------------+
-| ``currency``            | ``content`` is a string                                                |
+| ``currency``            | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
 
-Applicant
+申请人
 ~~~~~~~~~
 
-This third type of document is meant for processing resumes. The following table gives an exhaustive
-list of all the fields we can extract from a resume.
+第三种文档类型用于处理简历。以下表格提供了我们可以从简历中提取的所有字段的详尽列表。
 
 +-------------------------+------------------------------------------------------------------------+
-| Feature name            | Specifities                                                            |
+| 特征名称                | 特殊说明                                                            |
 +=========================+========================================================================+
-| ``name``                | ``content`` is a string                                                |
+| ``name``                | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``email``               | ``content`` is a string                                                |
+| ``email``               | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``phone``               | ``content`` is a string                                                |
+| ``phone``               | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
-| ``mobile``              | ``content`` is a string                                                |
+| ``mobile``              | ``content`` 是字符串                                                  |
 +-------------------------+------------------------------------------------------------------------+
 
 .. _latestextract_api/integration_testing:
 
-Integration Testing
+集成测试
 ===================
 
-You can test your integration by using *integration_token* as ``account_token`` in the
-:ref:`/parse <extract_api/parse>` request.
+您可以通过在 :ref:`/parse <extract_api/parse>` 请求中使用 *integration_token* 作为 ``account_token`` 来测试您的集成。
 
-Using this token put you in test mode and allows you to simulate the entire flow without really
-parsing a document and without being billed one credit for each successful **document** parsing.
+使用此令牌将您置于测试模式，并允许您模拟整个流程，而无需真正解析文档，并且在每次成功 **文档** 解析时不会被收取一个积分。
 
-The only technical differences in test mode is that the document you send is not parsed by the
-system and that the response you get from
-:ref:`/get_result <extract_api/get_result>` is a hard-coded one.
+测试模式中的唯一技术差异是您发送的文档不会被系统解析，而您从
+:ref:`/get_result <extract_api/get_result>` 获取的响应是硬编码的。
 
-A python implementation of the full flow for invoices can be found
-:download:`here <extract_api/implementation.py>`.
+有关发票完整流程的 Python 实现可以在 :download:`此处 <extract_api/implementation.py>` 找到。
 
 .. _JSON-RPC2: https://www.jsonrpc.org/specification
 

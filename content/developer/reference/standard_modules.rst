@@ -1,7 +1,7 @@
 :nosearch:
 
 ================
-Standard modules
+标准模块
 ================
 
 .. toctree::
