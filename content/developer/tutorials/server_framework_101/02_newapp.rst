@@ -45,9 +45,9 @@
 
 模块创建的第一步是创建它的目录。在 `tutorials` 目录中，添加一个新目录 :file:`estate`。
 
-一个模块至少必须包含两个文件：``__manifest__.py`` 文件和 ``__init__.py`` 文件。``__init__.py`` 文件可以暂时保持空白，我们将在下一章回来处理它。另一方面，``__manifest__.py`` 文件必须描述我们的模块，不能保持为空。它唯一的必填字段是 ``name``，但通常包含更多信息。
+一个模块至少必须包含两个文件： ``__manifest__.py`` 文件和 ``__init__.py`` 文件。``__init__.py`` 文件可以暂时保持空白，我们将在下一章回来处理它。另一方面， ``__manifest__.py`` 文件必须描述我们的模块，不能保持为空。它唯一的必填字段是 ``name`` ，但通常包含更多信息。
 
-请查看 `CRM 文件 <https://github.com/odoo/odoo/blob/fc92728fb2aa306bf0e01a7f9ae1cfa3c1df0e10/addons/crm/__manifest__.py#L1-L67>`__ 作为示例。除了提供模块的描述（``name``、``category``、``summary``、``website``...）外，它还列出了其依赖关系（``depends``）。依赖关系意味着 Odoo 框架会确保在安装我们的模块之前，这些模块已经安装。此外，如果其中一个依赖关系被卸载，则我们的模块和 **任何依赖于它的模块也将被卸载**。想想你最喜欢的 Linux 发行版包管理器（``apt``、``dnf``、``pacman``...）：Odoo 的工作方式与此类似。
+请查看 `CRM 文件 <https://github.com/odoo/odoo/blob/fc92728fb2aa306bf0e01a7f9ae1cfa3c1df0e10/addons/crm/__manifest__.py#L1-L67>`__ 作为示例。除了提供模块的描述（ ``name`` 、 ``category`` 、 ``summary`` 、 ``website`` ...）外，它还列出了其依赖关系（ ``depends`` ）。依赖关系意味着 Odoo 框架会确保在安装我们的模块之前，这些模块已经安装。此外，如果其中一个依赖关系被卸载，则我们的模块和 **任何依赖于它的模块也将被卸载**。想想你最喜欢的 Linux 发行版包管理器（ ``apt`` 、 ``dnf`` 、 ``pacman``...）：Odoo 的工作方式与此类似。
 
 .. exercise:: 创建所需的附加组件文件。
 

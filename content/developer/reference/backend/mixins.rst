@@ -173,7 +173,7 @@ Odoo 实现了一些实用的类和 mixins，使您能够轻松地为对象添�
 
 子类型作为数据在模块中创建；该模型具有以下字段：
 
-``name``（必填）- :class:`~odoo.fields.Char`
+``name`` （必填）- :class:`~odoo.fields.Char`
     子类型名称，将显示在通知自定义弹出窗口中
 ``description`` - :class:`~odoo.fields.Char`
     将添加到该子类型发布的消息中的描述。如果为空，则添加名称
@@ -263,7 +263,7 @@ Odoo 实现了一些实用的类和 mixins，使您能够轻松地为对象添�
     :param list(tuple) groups: 组的元组列表，格式为 (group_name, group_func, group_data)，其中：
 
         group_name
-          仅用于覆盖和操作组的标识符。默认组为 ``user``（链接到员工用户的收件人），``portal``（链接到门户用户的收件人），和 ``customer``（未链接到任何用户的收件人）。例如，可以添加一个链接到像 Hr Officers 这样的 ``res.groups`` 组，以为他们设置特定的操作按钮。
+          仅用于覆盖和操作组的标识符。默认组为 ``user ``（链接到员工用户的收件人），`` portal`` （链接到门户用户的收件人），和 ``customer``（未链接到任何用户的收件人）。例如，可以添加一个链接到像 Hr Officers 这样的 ``res.groups`` 组，以为他们设置特定的操作按钮。
         group_func
           是一个函数指针，接受一个合伙人记录作为参数。该方法将应用于收件人，以判断他们是否属于某个组。只保留第一个匹配的组。评估顺序为列表顺序。
         group_data
@@ -312,7 +312,7 @@ Odoo 实现了一些实用的类和 mixins，使您能够轻松地为对象添�
 
 .. 示例::
 
-    让我们在商务旅行状态更改通知中添加一个自定义按钮；该按钮将把状态重置为“草稿”，并且仅对属于（假设的）旅行经理组（``business.group_trip_manager``）的成员可见。
+    让我们在商务旅行状态更改通知中添加一个自定义按钮；该按钮将把状态重置为“草稿”，并且仅对属于（假设的）旅行经理组（ ``business.group_trip_manager`` ）的成员可见。
 
     .. code-block:: python
 
@@ -420,7 +420,7 @@ Odoo 实现了一些实用的类和 mixins，使您能够轻松地为对象添�
 
 ``alias_name`` - :class:`~odoo.fields.Char`
     电子邮件别名的名称，例如 'jobs'，如果您希望接收 <jobs@example.odoo.com> 的电子邮件。
-``alias_user_id`` - :class:`~odoo.fields.Many2one` (``res.users``)
+``alias_user_id`` - :class:`~odoo.fields.Many2one` ( ``res.users`` )
     当别名接收到电子邮件时创建的记录的所有者；如果未设置此字段，系统将尝试根据发件人（发件人）地址查找正确的所有者，或者如果找不到该地址的系统用户，将使用管理员帐户。
 ``alias_defaults`` - :class:`~odoo.fields.Text`
     一个 Python 字典，当为该别名创建新记录时，将计算并提供默认值。
@@ -539,7 +539,7 @@ Odoo 实现了一些实用的类和 mixins，使您能够轻松地为对象添�
 活动追踪
 -------------------
 
-活动是用户在文档上需要执行的操作，如打电话或组织会议。活动与邮件模块集成在 Chatter 中，但 *不与 mail.thread 捆绑*。活动是 ``mail.activity`` 类的记录，具有类型（``mail.activity.type``）、名称、描述、计划时间（等等）。未完成的活动显示在 Chatter 小部件中的消息历史上方。
+活动是用户在文档上需要执行的操作，如打电话或组织会议。活动与邮件模块集成在 Chatter 中，但 *不与 mail.thread 捆绑*。活动是 ``mail.activity`` 类的记录，具有类型（ ``mail.activity.type`` ）、名称、描述、计划时间（等等）。未完成的活动显示在 Chatter 小部件中的消息历史上方。
 
 您可以通过在对象上使用 ``mail.activity.mixin`` 类并在表单视图和看板视图中显示特定的小部件（通过 ``activity_ids`` 字段）来集成活动（分别为 ``mail_activity`` 和 ``kanban_activity`` 小部件）。
 

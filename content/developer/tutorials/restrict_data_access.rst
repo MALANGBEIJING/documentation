@@ -62,7 +62,7 @@
 
     #. 添加一个记录，创建 id 为 ``estate_group_user`` 的用户组，名称为 "Agent"，类别为 ``base.module_category_real_estate_brokerage``。
 
-    #. 在下方添加另一个记录，创建 id 为 ``estate_group_manager`` 的用户组，名称为 "Manager"，类别为 ``base.module_category_real_estate_brokerage``。``estate_group_manager`` 用户组需要隐含 ``estate_group_user``。
+    #. 在下方添加另一个记录，创建 id 为 ``estate_group_manager`` 的用户组，名称为 "Manager"，类别为 ``base.module_category_real_estate_brokerage`` 。 ``estate_group_manager`` 用户组需要隐含 ``estate_group_user``。
 
     .. note::
 
@@ -172,7 +172,7 @@ C                     X
 
 * 仅适用于“创建”、“更新”（写入）和“删除”（删除）操作：在这里我们希望所有员工都可以看到其他用户的记录，但只有记录的作者或分配的用户才能更新记录。
 * 是 :ref:`非全局规则 <reference/security/rules/global>`，因此我们可以为例如经理等用户提供附加规则。
-* 如果当前用户（``user.id``）在记录上被设置（例如创建或分配），或者记录没有关联的用户，则允许进行操作。
+* 如果当前用户（ ``user.id`` ）在记录上被设置（例如创建或分配），或者记录没有关联的用户，则允许进行操作。
 
 .. note::
 
@@ -239,7 +239,7 @@ C                     X
 
 .. danger:: 仅仅因为你已经进入了 Python 代码，并不意味着任何访问权限或规则已经或将被检查。
 
-*目前*，通过访问 ``self`` 上的数据以及调用 ``super()``（它执行相同操作并 *更新* ``self``），隐式地检查了访问权限，这会触发访问错误并取消事务，从而“取消”创建发票。
+*目前*，通过访问 ``self`` 上的数据以及调用 ``super()`` （它执行相同操作并 *更新* ``self``），隐式地检查了访问权限，这会触发访问错误并取消事务，从而“取消”创建发票。
 
 *然而*，如果未来发生变化，或者我们在方法中添加了副作用（例如向政府机构报告销售），或者 ``estate`` 中引入了漏洞，……那么不具备权限的用户可能会触发他们不应有权限执行的操作。
 
@@ -247,8 +247,8 @@ C                     X
 
 可以通过以下方式进行显式安全检查：
 
-* 检查当前用户是谁（``self.env.user``），并将其与特定模型或记录匹配。
-* 检查当前用户是否具有硬编码的特定用户组，以允许或拒绝操作（``self.env.user.has_group``）。
+* 检查当前用户是谁（ ``self.env.user`` ），并将其与特定模型或记录匹配。
+* 检查当前用户是否具有硬编码的特定用户组，以允许或拒绝操作（ ``self.env.user.has_group``）。
 * 在记录集上调用 ``check_access_rights(operation)`` 方法，该方法验证当前用户是否具有访问该模型的权限。
 * 在非空的记录集上调用 ``check_access_rule(operations)`` 方法，验证当前用户是否被允许对 *每条* 记录执行该操作。
 

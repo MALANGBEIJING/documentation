@@ -209,8 +209,8 @@ One2many 是 many2one 的反向关系。例如，我们在测试模型上定义�
     ========================= ================================ ============= =================
     price                     Float
     status                    Selection                        no copy       Accepted, Refused
-    partner_id                Many2one (``res.partner``)       required
-    property_id               Many2one (``estate.property``)   required
+    partner_id                Many2one ( ``res.partner``)       required
+    property_id               Many2one ( ``estate.property``)   required
     ========================= ================================ ============= =================
 
     - 创建一个树视图和一个表单视图，包含 ``price``、``partner_id`` 和 ``status`` 字段。不需要创建操作或菜单。

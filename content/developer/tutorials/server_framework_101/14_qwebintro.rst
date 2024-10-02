@@ -38,8 +38,8 @@ QWeb 简介
 
 让我们来逐步分析这个示例：
 
-- ``<templates>``：定义了一系列 :ref:`reference/qweb` 模板。看板视图 *必须* 至少定义一个根模板 ``kanban-box``，该模板将为每条记录渲染一次。
-- ``<t t-name="kanban-box">``： ``<t>`` 是 QWeb 指令的占位符元素。在这种情况下，它用于将模板的 ``name`` 设置为 ``kanban-box``。
+- ``<templates>`` ：定义了一系列 :ref:`reference/qweb` 模板。看板视图 *必须* 至少定义一个根模板 ``kanban-box``，该模板将为每条记录渲染一次。
+- ``<t t-name="kanban-box">`` ： ``<t>`` 是 QWeb 指令的占位符元素。在这种情况下，它用于将模板的 ``name`` 设置为 ``kanban-box``。
 - ``<div class="oe_kanban_global_click">``： ``oe_kanban_global_click`` 使得 ``<div>`` 可点击，以打开记录。
 - ``<field name="name"/>``：这将把 ``name`` 字段添加到视图中。
 
@@ -70,7 +70,7 @@ QWeb 简介
 我们添加了一些内容：
 
 - ``t-if``：如果条件为真，则渲染 ``<div>`` 元素。
-- ``record``：一个对象，具有所有请求字段作为其属性。每个字段有两个属性 ``value`` 和 ``raw_value``。前者根据当前用户参数进行格式化，后者是直接来自 :meth:`~odoo.models.Model.read` 的值。
+- ``record`` ：一个对象，具有所有请求字段作为其属性。每个字段有两个属性 ``value`` 和 ``raw_value``。前者根据当前用户参数进行格式化，后者是直接来自 :meth:`~odoo.models.Model.read` 的值。
 
 在上面的示例中，字段 ``name`` 是在 ``<templates>`` 元素中添加的，但 ``state`` 在外面。当我们需要某个字段的值，但不想在视图中显示它时，可以将其添加到 ``<templates>`` 元素之外。
 

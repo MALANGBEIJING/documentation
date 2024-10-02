@@ -163,7 +163,7 @@
     id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
     access_academy_teachers,access_academy_teachers,model_academy_teachers,,1,0,0,0
 
-这简单地为所有用户提供了读取权限（``perm_read``）（``group_id:id`` 留空）。
+这简单地为所有用户提供了读取权限（ ``perm_read`` ）（``group_id:id`` 留空）。
 
 .. note::
 

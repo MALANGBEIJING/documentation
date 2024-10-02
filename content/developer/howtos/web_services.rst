@@ -82,7 +82,7 @@ XML-RPC 库
 JSON-RPC 库
 ----------------
 
-以下是一个使用标准 Python 库 ``urllib.request`` 和 ``json`` 与 Odoo 服务器交互的 Python 3 程序示例。此示例假设已安装 **Productivity** 应用（``note``）::
+以下是一个使用标准 Python 库 ``urllib.request`` 和 ``json`` 与 Odoo 服务器交互的 Python 3 程序示例。此示例假设已安装 **Productivity** 应用（ ``note``）::
 
     import json
     import random

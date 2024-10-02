@@ -129,13 +129,13 @@ Odoo 的关键组件之一是 :abbr:`ORM (对象关系映射)` 层。该层避�
 
 一些属性适用于所有字段，以下是最常用的：
 
-:attr:`~odoo.fields.Field.string` (``unicode``，默认：字段名称)
+:attr:`~odoo.fields.Field.string` ( ``unicode``，默认：字段名称)
     在 UI 中显示的字段标签（对用户可见）。
-:attr:`~odoo.fields.Field.required` (``bool``，默认：``False``)
-    如果为 ``True``，该字段不能为空，必须有一个默认值或在创建记录时始终提供一个值。
-:attr:`~odoo.fields.Field.help` (``unicode``，默认：``''``)
+:attr:`~odoo.fields.Field.required` ( ``bool`` ，默认： ``False``)
+    如果为  ``True`` ，该字段不能为空，必须有一个默认值或在创建记录时始终提供一个值。
+:attr:`~odoo.fields.Field.help` ( ``unicode`` ，默认： ``''``)
     提供给用户的长表单帮助提示。
-:attr:`~odoo.fields.Field.index` (``bool``，默认：``False``)
+:attr:`~odoo.fields.Field.index` ( ``bool`` ，默认： ``False`` )
     要求 Odoo 在列上创建 `数据库索引`_。
 
 简单字段
@@ -474,9 +474,9 @@ Odoo 提供了视图继承功能，而不是直接修改现有视图（通过覆
        </field>
    </record>
 
-``expr``
+``expr`` 
     一个 XPath_ 表达式，用于在父视图中选择单个元素。如果没有匹配元素或匹配多个元素，将引发错误。
-``position``
+``position`` 
     应用于匹配元素的操作：
 
     ``inside``
@@ -519,7 +519,7 @@ Odoo 提供了视图继承功能，而不是直接修改现有视图（通过覆
 
     [('product_type', '=', 'service'), ('unit_price', '>', 1000)]
 
-默认情况下，条件通过隐式的 AND 组合。可以使用逻辑操作符 ``&``（AND）、``|``（OR）和 ``!``（NOT）来显式组合条件。这些操作符使用前缀表示法（操作符插入其参数之前，而不是参数之间）。例如，选择 "服务 *或* 单价 *不* 在 1000 到 2000 之间的产品" 的域如下所示：
+默认情况下，条件通过隐式的 AND 组合。可以使用逻辑操作符 ``&`` （AND）、 ``|`` （OR）和 ``!``（NOT）来显式组合条件。这些操作符使用前缀表示法（操作符插入其参数之前，而不是参数之间）。例如，选择 "服务 *或* 单价 *不* 在 1000 到 2000 之间的产品" 的域如下所示：
 
 .. code-block:: python
 
@@ -533,7 +533,7 @@ Odoo 提供了视图继承功能，而不是直接修改现有视图（通过覆
 
 .. exercise:: 关联字段的域
 
-   当选择 *Session* 的讲师时，只应显示那些设置了 ``instructor`` 为 ``True`` 的讲师（合作伙伴）。
+   当选择 *Session* 的讲师时，只应显示那些设置了 ``instructor`` 为  ``True``  的讲师（合作伙伴）。
 
 .. exercise:: 更复杂的域
 
@@ -549,7 +549,7 @@ Odoo 提供了视图继承功能，而不是直接修改现有视图（通过覆
 .. danger:: ``self`` 是一个集合
    :class: aphorism
 
-   对象 ``self`` 是一个 *记录集*，即一个有序的记录集合。它支持标准的 Python 集合操作，如 ``len(self)`` 和 ``iter(self)``，以及额外的集合操作，如 ``recs1 + recs2``。
+   对象 ``self`` 是一个 *记录集*，即一个有序的记录集合。它支持标准的 Python 集合操作，如 ``len(self)`` 和 ``iter(self)``，以及额外的集合操作，如 ``recs1 + recs2`` 。
 
    迭代 ``self`` 会逐个返回记录，每条记录本身是一个大小为 1 的集合。你可以通过点符号来访问或分配单个记录上的字段，例如 ``record.name``。
 
@@ -622,7 +622,7 @@ Onchange
 
 "onchange" 机制为客户端界面提供了一种在用户为字段填写值后自动更新表单的方式，而不保存任何内容到数据库中。
 
-例如，假设模型有三个字段 ``amount``、``unit_price`` 和 ``price``，你希望在任意一个字段修改时自动更新表单上的价格。为此，你可以定义一个方法，其中 ``self`` 代表表单视图中的记录，并使用 :func:`~odoo.api.onchange` 修饰该方法，指定要触发的字段。你对 ``self`` 所做的任何更改都会反映在表单中。
+例如，假设模型有三个字段 ``amount`` 、 ``unit_price`` 和 ``price``，你希望在任意一个字段修改时自动更新表单上的价格。为此，你可以定义一个方法，其中 ``self`` 代表表单视图中的记录，并使用 :func:`~odoo.api.onchange` 修饰该方法，指定要触发的字段。你对 ``self`` 所做的任何更改都会反映在表单中。
 
 .. code-block:: xml
 
@@ -674,7 +674,7 @@ Python 约束是一个使用 :func:`~odoo.api.constrains` 装饰器的方法，�
 
    添加一个约束，检查讲师是否没有作为其自己课程的参与者。
 
-SQL 约束通过模型属性 :attr:`~odoo.models.Model._sql_constraints` 定义。该属性赋值为字符串的三元组列表 ``(name, sql_definition, message)``，其中 ``name`` 是有效的 SQL 约束名称，``sql_definition`` 是一个 table_constraint_ 表达式，``message`` 是错误信息。
+SQL 约束通过模型属性 :attr:`~odoo.models.Model._sql_constraints` 定义。该属性赋值为字符串的三元组列表 ``(name, sql_definition, message)`` ，其中 ``name`` 是有效的 SQL 约束名称， ``sql_definition`` 是一个 table_constraint_ 表达式，``message`` 是错误信息。
 
 .. exercise:: 添加 SQL 约束
 
@@ -697,16 +697,16 @@ SQL 约束通过模型属性 :attr:`~odoo.models.Model._sql_constraints` 定义�
 
 树视图可以采用额外的属性来进一步自定义其行为：
 
-``decoration-{$name}``
+``decoration-{$name}`` 
     允许根据对应记录的属性更改行文本的样式。
 
-    这些值是 Python 表达式。对于每条记录，表达式会在记录的属性作为上下文值时进行评估，如果结果为 ``true``，则应用对应的样式到该行。以下是一些可用的上下文值：
+    这些值是 Python 表达式。对于每条记录，表达式会在记录的属性作为上下文值时进行评估，如果结果为  ``True`` ，则应用对应的样式到该行。以下是一些可用的上下文值：
 
     * ``uid``：当前用户的 ID，
     * ``today``：当前本地日期，格式为 ``YYYY-MM-DD`` 的字符串，
-    * ``now``：与 ``today`` 相同，外加当前时间。该值的格式为 ``YYYY-MM-DD hh:mm:ss``。
+    * ``now`` ：与 ``today`` 相同，外加当前时间。该值的格式为 ``YYYY-MM-DD hh:mm:ss``。
 
-    ``{$name}`` 可以是 ``bf``（加粗字体）、``it``（斜体），或任何 `Bootstrap 语境颜色 <https://getbootstrap.com/docs/3.3/components/#available-variations>`_（``danger``、``info``、``muted``、``primary``、``success`` 或 ``warning``）。
+    ``{$name}`` 可以是 ``bf`` （加粗字体）、 ``it`` （斜体），或任何 `Bootstrap 语境颜色 <https://getbootstrap.com/docs/3.3/components/#available-variations>`_（ ``danger`` 、 ``info`` 、 ``muted`` 、 ``primary`` 、 ``success`` 或 ``warning``）。
 
     .. code-block:: xml
 
@@ -716,24 +716,25 @@ SQL 约束通过模型属性 :attr:`~odoo.models.Model._sql_constraints` 定义�
             <field name="state"/>
         </tree>
 
-``editable``
+``editable`` 
     可以是 ``"top"`` 或 ``"bottom"``。使树视图在原地可编辑（无需通过表单视图），该值决定新行的出现位置。
 
 .. exercise:: 列表着色
 
    修改 *Session* 的树视图，使得持续时间少于 5 天的课程以蓝色显示，超过 15 天的课程以红色显示。
+
 日历视图 (Calendars)
 ====================
 
 日历视图将记录显示为日历事件。它们的根元素是 ``<calendar>``，最常用的属性有：
 
-``color``
+``color`` 
     用于 *颜色分段* 的字段名称。颜色会自动分配给事件，但在同一颜色分段中的事件（在其 ``@color`` 字段具有相同值的记录）将获得相同颜色。
-``date_start``
+``date_start`` 
     记录的字段，保存事件的开始日期/时间。
-``date_stop``（可选）
+``date_stop`` （可选）
     记录的字段，保存事件的结束日期/时间。
-``string``
+``string`` 
     记录的字段，用于定义每个日历事件的标签。
 
 .. code-block:: xml
@@ -749,13 +750,13 @@ SQL 约束通过模型属性 :attr:`~odoo.models.Model._sql_constraints` 定义�
 搜索视图 (Search views)
 =======================
 
-搜索视图中的 ``<field>`` 元素可以具有 ``@filter_domain``，该属性会覆盖用于搜索给定字段生成的域。在给定的域中，``self`` 代表用户输入的值。在下面的示例中，它用于在 ``name`` 和 ``description`` 两个字段上进行搜索。
+搜索视图中的 ``<field>`` 元素可以具有 ``@filter_domain`` ，该属性会覆盖用于搜索给定字段生成的域。在给定的域中，``self`` 代表用户输入的值。在下面的示例中，它用于在 ``name`` 和 ``description`` 两个字段上进行搜索。
 
 搜索视图还可以包含 ``<filter>`` 元素，这些元素作为预定义搜索的切换。过滤器必须具有以下属性之一：
 
-``domain``
+``domain`` 
     将给定的域添加到当前搜索中。
-``context``
+``context`` 
     向当前搜索添加一些上下文；使用键 ``group_by`` 对结果进行分组。
 
 .. code-block:: xml
@@ -826,10 +827,10 @@ SQL 约束通过模型属性 :attr:`~odoo.models.Model._sql_constraints` 定义�
 
 图表视图包含 ``<field>``，其具有强制性的 ``@type`` 属性，取值如下：
 
-``row``（默认）
+``row`` （默认）
     该字段应默认进行汇总。
 
-``measure``
+``measure`` 
     该字段应进行汇总，而不是分组。
 
 .. code-block:: xml
@@ -873,7 +874,7 @@ SQL 约束通过模型属性 :attr:`~odoo.models.Model._sql_constraints` 定义�
 访问权限
 --------
 
-访问权限作为模型 ``ir.model.access`` 的记录定义。每个访问权限与一个模型、一个组（或无组以实现全局访问）和一组权限（读取、写入、创建、删除）关联。这些访问权限通常通过以模型命名的 CSV 文件创建：``ir.model.access.csv``。
+访问权限作为模型 ``ir.model.access`` 的记录定义。每个访问权限与一个模型、一个组（或无组以实现全局访问）和一组权限（读取、写入、创建、删除）关联。这些访问权限通常通过以模型命名的 CSV 文件创建：``ir.model.access.csv`` 。
 
 .. code-block:: text
 
@@ -1056,7 +1057,7 @@ http://localhost:8069/report/pdf/account.report_invoice/1 访问。
 
    - ``report.url``，指向从您的服务器可访问的 URL（可能是 ``http://localhost:8069`` 或类似地址）。这将仅用于此目的。
 
-   - ``web.base.url.freeze``，设置为 ``True`` 将停止对 ``web.base.url`` 的自动更新。
+   - ``web.base.url.freeze``，设置为  ``True``  将停止对 ``web.base.url`` 的自动更新。
 
 .. exercise:: 为 Session 模型创建报告
 

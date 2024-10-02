@@ -647,7 +647,7 @@ API
     - ``xhr``, which should be a ``XMLHTTPRequest`` object. In that case,
       the ``rpc`` method will simply use it instead of creating a new one. This
       is useful when one accesses advanced features of the `XMLHTTPRequest` API.
-    - ``silent (boolean)`` If set to ``true``, the web client will not provide
+    - ``silent (boolean)`` If set to  ``True`` , the web client will not provide
       a feedback that there is a pending rpc.
 
 The ``rpc`` service communicates with the server by using a ``XMLHTTPRequest``

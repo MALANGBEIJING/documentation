@@ -22,17 +22,17 @@ QWeb 报告
 
 报告模板将始终提供以下变量：
 
-``time``
+``time`` 
     引用 Python 标准库中的 :mod:`python:time`
-``user``
+``user`` 
     打印报告的用户的 ``res.user`` 记录
-``res_company``
+``res_company`` 
     当前 ``user`` 的公司的记录
-``website``
+``website`` 
     当前网站对象（如果有，此项可能存在但为 ``None``）
-``web_base_url``
+``web_base_url`` 
     Web 服务器的基本 URL
-``context_timestamp``
+``context_timestamp`` 
     一个函数，接受 UTC 中的 :class:`python:datetime.datetime` \ [#unzoned]_ 并将其转换为打印报告的用户的时区
 
 最小可行模板
@@ -58,11 +58,11 @@ class="page">`` 内的内容。模板的 ``id`` 必须是报告声明中指定�
 
 默认情况下，渲染上下文还将暴露以下项目：
 
-``docs``
+``docs`` 
     当前报告的记录
-``doc_ids``
+``doc_ids`` 
     ``docs`` 记录的 ID 列表
-``doc_model``
+``doc_model`` 
     ``docs`` 记录的模型
 
 如果您希望在模板中访问其他记录/模型，您需要 :ref:`自定义报告 <reference/reports/custom_reports>`，但在这种情况下，如果需要，您必须提供上述项目。
@@ -165,21 +165,21 @@ class="page">`` 内的内容。模板的 ``id`` 必须是报告声明中指定�
 
 ``name`` (必填)
     在某种列表中查找报告时，仅用于助记符/描述
-``description``
+``description`` 
     您格式的小描述
-``format``
+``format`` 
     预定义格式（A0 至 A9，B0 至 B10，Legal，Letter，Tabloid，...）或 ``custom``；默认情况下为 A4。如果您定义页面尺寸，则不能使用非自定义格式。
-``dpi``
+``dpi`` 
     输出 DPI；默认值为 90
-``margin_top``, ``margin_bottom``, ``margin_left``, ``margin_right``
+``margin_top`` , ``margin_bottom`` , ``margin_left`` , ``margin_right`` 
     边距大小（以毫米为单位）
-``page_height``, ``page_width``
+``page_height`` , ``page_width`` 
     页面尺寸（以毫米为单位）
-``orientation``
+``orientation`` 
     横向或纵向
-``header_line``
+``header_line`` 
     布尔值以显示页眉线
-``header_spacing``
+``header_spacing`` 
     页眉间距（以毫米为单位）
 
 示例::
@@ -208,21 +208,21 @@ class="page">`` 内的内容。模板的 ``id`` 必须是报告声明中指定�
 
 ``name`` (必填)
     在某种列表中查找报告时，仅用于助记符/描述
-``description``
+``description`` 
     您格式的小描述
-``format``
+``format`` 
     预定义格式（A0 至 A9，B0 至 B10，Legal，Letter，Tabloid，...）或 ``custom``；默认情况下为 A4。如果您定义页面尺寸，则不能使用非自定义格式。
-``dpi``
+``dpi`` 
     输出 DPI；默认值为 90
-``margin_top``, ``margin_bottom``, ``margin_left``, ``margin_right``
+``margin_top`` , ``margin_bottom`` , ``margin_left`` , ``margin_right`` 
     边距大小（以毫米为单位）
-``page_height``, ``page_width``
+``page_height`` , ``page_width`` 
     页面尺寸（以毫米为单位）
-``orientation``
+``orientation`` 
     横向或纵向
-``header_line``
+``header_line`` 
     布尔值以显示页眉线
-``header_spacing``
+``header_spacing`` 
     页眉间距（以毫米为单位）
 
 示例::
@@ -274,7 +274,7 @@ class="page">`` 内的内容。模板的 ``id`` 必须是报告声明中指定�
 .. warning::
 
     使用自定义报告时，“默认”与文档相关的项目
-    (``doc_ids``、``doc_model`` 和 ``docs``) 将 *不会* 被包含。如果您
+    ( ``doc_ids`` 、 ``doc_model`` 和 ``docs``) 将 *不会* 被包含。如果您
     想要它们，您需要自己包含它们。
 
     在上面的示例中，渲染上下文将包含“全局”值

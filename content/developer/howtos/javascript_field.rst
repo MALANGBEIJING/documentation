@@ -10,6 +10,7 @@
 #. 创建一个扩展所需字段组件的新小部件组件。
 
    .. code-block:: javascript
+      
       :caption: :file:`late_order_boolean_field.js`
 
       /** @odoo-module */

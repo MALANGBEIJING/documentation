@@ -35,13 +35,13 @@
 
 Odoo 会自动导出 "数据" 类型内容中的可翻译字符串：
 
-* 在非 QWeb 视图中，所有文本节点以及 ``string``、``help``、``sum``、``confirm`` 和 ``placeholder`` 属性的内容都会被导出
-* 在 QWeb 模板中（包括服务器端和客户端模板），除 ``t-translation="off"`` 块内的内容外，所有文本节点都会导出，同时也导出 ``title``、``alt``、``label`` 和 ``placeholder`` 属性的内容
+* 在非 QWeb 视图中，所有文本节点以及 ``string`` 、``help`` 、 ``sum`` 、 ``confirm`` 和 ``placeholder`` 属性的内容都会被导出
+* 在 QWeb 模板中（包括服务器端和客户端模板），除 ``t-translation="off"`` 块内的内容外，所有文本节点都会导出，同时也导出 ``title`` 、 ``alt`` 、 ``label`` 和 ``placeholder`` 属性的内容
 * 对于 :class:`~odoo.fields.Field`，除非它们的模型被标记为 ``_translate = False``：
 
   * 它们的 ``string`` 和 ``help`` 属性会被导出
   * 如果 ``selection`` 是列表（或元组），它会被导出
-  * 如果它们的 ``translate`` 属性设置为 ``True``，那么它们现有的所有值（跨所有记录）都会被导出
+  * 如果它们的 ``translate`` 属性设置为  ``True`` ，那么它们现有的所有值（跨所有记录）都会被导出
 * :attr:`~odoo.models.Model._constraints` 和 :attr:`~odoo.models.Model._sql_constraints` 的帮助/错误信息会被导出
 
 显式导出

@@ -95,7 +95,7 @@ QWeb 提供了一个条件指令 ``if``，它计算作为属性值提供的表�
 循环
 =====
 
-QWeb 提供了一个迭代指令 ``foreach``，该指令接受一个返回集合的表达式，以及第二个参数 ``t-as``，用于指定当前迭代项的名称::
+QWeb 提供了一个迭代指令 ``foreach`` ，该指令接受一个返回集合的表达式，以及第二个参数 ``t-as``，用于指定当前迭代项的名称::
 
     <t t-foreach="[1, 2, 3]" t-as="i">
         <p><t t-out="i"/></p>
@@ -196,7 +196,7 @@ QWeb 可以动态计算属性并将计算结果设置到输出节点。这是通
         <li class="row even">3</li>
 
     .. tip::
-       格式化字符串有两种等效的语法：``"plain_text {{code}}"``（即 jinja 样式）和 ``"plain_text #{code}"``（即 ruby 样式）。
+       格式化字符串有两种等效的语法： ``"plain_text {{code}}"`` （即 jinja 样式）和 ``"plain_text #{code}"``（即 ruby 样式）。
 
 :samp:`t-att=mapping`
     如果参数是一个映射，则每个（键，值）对都会生成一个新属性及其值::
@@ -319,16 +319,16 @@ Python
 
 .. note::
 
-    由于 :class:`~markupsafe.Markup` 是比 :js:class:`Markup` 更丰富的类型，因此某些操作会从 :js:class:`Markup` 中移除安全信息，但不会从 :class:`~markupsafe.Markup` 中移除。例如，在 Python 中进行字符串拼接（``'' + content``）时，结果会是一个 :class:`~markupsafe.Markup`，其他操作数会正确转义；而在 JavaScript 中，结果会是一个 :js:class:`String`，其他操作数不会在拼接之前进行转义。
+    由于 :class:`~markupsafe.Markup` 是比 :js:class:`Markup` 更丰富的类型，因此某些操作会从 :js:class:`Markup` 中移除安全信息，但不会从 :class:`~markupsafe.Markup` 中移除。例如，在 Python 中进行字符串拼接（ ``'' + content``）时，结果会是一个 :class:`~markupsafe.Markup`，其他操作数会正确转义；而在 JavaScript 中，结果会是一个 :js:class:`String`，其他操作数不会在拼接之前进行转义。
 
 已弃用的输出指令
 ----------------------------
 
 .. rst-class:: o-definition-list
 
-``esc``
+``esc`` 
     是 ``out`` 的别名，最初会对输入进行 HTML 转义。尚未正式弃用，其与 ``out`` 唯一的区别在于 ``esc`` 的定义不太明确/不正确。
-``raw``
+``raw`` 
     是 ``out`` 的一个版本，它 *从不* 转义其内容。无论内容是否安全，都会按原样输出。
 
     .. deprecated:: 15.0
@@ -353,14 +353,14 @@ Python
 
 ``t-field`` 指令只能在访问“智能”记录（通过 ``browse`` 方法的结果）时使用。它能够根据字段类型自动格式化，并集成在网站的富文本编辑中。
 
-``t-options`` 可用于自定义字段，最常见的选项是 ``widget``，其他选项取决于字段或小部件。
+``t-options`` 可用于自定义字段，最常见的选项是 ``widget`` ，其他选项取决于字段或小部件。
 
 调试
 ---------
 
 .. rst-class:: o-definition-list
 
-``t-debug``
+``t-debug`` 
     没有值时，调用 :func:`breakpoint` 内置函数，通常会启动调试器（默认为 :mod:`pdb`）。
 
     其行为可以通过 :envvar:`PYTHONBREAKPOINT` 或 :func:`sys.breakpointhook` 进行配置。
@@ -398,7 +398,7 @@ Python
 ``t-cache`` 的基本原理
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-``t-cache`` 指令允许您存储模板的渲染结果。**key expression**（例如 42: ``t-cache="42"``）将作为一个 Python 表达式进行评估，并用于生成 **缓存键**。因此，对于相同的模板部分，可以有不同的 **缓存值**（已缓存的渲染部分）。如果 **key expression** 是一个元组或列表，则在生成 **缓存键** 时将进行搜索。如果 **key expression** 返回一个或多个记录集，则将使用模型、ID 及其对应的 write_date 来生成 **缓存键**。特殊情况：如果 **key expression** 返回 Falsy 值，则内容将不会被缓存。
+``t-cache`` 指令允许您存储模板的渲染结果。**key expression**（例如 42: ``t-cache="42"`` ）将作为一个 Python 表达式进行评估，并用于生成 **缓存键**。因此，对于相同的模板部分，可以有不同的 **缓存值**（已缓存的渲染部分）。如果 **key expression** 是一个元组或列表，则在生成 **缓存键** 时将进行搜索。如果 **key expression** 返回一个或多个记录集，则将使用模型、ID 及其对应的 write_date 来生成 **缓存键**。特殊情况：如果 **key expression** 返回 Falsy 值，则内容将不会被缓存。
 
 示例::
 
@@ -408,11 +408,11 @@ Python
     </div>
 
 在这种情况下，可能会有对应于每个已返回记录的值（字符串），条件为 true 以及 false 的缓存值。而如果某个模块修改了记录，``write_date`` 被修改，缓存值将被丢弃。
-``t-cache`` 和作用域值 (``t-set``，``t-foreach``...)
+``t-cache`` 和作用域值 ( ``t-set`` ， ``t-foreach`` ...)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-在 ``t-cache`` 中的值具有作用域，这会导致行为的变化，特别是在父节点上是否存在 ``t-cache``。请记住，Odoo 使用了大量模板，``t-call`` 和视图继承。添加 ``t-cache`` 因此可能会修改您在编辑时看不到的模板的渲染。
-（``t-foreach`` 就像每次迭代的 ``t-set``）
+在 ``t-cache`` 中的值具有作用域，这会导致行为的变化，特别是在父节点上是否存在 ``t-cache``。请记住，Odoo 使用了大量模板， ``t-call`` 和视图继承。添加 ``t-cache`` 因此可能会修改您在编辑时看不到的模板的渲染。
+（``t-foreach`` 就像每次迭代的 ``t-set`` ）
 
 示例::
 
@@ -467,7 +467,7 @@ Python
 
 在这里，包含容器的 ``<i>`` 标签始终会被渲染，而其他部分作为缓存中的单一字符串。
 
-``t-nocache`` 和作用域根值 (``t-set``，``t-foreach``...)
+``t-nocache`` 和作用域根值 ( ``t-set`` ， ``t-foreach`` ...)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``t-nocache`` 标签中的内容可以用于文档和解释为何添加此指令。
@@ -542,7 +542,7 @@ Python
 基于视图的渲染
 ~~~~~~~~~~
 
-相比于前面提到的辅助工具，``_render`` 方法位于 ``ir.qweb`` 上，提供了更深入的控制，和公共模块方法 ``render``（不使用数据库）一样：
+相比于前面提到的辅助工具， ``_render`` 方法位于 ``ir.qweb`` 上，提供了更深入的控制，和公共模块方法 ``render``（不使用数据库）一样：
 
 .. py:method:: _render(id[, values])
 
@@ -609,7 +609,7 @@ JavaScript
 
 模板继承通过两个指令完成：
 - ``t-inherit``：被继承模板的名称，
-- ``t-inherit-mode``：继承的行为，可以设置为 ``primary``，以从父模板创建新的子模板，或者设置为 ``extension``，以在原处修改父模板。
+- ``t-inherit-mode`` ：继承的行为，可以设置为 ``primary`` ，以从父模板创建新的子模板，或者设置为 ``extension``，以在原处修改父模板。
 
 可选的 ``t-name`` 指令也可以指定。如果在 primary 模式下使用，它将是新创建的模板的名称，否则它将作为注释添加到转换后的模板中，以帮助追踪继承链。
 
@@ -650,21 +650,21 @@ Extension 继承（就地转换）::
 
 .. rst-class:: o-definition-list
 
-``append``
+``append`` 
     节点的内容被追加到上下文节点的末尾（上下文节点的最后一个子节点之后）
-``prepend``
+``prepend`` 
     节点的内容被预置到上下文节点中（在上下文节点的第一个子节点之前插入）
-``before``
+``before`` 
     节点的内容被插入到上下文节点之前
-``after``
+``after`` 
     节点的内容被插入到上下文节点之后
-``inner``
+``inner`` 
     节点的内容替换上下文节点的子节点
-``replace``
+``replace`` 
     节点的内容用来替换上下文节点本身
-``attributes``
+``attributes`` 
     节点的内容应该是任何数量的 ``attribute`` 元素，每个元素都有一个 ``name`` 属性和一些文本内容，上下文节点的指定属性将被设置为该值（如果已存在则替换，如果不存在则添加）
-``no operation``
+``no operation`` 
     如果没有指定 ``t-operation``，则模板内容将被解释为 JavaScript 代码，并在上下文节点上作为 ``this`` 执行。
 
 .. warning:: 尽管比其他操作更强大，但这种模式也更难调试和维护，因此建议尽量避免使用。
@@ -677,14 +677,14 @@ JavaScript 的 QWeb 实现提供了几个调试钩子：
 
 .. rst-class:: o-definition-list
 
-``t-log``
+``t-log`` 
     接受一个表达式参数，在渲染过程中计算该表达式，并将其结果通过 ``console.log`` 打印出来::
 
         <t t-set="foo" t-value="42"/>
         <t t-log="foo"/>
 
     将在控制台打印出 ``42``。
-``t-debug``
+``t-debug`` 
     在模板渲染期间触发一个调试器断点::
 
         <t t-if="a_test">
@@ -692,7 +692,7 @@ JavaScript 的 QWeb 实现提供了几个调试钩子：
         </t>
 
     如果调试激活，执行将停止（确切的条件取决于浏览器及其开发工具）。
-``t-js``
+``t-js`` 
     节点的内容是 JavaScript 代码，在模板渲染期间执行。接受一个 ``context`` 参数，该参数是渲染上下文将在 ``t-js`` 内容中可用的名称::
 
         <t t-set="foo" t-value="42"/>
@@ -705,7 +705,7 @@ JavaScript 的 QWeb 实现提供了几个调试钩子：
 
 .. js:attribute:: core.qweb
 
-    （core 是 ``web.core`` 模块）一个 :js:class:`QWeb2.Engine` 实例，加载了所有模块定义的模板文件，并引用了标准的助手对象 ``_``（underscore）、``_t``（翻译函数）和 JSON_。
+    （core 是 ``web.core`` 模块）一个 :js:class:`QWeb2.Engine` 实例，加载了所有模块定义的模板文件，并引用了标准的助手对象 ``_`` （underscore）、 ``_t``（翻译函数）和 JSON_。
 
     :js:func:`core.qweb.render <QWeb2.Engine.render>` 可用于轻松渲染基本模块模板。
 
@@ -763,7 +763,7 @@ API
 
     .. js:attribute:: QWeb2.Engine.preprocess_node
 
-        一个 ``Function``。如果存在，会在将每个 DOM 节点编译为模板代码之前调用。在 Odoo Web 中，这用于自动翻译模板中的文本内容和某些属性。默认值为 ``null``。
+        一个 ``Function`` 。如果存在，会在将每个 DOM 节点编译为模板代码之前调用。在 Odoo Web 中，这用于自动翻译模板中的文本内容和某些属性。默认值为 ``null``。
 
 .. [#genshif] 它与 Genshi_ 类似，尽管它没有使用（并且不支持） `XML 命名空间`_
 

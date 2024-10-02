@@ -133,7 +133,7 @@ Odoo 提供对使用 `Python 的 unittest 库 <https://docs.python.org/3/library
 
     $ odoo-bin --test-tags nice,standard
 
-配置开关参数也接受 ``+`` 和 ``-`` 前缀。``+`` 前缀是隐含的，因此完全可选。``-``（负号）前缀用于取消选择带有前缀标签的测试，即使这些测试被其他指定标签选择，例如，如果有 ``standard`` 测试，同时标记为 ``slow``，您可以运行所有标准测试 *除了* 慢速测试：
+配置开关参数也接受 ``+`` 和 ``-`` 前缀。 ``+`` 前缀是隐含的，因此完全可选。 ``-`` （负号）前缀用于取消选择带有前缀标签的测试，即使这些测试被其他指定标签选择，例如，如果有 ``standard`` 测试，同时标记为 ``slow``，您可以运行所有标准测试 *除了* 慢速测试：
 
 .. code-block:: console
 
@@ -180,7 +180,7 @@ Odoo 提供对使用 `Python 的 unittest 库 <https://docs.python.org/3/library
 特殊标签
 ~~~~~~~~~~~~
 
-- ``standard``: 所有继承自 :class:`~odoo.tests.BaseCase` 的 Odoo 测试都隐式标记为 standard。 :option:`--test-tags <odoo-bin --test-tags>` 默认也为 ``standard``。
+- ``standard`` : 所有继承自 :class:`~odoo.tests.BaseCase` 的 Odoo 测试都隐式标记为 standard。 :option:`--test-tags <odoo-bin --test-tags>` 默认也为 ``standard``。
 
   这意味着未标记的测试将在启用测试时默认执行。
 - ``at_install``: 表示测试将在模块安装后立即执行，并且在其他模块安装之前执行。这是一个默认的隐式标签。
@@ -501,11 +501,11 @@ JavaScript
   适合用作前置条件，或两个不同且无关的条件。
 - **run**：要在 *trigger* 元素上执行的操作。
 
-  默认情况下，尝试将 **trigger** 的内容设置为 ``Text``（如果是 ``input``），否则单击它。
+  默认情况下，尝试将 **trigger** 的内容设置为 ``Text`` （如果是 ``input``），否则单击它。
 
   该操作也可以是：
 
-  - 一个函数，同步，在触发器的 ``Tip`` 上执行，作为上下文（``this``）并传入操作助手。
+  - 一个函数，同步，在触发器的 ``Tip`` 上执行，作为上下文（ ``this``）并传入操作助手。
   - 要在触发器元素上运行的操作助手之一的名称：
 
     .. rst-class:: o-definition-list
@@ -514,10 +514,10 @@ JavaScript
         单击元素，执行所有相关的中间事件。
     :samp:`text {content}`
         单击（聚焦）元素，然后将 ``content`` 设置为元素的值（如果是输入），选项（如果是选择），或内容。
-    ``dblclick``、``tripleclick``
+    ``dblclick`` 、 ``tripleclick``
         与 ``click`` 相同，但重复多次。
     ``clicknoleave``
-        默认情况下，``click``（及其变体）将触发触发器元素的“退出”事件（mouseout、mouseleave）。此助手将抑制这些事件（注意：对其他元素的进一步单击不会隐式触发这些事件）。
+        默认情况下， ``click``（及其变体）将触发触发器元素的“退出”事件（mouseout、mouseleave）。此助手将抑制这些事件（注意：对其他元素的进一步单击不会隐式触发这些事件）。
     ``text_blur``
         类似于 ``text``，但跟随 ``focusout`` 和 ``blur`` 事件。
     :samp:`drag_and_drop {target}`
@@ -559,7 +559,7 @@ Python
 
 有两种方法，各有利弊：
 
-``watch=True``
+``watch=True`` 
 **************
 
 当通过测试套件在本地运行游览时，可以将 ``watch=True`` 参数添加到 ``browser_js`` 或 ``start_tour`` 调用中：

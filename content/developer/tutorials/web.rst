@@ -68,13 +68,13 @@
 
 该模块已经包含了各种服务器自定义内容。我们稍后再讨论这些内容，目前让我们重点关注 ``static`` 文件夹中的 Web 相关内容。
 
-Odoo 模块中用于 "Web" 部分的文件必须放置在 ``static`` 文件夹中，以便 Web 浏览器可以访问这些文件。放置在该文件夹之外的文件无法被浏览器获取。``src/css``、``src/js`` 和 ``src/xml`` 子文件夹是约定俗成的，并非必须。
+Odoo 模块中用于 "Web" 部分的文件必须放置在 ``static`` 文件夹中，以便 Web 浏览器可以访问这些文件。放置在该文件夹之外的文件无法被浏览器获取。 ``src/css``、``src/js`` 和 ``src/xml`` 子文件夹是约定俗成的，并非必须。
 
-``oepetstore/static/css/petstore.css``
+``oepetstore/static/css/petstore.css`` 
     当前为空，将用于存放宠物商店内容的 CSS_ 样式
-``oepetstore/static/xml/petstore.xml``
+``oepetstore/static/xml/petstore.xml`` 
     大部分为空，将用于存放 :ref:`reference/qweb` 模板
-``oepetstore/static/js/petstore.js``
+``oepetstore/static/js/petstore.js`` 
     最重要（也是最有趣）的部分，包含应用程序的逻辑（至少是其 Web 浏览器部分），以 Javascript 编写。当前应如下所示::
 
         odoo.oepetstore = function(instance, local) {
@@ -94,7 +94,7 @@ Odoo 模块中用于 "Web" 部分的文件必须放置在 ``static`` 文件夹�
 
 它只在浏览器的控制台中打印一条消息。
 
-``static`` 文件夹中的文件需要在模块内进行定义，以便正确加载。``src/xml`` 中的所有内容都在 ``__manifest__.py`` 中定义，而 ``src/css`` 和 ``src/js`` 的内容则定义在 ``petstore.xml`` 或类似文件中。
+``static`` 文件夹中的文件需要在模块内进行定义，以便正确加载。 ``src/xml`` 中的所有内容都在 ``__manifest__.py`` 中定义，而 ``src/css`` 和 ``src/js`` 的内容则定义在 ``petstore.xml`` 或类似文件中。
 
 .. warning::
 
@@ -571,7 +571,7 @@ QWeb 模板由常规 XML 和 QWeb *指令* 组成。QWeb 指令通过 XML 属性
 条件判断
 ~~~~~~~~~~~~
 
-QWeb 可以通过 ``t-if`` 指令使用条件块。该指令接受一个任意表达式，如果表达式为假（``false``、``null``、``0`` 或空字符串），整个块将被抑制，否则将显示。
+QWeb 可以通过 ``t-if`` 指令使用条件块。该指令接受一个任意表达式，如果表达式为假（ ``false`` 、 ``null``、``0`` 或空字符串），整个块将被抑制，否则将显示。
 
 .. code-block:: xml
 
@@ -591,7 +591,7 @@ QWeb 可以通过 ``t-if`` 指令使用条件块。该指令接受一个任意�
 迭代
 ~~~~~~~~~
 
-要迭代一个列表，请使用 ``t-foreach`` 和 ``t-as``。``t-foreach`` 接受一个返回列表的表达式，``t-as`` 接受一个变量名，用于在迭代时绑定到每个项目。
+要迭代一个列表，请使用 ``t-foreach`` 和 ``t-as``。``t-foreach`` 接受一个返回列表的表达式， ``t-as`` 接受一个变量名，用于在迭代时绑定到每个项目。
 
 .. code-block:: xml
 
@@ -666,7 +666,7 @@ QWeb 提供了两个相关的指令来定义计算属性：
 
 .. exercise:: 在 Widgets 中使用 QWeb
 
-    创建一个 widget，构造函数接受两个参数（除 ``parent`` 外）：``product_names`` 和 ``color``。
+    创建一个 widget，构造函数接受两个参数（除 ``parent`` 外）：``product_names`` 和 ``color`` 。
 
     * ``product_names`` 应该是一个字符串数组，每个字符串是一个产品的名称。
     * ``color`` 是一个包含 CSS 颜色格式（例如：``#000000`` 表示黑色）的字符串。
@@ -852,7 +852,7 @@ Widget 事件和属性
         },
     });
 
-:func:`~odoo.Widget.on` 绑定一个函数，当事件由 ``event_name`` 标识时调用。``func`` 参数是要调用的函数，``object`` 是该函数所属的对象（如果它是一个方法）。绑定的函数将与 :func:`~odoo.Widget.trigger` 的附加参数一起调用，如果有的话。例如::
+:func:`~odoo.Widget.on` 绑定一个函数，当事件由 ``event_name`` 标识时调用。 ``func`` 参数是要调用的函数，``object`` 是该函数所属的对象（如果它是一个方法）。绑定的函数将与 :func:`~odoo.Widget.trigger` 的附加参数一起调用，如果有的话。例如::
 
     start: function() {
         var widget = ...
@@ -890,7 +890,7 @@ Widget 事件和属性
 
 .. exercise:: 小部件属性和事件
 
-    创建一个 ``ColorInputWidget`` 小部件，它将显示 3 个 ``<input type="text">``。每个 ``<input>`` 用于输入一个从 00 到 FF 的十六进制数字。当用户修改任何一个 ``<input>`` 时，小部件必须查询这三个 ``<input>`` 的内容，将它们的值拼接起来，形成一个完整的 CSS 颜色代码（例如：``#00FF00``），并将结果存储在一个名为 ``color`` 的属性中。请注意，jQuery 的 ``change()`` 事件可以绑定到任何 HTML 的 ``<input>`` 元素上，``val()`` 方法可以查询该 ``<input>`` 的当前值，这对于完成该练习可能非常有用。
+    创建一个 ``ColorInputWidget`` 小部件，它将显示 3 个 ``<input type="text">`` 。每个 ``<input>`` 用于输入一个从 00 到 FF 的十六进制数字。当用户修改任何一个 ``<input>`` 时，小部件必须查询这三个 ``<input>`` 的内容，将它们的值拼接起来，形成一个完整的 CSS 颜色代码（例如： ``#00FF00`` ），并将结果存储在一个名为 ``color`` 的属性中。请注意，jQuery 的 ``change()`` 事件可以绑定到任何 HTML 的 ``<input>`` 元素上，``val()`` 方法可以查询该 ``<input>`` 的当前值，这对于完成该练习可能非常有用。
 
     然后，修改 ``HomePage`` 小部件以实例化 ``ColorInputWidget`` 并显示它。 ``HomePage`` 小部件还应显示一个空矩形。该矩形应始终与 ``ColorInputWidget`` 实例的 ``color`` 属性中的颜色保持一致。
 
@@ -1063,9 +1063,9 @@ Odoo web 框架的类系统允许使用 :func:`~odoo.web.Class.include` 方法�
 
 :func:`~odoo.web.Model.call` 可用于调用 Odoo 模型的任何（公共）方法。它接收以下位置参数：
 
-``name``
+``name`` 
   要调用的方法名称，这里是 ``my_method``。
-``args``
+``args`` 
   一个数组，用于向方法提供`位置参数`_。由于示例中没有需要提供的位置参数，因此未提供 ``args`` 参数。
 
   以下是带有位置参数的另一个示例：
@@ -1080,7 +1080,7 @@ Odoo web 框架的类系统允许使用 :func:`~odoo.web.Class.include` 方法�
       model.call("my_method", [1, 2, 3], ...
       // 这时 a=1，b=2，c=3
 
-``kwargs``
+``kwargs`` 
   一个映射，用于传递 `关键字参数`_。示例中提供了一个名为 ``context`` 的参数。
 
   .. code-block:: python
@@ -1137,9 +1137,9 @@ Odoo web 框架的类系统允许使用 :func:`~odoo.web.Class.include` 方法�
 
 :func:`~odoo.web.Model.call` 可用于调用 Odoo 模型的任何（公共）方法。它接收以下位置参数：
 
-``name``
+``name`` 
   要调用的方法名称，这里是 ``my_method``。
-``args``
+``args`` 
   一个数组，用于向方法提供`位置参数`。由于示例中没有需要提供的位置参数，因此未提供 ``args`` 参数。
 
   下面是一个带有位置参数的示例：
@@ -1154,7 +1154,7 @@ Odoo web 框架的类系统允许使用 :func:`~odoo.web.Class.include` 方法�
       model.call("my_method", [1, 2, 3], ...
       // 这时 a=1，b=2，c=3
 
-``kwargs``
+``kwargs`` 
   一个映射，用于传递`关键字参数`。在示例中，提供了一个名为 ``context`` 的参数。
 
   .. code-block:: python
@@ -1329,15 +1329,15 @@ context 就像是一个 "魔法" 参数，Web 客户端在调用方法时总是�
 
 最常见的操作 ``type`` 是 ``ir.actions.act_window``，它提供了用于模型的视图（以各种方式显示模型），其最常见的属性有：
 
-``res_model``
+``res_model`` 
   要在视图中显示的模型
 ``res_id`` （可选）
   对于表单视图，``res_model`` 中预先选择的记录
-``views``
-  列出操作中可用的视图。它是一个 ``[view_id, view_type]`` 的列表，``view_id`` 可以是合适类型的视图的数据库标识符，也可以是 ``false``，表示使用该类型的默认视图。视图类型不能重复出现。操作将默认打开列表中的第一个视图。
-``target``
-  可以是 ``current``（默认值），将替换 Web 客户端的“内容”部分为该操作，或是 ``new``，以对话框的形式打开操作。
-``context``
+``views`` 
+  列出操作中可用的视图。它是一个 ``[view_id, view_type]`` 的列表， ``view_id`` 可以是合适类型的视图的数据库标识符，也可以是 ``false``，表示使用该类型的默认视图。视图类型不能重复出现。操作将默认打开列表中的第一个视图。
+``target`` 
+  可以是 ``current`` （默认值），将替换 Web 客户端的“内容”部分为该操作，或是 ``new``，以对话框的形式打开操作。
+``context`` 
   在操作中使用的附加上下文数据。
 
 .. exercise:: 跳转到产品
@@ -1472,11 +1472,11 @@ Odoo Web 的许多有用功能（以及复杂性）都体现在视图中。每�
 * 字段类必须显示并允许用户编辑字段的值。
 * 它必须正确实现 Odoo 中所有字段都具有的 3 个字段属性。``AbstractField`` 类已经实现了一个算法，可以动态计算这些属性的值（它们的值可能会随其他字段的值的变化而随时改变）。这些值存储在 *小部件属性* 中（小部件属性在本指南前面已经解释过）。每个字段类有责任检查这些小部件属性，并根据其值动态适应。以下是对每个属性的描述：
 
-  * ``required``: 字段在保存前必须有值。如果 ``required`` 为 ``true`` 且字段没有值，则字段的 ``is_valid()`` 方法必须返回 ``false``。
-  * ``invisible``: 当此属性为 ``true`` 时，字段必须是不可见的。``AbstractField`` 类已经对大多数字段实现了此行为的基本版本。
-  * ``readonly``: 当 ``true`` 时，用户不得编辑字段。Odoo 中的大多数字段在 ``readonly`` 的值不同的情况下会有完全不同的行为。例如，``FieldChar`` 在可编辑时显示为 HTML ``<input>``，而在只读时仅显示文本。这也意味着它需要实现更多代码才能只实现一种行为，但这是确保良好用户体验所必需的。
+  * ``required``: 字段在保存前必须有值。如果 ``required`` 为  ``True``  且字段没有值，则字段的 ``is_valid()`` 方法必须返回 ``false`` 。
+  * ``invisible`` : 当此属性为  ``True``  时，字段必须是不可见的。``AbstractField`` 类已经对大多数字段实现了此行为的基本版本。
+  * ``readonly`` : 当  ``True``  时，用户不得编辑字段。Odoo 中的大多数字段在 ``readonly`` 的值不同的情况下会有完全不同的行为。例如， ``FieldChar`` 在可编辑时显示为 HTML ``<input>``，而在只读时仅显示文本。这也意味着它需要实现更多代码才能只实现一种行为，但这是确保良好用户体验所必需的。
 
-* 字段有两个方法，``set_value()`` 和 ``get_value()``，表单视图调用这些方法以提供要显示的值并获取用户输入的新值。这些方法必须能够处理 Odoo 服务器在对模型执行 ``read()`` 时提供的值，并返回适合 ``write()`` 的有效值。请记住，在 Odoo 中，用于表示 ``read()`` 给出的值和传递给 ``write()`` 的 JavaScript/Python 数据类型不一定相同。例如，当读取 many2one 时，它始终是一个元组，其中第一个值是指向的记录的 ID，第二个是名称（例如：``(15, "Agrolait")``）。但在写入 many2one 时，它必须是单个整数，而不是元组。``AbstractField`` 对这些方法的默认实现适用于简单的数据类型，并设置了名为 ``value`` 的小部件属性。
+* 字段有两个方法， ``set_value()`` 和 ``get_value()`` ，表单视图调用这些方法以提供要显示的值并获取用户输入的新值。这些方法必须能够处理 Odoo 服务器在对模型执行 ``read()`` 时提供的值，并返回适合 ``write()`` 的有效值。请记住，在 Odoo 中，用于表示 ``read()`` 给出的值和传递给 ``write()`` 的 JavaScript/Python 数据类型不一定相同。例如，当读取 many2one 时，它始终是一个元组，其中第一个值是指向的记录的 ID，第二个是名称（例如： ``(15, "Agrolait")`` ）。但在写入 many2one 时，它必须是单个整数，而不是元组。``AbstractField`` 对这些方法的默认实现适用于简单的数据类型，并设置了名为 ``value`` 的小部件属性。
 
 请注意，要更好地理解如何实现字段，强烈建议您直接在 Odoo Web 客户端的代码中查看 ``FieldInterface`` 接口和 ``AbstractField`` 类的定义。
 创建新类型的字段
@@ -1505,7 +1505,7 @@ Odoo Web 的许多有用功能（以及复杂性）都体现在视图中。每�
 
 在这个例子中，我们声明了一个名为 ``FieldChar2`` 的类，它继承自 ``AbstractField``。我们还在注册表 ``instance.web.form.widgets`` 中将这个类注册为 ``char2`` 键。这使我们能够在任何表单视图中通过在 XML 声明的 ``<field/>`` 标签中指定 ``widget="char2"`` 来使用这个新字段。
 
-在这个例子中，我们只定义了一个方法：``render_value()``。该方法仅显示小部件属性 ``value``。这些工具由 ``AbstractField`` 类定义。正如前面所解释的，表单视图会调用字段的 ``set_value()`` 方法来设置显示的值。此方法在 ``AbstractField`` 中已经有默认实现，它只是简单地设置小部件属性 ``value``。``AbstractField`` 还会监听自身上的 ``change:value`` 事件，并在发生时调用 ``render_value()``。因此，``render_value()`` 是一个方便的方法，用于在字段值每次发生变化时执行某些操作。
+在这个例子中，我们只定义了一个方法： ``render_value()`` 。该方法仅显示小部件属性 ``value`` 。这些工具由 ``AbstractField`` 类定义。正如前面所解释的，表单视图会调用字段的 ``set_value()`` 方法来设置显示的值。此方法在 ``AbstractField`` 中已经有默认实现，它只是简单地设置小部件属性 ``value`` 。 ``AbstractField`` 还会监听自身上的 ``change:value`` 事件，并在发生时调用 ``render_value()`` 。因此，``render_value()`` 是一个方便的方法，用于在字段值每次发生变化时执行某些操作。
 
 在 ``init()`` 方法中，我们还定义了字段的默认值（如果表单视图未指定任何值），在这里我们假设 ``char`` 字段的默认值应为空字符串。
 
@@ -1571,7 +1571,7 @@ Odoo Web 的许多有用功能（以及复杂性）都体现在视图中。每�
 
 .. exercise:: 创建颜色字段
 
-    创建一个 ``FieldColor`` 类。该字段的值应该是一个字符串，包含一个类似于 CSS 中使用的颜色代码（例如：``#FF0000`` 表示红色）。在只读模式下，此颜色字段应显示一个小块，其颜色与字段的值相对应。在读写模式下，你应该显示一个 ``<input type="color" />``。这种 ``<input />`` 类型是一个 HTML5 组件，并不适用于所有浏览器，但在 Google Chrome 中运行良好。作为练习使用它是可以的。
+    创建一个 ``FieldColor`` 类。该字段的值应该是一个字符串，包含一个类似于 CSS 中使用的颜色代码（例如： ``#FF0000`` 表示红色）。在只读模式下，此颜色字段应显示一个小块，其颜色与字段的值相对应。在读写模式下，你应该显示一个 ``<input type="color" />``。这种 ``<input />`` 类型是一个 HTML5 组件，并不适用于所有浏览器，但在 Google Chrome 中运行良好。作为练习使用它是可以的。
 
     你可以在 ``message_of_the_day`` 模型的表单视图中为名为 ``color`` 的字段使用该小部件。作为奖励，你可以更改在本指南前面部分创建的 ``MessageOfTheDay`` 小部件，以根据 ``color`` 字段中指示的背景颜色显示当天的信息。
 

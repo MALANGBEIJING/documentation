@@ -218,7 +218,7 @@ Odoo 提供了几种设置默认排序的方法。最常见的方法是在模型
 
     提示：可以在 Odoo XML 文件中搜索 ``invisible=`` 以找到一些示例。
 
-更一般来说，可以根据其他字段的值使字段 ``invisible``、 ``readonly`` 或 ``required``。请注意， ``invisible`` 也可以应用于视图的其他元素，例如 ``button`` 或 ``group``。
+更一般来说，可以根据其他字段的值使字段 ``invisible`` 、 ``readonly`` 或 ``required`` 。请注意， ``invisible`` 也可以应用于视图的其他元素，例如 ``button`` 或 ``group``。
 
 `invisible`、 `readonly` 和 `required` 可以具有任何 Python 表达式作为值。该表达式给出了属性适用的条件。例如：
 
@@ -277,7 +277,7 @@ Odoo 提供了几种设置默认排序的方法。最常见的方法是在模型
         <field name="is_partner" invisible="1"/>
     </tree>
 
-当 ``is_partner`` 为 ``True`` 时，记录将以绿色显示。
+当 ``is_partner`` 为  ``True``  时，记录将以绿色显示。
 
 .. 练习:: 添加一些装饰。
 

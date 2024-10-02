@@ -63,7 +63,7 @@ Python 继承
 .. 危险::
 
     - **始终** 调用 ``super()`` 以避免打断流程。只有在非常特定的情况下，您才不想调用它。
-    - 确保 **始终** 返回与父方法一致的数据。例如，如果父方法返回一个 ``dict()``，则您的重写也必须返回一个 ``dict()``。
+    - 确保 **始终** 返回与父方法一致的数据。例如，如果父方法返回一个 ``dict()`` ，则您的重写也必须返回一个 ``dict()``。
 
 .. 练习:: 向 CRUD 方法添加业务逻辑。
 
@@ -73,7 +73,7 @@ Python 继承
 
     - 在创建报价时，将物业状态设置为 'Offer Received'。如果用户尝试以低于现有报价的价格创建报价，则也抛出错误。
 
-    提示： ``property_id`` 字段在 ``vals`` 中可用，但它是一个 ``int``。要实例化一个 ``estate.property`` 对象，请使用 ``self.env[model_name].browse(value)``（ `示例 <https://github.com/odoo/odoo/blob/136e4f66cd5cafe7df450514937c7218c7216c93/addons/gamification/models/badge.py#L57>`__）。
+    提示： ``property_id`` 字段在 ``vals`` 中可用，但它是一个 ``int`` 。要实例化一个 ``estate.property`` 对象，请使用 ``self.env[model_name].browse(value)``（ `示例 <https://github.com/odoo/odoo/blob/136e4f66cd5cafe7df450514937c7218c7216c93/addons/gamification/models/badge.py#L57>`__）。
 
 模型继承
 =================
@@ -158,10 +158,10 @@ Odoo 提供视图继承，而不是直接修改现有视图（通过重写它们
         </field>
     </record>
 
-``expr``
+``expr`` 
     一个 XPath_ 表达式，用于选择父视图中的单个元素。
     如果它不匹配任何元素或匹配多个元素，则引发错误。
-``position``
+``position`` 
     应用到匹配元素的操作：
 
     ``inside``

@@ -75,7 +75,7 @@ Odoo 是一个高度数据驱动的系统。尽管通过 Python 代码自定义�
 
 - ``id`` 是一个 :term:`外部标识符`。
 - ``name`` 是 ``ir.model.access`` 的名称。
-- ``model_id/id`` 引用适用访问权限的模型。引用模型的标准方式是 ``model_<model_name>``，其中 ``<model_name>`` 是模型的 ``_name``，并用 ``_`` 替换 ``.``。看起来麻烦吗？确实是...
+- ``model_id/id`` 引用适用访问权限的模型。引用模型的标准方式是 ``model_<model_name>`` ，其中 ``<model_name>`` 是模型的 ``_name`` ，并用 ``_`` 替换 ``.``。看起来麻烦吗？确实是...
 - ``group_id/id`` 引用适用访问权限的组。
 - ``perm_read,perm_write,perm_create,perm_unlink``：读取、写入、创建和删除权限。
 

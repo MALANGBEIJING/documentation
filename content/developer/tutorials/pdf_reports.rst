@@ -109,7 +109,7 @@ PDF 报告的主体是其 QWeb 模板。通常，它还需要一个对应的 ``i
 文件中的大多数 Odoo 特定项（即非 HTML 项）都在最小可行模板部分中进行了说明。我们的模板中的一些其他功能包括：
 
 * 使用 ``class="table"`` 属性，使我们的表格具有良好的格式。Twitter Bootstrap（我们在此使用其表格类）和 Font Awesome（用于添加图标）类可以在报告模板中使用。
-* 使用 ``t-set``、``t-value``、``t-foreach`` 和 ``t-as``，以便我们可以循环遍历所有 ``offer_ids``。
+* 使用 ``t-set`` 、 ``t-value`` 、 ``t-foreach`` 和 ``t-as`` ，以便我们可以循环遍历所有 ``offer_ids``。
 
 如果您已经熟悉网站模板引擎，那么 QWeb 指令（即 `t-` 命令）可能不需要太多解释，您只需查看其 :ref:`文档 <reference/qweb>`，然后跳到下一小节。
 
@@ -130,7 +130,7 @@ PDF 报告的主体是其 QWeb 模板。通常，它还需要一个对应的 ``i
 `模板 <https://github.com/odoo/odoo/blob/0e12fa135882cd5095dbf15fe2f64231c6a84336/addons/event/report/event_event_templates.xml#L5>`__。
 其内容在 :ref:`文档 <reference/actions/report>` 中进行了详细解释。
 
-``ir.actions.report`` 主要通过模型视图的打印菜单使用。在实际示例中，``binding_model_id`` 指定了报告应显示在哪些模型视图中，Odoo 会自动为您添加它。报告操作的另一个常见用例是将其链接到按钮，如我们在 :doc:`server_framework_101/09_actions` 中所学的。这对于仅在特定条件下有意义的报告非常方便。例如，如果我们要创建一个“最终销售”报告，那么我们可以将其链接到一个“打印销售信息”按钮，该按钮仅在房产状态为“售出”时出现在表单视图中。
+``ir.actions.report`` 主要通过模型视图的打印菜单使用。在实际示例中， ``binding_model_id`` 指定了报告应显示在哪些模型视图中，Odoo 会自动为您添加它。报告操作的另一个常见用例是将其链接到按钮，如我们在 :doc:`server_framework_101/09_actions` 中所学的。这对于仅在特定条件下有意义的报告非常方便。例如，如果我们要创建一个“最终销售”报告，那么我们可以将其链接到一个“打印销售信息”按钮，该按钮仅在房产状态为“售出”时出现在表单视图中。
 
 .. image:: pdf_reports/print_menu.png
     :align: center

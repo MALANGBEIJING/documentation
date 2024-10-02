@@ -182,7 +182,7 @@ Odoo 支持 **api keys**，并且（根据模块或设置）可能 **需要** �
 
 Odoo 要求 API 用户在查询大多数数据之前进行身份验证。
 
-``xmlrpc/2/common`` 端点提供无需身份验证的元调用，例如身份验证本身或获取版本信息。要在尝试身份验证之前验证连接信息是否正确，最简单的调用是请求服务器的版本。身份验证本身是通过 ``authenticate`` 函数完成的，并返回用于认证调用的用户标识符（``uid``），而不是登录名。
+ ``xmlrpc/2/common`` 端点提供无需身份验证的元调用，例如身份验证本身或获取版本信息。要在尝试身份验证之前验证连接信息是否正确，最简单的调用是请求服务器的版本。身份验证本身是通过 ``authenticate`` 函数完成的，并返回用于认证调用的用户标识符（ ``uid`` ），而不是登录名。
 
 .. tabs::
 
@@ -623,7 +623,7 @@ Odoo 要求 API 用户在查询大多数数据之前进行身份验证。
 
 :meth:`~odoo.models.Model.fields_get` 可用于检查模型的字段并查看哪些字段似乎感兴趣。
 
-因为它返回大量的元信息（也被客户端程序使用），所以应该在打印之前进行过滤，对人类用户来说最感兴趣的项目是 ``string``（字段的标签）、``help``（如果可用，帮助文本）和 ``type``（以了解期望的值，或在更新记录时发送的值）。
+因为它返回大量的元信息（也被客户端程序使用），所以应该在打印之前进行过滤，对人类用户来说最感兴趣的项目是  ``string`` （字段的标签）、 ``help`` （如果可用，帮助文本）和 ``type``（以了解期望的值，或在更新记录时发送的值）。
 
 .. example::
 
@@ -1012,22 +1012,22 @@ Odoo 要求 API 用户在查询大多数数据之前进行身份验证。
 
 .. _reference/webservice/inspection/models:
 
-``ir.model``
+ ``ir.model``
 ~~~~~~~~~~~~
 
 通过其各个字段提供有关 Odoo 模型的信息。
 
-``name``
+ ``name``
     模型的可读描述
-``model``
+ ``model``
     系统中每个模型的名称
-``state``
-    模型是通过 Python 代码生成的（``base``）还是通过创建 ``ir.model`` 记录（``manual``）
-``field_id``
+ ``state``
+    模型是通过 Python 代码生成的（ ``base`` ）还是通过创建 ``ir.model`` 记录（ ``manual`` ）
+ ``field_id``
     通过 :class:`~odoo.fields.One2many` 列出模型的字段，指向 :ref:`reference/webservice/inspection/fields`
-``view_ids``
+ ``view_ids``
     :class:`~odoo.fields.One2many` 指向为模型定义的 :doc:`../reference/user_interface/view_architectures`
-``access_ids``
+ ``access_ids``
     :class:`~odoo.fields.One2many` 关系，指向模型上设置的 :ref:`reference/security/acl`
 
 ``ir.model`` 可以用来
@@ -1164,26 +1164,26 @@ Odoo 要求 API 用户在查询大多数数据之前进行身份验证。
 
 .. _reference/webservice/inspection/fields:
 
-``ir.model.fields``
+ ``ir.model.fields``
 ~~~~~~~~~~~~~~~~~~~
 
 提供有关 Odoo 模型字段的信息，并允许添加自定义字段，而无需使用 Python 代码。
 
-``model_id``
+ ``model_id``
     :class:`~odoo.fields.Many2one` 指向 :ref:`reference/webservice/inspection/models` 的字段
-``name``
+ ``name``
     字段的技术名称（用于 ``read`` 或 ``write``）
-``field_description``
-    字段的用户可读标签（例如，``fields_get`` 中的 ``string``）
-``ttype``
+ ``field_description``
+    字段的用户可读标签（例如， ``fields_get`` 中的 ``string``）
+ ``ttype``
     创建字段的 :ref:`type <reference/orm/fields>`
-``state``
-    字段是通过 Python 代码创建的（``base``）还是通过 ``ir.model.fields``（``manual``）
-``required``、``readonly``、``translate``
+ ``state``
+    字段是通过 Python 代码创建的（ ``base`` ）还是通过 ``ir.model.fields`` （ ``manual``）
+ ``required`` 、 ``readonly`` 、 ``translate``
     启用字段上的相应标志
-``groups``
+ ``groups``
     :ref:`字段级访问控制 <reference/security/fields>`，指向 ``res.groups`` 的 :class:`~odoo.fields.Many2many`
-``selection``、``size``、``on_delete``、``relation``、``relation_field``、``domain``
+ ``selection`` 、 ``size`` 、 ``on_delete`` 、 ``relation`` 、 ``relation_field`` 、 ``domain``
     特定于类型的属性和自定义，详见 :ref:`字段文档 <reference/orm/fields>`。
 
 .. important::

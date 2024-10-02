@@ -2519,7 +2519,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
 .. rst-class:: o-definition-list
 
 ``type`` (可选)
-  图表的类型之一：``bar``（默认）、``pie`` 和 ``line``。
+  图表的类型之一： ``bar`` （默认）、 ``pie`` 和 ``line``。
 
 ``stacked`` (可选)
   仅用于 ``bar`` 图。设置为 ``0`` 以防止在组内的条形图初始堆叠。
@@ -2528,14 +2528,14 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
   设置为 ``1`` 以防止在图表上单击时重定向到列表视图。
 
 ``order`` (可选)
-  如果设置，x 轴值将根据给定的顺序（``asc`` 或 ``desc``）默认排序。仅用于 ``bar`` 和 ``pie`` 图。
+  如果设置，x 轴值将根据给定的顺序（ ``asc`` 或 ``desc``）默认排序。仅用于 ``bar`` 和 ``pie`` 图。
 
 ``string`` (可选)
   重定向到列表视图时在面包屑中显示的字符串。
 
 .. include:: view_architectures/root_attribute_sample.rst
 
-图表视图中唯一允许的元素是 ``field``，其可以具有以下属性：
+图表视图中唯一允许的元素是  ``field`` ，其可以具有以下属性：
 
 .. rst-class:: o-definition-list
 
@@ -2549,7 +2549,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
   如果设置为 ``measure``，则该字段将用作组内的聚合值，而不是分组标准。仅对具有该属性的最后一个字段有效，但对于其他字段的字符串属性（见下文）是有用的。
 
 ``interval`` (可选)
-  对于日期和日期时间字段，根据指定的间隔（``day``、``week``、``month``、``quarter`` 或 ``year``）进行分组，而不是基于特定日期（固定秒分辨率）或日期（固定天分辨率）进行分组。默认值为 ``month``。
+  对于日期和日期时间字段，根据指定的间隔（ ``day`` 、``week`` 、 ``month`` 、 ``quarter`` 或 ``year`` ）进行分组，而不是基于特定日期（固定秒分辨率）或日期（固定天分辨率）进行分组。默认值为 ``month`` 。
 
 ``string`` (可选)
   仅用于 ``type="measure"`` 的字段。将用于在图表视图中显示该字段的名称，覆盖字段的默认 Python 字符串属性。
@@ -2560,7 +2560,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
 
    图表视图的汇总是在数据库内容上执行的，不能在图表视图中使用非存储的函数字段。
 
-在图表视图中，``field`` 可以具有 ``widget`` 属性来指示其格式。该小部件应为字段格式化器，其中最有趣的包括 ``float_time`` 和 ``monetary``。
+在图表视图中， ``field``  可以具有 ``widget`` 属性来指示其格式。该小部件应为字段格式化器，其中最有趣的包括 ``float_time`` 和 ``monetary``。
 
 .. code-block:: xml
 
@@ -2570,9 +2570,8 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
 
 透视图
 =====
-透视图
-=====
-透视视图用于可视化汇总数据作为 `透视表`_。其根元素是 ``<pivot>``，可以接受以下属性：
+
+透视视图用于可视化汇总数据作为透视表。其根元素是 ``<pivot>``，可以接受以下属性：
 
 .. rst-class:: o-definition-list
 
@@ -2591,7 +2590,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
         <field name="foo" type="measure"/>
      </pivot>
 
-透视视图中唯一允许的元素是 ``field``，其可以具有以下属性：
+透视视图中唯一允许的元素是  ``field`` ，其可以具有以下属性：
 
 .. rst-class:: o-definition-list
 
@@ -2613,7 +2612,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
   ``measure``
     在组内聚合的字段
   ``interval``
-    对于日期和日期时间字段，根据指定的间隔（``day``、``week``、``month``、``quarter`` 或 ``year``）进行分组，而不是基于特定日期（固定秒分辨率）或日期（固定天分辨率）进行分组。
+    对于日期和日期时间字段，根据指定的间隔（ ``day`` 、 ``week`` 、 ``month`` 、 ``quarter`` 或 ``year``）进行分组，而不是基于特定日期（固定秒分辨率）或日期（固定天分辨率）进行分组。
 
 ``invisible`` (可选)
   如果为真，则该字段既不会出现在活动度量中，也不会在可选择的度量中（对于不适合聚合的字段很有用，例如不同单位的字段，如 € 和 $）。
@@ -2626,7 +2625,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
 
     与图表视图一样，透视视图在数据库内容上汇总数据，这意味着不能在透视视图中使用非存储的函数字段。
 
-在透视视图中，``field`` 可以具有 ``widget`` 属性来指示其格式。该小部件应为字段格式化器，其中最有趣的包括 ``date``、``datetime``、``float_time`` 和 ``monetary``。
+在透视视图中， ``field``  可以具有 ``widget`` 属性来指示其格式。该小部件应为字段格式化器，其中最有趣的包括 ``date`` 、 ``datetime`` 、 ``float_time`` 和 ``monetary``。
 
 例如，可以定义一个工时透视视图如下：
 
@@ -2648,22 +2647,22 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
 其根元素是 ``<calendar>``。可用于日历视图的属性包括：
 
 :string:
-  字符串（默认：``''``）
+  字符串（默认： ``''`` ）
 
   该视图标题仅在打开没有名称且目标为“new”（打开对话框）的操作时显示。
 
 :create:
-  布尔值（默认：``True``）
+  布尔值（默认： ``True`` ）
 
   禁用/启用视图上的记录创建。
 
 :edit:
-  布尔值（默认：``True``）
+  布尔值（默认： ``True`` ）
 
   禁用/启用视图上的记录编辑。
 
 :delete:
-  布尔值（默认：``True``）
+  布尔值（默认： ``True`` ）
 
   禁用/启用通过 **Action** 下拉菜单删除记录。
 
@@ -2671,46 +2670,46 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
 
 ``date_start`` (必需)
     记录的字段名称，包含事件的开始日期。
-``date_stop``
+ ``date_stop`` 
     记录的字段名称，包含事件的结束日期，如果提供了 ``date_stop``，则记录可以在日历中直接拖放。
-``date_delay``
+ ``date_delay`` 
     替代 ``date_stop``，提供事件的持续时间而不是结束日期（单位：天）。
-``color``
+ ``color`` 
     用于 *颜色分割* 的记录字段名称。同一颜色段中的记录将在日历中分配相同的高亮颜色。
     显示可见记录的 display_name/avatar 在侧边栏中。
-``form_view_id``
+ ``form_view_id`` 
     用户创建或编辑事件时打开的视图。如果未设置此属性，则日历视图将回退到当前操作中的表单视图的 ID（如果有）。
-``event_open_popup``
+ ``event_open_popup`` 
     如果选项 'event_open_popup' 设置为 true，则日历视图将在 FormViewDialog 中打开事件（或记录）。否则，将在新表单视图中打开事件（使用 do_action）。
-``quick_create``
+ ``quick_create`` 
     启用单击快速创建事件：只要求用户输入 ``name``（将此值保存的字段可以通过 ``rec_name`` 控制），并尝试创建具有此值和单击事件时间的新事件。如果快速创建失败，则回退到完整的表单对话框。
-``quick_create_view_id``
+ ``quick_create_view_id`` 
     当设置了 ``quick_create`` 属性时，用户创建事件时打开的视图，而不是默认对话框。
-``create_name_field``
+ ``create_name_field`` 
     记录的字段名称，包含记录的文本表示，这在通过“快速创建”机制创建记录时使用。
-``all_day``
+ ``all_day`` 
     记录上一个布尔字段的名称，指示相应事件是否标记为整天（持续时间无关紧要）。
-``mode``
-    加载日历时的默认显示模式。可能的属性有：``day``、``week``、``month``、``year``。
-``scales``
+ ``mode`` 
+    加载日历时的默认显示模式。可能的属性有： ``day`` 、 ``week`` 、 ``month`` 、 ``year`` 。
+ ``scales`` 
     逗号分隔的可用刻度列表。默认情况下，所有刻度都是可用的。有关可能的刻度值，请参见模式。
-``create``、``delete``
+ ``create`` 、 ``delete`` 
     通过将相应属性设置为 ``false`` 来禁用视图中对应的操作。
 
-``<field>``
+ ``<field>`` 
   声明要聚合或在日历 *逻辑* 中使用的字段。如果字段仅在日历卡中显示。
 
 字段可以具有附加属性：
 
 .. rst-class:: o-definition-list
 
-``invisible``
+ ``invisible`` 
     使用 "True" 隐藏卡中的值。
-``avatar_field``
+ ``avatar_field`` 
     仅适用于 x2many 字段，以在卡中显示头像而不是 display_name。
-``write_model`` 和 ``write_field`` 以及 ``filter_field``
+ ``write_model`` 和 ``write_field`` 以及 ``filter_field`` 
     您可以添加一个过滤器并将结果保存在定义的模型中，过滤器将添加到侧边栏中。``filter_field`` 是可选的，允许您指定将保存过滤器状态的字段。
-``filters`` 和 ``color``
+ ``filters`` 和 ``color`` 
     使用 "True" 将此字段添加到侧边栏中的过滤器中。您可以指定一个用于给复选框上色的 ``color`` 字段。
 模型通用
 -------------
@@ -2741,7 +2740,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
 
 .. rst-class:: o-definition-list
 
-``field``
+ ``field`` 
   声明要在活动 *逻辑* 中使用的字段。如果字段仅在活动视图中显示，则无需预先声明。
 
   可能的属性包括：
@@ -2751,7 +2750,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
   ``name`` (必需)
     要提取的字段名称
 
-``templates``
+ ``templates`` 
   定义 :ref:`reference/qweb` 模板。卡片定义可以拆分为多个模板以提高清晰度，但活动视图 *必须* 定义至少一个根模板 ``activity-box``，该模板将为每条记录渲染一次。
 
   活动视图使用大多数标准 :ref:`javascript qweb <reference/qweb/javascript>` 并提供以下上下文变量（有关更多详细信息，请参见 :ref:`reference/view_architectures/kanban`）：
@@ -2825,7 +2824,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
   ``invisible`` (可选)
     如果为真，则该字段既不会出现在活动度量中，也不会在可选择的度量中（对于不适合聚合的字段很有用，例如不同单位的字段，如 € 和 $）。
   
-    如果值是域，则在当前行的记录上下文中评估域，如果 ``True``，则在单元格上设置相应的属性。
+    如果值是域，则在当前行的记录上下文中评估域，如果  ``True`` ，则在单元格上设置相应的属性。
 
 .. include:: view_architectures/root_attribute_sample.rst
 
@@ -2884,14 +2883,14 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
     * 可选的 ``barchart_total`` 属性
 
       ``barchart_total``
-        设置为 ``true`` 以在网格底部显示基于列总数的条形图（默认 false）。
+        设置为  ``True``  以在网格底部显示基于列总数的条形图（默认 false）。
 
     * 可选的 ``create_inline`` 和 ``display_empty`` 属性
 
       ``create_inline``
-        设置为 ``true`` 以在网格底部显示额外行并带有 ``添加一行`` 按钮（默认 false）。当此选项设置为 ``true`` 时，控制面板中的 ``添加一行`` 按钮将被隐藏。当没有可用数据且未设置 ``display_empty``（因此显示帮助内容）时，控制面板中的 ``添加一行`` 按钮将显示，以便用户创建第一条记录。
+        设置为  ``True``  以在网格底部显示额外行并带有 ``添加一行`` 按钮（默认 false）。当此选项设置为  ``True``  时，控制面板中的 ``添加一行`` 按钮将被隐藏。当没有可用数据且未设置 ``display_empty``（因此显示帮助内容）时，控制面板中的 ``添加一行`` 按钮将显示，以便用户创建第一条记录。
       ``display_empty``
-        设置为 ``true`` 以在没有数据时继续显示网格（默认 false）。当你希望用户能够跟踪当前期间（日期显示在列标题中）时，这可能很有用。提醒一下，当没有数据时，如果未设置此属性，将显示帮助内容而不是网格。
+        设置为  ``True``  以在没有数据时继续显示网格（默认 false）。当你希望用户能够跟踪当前期间（日期显示在列标题中）时，这可能很有用。提醒一下，当没有数据时，如果未设置此属性，将显示帮助内容而不是网格。
 
 ``<button>`` (0+)
     常规 Odoo 操作按钮，显示在视图标题中
@@ -2904,13 +2903,13 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
     * 必须的 ``name`` 属性，可以是调用的方法名称或要执行的操作的 ID。
     * 可选的 ``context``
 
-    服务器回调提供了在视图中显示的所有记录 ID，无论是作为传递给方法的 ID（``object`` 按钮）还是作为上下文中的 ``active_ids``（``action`` 按钮）。
+    服务器回调提供了在视图中显示的所有记录 ID，无论是作为传递给方法的 ID（ ``object`` 按钮）还是作为上下文中的 ``active_ids``（``action`` 按钮）。
 
 ``<field type="row">`` (1+)
     行分组字段，如果有搜索视图的分组过滤器，将被替换。
 
     视图中 ``row`` 字段的顺序提供了它们的分组深度：
-    如果第一个字段是 ``school``，第二个字段是 ``age``，则记录将首先按 ``school`` 分组，然后在每个学校内按 ``age`` 分组。
+    如果第一个字段是 ``school`` ，第二个字段是 ``age``，则记录将首先按 ``school`` 分组，然后在每个学校内按 ``age`` 分组。
 
 ``<field type="col">`` (1)
     列分组字段。
@@ -2983,11 +2982,11 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
 
 ``read_grid`` 调用多个钩子，允许从内部自定义其操作，而无需覆盖整个方法：
 
-``_grid_format_cell(group, cell_field)``
+``_grid_format_cell(group, cell_field)`` 
     将 read_group 的输出（按组）转换为单元格，格式如上所述（作为“网格数据”的一部分）。
-``_grid_make_empty_cell(row_domain, column_domain, view_domain)``
+``_grid_make_empty_cell(row_domain, column_domain, view_domain)`` 
     生成单元格的空版本（如果没有对应的组）。
-``_grid_column_info(name, range)``
+``_grid_column_info(name, range)`` 
     根据列类型生成 ColumnMetadata 对象，存储的值可以直接返回（作为 ``read_grid`` 的一部分）或用于查询并将 ``read_group`` 重新格式化为 ``read_grid``：
 
     ``grouping``
@@ -3004,7 +3003,7 @@ Qweb 作为视图的主要补充内容与基本的 Qweb 作为模板相比如下
         ``domain``
             与该特定列匹配的域。
         ``is_current``
-            ``True`` 如果当前列应该在网格中特别突出显示， ``False`` 否则。
+             ``True``  如果当前列应该在网格中特别突出显示， ``False`` 否则。
         ``format``
             如何将 ``read_group`` 中的值格式化为 ``read_grid`` 格式（与 ColumnInfo 中的 ``values`` 匹配）。
 
@@ -3016,9 +3015,9 @@ ACL
 上下文键
 ------------
 
-``grid_range``
+``grid_range`` 
     选择在视图有多个范围时默认使用哪个范围。
-``grid_anchor``
+``grid_anchor`` 
     （如果适用）用作列范围的默认锚点，而不是 ``read_grid`` 定义的默认值。
 
     对于日期字段，参考日期用于计算初始跨度。默认日期锚点为“今天”（以用户的时区为准）。
@@ -3042,49 +3041,49 @@ ACL
   仅在打开没有名称且目标为 'new'（打开对话框）的操作时显示该视图标题。
 
 :create:
-  布尔值（默认: ``True``）
+  布尔值（默认:  ``True`` ）
 
   启用/禁用在视图中创建记录。
 
 :edit:
-  布尔值（默认: ``True``）
+  布尔值（默认:  ``True`` ）
 
   启用/禁用在视图中编辑记录。
 
 :delete:
-  布尔值（默认: ``True``）
+  布尔值（默认:  ``True`` ）
 
   启用/禁用通过 **操作** 下拉菜单删除记录。
 
 .. rst-class:: o-definition-list
 
-``date_start``（必需）
+``date_start`` （必需）
   提供每条记录事件的开始日期时间字段的名称。
-``date_stop``（必需）
+``date_stop`` （必需）
   提供每条记录事件的结束持续时间字段的名称。
-``dependency_field``
+``dependency_field`` 
   提供两个记录之间依赖关系的 ``many2many`` 字段名称。
   如果 B 依赖于 A，``dependency_field`` 是允许从 B 获取 A 的字段。
   此字段和 ``dependency_inverted_field`` 字段都用于绘制药丸之间的依赖箭头并重新调度它们。
-``dependency_inverted_field``（在提供 ``dependency_field`` 时必需）
+``dependency_inverted_field`` （在提供 ``dependency_field`` 时必需）
   提供与 ``dependency_field`` 相反的依赖关系的 ``many2many`` 字段名称。
   如果 B 依赖于 A，``dependency_inverted_field`` 是允许从 A 获取 B 的字段。
-``color``
+``color`` 
   用于根据其值为药丸着色的字段名称。
-``decoration-{$name}``
+``decoration-{$name}`` 
   `python 表达式`_，返回布尔值。
 
   根据相应记录的属性更改单元格文本的样式。
 
-  ``{$name}`` 可以是以下 `bootstrap 上下文颜色`_（``danger``、``info``、``secondary``、``success`` 或 ``warning``）之一。
+  ``{$name}`` 可以是以下 `bootstrap 上下文颜色`_（ ``danger`` 、 ``info`` 、 ``secondary`` 、 ``success`` 或 ``warning``）之一。
 
   根据相应记录的属性定义记录在行文本中的条件显示。
 
-  值为 Python 表达式。对于每条记录，表达式在记录的属性作为上下文值的情况下进行评估，如果为 ``true``，则相应的样式应用于行。以下是上下文中可用的其他值：
+  值为 Python 表达式。对于每条记录，表达式在记录的属性作为上下文值的情况下进行评估，如果为  ``True`` ，则相应的样式应用于行。以下是上下文中可用的其他值：
 
   * ``uid``: 当前用户的 ID，
-  * ``today``: 当前本地日期，格式为 ``YYYY-MM-DD``，
-  * ``now``: 与 ``today`` 相同，并添加当前时间。该值格式为 ``YYYY-MM-DD hh:mm:ss``。
+  * ``today`` : 当前本地日期，格式为 ``YYYY-MM-DD``，
+  * ``now`` : 与 ``today`` 相同，并添加当前时间。该值格式为 ``YYYY-MM-DD hh:mm:ss``。
 
   .. code-block:: xml
 
@@ -3093,19 +3092,19 @@ ACL
           decoration-bf="state == 'busy'">
       ...
     </gantt>
-``default_group_by``
+``default_group_by`` 
   用于按字段分组任务的名称。
-``disable_drag_drop``
+``disable_drag_drop`` 
   如果设置为 true，则甘特图将不支持任何拖放功能。
-``consolidation``
+``consolidation`` 
   在记录单元格中显示合并值的字段名称。
-``consolidation_max``
+``consolidation_max`` 
   字典，键为“按组”字段，值为达到的最大合并值，超过该值后将以红色显示单元格（例如 ``{"user_id": 100}``）。
-``consolidation_exclude``
+``consolidation_exclude`` 
   描述任务是否必须排除的字段名称。
   如果设置为 true，则在合并行中显示带有条纹的区域。
-``create``, ``cell_create``, ``edit``, ``delete``, ``plan``
-    允许通过将相应属性设置为 ``false`` 来禁用视图中的相应操作（默认: ``true``）。
+``create`` , ``cell_create`` , ``edit`` , ``delete`` , ``plan`` 
+    允许通过将相应属性设置为 ``false`` 来禁用视图中的相应操作（默认:  ``True`` ）。
 
     * ``create``: 如果启用，则控制面板中将有一个 ``添加`` 按钮以创建记录。
     * ``cell_create``: 如果启用且 ``create`` 启用，当悬停在时间槽单元格上时，将显示一个“**+**”按钮，以在该槽中创建新记录。
@@ -3115,13 +3114,13 @@ ACL
     .. example::
 
         当您不想在甘特图视图上创建记录并且模型上的开始和结束日期是必需的时，规划功能应被禁用，因为将永远找不到记录。
-``offset``
+``offset`` 
   根据比例，添加到今天的单位数以计算默认周期。示例：在默认比例为周时，+1 的偏移量将打开下周的甘特图，而在默认比例为月时，-2 的偏移量将打开两个月前的甘特图。
-``progress``
+``progress`` 
   提供记录事件完成百分比的字段名称，范围在 0 到 100 之间。
-``string``
+``string`` 
   甘特图的标题。
-``precision``
+``precision`` 
   JSON 对象，指定药丸在每个比例中的捕捉精度。
 
   对于比例 ``day`` 的可能值（默认: ``hour``）：
@@ -3147,13 +3146,13 @@ ACL
   比例 ``year`` 始终捕捉到整天。
 
   精度属性的示例: ``{"day": "hour:quarter", "week": "day:half", "month": "day"}``。
-``total_row``
+``total_row`` 
   布尔值，用于控制是否应显示包含记录总数的行。（默认: ``false``）。
-``collapse_first_level``
+``collapse_first_level`` 
   布尔值，用于控制是否可以在按一个字段分组时折叠每一行。（默认: ``false``，当按两个字段分组时开始折叠）。
-``display_unavailability``
+``display_unavailability`` 
   布尔值，标记由模型的 ``gantt_unavailability`` 函数返回的日期在甘特图中可用。记录仍然可以在其中进行调度，但其不可用性会以可视方式显示。（默认: ``false``）。
-``default_scale``
+``default_scale`` 
   渲染视图时的默认比例。可能的值（默认: ``month``）：
 
   * ``day``
@@ -3161,10 +3160,10 @@ ACL
   * ``month``
   * ``year``
 
-``scales``
+``scales`` 
   逗号分隔的允许此视图的比例列表。默认情况下，所有比例都是允许的。有关可在此列表中使用的可能比例值，请参见 ``default_scale``。
 
-``templates``
+``templates`` 
   定义 :ref:`reference/qweb` 模板 ``gantt-popover``，该模板在用户悬停在甘特图视图中的一条记录上时使用。
 
   甘特图视图主要使用标准 :ref:`javascript qweb
@@ -3179,16 +3178,16 @@ ACL
     如果在视图的添加按钮上指定，则单击该按钮时将启动客户端操作，而不是打开通用对话框。
     这应持有操作的 xmlid（例如: ``on_create="%(my_module.my_wizard)d"``）。
 
-``form_view_id``
+``form_view_id`` 
   用户创建或编辑记录时要打开的视图。请注意，如果未设置此属性，则甘特图将回退到当前操作中的表单视图的 ID（如果有）。
 
-``dynamic_range``
+``dynamic_range`` 
   如果设置为 true，甘特图将从第一条记录开始，而不是从年/月/日的开始处开始。
 
-``pill_label``
+``pill_label`` 
   如果设置为 true，则当比例设置为周或月时，时间会出现在药丸标签中。（例如：`7:00 AM - 11:00 AM (4h) - DST Task 1`）。
 
-``thumbnails``
+``thumbnails`` 
   如果组是关系字段，则允许在组名称旁边显示缩略图。它期望一个 python 字典，键是活动模型上字段的名称。
   值是持有相关模型上缩略图的字段名称。
 
@@ -3237,28 +3236,28 @@ API
 
 .. rst-class:: o-definition-list
 
-``res_partner``
+``res_partner`` 
     包含 `res.partner` many2one。如果未提供，视图将创建一个空地图。
-``default_order``
+``default_order`` 
     如果提供字段，视图将覆盖模型的默认排序。该字段必须是应用视图的模型的一部分，而不是来自 `res.partner` 的字段。
-``routing``
+``routing`` 
     如果 ``1`` 显示记录之间的路线。视图需要一个有效的 MapBox 令牌和至少两个定位的记录（即记录具有 `res.partner` many2one，并且合作伙伴具有地址或有效坐标）。
-``hide_name``
+``hide_name`` 
     如果 ``1`` 隐藏图钉弹出窗口中的名称（默认: ``0``）。
-``hide_address``
+``hide_address`` 
     如果 ``1`` 隐藏图钉弹出窗口中的地址（默认: ``0``）。
-``hide_title``
+``hide_title`` 
     如果 ``1`` 隐藏图钉列表中的标题（默认: ``0``）。
-``panel_title``
+``panel_title`` 
     要显示为图钉列表标题的字符串。如果未提供，则标题为操作的名称，如果视图不在操作中，则为“项目”。
-``limit``
+``limit`` 
     要获取的最大记录数（默认: ``80``）。必须是正整数。
 
 ``<map>`` 元素可以包含多个 ``<field>`` 元素。每个 ``<field>`` 元素被解释为图钉弹出窗口中的一行。字段的属性如下：
 
 .. rst-class:: o-definition-list
 
-``name``
+``name`` 
     要显示的字段。
 ``string``
     在字段内容之前显示的字符串。可以用作描述。

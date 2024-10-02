@@ -82,7 +82,7 @@
 
     提示：
 
-    - 要创建对象，请使用 ``self.env[model_name].create(values)``，其中 ``values`` 是一个 ``dict``。
+    - 要创建对象，请使用 ``self.env[model_name].create(values)`` ，其中 ``values`` 是一个 ``dict``。
     - ``create`` 方法不接受记录集作为字段值。
 
 当物业设置为“已售”时，您现在应该在发票 / 客户 / 发票中看到创建的新客户发票。
@@ -119,6 +119,6 @@
     - 额外的 100.00 管理费用
 
     提示：按照上述示例，在创建时添加 ``invoice_line_ids``。
-    对于每一行，我们需要一个 ``name``、 ``quantity`` 和 ``price_unit``。
+    对于每一行，我们需要一个 ``name`` 、 ``quantity`` 和 ``price_unit``。
 
 本章可能是迄今为止最困难的章节，但它最接近实际 Odoo 开发。在 :doc:`下一章 <14_qwebintro>` 中，我们将介绍 Odoo 中使用的模板机制。

@@ -97,7 +97,7 @@ Odoo 中随处可见示例，但
       :align: center
       :alt: 默认表单视图
 
-为了减少声明菜单（``ir.ui.menu``）并将其连接到相应操作的复杂性，我们可以使用 ``<menuitem>`` 快捷方式。
+为了减少声明菜单（ ``ir.ui.menu``）并将其连接到相应操作的复杂性，我们可以使用 ``<menuitem>`` 快捷方式。
 
 我们的 ``test_model_action`` 的基本菜单是：
 

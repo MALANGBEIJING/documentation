@@ -83,7 +83,7 @@ Toast提供有关操作的简单反馈，显示在小弹出窗口中。它只填
 .. js:function:: showSnackBar
 
     :param object args: (*必需*) **Message** 在Snackbar中显示的消息和操作 **button label** （可选）
-    :returns:  ``True`` 如果用户点击操作按钮，``False`` 如果Snackbar在一段时间后自动消失。
+    :returns:   ``True``  如果用户点击操作按钮，``False`` 如果Snackbar在一段时间后自动消失。
 
 Snackbars提供有关操作的轻量级反馈。它们在移动设备的屏幕底部或较大设备的左下角显示简短消息。Snackbars显示在屏幕上的所有其他元素之上，并且一次只能显示一个。
 

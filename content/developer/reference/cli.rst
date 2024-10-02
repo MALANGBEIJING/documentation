@@ -274,7 +274,7 @@ CLI :dfn:`命令行接口` 提供与 Odoo 相关的多种功能。您可以使�
 .. option:: --from-filter <address or domain>
 
     定义 SMTP 配置将应用于的电子邮件地址。该字段可以是域名
-    或整个电子邮件地址，或者可以保持为空。如果发件人的电子邮件地址不匹配此设置的过滤器，则邮件将通过组合两个系统参数封装：``mail.default.from`` 和 ``mail.catchall.domain``。例如，"Admin" <admin\@example.com> => "Admin" <notifications\@mycompany.com>。
+    或整个电子邮件地址，或者可以保持为空。如果发件人的电子邮件地址不匹配此设置的过滤器，则邮件将通过组合两个系统参数封装： ``mail.default.from`` 和 ``mail.catchall.domain``。例如，"Admin" <admin\@example.com> => "Admin" <notifications\@mycompany.com>。
 
 .. option:: --smtp <server>
 
@@ -409,7 +409,7 @@ HTTP
 .. option:: --x-sendfile
 
     将附件文件的服务委托给静态 Web 服务器，并在流响应中设置
-    ``X-Sendfile``（apache）和 ``X-Accel-*``（nginx）http 头。有关 Web 服务器配置，请参见 :ref:`deploy/streaming`。
+    ``X-Sendfile``（apache）和 ``X-Accel-*`` （nginx）http 头。有关 Web 服务器配置，请参见 :ref:`deploy/streaming`。
 
 .. _reference/cmdline/server/logging:
 
@@ -467,7 +467,7 @@ HTTP
 
 .. option:: --log-level <level>
 
-    快捷方式，用于更轻松地在特定记录器上设置预定义级别。 "真实" 级别（``critical``、``error``、``warn``、``debug``）设置在 ``odoo`` 和 ``werkzeug`` 记录器上（除了 ``debug``，仅在 ``odoo`` 上设置）。
+    快捷方式，用于更轻松地在特定记录器上设置预定义级别。 "真实" 级别（ ``critical`` 、 ``error`` 、 ``warn`` 、 ``debug`` ）设置在 ``odoo`` 和 ``werkzeug`` 记录器上（除了 ``debug``，仅在 ``odoo`` 上设置）。
 
     Odoo 还提供调试伪级别，适用于不同的记录器集合：
 
@@ -551,7 +551,7 @@ HTTP
 
 .. program:: odoo-bin
 
-大多数命令行选项也可以通过配置文件指定。大多数情况下，它们使用类似名称，去掉前缀 ``-``，并将其他 ``-`` 替换为 ``_``，例如 :option:`--db-template` 变为 ``db_template``。
+大多数命令行选项也可以通过配置文件指定。大多数情况下，它们使用类似名称，去掉前缀 ``-``，并将其他 ``-`` 替换为 ``_`` ，例如 :option:`--db-template` 变为  ``db_template`` 。
 
 某些转换不符合该模式：
 
