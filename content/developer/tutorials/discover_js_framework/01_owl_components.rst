@@ -1,42 +1,28 @@
 =========================
-Chapter 1: Owl components
+第1章：Owl组件
 =========================
 
-This chapter introduces the `Owl framework <https://github.com/odoo/owl>`_, a tailor-made component
-system for Odoo. The main building blocks of OWL are `components
-<{OWL_PATH}/doc/reference/component.md>`_ and `templates <{OWL_PATH}/doc/reference/templates.md>`_.
+本章介绍了 `Owl框架 <https://github.com/odoo/owl>`_，这是为Odoo量身定制的组件系统。Owl的主要构建块是 `组件 <{OWL_PATH}/doc/reference/component.md>`_ 和 `模板 <{OWL_PATH}/doc/reference/templates.md>`_。
 
-In Owl, every part of user interface is managed by a component: they hold the logic and define the
-templates that are used to render the user interface. In practice, a component is represented by a
-small JavaScript class subclassing the `Component` class.
+在Owl中，用户界面的每个部分都是由一个组件管理的：它们保存逻辑并定义用于渲染用户界面的模板。在实践中，组件由一个小的JavaScript类表示，该类是 `Component` 类的子类。
 
-To get started, you need a running Odoo server and a development environment setup. Before getting
-into the exercises, make sure you have followed all the steps described in this
-:ref:`tutorial introduction <tutorials/discover_js_framework/setup>`.
+要开始使用，您需要一个运行中的Odoo服务器和一个开发环境设置。在进行练习之前，请确保您已按照此 :ref:`教程介绍 <tutorials/discover_js_framework/setup>` 中描述的所有步骤操作。
 
-.. tip::
-   If you use Chrome as your web browser, you can install the `Owl Devtools` extension. This
-   extension provides many features to help you understand and profile any Owl application.
+.. 提示::
+   如果您使用Chrome作为网页浏览器，可以安装 `Owl Devtools` 扩展。该扩展提供了许多功能，可以帮助您理解和分析任何Owl应用程序。
 
-   `Video: How to use the DevTools <https://www.youtube.com/watch?v=IUyQjwnrpzM>`_
+   `视频：如何使用DevTools <https://www.youtube.com/watch?v=IUyQjwnrpzM>`_
 
-In this chapter, we use the `awesome_owl` addon, which provides a simplified environment that
-only contains Owl and a few other files. The goal is to learn Owl itself, without relying on Odoo
-web client code.
+在本章中，我们使用 `awesome_owl` 插件，它提供了一个简化的环境，只包含Owl和一些其他文件。目标是学习Owl本身，而不依赖于Odoo网页客户端代码。
 
-.. spoiler:: Solutions
+.. 剧透:: 解决方案
 
-   The solutions for each exercise of the chapter are hosted on the `official Odoo tutorials
-   repository
-   <https://github.com/odoo/tutorials/commits/{CURRENT_MAJOR_BRANCH}-discover-js-framework-solutions/awesome_owl>`_. It
-   is recommended to try to solve them first without looking at the solution!
+   本章每个练习的解决方案托管在 `官方Odoo教程仓库 <https://github.com/odoo/tutorials/commits/{CURRENT_MAJOR_BRANCH}-discover-js-framework-solutions/awesome_owl>`_ 中。建议您先尝试自己解决，然后再查看解决方案！
 
-Example: a `Counter` component
+示例：`Counter` 组件
 ==============================
 
-First, let us have a look at a simple example. The `Counter` component shown below is a component
-that maintains an internal number value, displays it, and updates it whenever the user clicks on the
-button.
+首先，让我们看看一个简单的例子。下面的 `Counter` 组件是一个维护内部数字值、显示该值并在用户单击按钮时更新它的组件。
 
 .. code-block:: js
 
@@ -56,287 +42,219 @@ button.
        }
    }
 
-The `Counter` component specifies the name of a template that represents its html. It is written in XML
-using the QWeb language:
+`Counter` 组件指定了一个代表其HTML的模板名称。它是用XML编写的，使用QWeb语言：
 
 .. code-block:: xml
 
    <templates xml:space="preserve">
       <t t-name="my_module.Counter">
-         <p>Counter: <t t-esc="state.value"/></p>
-         <button class="btn btn-primary" t-on-click="increment">Increment</button>
+         <p>计数器: <t t-esc="state.value"/></p>
+         <button class="btn btn-primary" t-on-click="increment">增加</button>
       </t>
    </templates>
 
-
-1. Displaying a counter
+1. 显示一个计数器
 =======================
 
 .. image:: 01_owl_components/counter.png
    :align: center
 
-As a first exercise, let us modify the `Playground` component located in
-:file:`awesome_owl/static/src/` to turn it into a counter. To see the result, you can go to the
-`/awesome_owl` route with your browser.
+作为第一个练习，让我们修改位于 :file:`awesome_owl/static/src/` 的 `Playground` 组件，使其变成一个计数器。要查看结果，可以在浏览器中访问 `/awesome_owl` 路由。
 
+#. 修改 :file:`playground.js` 使其像上面的示例一样作为一个计数器。保持 `Playground` 作为类名。您需要使用 `useState hook <{OWL_PATH}/doc/reference/hooks.md#usestate>`_ 以便在该组件读取的状态对象的任何部分被修改时重新渲染组件。
+#. 在同一组件中，创建一个 `increment` 方法。
+#. 修改 :file:`playground.xml` 中的模板，以便显示您的计数器变量。使用 `t-esc <{OWL_PATH}/doc/reference/templates.md#outputting-data>`_ 输出数据。
+#. 在模板中添加一个按钮，并在按钮中指定 `t-on-click <{OWL_PATH}/doc/reference/event_handling.md#event-handling>`_ 属性，以在单击按钮时触发 `increment` 方法。
 
-#. Modify :file:`playground.js` so that it acts as a counter like in the example above.
-   Keep `Playground` for the class name. You will need to use the `useState hook
-   <{OWL_PATH}/doc/reference/hooks.md#usestate>`_ so that the component is re-rendered
-   whenever any part of the state object that has been read by this component is modified.
-#. In the same component, create an `increment` method.
-#. Modify the template in :file:`playground.xml` so that it displays your counter variable. Use
-   `t-esc <{OWL_PATH}/doc/reference/templates.md#outputting-data>`_ to output the data.
-#. Add a button in the template and specify a `t-on-click
-   <{OWL_PATH}/doc/reference/event_handling.md#event-handling>`_ attribute in the button to
-   trigger the `increment` method whenever the button is clicked.
+.. 重要::
+   不要忘记在JavaScript文件中包含 :code:`/** @odoo-module **/`。有关更多信息，请参见 :ref:`此处 <frontend/modules/native_js>`。
 
-.. important::
-   Don't forget :code:`/** @odoo-module **/` in your JavaScript files. More information on this can
-   be found :ref:`here <frontend/modules/native_js>`.
+.. 提示::
+   浏览器下载的Odoo JavaScript文件是压缩的。为了调试方便，当文件未被压缩时更容易。切换到 :ref:`调试模式与资产 <developer-mode/activation>`，这样文件就不会被压缩。
 
-.. tip::
-   The Odoo JavaScript files downloaded by the browser are minified. For debugging purpose, it's
-   easier when the files are not minified. Switch to :ref:`debug mode with assets
-   <developer-mode/activation>` so that the files are not minified.
+这个练习展示了Owl的一个重要特性：`反应性系统 <{OWL_PATH}/doc/reference/reactivity.md>`_。
+`useState` 函数将一个值包装在一个代理中，以便Owl可以跟踪哪些组件需要状态的哪个部分，因此在值发生变化时可以更新它。尝试去掉 `useState` 函数，看看会发生什么。
 
-This exercise showcases an important feature of Owl: the `reactivity system <{OWL_PATH}/doc/reference/reactivity.md>`_.
-The `useState` function wraps a value in a proxy so Owl can keep track of which component
-needs which part of the state, so it can be updated whenever a value has been changed. Try
-removing the `useState` function and see what happens.
-
-2. Extract `Counter` in a sub component
+2. 将 `Counter` 提取到子组件中
 =======================================
 
-For now we have the logic of a counter in the `Playground` component, but it is not reusable. Let us
-see how to create a `sub-component <{OWL_PATH}/doc/reference/component.md#sub-components>`_ from it:
+现在我们在 `Playground` 组件中有计数器的逻辑，但它不可重用。让我们看看如何将其创建为一个 `子组件 <{OWL_PATH}/doc/reference/component.md#sub-components>`_：
 
-#. Extract the counter code from the `Playground` component into a new `Counter` component.
-#. You can do it in the same file first, but once it's done, update your code to move the
-   `Counter` in its own folder and file. Import it relatively from `./counter/counter`. Make sure
-   the template is in its own file, with the same name.
-#. Use `<Counter/>` in the template of the `Playground` component to add two counters in your
-   playground.
+#. 将计数器代码从 `Playground` 组件中提取到一个新的 `Counter` 组件中。
+#. 您可以先在同一文件中完成，但完成后请更新代码，将 `Counter` 移动到自己的文件夹和文件中。从 `./counter/counter` 相对导入它。确保模板在自己的文件中，名称相同。
+#. 在 `Playground` 组件的模板中使用 `<Counter/>` 添加两个计数器。
 
 .. image:: 01_owl_components/double_counter.png
    :align: center
 
-.. tip::
-   By convention, most components code, template and css should have the same snake-cased name
-   as the component. For example, if we have a `TodoList` component, its code should be in
-   `todo_list.js`, `todo_list.xml` and if necessary, `todo_list.scss`
+.. 提示::
+   按惯例，大多数组件代码、模板和 CSS 应该具有与组件相同的蛇形命名。例如，如果我们有一个 `TodoList` 组件，其代码应该在 `todo_list.js`、`todo_list.xml`，如有必要，`todo_list.scss`。
 
 .. _tutorials/discover_js_framework/simple_card:
 
-3. A simple `Card` component
+3. 一个简单的 `Card` 组件
 ============================
 
-Components are really the most natural way to divide a complicated user interface into multiple
-reusable pieces. But to make them truly useful, it is necessary to be able to communicate
-some information between them. Let us see how a parent component can provide information to a
-sub component by using attributes (most commonly known as `props <{OWL_PATH}/doc/reference/props.md>`_).
+组件实际上是将复杂用户界面分割成多个可重用部分的最自然方式。但为了使它们真正有用，必须能够在它们之间传达一些信息。让我们看看一个父组件如何通过使用属性（通常称为 `props <{OWL_PATH}/doc/reference/props.md>`_）向子组件提供信息。
 
-The goal of this exercise is to create a `Card` component, that takes two props: `title` and `content`.
-For example, here is how it could be used:
+这个练习的目标是创建一个 `Card` 组件，该组件接收两个属性：`title` 和 `content`。例如，它可以如下使用：
 
 .. code-block:: xml
 
-   <Card title="'my title'" content="'some content'"/>
+   <Card title="'我的标题'" content="'一些内容'"/>
 
-The above example should produce some html using bootstrap that look like this:
+上述示例应该生成一些使用bootstrap的html，如下所示：
 
 .. code-block:: html
 
          <div class="card d-inline-block m-2" style="width: 18rem;">
              <div class="card-body">
-                 <h5 class="card-title">my title</h5>
+                 <h5 class="card-title">我的标题</h5>
                  <p class="card-text">
-                  some content
+                  一些内容
                  </p>
              </div>
          </div>
 
-#. Create a `Card` component
-#. Import it in `Playground` and display a few cards in its template
+#. 创建一个 `Card` 组件。
+#. 在 `Playground` 中导入它，并在其模板中显示几个卡片。
 
 .. image:: 01_owl_components/simple_card.png
    :align: center
 
-4. Using `markup` to display html
+4. 使用 `markup` 显示HTML
 =================================
 
-If you used `t-esc` in the previous exercise, then you may have noticed that Owl automatically escapes
-its content. For example, if you try to display some html like this: `<Card title="'my title'" content="this.html"/>`
-with `this.html = "<div>some content</div>""`,
-the resulting output will simply display the html as a string.
+如果您在上一个练习中使用了 `t-esc`，那么您可能注意到Owl会自动转义其内容。例如，如果您尝试这样显示一些html：`<Card title="'我的标题'" content="this.html"/>`，其中 `this.html = "<div>一些内容</div>"`，最终输出将简单地将html作为字符串显示。
 
-In this case, since the `Card` component may be used to display any kind of content, it makes sense
-to allow the user to display some html. This is done with the
-`t-out directive <{OWL_PATH}/doc/reference/templates.md#outputting-data>`_.
+在这种情况下，由于 `Card` 组件可以用于显示任何类型的内容，因此允许用户显示一些html是有意义的。这是通过使用 `t-out 指令 <{OWL_PATH}/doc/reference/templates.md#outputting-data>`_ 实现的。
 
-However, displaying arbitrary content as html is dangerous, it could be used to inject malicious code, so
-by default, Owl will always escape a string unless it has been explicitely marked as safe with the `markup`
-function.
+然而，作为HTML显示任意内容是危险的，它可能被用来注入恶意代码，因此默认情况下，Owl将始终转义字符串，除非它明确标记为安全，通过 `markup` 函数。
 
-#. Update `Card` to use `t-out`
-#. Update `Playground` to import `markup`, and use it on some html values
-#. Make sure that you see that normal strings are always escaped, unlike markuped strings.
+#. 更新 `Card` 以使用 `t-out`。
+#. 更新 `Playground` 以导入 `markup`，并在某些html值上使用它。
+#. 确保正常字符串始终被转义，而标记的字符串则不会。
 
 .. note::
 
-   The `t-esc` directive can still be used in Owl templates. It is slightly faster than `t-out`.
+   在Owl模板中仍然可以使用 `t-esc` 指令。它的速度稍快于 `t-out`。
 
 .. image:: 01_owl_components/markup.png
    :align: center
 
-5. Props validation
+5. 属性验证
 ===================
 
-The `Card` component has an implicit API. It expects to receive two strings in its props: the `title`
-and the `content`. Let us make that API more
-explicit. We can add a props definition that will let Owl perform a validation step in `dev mode
-<{OWL_PATH}/doc/reference/app.md#dev-mode>`_. You can activate the dev mode in the `App
-configuration <{OWL_PATH}/doc/reference/app.md#configuration>`_ (but it is activated by default
-on the `awesome_owl` playground).
 
-It is a good practice to do props validation for every component.
+`Card` 组件有一个隐式API。它期望在其属性中接收两个字符串：`title` 和 `content`。让我们使该API更显式。我们可以添加一个属性定义，让Owl在 `开发模式 <{OWL_PATH}/doc/reference/app.md#dev-mode>`_ 中执行验证步骤。您可以在 `App配置 <{OWL_PATH}/doc/reference/app.md#configuration>`_ 中激活开发模式（但在 `awesome_owl` Playground中默认已激活）。
 
-#. Add `props validation <{OWL_PATH}/doc/reference/props.md#props-validation>`_ to the `Card`
-   component.
-#. Rename the `title` props into something else in the playground template, then check in the
-   :guilabel:`Console` tab of your browser's dev tools that you can see an error.
+对每个组件进行属性验证是一种良好的实践。
 
-6. The sum of two `Counter`
+#. 为 `Card` 组件添加 `props validation <{OWL_PATH}/doc/reference/props.md#props-validation>`_。
+#. 在playground模板中将 `title` 属性重命名为其他名称，然后检查浏览器开发者工具的 :guilabel:`Console` 选项卡，查看是否有错误。
+
+6. 两个 `Counter` 的和
 ===========================
 
-We saw in a previous exercise that `props` can be used to provide information from a parent
-to a child component. Now, let us see how we can communicate information in the opposite
-direction: in this exercise, we want to display two `Counter` components, and below them, the sum of
-their values. So, the parent component (`Playground`) need to be informed whenever one of
-the `Counter` value is changed.
+我们在之前的练习中看到，`props` 可以用于从父组件向子组件提供信息。现在，让我们看看如何在相反的方向上传达信息：在这个练习中，我们想显示两个 `Counter` 组件，并在它们下面显示它们值的和。因此，父组件（`Playground`）需要在每次 `Counter` 值发生更改时被告知。
 
-This can be done by using a `callback prop <{OWL_PATH}/doc/reference/props.md#binding-function-props>`_:
-a prop that is a function meant to be called back. The child component can choose to call
-that function with any argument. In our case, we will simply add an optional `onChange` prop that will
-be called whenever the `Counter` component is incremented.
+这可以通过使用一个 `callback prop <{OWL_PATH}/doc/reference/props.md#binding-function-props>`_ 来实现：一个作为函数的属性，旨在被调用。子组件可以选择用任何参数调用该函数。在我们的例子中，我们将简单地添加一个可选的 `onChange` 属性，每当 `Counter` 组件被递增时将被调用。
 
-#. Add prop validation to the `Counter` component: it should accept an optional `onChange`
-   function prop.
-#. Update the `Counter` component to call the `onChange` prop (if it exists) whenever it
-   is incremented.
-#. Modify the `Playground` component to maintain a local state value (`sum`), initially
-   set to 2, and display it in its template
-#. Implement an `incrementSum` method in `Playground`
-#. Give that method as a prop to two (or more!) sub `Counter` components.
+#. 为 `Counter` 组件添加属性验证：它应该接受一个可选的 `onChange` 函数属性。
+#. 更新 `Counter` 组件，以便在每次递增时调用 `onChange` 属性（如果存在）。
+#. 修改 `Playground` 组件以维护一个局部状态值（`sum`），初始设置为2，并在其模板中显示。
+#. 在 `Playground` 中实现一个 `incrementSum` 方法。
+#. 将该方法作为属性传递给两个（或更多个！）子 `Counter` 组件。
 
 .. image:: 01_owl_components/sum_counter.png
    :align: center
 
-.. important::
+.. 重要::
 
-   There is a subtlety with callback props: they usually should be defined with the `.bind`
-   suffix. See the `documentation <{OWL_PATH}/doc/reference/props.md#binding-function-props>`_.
+   关于回调属性的一个细微之处：它们通常应该使用 `.bind` 后缀定义。请参阅 `文档 <{OWL_PATH}/doc/reference/props.md#binding-function-props>`_。
 
-7. A todo list
+7. 任务列表
 ==============
 
-Let us now discover various features of Owl by creating a todo list.  We need two components: a
-`TodoList` component that will display a list of `TodoItem` components. The list of todos is a
-state that should be maintained by the `TodoList`.
+现在让我们通过创建一个任务列表来发现Owl的各种功能。我们需要两个组件：一个 `TodoList` 组件，用于显示 `TodoItem` 组件的列表。待办事项列表是一个状态，应该由 `TodoList` 维护。
 
-For this tutorial, a `todo` is an object that contains three values: an `id` (number), a `description`
-(string) and a flag `isCompleted` (boolean):
+在本教程中，`todo` 是一个包含三个值的对象：一个 `id`（数字）、一个 `description`（字符串）和一个 `isCompleted`（布尔值）标志：
 
 .. code-block:: js
 
-   { id: 3, description: "buy milk", isCompleted: false }
+   { id: 3, description: "购买牛奶", isCompleted: false }
 
-#. Create a `TodoList` and a `TodoItem` components.
-#. The `TodoItem` component should receive a `todo` as a prop, and display its `id` and `description` in a `div`.
-#. For now, hardcode the list of todos:
+#. 创建 `TodoList` 和 `TodoItem` 组件。
+#. `TodoItem` 组件应该接收一个 `todo` 作为属性，并在 `div` 中显示其 `id` 和 `description`。
+#. 现在，硬编码待办事项列表：
 
    .. code-block:: js
 
-      // in TodoList
-      this.todos = useState([{ id: 3, description: "buy milk", isCompleted: false }]);
+      // 在 TodoList 中
+      this.todos = useState([{ id: 3, description: "购买牛奶", isCompleted: false }]);
 
-#. Use `t-foreach <{OWL_PATH}/doc/reference/templates.md#loops>`_ to display each todo in a `TodoItem`.
-#. Display a `TodoList` in the playground.
-#. Add props validation to `TodoItem`.
+#. 使用 `t-foreach <{OWL_PATH}/doc/reference/templates.md#loops>`_ 显示每个待办事项在 `TodoItem` 中。
+#. 在playground中显示 `TodoList`。
+#. 为 `TodoItem` 添加属性验证。
 
 .. image:: 01_owl_components/todo_list.png
    :align: center
 
-.. tip::
-   Since the `TodoList` and `TodoItem` components are so tightly coupled, it makes
-   sense to put them in the same folder.
+.. 提示::
+   由于 `TodoList` 和 `TodoItem` 组件是如此紧密耦合，因此将它们放在同一文件夹中是合乎逻辑的。
 
 .. note::
-   The `t-foreach` directive is not exactly the same in Owl as the QWeb python implementation: it
-   requires a `t-key` unique value, so that Owl can properly reconcile each element.
+   `t-foreach` 指令在Owl中的实现与QWeb的Python实现并不完全相同：它需要一个唯一的 `t-key` 值，以便Owl能够正确地识别每个元素。
 
-8. Use dynamic attributes
+8. 使用动态属性
 =========================
 
-For now, the `TodoItem` component does not visually show if the `todo` is completed. Let us do that by
-using a `dynamic attributes <{OWL_PATH}/doc/reference/templates.md#dynamic-attributes>`_.
+目前，`TodoItem` 组件并未直观显示待办事项是否已完成。让我们通过使用 `动态属性 <{OWL_PATH}/doc/reference/templates.md#dynamic-attributes>`_ 来做到这一点。
 
-#. Add the Bootstrap classes `text-muted` and `text-decoration-line-through` on the `TodoItem` root element
-   if it is completed.
-#. Change the hardcoded `this.todos` value to check that it is properly displayed.
+#. 如果待办事项已完成，则在 `TodoItem` 根元素上添加Bootstrap类 `text-muted` 和 `text-decoration-line-through`。
+#. 更改硬编码的 `this.todos` 值，以检查其是否正确显示。
 
-Even though the directive is named `t-att` (for attribute), it can be used to set a `class` value (and
-html properties such as the `value` of an input).
+尽管指令被命名为 `t-att`（用于属性），但它可以用于设置 `class` 值（以及输入的html属性，如 `value`）。
 
 .. image:: 01_owl_components/muted_todo.png
    :align: center
 
-.. tip::
+.. 提示::
 
-   Owl let you combine static class values with dynamic values. The following example will work as expected:
+   Owl允许您将静态类值与动态值结合。以下示例将按预期工作：
 
    .. code-block:: xml
 
       <div class="a" t-att-class="someExpression"/>
 
-   See also: `Owl: Dynamic class attributes <{OWL_PATH}/doc/reference/templates.md#dynamic-class-attribute>`_
+   另见：`Owl：动态类属性 <{OWL_PATH}/doc/reference/templates.md#dynamic-class-attribute>`_
 
-9. Adding a todo
+9. 添加待办事项
 ================
+目前，我们列表中的待办事项是硬编码的。让我们通过允许用户向列表中添加待办事项，使其更有用。
 
-So far, the todos in our list are hard-coded. Let us make it more useful by allowing the user to add
-a todo to the list.
-
-#. Remove the hardcoded values in the `TodoList` component:
+#. 在 `TodoList` 组件中移除硬编码的值：
 
    .. code-block:: javascript
 
       this.todos = useState([]);
 
-#. Add an input above the task list with placeholder *Enter a new task*.
-#. Add an `event handler <{OWL_PATH}/doc/reference/event_handling.md>`_ on the `keyup` event
-   named `addTodo`.
-#. Implement `addTodo` to check if enter was pressed (:code:`ev.keyCode === 13`), and in that
-   case, create a new todo with the current content of the input as the description and clear the
-   input of all content.
-#. Make sure the todo has a unique id. It can be just a counter that increments at each todo.
-#. Bonus point: don't do anything if the input is empty.
-
+#. 在任务列表上方添加一个输入框，提示文本为 *输入新任务*。
+#. 在 `keyup` 事件上添加一个事件处理程序 <{OWL_PATH}/doc/reference/event_handling.md>_，命名为 `addTodo`。
+#. 实现 `addTodo` 以检查是否按下了回车键（：code:`ev.keyCode === 13`），在这种情况下，使用当前输入内容作为描述创建一个新的待办事项，并清除输入框中的所有内容。
+#. 确保待办事项具有唯一的ID。它可以是每个待办事项递增的计数器。
+#. 奖励点：如果输入为空，则不执行任何操作。
 
 .. image:: 01_owl_components/create_todo.png
    :align: center
 
-.. seealso::
-   `Owl: Reactivity <{OWL_PATH}/doc/reference/reactivity.md>`_
+.. 另请参见::
+   `Owl：反应性 <{OWL_PATH}/doc/reference/reactivity.md>`_
 
-Theory: Component lifecycle and hooks
-=====================================
+理论：组件生命周期和钩子
+=====================
 
-So far, we have seen one example of a hook function: `useState`. A `hook <{OWL_PATH}/doc/reference/hooks.md>`_
-is a special function that *hook into* the internals of the component. In the case of
-`useState`, it generates a proxy object linked to the current component. This is why
-hook functions have to be called in the `setup` method, and no later!
-
+到目前为止，我们已经看到了一个钩子函数的示例：`useState`。`钩子 <{OWL_PATH}/doc/reference/hooks.md>`_ 是一个特殊函数，可以 *挂钩* 到组件的内部。以 `useState` 为例，它生成一个与当前组件链接的代理对象。这就是为什么钩子函数必须在 `setup` 方法中调用，而不能在之后调用的原因！
 
 .. flowchart LR
 
@@ -376,51 +294,38 @@ hook functions have to be called in the `setup` method, and no later!
 ..     creation --> updates
 ..     updates --> destruction
 
-
 .. figure:: 01_owl_components/component_lifecycle.svg
    :align: center
    :width: 50%
 
+Owl 组件经历了很多阶段：它可以被实例化、渲染、挂载、更新、分离、销毁……这是 `组件生命周期 <{OWL_PATH}/doc/reference/component.md#lifecycle>`_。
+上图显示了组件生命周期中最重要的事件（钩子以紫色显示）。
+大致来说，组件被创建，然后更新（可能多次），最后被销毁。
 
-An Owl component goes through a lot of phases: it can be instantiated, rendered,
-mounted, updated, detached, destroyed... This is the `component lifecycle <{OWL_PATH}/doc/reference/component.md#lifecycle>`_.
-The figure above show the most important events in the life of a component (hooks are shown in purple).
-Roughly speaking, a component is created, then updated (potentially many times), then is destroyed.
-
-Owl provides a variety of built-in `hooks functions <{OWL_PATH}/doc/reference/hooks.md>`_. All of them have to be called in
-the `setup` function. For example, if you want to execute some code when your component is mounted, you can use the `onMounted`
-hook:
+Owl 提供了多种内置的 `钩子函数 <{OWL_PATH}/doc/reference/hooks.md>`_。它们都必须在 `setup` 函数中调用。例如，如果您想在组件挂载时执行一些代码，可以使用 `onMounted` 钩子：
 
 .. code-block:: javascript
 
    setup() {
      onMounted(() => {
-       // do something here
+       // 在这里执行某些操作
      });
    }
 
-.. tip::
+.. 提示::
 
-   All hook functions start with `use` or `on`. For example: `useState` or `onMounted`.
+   所有钩子函数以 `use` 或 `on` 开头。例如：`useState` 或 `onMounted`。
 
-
-10. Focusing the input
+10. 聚焦输入框
 ======================
-
-Let's see how we can access the DOM with `t-ref <{OWL_PATH}/doc/reference/refs.md>`_ and `useRef
-<{OWL_PATH}/doc/reference/hooks.md#useref>`_. The main idea is that you need to mark
-the target element in the component template with a `t-ref`:
+让我们看看如何使用 `t-ref <{OWL_PATH}/doc/reference/refs.md>`_ 和 `useRef <{OWL_PATH}/doc/reference/hooks.md#useref>`_ 访问 DOM。主要思想是您需要在组件模板中用 `t-ref` 标记目标元素：
 
 .. code-block:: xml
 
    <div t-ref="some_name">hello</div>
 
-Then you can access it in the JS with the `useRef hook <{OWL_PATH}/doc/reference/hooks.md#useref>`_.
-However, there is a problem if you think about it: the actual html element for a
-component does not exist when the component is created. It only exists when the
-component is mounted. But hooks have to be called in the `setup` method. So, `useRef`
-return an object that contains a `el` (for element) key that is only defined when the
-component is mounted.
+然后您可以在 JS 中使用 `useRef hook <{OWL_PATH}/doc/reference/hooks.md#useref>`_ 访问它。
+但是，如果您考虑一下，就会发现一个问题：组件的实际 HTML 元素在创建组件时并不存在。它只有在组件挂载时才存在。但是钩子必须在 `setup` 方法中调用。所以，`useRef` 返回一个对象，该对象包含一个 `el`（表示元素）键，该键仅在组件挂载时定义。
 
 .. code-block:: js
 
@@ -432,66 +337,55 @@ component is mounted.
    }
 
 
-#. Focus the `input` from the previous exercise. This this should be done from the
-   `TodoList` component (note that there is a `focus` method on the input html element).
-#. Bonus point: extract the code into a specialized `hook <{OWL_PATH}/doc/reference/hooks.md>`_
-   `useAutofocus` in a new :file:`awesome_owl/utils.js` file.
+#. 从之前的练习中聚焦 `input`。这应该在 `TodoList` 组件中完成（注意输入 HTML 元素上有一个 `focus` 方法）。
+#. 奖励点：将代码提取到一个专用的 `hook <{OWL_PATH}/doc/reference/hooks.md>`_ `useAutofocus` 中，在新的 :file:`awesome_owl/utils.js` 文件中。
 
 .. image:: 01_owl_components/autofocus.png
    :align: center
 
-.. tip::
+.. 提示::
 
-   Refs are usually suffixed by `Ref` to make it obvious that they are special objects:
+   Refs 通常以 `Ref` 结尾，以使其明显是特殊对象：
 
    .. code-block:: js
 
       this.inputRef = useRef('input');
 
-11. Toggling todos
+11. 切换待办事项
 ==================
 
-Now, let's add a new feature: mark a todo as completed. This is actually trickier than one might
-think. The owner of the state is not the same as the component that displays it. So, the `TodoItem`
-component needs to communicate to its parent that the todo state needs to be toggled. One classic
-way to do this is by adding a `callback prop
-<{OWL_PATH}/doc/reference/props.md#binding-function-props>`_ `toggleState`.
+现在，让我们添加一个新功能：将待办事项标记为已完成。这实际上比想象的要复杂。状态的拥有者与显示状态的组件不是同一个。因此，`TodoItem` 组件需要与其父组件通信，表明需要切换待办事项的状态。实现此目的的一种经典方法是添加一个 `callback prop <{OWL_PATH}/doc/reference/props.md#binding-function-props>`_ `toggleState`。
 
-#. Add an input with the attribute :code:`type="checkbox"` before the id of the task, which must
-   be checked if the state `isCompleted` is true.
+#. 在任务的 ID 之前添加一个属性为 :code:`type="checkbox"` 的输入框，如果状态 `isCompleted` 为 true，则必须选中该框。
 
-   .. tip::
-      Owl does not create attributes computed with the `t-att` directive if it evaluates to a
-      falsy value.
+   .. 提示::
+      如果 `t-att` 指令计算出的属性为假值，Owl 不会创建该属性。
 
-#. Add a callback props `toggleState` to `TodoItem`.
-#. Add a `change` event handler on the input in the `TodoItem` component and make sure it calls the
-   `toggleState` function with the todo id.
-#. Make it work!
+#. 将回调 props `toggleState` 添加到 `TodoItem`。
+#. 在 `TodoItem` 组件中，在输入框上添加 `change` 事件处理程序，确保它调用 `toggleState` 函数并传入待办事项 ID。
+#. 使其正常工作！
 
 .. image:: 01_owl_components/toggle_todo.png
    :align: center
 
-12. Deleting todos
+12. 删除待办事项
 ==================
+最后一步是让用户能够删除待办事项。
 
-The final touch is to let the user delete a todo.
+#. 在 `TodoItem` 中添加一个新的回调 prop `removeTodo`。
+#. 在 `TodoItem` 组件的模板中插入 :code:`<span class="fa fa-remove"/>`。
+#. 每当用户点击它时，应该调用 `removeTodo` 方法。
+#. 使其正常工作！
 
-#. Add a new callback prop `removeTodo` in `TodoItem`.
-#. Insert :code:`<span class="fa fa-remove"/>` in the template of the `TodoItem` component.
-#. Whenever the user clicks on it, it should call the `removeTodo` method.
-#. Make it work!
-
-   .. tip::
-      If you're using an array to store your todo list, you can use the JavaScript `splice`
-      function to remove a todo from it.
+   .. 提示::
+      如果您使用数组来存储待办事项列表，可以使用 JavaScript 的 `splice` 函数从中删除待办事项。
 
 .. code-block::
 
-   // find the index of the element to delete
+   // 找到要删除的元素的索引
    const index = list.findIndex((elem) => elem.id === elemId);
    if (index >= 0) {
-         // remove the element at index from list
+         // 从列表中删除索引处的元素
          list.splice(index, 1);
    }
 
@@ -500,42 +394,36 @@ The final touch is to let the user delete a todo.
 
 .. _tutorials/discover_js_framework/generic_card:
 
-13. Generic `Card` with slots
+通用 `Card` 组件与插槽
 =============================
 
-In a :ref:`previous exercise <tutorials/discover_js_framework/simple_card>`, we built
-a simple `Card` component. But it is honestly quite limited. What if we want
-to display some arbitrary content inside a card, such as a sub-component? Well,
-it does not work, since the content of the card is described by a string. It would
-however be very convenient if we could describe the content as a piece of template.
+在 :ref:`之前的练习 <tutorials/discover_js_framework/simple_card>` 中，我们构建了一个简单的 `Card` 组件。但它的确相当有限。如果我们想在卡片内部显示一些任意内容，比如一个子组件呢？这就行不通，因为卡片的内容是由一个字符串描述的。然而，如果我们能够将内容描述为一个模板片段，那将非常方便。
 
-This is exactly what Owl's `slot <{OWL_PATH}/doc/reference/slots.md>`_ system is designed
-for: allowing to write generic components.
+这正是 Owl 的 `slot <{OWL_PATH}/doc/reference/slots.md>`_ 系统所设计的：允许编写通用组件。
 
-Let us modify the `Card` component to use slots:
+让我们修改 `Card` 组件以使用插槽：
 
-#. Remove the `content` prop.
-#. Use the default slot to define the body.
-#. Insert a few cards with arbitrary content, such as a `Counter` component.
-#. (bonus) Add prop validation.
+#. 移除 `content` prop。
+#. 使用默认插槽定义主体。
+#. 插入一些包含任意内容的卡片，例如 `Counter` 组件。
+#. （奖励）添加 prop 验证。
 
 .. image:: 01_owl_components/generic_card.png
    :align: center
 
-.. seealso::
-   `Bootstrap: documentation on cards <https://getbootstrap.com/docs/5.2/components/card/>`_
+.. 另请参阅::
+   `Bootstrap: 关于卡片的文档 <https://getbootstrap.com/docs/5.2/components/card/>`_
 
-14. Minimizing card content
+最小化卡片内容
 ===========================
 
-.. TODO: This exercise shows no new concept; it should probably be removed.
+.. TODO: 该练习没有展示新概念；可能应该移除。
 
-Finally, let's add a feature to the `Card` component, to make it more interesting: we
-want a button to toggle its content (show it or hide it)
+最后，让我们为 `Card` 组件添加一个功能，使其更有趣：我们想要一个按钮来切换其内容（显示或隐藏）。
 
-#. Add a state to the `Card` component to track if it is open (the default) or not
-#. Add a `t-if` in the template to conditionally render the content
-#. Add a button in the header, and modify the code to flip the state when the button is clicked
+#. 在 `Card` 组件中添加一个状态，以跟踪它是打开（默认）还是关闭。
+#. 在模板中添加一个 `t-if` 来有条件地渲染内容。
+#. 在标题中添加一个按钮，并修改代码以在按钮被点击时翻转状态。
 
 .. image:: 01_owl_components/toggle_card.png
    :scale: 90%

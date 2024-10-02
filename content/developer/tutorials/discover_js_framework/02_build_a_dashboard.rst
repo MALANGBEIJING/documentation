@@ -1,89 +1,71 @@
 ============================
-Chapter 2: Build a dashboard
+第 2 章：构建仪表板
 ============================
 
-The first part of this tutorial introduced you to most of Owl ideas. It is now time to learn
-about the Odoo JavaScript framework in its entirety, as used by the web client.
+本教程的第一部分向您介绍了大部分 Owl 的概念。现在是时候学习 Odoo JavaScript 框架的全部内容，尤其是其在 Web 客户端中的使用。
 
 .. graph TD
 ..     subgraph "Owl"
-..         C[Component]
-..         T[Template]
-..         H[Hook]
-..         S[Slot]
-..         E[Event]
+..         C[组件]
+..         T[模板]
+..         H[钩子]
+..         S[插槽]
+..         E[事件]
 ..     end
 
-..     odoo[Odoo JavaScript framework] --> Owl
+..     odoo[Odoo JavaScript 框架] --> Owl
 
 .. figure:: 02_web_framework/previously_learned.svg
    :align: center
    :width: 50%
 
-To get started, you need a running Odoo server and a development environment setup. Before getting
-into the exercises, make sure you have followed all the steps described in this
-:ref:`tutorial introduction <tutorials/discover_js_framework/setup>`. For this chapter, we will start
-from the empty dashboard provided by the `awesome_dashboard` addon. We will progressively add
-features to it, using the Odoo JavaScript framework.
+要开始，您需要一个正在运行的 Odoo 服务器和一个开发环境的设置。在进行练习之前，请确保您已按照此 :ref:`教程介绍 <tutorials/discover_js_framework/setup>` 中描述的所有步骤进行设置。在本章中，我们将从 `awesome_dashboard` 附加模块提供的空仪表板开始。我们将逐步向其添加功能，使用 Odoo JavaScript 框架。
 
-.. admonition:: Goal
+.. admonition:: 目标
 
    .. image:: 02_web_framework/overview_02.png
       :align: center
 
-.. spoiler:: Solutions
+.. spoiler:: 解决方案
 
-   The solutions for each exercise of the chapter are hosted on the
-   `official Odoo tutorials repository
-   <https://github.com/odoo/tutorials/commits/{CURRENT_MAJOR_BRANCH}-discover-js-framework-solutions/awesome_dashboard>`_.
+   本章每个练习的解决方案托管在 `官方 Odoo 教程仓库
+   <https://github.com/odoo/tutorials/commits/{CURRENT_MAJOR_BRANCH}-discover-js-framework-solutions/awesome_dashboard>`_。
 
-1. A new Layout
+1. 新布局
 ===============
 
-Most screens in the Odoo web client uses a common layout: a control panel on top, with some buttons,
-and a main content zone just below. This is done using the `Layout component
-<{GITHUB_PATH}/addons/web/static/src/search/layout.js>`_, available in `@web/search/layout`.
+Odoo Web 客户端中的大多数屏幕使用一个通用布局：顶部有控制面板，带有一些按钮，下面是主要内容区域。这是通过 `Layout 组件
+<{GITHUB_PATH}/addons/web/static/src/search/layout.js>`_ 完成的，该组件在 `@web/search/layout` 中可用。
 
-#. Update the `AwesomeDashboard` component located in :file:`awesome_dashboard/static/src/` to use the
-   `Layout` component. You can use
-   :code:`{controlPanel: {} }` for the `display` props of
-   the `Layout` component.
-#. Add a `className` prop to `Layout`: `className="'o_dashboard h-100'"`
-#. Add a `dashboard.scss` file in which you set the background-color of `.o_dashboard` to gray (or your
-   favorite color)
+#. 更新位于 :file:`awesome_dashboard/static/src/` 的 `AwesomeDashboard` 组件以使用 `Layout` 组件。您可以为 `Layout` 组件的 `display` props 使用 :code:`{controlPanel: {} }`。
+#. 为 `Layout` 添加一个 `className` prop：`className="'o_dashboard h-100'"`。
+#. 添加一个 `dashboard.scss` 文件，在其中将 `.o_dashboard` 的背景颜色设置为灰色（或您喜欢的颜色）。
 
-Open http://localhost:8069/web, then open the :guilabel:`Awesome Dashboard` app, and see the
-result.
+打开 http://localhost:8069/web，然后打开 :guilabel:`Awesome Dashboard` 应用程序，查看结果。
 
 .. image:: 02_web_framework/new_layout.png
    :align: center
 
-.. seealso::
+.. 另请参阅::
 
-   - `Example: use of Layout in client action
-     <{GITHUB_PATH}/addons/web/static/src/webclient/actions/reports/report_action.js>`_ and
-     `template <{GITHUB_PATH}/addons/web/static/src/webclient/actions/reports/report_action.xml>`_
-   - `Example: use of Layout in kanban view
+   - `示例：在客户端操作中使用 Layout
+     <{GITHUB_PATH}/addons/web/static/src/webclient/actions/reports/report_action.js>`_ 和
+     `模板 <{GITHUB_PATH}/addons/web/static/src/webclient/actions/reports/report_action.xml>`_
+   - `示例：在看板视图中使用 Layout
      <{GITHUB_PATH}/addons/web/static/src/views/kanban/kanban_controller.xml>`_
 
 .. _tutorials/discover_js_framework/services:
 
-Theory: Services
+理论：服务
 ================
 
-In practice, every component (except the root component) may be destroyed at any time and replaced
-(or not) with another component. This means that each component internal state is not persistent.
-This is fine in many cases, but there certainly are situations where we want to keep some data around.
-For example, all Discuss messages should not be reloaded every time we display a channel.
+实际上，除根组件外，每个组件随时可能被销毁，并被另一个组件替换（或不替换）。这意味着每个组件的内部状态不是持久的。这在许多情况下是可以的，但无疑有些情况我们希望保留一些数据。例如，所有讨论消息不应在每次显示频道时重新加载。
 
-Also, it may happen that we need to write some code that is not a component. Maybe something that
-process all barcodes, or that manages the user configuration (context, etc.).
+此外，可能会发生我们需要编写一些不是组件的代码。也许是处理所有条形码的代码，或者管理用户配置（上下文等）的代码。
 
-The Odoo framework defines the idea of a :ref:`service <frontend/services>`, which is a persistent
-piece of code that exports state and/or functions. Each service can depend on other services, and
-components can import a service.
+Odoo 框架定义了一个 :ref:`服务 <frontend/services>` 的概念，它是一个持久的代码片段，导出状态和/或函数。每个服务可以依赖其他服务，组件可以导入服务。
 
-The following example registers a simple service that displays a notification every 5 seconds:
+以下示例注册了一个简单的服务，每 5 秒显示一次通知：
 
 .. code-block:: js
 
@@ -101,9 +83,7 @@ The following example registers a simple service that displays a notification ev
 
    registry.category("services").add("myService", myService);
 
-Services can be accessed by any component. Imagine that we have a service to maintain some shared
-state:
-
+服务可以被任何组件访问。假设我们有一个服务来维护一些共享状态：
 
 .. code-block:: js
 
@@ -125,7 +105,7 @@ state:
 
    registry.category("services").add("shared_state", sharedStateService);
 
-Then, any component can do this:
+然后，任何组件都可以这样做：
 
 .. code-block:: js
 
@@ -134,17 +114,15 @@ Then, any component can do this:
    setup() {
       this.sharedState = useService("shared_state");
       const value = this.sharedState.getValue("somekey");
-      // do something with value
+      // 做些事情
    }
 
-2. Add some buttons for quick navigation
+2. 为快速导航添加一些按钮
 ========================================
 
-.. TODO: Add ref to the action service when it's documented.
+.. TODO: 添加对操作服务的引用，待文档更新。
 
-One important service provided by Odoo is the `action` service: it can execute
-all kind of standard actions defined by Odoo. For example, here is how one
-component could execute an action by its xml id:
+Odoo 提供的一个重要服务是 `action` 服务：它可以执行 Odoo 定义的所有标准操作。例如，以下是如何通过其 XML ID 执行一个操作：
 
 .. code-block:: js
 
@@ -158,50 +136,44 @@ component could execute an action by its xml id:
    }
    ...
 
-Let us now add two buttons to our control panel:
+现在让我们在控制面板中添加两个按钮：
 
-#. A button `Customers`, which opens a kanban view with all customers (this action already
-   exists, so you should use `its xml id
-   <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/odoo/addons/base/views/res_partner_views.xml#L510>`_).
+#. 一个按钮 `Customers`，打开一个包含所有客户的看板视图（此操作已经存在，因此您应该使用 `其 XML ID
+   <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/odoo/addons/base/views/res_partner_views.xml#L510>`_）。
 
-#. A button `Leads`, which opens a dynamic action on the `crm.lead` model with a list and a form
-   view. Follow the example of `this use of the action service
+#. 一个按钮 `Leads`，打开一个 `crm.lead` 模型的动态操作，包含列表和表单视图。遵循 `此处使用操作服务的示例
    <https://github.com/odoo/odoo/blob/ef424a9dc22a5abbe7b0a6eff61cf113826f04c0/addons/account
-   /static/src/components/journal_dashboard_activity/journal_dashboard_activity.js#L28-L35>`_.
+   /static/src/components/journal_dashboard_activity/journal_dashboard_activity.js#L28-L35>`_。
 
 .. image:: 02_web_framework/navigation_buttons.png
    :align: center
 
-.. seealso::
-   `Code: action service
+.. 另请参阅::
+   `代码：操作服务
    <{GITHUB_PATH}/addons/web/static/src/webclient/actions/action_service.js>`_
 
-3. Add a dashboard item
+3. 添加仪表板项
 =======================
 
-Let us now improve our content.
+现在让我们改善我们的内容。
 
-#. Create a generic `DashboardItem` component that display its default slot in a nice card layout.
-   It should take an optional `size` number props, that default to `1`. The width should be
-   hardcoded to `(18*size)rem`.
-#. Add two cards to the dashboard. One with no size, and the other with a size of 2.
+#. 创建一个通用的 `DashboardItem` 组件，以优美的卡片布局显示其默认插槽。它应该接受一个可选的 `size` 数字 prop，默认为 `1`。宽度应硬编码为 `(18*size)rem`。
+#. 向仪表板添加两个卡片。一个没有大小，另一个大小为 2。
 
 .. image:: 02_web_framework/dashboard_item.png
    :align: center
 
-.. seealso::
-   `Owl's slot system <{OWL_PATH}/doc/reference/slots.md>`_
+.. 另请参阅::
+   `Owl 的插槽系统 <{OWL_PATH}/doc/reference/slots.md>`_
 
-4. Call the server, add some statistics
+4. 调用服务器，添加一些统计数据
 =======================================
 
-Let's improve the dashboard by adding a few dashboard items to display *real* business data.
-The `awesome_dashboard` addon provides a `/awesome_dashboard/statistics` route that is meant
-to return some interesting information.
+让我们通过添加一些仪表板项来显示 *真实* 的业务数据来改善仪表板。
+`awesome_dashboard` 附加模块提供了一个 `/awesome_dashboard/statistics` 路由，旨在返回一些有趣的信息。
 
-To call a specific controller, we need to use the :ref:`rpc service <frontend/services/rpc>`.
-It only exports a single function that perform the request: :code:`rpc(route, params, settings)`.
-A basic request could look like this:
+要调用特定的控制器，我们需要使用 :ref:`rpc 服务 <frontend/services/rpc>`。它只导出一个函数来执行请求： :code:`rpc(route, params, settings)`。
+一个基本请求可能看起来像这样：
 
 .. code-block:: js
 
@@ -213,119 +185,94 @@ A basic request could look like this:
          });
    }
 
-#. Update `Dashboard` so that it uses the `rpc` service.
-#. Call the statistics route `/awesome_dashboard/statistics` in the `onWillStart` hook.
-#. Display a few cards in the dashboard containing:
+#. 更新 `Dashboard` 以便使用 `rpc` 服务。
+#. 在 `onWillStart` 钩子中调用统计信息路由 `/awesome_dashboard/statistics`。
+#. 在仪表板中显示几个卡片，包含：
 
-   - Number of new orders this month
-   - Total amount of new orders this month
-   - Average amount of t-shirt by order this month
-   - Number of cancelled orders this month
-   - Average time for an order to go from 'new' to 'sent' or 'cancelled'
+   - 本月新订单数量
+   - 本月新订单的总金额
+   - 本月每个订单的平均 T 恤 数量
+   - 本月取消的订单数量
+   - 从“新”到“已发送”或“已取消”的订单平均时间
 
 .. image:: 02_web_framework/statistics.png
    :align: center
 
-.. seealso::
-   `Code: rpc service <{GITHUB_PATH}/addons/web/static/src/core/network/rpc_service.js>`_
+.. 另请参阅::
+   `代码：rpc 服务 <{GITHUB_PATH}/addons/web/static/src/core/network/rpc_service.js>`_
 
-5. Cache network calls, create a service
+5. 缓存网络调用，创建服务
 ========================================
 
-If you open the :guilabel:`Network` tab of your browser's dev tools, you will see that the call to
-`/awesome_dashboard/statistics` is done every time the client action is displayed. This is because the
-`onWillStart` hook is called each time the `Dashboard` component is mounted. But in this case, we
-would prefer to do it only the first time, so we actually need to maintain some state outside of the
-`Dashboard` component. This is a nice use case for a service!
+如果您打开浏览器开发工具的 :guilabel:`网络` 选项卡，您会看到对 `/awesome_dashboard/statistics` 的调用在每次显示客户端操作时都会进行。这是因为 `onWillStart` 钩子在每次 `Dashboard` 组件挂载时都会被调用。但是在这种情况下，我们希望它只在第一次进行，因此我们实际上需要在 `Dashboard` 组件外维护一些状态。这是服务的一个很好的用例！
 
-#. Register and import a new `awesome_dashboard.statistics` service.
-#. It should provide a function `loadStatistics` that, once called, performs the actual rpc, and
-   always return the same information.
-#. Use the `memoize <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/
-   addons/web/static/src/core/utils/functions.js#L11>`_ utility function from
-   `@web/core/utils/functions` that allows caching the statistics.
-#. Use this service in the `Dashboard` component.
-#. Check that it works as expected.
+#. 注册并导入一个新的 `awesome_dashboard.statistics` 服务。
+#. 它应该提供一个函数 `loadStatistics`，在调用时执行实际的 rpc，并始终返回相同的信息。
+#. 使用 `memoize <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/
+   addons/web/static/src/core/utils/functions.js#L11>`_ 工具函数，该函数允许缓存统计信息。
+#. 在 `Dashboard` 组件中使用此服务。
+#. 检查它是否按预期工作。
 
-.. seealso::
-   - `Example: simple service <{GITHUB_PATH}/addons/web/static/src/core/network/http_service.js>`_
-   - `Example: service with a dependency
+.. 另请参阅::
+   - `示例：简单服务 <{GITHUB_PATH}/addons/web/static/src/core/network/http_service.js>`_
+   - `示例：具有依赖关系的服务
      <{GITHUB_PATH}/addons/web/static/src/core/user_service.js>`_
 
-6. Display a pie chart
+6. 显示饼图
 ======================
 
-Everyone likes charts (!), so let us add a pie chart in our dashboard. It will display the
-proportions of t-shirts sold for each size: S/M/L/XL/XXL.
+每个人都喜欢图表（！），所以让我们在仪表板中添加一个饼图。它将显示每种尺寸的 T 恤 销售比例：S/M/L/XL/XXL。
 
-For this exercise, we will use `Chart.js <https://www.chartjs.org/>`_. It is the chart library used
-by the graph view. However, it is not loaded by default, so we will need to either add it to our
-assets bundle, or lazy load it. Lazy loading is usually better since our users will not have to load
-the chartjs code every time if they don't need it.
+在本次练习中，我们将使用 `Chart.js <https://www.chartjs.org/>`_。这是图形视图使用的图表库。但是，它默认不加载，因此我们需要将其添加到我们的资产包中，或延迟加载它。由于用户不需要时不必加载 chartjs 代码，因此延迟加载通常更好。
 
-#. Create a `PieChart` component.
-#. In its `onWillStart` method, load chartjs, you can use the `loadJs
+#. 创建一个 `PieChart` 组件。
+#. 在其 `onWillStart` 方法中加载 chartjs，您可以使用 `loadJs
    <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/
-   addons/web/static/src/core/assets.js#L23>`_ function to load
-   :file:`/web/static/lib/Chart/Chart.js`.
-#. Use the `PieChart` component in a `DashboardItem` to display a `pie chart
-   <https://www.chartjs.org/docs/2.8.0/charts/doughnut.html>`_ that shows the
-   quantity for each sold t-shirts in each size (that information is available in the
-   `/statistics` route). Note that you can use the `size` property to make it look larger.
-#. The `PieChart` component will need to render a canvas, and draw on it using `chart.js`.
-#. Make it work!
+   addons/web/static/src/core/assets.js#L23>`_ 函数加载 :file:`/web/static/lib/Chart/Chart.js`。
+#. 在一个 `DashboardItem` 中使用 `PieChart` 组件，显示一个饼图
+   <https://www.chartjs.org/docs/2.8.0/charts/doughnut.html>`_，显示每种尺寸销售的 T 恤 数量（该信息可在 `/statistics` 路由中获得）。请注意，您可以使用 `size` 属性使其看起来更大。
+#. `PieChart` 组件将需要渲染一个画布，并使用 `chart.js` 在其上绘制。
+#. 使其正常工作！
 
 .. image:: 02_web_framework/pie_chart.png
    :align: center
    :scale: 80%
 
-.. seealso::
-   - `Example: lazy loading a js file
+.. 另请参阅::
+   - `示例：懒加载 js 文件
      <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/
      addons/web/static/src/views/graph/graph_renderer.js#L57>`_
-   - `Example: rendering a chart in a component
+   - `示例：在组件中渲染图表
      <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/
      addons/web/static/src/views/graph/graph_renderer.js#L618>`_
 
-7. Real life update
+7. 实时更新
 ===================
 
-Since we moved the data loading in a cache, it never updates. But let us say that we
-are looking at fast moving data, so we want to periodically (for example, every 10min) reload
-fresh data.
+由于我们将数据加载移入缓存，因此它从未更新。但假设我们正在查看快速变化的数据，因此我们希望定期（例如每 10 分钟）重新加载新数据。
 
-This is quite simple to implement, with a `setTimeout` or `setInterval` in the statistics service.
-However, here is the tricky part: if the dashboard is currently being displayed, it should be
-updated immediately.
+这很简单，只需在统计服务中使用 `setTimeout` 或 `setInterval` 即可实现。然而，这里有一个棘手的部分：如果仪表板当前正在显示，则应该立即更新。
 
-To do that, one can use a `reactive` object: it is just like the proxy returned by `useState`,
-but not linked to any component. A component can then do a `useState` on it to subscribe to its
-changes.
+为此，可以使用一个 `reactive` 对象：它就像 `useState` 返回的代理，但不链接到任何组件。然后，组件可以在其上执行 `useState` 来订阅其更改。
 
+#. 更新统计服务以每 10 分钟重新加载数据（为测试目的，请使用 10 秒！）。
+#. 修改它以返回一个 `reactive <{OWL_PATH}/doc/reference/reactivity.md#reactive>`_ 对象。重新加载数据应在原地更新反应对象。
+#. `Dashboard` 组件现在可以使用它并使用 `useState`
 
-#. Update the statistics service to reload data every 10 minutes (to test it, use 10s instead!)
-#. Modify it to return a `reactive <{OWL_PATH}/doc/reference/reactivity.md#reactive>`_ object.
-   Reloading data should update the reactive object in place.
-#. The `Dashboard` component can now use it with a `useState`
-
-.. seealso::
-  - `Documentation on reactivity <{OWL_PATH}/doc/reference/reactivity.md>`_
-  - `Example: Use of reactive in a service
+.. 另请参阅::
+  - `关于反应性的文档 <{OWL_PATH}/doc/reference/reactivity.md>`_
+  - `示例：在服务中使用反应性
     <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/
     addons/web/static/src/core/debug/profiling/profiling_service.js#L30>`_
 
-8. Lazy loading the dashboard
+8. 懒加载仪表板
 =============================
 
-Let us imagine that our dashboard is getting quite big, and is only of interest to some
-of our users. In that case, it could make sense to lazy load our dashboard, and all
-related assets, so we only pay the cost of loading the code when we actually want to
-look at it.
+假设我们的仪表板变得相当庞大，并且只对某些用户感兴趣。在这种情况下，懒加载我们的仪表板及所有相关资产可能是合理的，因此我们仅在实际想查看时支付加载代码的成本。
 
-One way to do this is to use `LazyComponent` (from `@web/core/assets`) as an intermediate
-that will load an asset bundle before displaying our component.
+实现此目的的一种方法是使用 `LazyComponent`（来自 `@web/core/assets`）作为中间件，在显示我们的组件之前加载资产包。
 
-.. example::
+.. 示例::
 
    :file:`example_action.js`:
 
@@ -340,50 +287,37 @@ that will load an asset bundle before displaying our component.
 
       registry.category("actions").add("example_module.example_action", ExampleComponentLoader);
 
-#. Move all dashboard assets into a sub folder :file:`/dashboard` to make it easier to
-   add to a bundle.
-#. Create a `awesome_dashboard.dashboard` assets bundle containing all content of
-   the :file:`/dashboard` folder.
-#. Modify :file:`dashboard.js` to register itself to the `lazy_components` registry instead of `actions`.
-#. In :file:`src/dashboard_action.js`, create an intermediate component that uses `LazyComponent` and
-   register it to the `actions` registry.
+#. 将所有仪表板资产移到子文件夹 :file:`/dashboard` 中，以便更容易添加到包中。
+#. 创建一个 `awesome_dashboard.dashboard` 资产包，包含 :file:`/dashboard` 文件夹的所有内容。
+#. 修改 :file:`dashboard.js` 以将其注册到 `lazy_components` 注册表中，而不是 `actions`。
+#. 在 :file:`src/dashboard_action.js` 中，创建一个使用 `LazyComponent` 的中间组件并将其注册到 `actions` 注册表。
 
-9. Making our dashboard generic
+9. 让我们的仪表板通用
 ===============================
 
-So far, we have a nice working dashboard. But it is currently hardcoded in the dashboard
-template. What if we want to customize our dashboard? Maybe some users have different
-needs and want to see other data.
+到目前为止，我们有一个不错的工作仪表板。但它目前在仪表板模板中是硬编码的。如果我们想自定义仪表板呢？也许某些用户有不同的需求，想查看其他数据。
 
-So, the next step is to make our dashboard generic: instead of hard-coding its content
-in the template, it can just iterate over a list of dashboard items. But then, many
-questions come up: how to represent a dashboard item, how to register it, what data
-should it receive, and so on. There are many different ways to design such a system,
-with different trade-offs.
+因此，下一步是使我们的仪表板通用：它可以遍历仪表板项列表，而不是在模板中硬编码其内容。但是，接下来会出现许多问题：如何表示仪表板项，如何注册它，应该接收哪些数据，等等。有许多不同的方式来设计这样的系统，每种方式都有不同的权衡。
 
-For this tutorial, we will say that a dashboard item is an object with the following structure:
+在本教程中，我们将说仪表板项是具有以下结构的对象：
 
 .. code-block:: js
 
    const item = {
       id: "average_quantity",
-      description: "Average amount of t-shirt",
+      description: "平均 T 恤 数量",
       Component: StandardItem,
-      // size and props are optionals
+      // size 和 props 是可选的
       size: 3,
       props: (data) => ({
-         title: "Average amount of t-shirt by order this month",
+         title: "本月每个订单的平均 T 恤 数量",
          value: data.average_quantity
       }),
    };
 
-The `description` value will be useful in a later exercise to show the name of items that the
-user can add to their dashboard. The `size` number is optional, and simply describes
-the size of the dashboard item that will be displayed. Finally, the `props` function is optional.
-If not given, we will simply give the `statistics` object as data. But if it is defined, it will
-be used to compute specific props for the component.
+`description` 值将在后面的练习中用于显示用户可以添加到其仪表板的项的名称。`size` 数字是可选的，仅描述将显示的仪表板项的大小。最后，`props` 函数是可选的。如果未给定，我们将简单地将 `statistics` 对象作为数据传递。但如果定义了它，则将用于计算组件的特定 props。
 
-The goal is to replace the content of the dashboard with the following snippet:
+目标是用以下代码替换仪表板的内容：
 
 .. code-block:: xml
 
@@ -394,16 +328,14 @@ The goal is to replace the content of the dashboard with the following snippet:
       </DashboardItem>
    </t>
 
-Note that the above example features two advanced features of Owl: dynamic components and dynamic props.
+请注意，上面的示例具有 Owl 的两个高级特性：动态组件和动态 props。
 
-We currently have two kinds of item components: number cards with a title and a number, and pie cards with
-some label and a pie chart.
+我们目前有两种类型的项组件：带有标题和数字的数字卡，以及带有某些标签和饼图的饼图卡。
 
-#. Create and implement two components: `NumberCard` and `PieChartCard`, with the corresponding props.
-#. Create a file :file:`dashboard_items.js` in which you define and export a list of items, using `NumberCard`
-   and `PieChartCard` to recreate our current dashboard.
-#. Import that list of items in our `Dashboard` component, add it to the component, and update the template
-   to use a `t-foreach` like shown above.
+#. 创建并实现两个组件：`NumberCard` 和 `PieChartCard`，并提供相应的 props。
+#. 在 :file:`dashboard_items.js` 中创建并导出一个项列表，使用 `NumberCard`
+   和 `PieChartCard` 重新创建我们当前的仪表板。
+#. 在我们的 `Dashboard` 组件中导入该项列表，将其添加到组件中，并更新模板以使用上述 `t-foreach`。
 
    .. code-block:: js
 
@@ -411,57 +343,50 @@ some label and a pie chart.
             this.items = items;
          }
 
-And now, our dashboard template is generic!
+现在，我们的仪表板模板是通用的！
 
-10. Making our dashboard extensible
-===================================
+10. 让我们的仪表板可扩展
+===============================
 
-However, the content of our item list is still hardcoded. Let us fix that by using a registry:
+然而，我们的项列表的内容仍然是硬编码的。让我们通过使用注册表来修复它：
 
-#. Instead of exporting a list, register all dashboard items in a `awesome_dashboard` registry
-#. Import all the items of the `awesome_dashboard` registry in the `Dashboard` component
+#. 不再导出列表，而是注册所有仪表板项到 `awesome_dashboard` 注册表中。
+#. 在 `Dashboard` 组件中导入 `awesome_dashboard` 注册表中的所有项。
 
-The dashboard is now easily extensible. Any other Odoo addon that wants to register a new item to the
-dashboard can just add it to the registry.
+仪表板现在可以轻松扩展。任何希望向仪表板注册新项的 Odoo 附加模块只需将其添加到注册表中。
 
-11. Add and remove dashboard items
-==================================
+11. 添加和删除仪表板项
+==========================
 
-Let us see how we can make our dashboard customizable. To make it simple, we will save the user
-dashboard configuration in the local storage so that it is persistent, but we don't have to deal
-with the server for now.
+让我们看看如何使我们的仪表板可定制。为了简单起见，我们将用户仪表板配置保存在本地存储中，以便持久化，但现在我们不必处理服务器。
 
-The dashboard configuration will be saved as a list of removed item ids.
+仪表板配置将保存为已删除项 ID 的列表。
 
-#. Add a button in the control panel with a gear icon to indicate that it is a settings button.
-#. Clicking on that button should open a dialog.
-#. In that dialog, we want to see a list of all existing dashboard items, each with a checkbox.
-#. There should be a `Apply` button in the footer. Clicking on it will build a list of all item ids
-   that are unchecked.
-#. We want to store that value in the local storage.
-#. And modify the `Dashboard` component to filter the current items by removing the ids of items
-   from the configuration.
+#. 在控制面板中添加一个带有齿轮图标的按钮，以表示这是一个设置按钮。
+#. 单击该按钮应打开一个对话框。
+#. 在该对话框中，我们希望看到所有现有仪表板项的列表，每个项都有一个复选框。
+#. 在底部应该有一个 `应用` 按钮。单击它将构建一个未选中项 ID 的列表。
+#. 我们希望将该值存储在本地存储中。
+#. 并修改 `Dashboard` 组件，以通过从配置中移除项 ID 来过滤当前项。
 
 .. image:: 02_web_framework/items_configuration.png
    :width: 80%
    :align: center
 
-12. Going further
+12. 更进一步
 =================
 
-Here is a list of some small improvements you could try to do if you have the time:
+以下是一些您可以尝试进行的小改进的列表：
 
-#. Make sure your application can be :ref:`translated <reference/translations>` (with
-   `env._t`).
-#. Clicking on a section of the pie chart should open a list view of all orders that have the
-   corresponding size.
-#. Save the content of the dashboard in a user setting on the server!
-#. Make it responsive: in mobile mode, each card should take 100% of the width.
+#. 确保您的应用程序可以 :ref:`翻译 <reference/translations>`（使用 `env._t`）。
+#. 单击饼图的一个部分应打开一个包含所有具有相应大小的订单的列表视图。
+#. 将仪表板的内容保存在服务器上的用户设置中！
+#. 使其响应式：在移动模式下，每个卡片应占据 100% 的宽度。
 
-.. seealso::
-   - `Example: use of env._t function
+.. 另请参阅::
+   - `示例：使用 env._t 函数
      <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/
      addons/account/static/src/components/bills_upload/bills_upload.js#L64>`_
-   - `Code: translation code in web/
+   - `代码：web/中的翻译代码
      <https://github.com/odoo/odoo/blob/1f4e583ba20a01f4c44b0a4ada42c4d3bb074273/
      addons/web/static/src/core/l10n/translation.js#L16>`_
