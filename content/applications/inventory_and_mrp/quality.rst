@@ -3,15 +3,13 @@
 :show-toc:
 
 =======
-Quality
+质量
 =======
 
-**Odoo Quality** helps ensure product quality throughout manufacturing processes and inventory
-movements. Conduct quality checks, automate quality inspection frequency, and create quality alerts
-when issues arise.
+**Odoo 质量** 帮助确保产品在制造过程和库存移动中的质量。执行质量检查、自动化质量检查频率，并在出现问题时创建质量警报。
 
 .. seealso::
-   - `Odoo Tutorials: Quality Overview
+   - `Odoo 教程：质量概览
      <https://www.odoo.com/slides/slide/quality-overview-5590>`_
 
 .. toctree::

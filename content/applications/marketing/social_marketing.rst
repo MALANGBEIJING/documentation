@@ -1,164 +1,118 @@
-:show-content:
-
 ================
-Social Marketing
+社交营销
 ================
 
-Odoo's *Social Marketing* application helps content marketers create and schedule posts, manage
-various social media accounts, analyze content effectiveness, and engage directly with social media
-followers in one, centralized location.
+Odoo 的 *社交营销* 应用程序帮助内容营销人员创建和安排帖子，管理各种社交媒体账户，分析内容效果，并在一个集中位置直接与社交媒体关注者互动。
 
 .. seealso::
-   - `Odoo Tutorials: Marketing <https://www.odoo.com/slides/marketing-27>`_
+   - `Odoo 教程: 营销 <https://www.odoo.com/slides/marketing-27>`_
 
 .. cards::
 
-   .. card:: Social posts
+   .. card:: 社交帖子
       :target: social_marketing/social_posts
 
-      Discover everything there is to know about how to create and customize social media posts
-      using Odoo.
+      探索如何使用 Odoo 创建和自定义社交媒体帖子。
 
-   .. card:: Social campaigns
+   .. card:: 社交活动
       :target: social_marketing/social_campaigns
 
-      Learn about all the different campaign and marketing tools this application has to offer.
+      了解此应用程序提供的所有不同活动和营销工具。
 
-Social media accounts
+社交媒体账户
 =====================
 
-In order to create social posts and analyze content with Odoo *Social Marketing*, social media
-accounts **must** be added as a *stream* on the application's main dashboard.
+为了使用 Odoo *社交营销* 创建社交帖子并分析内容，必须将社交媒体账户作为 *流* 添加到应用程序的主仪表板上。
 
 .. note::
-   Be aware that personal profiles **cannot** be added as a stream. The main use of Odoo *Social
-   Marketing* is to manage and analyze business accounts on social media platforms.
+   请注意，个人资料 **不能** 作为流添加。Odoo *社交营销* 的主要用途是管理和分析社交媒体平台上的商业账户。
 
 .. warning::
-   Odoo *Social Marketing* has some limitations in regards to social media accounts. For example,
-   Odoo **cannot** handle a large quantity of various pages (e.g. ~40 pages) under the same company.
-   The same limitations are present in a multi-company environment because of how the API is
-   constructed.
+   Odoo *社交营销* 对社交媒体账户有一些限制。例如，Odoo **无法** 处理大量不同页面（如 ~40 页）在同一公司下的情况。由于 API 的构建方式，多公司环境中也存在同样的限制。
 
 .. warning::
-   In multi-company environments, if every company doesn't activate a page at once, it will result
-   in a permission error.
+   在多公司环境中，如果每个公司没有同时激活页面，则会导致权限错误。
 
-   For example, if Company 1 is the only company selected from the main Odoo dashboard, and
-   activates *Facebook Page 1* and *Facebook Page 2*, then those pages will be accesible on the
-   *Social Marketing* dashboard.
+   例如，如果从主 Odoo 仪表板中只选择公司 1 并激活 *Facebook 页面 1* 和 *Facebook 页面 2*，那么这些页面将可以在 *社交营销* 仪表板上访问。
 
-   However, if on that same database, the user adds Company 2 from the company drop-down menu in the
-   header, and attempts to add those same streams, it results in a permission error.
+   但是，如果在同一个数据库中，用户从标题中的公司下拉菜单中添加公司 2 并尝试添加相同的流，则会导致权限错误。
 
    .. image:: social_marketing/permission-error.png
       :align: center
-      :alt: View of the permission error that appears when incorrectly attempting to add stream.
+      :alt: 错误尝试添加流时显示的权限错误视图。
 
-Social media streams
+社交媒体流
 ====================
 
-To add a social media business account as a stream, navigate to :menuselection:`Social Marketing
-app` and select the :guilabel:`Add A Stream` button located in the upper-left corner. Doing so
-reveals an :guilabel:`Add a Stream` pop-up window.
+要将社交媒体商业账户添加为流，请导航到 :menuselection:`社交营销应用程序` 并选择位于左上角的 :guilabel:`添加流` 按钮。这样会弹出 :guilabel:`添加流` 窗口。
 
 .. image:: social_marketing/add-stream-social-popup.png
    :align: center
-   :alt: View of the pop-up window that appears when Add a Stream is selected in Odoo.
+   :alt: 当在 Odoo 中选择“添加流”时弹出的窗口视图。
 
-In the :guilabel:`Add a Stream` pop-up window, choose to :guilabel:`Link a new account` for a
-business from any of the following popular social media platforms: :guilabel:`Facebook`,
-:guilabel:`Instagram`, :guilabel:`LinkedIn`, :guilabel:`Twitter`, and :guilabel:`YouTube`.
+在 :guilabel:`添加流` 弹出窗口中，选择为商业帐户添加新帐户的社交媒体平台：:guilabel:`Facebook`、:guilabel:`Instagram`、:guilabel:`LinkedIn`、:guilabel:`Twitter` 和 :guilabel:`YouTube`。
 
-After clicking the desired social media outlet from the :guilabel:`Add a Stream` pop-up window, Odoo
-navigates directly to that specific social media outlet's authorization page, where permission must
-be granted, in order for Odoo to add that particular social media account as a stream to the *Social
-Marketing* application.
+点击 :guilabel:`添加流` 弹出窗口中的所需社交媒体平台后，Odoo 直接导航到该特定社交媒体平台的授权页面，必须授予权限才能将该特定社交媒体帐户作为流添加到 *社交营销* 应用程序中。
 
 .. image:: social_marketing/social-marketing-dashboard.png
    :align: center
-   :alt: Sample of a populated social marketing dashboard with social media streams and content.
+   :alt: 填充了社交媒体流和内容的 Odoo 社交营销仪表板的示例。
 
-Once permission is granted, Odoo navigates back to the :guilabel:`Feed` on the main
-:guilabel:`Social Marketing` dashboard, and a new column, with that account's posts, is added.
-Accounts/streams can be added at any time.
+授予权限后，Odoo 会返回到主 :guilabel:`社交营销` 仪表板上的 :guilabel:`Feed`，并添加一个带有该帐户帖子的列。可以随时添加帐户/流。
 
 .. important::
-   A :guilabel:`Facebook` page can be added as long as the :guilabel:`Facebook` account that grants
-   permission is the administrator for the page. It should also be noted that different pages can be
-   added for different streams.
+   只要授予权限的 :guilabel:`Facebook` 帐户是页面的管理员，就可以将 :guilabel:`Facebook` 页面添加为流。还应注意，不同的页面可以为不同的流添加。
 
 .. note::
-   :guilabel:`Instagram` accounts are added through a :guilabel:`Facebook` login because it uses the
-   same API. This means, an :guilabel:`Instagram` account needs to be linked to a
-   :guilabel:`Facebook` account in order for it to show up as a stream in Odoo.
+   :guilabel:`Instagram` 帐户通过 :guilabel:`Facebook` 登录添加，因为它使用相同的 API。这意味着必须将 :guilabel:`Instagram` 帐户链接到 :guilabel:`Facebook` 帐户，才能在 Odoo 中显示为流。
 
-Social media page
+社交媒体页面
 =================
 
-Another way to quickly link social media accounts to Odoo *Social Marketing* can be done on the
-:guilabel:`Social Media` page. To access the :guilabel:`Social Media` page, navigate to
-:menuselection:`Social Marketing app --> Configuration --> Social Media`.
+另一种快速将社交媒体帐户链接到 Odoo *社交营销* 的方法是在 :guilabel:`社交媒体` 页面上完成。要访问 :guilabel:`社交媒体` 页面，请导航到 :menuselection:`社交营销应用程序 --> 配置 --> 社交媒体`。
 
-On the :guilabel:`Social Media` page there is a collection of all social media options, each
-complete with a :guilabel:`Link account` button: :guilabel:`Facebook`, :guilabel:`Instagram`,
-:guilabel:`LinkedIn`, :guilabel:`Twitter`, :guilabel:`YouTube`, and :guilabel:`Push Notifications`.
+在 :guilabel:`社交媒体` 页面上，所有社交媒体选项都有一个 :guilabel:`链接帐户` 按钮：:guilabel:`Facebook`、:guilabel:`Instagram`、:guilabel:`LinkedIn`、:guilabel:`Twitter`、:guilabel:`YouTube` 和 :guilabel:`推送通知`。
 
 .. image:: social_marketing/social-media-page.png
    :align: center
-   :alt: View of the social media page in the Odoo Social Marketing application.
+   :alt: Odoo 社交营销应用程序中的社交媒体页面视图。
 
-Social accounts page
+社交账户页面
 ====================
 
-To see a list of all social accounts and websites linked to the database, go to
-:menuselection:`Social Marketing app --> Configuration --> Social Accounts`. This :guilabel:`Social
-Accounts` display the :guilabel:`Name`, the :guilabel:`Handle/Short Name`, the :guilabel:`Social
-Media` platform, who it was :guilabel:`Created by`, and the :guilabel:`Company` to which it is
-associated.
+要查看数据库中链接的所有社交账户和网站的列表，请转到 :menuselection:`社交营销应用程序 --> 配置 --> 社交账户`。此 :guilabel:`社交账户` 页面显示 :guilabel:`名称`、:guilabel:`用户名/简称`、:guilabel:`社交媒体` 平台、由谁 :guilabel:`创建` 以及与之关联的 :guilabel:`公司`。
 
 .. image:: social_marketing/social-accounts-page.png
    :align: center
-   :alt: View of the social accounts page in the Odoo Social Marketing application.
+   :alt: Odoo 社交营销应用程序中的社交账户页面视图。
 
-To edit/modify any of the social accounts on this page, simply select the desired account from the
-list on this page, and proceed to make any adjustments necessary.
+要编辑/修改此页面上的任何社交账户，只需从此页面上的列表中选择所需的账户，然后进行必要的调整。
 
-Social streams page
-===================
+社交流页面
+====================
 
-To view a separate page with all the social media streams that have been added to the main *Social
-Marketing* dashboard, navigate to :menuselection:`Social Marketing app --> Configuration --> Social
-Streams`.
+要查看一个单独的页面，其中包含已添加到主 *社交营销* 仪表板的所有社交媒体流，请导航到 :menuselection:`社交营销应用程序 --> 配置 --> 社交流`。
 
 .. image:: social_marketing/social-streams-page.png
    :align: center
-   :alt: View of the social accounts page in the Odoo Social Marketing application.
+   :alt: Odoo 社交营销应用程序中的社交流页面视图。
 
-Here, the social stream information is organized in a list with the :guilabel:`Social Media`, the
-:guilabel:`Title` of the stream, the :guilabel:`Type` of the stream (e.g. :guilabel:`Posts`,
-:guilabel:`Keyword`, etc.), who it was :guilabel:`Created by`, and  the :guilabel:`Company` to which
-it is associated.
+在此处，社交流信息以列表形式显示，其中包含 :guilabel:`社交媒体`、流的 :guilabel:`标题`、流的 :guilabel:`类型`（例如 :guilabel:`帖子`、:guilabel:`关键字` 等）、由谁 :guilabel:`创建` 以及与之关联的 :guilabel:`公司`。
 
-To modify any stream's information, simply click the desired stream from the list, and proceed to
-make any necessary adjustments.
+要修改任何流的信息，只需从列表中单击所需的流，然后进行必要的调整。
 
-Visitors
+访客
 ========
 
-To see a complete overview of all the people who have visited the website(s) connected to the
-database, navigate to :menuselection:`Social Marketing app --> Visitors`.
+要查看连接到数据库的所有网站访问者的完整概览，请导航到 :menuselection:`社交营销应用程序 --> 访客`。
 
 .. image:: social_marketing/visitors.png
    :align: center
-   :alt: View of the Visitors page in the Odoo Social Marketing application.
+   :alt: Odoo 社交营销应用程序中的访客页面视图。
 
-Here, Odoo provides a detailed layout of all the visitors' pertinent information in a default kanban
-view. If visitors already have contact information in the database, the option to send them an
-:guilabel:`Email` and/or an :guilabel:`SMS` is available.
+在此处，Odoo 提供了所有访客重要信息的详细布局，默认情况下为看板视图。如果访客的联系信息已经存在于数据库中，可以选择向他们发送 :guilabel:`电子邮件` 和/或 :guilabel:`短信`。
 
-This same visitor data can also be viewed as a list or a graph. Those view options are located in
-the upper-right corner of the :guilabel:`Visitors` page.
+这些相同的访客数据也可以以列表或图表形式查看。这些查看选项位于 :guilabel:`访客` 页面右上角。
 
 .. toctree::
 

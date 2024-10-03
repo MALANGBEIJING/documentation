@@ -1,7 +1,7 @@
 :nosearch:
 
 ============
-Supply Chain
+供应链
 ============
 
 .. toctree::

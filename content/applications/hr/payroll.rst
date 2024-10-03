@@ -1,962 +1,637 @@
 :show-content:
-
 =======
-Payroll
+薪资
 =======
 
-Odoo *Payroll* is used to process work entries and create payslips for employees. *Payroll* works in
-conjunction with other Odoo apps, such as *Employees*, *Time Off*, *Attendances*, and *Planning*.
+Odoo *薪资* 应用程序用于处理工作条目并为员工创建工资单。*薪资* 可以与其他 Odoo 应用程序协同工作，例如 *员工*、*请假*、*考勤* 和 *计划*。
 
-The *Payroll* app helps ensure there are no issues or conflicts when validating work entries. It
-also handles country-specific localizations to ensure payslips follow local rules and taxes, and
-allows for salary assignments.
+*薪资* 应用程序帮助确保在验证工作条目时没有问题或冲突。它还处理国家/地区特定的本地化设置，确保工资单遵循当地规则和税收，并支持工资分配。
 
-Settings
-========
+设置
+====
 
-Configure the *Payroll* app by navigating to :menuselection:`Payroll app --> Configuration -->
-Settings`. The various settings for accounting, localizations, time off, alerts, and payslips are
-specified here.
+通过导航至 :menuselection:`Payroll app --> Configuration --> Settings` 来配置 *薪资* 应用程序。会计、本地化、请假、提醒和工资单的各种设置均在此处指定。
 
-Accounting
-----------
+会计
+----
 
-The accounting section of the configuration menu relates to three options:
+会计配置菜单包含以下三个选项：
 
-- :guilabel:`Payroll Entries`: enable this option to post payroll slips in accounting.
-- :guilabel:`Payroll SEPA`: enable this option to create SEPA payments.
-- :guilabel:`Batch Account Move Lines`: enable this option to have a single account move line
-  created from all the accounting entries from the same period. This disables the generation of
-  single payments.
+- :guilabel:`工资条条目`: 启用此选项以在会计中发布工资单。
+- :guilabel:`工资 SEPA`: 启用此选项以创建 SEPA 支付。
+- :guilabel:`批量会计分录`: 启用此选项以从同一期间的所有会计条目中创建一个会计分录，禁用生成单独付款。
 
-Localizations
--------------
-
-*Localizations* are country-specific settings pre-configured in Odoo at the creation of the
-database, which account for all taxes, fees, and allowances for that particular country.
-
-The :guilabel:`Localization` section of the *Payroll* app :guilabel:`Settings` page may include
-specific settings that need to be set for the specific locality. This selection also provides a
-detailed view of all benefits provided to employees.
-
-The settings and options shown in this section varies, depending on the localization enabled for the
-database.
-
-.. warning::
-   It is **not** recommended to alter the localization settings, unless specifically required.
-
-.. note::
-   Odoo can handle a multi-company configuration. This is generally done when there is a main
-   company or office location, such as a headquarters, and there are other offices/branches around
-   the country or globe, that fall under that main company or headquarters. In Odoo, each company,
-   including the headquarters, would be set up as their own company/branch using the multi-company
-   method.
-
-   Each individual company can have a different localization setting configured for that specific
-   company, since company locations can vary and be located anywhere in the world, where rules and
-   laws differ.
-
-   For more information on companies, refer to the :doc:`Companies <../general/companies>`
-   documentation, which covers how to set up companies.
-
-Time off
---------
-
-- :guilabel:`Deferred Time Off`: if time off is taken after payslips are validated, the time off
-  needs to be applied to the following pay period. Select the person responsible for validating
-  these specific time off situations using the drop-down menu in the :guilabel:`Responsible` field.
-
-  .. example::
-     An employee is paid on the 15th of the month and the last day of the month. Payslips are
-     typically processed a day before.
-
-     If an employee's payslip is approved and processed on the 30th, but that same employee takes an
-     unexpected sick day on the 31st, the time off needs to be logged.
-
-     Since the employee is already paid for a regular work day on the 31st, to keep the time off
-     balances correct, the sick day is moved/applied to the 1st of the next month (the next pay
-     period).
-
-Payroll
+本地化
 -------
 
-- :guilabel:`Contract Expiration Notice Period`: enter the number of :guilabel:`Days` before a
-  contract expires, and Odoo notifies the responsible person about the upcoming expiration at that
-  time.
-- :guilabel:`Work Permit Expiration Notice Period`: enter the number of :guilabel:`Days` before a
-  work permit expires, and Odoo notifies the responsible person about the upcoming expiration at
-  that time.
-- :guilabel:`Payslip PDF Display`: enable this option to have payslips display a PDF file on the
-  payslip form.
+*本地化* 是在 Odoo 创建数据库时预配置的国家/地区特定设置，考虑了该特定国家的所有税费和津贴。
+
+*薪资* 应用程序 :guilabel:`设置` 页面中的 :guilabel:`本地化` 部分可能包括需要为特定地区设置的特定选项。此选择还提供了所有员工福利的详细视图。
+
+该部分显示的设置和选项因启用的本地化而异。
+
+.. warning::
+   除非特别要求，否则**不**建议更改本地化设置。
+
+.. note::
+   Odoo 可以处理多公司配置。这通常适用于存在一个主公司或总部位置（如总部），并且在全国或全球范围内有其他分支机构，这些分支机构隶属于该主公司或总部。在 Odoo 中，每个公司，包括总部，都会使用多公司方法设置为其自己的公司/分支机构。
+
+   每个公司可以为其所在的具体公司配置不同的本地化设置，因为公司位置可能有所不同，并且位于世界任何地方，规则和法律有所不同。
+
+   有关公司设置的更多信息，请参阅 :doc:`Companies <../general/companies>` 文档，涵盖了如何设置公司。
+
+请假
+----
+
+- :guilabel:`延期请假`: 如果在工资单验证后请假，则请假需要应用于下一个工资期。使用下拉菜单在 :guilabel:`负责人` 字段中选择验证这些特定请假情况的负责人。
+
+  .. example::
+     员工在每月15日和月底发放工资，工资单通常会在前一天处理。
+
+     如果员工的工资单在30日被批准并处理，但同一员工在31日意外请病假，则需要记录该次请假。
+
+     由于员工已经为31日的正常工作日获得报酬，为了保持请假余额的正确性，病假将被移动并应用到下个月的1日（下一个工资期）。
+
+工资单
+-------
+
+- :guilabel:`合同到期通知期`: 输入合同到期前的 :guilabel:`天数`，Odoo 会在此时间向负责人发送合同即将到期的通知。
+- :guilabel:`工作许可证到期通知期`: 输入工作许可证到期前的 :guilabel:`天数`，Odoo 会在此时间向负责人发送许可证即将到期的通知。
+- :guilabel:`工资单 PDF 显示`: 启用此选项可以在工资单表单上显示 PDF 文件。
 
 .. _payroll/work-entries-config:
 
-Contracts
-=========
+合同
+====
 
-In order for an employee to be paid, they **must** have an active contract for a specific type of
-employment. Creating and viewing contract templates, and creating and viewing employment types, is
-possible from this section of the configuration header menu.
+为了给员工发放工资，他们**必须**拥有一个特定类型就业的有效合同。可以通过配置菜单查看和创建合同模板，并查看和创建就业类型。
 
 .. _payroll/contract-templates:
 
-Templates
----------
+模板
+----
 
-Contract templates are used with the *Recruitment* application when sending an offer to a candidate.
-The contract template forms the basis of an offer, and can be modified for specific candidates or
-employees, when necessary. If a contract template is created or modified in the *Payroll*
-application, the changes are also reflected in the *Recruitment* application.
+合同模板用于 *招聘* 应用程序，当向候选人发送聘用通知时使用。合同模板是聘用通知的基础，可以根据需要为特定候选人或员工修改。如果在 *薪资* 应用程序中创建或修改合同模板，则更改也会反映在 *招聘* 应用程序中。
 
 .. important::
-   To access contract templates, the *Salary Configurator* (`hr_contract_salary`) module **must** be
-   :ref:`installed <general/install>`.
+   要访问合同模板，必须安装 *工资配置器* (`hr_contract_salary`) 模块。
 
-To view all the current contract templates in the database, navigate to :menuselection:`Payroll app
---> Configuration --> Contracts: Templates`.
+要查看数据库中所有当前的合同模板，导航至 :menuselection:`Payroll app --> Configuration --> Contracts: Templates`。
 
-On the :guilabel:`Contract Templates` page, all current contract templates appear in a list view. To
-view the details of a contract template, click anywhere on the line to open the contract form. The
-contract template can be modified from this form. Proceed to make any desired changes to the
-contract.
+在 :guilabel:`合同模板` 页面上，所有当前的合同模板以列表视图显示。点击某一行可以打开合同表单查看模板的详细信息，并可在表单中修改模板。
 
-To create a new contract template, click the :guilabel:`New` button. Then, enter the following
-information on the blank contract template form that appears:
+要创建新合同模板，点击 :guilabel:`新建` 按钮。然后，在出现的空白合同模板表单上输入以下信息：
 
-- :guilabel:`Contract Reference`: enter a brief description for the template. This should be clear
-  and easily understood, as this name appears in the *Recruitment* application, as well.
-- :guilabel:`Working Schedule`: select the desired working schedule the contract applies to from the
-  drop-down menu. If a new working schedule is needed, create a :ref:`new working schedule
-  <payroll/new-working-schedule>`.
-- :guilabel:`Work Entry Source`: select how the work entries are generated. Choices are either:
+- :guilabel:`合同参考`: 输入模板的简要描述。此名称应清晰易懂，因为该名称也会出现在 *招聘* 应用程序中。
+- :guilabel:`工作时间表`: 从下拉菜单中选择合同适用的工作时间表。如果需要新的工作时间表，可以创建一个 :ref:`新工作时间表 <payroll/new-working-schedule>`。
+- :guilabel:`工作条目来源`: 选择工作条目如何生成。选择项为：
 
-  - :guilabel:`Working Schedule`: work entries are generated based on the selected working schedule.
-  - :guilabel:`Attendances`: work entries are generated based on the employee's attendance, as they
-    are logged in the *Attendances* application. Refer to the :ref:`Attendances
-    <attendances/check-in>` documentation for information on checking in and out.
-  - :guilabel:`Planning`: work entries are generated based on the employee's planning in the
-    *Planning* application.
+  - :guilabel:`工作时间表`: 工作条目基于所选的工作时间表生成。
+  - :guilabel:`考勤`: 工作条目基于员工的考勤记录生成，这些记录记录在 *考勤* 应用程序中。有关考勤记录的更多信息，请参阅 :ref:`考勤 <attendances/check-in>` 文档。
+  - :guilabel:`计划`: 工作条目基于员工在 *计划* 应用程序中的计划生成。
 
-- :guilabel:`Salary Structure Type`: select the :ref:`salary structure type
-  <payroll/structure-types>` from the drop-down menu.
-- :guilabel:`Department`: select the department the contract template applies to from the drop-down
-  menu. If blank, the template applies to all departments.
-- :guilabel:`Job Position`: select the :ref:`job position <payroll/job-positions>` the contract
-  template applies to from the drop-down menu. If blank, the template applies to all job positions.
-- :guilabel:`Wage on Payroll`: enter the monthly wage in the field.
-- :guilabel:`Contract Type`: select the type of contract from the drop-down menu. This list is the
-  same as the :ref:`Employment Types <payroll/employment-types>`.
-- :guilabel:`HR Responsible`: select the employee responsible for validating contracts, using this
-  template, from the drop-down menu.
-- :guilabel:`New Contract Document Template`: select a default document that a new employee has to
-  sign to accept an offer.
-- :guilabel:`Contract Update Document Template`: select a default document that a current employee
-  has to sign to update their contract.
+- :guilabel:`工资结构类型`: 从下拉菜单中选择 :ref:`工资结构类型 <payroll/structure-types>`。
+- :guilabel:`部门`: 从下拉菜单中选择合同模板适用的部门。如果为空，则该模板适用于所有部门。
+- :guilabel:`职位`: 从下拉菜单中选择合同模板适用的 :ref:`职位 <payroll/job-positions>`。如果为空，则模板适用于所有职位。
+- :guilabel:`工资`: 在字段中输入月工资。
+- :guilabel:`合同类型`: 从下拉菜单中选择合同类型。该列表与 :ref:`就业类型 <payroll/employment-types>` 相同。
+- :guilabel:`人事负责人`: 从下拉菜单中选择验证使用此模板的合同的负责人。
+- :guilabel:`新合同文件模板`: 选择新员工需要签署的默认文件以接受聘用通知。
+- :guilabel:`合同更新文件模板`: 选择现有员工需要签署的默认文件以更新其合同。
 
 .. image:: payroll/contract-template.png
    :align: center
-   :alt: A new contract template form, with the fields filled in.
+   :alt: 填写了字段的新合同模板表单。
 
-Salary information tab
-~~~~~~~~~~~~~~~~~~~~~~
-
-- :guilabel:`Wage Type`: select either :guilabel:`Fixed Wage` or :guilabel:`Hourly Wage` from the
-  drop-down menu.
-- :guilabel:`Schedule Pay`: using the drop-down menu, select how often the employee is paid. Options
-  include :guilabel:`Annually`, :guilabel:`Semi-annually`, :guilabel:`Quarterly`,
-  :guilabel:`Bi-monthly`, :guilabel:`Monthly`, :guilabel:`Semi-monthly`, :guilabel:`Bi-weekly`,
-  :guilabel:`Weekly`, or :guilabel:`Daily`.
-- :guilabel:`Wage`: enter the gross wage. The time period presented in this field is based on what
-  is selected for the :guilabel:`Scheduled Pay` field. It is recommended to populate the
-  :guilabel:`Yearly Cost (Real)` field *first*, since that entry updates this field automatically.
-- :guilabel:`Yearly Cost (Real)`: enter the total yearly cost the employee costs the employer. When
-  this value is entered, the :guilabel:`Monthly Cost (Real)` is automatically updated.
-- :guilabel:`Monthly Cost (Real)`: this field is **not** editable. The value is automatically
-  populated after the :guilabel:`Yearly Cost (Real)` is entered.
+工资信息标签
+~~~~~~~~~~~~~~
+- :guilabel:`工资类型`: 从下拉菜单中选择 :guilabel:`固定工资` 或 :guilabel:`小时工资`。
+- :guilabel:`支付周期`: 使用下拉菜单选择员工的工资支付频率。选项包括 :guilabel:`年度`、:guilabel:`半年`、:guilabel:`季度`、:guilabel:`双月`、:guilabel:`月度`、:guilabel:`半月`、:guilabel:`双周`、:guilabel:`每周` 或 :guilabel:`每天`。
+- :guilabel:`工资`: 输入税前工资。此字段的时间段基于在 :guilabel:`支付周期` 字段中选择的时间段。建议首先填充 :guilabel:`年度成本（实际）` 字段，因为该字段会自动更新此字段。
+- :guilabel:`年度成本（实际）`: 输入员工的总年度成本。一旦输入此值，:guilabel:`月度成本（实际）` 会自动更新。
+- :guilabel:`月度成本（实际）`: 此字段**不可编辑**。在输入 :guilabel:`年度成本（实际）` 后，该字段会自动填充。
 
 .. important::
-   The :guilabel:`Schedule Pay`, :guilabel:`Wage`, and :guilabel:`Yearly Cost (Real)` fields are all
-   linked. If any of these fields are updated, the other two fields automatically update to reflect
-   the change. It is best practice to check these three fields if any modifications have been made,
-   to ensure they are accurate.
+   :guilabel:`支付周期`、:guilabel:`工资` 和 :guilabel:`年度成本（实际）` 字段相互关联。如果其中任何一个字段被更新，其他两个字段将自动更新以反映更改。建议在做出任何修改后检查这三个字段，以确保它们准确无误。
 
 .. image:: payroll/salary-information.png
    :align: center
-   :alt: The salary information tab, with the fields filled in.
+   :alt: 工资信息选项卡，已填充字段。
 
-Pre-tax benefits and post-tax deductions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+税前福利和税后扣除
+~~~~~~~~~~~~~~~~~~~~~~
 
-Depending on the localization settings set for the company, the entries presented in this section
-either vary, or may not appear at all.
+根据公司设置的本地化设置，此部分显示的条目可能会有所不同，或者可能根本不会出现。
 
-For example, some entries may pertain to retirement accounts, health insurance benefits, and
-commuter benefits.
+例如，一些条目可能与退休账户、健康保险福利和通勤福利相关。
 
-Enter the monetary amounts or percentages to specify how much of the employee's salary goes to the
-various benefits and/or deductions.
+输入金额或百分比以指定员工工资中用于各项福利和/或扣除的金额。
 
 .. _payroll/employment-types:
 
-Employment types
-----------------
+就业类型
+---------
 
-To view all the pre-configured employment types, navigate to :menuselection:`Payroll application -->
-Configuration --> Contracts: Employment Types`.
+要查看所有预配置的就业类型，请导航至 :menuselection:`Payroll application --> Configuration --> Contracts: Employment Types`。
 
-The employment types are presented in a list view on the :guilabel:`Employment Types` page.
+就业类型以列表视图显示在 :guilabel:`就业类型` 页面上。
 
-The default employment types are :guilabel:`Permanent`, :guilabel:`Temporary`, :guilabel:`Seasonal`,
-:guilabel:`Interim`, :guilabel:`Full-Time`, :guilabel:`Part-Time`, and :guilabel:`Permanent`.
+默认的就业类型有 :guilabel:`永久`、:guilabel:`临时`、:guilabel:`季节性`、:guilabel:`临时工`、:guilabel:`全职`、:guilabel:`兼职` 和 :guilabel:`永久`。
 
-To make a new employment type, click the :guilabel:`New` button in the upper-left corner, and a
-blank line appears at the bottom of the :guilabel:`Employment Types` page.
+要创建新的就业类型，点击左上角的 :guilabel:`新建` 按钮，页面底部会出现一条空白行。
 
-On this new blank line, enter the name of the employment type in the :guilabel:`Name` column. If the
-employment type is country-specific, select the country using the drop-down menu in the
-:guilabel:`Country` column. If a country is selected, then the employment type is *only* applicable
-for that specific country.
+在此空白行中，在 :guilabel:`名称` 列中输入就业类型的名称。如果就业类型是特定于某个国家/地区的，请使用 :guilabel:`国家/地区` 列中的下拉菜单选择该国家/地区。如果选择了某个国家/地区，则该就业类型仅适用于该特定国家/地区。
 
-To rearrange the order of the employment types, click the :guilabel:`six small gray boxes` icon to
-the left of the employment type :guilabel:`Name`, and drag the line to the desired position on the
-list.
+要重新排列就业类型的顺序，点击就业类型 :guilabel:`名称` 左侧的 :guilabel:`六个小灰色框` 图标，并将该行拖动到列表中的所需位置。
 
 .. image:: payroll/employment-types.png
    :align: center
-   :alt: The employment types in the database by default, in a list view.
+   :alt: 默认情况下数据库中的就业类型，按列表视图显示。
 
 .. _payroll/work-entries:
 
-Work entries
+工作条目
 ============
 
-A *work entry* is an individual record on an employee's timesheet. Work entries can be configured to
-account for all types of work and time off, such as :guilabel:`Attendance`, :guilabel:`Sick Time
-Off`, :guilabel:`Training`, or :guilabel:`Public Holiday`.
+*工作条目* 是员工工时表中的单个记录。可以配置工作条目以涵盖所有类型的工作和请假，例如 :guilabel:`考勤`、:guilabel:`病假`、:guilabel:`培训` 或 :guilabel:`公共假日`。
 
 .. seealso::
-   :doc:`Manage work entries <payroll/work_entries>`
+   :doc:`管理工作条目 <payroll/work_entries>`
 
-Work entry types
-----------------
+工作条目类型
+--------------
 
-When creating a work entry in the *Payroll* application, or when an employee enters information in
-the *Timesheets* application, a :guilabel:`Work Entry Type` needs to be selected. The list of
-:guilabel:`Work Entry Types` is automatically created based on localization settings set in the
-database.
+在 *薪资* 应用程序中创建工作条目时，或当员工在 *工时表* 应用程序中输入信息时，必须选择 :guilabel:`工作条目类型`。此 :guilabel:`工作条目类型` 的列表是根据数据库设置的本地化自动生成的。
 
-To view the current work entry types available, go to :menuselection:`Payroll app --> Configuration
---> Work Entries --> Work Entry Types`.
+要查看当前可用的工作条目类型，请转至 :menuselection:`Payroll app --> Configuration --> Work Entries --> Work Entry Types`。
 
-Each work entry type has a code to aid in the creation of payslips, and to ensure all taxes and fees
-are correctly entered.
+每种工作条目类型都有一个代码，以帮助创建工资单，并确保正确输入所有税费。
 
 .. image:: payroll/work-entry-types.png
    :align: center
-   :alt: List of all work entry types currently available for use, with the payroll code and color.
+   :alt: 当前可用的所有工作条目类型的列表，显示工资代码和颜色。
 
-New work entry type
+新的工作条目类型
 ~~~~~~~~~~~~~~~~~~~
+要创建新的 :guilabel:`工作条目类型`，点击 :guilabel:`新建` 按钮，并在表单中输入以下部分的信息。
 
-To create a new :guilabel:`Work Entry Type`, click the :guilabel:`New` button, and enter the
-information for the following sections on the form.
-
-General information section
+一般信息部分
 ***************************
 
-- :guilabel:`Work Entry Type Name`: the name should be short and descriptive, such as `Sick Time` or
-  `Public Holiday`.
-- :guilabel:`Payroll Code`: this code appears with the work entry type on timesheets and payslips.
-  Since the code is used in conjunction with the *Accounting* application, it is advised to check
-  with the accounting department for a code to use.
-- :guilabel:`DMFA code`: this code is used to identify :abbr:`DMFA (De Multifunctionele Aangifte)`
-  entries on a corresponding :abbr:`DMFA (De Multifunctionele Aangifte)` report. The :abbr:`DMFA
-  (De Multifunctionele Aangifte)` report is a quarterly report that Belgian-based companies are
-  required to submit for social security reporting purposes. This report states the work done by the
-  employees during the quarter, as well as the salaries paid to those employees.
-- :guilabel:`External Code`: this code is used for exporting data to a third-party payroll service.
-  Check with the third-party being used to determine the :guilabel:`External Code` to enter for the
-  new work entry type.
-- :guilabel:`SDWorx code`: this code is only for companies that use SDWorx, a payroll service
-  provider.
-- :guilabel:`Color`: select a color for the particular work entry type.
+- :guilabel:`工作条目类型名称`: 名称应简洁明了，例如 "病假" 或 "公共假日"。
+- :guilabel:`薪资代码`: 此代码会与工作条目类型一起显示在工时表和工资单上。由于此代码与 *会计* 应用程序一起使用，建议咨询会计部门以获取可用的代码。
+- :guilabel:`DMFA代码`: 此代码用于识别对应的 :abbr:`DMFA (多功能申报)` 报告中的条目。:abbr:`DMFA (多功能申报)` 报告是比利时公司每季度必须提交的社会保障报告之一。此报告列出了员工在该季度的工作情况以及支付给这些员工的薪水。
+- :guilabel:`外部代码`: 此代码用于将数据导出到第三方工资服务。请咨询所使用的第三方以确定为新的工作条目类型输入的 :guilabel:`外部代码`。
+- :guilabel:`SDWorx代码`: 仅供使用SDWorx工资服务的公司使用。
+- :guilabel:`颜色`: 为特定的工作条目类型选择颜色。
 
-Display in payslip section
+工资单显示部分
 **************************
 
-- :guilabel:`Rounding`: the rounding method selected determines how quantities on timesheet entries
-  are displayed on the payslip.
+- :guilabel:`四舍五入`: 所选的四舍五入方法决定工时表条目在工资单上显示的数量。
 
-  - :guilabel:`No Rounding`: a timesheet entry is not modified.
-  - :guilabel:`Half Day`: a timesheet entry is rounded to the closest half day amount.
-  - :guilabel:`Day`: a timesheet entry is rounded to the closest full day amount.
+  - :guilabel:`不四舍五入`: 工时表条目不被修改。
+  - :guilabel:`半天`: 工时表条目四舍五入到最近的半天。
+  - :guilabel:`全天`: 工时表条目四舍五入到最近的整天。
 
 .. example::
-   If the working time is set to an 8-hour work day (40-hour work week), and an employee enters a
-   time of 5.5 hours on a timesheet, and :guilabel:`Rounding` is set to :guilabel:`No Rounding`, the
-   entry remains 5.5 hours. If :guilabel:`Rounding` is set to :guilabel:`Half Day`, the entry is
-   changed to 4 hours. If it is set to :guilabel:`Day`, it is changed to 8 hours.
+   如果工作时间设置为8小时工作日（每周40小时），而员工在工时表上输入了5.5小时的时间，并且 :guilabel:`四舍五入` 设置为 :guilabel:`不四舍五入`，则条目保持为5.5小时。如果 :guilabel:`四舍五入` 设置为 :guilabel:`半天`，则条目更改为4小时。如果设置为 :guilabel:`全天`，则更改为8小时。
 
-Unpaid section
+无薪部分
 **************
 
-- :guilabel:`Unpaid in Structures Types`: if the work entry is for work that is not paid, specify
-  which pay structure the unpaid work entry applies to from the drop-down menu. Some situations
-  where work is logged on a timesheet, but no compensation given would be for unpaid internships,
-  unpaid training, or volunteer work.
+- :guilabel:`适用于未支付的薪资结构类型`: 如果工作条目是未付工作的条目，请从下拉菜单中指定未付工作条目适用于哪个薪资结构。一些未支付但记录在工时表中的工作情况包括无薪实习、无薪培训或志愿者工作。
 
-Valid for advantages section
+适用于福利部分
 ****************************
 
-- :guilabel:`Meal Voucher`: if the work entry should count towards a meal voucher, check the box.
-- :guilabel:`Representation Fees`: if the work entry should count towards representation fees, check
-  the box.
-- :guilabel:`Private Car Reimbursement`: if the work entry should count towards a private car
-  reimbursement, check the box.
+- :guilabel:`餐券`: 如果工作条目应计入餐券，勾选该框。
+- :guilabel:`代表费用`: 如果工作条目应计入代表费用，勾选该框。
+- :guilabel:`私人车辆报销`: 如果工作条目应计入私人车辆报销，勾选该框。
 
-Time off options section
+请假选项部分
 ************************
 
-- :guilabel:`Time Off`: check this box if the work entry type can be selected for a time off
-  request, or entry, in the *Time Off* application.
+- :guilabel:`请假`: 如果该工作条目类型可以在 *请假* 应用程序中作为请假请求或条目进行选择，请勾选此框。
 
-  If :guilabel:`Time Off` is checked, a :guilabel:`Time Off Type` field appears. This field has a
-  drop-down menu to select the specific type of time off, such as `Paid Time Off`, `Sick Time Off`,
-  or `Extra Hours`, for example.
+  如果勾选了 :guilabel:`请假`，将会出现 :guilabel:`请假类型` 字段。此字段包含一个下拉菜单，以选择具体的请假类型，例如 "带薪休假"、"病假" 或 "额外工时"。
 
-  A new type of time off can be entered in the field, if the listed types of time off in the
-  drop-down menu do **not** display the type of time off needed.
-- :guilabel:`Keep Time Off Right`: this is for Belgian-specific companies **only**, and does
-  **not** appear for other localizations. Check this box if the work entry is for time off that
-  affects the time off benefits for the following year. Workers are given time off each year,
-  according to the government, and in some cases, time off taken during a specific time period can
-  affect how much time off the employee receives or accrues the following year.
+  如果下拉菜单中未显示所需的请假类型，可以在该字段中输入新的请假类型。
+- :guilabel:`保留请假权利`: 仅适用于比利时公司，在其他本地化中不会显示。如果该工作条目属于影响下一年请假福利的时间，请勾选此框。工人每年根据政府规定获得休假，在某些情况下，在特定时间段内休假可能会影响员工在下一年获得或累积的休假。
 
-Reporting section
+报告部分
 *****************
 
-- :guilabel:`Unforeseen Absence`: if the work entry should be visible on the unforeseen absences
-  report, check this box.
+- :guilabel:`突发缺勤`: 如果工作条目应显示在突发缺勤报告中，请勾选此框。
 
 .. image:: payroll/new-work-entry-type.png
    :align: center
-   :alt: New work entry type form with all fields to be filled in.
+   :alt: 新建工作条目类型表单，包含所有要填写的字段。
 
 .. _payroll/working-times:
 
-Working schedules
+工作时间表
 -----------------
+要查看当前配置的工作时间表，请前往 :menuselection:`Payroll app --> Configuration --> Work Entries --> Working Schedules`。在此列表中可以找到适用于员工合同和工作条目的工作时间表。
 
-To view the currently configured working schedules, go to :menuselection:`Payroll app -->
-Configuration --> Work Entries --> Working Schedules`. The working schedules that are available for
-an employee's contracts and work entries are found in this list.
-
-Working schedules are company-specific. Each company **must** identify each type of working schedule
-they use. If the database is created for only one company, the company column is not available.
+工作时间表是公司特定的。每个公司都**必须**识别其使用的每种工作时间表。如果数据库仅为一家公司创建，则公司列不可用。
 
 .. example::
-   An Odoo database containing multiple companies that use a standard 40-hour work week needs to
-   have a separate working schedule entry for each company that uses the 40-hour standard work week.
+   一个包含多家公司的Odoo数据库，这些公司都使用标准的40小时工作周，则需要为每个使用40小时标准工作周的公司创建单独的工作时间表条目。
 
-   A database with five companies that all use a standard 40-hour work week needs to have five
-   separate 40-hour working schedules configured.
+   如果一个数据库有五家公司，都使用标准的40小时工作周，则需要配置五个单独的40小时工作时间表。
 
 .. image:: payroll/working-schedules.png
    :align: center
-   :alt: All working schedules available to use currently set up in the database for the company.
+   :alt: 当前设置的数据库中可供公司使用的所有工作时间表。
 
 .. _payroll/new-working-schedule:
 
-New working schedule
+新建工作时间表
 ~~~~~~~~~~~~~~~~~~~~
 
-To create a new working schedule, click the :guilabel:`New` button, and enter the information on the
-form.
+要创建新的工作时间表，点击 :guilabel:`新建` 按钮，然后在表单中输入信息。
 
-The fields are auto-populated for a regular 40-hour work week but can be modified. First, change the
-name of the working time by modifying the text in the :guilabel:`Name` field. Next, make any
-adjustments to the days and times that apply to the new working time.
+该表单为常规的40小时工作周自动填充内容，但可以进行修改。首先，通过修改 :guilabel:`名称` 字段中的文本更改工作时间的名称。接下来，对适用于新工作时间的日期和时间进行调整。
 
-In the :guilabel:`Working Hours` tab, modify the :guilabel:`Day of Week`, :guilabel:`Day Period`,
-and :guilabel:`Work Entry Type` selections by clicking on the drop-down menus in each column and
-making the desired selection. The :guilabel:`Work From` and :guilabel:`Work To` columns are modified
-by typing in the time.
+在 :guilabel:`工作时间` 标签下，通过点击每列的下拉菜单，修改 :guilabel:`星期几`、:guilabel:`日间时段` 和 :guilabel:`工作条目类型` 的选择。通过输入时间修改 :guilabel:`开始工作` 和 :guilabel:`结束工作` 列。
 
 .. note::
-   The :guilabel:`Work From` and :guilabel:`Work To` times must be in a 24-hour format. For example,
-   `2:00 PM` would be entered as `14:00`.
+   :guilabel:`开始工作` 和 :guilabel:`结束工作` 时间必须以24小时格式输入。例如，`下午2:00` 应输入为 `14:00`。
 
-If the working time should be in a two-week configuration, click the :guilabel:`Switch to 2 weeks
-calendar` button in the top-left. This creates entries for an :guilabel:`Even week` and an
-:guilabel:`Odd week`.
+如果工作时间应该为两周配置，请点击左上角的 :guilabel:`切换到2周日历` 按钮。这将为 :guilabel:`偶数周` 和 :guilabel:`奇数周` 创建条目。
 
 .. image:: payroll/new-working-schedule.png
    :align: center
-   :alt: New working schedule form.
+   :alt: 新建工作时间表表单。
 
-Salary
+薪资
 ======
 
 .. _payroll/structure-types:
 
-Structure types
+结构类型
 ---------------
 
-In Odoo, an employee's payslip is based on *structures* and *structure types*, which both affect how
-an employee enters timesheets. Each structure type is an individual set of rules for processing a
-timesheet entry, which consists of different structures nested within it. Structure types define how
-often an employee gets paid, the working hours, and if wages are based on a salary (fixed) or how
-many hours the employee worked (varied).
+在Odoo中，员工的工资单基于 *结构* 和 *结构类型*，它们都影响员工填写工时表的方式。每种结构类型是一组单独的规则，用于处理工时条目，并由不同的结构组成。结构类型定义了员工领取工资的频率、工作时间，以及工资是基于固定工资还是基于员工实际工作的小时数。
 
-For example, a structure type could be `Employee`, and that structure type could have two different
-structures in it: a `Regular Pay` structure which includes all the separate rules for processing
-regular pay, as well as a structure for an `End of Year Bonus` which includes the rules only for the
-end of year bonus. Both the `Regular Pay` structure and `End of Year Bonus` structure are structures
-within the `Employee` structure type.
+例如，一个结构类型可以是 `员工`，该结构类型可能包含两个不同的结构：一个是 `常规工资` 结构，其中包括处理常规工资的所有规则；另一个是 `年终奖金` 结构，其中仅包括年终奖金的规则。`常规工资` 结构和 `年终奖金` 结构都属于 `员工` 结构类型。
 
-The different :guilabel:`Structure Types` can be seen by navigating to :menuselection:`Payroll app
---> Configuration --> Salary: Structure Types`.
+通过导航到 :menuselection:`Payroll app --> Configuration --> Salary: Structure Types` 可以查看不同的 :guilabel:`结构类型`。
 
-Two default structure types are configured in Odoo: :guilabel:`Employee` and :guilabel:`Worker`.
+在Odoo中预配置了两个默认结构类型：:guilabel:`员工` 和 :guilabel:`工人`。
 
-Typically, :guilabel:`Employee` is used for salaried employees, which is why the wage type is
-:guilabel:`Monthly Fixed Wage`, and :guilabel:`Worker` is typically used for employees paid by the
-hour, so the wage type is :guilabel:`Hourly Wage`.
+通常，:guilabel:`员工` 用于领取固定工资的员工，因此工资类型为 :guilabel:`按月固定工资`，而 :guilabel:`工人` 通常用于按小时支付工资的员工，因此工资类型为 :guilabel:`按小时工资`。
 
 .. image:: payroll/structure-type.png
    :align: center
-   :alt: List of all currently configured structure types available to use.
+   :alt: 当前配置的所有可用结构类型列表。
 
 .. _payroll/new-structure-type:
 
-New structure type
+新建结构类型
 ~~~~~~~~~~~~~~~~~~
 
-To make a new structure type, click the :guilabel:`New` button, and a blank structure type form
-appears.
+要创建新的结构类型，点击 :guilabel:`新建` 按钮，一个空白的结构类型表单将出现。
 
-Proceed to enter information in the fields. Most fields are pre-populated, but all the fields can be
-modified.
+继续在字段中输入信息。大多数字段已预填，但所有字段都可以修改。
 
-- :guilabel:`Structure Type`: enter the name for the new structure type, such as `Employee` or
-  `Worker`.
-- :guilabel:`Country`: select the country that the new structure type applies to from the drop-down
-  menu.
-- :guilabel:`Wage Type`: select what type of wage the new structure type uses, either
-  :guilabel:`Fixed Wage` or :guilabel:`Hourly Wage`.
+- :guilabel:`结构类型`: 输入新结构类型的名称，如 `员工` 或 `工人`。
+- :guilabel:`国家`: 从下拉菜单中选择新结构类型适用的国家。
+- :guilabel:`工资类型`: 选择新结构类型使用的工资类型，选择 :guilabel:`固定工资` 或 :guilabel:`按小时工资`。
 
-  If the type is to be used for salaried employees, who receive the same wage every pay period,
-  select :guilabel:`Fixed Wage`.
+  如果该类型用于领取固定工资的员工，选择 :guilabel:`固定工资`。
 
-  If the type is to be used for employees, who receive wages based on how many hours they worked
-  during a pay period, select :guilabel:`Hourly Wage`.
-- :guilabel:`Default Scheduled Pay`: select the typical pay schedule for the new structure type from
-  the drop-down menu. Options are :guilabel:`Monthly`, :guilabel:`Quarterly`,
-  :guilabel:`Semi-annually`, :guilabel:`Annually`, :guilabel:`Weekly`, :guilabel:`Bi-weekly`,
-  :guilabel:`Bi-monthly`. This indicates how often this specific type of structure is paid out.
-- :guilabel:`Default Working Hours`: select the default working hours for the new structure type
-  from the drop-down menu. All available working hours for the currently selected company appear in
-  the drop-down menu. The default working hours that are pre-configured in Odoo is the
-  :guilabel:`Standard 40 hours/week` option. If the needed working hours do not appear in the list,
-  a :ref:`new set of default working hours can be created <new-default-working-hours>`.
-- :guilabel:`Regular Pay Structure`: type in the name for the regular pay structure.
-- :guilabel:`Default Work Entry Type`: select the default type of work entry the new structure type
-  falls under from the drop-down menu. The default options include :guilabel:`Attendance`,
-  :guilabel:`Overtime Hours`, :guilabel:`Generic Time Off`, :guilabel:`Compensatory Time Off`,
-  :guilabel:`Home Working`, :guilabel:`Unpaid`, :guilabel:`Sick Time Off`, :guilabel:`Paid Time
-  Off`, :guilabel:`Out Of Contract`, :guilabel:`Extra Hours`, and :guilabel:`Long Term Time Off`.
+  如果该类型用于按小时支付工资的员工，选择 :guilabel:`按小时工资`。
+- :guilabel:`默认支付计划`: 从下拉菜单中选择新结构类型的典型支付计划。选项包括 :guilabel:`每月`、:guilabel:`每季度`、:guilabel:`半年`、:guilabel:`每年`、:guilabel:`每周`、:guilabel:`每两周`、:guilabel:`每双月`。这表示该结构类型的具体支付频率。
+- :guilabel:`默认工作时间`: 从下拉菜单中选择新结构类型的默认工作时间。当前选定公司可用的所有工作时间将显示在下拉菜单中。Odoo中预配置的默认工作时间为 :guilabel:`标准每周40小时` 选项。如果列表中没有显示所需的工作时间，可以创建 :ref:`新的默认工作时间 <new-default-working-hours>`。
+- :guilabel:`常规工资结构`: 输入常规工资结构的名称。
+- :guilabel:`默认工作条目类型`: 从下拉菜单中选择新结构类型的默认工作条目类型。默认选项包括 :guilabel:`出勤`、:guilabel:`加班时间`、:guilabel:`一般请假`、:guilabel:`补偿性休假`、:guilabel:`居家办公`、:guilabel:`无薪`、:guilabel:`病假`、:guilabel:`带薪休假`、:guilabel:`合同外时间`、:guilabel:`额外工时`、:guilabel:`长期休假`。
 
-  To view all the options for the :guilabel:`Default Work Entry Type`, click the :guilabel:`Search
-  More..` button at the bottom of the drop-down list.
+  要查看 :guilabel:`默认工作条目类型` 的所有选项，点击下拉列表底部的 :guilabel:`查看更多` 按钮。
 
-  Depending on the localization settings, this list may contain more options in addition to the
-  default options.
+  根据本地化设置，除了默认选项外，列表中可能包含更多选项。
 
 .. image:: payroll/new-structure.png
    :align: center
-   :alt: New structure type form to fill out when creating a new structure type.
+   :alt: 创建新结构类型时需要填写的新结构类型表单。
 
 .. _new-default-working-hours:
 
-New default working hours
+新建默认工作时间
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+在新的结构类型表单中的 :guilabel:`默认工作时间` 字段中输入新工作时间的名称。点击 :guilabel:`创建并编辑`。此时会弹出一个默认工作时间表单。默认工作时间表单有两个部分，一个是常规信息部分，另一个是列出各天工作时间的标签。完成表单后，点击 :guilabel:`保存并关闭`。
 
-To make new default working hours, type the name for the new working hours in the :guilabel:`Default
-Working Hours` field on the new structure type form. Click :guilabel:`Create and edit`. A default
-working hours form pops up. The default working hours form has two sections, a general information
-section and a tab listing out all the individual working hours by day and time. When the form is
-completed, click :guilabel:`Save & Close`.
+- :guilabel:`名称`: 输入新默认工作时间的名称，应该简洁明了，例如 `每周20小时标准`。
+- :guilabel:`公司`: 从下拉菜单中选择可以使用这些新默认工作时间的公司。请记住，工作时间是公司特定的，不能在公司之间共享。每家公司需要设置自己的工作时间。
+- :guilabel:`每日平均工时`: 此字段根据 :guilabel:`工作时间` 标签中配置的工作时间自动填充。此项会影响资源规划，因为每日平均工时会影响每天可以使用的资源量。
+- :guilabel:`时区`: 从下拉菜单中选择用于新默认工作时间的时区。
+- :guilabel:`公司全职工作时间`: 输入员工被视为全职员工每周需要工作的小时数。通常情况下，这大约是40小时，此数字会影响员工是否能享受基于其就业状态（全职或兼职）的福利类型。
+- :guilabel:`工时比率`: 此百分比根据 :guilabel:`公司全职工作时间` 和 :guilabel:`工作时间` 标签中配置的工时自动生成。此数值应在 `0.00%` 到 `100%` 之间，因此如果百分比超过 `100%`，则表示工作时间和/或 :guilabel:`公司全职工作时间` 需要调整。
+- :guilabel:`工作时间` 标签: 此标签列出每天的具体工作时间。当创建新的默认工作时间表单时，:guilabel:`工作时间` 标签会自动填充一个默认的每周40小时工作时间表，每天分为三个时间段。
 
-- :guilabel:`Name`: type in the name for the new default working hours. This should be descriptive
-  and clear to understand, such as `Standard 20 Hours/Week`.
-- :guilabel:`Company`: select the company that can use these new default working hours from the
-  drop-down menu. Keep in mind, working hours are company-specific, and cannot be shared between
-  companies. Each company needs to have their own working hours set.
-- :guilabel:`Average Hour Per Day`: the average hours per day field is auto-populated, based on the
-  working hours configured in the :guilabel:`Working Hours` tab. This entry affects resource
-  planning, since the average daily hours affect what resources can be used, and in what quantity,
-  per work day.
-- :guilabel:`Timezone`: select the time zone to be used for the new default working hours from the
-  drop-down menu.
-- :guilabel:`Company Full Time`: enter the number of hours per week an employee would need to work
-  to be considered a full-time employee. Typically, this is approximately 40 hours, and this number
-  affects what types of benefits an employee can receive, based on their employment status
-  (full-time vs part-time).
-- :guilabel:`Work Time Rate`: this percentage is auto-generated based on the entry for the
-  :guilabel:`Company Full Time` and the working hours configured in the :guilabel:`Working Hours`
-  tab. This number should be between `0.00%` and `100%`, so if the percentage is above `100%`, it is
-  an indication that the working times and/or :guilabel:`Company Full Time` hours need adjustment.
-- :guilabel:`Working Hours` Tab: this tab is where each day's specific working hours are listed.
-  When a new default working hour form is created, the :guilabel:`Working Hours` tab is
-  pre-populated with a default 40-hour week, with each day divided into three timed sections.
+  每天都配置了早晨 (8:00-12:00)、午餐时间 (12:00-13:00) 和下午 (13:00-17:00) 的工作时间，使用24小时制时间格式。
 
-  Every day has morning (8:00-12:00), lunch (12:00-13:00), and evening (13:00-17:00) hours
-  configured, using a 24 hour time format.
+  要调整任何这些时间，点击特定的字段进行调整，并使用下拉菜单进行选择，或者在特定的时间字段中输入所需的时间。
 
-  To adjust any of these hours, click on the specific field to adjust, and make the adjustment using
-  the drop-down menus, or in the specific case of the times, type in the desired time.
-
-  Keep in mind, working hours are company-specific, and cannot be shared between companies. Each
-  company needs to have their own working hours set.
+  请记住，工作时间是公司特定的，不能在公司之间共享。每家公司需要设置自己的工作时间。
 
   .. note::
-     If the working hours are not consistent each week, and the hours are on a bi-weekly schedule
-     instead, click the :guilabel:`Switch to 2 week calendar` button at the top of the new default
-     working hours form. This changes the :guilabel:`Working Hours` tab to display two weeks of
-     working times that can be adjusted.
+     如果工作时间每周不一致，并且是每两周的工作时间表，请点击新默认工作时间表单顶部的 :guilabel:`切换到两周日历` 按钮。这将改变 :guilabel:`工作时间` 标签，使其显示可以调整的两周工作时间。
 
-Structures
+工资结构
 ----------
 
-*Salary structures* are the different ways an employee gets paid within a specific *structure*, and
-are specifically defined by various rules.
+*工资结构* 是定义员工工资计算方式的规则集合。
 
-The amount of structures a company needs for each structure type depends on how many different ways
-employees are paid, and how their pay is calculated. For example, a common structure that could be
-useful to add may be a `Bonus`.
+公司为每种结构类型所需的工资结构数量取决于员工的不同支付方式和工资计算方法。例如，可能有用的结构之一可能是 `奖金`。
 
-To view all the various structures for each structure type, go to :menuselection:`Payroll app -->
-Configuration --> Salary --> Structures`.
+要查看每种结构类型的所有工资结构，请前往 :menuselection:`Payroll app --> Configuration --> Salary --> Structures`。
 
-Each :ref:`structure type <payroll/structure-types>` lists the various structures associated with
-it. Each structure contains a set of rules that define it.
+每个 :ref:`结构类型 <payroll/structure-types>` 都列出了与之相关的各种结构。每个结构都包含一套定义工资单计算的规则。
 
 .. image:: payroll/salary-structure.png
    :align: center
-   :alt: All available salary structures.
+   :alt: 所有可用的工资结构。
 
-Click on a structure to view its :guilabel:`Salary Rules`. These rules are what calculate the
-payslip for the employee.
+点击某个结构可以查看其 :guilabel:`工资规则`。这些规则用于计算员工的工资单。
 
 .. image:: payroll/structure-regular-pay-rules.png
    :align: center
-   :alt: Salary structure details for Regular Pay, listing all the specific Salary Rules.
+   :alt: 列出了常规工资的工资结构细节，显示了所有特定的工资规则。
 
-Rules
+规则
 -----
 
-Each structure has a set of *salary rules* to follow for accounting purposes. These rules are
-configured by the localization, and affect actions in the *Accounting* application, so modifications
-to the default rules, or the creation of new rules, should only be done when necessary.
+每个结构都有一组*工资规则*，用于会计目的。这些规则由本地化配置，并影响 *会计* 应用中的操作，因此，除非必要，否则不应修改默认规则或创建新规则。
 
-To view all the rules, go to :menuselection:`Payroll app --> Configuration --> Salary --> Rules`.
-Click on a structure (such as :guilabel:`Regular Pay`) to view all the rules.
+要查看所有规则，请前往 :menuselection:`Payroll app --> Configuration --> Salary --> Rules`。点击某个结构（例如 :guilabel:`常规工资`）以查看所有规则。
 
-To make a new rule, click :guilabel:`New`. A new rule form appears. Enter the following information
-in the fields.
+要创建新规则，点击 :guilabel:`新建`。会出现一个新的规则表单。在字段中输入以下信息。
 
-Top section
+顶部部分
 ~~~~~~~~~~~
 
-- :guilabel:`Rule Name`: enter a name for the rule. This field is required.
-- :guilabel:`Category`: select a category the rule applies to from the drop-down menu, or enter a
-  new one. This field is required.
-- :guilabel:`Code`: enter a code to be used for this new rule. It is recommended to coordinate with
-  the accounting department for a code to use as this affects accounting reports and payroll
-  processing. This field is required.
-- :guilabel:`Sequence`: enter a number indicating when this rule is calculated in the sequence of
-  all other rules.
-- :guilabel:`Salary Structure`: select a salary structure the rule applies to from the drop-down
-  menu, or enter a new one. This field is required.
-- :guilabel:`Active`: enable this toggle, so the rule is available for use. Disable the toggle to
-  hide the rule without deleting it in the database.
-- :guilabel:`Appears on payslip`: tick the checkbox to have the rule appear on employee payslips.
-- :guilabel:`View on Employer Cost Dashboard`: tick the checkbox to have the rule appear on the
-  :guilabel:`Employer Cost` report, located on the *Payroll* app dashboard.
-- :guilabel:`View on Payroll Reporting`: tick the checkbox to have the rule appear on payroll
-  reports.
+- :guilabel:`规则名称`: 输入规则的名称。此字段为必填项。
+- :guilabel:`类别`: 从下拉菜单中选择规则适用的类别，或输入新类别。此字段为必填项。
+- :guilabel:`代码`: 输入用于此新规则的代码。建议与会计部门协调使用的代码，因为此代码会影响会计报告和工资处理。此字段为必填项。
+- :guilabel:`序列`: 输入一个数字，表示该规则在所有其他规则中的计算顺序。
+- :guilabel:`工资结构`: 从下拉菜单中选择规则适用的工资结构，或输入新结构。此字段为必填项。
+- :guilabel:`激活`: 启用此开关，以便规则可用于使用。禁用该开关则会隐藏规则，但不会在数据库中删除它。
+- :guilabel:`显示在工资单上`: 勾选此框以让规则显示在员工的工资单上。
+- :guilabel:`显示在雇主成本仪表板上`: 勾选此框以让规则显示在 *Payroll* 应用仪表板上的 :guilabel:`雇主成本` 报告中。
+- :guilabel:`显示在工资报告中`: 勾选此框以让规则显示在工资报告中。
 
 .. image:: payroll/new-rule.png
    :align: center
-   :alt: Enter the information for the new rule on the new rule form.
+   :alt: 在新规则表单中输入新规则的信息。
 
-General tab
+常规标签
 ~~~~~~~~~~~
-
-Conditions
+条件
 **********
 
-- :guilabel:`Condition Based on`: select from the drop-down menu whether the rule is
-  :guilabel:`Always True` (always applies), a :guilabel:`Range` (applies to a specific range, which
-  is entered beneath the selection), or a :guilabel:`Python Expression` (the code is entered beneath
-  the selection). This field is required.
+- :guilabel:`基于条件`: 从下拉菜单中选择规则是否为 :guilabel:`始终成立`（始终适用）、:guilabel:`范围`（适用于特定范围，范围信息将在选择下方输入）或 :guilabel:`Python 表达式`（代码将在选择下方输入）。此字段为必填项。
 
-Computation
+计算
 ***********
 
-- :guilabel:`Amount Type`: select from the drop-down menu whether the amount is a :guilabel:`Fixed
-  Amount`, a :guilabel:`Percentage (%)`, or a :guilabel:`Python Code`. Depending on what is
-  selected, the fixed amount, percentage, or Python code needs to be entered next. This field is
-  required.
+- :guilabel:`金额类型`: 从下拉菜单中选择金额是 :guilabel:`固定金额`、:guilabel:`百分比 (%)` 还是 :guilabel:`Python 代码`。根据所选内容，接下来需要输入固定金额、百分比或 Python 代码。此字段为必填项。
 
-Company contribution
+公司贡献
 ********************
 
-- :guilabel:`Partner`: if another company financially contributes to this rule, select the company
-  from the drop-down menu.
+- :guilabel:`合作伙伴`: 如果有其他公司对该规则做出财务贡献，请从下拉菜单中选择该公司。
 
-Description tab
+描述标签
 ~~~~~~~~~~~~~~~
 
-Provide any additional information in this tab to help clarify the rule. This tab only appears in
-the rule form.
+在此标签中提供任何有助于澄清规则的附加信息。此标签仅出现在规则表单中。
 
-Accounting tab
+会计标签
 ~~~~~~~~~~~~~~
 
-- :guilabel:`Debit Account`: select the debit account from the drop-down menu the rule affects.
-- :guilabel:`Credit Account`: select the credit account from the drop-down menu the rule affects.
-- :guilabel:`Not computed in net accountability`: tick the checkbox to delete the value of this rule
-  in the `Net Salary` rule.
+- :guilabel:`借方账户`: 从下拉菜单中选择该规则影响的借方账户。
+- :guilabel:`贷方账户`: 从下拉菜单中选择该规则影响的贷方账户。
+- :guilabel:`不在净工资计算中`: 勾选此复选框，将此规则的值从 `净工资` 规则中删除。
 
-Rule parameters
+规则参数
 ---------------
 
 .. note::
-   Currently, the :guilabel:`Rule Parameters` feature found inside the :menuselection:`Payroll app
-   --> Configuration --> Salary --> Rule Parameters` menu is still in development and only serves a
-   specific use case for Belgian markets. The documentation will be updated when this section has
-   matured to more markets.
+   当前，:guilabel:`规则参数` 功能位于 :menuselection:`Payroll app --> Configuration --> Salary --> Rule Parameters` 菜单中，仍处于开发阶段，仅适用于比利时市场的特定用例。文档将在此部分扩展至更多市场时更新。
 
-Other input types
+其他输入类型
 -----------------
 
-When creating payslips, it is sometimes necessary to add other entries for specific circumstances,
-like expenses, reimbursements, or deductions. These other inputs can be configured by navigating to
-:menuselection:`Payroll app --> Configuration --> Salary --> Other Input Types`.
+在创建工资单时，有时需要为特定情况添加其他条目，例如费用报销或扣除。可以通过前往 :menuselection:`Payroll app --> Configuration --> Salary --> Other Input Types` 来配置这些其他输入。
 
 .. image:: payroll/other-input.png
    :align: center
-   :alt: A list of other input types for payroll that can be selected when creating a new entry for
-         a payslip.
+   :alt: 工资单的其他输入类型列表，可在创建工资单条目时选择。
 
-To create a new input type, click the :guilabel:`New` button. Enter the :guilabel:`Description`, the
-:guilabel:`Code`, and which structure it applies to in the :guilabel:`Availability in Structure`
-field.
+要创建新输入类型，点击 :guilabel:`新建` 按钮。输入 :guilabel:`描述`、:guilabel:`代码` 以及该输入适用于哪个结构的 :guilabel:`结构可用性` 字段。
 
 .. important::
-   The :guilabel:`Code` is used in the salary rules to compute payslips. If the
-   :guilabel:`Availability in Structure` field is left blank, it indicates that the new input type
-   is available for all payslips and is not exclusive to a specific structure.
+   :guilabel:`代码` 用于工资规则中计算工资单。如果 :guilabel:`结构可用性` 字段留空，则表示该新输入类型适用于所有工资单，而不专属于某个特定结构。
 
 .. image:: payroll/input-type-new.png
    :align: center
-   :alt: A new Input Type form filled in.
+   :alt: 填写完整的新输入类型表单。
 
 .. _payroll/salary-attachment-types:
 
-Salary attachment types
+工资扣除类型
 -----------------------
 
-Salary attachments, also thought of as "wage garnishments", are portions of earnings taken out of a
-payslip for something specific. Much like all other aspects of payroll configurations, the types of
-salary attachments **must** be defined.
+工资扣除，通常被认为是 "工资扣押"，是从工资单中扣除的特定部分。与工资单配置的其他方面类似，工资扣除类型**必须**进行定义。
 
-To view the currently configured salary attachments, navigate to :menuselection:`Payroll app -->
-Configuration --> Salary --> Salary Attachment Types`. The default salary attachment types are
-:guilabel:`Attachment of Salary`, :guilabel:`Assignment of Salary`, and :guilabel:`Child Support`.
+要查看当前配置的工资扣除类型，请导航至 :menuselection:`Payroll app --> Configuration --> Salary --> Salary Attachment Types`。默认工资扣除类型包括 :guilabel:`工资扣押`、:guilabel:`工资分配` 和 :guilabel:`子女抚养费`。
 
-To make a new type of salary attachment, click the :guilabel:`New` button. Then, enter the
-:guilabel:`Name`, the :guilabel:`Code` (used in the salary rules to compute payslips), and decide if
-it should have :guilabel:`No End Date`.
+要创建新的工资扣除类型，点击 :guilabel:`新建` 按钮。然后，输入 :guilabel:`名称`、:guilabel:`代码`（用于工资规则中计算工资单），并决定是否选择 :guilabel:`无结束日期`。
 
 .. image:: payroll/new-attachment.png
    :align: center
-   :alt: A new salary attachment form filled in.
+   :alt: 填写完整的工资扣除类型表单。
 
-Salary package configurator
+工资包配置器
 ===========================
 
-The various options under the :guilabel:`Salary Package Configurator` section of the
-:menuselection:`Payroll app --> Configuration --> Salary Package Configurator` menu all affect an
-employee's potential salary. These sections (:guilabel:`Benefits`, :guilabel:`Personal Info`,
-and :guilabel:`Resume`) specify what benefits can be offered to an employee in their salary package.
+:menuselection:`Payroll app --> Configuration --> Salary Package Configurator` 菜单下的 :guilabel:`工资包配置器` 部分中的各种选项都会影响员工的潜在工资。这些部分（:guilabel:`福利`、:guilabel:`个人信息` 和 :guilabel:`简历`）指定了可以提供给员工的工资包福利。
 
-Depending on what information an employee enters (such as deductions, dependents, etc.), their
-salary is adjusted accordingly. When an applicant applies for a job on the company website, the
-sections under :guilabel:`Salary Package Configurator` directly affect what the applicant sees, and
-what is populated, as the applicant enters information.
+根据员工输入的信息（如扣除、受抚养人等），其工资将相应调整。当申请人在公司网站上申请工作时，:guilabel:`工资包配置器` 下的部分会直接影响申请人看到的内容，以及当申请人输入信息时显示的内容。
 
-Benefits
+福利
 --------
+当为潜在员工提供职位时，可以在 Odoo 中设置某些福利，除了工资之外，还可以提供额外的吸引力（例如额外的假期、公司车辆的使用、电话或互联网报销等）。
 
-When offering potential employees a position, there can be certain benefits set in Odoo, in addition
-to the salary, to make an offer more appealing (such as extra time off, the use of a company car,
-reimbursement for a phone or internet, etc.).
-
-To view the benefits, go to :menuselection:`Payroll app --> Configuration --> Salary Package
-Configurator: Benefits`. Benefits are grouped by :guilabel:`Structure type`, and the benefit listed
-for a particular structure type is only available for that specific structure.
+要查看福利，请前往 :menuselection:`Payroll app --> Configuration --> Salary Package Configurator: Benefits`。福利按 :guilabel:`结构类型` 分组，特定结构类型下列出的福利仅适用于该特定结构类型。
 
 .. image:: payroll/benefits.png
    :align: center
-   :alt: A list view of all the benefits available for each structure type.
+   :alt: 列出所有结构类型下可用的福利的列表视图。
 
 .. example::
-   A company has two structure types, one labeled :guilabel:`Employee`, and another labeled
-   :guilabel:`Intern`. The :guilabel:`Employee` structure type contains the benefit of using a
-   company car, while the :guilabel:`Intern` structure type has a meal voucher benefit available.
+   某公司有两种结构类型，一种标记为 :guilabel:`员工`，另一种标记为 :guilabel:`实习生`。:guilabel:`员工` 结构类型包含使用公司车辆的福利，而 :guilabel:`实习生` 结构类型则提供餐券福利。
 
-   A person hired under the :guilabel:`Employee` structure type can use the company car benefit, but
-   cannot have meal vouchers. A person hired under the :guilabel:`Intern` structure type would have
-   meal voucher benefits available to them, not the use of a company car.
+   被聘用为 :guilabel:`员工` 结构类型的人可以使用公司车辆的福利，但不能获得餐券。被聘用为 :guilabel:`实习生` 结构类型的人将享有餐券福利，但不能使用公司车辆。
 
-To make a new benefit, click the :guilabel:`New` button, and enter the information in the fields on
-the blank benefits form.
+要创建新福利，点击 :guilabel:`新建` 按钮，并在空白福利表单中填写相关信息。
 
-The various fields for creating a benefit are as follows:
+创建福利的各个字段如下：
 
-General information section
+常规信息部分
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- :guilabel:`Benefits`: enter the name for the benefit. This field is required.
-- :guilabel:`Benefit Field`: select from the drop-down menu the type of benefit this is.
-- :guilabel:`Cost Field`: select from the drop-down menu the type of cost incurred by the company
-  for this specific benefit. The default options are :guilabel:`Calendar Changed`, :guilabel:`Yearly
-  Cost (Real)`, :guilabel:`Extra Time Off`, :guilabel:`Hourly Wage`, :guilabel:`Part Time`,
-  :guilabel:`Wage`, :guilabel:`Wage with Holidays`, and :guilabel:`Work time rate`. Depending on the
-  localization settings, additional options are available.
-- :guilabel:`Related Type`: select from the drop-down menu what type of benefit it is. Select from
-  :guilabel:`Monthly Benefit in Kind`, :guilabel:`Monthly Benefit in Net`, :guilabel:`Monthly
-  Benefit in Cash`, :guilabel:`Yearly Benefits in Cash`, or :guilabel:`Non Financial Benefits`. This
-  field is required.
-- :guilabel:`Benefit Field`: select from the drop-down menu the specific field on the contract the
-  benefit appears.
-- :guilabel:`Cost Field`: select the specific field on the contract that the cost of the benefit is
-  linked to, using the drop-down menu. If this field is left blank, the cost of the benefit is not
-  computed in the employee budget.
-- :guilabel:`Impacts Net Salary`: tick the checkbox if the benefit should impact the employee's net
-  salary.
-- :guilabel:`Requested Documents`: select any document that is required to be submitted for this
-  benefit, from the drop-down menu.
-- :guilabel:`Mandatory Benefits`: using the drop-down menu, select the benefit that is required in
-  order for this specific benefit to be offered to the employee.
+- :guilabel:`福利`: 输入福利的名称。此字段为必填项。
+- :guilabel:`福利字段`: 从下拉菜单中选择此福利的类型。
+- :guilabel:`成本字段`: 从下拉菜单中选择公司为该特定福利承担的成本类型。默认选项包括 :guilabel:`日历变更`、:guilabel:`年度成本（实际）`、:guilabel:`额外休假`、:guilabel:`小时工资`、:guilabel:`兼职`、:guilabel:`工资`、:guilabel:`包含假期的工资` 和 :guilabel:`工作时间率`。根据本地化设置，可能会有其他选项。
+- :guilabel:`相关类型`: 从下拉菜单中选择福利的类型。选项包括 :guilabel:`实物月度福利`、:guilabel:`净月度福利`、:guilabel:`现金月度福利`、:guilabel:`年度现金福利` 或 :guilabel:`非财务福利`。此字段为必填项。
+- :guilabel:`福利字段`: 从下拉菜单中选择福利在合同中显示的具体字段。
+- :guilabel:`成本字段`: 从下拉菜单中选择福利成本在合同中关联的字段。如果该字段留空，则福利成本不计入员工预算。
+- :guilabel:`影响净工资`: 如果福利会影响员工的净工资，请勾选该复选框。
+- :guilabel:`要求提交的文件`: 从下拉菜单中选择员工获得该福利时需要提交的文件。
+- :guilabel:`强制福利`: 使用下拉菜单选择该福利生效前必须选中的其他福利。
 
-  For example, a benefit for car insurance would populate `Company Car` in this field. This would
-  allow the car insurance benefit to **only** be displayed if the employee has selected/enabled the
-  benefit of a company car.
-- :guilabel:`Salary Structure Type`: select from the drop-down menu which salary structure type this
-  benefit applies to. This field is required.
-- :guilabel:`Unit of Measure`: select the metric that the benefit is granted, using the drop-down
-  menu. The options are :guilabel:`Days`, :guilabel:`Percent`, or :guilabel:`Currency`.
+  例如，汽车保险福利将填入 `公司车辆` 这一字段。这意味着，只有在员工选择/启用公司车辆福利时，汽车保险福利才会显示。
+- :guilabel:`工资结构类型`: 从下拉菜单中选择该福利适用的工资结构类型。此字段为必填项。
+- :guilabel:`计量单位`: 使用下拉菜单选择授予该福利的度量单位。选项包括 :guilabel:`天`、:guilabel:`百分比` 或 :guilabel:`货币`。
 
 .. image:: payroll/new-benefit.png
    :align: center
-   :alt: A new benefit form filled out for an internet subscription.
+   :alt: 为互联网订阅填写的新福利表单。
 
-Display section
+显示部分
 ~~~~~~~~~~~~~~~
 
-- :guilabel:`Show Name`: tick the checkbox to have the benefit name appear in the salary package
-  configurator.
-- :guilabel:`Display Type`: select from the drop-down menu how this benefit is displayed. The
-  options are :guilabel:`Always Selected`, :guilabel:`Dropdown`, :guilabel:`Dropdown Group`,
-  :guilabel:`Slider`, :guilabel:`Radio Buttons`, :guilabel:`Manual Input`, or :guilabel:`Text`. This
-  field is required.
+- :guilabel:`显示名称`: 勾选复选框以使福利名称显示在工资包配置器中。
+- :guilabel:`显示类型`: 从下拉菜单中选择福利的显示方式。选项包括 :guilabel:`总是选中`、:guilabel:`下拉菜单`、:guilabel:`下拉菜单组`、:guilabel:`滑块`、:guilabel:`单选按钮`、:guilabel:`手动输入` 或 :guilabel:`文本`。此字段为必填项。
 
-  Depending on the selection made, additional configurations need to be made. For example, if
-  :guilabel:`Radio Buttons` is selected, the individual radio buttons must be entered.
-- :guilabel:`Icon`: an icon from the `Font Awesome 4 library <https://fontawesome.com/v4/icons/>`_
-  can be visible for this benefit. Enter the text code for the icon in this field. For example, to
-  display a suitcase icon, the code `fa fa-suitcase` is entered on this line.
-- :guilabel:`Hide Description`: tick the checkbox to hide the benefit description if the benefit is
-  not selected by the employee.
-- :guilabel:`Folded`: if the benefit should be folded, or hidden, because it is dependant on another
-  benefit selection, tick the checkbox. The following fields appear when this is active:
+  根据所做的选择，需要进行其他配置。例如，如果选择了 :guilabel:`单选按钮`，则必须输入各个单选按钮。
+- :guilabel:`图标`: 可以为此福利显示 `Font Awesome 4 图标库 <https://fontawesome.com/v4/icons/>`_ 中的图标。请输入图标的文本代码。例如，要显示一个行李箱图标，输入代码 `fa fa-suitcase`。
+- :guilabel:`隐藏描述`: 如果员工未选择该福利，则勾选复选框以隐藏福利描述。
+- :guilabel:`折叠`: 如果该福利是依赖于另一个福利的选择而显示的，则勾选复选框将其折叠或隐藏。启用此选项时会出现以下字段：
 
-  - :guilabel:`Fold Label`: enter a name for the folded section of the benefit.
-  - :guilabel:`Fold Res Field`: select the contract field this benefit is tied to using the
-    drop-down menu. If this field is selected on the contract, then this benefit becomes visible.
+  - :guilabel:`折叠标签`: 输入福利折叠部分的名称。
+  - :guilabel:`折叠关联字段`: 使用下拉菜单选择该福利与合同中绑定的字段。如果该字段在合同中被选中，则该福利将变为可见。
 
-Activity section
+活动部分
 ~~~~~~~~~~~~~~~~
 
-- :guilabel:`Activity Type`: from the drop-down menu, select the activity type that is automatically
-  created when this benefit is selected by the employee.
-- :guilabel:`Activity Creation`: select when the activity is created, either when the
-  :guilabel:`Employee signs his contract`, or when the :guilabel:`Contract is countersigned`. Click
-  the radio button next to the desired selection.
-- :guilabel:`Activity Creation Type`: select the parameters for when the activity is created, either
-  :guilabel:`When the benefit is set` or :guilabel:`When the benefit is modified`. Click the radio
-  button next to the desired selection.
-- :guilabel:`Assigned to`: select the user the activity is automatically assigned to, using the
-  drop-down menu.
+- :guilabel:`活动类型`: 从下拉菜单中选择员工选择该福利时自动创建的活动类型。
+- :guilabel:`活动创建`: 选择活动何时创建，可以选择 :guilabel:`员工签署合同时` 或 :guilabel:`合同被副签时`。点击所需选项旁的单选按钮。
+- :guilabel:`活动创建类型`: 选择活动创建的参数，可以选择 :guilabel:`当福利设置时` 或 :guilabel:`当福利修改时`。点击所需选项旁的单选按钮。
+- :guilabel:`分配给`: 使用下拉菜单选择活动自动分配的用户。
 
-Sign section
+签署部分
 ~~~~~~~~~~~~
 
-- :guilabel:`Template to Sign`: if the employee is required to sign a document when selecting this
-  benefit, select the document template from the drop-down menu.
+- :guilabel:`签署模板`: 如果员工在选择该福利时需要签署文件，请从下拉菜单中选择文件模板。
 
-  For example, a benefit regarding the use of a company car may require the employee to sign a
-  document acknowledging the company's car policies.
+  例如，有关使用公司车辆的福利可能需要员工签署一份文件，确认已知晓公司的车辆使用政策。
 
-Description tab
+描述标签
 ~~~~~~~~~~~~~~~
+提供任何其他信息以帮助阐明此福利。
 
-Provide any additional information in this tab to help clarify the benefit.
-
-Personal info
+个人信息
 -------------
 
-Every employee in Odoo has an *employee card* which is created when a candidate becomes an
-employee. This card includes all of their personal information, resume, work information, and
-documents.
+在 Odoo 中，每位员工都有一张 *员工卡*，该卡是在候选人成为员工后创建的。此卡包括员工的所有个人信息、简历、工作信息和文件。
 
-The personal information is gathered from the salary package configurator section that a
-candidate fills out after being offered a position. This personal information is then transferred to
-the employee card when they are hired.
+这些个人信息是通过薪酬包配置器部分收集的，候选人在被提供职位后填写的这些信息会在员工被雇用时转移到员工卡上。
 
-To view an employee's card, go to the main :menuselection:`Employees` app dashboard, and click on
-the employee's card.
+要查看员工的卡片，请转到主 :menuselection:`Employees` 应用程序的仪表板，并点击员工的卡片。
 
 .. note::
-   An employee card can be thought of as an employee personnel file.
+   员工卡可以被视为员工的人事档案。
 
-The :guilabel:`Personal Info` section lists all of the fields that are available to enter on the
-employee's card. To access this section, go to :menuselection:`Payroll app --> Configuration -->
-Salary Package Configurator: Personal Info`.
+:guilabel:`个人信息` 部分列出了可以在员工卡片上输入的所有字段。要访问此部分，请转到 :menuselection:`Payroll app --> Configuration --> Salary Package Configurator: Personal Info`。
 
 .. image:: payroll/personal-info.png
    :align: center
-   :alt: A list of all the personal information that appears on the employee card to enter.
+   :alt: 显示员工卡片上可以输入的所有个人信息列表。
 
-To edit a personal info entry, select an entry from the list on the :guilabel:`Personal Info` page,
-and modify the personal info on the form that appears.
+要编辑个人信息条目，请从 :guilabel:`Personal Info` 页面上的列表中选择一个条目，并修改出现的表单中的个人信息。
 
-To create a new personal info entry, click the :guilabel:`New` button.
+要创建新的个人信息条目，请点击 :guilabel:`新建` 按钮。
 
-The required fields, aside from entering the :guilabel:`Information` name, are :guilabel:`Related
-Model`, :guilabel:`Related Field`, and :guilabel:`Category`.
+必填字段，除了输入 :guilabel:`信息` 名称外，还包括 :guilabel:`相关模型`、:guilabel:`相关字段` 和 :guilabel:`类别`。
 
-Select a :guilabel:`Related Model` from the drop-down menu. :guilabel:`Employee` populates the field
-by default, but the :guilabel:`Bank Account` option is also available if the information is related
-to a bank account, instead.
+从下拉菜单中选择 :guilabel:`相关模型`。默认情况下，:guilabel:`员工` 会填充该字段，但如果信息与银行账户相关，则可以选择 :guilabel:`银行账户` 选项。
 
-Select a :guilabel:`Related Field` from the drop-down menu that best describes what kind of personal
-information this entry is, and where it is stored in the backend. Then, select a
-:guilabel:`Category` from the drop-down menu that the personal information should be under, such as
-:guilabel:`Address` or :guilabel:`Personal Documents`.
+从下拉菜单中选择最佳描述该个人信息类型的 :guilabel:`相关字段`，并选择个人信息应归入的 :guilabel:`类别`，例如 :guilabel:`地址` 或 :guilabel:`个人文件`。
 
-The two most important fields on the personal info form are :guilabel:`Is Required` and
-:guilabel:`Display Type`.
+个人信息表单上最重要的两个字段是 :guilabel:`是否必填` 和 :guilabel:`显示类型`。
 
-Checking the :guilabel:`Is Required` box makes the field mandatory on the employee's card. The
-:guilabel:`Display Type` drop-down menu allows for the information to be entered in a variety of
-ways, like a :guilabel:`Text` box, to a customizable :guilabel:`Radio` button, a
-:guilabel:`Checkbox`, a :guilabel:`Document`, and more.
+勾选 :guilabel:`是否必填` 复选框可使该字段在员工卡片上成为必填项。:guilabel:`显示类型` 下拉菜单允许以多种方式输入信息，例如 :guilabel:`文本框`、可自定义的 :guilabel:`单选按钮`、:guilabel:`复选框`、:guilabel:`文档` 等。
 
 .. image:: payroll/personal-new.png
    :align: center
-   :alt: New personal information entry.
+   :alt: 新的个人信息条目。
 
-Resumé
+简历
 ------
 
-The resumé section, housed within the salary package configurator section of the settings menu, is
-how salary information rules are configured when offering a position to potential employees.
+薪酬包配置器设置菜单中的简历部分用于配置向潜在员工提供职位时的薪酬信息规则。
 
-When an offer is sent to a prospective employee, the values for the offer are computed from these
-settings, and appear on the offer page.
+当向潜在员工发送职位邀请时，报价的值是从这些设置中计算的，并显示在报价页面上。
 
-To configure this section, navigate to :menuselection:`Payroll app --> Configuration --> Salary
-Package Configurator: Resumé`.
+要配置此部分，请导航至 :menuselection:`Payroll app --> Configuration --> Salary Package Configurator: Resumé`。
 
-By default, there are three :guilabel:`Salary Structure Types` pre-configured in Odoo:
-:guilabel:`Worker`, :guilabel:`Employee`, and :guilabel:`None`.
+默认情况下，Odoo 中预配置了三种 :guilabel:`薪酬结构类型`：:guilabel:`工人`、:guilabel:`员工` 和 :guilabel:`无`。
 
-Each :guilabel:`Salary Structure Type` has several rules configured. These affect how an offer is
-calculated using that particular :guilabel:`Salary Structure Type`.
+每种 :guilabel:`薪酬结构类型` 都配置了多个规则。这些规则会影响使用该特定 :guilabel:`薪酬结构类型` 计算报价的方式。
 
-To create a new rule, click the :guilabel:`New` button, and a blank :guilabel:`Contract Salary
-Resumé` form loads.
+要创建新规则，请点击 :guilabel:`新建` 按钮，加载一个空白的 :guilabel:`合同薪酬简历` 表单。
 
-Enter the following information on the form:
+在表单中输入以下信息：
 
-- :guilabel:`Information`: type in a name for this field.
-- :guilabel:`Category`: select the category this value is housed under, using the drop-down menu.
-  The default options are :guilabel:`Monthly Salary`, :guilabel:`Monthly Benefits`,
-  :guilabel:`Yearly Benefits`, and :guilabel:`Total`.
+- :guilabel:`信息`: 输入该字段的名称。
+- :guilabel:`类别`: 从下拉菜单中选择该值所属的类别。默认选项包括 :guilabel:`月薪`、:guilabel:`月度福利`、:guilabel:`年度福利` 和 :guilabel:`总计`。
 
-  New categories can be made if needed.
+  如果需要，可以创建新类别。
 
-  Click the :guilabel:`New` button, then enter the name for the new category in the :guilabel:`Name`
-  field. Next, select the :guilabel:`Periodicity` from the drop-down menu, either
-  :guilabel:`Monthly` or :guilabel:`Yearly`. Last, enter a number for the sequence. This corresponds
-  to where this rule appears in the  :guilabel:`Salary Structure Type` rule list.
+  点击 :guilabel:`新建` 按钮，然后在 :guilabel:`名称` 字段中输入新类别的名称。接下来，从下拉菜单中选择 :guilabel:`周期性`，选择 :guilabel:`每月` 或 :guilabel:`每年`。最后，在序列中输入一个数字。该数字对应此规则在 :guilabel:`薪酬结构类型` 规则列表中的位置。
 
-  Finally, click :guilabel:`Save & Close`.
-- :guilabel:`Impacts Monthly Total`: tick the checkbox if this value is added in the monthly total
-  calculation.
-- :guilabel:`Unit of Measure`: select what kind of value this rule is, either :guilabel:`Currency`,
-  :guilabel:`Days`, or :guilabel:`Percent`.
+  最后，点击 :guilabel:`保存并关闭`。
+- :guilabel:`影响月度总计`: 勾选复选框，如果该值计入月度总计算中。
+- :guilabel:`计量单位`: 选择该规则的值类型，是 :guilabel:`货币`、:guilabel:`天` 还是 :guilabel:`百分比`。
 
-  :guilabel:`Currency` is for a set monetary value, :guilabel:`Days` is for compensation in the form
-  of time off, and :guilabel:`Percent` is for a monetary value awarded that is based upon another
-  metric, such as commissions.
-- :guilabel:`Salary Structure Type`: select which :guilabel:`Salary Structure Type` this rule is
-  nested under, from the drop-down menu.
-- :guilabel:`Value Type`: select how the value is computed, using the drop-down menu. The default
-  options are :guilabel:`Fixed Value`, :guilabel:`Contract Value`, :guilabel:`Payslip Value`,
-  :guilabel:`Sum of Benefits Values`, and :guilabel:`Monthly Total`.
-- :guilabel:`Code`: select the code this rule applies to from the drop-down menu.
+  :guilabel:`货币` 表示设置的货币值，:guilabel:`天` 表示以假期形式的补偿，:guilabel:`百分比` 表示基于其他指标（如佣金）的货币值。
+- :guilabel:`薪酬结构类型`: 从下拉菜单中选择该规则所属的 :guilabel:`薪酬结构类型`。
+- :guilabel:`值类型`: 从下拉菜单中选择值的计算方式。默认选项包括 :guilabel:`固定值`、:guilabel:`合同值`、:guilabel:`工资单值`、:guilabel:`福利值总和` 和 :guilabel:`月度总计`。
+- :guilabel:`代码`: 从下拉菜单中选择该规则应用的代码。
 
 .. image:: payroll/resume-net.png
    :align: center
-   :alt: The net wage rule form filled out, with all the information for net pay.
+   :alt: 净工资规则表单，填写了所有净工资信息。
 
-Jobs
+工作机会
 ====
 
-Since the *Payroll* application is responsible for paying employees for specific job positions, the
-complete list of job positions can be found in both the *Payroll* and *Recruitment* applications.
+由于 *Payroll* 应用程序负责为特定职位的员工支付工资，职位的完整列表可以在 *Payroll* 和 *Recruitment* 应用程序中找到。
 
 .. _payroll/job-positions:
 
-Job positions
+职位
 -------------
 
-The job positions listed in the *Payroll* application are identical to the job positions listed in
-the *Recruitment* application. If a new job position is added in the *Recruitment* application, it
-is also visible in the *Payroll* application, and vice versa.
+*Payroll* 应用程序中列出的职位与 *Recruitment* 应用程序中列出的职位是相同的。如果在 *Recruitment* 应用程序中添加了一个新的职位，它也会在 *Payroll* 应用程序中可见，反之亦然。
 
-To view the job positions, navigate to :menuselection:`Payroll app --> Configuration --> Jobs: Job
-Positions`.
+要查看职位，请导航到 :menuselection:`Payroll app --> Configuration --> Jobs: Job Positions`。
 
-A list of all the job positions appear, along with the corresponding department, on the
-:guilabel:`Job Position` page.
+在 :guilabel:`职位` 页面上，会显示所有职位的列表以及对应的部门。
 
 .. image:: payroll/job-positions.png
    :align: center
-   :alt: A list of all the job positions and corresponding departments.
+   :alt: 所有职位及其对应部门的列表。
 
-To create a new job description, click the :guilabel:`New` button and a job form appears.
+要创建新的职位描述，请点击 :guilabel:`新建` 按钮，职位表单会出现。
 
-Enter the information on the form for the new position. The information is identical as to the
-information entered when creating a new job position in the *Recruitment* application.
+在表单中输入新职位的信息。所输入的信息与在 *Recruitment* 应用程序中创建新职位时所填写的信息相同。
 
-Refer to the :doc:`../hr/recruitment/new_job` documentation for more details on how to fill out this
-form.
+有关如何填写此表单的更多详细信息，请参阅 :doc:`../hr/recruitment/new_job` 文档。
 
 .. seealso::
    - :doc:`payroll/contracts`

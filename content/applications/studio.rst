@@ -15,25 +15,23 @@ Studio
    studio/pdf_reports
    studio/approval_rules
 
-Studio is a toolbox that allows you to customize Odoo without coding knowledge. For example, you
-can, in any app, add or modify:
+Studio 是一个工具箱，可以让您无需编写代码即可自定义 Odoo。例如，您可以在任何应用中添加或修改：
 
-- :doc:`Fields <studio/fields>`
-- :doc:`Views <studio/views>`
-- :doc:`Models <studio/models_modules_apps>`
-- :doc:`Automated actions <studio/automated_actions>`
-- :doc:`PDF reports <studio/pdf_reports>`
-- :doc:`Approval rules <studio/approval_rules>`
-- Security rules
+- :doc:`字段 <studio/fields>`
+- :doc:`视图 <studio/views>`
+- :doc:`模型 <studio/models_modules_apps>`
+- :doc:`自动化操作 <studio/automated_actions>`
+- :doc:`PDF 报告 <studio/pdf_reports>`
+- :doc:`审批规则 <studio/approval_rules>`
+- 安全规则
 
-You can also :doc:`build an app from scratch <studio/models_modules_apps>`.
+您还可以 :doc:`从头开始构建应用 <studio/models_modules_apps>`。
 
 .. _studio/access:
 
-To access Studio, navigate to the app and model you want to modify, then click the **Toggle Studio**
-button, or vice versa.
+要访问 Studio，请导航到您想要修改的应用和模型，然后点击 **切换 Studio** 按钮，或反之亦然。
 
-To close Studio, click :guilabel:`Close` in the upper right corner.
+要关闭 Studio，点击右上角的 :guilabel:`关闭` 按钮。
 
 .. seealso::
-   `Odoo Tutorials: Studio <https://www.odoo.com/slides/studio-31>`_
+   `Odoo 教程：Studio <https://www.odoo.com/slides/studio-31>`_

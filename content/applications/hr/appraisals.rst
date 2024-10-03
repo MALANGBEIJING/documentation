@@ -1,174 +1,124 @@
-:show-content:
+================
+绩效评估
+================
 
-==========
-Appraisals
-==========
+在 Odoo 中，*绩效评估* 应用程序可用于定期评估员工绩效。经理可以评估员工的工作表现，还可以允许员工进行自我评估。绩效评估是可定制的，可以设置任何所需的时间表。
 
-In Odoo, the *Appraisals* application can be used to evaluate employee performance on a recurring
-basis. Managers can evaluate the performance of their employees, and also allow employees to do a
-self-assessment of their own. Appraisals are customizable, and can be set for any kind of schedule
-desired.
+绩效评估为员工提供了有价值的反馈，包括可行的目标和可改进的技能。此外，评估结果可能成为加薪、晋升和其他福利的基础。
 
-Appraisals give employees valuable feedback, including actionable goals to work toward, and
-measurable skills to improve upon. Additionally, appraisals may form the basis for raises,
-promotions, and other benefits.
+定期的绩效评估对员工和公司都有好处，因为它们可以根据公司目标准确衡量表现，并向员工展示需要改进的地方。
 
-Regular appraisals are good for both the employees and the company, since they can accurately
-measure performance based on company goals, and show employees where they need to improve.
+配置
+============
 
-Configuration
-=============
+在 *绩效评估* 应用程序中的 :guilabel:`配置` 菜单中，可以配置设置、编辑反馈模板、设置评估频率、管理评估尺度、存储 360 度反馈的数据，以及查看/创建目标标签。
 
-The :guilabel:`Configuration` menu in the *Appraisals* application is where the settings can be
-configured, feedback templates can be edited, frequencies can be set, evaluation scales can be
-managed, data for 360 feedback can be stored, and goal tags can be viewed/created.
-
-Settings
+设置
 --------
 
-To access the *Settings* menu, navigate to :menuselection:`Appraisals application --> Configuration
---> Settings`.
+要访问 *设置* 菜单，请导航至 :menuselection:`绩效评估应用程序 --> 配置 --> 设置`。
 
-Feedback templates
-~~~~~~~~~~~~~~~~~~
-
-Feedback templates are form outlines used during an employee appraisal. Any edits made to a template
-are, ultimately, reflected in the appraisals sent to employees.
-
-There are two default templates pre-configured in Odoo *Appraisals*: one for employee feedback, and
-one for manager feedback. Each contains several sections, along with questions, and brief
-explanations for how to respond to the questions.
-
-The :guilabel:`Employee Feedback Template` has the following sections: :guilabel:`My work`,
-:guilabel:`My future`, and :guilabel:`My feelings`.
-
-The :guilabel:`Manager Feedback Template` has the following sections: :guilabel:`Feedback`,
-:guilabel:`Evaluation`, and :guilabel:`Improvements`.
-
-Any desired changes to the default feedback templates can be made by making changes directly in each
-template.
-
-Appraisals
+反馈模板
 ~~~~~~~~~~
 
-The :guilabel:`Appraisals` section of the settings menu determines the frequency that appraisals are
-performed, and if it is possible to request additional feedback.
+反馈模板是员工绩效评估期间使用的表单框架。对模板所做的任何编辑最终都会反映在发送给员工的评估中。
+
+Odoo *绩效评估* 中预配置了两个默认模板：一个用于员工反馈，另一个用于经理反馈。每个模板包含几个部分，以及问题和如何回答这些问题的简短说明。
+
+:guilabel:`员工反馈模板` 包含以下部分：:guilabel:`我的工作`，:guilabel:`我的未来` 和 :guilabel:`我的感受`。
+
+:guilabel:`经理反馈模板` 包含以下部分：:guilabel:`反馈`，:guilabel:`评估` 和 :guilabel:`改进建议`。
+
+对默认反馈模板的任何更改都可以直接在每个模板中进行。
+
+绩效评估
+~~~~~~~~~~
+
+设置菜单中的 :guilabel:`绩效评估` 部分决定了绩效评估的执行频率，以及是否可以请求额外的反馈。
 
 .. image:: appraisals/appraisals-setting.png
    :align: center
-   :alt: The appraisals sections with the timeline filled in and 360 feedback enabled.
+   :alt: 绩效评估部分时间线已填写，并启用了360度反馈。
 
 .. _appraisals/appraisal-plan:
 
-Appraisals plans
+绩效评估计划
 ****************
 
-By default, appraisals are pre-configured to be automatically created six months after an employee
-is hired, with a second appraisal exactly six months after that.
+默认情况下，绩效评估被预配置为在员工入职六个月后自动创建，第二次评估恰好在六个月后。
 
-Once those two initial appraisals have been completed in the employee's first year, following
-appraisals are only created once a year (every twelve months).
+在员工第一年的这两次初始评估完成后，后续评估仅每年进行一次（每十二个月）。
 
-To modify this schedule, change the number of months in the blank fields under the
-:guilabel:`Appraisals Plans` section.
+要修改此时间表，请更改 :guilabel:`绩效评估计划` 部分下空白字段中的月份数。
 
 .. important::
-   If the :guilabel:`Appraisals Plans` section is modified, **all** empty :guilabel:`Next Appraisal
-   Dates` are modified for **all** employees.
+   如果修改了 :guilabel:`绩效评估计划` 部分，则**所有**员工的**所有**空白 :guilabel:`下一次评估日期` 都将被修改。
 
-360 feedback
+360度反馈
 ************
 
-The :guilabel:`360 Feedback` option can be enabled to allow managers to request feedback from other
-employees using a different survey form, at any time, independent of the appraisal schedule.
+可以启用 :guilabel:`360度反馈` 选项，以允许经理在任何时间请求来自其他员工的反馈，这些反馈使用不同的调查表单，与评估时间表无关。
 
-Typically, managers ask for feedback from other people who work with an employee they manage. This
-includes the employee's various managers, peers, and direct reports.
+通常，经理会向与其管理的员工共事的其他人请求反馈。这包括该员工的各个经理、同事和直接下属。
 
-To view the :guilabel:`360 Feedback` survey, click the :guilabel:`→ Internal link` icon at the end
-of the :guilabel:`Default Template` field. The :guilabel:`360 Feedback` survey loads, and any
-desired changes to the survey can be made.
+要查看 :guilabel:`360度反馈` 调查表，请点击 :guilabel:`默认模板` 字段末尾的 :guilabel:`→ 内部链接` 图标。此时会加载 :guilabel:`360度反馈` 调查，可以对调查进行任何所需的更改。
 
-For more information on how to edit a survey, refer to the :doc:`../marketing/surveys/create`
-document.
+有关如何编辑调查的更多信息，请参考 :doc:`../marketing/surveys/create` 文档。
 
 .. important::
-   The :guilabel:`360 Feedback` form is a pre-configured survey within the *Surveys* application. In
-   order to use the :guilabel:`360 Feedback` option, including the ability to edit the survey, the
-   *Surveys* application **must** be installed.
+   :guilabel:`360度反馈` 表单是 *调查* 应用程序中的预配置调查。要使用 :guilabel:`360度反馈` 选项，包括编辑调查的功能，**必须**安装 *调查* 应用程序。
 
-Evaluation scale
+评估尺度
 ----------------
 
-On each employee appraisal form, final rating options appear by default. To view and edit these
-options, navigate to :menuselection:`Appraisals application --> Configuration --> Evaluation Scale`.
-This presents the ratings in a list view.
+在每个员工评估表单中，默认会显示最终评级选项。要查看和编辑这些选项，请导航至 :menuselection:`绩效评估应用程序 --> 配置 --> 评估尺度`。这会以列表视图呈现评级。
 
-The pre-configured ratings are :guilabel:`Needs Improvement`, :guilabel:`Meets Expectations`,
-:guilabel:`Exceeds Expectations`, and :guilabel:`Strongly Exceeds Expectations`. To add another
-rating, click the :guilabel:`New` button.
+预配置的评级包括 :guilabel:`需要改进`，:guilabel:`符合期望`，:guilabel:`超出期望` 和 :guilabel:`大幅超出期望`。要添加其他评级，请点击 :guilabel:`新建` 按钮。
 
-When the :guilabel:`New` button is clicked on the :guilabel:`Evaluation Scale` page, a blank line
-appears at the bottom of the list. Enter the name of the rating in the field.
+点击 :guilabel:`评估尺度` 页面上的 :guilabel:`新建` 按钮后，列表底部会出现一行空白。请在该字段中输入评级的名称。
 
-To rearrange the order of the ratings, click the :guilabel:`(six small gray boxes)` icon to the left
-of a rating, and drag the rating to the desired position on the list.
+要重新排列评级顺序，请点击评级左侧的 :guilabel:`（六个小灰色框）` 图标，并将评级拖动到列表中所需的位置。
 
 .. image:: appraisals/evaluation-scale.png
    :align: center
-   :alt: The evaluation scale, with the new button and click and drag icons highlighted.
+   :alt: 评估尺度，新建按钮和点击拖动图标已突出显示。
 
-360 feedback
+360度反馈
 ------------
 
-The :guilabel:`360 Feedback` section displays information for all the surveys currently configured
-in the *Appraisals* application. To view the surveys, and their statistics, navigate to
-:menuselection:`Appraisals application --> Configuration --> 360 Feedback`.
+:guilabel:`360度反馈` 部分显示了当前在 *绩效评估* 应用程序中配置的所有调查信息。要查看调查及其统计信息，请导航至 :menuselection:`绩效评估应用程序 --> 配置 --> 360度反馈`。
 
 .. image:: appraisals/survey-list.png
    :align: center
-   :alt: A list view of all available surveys in the Appraisals application.
+   :alt: 绩效评估应用程序中所有可用调查的列表视图。
 
-Each appraisal (or survey) is presented in its own line on the :guilabel:`360 Feedback` page, along
-with various information related to that particular appraisal.
+每个评估（或调查）在 :guilabel:`360度反馈` 页面上以独立的行呈现，并附有与该特定评估相关的各种信息。
 
-Each appraisal includes the following information:
+每个评估包括以下信息：
 
-- :guilabel:`Survey Name`: the name of the specific survey.
-- :guilabel:`Responsible`: the employee responsible for the survey, including the month and year
-  they were given that designation.
-- :guilabel:`Questions`: the number of questions in that particular survey.
-- :guilabel:`Average Duration`: the average time a user spends completing the survey.
-- :guilabel:`Registered`: the number of people who have been sent the survey.
-- :guilabel:`Completed`: the number of people who have completed the survey.
+- :guilabel:`调查名称`：特定调查的名称。
+- :guilabel:`负责人`：负责该调查的员工，包括他们被指定为负责人的月份和年份。
+- :guilabel:`问题数量`：该特定调查中的问题数量。
+- :guilabel:`平均时长`：用户完成该调查的平均时间。
+- :guilabel:`已注册`：已发送调查的人数。
+- :guilabel:`已完成`：已完成调查的人数。
 
-Each appraisal also has two buttons at the end of each line: a :guilabel:`Test` button and a
-:guilabel:`See Results` button.
+每个评估行的末尾还有两个按钮：一个是 :guilabel:`测试` 按钮，另一个是 :guilabel:`查看结果` 按钮。
 
-To see what an appraisal looks like for the end user (i.e. an employee), click the :guilabel:`Test`
-button, and the appraisal loads in a new browser tab. The entire appraisal loads, and can be clicked
-through without having to enter any answers.
+要查看评估对于最终用户（即员工）的展示效果，请点击 :guilabel:`测试` 按钮，评估将在新的浏览器标签页中加载。整个评估将加载，可以点击通过，而无需输入任何答案。
 
-To exit, close the tab. Or, click :guilabel:`This is a Test Survey. → Edit Survey` at the top of the
-page to be taken to the detail form for that particular survey.
+要退出，请关闭该标签页。或者，点击页面顶部的 :guilabel:`这是一个测试调查。→ 编辑调查`，可以进入该特定调查的详细表单。
 
-To view the results from everyone who completed an appraisal, click the :guilabel:`See Results`
-button. This presents all the answers for the survey in a new tab. Each question provides
-information on how many people responded to a question, and how many people skipped it. All answers
-for each question are visible.
+要查看所有完成评估的人的结果，请点击 :guilabel:`查看结果` 按钮。这将在新标签页中显示调查的所有答案。每个问题都会提供关于有多少人回答了该问题，有多少人跳过了该问题的信息。每个问题的所有答案都可见。
 
-To exit, close the tab. Or, click :guilabel:`→ Edit Survey` at the top of the page to be taken to
-the detail form for that particular survey.
+要退出，请关闭标签页。或者，点击页面顶部的 :guilabel:`→ 编辑调查`，可以进入该特定调查的详细表单。
 
-In addition to viewing the responses from past appraisals and surveys, new surveys can also be
-created from the :guilabel:`360 Feedback` page. Simply click the :guilabel:`New` button in the
-top-left of the page to create a new survey.
+除了查看过去评估和调查的回复外，还可以从 :guilabel:`360度反馈` 页面创建新的调查。只需点击页面左上角的 :guilabel:`新建` 按钮即可创建新的调查。
 
-For more information on how to create a survey, refer to the :doc:`../marketing/surveys/create`
-document.
+有关如何创建调查的更多信息，请参考 :doc:`../marketing/surveys/create` 文档。
 
 .. note::
-   In previous versions of Odoo, this section was referred to as :guilabel:`Surveys`.
+   在以前的 Odoo 版本中，此部分称为 :guilabel:`调查`。
 
 .. seealso::
    - :doc:`appraisals/new_appraisals`

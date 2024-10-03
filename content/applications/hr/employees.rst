@@ -3,10 +3,10 @@
 :show-toc:
 
 =========
-Employees
+员工信息
 =========
 
-Odoo *Employees* organizes a company's employee records, contracts, and departments.
+Odoo *Employees* 用于组织公司的员工记录、合同和部门信息。
 
 .. toctree::
    :titlesonly:

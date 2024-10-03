@@ -1,99 +1,61 @@
-:show-content:
-
 ========
-Expenses
+费用管理
 ========
 
-Odoo **Expenses** streamlines the management of expenses. After an employee submits their expenses
-in Odoo, they are reviewed by management and accounting teams. Once approved, payments can then be
-processed, and disbursed back to the employee for reimbursement.
+Odoo **费用管理** 应用简化了费用管理流程。员工在 Odoo 提交费用后，管理和会计团队会进行审核。一旦批准，款项可以处理并发放给员工进行报销。
 
 .. seealso::
-   `Odoo Expenses: product page <https://www.odoo.com/app/expenses>`_
+   `Odoo 费用管理：产品页面 <https://www.odoo.com/app/expenses>`_
 
-Set expense categories
-======================
+设置费用类别
+============
 
-The first step to track expenses is to configure the different types of expenses for the company
-(managed as *expense categories* in Odoo). Each category can be as specific or generalized as
-needed. Go to :menuselection:`Expenses app --> Configuration --> Expense Categories` to view the
-current expensable categories in a default list view.
+追踪费用的第一步是为公司配置不同类型的费用（在 Odoo 中管理为 *费用类别*）。每个类别可以根据需要进行细化或概括。进入 :menuselection:`费用管理应用 --> 配置 --> 费用类别` 查看当前的可报销类别，它们以默认的列表视图显示。
 
 .. image:: expenses/categories.png
    :align: center
-   :alt: Set expense costs on products.
+   :alt: 设置费用类别。
 
-To create a new expense category, click :guilabel:`New`. A product form will appear, with the
-description field labeled :guilabel:`Product Name`.
+要创建新的费用类别，点击 :guilabel:`新建`。将显示一个产品表单，描述字段标记为 :guilabel:`产品名称`。
 
 .. note::
-   Expense categories are managed like products in Odoo. The expense category form follows the
-   standard product form in Odoo, and the information entered is similar. Expense products will be
-   referred to as expense categories throughout this document since the main menu refers to these as
-   :guilabel:`Expense Categories`.
+   费用类别在 Odoo 中像产品一样进行管理。费用类别表单遵循 Odoo 的标准产品表单，输入的信息类似。本文档中费用产品将称为费用类别，因为主菜单将这些称为 :guilabel:`费用类别`。
 
-Only two fields are required, the :guilabel:`Product Name` and the :guilabel:`Unit of Measure`.
-Enter the :guilabel:`Product Name` in the field, and select the :guilabel:`Unit of Measure` from the
-drop-down menu (most products will be set to :guilabel:`Units`).
+只需填写两个必填字段，分别是 :guilabel:`产品名称` 和 :guilabel:`计量单位`。在字段中输入 :guilabel:`产品名称`，并从下拉菜单中选择 :guilabel:`计量单位`（大多数产品将设置为 :guilabel:`单位`）。
 
 .. tip::
-   The *Sales* app is where specification on the units of measure are created and edited (e.g.
-   units, miles, nights, etc.). Go to :menuselection:`Sales app --> Configuration --> Settings` and
-   ensure `Units of Measure` is enabled in the `Product Catalog` section. Click on the
-   :guilabel:`Units of Measure` internal link to :doc:`view, create, and edit the units of measure
-   <../inventory_and_mrp/inventory/product_management/configure/uom>`.
+   *销售* 应用是指定和编辑计量单位的地方（例如，单位、英里、夜晚等）。进入 :menuselection:`销售应用 --> 配置 --> 设置` 并确保在 `产品目录` 部分启用了 `计量单位`。点击 :guilabel:`计量单位` 内部链接以 :doc:`查看、创建和编辑计量单位 <../inventory_and_mrp/inventory/product_management/configure/uom>`。
 
 .. image:: expenses/new-expense-product.png
    :align: center
-   :alt: Set expense costs on products.
+   :alt: 在产品上设置费用。
 
-The :guilabel:`Cost` field on the product form is populated with a value of `0.00` by default. When
-a specific expense should always be reimbursed for a particular price, enter that amount in the
-:guilabel:`Cost` field. Otherwise, leave the :guilabel:`Cost` set to `0.00`, and employees will
-report the actual cost when submitting an expense report.
+产品表单上的 :guilabel:`成本` 字段默认为 `0.00`。如果某个特定费用应始终以固定价格报销，请在 :guilabel:`成本` 字段中输入该金额。否则，将 :guilabel:`成本` 保持为 `0.00`，员工在提交费用报告时会报告实际费用。
 
 .. note::
-   The :guilabel:`Cost` field is always visible on the expense category form, but the
-   :guilabel:`Sales Price` field is *only* visible if the :guilabel:`Sales Price` is selected under
-   the :guilabel:`Re-Invoice Expenses` section. Otherwise, the :guilabel:`Sales Price` field is
-   hidden.
+   :guilabel:`成本` 字段始终在费用类别表单上显示，但只有在 :guilabel:`费用重计` 部分选择了 :guilabel:`销售价格` 后，:guilabel:`销售价格` 字段才会显示。否则，:guilabel:`销售价格` 字段将被隐藏。
 
 .. example::
-   Here are some examples for when to set a specific :guilabel:`Cost` on a product vs. leaving the
-   :guilabel:`Cost` at `0.00`:
+   以下是设置产品的特定 :guilabel:`成本` 与将 :guilabel:`成本` 设置为 `0.00` 的一些示例：
 
-   - **Meals**: set the :guilabel:`Cost` to `0.00`. When an employee logs an expense for a meal,
-     they enter the actual amount of the bill and will be reimbursed for that amount. An expense for
-     a meal costing $95.23 would equal a reimbursement for $95.23.
-   - **Mileage**: set the :guilabel:`Cost` to `0.30`. When an employee logs an expense for
-     "mileage", they enter the number of miles driven in the :guilabel:`Quantity` field, and are
-     reimbursed 0.30 per mile they entered. An expense for 100 miles would equal a reimbursement for
-     $30.00.
-   - **Monthly Parking**: set the :guilabel:`Cost` to `75.00`. When an employee logs an expense for
-     "monthly parking", the reimbursement would be for $75.00.
-   - **Expenses**: set the :guilabel:`Cost` to `0.00`. When an employee logs an expense that is not
-     a meal, mileage, or monthly parking, they use the generic :guilabel:`Expenses` product. An
-     expense for a laptop costing $350.00 would be logged as an :guilabel:`Expenses` product, and
-     the reimbursement would be for $350.00.
+   - **餐饮**：将 :guilabel:`成本` 设置为 `0.00`。当员工记录餐饮费用时，他们输入账单的实际金额，并按该金额报销。餐饮费用为 $95.23，将报销 $95.23。
+   - **里程**：将 :guilabel:`成本` 设置为 `0.30`。当员工记录 "里程" 费用时，他们在 :guilabel:`数量` 字段中输入行驶的英里数，每英里报销 0.30。他们记录 100 英里的费用，将报销 $30.00。
+   - **月度停车**：将 :guilabel:`成本` 设置为 `75.00`。当员工记录 "月度停车" 费用时，报销金额为 $75.00。
+   - **其他费用**：将 :guilabel:`成本` 设置为 `0.00`。当员工记录非餐饮、里程或月度停车的费用时，他们使用通用的 :guilabel:`费用` 产品。例如，员工购买了一台价格为 $350.00 的笔记本电脑，该费用将记录为 :guilabel:`费用` 产品，报销金额为 $350.00。
 
-Select an :guilabel:`Expense Account` if using the Odoo *Accounting* app. It is recommended to check
-with the accounting department to determine the correct account to reference in this field as it
-will affect reports.
+如果使用 Odoo *会计* 应用，请选择 :guilabel:`费用账户`。建议与会计部门确认以确定正确的账户，因为这将影响报告。
 
-Set a tax on each product in the :guilabel:`Vendor Taxes` and :guilabel:`Customer Taxes` fields, if
-applicable. It is considered good practice to use a tax that is configured with :ref:`Tax Included
-in Price <taxes/included-in-price>`. Taxes will be automatically configured if this is set.
+如果适用，在产品上设置 :guilabel:`供应商税` 和 :guilabel:`客户税`。通常建议使用已配置为 :ref:`价格中含税 <taxes/included-in-price>` 的税项。如果设置了此选项，税金将自动配置。
 
 .. seealso::
-   - :doc:`expenses/log_expenses`
-   - :doc:`expenses/expense_reports`
-   - :doc:`expenses/post_expenses`
-   - :doc:`expenses/reimburse`
-   - :doc:`expenses/reinvoice_expenses`
+   - :doc:`记录费用 <expenses/log_expenses>`
+   - :doc:`费用报告 <expenses/expense_reports>`
+   - :doc:`发布费用 <expenses/post_expenses>`
+   - :doc:`报销费用 <expenses/reimburse>`
+   - :doc:`费用重计 <expenses/reinvoice_expenses>`
 
 .. toctree::
    :titlesonly:
-
 
    expenses/approve_expenses
    expenses/log_expenses

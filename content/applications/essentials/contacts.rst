@@ -1,260 +1,187 @@
 :show-content:
 
 ========
-Contacts
+联系人
 ========
 
-The *Contacts* application comes installed on all Odoo databases. Contacts are created for customers
-the company does business with through Odoo. A contact is a repository of vital business
-information, facilitating communication and business transactions.
+*联系人* 应用程序预安装在所有 Odoo 数据库中。联系人是公司通过 Odoo 与其进行业务往来的客户。联系人是重要业务信息的存储库，促进沟通和业务交易。
 
-Contact form
+联系人表单
 ============
 
-To create a new contact, navigate to the :menuselection:`Contacts app`, and click
-:guilabel:`Create`. A new form appears where various contact information can be added.
+要创建新联系人，导航到 :menuselection:`联系人应用`，然后点击 :guilabel:`创建`。会出现一个新表单，在其中可以添加各种联系信息。
 
-Contact type
+联系人类型
 ------------
 
-Odoo allows for both :guilabel:`Individual` and :guilabel:`Company` contacts. Select either
-:guilabel:`Individual` or :guilabel:`Company`, depending on the type of contact that is being added.
+Odoo 允许添加 :guilabel:`个人` 和 :guilabel:`公司` 联系人。根据要添加的联系人类型，选择 :guilabel:`个人` 或 :guilabel:`公司`。
 
-Name
+姓名
 ----
 
-First, fill in the name of the :guilabel:`Individual` or :guilabel:`Company`. This is how the name
-appears throughout the database. This field is **mandatory**.
+首先，填写 :guilabel:`个人` 或 :guilabel:`公司` 的姓名。这是数据库中显示姓名的方式。此字段是 **必填项**。
 
 .. tip::
-   :guilabel:`Individual` contacts can have a :guilabel:`Company` contact linked to it. After
-   selecting :guilabel:`Individual`, a new :guilabel:`Company Name...` field appears below the
-   first name field.
+   :guilabel:`个人` 联系人可以链接到 :guilabel:`公司` 联系人。选择 :guilabel:`个人` 后，第一个姓名字段下方会出现一个新的 :guilabel:`公司名称...` 字段。
 
-Address
+地址
 -------
 
-Next, enter the :guilabel:`Address` of the :guilabel:`Company` or :guilabel:`Individual`.
+接下来，输入 :guilabel:`公司` 或 :guilabel:`个人` 的 :guilabel:`地址`。
 
 .. tip::
-   If the :guilabel:`Individual` option is chosen, then the *type of address* can be chosen from a
-   drop-down menu. Options for this drop-down menu include: :guilabel:`Contact`, :guilabel:`Invoice
-   Address`, :guilabel:`Delivery Address`, :guilabel:`Other Address`, and :guilabel:`Private
-   Address`.
+   如果选择了 :guilabel:`个人` 选项，则可以从下拉菜单中选择 *地址类型*。此下拉菜单的选项包括：:guilabel:`联系地址`、:guilabel:`发票地址`、:guilabel:`送货地址`、:guilabel:`其他地址` 和 :guilabel:`私人地址`。
 
-Additional fields
+其他字段
 -----------------
 
-Additional details are included on the initial form. The following fields are available:
+初始表单中包含其他详细信息。可用字段如下：
 
-- :guilabel:`VAT`: Value Added Tax number.
-- :guilabel:`Citizen Identification`: citizen or government identification number (only available
-  on :guilabel:`Individual`).
-- :guilabel:`Job Position`: list the job position of the :guilabel:`Individual` (only available on
-  :guilabel:`Individual`).
-- :guilabel:`Phone`: list phone number (with country code). Make a call, send an SMS, or WhatsApp
-  message by hovering over the field on the saved form, and clicking the desired option.
-- :guilabel:`Mobile`: list mobile phone number (with country code). Make a call, send an SMS, or
-  WhatsApp message by hovering over the field on the saved form, and clicking on the desired option.
-- :guilabel:`Email`: enter the email address with the domain.
-- :guilabel:`Website`: enter the full website address, starting with `http` or `https`.
-- :guilabel:`Title`: select :guilabel:`Doctor`, :guilabel:`Madam`, :guilabel:`Miss`,
-  :guilabel:`Mister`, :guilabel:`Professor`, or create a new one directly from this field.
-- :guilabel:`Tags`: enter preconfigured tags by typing them in the field, or clicking the drop-down
-  menu, and selecting one. To create a new one, type the new tag in the field, and click
-  :guilabel:`Create` from the resulting drop-down menu.
+- :guilabel:`增值税号`：增值税号码。
+- :guilabel:`公民身份证号码`：公民或政府身份证号码（仅限 :guilabel:`个人`）。
+- :guilabel:`职位`：列出 :guilabel:`个人` 的职位（仅限 :guilabel:`个人`）。
+- :guilabel:`电话`：列出电话号码（含国家代码）。在保存的表单上悬停在该字段上，点击所需选项可以拨打电话、发送短信或 WhatsApp 消息。
+- :guilabel:`手机`：列出手机号码（含国家代码）。在保存的表单上悬停在该字段上，点击所需选项可以拨打电话、发送短信或 WhatsApp 消息。
+- :guilabel:`电子邮件`：输入电子邮件地址及其域名。
+- :guilabel:`网站`：输入完整的网站地址，以 `http` 或 `https` 开头。
+- :guilabel:`称谓`：选择 :guilabel:`博士`、:guilabel:`女士`、:guilabel:`小姐`、:guilabel:`先生`、:guilabel:`教授` 或直接从该字段创建一个新的称谓。
+- :guilabel:`标签`：通过在字段中输入或点击下拉菜单选择预配置标签。要创建新标签，在字段中输入新标签并从下拉菜单中点击 :guilabel:`创建`。
 
-Contacts & Addresses tab
+联系人和地址选项卡
 ------------------------
 
-At the bottom of the contact form are several tabs. On the :guilabel:`Contacts & Addresses` tab,
-contacts can be added that are associated with a :guilabel:`Company` and related addresses. For
-example, a specific contact person for the company can be listed here.
+联系人表单底部有几个选项卡。在 :guilabel:`联系人和地址` 选项卡中，可以添加与 :guilabel:`公司` 关联的联系人及相关地址。例如，可以在此列出公司的特定联系人。
 
-Multiple addresses can be added on both :guilabel:`Individual` and :guilabel:`Company` contacts. To
-do so, click :guilabel:`Add` in the :guilabel:`Contacts & Addresses` tab. Doing so reveals a
-:guilabel:`Create Contact` pop-up form, in which additional addresses can be configured.
+在 :guilabel:`个人` 和 :guilabel:`公司` 联系人中都可以添加多个地址。为此，请点击 :guilabel:`联系人和地址` 选项卡中的 :guilabel:`添加`。这样会显示一个 :guilabel:`创建联系人` 弹出表单，您可以在其中配置其他地址。
 
 .. image:: contacts/contact-form-add-address.png
    :align: center
-   :alt: Add a contact/address to the contact form.
+   :alt: 在联系人表单中添加联系人/地址。
 
-On the :guilabel:`Create Contact` pop-up form, start by clicking the default :guilabel:`Other
-Address` field at the top to reveal a drop-down menu of address-related options.
+在 :guilabel:`创建联系人` 弹出表单中，首先点击顶部的默认 :guilabel:`其他地址` 字段，显示与地址相关的选项下拉菜单。
 
-Select any of the following options:
+选择以下任何选项：
 
-- :guilabel:`Contact`: adds another contact to the existing contact form.
-- :guilabel:`Invoice Address`: adds a specific invoice address to the existing contact form.
-- :guilabel:`Delivery Address`: adds a specific delivery address to the existing contact form.
-- :guilabel:`Other Address`: adds an alternate address to the existing contact form.
-- :guilabel:`Private Address`: adds a private address to the existing contact form.
+- :guilabel:`联系地址`：向现有联系人表单添加另一个联系人。
+- :guilabel:`发票地址`：向现有联系人表单添加特定发票地址。
+- :guilabel:`送货地址`：向现有联系人表单添加特定送货地址。
+- :guilabel:`其他地址`：向现有联系人表单添加备用地址。
+- :guilabel:`私人地址`：向现有联系人表单添加私人地址。
 
 .. image:: contacts/create-contact-window.png
    :align: center
-   :alt: Create a new contact/address on a contact form.
+   :alt: 在联系人表单中创建新联系人/地址。
 
-Once an option is selected, enter the corresponding contact information that should be used for the
-specified address type.
+选择一个选项后，输入要用于指定地址类型的相应联系信息。
 
-Add the :guilabel:`Contact Name`, :guilabel:`Address`, :guilabel:`Email`, along with the
-:guilabel:`Phone` and/or :guilabel:`Mobile` numbers below.
+添加 :guilabel:`联系人姓名`、:guilabel:`地址`、:guilabel:`电子邮件`，以及下方的 :guilabel:`电话` 和/或 :guilabel:`手机` 号码。
 
-Set the :guilabel:`Job Position`, which appears if the :guilabel:`Contact` address type has been
-selected. This is similar to the :guilabel:`Individual` contact.
+设置 :guilabel:`职位`，如果选择了 :guilabel:`联系地址` 类型，它会显示出来。这与 :guilabel:`个人` 联系人类似。
 
-To add a note, click on the text field next to :guilabel:`Notes`, and write anything that is
-applicable to the customer or contact.
+要添加备注，点击 :guilabel:`备注` 字段旁的文本框，输入适用于客户或联系人的任何内容。
 
-Then, click :guilabel:`Save & Close` to save the address, and close the :guilabel:`Create Contact`
-window. Or, click :guilabel:`Save & New` to save the address, and immediately input another one.
+然后，点击 :guilabel:`保存并关闭` 以保存地址并关闭 :guilabel:`创建联系人` 窗口。或者，点击 :guilabel:`保存并新建` 以保存地址并立即输入另一个。
 
-Sales & Purchase tab
+销售和采购选项卡
 --------------------
 
-Next, is the :guilabel:`Sales & Purchases` tab, which only appears when the *Sales*, *Purchase*,
-**or** *Point of Sale* applications are installed.
+接下来是 :guilabel:`销售和采购` 选项卡，只有在安装了 *销售*、*采购* 或 *销售点* 应用时才会显示。
 
-The :guilabel:`Fiscal Position` can be set on the :guilabel:`Sales & Purchases` tab. Select a
-:guilabel:`Fiscal Position` from the drop-down menu.
+可以在 :guilabel:`销售和采购` 选项卡中设置 :guilabel:`税务职位`。从下拉菜单中选择一个 :guilabel:`税务职位`。
 
-Sales section
+销售部分
 ~~~~~~~~~~~~~
 
-Under the :guilabel:`Sales` heading, a specific :guilabel:`Salesperson` can be assigned to a
-contact. To do that, click the :guilabel:`Salesperson` drop-down field, and select one. Create a new
-:guilabel:`Salesperson` by typing the user's name, and making the appropriate selection.
+在 :guilabel:`销售` 标题下，可以为联系人分配特定的 :guilabel:`销售员`。为此，点击 :guilabel:`销售员` 下拉字段并选择一个。通过输入用户姓名并进行相应选择，可以创建新的 :guilabel:`销售员`。
 
-Certain :guilabel:`Payment Terms`, or a certain :guilabel:`Pricelist`, can also be set, if needed.
-Click the drop-down menu next to :guilabel:`Payment Terms`, and change it to one of the preselected
-:guilabel:`Payment Terms`, or :guilabel:`Create` a new one. Select the :guilabel:`Pricelist`
-drop-down menu to choose the appropriate :guilabel:`Pricelist`.
+还可以根据需要设置某些 :guilabel:`付款条款` 或 :guilabel:`价目表`。点击 :guilabel:`付款条款` 旁边的下拉菜单，将其更改为预选的 :guilabel:`付款条款` 之一，或 :guilabel:`创建` 一个新的条款。选择 :guilabel:`价目表` 下拉菜单，选择合适的 :guilabel:`价目表`。
 
-Click into the :guilabel:`Delivery Method` field to select an option from the drop-down menu.
+点击 :guilabel:`送货方式` 字段，选择下拉菜单中的选项。
 
-Point Of Sale section
+销售点部分
 ~~~~~~~~~~~~~~~~~~~~~
 
-Under the :guilabel:`Point Of Sale` heading, enter a :guilabel:`Barcode` that can be used to
-identify the contact. Use the :guilabel:`Loyalty Points` field to track points the user won as part
-of a *Loyalty Program*.
+在 :guilabel:`销售点` 标题下，输入可以用于识别联系人的 :guilabel:`条形码`。使用 :guilabel:`积分` 字段跟踪用户作为 *忠诚度计划* 一部分赢得的积分。
 
-Purchase section
+采购部分
 ~~~~~~~~~~~~~~~~
 
-Specify :guilabel:`Payment Terms`, :guilabel:`1099 Box` information, and a preferred
-:guilabel:`Payment Method` here. A :guilabel:`Receipt Reminder` can be set here, as well.
+在此处指定 :guilabel:`付款条款`、:guilabel:`1099 框` 信息和首选的 :guilabel:`付款方式`。还可以在此处设置 :guilabel:`收货提醒`。
 
-Misc section
+杂项部分
 ~~~~~~~~~~~~
 
-Under the :guilabel:`Misc.` heading, use :guilabel:`Reference` field to add any additional
-information for this contact. If this contact should only be accessible for one company in a
-multi-company database, select it from the :guilabel:`Company` field drop-down list. Use the
-:guilabel:`Website` drop-down menu to restrict the publishing of this contact to one website (if
-working on a database with multiple websites). Select one or more :guilabel:`Website Tags` to assist
-in filtering published customers on the `/customers` website page. Select an :guilabel:`Industry`
-for this contact from the drop-down menu. Use the :guilabel:`SLA Policies` field to assign a
-*Helpdesk* SLA policy to this contact.
+在 :guilabel:`杂项` 标题下，使用 :guilabel:`参考` 字段为此联系人添加任何附加信息。如果此联系人只应在多公司数据库中为一家公司访问，请从 :guilabel:`公司` 字段的下拉列表中选择它。使用 :guilabel:`网站` 下拉菜单限制此联系人仅在一个网站上发布（如果在多个网站的数据库中工作）。选择一个或多个 :guilabel:`网站标签` 以帮助在 `/customers` 网站页面上筛选发布的客户。从下拉菜单中选择此联系人的 :guilabel:`行业`。使用 :guilabel:`SLA 政策` 字段为此联系人分配 *帮助台* SLA 政策。
 
-Accounting tab
+会计选项卡
 --------------
 
-The :guilabel:`Accounting` tab appears when the *Accounting* application is installed. Here, a user
-can add any related :guilabel:`Bank Accounts`, or set default :guilabel:`Accounting entries`.
+安装 *会计* 应用时会显示 :guilabel:`会计` 选项卡。在此，用户可以添加任何相关的 :guilabel:`银行账户` 或设置默认的 :guilabel:`会计条目`。
 
-Under the :guilabel:`Miscellaneous` heading, use the :guilabel:`LEI` field to enter a Legal Entity
-Identifier, if necessary.
+在 :guilabel:`杂项` 标题下，使用 :guilabel:`LEI` 字段输入法律实体标识符（如有必要）。
 
-Internal Notes tab
+内部备注选项卡
 ------------------
 
-Following the :guilabel:`Accounting` tab is the :guilabel:`Internal Notes` tab, where notes can be
-left on this contact form, just like on the contact form noted above.
+在 :guilabel:`会计` 选项卡之后是 :guilabel:`内部备注` 选项卡，可以像上面提到的联系人表单一样在此表单上留下备注。
 
-Partner Assignment tab
+合作伙伴分配选项卡
 ----------------------
 
-Next is the :guilabel:`Partner Assignment` tab, which by default, includes a :guilabel:`Geolocation`
-section, and other partner options, including :guilabel:`Partner Activation` and :guilabel:`Partner
-Review` configurations. These are **only** present when the *Resellers* module is installed.
+接下来是 :guilabel:`合作伙伴分配` 选项卡，其中默认包含 :guilabel:`地理定位` 部分和其他合作伙伴选项，包括 :guilabel:`合作伙伴激活` 和 :guilabel:`合作伙伴审查` 配置。这些选项 **仅在** 安装了 *经销商* 模块时才会显示。
 
 .. seealso::
-   Follow the :doc:`Resellers documentation <../sales/crm/track_leads/resellers>` for more
-   information on publishing partners on the website.
+   有关在网站上发布合作伙伴的更多信息，请参阅 :doc:`经销商文档 <../sales/crm/track_leads/resellers>`。
 
-Membership tab
+会员选项卡
 --------------
 
-Finally, there is the :guilabel:`Membership` tab on contact forms, which can help users manage any
-memberships that are being offered to this specific contact. It should be noted that this tab
-**only** appears when the *Members* application is installed.
+最后，联系人表单中有一个 :guilabel:`会员` 选项卡，可以帮助用户管理向特定联系人提供的任何会员资格。请注意，此选项卡 **仅在** 安装了 *会员* 应用时才会显示。
 
-Activate membership
+激活会员资格
 ~~~~~~~~~~~~~~~~~~~
 
-To activate a contact's membership, click :guilabel:`Buy Membership` in the :guilabel:`Membership`
-tab of a contact form. On the pop-up window that appears, select a :guilabel:`Membership` from the
-drop-down menu. Then, configure a :guilabel:`Member Price`. Click :guilabel:`Invoice Membership`
-when both fields are filled in.
+要激活联系人的会员资格，请在联系人表单的 :guilabel:`会员` 选项卡中点击 :guilabel:`购买会员`。在出现的弹出窗口中，从下拉菜单中选择一个 :guilabel:`会员`。然后，配置一个 :guilabel:`会员价格`。填写完两个字段后，点击 :guilabel:`开具会员发票`。
 
-Alternatively, to offer a free membership, tick the :guilabel:`Free Member` checkbox, in the
-:guilabel:`Membership` tab of a contact form.
+或者，要提供免费会员资格，在联系人表单的 :guilabel:`会员` 选项卡中勾选 :guilabel:`免费会员` 复选框。
 
 .. seealso::
-   Follow the :doc:`Members documentation <../sales/members>` for more information on publishing
-   members on the website.
+   有关在网站上发布会员的更多信息，请参阅 :doc:`会员文档 <../sales/members>`。
 
-Smart buttons
+智能按钮
 =============
 
-At the top of the contact form, there are some additional options available, known as *smart
-buttons*.
+在联系人表单的顶部，有一些额外的可用选项，称为 *智能按钮*。
 
-Here, Odoo displays a variety of records, related to this contact, that were created on other apps.
-Odoo integrates information from every single app, so there are many smart buttons.
+在此，Odoo 显示与此联系人相关的、在其他应用中创建的各种记录。Odoo 集成了来自每个应用程序的信息，因此有许多智能按钮。
 
 .. example::
-   For example, there is an :guilabel:`Opportunities` smart button, where all the opportunities
-   related to this customer from the *CRM* app are accessible.
+   例如，有一个 :guilabel:`机会` 智能按钮，可以访问与该客户相关的 *CRM* 应用中的所有机会。
 
 .. tip::
-   If the corresponding applications are installed, their related smart buttons appear
-   automatically on a contact form.
+   如果安装了相应的应用程序，它们的相关智能按钮会自动出现在联系人表单上。
 
-A user can see any :guilabel:`Meetings`, :guilabel:`Sales`, :guilabel:`POS Orders`,
-:guilabel:`Subscriptions`, project :guilabel:`Tasks`, and the :guilabel:`More` smart button reveals
-additional options, via a drop-down menu. A user can even quickly access :guilabel:`Purchases`,
-:guilabel:`Helpdesk` tasks, :guilabel:`On-time Rate` for deliveries, :guilabel:`Invoiced`
-information, :guilabel:`Vendor Bills`, and the :guilabel:`Partner Ledger` connected to this contact.
+用户可以查看任何 :guilabel:`会议`、:guilabel:`销售`、:guilabel:`POS 订单`、:guilabel:`订阅`、项目 :guilabel:`任务`，并且 :guilabel:`更多` 智能按钮通过下拉菜单显示更多选项。用户甚至可以快速访问 :guilabel:`采购`、:guilabel:`帮助台` 任务、交货的 :guilabel:`准时率`、:guilabel:`发票` 信息、:guilabel:`供应商账单` 和与该联系人相关的 :guilabel:`合作伙伴总账`。
 
-Deliveries, documents, loyalty cards, and direct debits are *also* linked to smart buttons, like
-this, should there be any outstanding/on-file for this contact.
+交货、文件、忠诚度卡和直接借记也与智能按钮相关联，如果此联系人有任何未完成的记录或文件。
 
-If the contact is a partner, the user can visit their partner page on the Odoo-built website by
-clicking the :guilabel:`Go to Website` smart button.
+如果联系人是合作伙伴，用户可以点击 :guilabel:`前往网站` 智能按钮访问其在 Odoo 构建的网站上的合作伙伴页面。
 
-Archive contacts
+归档联系人
 ----------------
 
-If a user decides they no longer want to have this contact active, the record can be archived. To do
-that, go to the :icon:`fa-cog` :guilabel:`Action` menu at the top of the contact form, and click
-:guilabel:`Archive`.
+如果用户决定不再激活此联系人，则可以将记录存档。为此，请转到联系人表单顶部的 :icon:`fa-cog` :guilabel:`操作` 菜单，然后点击 :guilabel:`存档`。
 
-Then, click :guilabel:`OK` from the resulting :guilabel:`Confirmation` pop-up window.
+然后，在出现的 :guilabel:`确认` 弹出窗口中点击 :guilabel:`确定`。
 
-With this contact successfully archived, as indicated by a banner at the top, they do not show up
-in the main contacts page, but they can still be searched for with the :guilabel:`Archived` filter.
+成功存档此联系人后，如顶部横幅所示，它们不会显示在主联系人页面上，但可以通过 :guilabel:`已存档` 筛选器进行搜索。
 
 .. tip::
-   A contact can be *unarchived*, if the user decides to work with them again. To do that, just
-   click the :icon:`fa-cog` :guilabel:`Action` menu again at the top of the archived contact form,
-   and click :guilabel:`Unarchive`. Upon doing so, the :guilabel:`Archived` banner is removed, and
-   the contact is restored.
+   如果用户决定再次与联系人合作，则可以 *取消存档*。为此，只需再次点击已存档联系人表单顶部的 :icon:`fa-cog` :guilabel:`操作` 菜单，然后点击 :guilabel:`取消存档`。完成此操作后，:guilabel:`已存档` 横幅将被移除，联系人将被恢复。
 
 .. seealso::
-   - :doc:`Add different addresses in CRM <../sales/sales/send_quotations/different_addresses>`
-   - `Odoo's eLearning Contacts tutorial
+   - :doc:`在 CRM 中添加不同地址 <../sales/sales/send_quotations/different_addresses>`
+   - `Odoo 的 eLearning 联系人教程
      <https://www.odoo.com/slides/slide/contacts-2527?fullscreen=1>`_
 
 .. toctree::

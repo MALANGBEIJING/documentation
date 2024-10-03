@@ -1,283 +1,191 @@
 =================================
-Search, filter, and group records
+搜索、过滤和分组记录
 =================================
 
-Odoo allows for the searching, filtering, and grouping of records in a view to display only the most
-relevant records. The search bar is located at the top of the view, start typing to :ref:`search for
-values <search/values>`, or click the :guilabel:`🔽 (down arrow)` icon to access the :ref:`Filter
-<search/filters>`, :ref:`Group By <search/group>`, and :ref:`Favorites <search/favorites>` drop-down
-menus.
+Odoo 允许用户在视图中搜索、过滤和分组记录，以显示最相关的记录。搜索栏位于视图的顶部，开始输入以 :ref:`搜索值 <search/values>`，或点击 :guilabel:`🔽 (向下箭头)` 图标以访问 :ref:`过滤器 <search/filters>`、:ref:`按组 <search/group>` 和 :ref:`收藏夹 <search/favorites>` 下拉菜单。
 
 .. _search/values:
 
-Search for values
+搜索值
 =================
 
-Use the search field to quickly look for specific values, and add them as a filter. Type the value
-to search for, and select the desired option from the drop-down menu to apply the search filter.
+使用搜索字段快速查找特定值，并将其作为过滤器添加。输入要搜索的值，并从下拉菜单中选择所需的选项来应用搜索过滤器。
 
 .. example::
-   Instead of adding a :ref:`custom filter <search/custom-filters>` to select records where
-   *Mitchell Admin* is the salesperson on the *Sales Analysis* report (:menuselection:`Sales app -->
-   Reporting --> Sales`), search for `Mitch`, and click the :guilabel:`⏵ (right arrow)` next to
-   :guilabel:`Search Salesperson for: Mitch`, and select :guilabel:`Mitchell Admin`.
+   例如，在 *销售分析* 报告 (:menuselection:`销售应用程序 --> 报告 --> 销售`) 中，搜索 `Mitch`，点击 :guilabel:`⏵ (右箭头)` 旁边的 :guilabel:`搜索销售员：Mitch`，然后选择 :guilabel:`Mitchell Admin`，而不是添加 :ref:`自定义过滤器 <search/custom-filters>` 来选择销售员为 *Mitchell Admin* 的记录。
 
    .. image:: search/search-values.png
       :align: center
-      :alt: Searching for a specific value on the Sales Analysis report
+      :alt: 在销售分析报告中搜索特定值
 
 .. note::
-   Using the search field is equivalent to using the *contains* operator when adding a :ref:`custom
-   filter <search/custom-filters>`. If a partial value is entered, and the desired field is directly
-   selected (without selecting the :guilabel:`⏵ (right arrow)`), *all* records containing the typed
-   characters for the selected field are included.
+   使用搜索字段相当于使用 *包含* 操作符添加 :ref:`自定义过滤器 <search/custom-filters>`。如果输入了部分值，并且直接选择了所需字段（而不是选择 :guilabel:`⏵ (右箭头)`），则将包含所有选定字段中键入字符的记录。
 
 .. _search/filters:
 
-Filters
+过滤器
 =======
 
-Filters are used to select records that meet specific criteria. The default selection of records is
-specific to each view, but can be modified by selecting one (or several) :ref:`preconfigured filters
-<search/preconfigured-filters>`, or by adding a :ref:`custom filter <search/custom-filters>`.
+过滤器用于选择符合特定条件的记录。默认的记录选择特定于每个视图，但可以通过选择一个或多个 :ref:`预配置过滤器 <search/preconfigured-filters>` 或添加 :ref:`自定义过滤器 <search/custom-filters>` 来修改。
 
 .. _search/preconfigured-filters:
 
-Preconfigured filters
+预配置过滤器
 ---------------------
 
-Modify the default selection of records by clicking the :guilabel:`🔽 (down arrow)` icon from the
-search bar, and selecting one (or several) *preconfigured filters* from the :guilabel:`Filters`
-drop-down menu.
+点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，从 :guilabel:`过滤器` 下拉菜单中选择一个或多个 *预配置过滤器* 来修改记录的默认选择。
 
 .. example::
-   On the *Sales Analysis* report (:menuselection:`Sales app --> Reporting --> Sales`), only records
-   that are at the *sales order* stage, with an *order date* within the last 365 days, are selected
-   by default.
+   在 *销售分析* 报告 (:menuselection:`销售应用程序 --> 报告 --> 销售`) 中，默认情况下，仅选择处于 *销售订单* 阶段、且 *订单日期* 在过去 365 天内的记录。
 
-   To also include records at the *quotation* stage, select :guilabel:`Quotations` from the
-   :guilabel:`Filters`.
+   若要同时包含处于 *报价* 阶段的记录，选择 :guilabel:`报价` 作为过滤器。
 
-   Furthermore, to *only* include sales order and quotation records from a specific year, like
-   2024, for example, first remove the existing `Order Date: Last 365 Days` filter, by clicking the
-   :guilabel:`❌ (remove)` icon, then select :menuselection:`Order Date --> 2024`.
+   此外，若要仅包含来自特定年份（例如 2024 年）的销售订单和报价记录，请先点击 :guilabel:`❌ (删除)` 图标删除现有的 `订单日期：最近 365 天` 过滤器，然后选择 :menuselection:`订单日期 --> 2024`。
 
    .. image:: search/preconfigured-filters.png
       :align: center
-      :alt: Using preconfigured filters on the Sales Analysis report
+      :alt: 在销售分析报告中使用预配置过滤器
 
 .. note::
-   The preconfigured :guilabel:`Filters` are grouped, and each group is separated by a horizontal
-   line. Selecting preconfigured filters from the same group allows records to match *any* of the
-   applied conditions. However, selecting filters from different groups requires records to match
-   *all* of the applied conditions.
+   预配置的 :guilabel:`过滤器` 按组分组，每组由一条水平线分隔。从同一组选择预配置过滤器允许记录匹配应用条件中的任意一个。然而，选择来自不同组的过滤器要求记录匹配所有应用的条件。
 
 .. _search/custom-filters:
 
-Custom filters
+自定义过滤器
 --------------
 
-If the :ref:`preconfigured filters <search/preconfigured-filters>` are not specific enough, add a
-custom filter. To do so, click the :guilabel:`🔽 (down arrow)` icon in the search bar, then select
-:menuselection:`Filters --> Add Custom Filter`.
+如果 :ref:`预配置过滤器 <search/preconfigured-filters>` 不够具体，可以添加自定义过滤器。为此，请点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，然后选择 :menuselection:`过滤器 --> 添加自定义过滤器`。
 
-The :guilabel:`Add Custom Filter` pop-up window displays the matching option, filter rule, and a
-toggle to :guilabel:`Include archived` records.
+:guilabel:`添加自定义过滤器` 弹出窗口显示匹配选项、过滤规则以及 :guilabel:`包含已归档` 记录的切换开关。
 
 .. image:: search/custom-filter.png
    :align: center
-   :alt: The Add Custom Filter pop-up window.
+   :alt: 添加自定义过滤器弹出窗口
 
-The default matching configuration is to :guilabel:`Match any of the following rules`, indicating
-that each filter rule is applied independently. To change the matching configuration to
-:guilabel:`Match all of the following rules`, at least two filter rules must be added to the custom
-filter.
+默认的匹配配置是 :guilabel:`匹配以下任意规则`，表示每个过滤规则独立应用。若要将匹配配置更改为 :guilabel:`匹配以下所有规则`，则必须为自定义过滤器添加至少两个过滤规则。
 
-- :guilabel:`Match all 🔽 of the following rules`: **all** of the filter rules must be met.
-  Logically, this is an *AND* (`&`) operation.
-- :guilabel:`Match any 🔽 of the following rules`: **any** of the filter rules can be met.
-  Logically, this is an *OR* (`|`) operation.
+- :guilabel:`匹配以下所有 🔽 规则`: **所有** 过滤规则都必须满足。逻辑上，这是 *与* (`&`) 操作。
+- :guilabel:`匹配以下任意 🔽 规则`: **任意** 过滤规则都可以满足。逻辑上，这是 *或* (`|`) 操作。
 
-By default, a single filter rule is added to the custom filter. The following describes the
-structure of a filter rule:
+默认情况下，自定义过滤器中添加一个过滤规则。以下描述了过滤规则的结构：
 
-#. The first inline field is the *field name* to filter by. Some fields have refined parameters that
-   are nested within another field. These fields have an :guilabel:`> (arrow)` icon beside them,
-   which can be selected to reveal the nested fields.
-#. The second inline field is the conditional *operator* used to compare the field name to the
-   value. The :ref:`available conditional operators <reference/orm/domains>` are specific to the
-   field's data type.
-#. The third inline field is the variable *value* of the field name. The value input may appear as a
-   drop-down menu, a text input, a number input, a date/time input, a boolean selector, or it may be
-   blank, depending on the operator used and the field's data type.
+#. 第一个内联字段是要过滤的 *字段名称*。某些字段具有嵌套在另一个字段中的精细参数。这些字段旁边有 :guilabel:`> (箭头)` 图标，可以选择它以显示嵌套字段。
+#. 第二个内联字段是用于将字段名称与值进行比较的条件 *操作符*。:ref:`可用的条件操作符 <reference/orm/domains>` 特定于字段的数据类型。
+#. 第三个内联字段是字段名称的变量 *值*。根据操作符和字段的数据类型，值输入可能会显示为下拉菜单、文本输入框、数字输入框、日期/时间输入框、布尔选择器，或为空。
 
-Three inline buttons are also available to the right of the rule's filter criteria:
+规则过滤条件右侧还提供了三个内联按钮：
 
-#. :guilabel:`➕ (plus sign)`: adds a new rule below the existing rule.
-#. :guilabel:`(Add branch)`: adds a new group of rules below the existing rule, with the
-   :guilabel:`any` and :guilabel:`all` matching options available to define how each rule within
-   this branch is applied to the filter. If the matching option is set to the same as the parent
-   group, the fields are moved to join the parent group.
+#. :guilabel:`➕ (加号)`: 在现有规则下方添加新规则。
+#. :guilabel:`(添加分支)`: 在现有规则下方添加新的规则组，并提供 :guilabel:`任意` 和 :guilabel:`所有` 匹配选项，以定义此分支中的每条规则如何应用于过滤器。如果匹配选项设置为与父组相同，则字段将移动并加入父组。
 
    .. example::
-      If the matching option is set to :guilabel:`Match all 🔽 of the following rules`, and a new
-      branch is added with its matching option changed from :guilabel:`any 🔽 of` to :guilabel:`all
-      🔽 of`, the newly-added branch disappears, and its group of rules are moved to the parent
-      group.
+      如果匹配选项设置为 :guilabel:`匹配以下所有规则`，并添加了一个新分支，并将其匹配选项从 :guilabel:`任意 🔽` 更改为 :guilabel:`所有 🔽`，则新添加的分支将消失，并且其规则组将移到父组。
 
-#. :guilabel:`🗑️ (garbage can)`: deletes the node. If a branch node is deleted, all children of
-   that node are deleted, as well.
+#. :guilabel:`🗑️ (垃圾桶)`: 删除节点。如果删除分支节点，则该节点的所有子节点也将被删除。
 
-A new filter rule can be added to the custom filter by clicking the :guilabel:`New Rule` button.
+点击 :guilabel:`新规则` 按钮，可以为自定义过滤器添加新的过滤规则。
 
-Once the filter criteria are defined, click :guilabel:`Add` to add the custom filter to the view.
+定义过滤条件后，点击 :guilabel:`添加` 将自定义过滤器添加到视图中。
 
 .. example::
-   To target all leads and opportunities from the :menuselection:`CRM` app that are in the *Won*
-   stage, and have an expected revenue greater than $1,000, the following should be entered:
+   要筛选 *CRM* 应用程序中处于 *已赢得* 阶段且预期收入超过 $1,000 的所有潜在客户和机会，应输入以下内容：
 
-   :guilabel:`Match all 🔽 (down arrow) of the following rules:`
+   :guilabel:`匹配以下所有 🔽 规则：`
 
-   #. :guilabel:`Stage` :guilabel:`is in` :guilabel:`Won`
-   #. :guilabel:`Expected Revenue` :guilabel:`>` `1,000`
-   #. :guilabel:`any 🔽 (down arrow)` :guilabel:`of:`
+   #. :guilabel:`阶段` :guilabel:`属于` :guilabel:`已赢得`
+   #. :guilabel:`预期收入` :guilabel:`>` `1,000`
+   #. :guilabel:`任意 🔽 规则：`
 
-      - :guilabel:`Type` :guilabel:`=` :guilabel:`Lead`
-      - :guilabel:`Type` :guilabel:`=` :guilabel:`Opportunity`
+      - :guilabel:`类型` :guilabel:`=` :guilabel:`潜在客户`
+      - :guilabel:`类型` :guilabel:`=` :guilabel:`机会`
 
    .. image:: search/custom-filter-example.png
       :align: center
-      :alt: Adding a custom filter to filter specific records in CRM.
+      :alt: 在 CRM 中添加自定义过滤器以筛选特定记录
 
 .. tip::
-   Activate :ref:`developer-mode` to reveal each field's technical name and data type, as well as
-   the :guilabel:`# Code editor` text area below the filter rules, to view and edit the domain
-   manually.
+   启用 :ref:`开发者模式 <developer-mode>` 以显示每个字段的技术名称和数据类型，并在过滤规则下方显示 :guilabel:`# 代码编辑器` 文本区域，以手动查看和编辑域。
 
 .. _search/group:
 
-Group records
+分组记录
 =============
 
-The display of records in a view can be clustered together, according to one of the *preconfigured
-groups*. To do so, click the :guilabel:`🔽 (down arrow)` icon in the search bar, then select one of
-the :guilabel:`Group By` options from the drop-down menu.
+可以根据某个 *预配置组* 将视图中的记录聚集在一起。为此，请点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，然后从 :guilabel:`按组` 下拉菜单中选择一个选项。
 
 .. example::
-   To group the records by salesperson on the *Sales Analysis* report (:menuselection:`Sales app -->
-   Reporting --> Sales`), click the :guilabel:`Salesperson` option from the :guilabel:`Group By`
-   drop-down menu. The view changes to group the records by salesperson, without filtering out any
-   records.
+   要在 *销售分析* 报告 (:menuselection:`销售应用程序 --> 报告 --> 销售`) 中按销售员分组记录，请点击 :guilabel:`销售员` 选项。视图将更改为按销售员分组记录，而不会过滤掉任何记录。
 
    .. image:: search/group.png
       :align: center
-      :alt: Grouping records on the Sales Analysis report
+      :alt: 在销售分析报告中分组记录
 
-It is possible to *customize groups* by using a field present on the model. To do so, click
-:menuselection:`Add Custom Group`, and select a field from the drop-down menu.
+可以使用模型中存在的字段 *自定义分组*。为此，点击 :menuselection:`添加自定义组`，并从下拉菜单中选择一个字段。
 
 .. note::
-   Several groups can be used at the same time. The first group that is selected is the main
-   cluster, the next one that is added further divides the main group's categories, and so on.
-   Furthermore, filters and groups can be used together to refine the view even more.
+   可以同时使用多个组。选择的第一个组是主集群，添加的下一个组进一步划分主组的类别，依此类推。此外，过滤器和组可以结合使用，以进一步优化视图。
 
 .. _search/comparison:
 
-Comparison
+对比
 ==========
+=====================
+比较选项和收藏夹
+=====================
 
-Certain reporting dashboards include a :guilabel:`Comparison` section in the drop-down menus of
-their :guilabel:`Search...` bars. This includes the :doc:`Overall Equipment Effectiveness
-<../inventory_and_mrp/manufacturing/reporting/oee>` report for the *Manufacturing* app, and the
-:doc:`Purchase <../inventory_and_mrp/purchase/advanced/analyze>` report for the *Purchase* app,
-among others.
+某些报告仪表板包含 :guilabel:`比较` 部分，可以在其 :guilabel:`搜索...` 栏的下拉菜单中找到。这包括 *制造* 应用的 :doc:`整体设备效率 <../inventory_and_mrp/manufacturing/reporting/oee>` 报告，以及 *采购* 应用的 :doc:`采购报告 <../inventory_and_mrp/purchase/advanced/analyze>` 等其他报告。
 
-The options in the :icon:`fa-adjust` :guilabel:`Comparison` section are used to compare data from
-two different time periods. There are two comparison options to choose from: :guilabel:`(Time
-Filter): Previous Period` and :guilabel:`(Time Filter): Previous Year`.
+:icon:`fa-adjust` :guilabel:`比较` 部分中的选项用于比较两个不同时间段的数据。可以选择两种比较选项：:guilabel:`(时间过滤器): 上一个时间段` 和 :guilabel:`(时间过滤器): 去年同期`。
 
 .. important::
-   For some reports, the :guilabel:`Comparison` section **only** appears in the
-   :guilabel:`Search...` bar drop-down menu if one (or more) time periods have been selected in the
-   :guilabel:`Filters` column. This is because, if no time period is specified, there is nothing to
-   compare.
+   对于某些报告，只有在 :guilabel:`过滤器` 列中选择了一个或多个时间段时，:guilabel:`比较` 部分才会出现在 :guilabel:`搜索...` 栏的下拉菜单中。这是因为，如果没有指定时间段，则没有可比较的内容。
 
-   Additionally, some reports only allow use of the :guilabel:`Comparison` feature when the
-   :icon:`fa-pie-chart` :guilabel:`(pie chart)` graph type, or the :icon:`oi-view-pivot`
-   :guilabel:`(pivot)` view, is selected. A :guilabel:`Comparison` option can be selected even if
-   another view is enabled, but doing so does **not** change the way data is displayed on the
-   report.
+   此外，一些报告只有在选择了 :icon:`fa-pie-chart` :guilabel:`(饼图)` 或 :icon:`oi-view-pivot` :guilabel:`(数据透视表)` 视图时，才允许使用 :guilabel:`比较` 功能。即使启用了其他视图，也可以选择 :guilabel:`比较` 选项，但这样做不会更改报告中数据的显示方式。
 
 .. image:: search/comparison-section.png
    :align: center
-   :alt: The Search... bar for the production analysis report.
+   :alt: 生产分析报告的搜索栏。
 
-To view data using one of the two comparisons, begin by selecting a time period in the
-:guilabel:`Filters` column of the :guilabel:`Search...` bar drop-down menu. Then, select either
-:guilabel:`(Time Filter): Previous Period` or :guilabel:`(Time Filter): Previous Year` in the
-:guilabel:`Comparison` section.
+要使用两种比较选项之一查看数据，首先在 :guilabel:`搜索...` 栏的下拉菜单的 :guilabel:`过滤器` 列中选择一个时间段。然后，在 :guilabel:`比较` 部分中，选择 :guilabel:`(时间过滤器): 上一个时间段` 或 :guilabel:`(时间过滤器): 去年同期`。
 
-With one of the :guilabel:`Comparison` options enabled, the report compares the data for the
-selected period, with the data for the same unit of time (month, quarter, year), one period or year
-prior. The way the data is displayed depends on the selected view:
+启用了其中一个 :guilabel:`比较` 选项后，报告会比较所选时间段的数据与上一时间段或上一年的同一时间单位（月、季度、年）的数据。数据显示的方式取决于所选视图：
 
-- The :icon:`fa-bar-chart` :guilabel:`(bar chart)` shows two bars, side-by-side, for each unit of
-  time for the selected time period. The left bar represents the selected time period, while the
-  right bar represents the previous time period.
-- The :icon:`fa-line-chart` :guilabel:`(line chart)` is displayed with two lines, one representing
-  the selected time period, and the other representing the previous time period.
-- The :icon:`fa-pie-chart` :guilabel:`(pie chart)` appears as a large circle with a smaller circle
-  inside. The larger circle represents the selected time period, while the smaller circle represents
-  the previous time period.
-- The :icon:`oi-view-pivot` :guilabel:`(pivot table)` is displayed with each column split into two
-  smaller columns. The right column represents the selected time period, while the left column
-  represents the previous time period.
+- :icon:`fa-bar-chart` :guilabel:`(柱状图)` 为所选时间段的每个时间单位显示两个并排的柱状图。左侧柱状图代表所选时间段，右侧柱状图代表上一时间段。
+- :icon:`fa-line-chart` :guilabel:`(折线图)` 显示两条线，一条代表所选时间段，另一条代表上一时间段。
+- :icon:`fa-pie-chart` :guilabel:`(饼图)` 显示一个大圆圈和一个内嵌的小圆圈。大圆圈代表所选时间段，小圆圈代表上一时间段。
+- :icon:`oi-view-pivot` :guilabel:`(数据透视表)` 将每一列分成两列。右侧列代表所选时间段，左侧列代表上一时间段。
 
 .. example::
-   In the :guilabel:`Production Analysis` report of the :menuselection:`Manufacturing` app, data for
-   the second quarter of 2024 is compared to data for the second quarter of 2023. :guilabel:`Q2` is
-   selected in the :guilabel:`End Date` filter section of the :guilabel:`Search...` bar drop-down
-   menu. In the :guilabel:`Comparison` section, :guilabel:`End Date: Previous Year` is selected.
+   在 *制造* 应用的 :guilabel:`生产分析` 报告中，将 2024 年第二季度的数据与 2023 年第二季度的数据进行比较。在 :guilabel:`搜索...` 栏的 :guilabel:`结束日期` 过滤器部分中选择 :guilabel:`Q2`，然后在 :guilabel:`比较` 部分中选择 :guilabel:`结束日期: 去年同期`。
 
-   The current year is 2024, so the larger circle shows data for the second quarter (Q2) of 2024.
-   The smaller circle shows data for the second quarter (Q2) of 2023, which is the same time period,
-   but one *year* prior.
+   当前年份为 2024 年，因此较大的圆圈显示 2024 年第二季度 (Q2) 的数据。较小的圆圈显示 2023 年第二季度 (Q2) 的数据，即同一时间段，但在 *去年*。
 
-   If :guilabel:`End Date: Previous Period` is selected instead, the smaller circle shows data for
-   the first quarter (Q1) of 2024, which is the same time period, but one *period* prior.
+   如果选择了 :guilabel:`结束日期: 上一个时间段`，则较小的圆圈显示 2024 年第一季度 (Q1) 的数据，即同一时间段，但在 *前一个时间段*。
 
    .. image:: search/comparison.png
       :align: center
-      :alt: The comparison view of the Production Analysis report.
+      :alt: 生产分析报告的比较视图。
 
 .. _search/favorites:
 
-Favorites
+收藏夹
 =========
 
-Favorites are a way to save a specific search for future use, or as the new default filter for the
-view.
+收藏夹是一种保存特定搜索以供将来使用或作为视图的新默认过滤器的方式。
 
-To save the current view as a favorite, click the :guilabel:`🔽 (down arrow)` icon in the search
-bar, then select the :guilabel:`Save current search` drop-down menu to display the following
-options:
+要将当前视图保存为收藏夹，点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，然后选择 :guilabel:`保存当前搜索` 下拉菜单以显示以下选项：
 
-- Filter name: name of the favorited search.
-- :guilabel:`Default filter`: sets the favorited search as the default filter for the view.
-- :guilabel:`Shared`: makes the favorited search available to all users. By default, the favorited
-  search is only available to the user who created it.
+- 过滤器名称: 收藏搜索的名称。
+- :guilabel:`默认过滤器`: 将收藏搜索设置为视图的默认过滤器。
+- :guilabel:`共享`: 使收藏搜索对所有用户可用。默认情况下，收藏搜索仅对创建它的用户可用。
 
-Once the options are set, click :guilabel:`Save` to save the favorited search.
+设置完选项后，点击 :guilabel:`保存` 以保存收藏搜索。
 
 .. image:: search/favorites.png
    :align: center
-   :alt: Saving a favorite search on the Sales Analysis report
+   :alt: 在销售分析报告中保存收藏搜索
 
-Saved favorites can be accessed by clicking the :guilabel:`🔽 (down arrow)` icon in the search bar,
-then selecting the saved filter in the :guilabel:`Favorites` drop-down menu. To remove a saved
-favorite, click the :guilabel:`🗑️ (garbage can)` icon next to the favorited search.
+可以通过点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，然后在 :guilabel:`收藏夹` 下拉菜单中选择已保存的过滤器来访问已保存的收藏夹。要删除已保存的收藏夹，请点击收藏搜索旁边的 :guilabel:`🗑️ (垃圾桶)` 图标。
 
 .. tip::
-   To view *all* favorited searches, first activate :ref:`developer-mode`, and navigate to
-   :menuselection:`Settings app --> Technical --> User Interface: User-defined Filters`. From here,
-   all favorited searches can be viewed, edited, archived, or deleted.
+   若要查看 *所有* 收藏搜索，请先启用 :ref:`开发者模式 <developer-mode>`，然后导航到 :menuselection:`设置应用 --> 技术 --> 用户界面: 用户定义的过滤器`。在这里，可以查看、编辑、归档或删除所有收藏搜索。

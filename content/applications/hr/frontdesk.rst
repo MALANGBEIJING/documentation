@@ -1,223 +1,153 @@
 :show-content:
-
 =========
-Frontdesk
+前台系统
 =========
 
-The Odoo *Frontdesk* application provides a way for visitors to check in to a building or location,
-and alert the person they are meeting about their arrival. Additionally, they can request a
-pre-configured beverage to be brought to them, while they wait.
+Odoo 的 *前台系统* 应用程序为访客提供了签到的方式，并通知他们要见的人已到达。此外，他们可以在等待时请求预先配置的饮品。
 
-This application is ideal for businesses that do **not** have someone working at a reception desk,
-locations **without** a designated waiting area available to guests and visitors.
+这个应用程序非常适合那些没有接待人员的企业，或者没有专门的等待区供客人和访客使用的场所。
 
-Configuration
-=============
+配置
+=====
 
-The first item to configure with the *Frontdesk* application is the station, followed by any drink
-selections that might optionally be offered.
+配置 *前台系统* 应用程序的第一步是设置站点，然后是任何可选的饮料选择。
 
-Stations
---------
+站点
+-----
 
-In Odoo's *Frontdesk* application, a *Station* can be thought of as any location where someone can
-sign in and wait for an employee. This is typically some form of waiting room, such as a lobby. Each
-station has a kiosk where visitors check in.
+在 Odoo 的 *前台系统* 应用程序中，*站点* 可以理解为任何可以签到并等待员工的地点。通常，这是一种形式的候客室，如大堂。每个站点都有一个签到亭供访客使用。
 
-When setting up the *Frontdesk* application, a minimum of one station **must** be configured, but
-there is no limit to how many stations can be created and configured.
+在设置 *前台系统* 应用程序时，必须至少配置一个站点，但可以创建和配置任意数量的站点。
 
-To create a station, navigate to :menuselection:`Frontdesk app --> Configuration --> Stations`, and
-click :guilabel:`New`. When clicked, a blank frontdesk form appears.
+要创建站点，请导航至 :menuselection:`Frontdesk app --> Configuration --> Stations`，然后点击 :guilabel:`New`。点击后，会出现一个空白的前台表单。
 
-Enter the following information on the form:
+在表单中输入以下信息：
 
-- :guilabel:`Frontdesk Name`: enter a name for the specific frontdesk location. This should be
-  short and easily identifiable, such as `Reception Desk` or `Main Lobby`. This field is required in
-  order to create a station.
-- :guilabel:`Responsibles`: select the person (or persons) who are alerted when a visitor checks in
-  using this specific frontdesk. Multiple selections can be entered. This field is required in order
-  to create a station.
-- :guilabel:`Kiosk URL`: this field auto-populates once the frontdesk form is saved, with at least
-  the :guilabel:`Frontdesk Name` and :guilabel:`Responsibles` fields filled. To save manually, click
-  the :guilabel:`(cloud with upward arrow)` icon, located at the top of the form.
+- :guilabel:`前台名称`: 输入特定前台位置的名称。这个名称应该简短且易于识别，例如“接待处”或“主大堂”。此字段是创建站点的必填项。
+- :guilabel:`负责人`: 选择当访客通过此前台签到时收到通知的人员（或人员）。可以输入多个选择。此字段是创建站点的必填项。
+- :guilabel:`签到亭 URL`: 此字段在保存前台表单时自动填写，前提是已填写了 :guilabel:`前台名称` 和 :guilabel:`负责人` 字段。要手动保存，请点击表单顶部的 :guilabel:`(云上传图标)`。
 
-  Once saved, a URL is generated in the :guilabel:`Kiosk URL` field. This URL is one way the
-  frontdesk kiosk is accessed.
+  保存后，:guilabel:`签到亭 URL` 字段中会生成一个 URL。该 URL 是访问前台签到亭的方式之一。
 
-  To access the kiosk, click the :guilabel:`Copy` button at the end of the URL, and navigate to that
-  URL in a web browser. This URL opens that specific station's frontdesk sign-in page.
+  要访问签到亭，请点击 URL 末尾的 :guilabel:`复制` 按钮，然后在浏览器中导航到该 URL。此 URL 会打开该特定站点的前台签到页面。
 
   .. tip::
-     To add an image/photo to a frontdesk form, hover over the :guilabel:`(camera with a '+' sign)`
-     icon in the top-right of the form to reveal a :guilabel:`✏️ (pencil)` icon.
+     要向前台表单添加图片或照片，请将鼠标悬停在表单右上角的 :guilabel:`(加号相机图标)` 上，会显示一个 :guilabel:`✏️ (铅笔)` 图标。
 
-     Click on the :guilabel:`✏️ (pencil)` icon to open a file explorer, navigate to the desired
-     image/photo file, then click :guilabel:`Open` to select it.
+     点击 :guilabel:`✏️ (铅笔)` 图标以打开文件资源管理器，导航到所需的图像/照片文件，然后点击 :guilabel:`打开` 以选择它。
 
-     The image selected for the station photo appears as the background image for the station kiosk.
+     选择的图片将作为站点背景显示在签到亭界面中。
 
-Options tab
+选项标签
 ~~~~~~~~~~~
 
 .. _frontdesk/host:
 
-- :guilabel:`Host Selection`: if the visitor is attending a meeting, this option allows the visitor
-  to select the meeting host from a presented list, and notify that individual. When enabled,
-  additional fields appear, as detailed below.
-- :guilabel:`Authenticate Guest`: if additional information is required when a guest checks in,
-  enable this option, and select which of the following are required:
+- :guilabel:`主持人选择`: 如果访客是参加会议，启用此选项可让访客从提供的列表中选择会议主持人，并通知该人。启用后，会出现以下详细字段。
+- :guilabel:`访客身份验证`: 如果访客签到时需要额外的信息，启用此选项，并选择以下所需的项目：
 
-  - :guilabel:`Email`: select whether the guest's email address is :guilabel:`Required`,
-    :guilabel:`Optional`, or if the information is not requested at all (:guilabel:`None`).
-  - :guilabel:`Phone`: select whether the guest's phone number is :guilabel:`Required`,
-    :guilabel:`Optional`, or if the information is not requested at all (:guilabel:`None`).
-  - :guilabel:`Organization`: select whether the guest's organization is :guilabel:`Required`,
-    :guilabel:`Optional`, or if the information is not requested at all (:guilabel:`None`).
+  - :guilabel:`电子邮件`: 选择访客的电子邮件地址是 :guilabel:`必填`，:guilabel:`可选`，还是不请求信息 (:guilabel:`无`)。
+  - :guilabel:`电话`: 选择访客的电话号码是 :guilabel:`必填`，:guilabel:`可选`，还是不请求信息 (:guilabel:`无`)。
+  - :guilabel:`公司`: 选择访客的公司信息是 :guilabel:`必填`，:guilabel:`可选`，还是不请求信息 (:guilabel:`无`)。
 
-- :guilabel:`Theme`: select the color mode of the kiosk. Choose either :guilabel:`Light` or
-  :guilabel:`Dark`. The :guilabel:`Light` selection displays a pale gray background on the kiosk,
-  whereas the :guilabel:`Dark` selection displays a dark gray and black background.
-- :guilabel:`Self Check-In`: enable this option to present a check-in QR code on the kiosk. The QR
-  code allows guests to check in using their mobile device, instead of using the kiosk. This option
-  is recommended for a busy kiosk with multiple guests checking in at any time.
-- :guilabel:`Offer Drinks`: enable this option to offer guests a drink upon check in. If this option
-  is enabled, it is necessary to :ref:`configure the drinks being offered <frontdesk/drinks>`, via
-  the :guilabel:`Configure Drinks` link that appears when the option is enabled. Once all drink
-  options are configured, select each drink to be offered using the drop-down menu.
+- :guilabel:`主题`: 选择签到亭的颜色模式。选择 :guilabel:`浅色` 或 :guilabel:`深色`。选择 :guilabel:`浅色` 会在签到亭上显示浅灰色背景，而 :guilabel:`深色` 会显示深灰色和黑色背景。
+- :guilabel:`自助签到`: 启用此选项以在签到亭上显示二维码。访客可以使用移动设备扫描二维码进行签到，而不必使用签到亭。此选项适用于有大量访客同时签到的繁忙签到亭。
+- :guilabel:`提供饮品`: 启用此选项以在访客签到时提供饮品。如果启用此选项，则需要通过 :guilabel:`配置饮品` 链接 :ref:`配置饮品 <frontdesk/drinks>`。配置好所有饮品选项后，可以从下拉菜单中选择每种提供的饮品。
 
 .. note::
-   The following options are only visible in the :guilabel:`Options` tab if the :ref:`Host Selection
-   <frontdesk/host>` option is enabled.
+   如果启用了 :ref:`主持人选择 <frontdesk/host>` 选项，则以下选项仅在 :guilabel:`选项` 标签中可见。
 
-- :guilabel:`Notify by email`: enable this option to have an email sent to the person the guest is
-  visiting upon check in. When enabled, an :guilabel:`Email Template` field appears beneath, with
-  the default :guilabel:`Frontdesk Email Template` selected.
+- :guilabel:`通过电子邮件通知`: 启用此选项以便在访客签到时向访客会见的人员发送电子邮件。启用后，:guilabel:`电子邮件模板` 字段会出现在下方，默认选择 :guilabel:`前台电子邮件模板`。
 
-  To change the default email template, click the drop-down menu in the :guilabel:`Email Template`
-  field, then select another email template.
+  要更改默认电子邮件模板，请点击 :guilabel:`电子邮件模板` 字段中的下拉菜单，然后选择另一个电子邮件模板。
 
-  To modify the currently selected template, click the :guilabel:`Internal link (arrow)` icon at the
-  end of the line, and make any edits to the template.
-- :guilabel:`Notify by SMS`: enable this option to have an SMS (text) message sent to the person the
-  guest is visiting upon check in. When enabled, an :guilabel:`SMS Template` field appears beneath,
-  with the default :guilabel:`Frontdesk SMS Template` selected.
+  要修改当前选择的模板，请点击行末的 :guilabel:`内部链接 (箭头)` 图标，并对模板进行任何编辑。
 
-  To change the default SMS template, click the drop-down menu in the :guilabel:`SMS Template`
-  field, and select another SMS template.
+- :guilabel:`通过短信通知`: 启用此选项以便在访客签到时向访客会见的人员发送短信 (文本消息)。启用后，:guilabel:`短信模板` 字段会出现在下方，默认选择 :guilabel:`前台短信模板`。
 
-  To modify the currently selected template, click the :guilabel:`Internal link (arrow)` icon at the
-  end of the line, and make any desired edits to the content of the template. The SMS message may
-  have a maximum of 242 characters, which fits in 4 SMS (UNICODE) messages.
-- :guilabel:`Notify by Discuss`: this option is enabled by default when the :guilabel:`Host
-  Selection` option is enabled. This option opens a *Discuss* application message window with the
-  person the guest is visiting upon check in.
+  要更改默认短信模板，请点击 :guilabel:`短信模板` 字段中的下拉菜单，然后选择另一个短信模板。
 
-  When enabled, a default message appears for the person the guest is visiting. The *Discuss*
-  application **must** be installed in order for this option to work.
+  要修改当前选择的模板，请点击行末的 :guilabel:`内部链接 (箭头)` 图标，并对模板的内容进行任何所需的编辑。短信消息最多可包含 242 个字符，最多为 4 条短信（UNICODE）消息。
 
-.. note::
-   *Discuss* is installed by default when creating an Odoo database, and does not count towards
-   billing. As long as the *Discuss* application is not intentionally uninstalled, the
-   :guilabel:`Notify by Discuss` option works.
+- :guilabel:`通过 Discuss 通知`: 启用此选项时，访客签到后会打开一个与访客会见的人员的 *Discuss* 应用消息窗口。
+
+  启用后，会出现一条默认消息。*Discuss* 应用程序必须安装，才能使此选项有效。
 
 .. example::
-   The default message format for the :guilabel:`Notify by Discuss` option is: `(Frontdesk Station)
-   Check-In: (Guest Name) (Guest Phone Number) (Organization) to meet (Name of employee).`
+   默认的 :guilabel:`通过 Discuss 通知` 选项消息格式为：`(前台站点) 签到: (访客姓名) (访客电话号码) (公司) 见 (员工姓名)`。
 
-   An example of how that might appear in a *Discuss* message is: `Main Lobby Check-In: John Doe
-   (123-555-1234) (Odoo, Inc.) to meet Marc Demo.`
+   在 *Discuss* 消息中的示例可能为：`主大堂签到：John Doe (123-555-1234) (Odoo, Inc.) 见 Marc Demo`。
 
 .. image:: frontdesk/station-form.png
    :align: center
-   :alt: Frontdesk station form with all the information filled out.
+   :alt: 填写完所有信息的前台站点表单。
 
-Side Message tab
-~~~~~~~~~~~~~~~~
+侧栏消息标签
+~~~~~~~~~~~~~~~
 
-Enter any desired text to appear on the station kiosk after a guest has checked in, such as a
-welcome greeting or any necessary instructions. The text appears on the confirmation page, on the
-right side of the screen after a guest has completed the check-in process.
+在访客签到后，您可以输入显示在站点签到亭上的任何文字，例如欢迎词或任何必要的指示。该文本会显示在确认页面上，在访客完成签到过程后显示在屏幕的右侧。
 
 .. _frontdesk/drinks:
 
-Drinks
-------
+饮品
+-----
 
-After a station is created, the next step is to configure the drinks to offer visitors, if desired.
-This step is **not** necessary or required for the *Frontdesk* application to work, and only needs
-to be configured if drinks are offered to guests.
+创建站点后，下一步是配置提供给访客的饮品选项（如有需要）。该步骤 **不是** *前台系统* 应用程序正常工作的必要步骤，只有在打算为访客提供饮品时才需要配置。
 
-To add a drink option, navigate to :menuselection:`Frontdesk app --> Configuration --> Drinks`, and
-click :guilabel:`New`. Doing so reveals a blank drink form to configure.
+要添加饮品选项，请导航至 :menuselection:`Frontdesk app --> Configuration --> Drinks`，然后点击 :guilabel:`New`。这样会显示一个空白的饮品表单供配置。
 
-Enter the following information on the drink form:
+在表单中输入以下信息：
 
-- :guilabel:`Drink Name`: type the name of the drink option in this field. This field is required.
-- :guilabel:`People to Notify`: use the drop-down menu in this field to select who is notified when
-  the drink is selected. Multiple people can be entered in this field. This field is required.
-- :guilabel:`Sequence`: enter a numerical value in this field to indicate where in the list of drink
-  options this specific option appears. The lower the number, the higher on the list the drink
-  appears. For example, entering the number one would place that drink at the top of the list, and
-  appear first in the sequence.
+- :guilabel:`饮品名称`: 在此字段中输入饮品选项的名称。此字段为必填项。
+- :guilabel:`通知人员`: 使用此字段中的下拉菜单选择在选择该饮品时收到通知的人。此字段为必填项，可以输入多个人员。
+- :guilabel:`顺序`: 在此字段中输入一个数值，以指示此特定选项在饮品列表中的位置。数字越小，饮品在列表中显示的位置越靠前。例如，输入数字 1 会将该饮品放在列表顶部，作为第一个显示的选项。
 
 .. tip::
-   To add an image/photo to a drink form, hover over the :guilabel:`(camera with a '+' sign)` icon
-   in the top-right of the form to reveal a :guilabel:`✏️ (pencil)` icon.
+   要向饮品表单添加图片或照片，请将鼠标悬停在表单右上角的 :guilabel:`(加号相机图标)` 上，会显示一个 :guilabel:`✏️ (铅笔)` 图标。
 
-   Click on the :guilabel:`✏️ (pencil)` icon to open a file explorer, navigate to the desired
-   image/photo file, then click :guilabel:`Open` to select it.
+   点击 :guilabel:`✏️ (铅笔)` 图标以打开文件资源管理器，导航到所需的图像/照片文件，然后点击 :guilabel:`打开` 以选择它。
 
-   The image selected now appears in the picture field, and is set as the image for the drink.
+   选择的图像现在将显示在图片字段中，并设置为饮品的图像。
 
 .. image:: frontdesk/espresso.png
    :align: center
-   :alt: Drink form with the information filled out for an espresso.
+   :alt: 填写了浓缩咖啡信息的饮品表单。
 
-Station dashboard
-=================
+站点仪表板
+===========
 
 .. tip::
-   To add an image/photo to a drink form, hover over the :guilabel:`(camera with a '+' sign)` icon
-   in the top-right of the form to reveal a :guilabel:`✏️ (pencil)` icon.
+   要向饮品表单添加图片或照片，请将鼠标悬停在表单右上角的 :guilabel:`(加号相机图标)` 上，会显示一个 :guilabel:`✏️ (铅笔)` 图标。
 
-   Click on the :guilabel:`✏️ (pencil)` icon to open a file explorer, navigate to the desired
-   image/photo file, then click :guilabel:`Open` to select it.
+   点击 :guilabel:`✏️ (铅笔)` 图标以打开文件资源管理器，导航到所需的图像/照片文件，然后点击 :guilabel:`打开` 以选择它。
 
-   The image selected now appears in the picture field, and is set as the image for the drink.
+   选择的图像现在将显示在图片字段中，并设置为饮品的图像。
 
 .. _frontdesk/kiosk:
 
-Kiosk setup
+签到亭设置
 ===========
 
-Set up each kiosk for use after configuring the various stations. It is recommended to use a
-dedicated device for each frontdesk kiosk, such as a tablet.
+配置完各种站点后，设置每个签到亭供使用。建议为每个前台签到亭使用专用设备，如平板电脑。
 
-Navigate to the kiosk in one of two ways:
+可以通过两种方式之一导航到签到亭：
 
-- Navigate to the main *Frontdesk* application dashboard, and click the :guilabel:`Open Desk`
-  button on the desired station card. The kiosk loads in a new browser tab.
-- Navigate to :menuselection:`Frontdesk app --> Configuration --> Stations`, and click on the
-  desired station. Then, click the :guilabel:`Copy` button at the end of the :guilabel:`Kiosk URL`
-  line, and paste the URL into a new browser tab or window.
+- 导航到 *前台系统* 应用程序的主仪表板，并点击所需站点卡上的 :guilabel:`Open Desk` 按钮。签到亭将在新的浏览器标签中加载。
+- 导航到 :menuselection:`Frontdesk app --> Configuration --> Stations`，点击所需的站点。然后，点击 :guilabel:`签到亭 URL` 行末的 :guilabel:`复制` 按钮，并将 URL 粘贴到新的浏览器标签或窗口中。
 
 .. important::
-   It is recommended to log out of the database, and close the tab, after navigating to the kiosk.
-   That way, there is no possibility of a visitor accessing the database when checking-in.
+   建议退出数据库并关闭标签页后再导航到签到亭。这样可以确保访客在签到时无法访问数据库。
 
-Reporting
-=========
+报告
+=====
 
-The *Frontdesk* application has two reports available: :guilabel:`Visitors` and :guilabel:`Drinks`.
+*前台系统* 应用程序提供两种报告：:guilabel:`访客` 和 :guilabel:`饮品`。
 
-To access either of these reports, navigate to :menuselection:`Frontdesk app --> Reporting` to
-reveal a drop-down menu containing the options: :guilabel:`Visitors` and :guilabel:`Drinks`.
+要访问这些报告中的任何一个，请导航到 :menuselection:`Frontdesk app --> Reporting`，以显示包含 :guilabel:`访客` 和 :guilabel:`饮品` 选项的下拉菜单。
 
-The :guilabel:`Visitors` report displays the number of visitors by month, for the current year. The
-:guilabel:`Drinks` report shows how many total requests were made for each drink.
+:guilabel:`访客` 报告显示当前年度每个月的访客数量。:guilabel:`饮品` 报告显示每种饮品的请求总数。
 
-As with all reports in Odoo, the filters and groups can be modified to show other metrics, as well.
+与 Odoo 中的所有报告一样，也可以修改过滤器和分组以显示其他指标。
 
 .. seealso::
    - :doc:`frontdesk/visitors`

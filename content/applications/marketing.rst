@@ -1,9 +1,8 @@
 :nosearch:
 
 =========
-Marketing
+市场营销
 =========
-
 
 .. toctree::
 

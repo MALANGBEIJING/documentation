@@ -1,205 +1,161 @@
-:show-content:
-
 ====================
-Marketing Automation
+营销自动化
 ====================
 
-The Odoo *Marketing Automation* application enables users to create dynamic campaigns with actions
-that automatically occur within a defined duration, such as sending a series of timed mass emails or
-engaging with leads based on their interactions with marketing campaigns.
+Odoo 的 *营销自动化* 应用程序使用户能够创建动态活动，其中的操作会在定义的时间内自动执行，如发送一系列定时的大规模电子邮件或根据潜在客户与营销活动的互动进行沟通。
 
-While the application is designed to be user-friendly for quickly creating, launching, and reviewing
-marketing campaigns, it also provides advanced features to automate repetitive tasks throughout the
-database.
+虽然该应用程序设计为用户友好的界面，方便快速创建、启动和查看营销活动，但它还提供了高级功能，可以自动化数据库中的重复性任务。
 
-Get started by creating a :ref:`new campaign from scratch <marketing_automation/campaigns>` or start
-with a :ref:`campaign template <marketing_automation/campaign-templates>`.
+从头开始创建一个 :ref:`新的活动 <marketing_automation/campaigns>` 或使用一个 :ref:`活动模板 <marketing_automation/campaign-templates>` 开始。
 
 .. seealso::
-   `Odoo Tutorials: Marketing <https://www.odoo.com/slides/marketing-27>`_
+   `Odoo 教程: 营销 <https://www.odoo.com/slides/marketing-27>`_
 
 .. cards::
 
-   .. card:: Audience targeting
+   .. card:: 受众目标
       :target: marketing_automation/target_audience
 
-      Configure the target audience for a campaign.
+      配置活动的目标受众。
 
-   .. card:: Workflow activities
+   .. card:: 工作流程活动
       :target: marketing_automation/workflow_activities
 
-      Define the activities that occur within a campaign.
+      定义活动中的工作流程。
 
-   .. card:: Testing/running campaigns
+   .. card:: 测试/运行活动
       :target: marketing_automation/testing_running
 
-      Launch a test or run a campaign.
+      启动测试或运行活动。
 
-   .. card:: Campaign metrics
+   .. card:: 活动指标
       :target: marketing_automation/understanding_metrics
 
-      Review the metrics of a campaign.
+      查看活动的指标。
 
-Configuration
+配置
 =============
 
-To install the *Marketing Automation* application, navigate to the :menuselection:`Apps application`
-and search for `Marketing Automation`.
+要安装 *营销自动化* 应用程序，导航到 :menuselection:`应用程序` 并搜索 `营销自动化`。
 
-In the list of results, click the :guilabel:`Activate` button on the :guilabel:`Marketing
-Automation` application to install it.
+在搜索结果列表中，点击 :guilabel:`激活` 按钮以安装 :guilabel:`营销自动化` 应用程序。
 
 .. important::
-   Installing the *Marketing Automation* application also installs the :doc:`Email Marketing
-   <email_marketing>` app, as most features of Odoo *Marketing Automation* are dependent on that
-   specific application.
+   安装 *营销自动化* 应用程序时，还会自动安装 :doc:`电子邮件营销 <email_marketing>` 应用程序，因为 Odoo *营销自动化* 的大多数功能依赖于该应用程序。
 
-   Additionally, install the :doc:`CRM <../sales/crm>` and :doc:`SMS Marketing <sms_marketing>`
-   applications to access *all* of the features available in *Marketing Automation*.
+   此外，安装 :doc:`CRM <../sales/crm>` 和 :doc:`短信营销 <sms_marketing>` 应用程序以访问 *营销自动化* 中的所有功能。
 
-   The following documentation assumes that all three of these dependent applications are installed
-   on the database.
+   以下文档假设数据库中已安装这三个依赖应用程序。
 
 .. _marketing_automation/campaigns:
 
-Campaigns
+活动
 =========
 
-A *campaign* refers to a workflow of activities that are automatically executed to a target
-audience, based on predefined filters, triggers, and durations of activities.
+*活动* 是指根据预定义的过滤条件、触发器和活动时间，自动向目标受众执行的一系列工作流程。
 
-A new campaign can be created from scratch or from a :ref:`template
-<marketing_automation/campaign-templates>`.
+可以从头创建一个新活动，也可以使用 :ref:`活动模板 <marketing_automation/campaign-templates>`。
 
-To create a campaign, navigate to the :menuselection:`Marketing Automation` application, from the
-main Odoo dashboard, to open the :guilabel:`Campaigns` dashboard. From here, click the
-:guilabel:`New` button to reveal a new campaign form.
+要创建一个活动，请导航到 Odoo 仪表板中的 :menuselection:`营销自动化` 应用程序，以打开 :guilabel:`活动` 仪表板。在这里，点击 :guilabel:`新建` 按钮，进入新活动表单。
 
 .. _marketing_automation/campaign-templates:
 
-Campaign templates
+活动模板
 ------------------
 
-Odoo provides six campaign templates to help users get started. The campaign template cards **only**
-display when there are no existing campaigns in the database. Once a campaign has been created, the
-template cards on the *Campaigns* dashboard are replaced with a Kanban view of the existing
-campaigns.
+Odoo 提供六个活动模板来帮助用户入门。仅当数据库中没有现有活动时，活动模板卡片才会显示。一旦创建了活动，*活动* 仪表板中的模板卡片将被现有活动的看板视图替代。
 
-To get started with a template, navigate to the :menuselection:`Marketing Automation` application,
-from the main Odoo dashboard, to open the :guilabel:`Campaigns` dashboard, which displays six
-:doc:`campaign template <marketing_automation/campaign_templates>` cards:
+要使用模板开始，请导航到 Odoo 仪表板中的 :menuselection:`营销自动化` 应用程序，以打开 :guilabel:`活动` 仪表板，显示六个 :doc:`活动模板 <marketing_automation/campaign_templates>` 卡片：
 
-- | :guilabel:`🏷️ Tag Hot Contacts`
-  | :guilabel:`Send a welcome email to contacts and tag them if they click it.`
-- | :guilabel:`✌️ Welcome Flow`
-  | :guilabel:`Send a welcome email to new subscribers, remove the address that bounced.`
-- | :icon:`fa-check-square` :doc:`Double Opt-in
-    <marketing_automation/campaign_templates/double_optin>`
-  | :guilabel:`Send an email to new recipients to confirm their consent.`
-- | :guilabel:`🔍 Commercial prospection`
-  | :guilabel:`Send a free catalog and follow-up according to reactions.`
-- | :guilabel:`📞 Schedule Calls`
-  | :guilabel:`If a lead is created for existing contact, schedule a call with their salesperson.`
-- | :guilabel:`⭐️ Prioritize Hot leads`
-  | :guilabel:`Send an email to new leads and assign them a high priority if they open it.`
+- | :guilabel:`🏷️ 标记热联系`
+  | :guilabel:`发送欢迎邮件给联系人并在他们点击后标记。`
+- | :guilabel:`✌️ 欢迎流程`
+  | :guilabel:`发送欢迎邮件给新订阅者，并移除那些退信的地址。`
+- | :icon:`fa-check-square` :doc:`双重确认 <marketing_automation/campaign_templates/double_optin>`
+  | :guilabel:`发送电子邮件给新收件人以确认其同意。`
+- | :guilabel:`🔍 商业推广`
+  | :guilabel:`发送免费目录并根据反应进行跟进。`
+- | :guilabel:`📞 安排电话`
+  | :guilabel:`如果为现有联系人创建了潜在客户，安排与其销售人员的电话。`
+- | :guilabel:`⭐️ 优先处理热潜在客户`
+  | :guilabel:`向新潜在客户发送电子邮件，如果他们打开邮件，则将其设为高优先级。`
 
 .. image:: marketing_automation/campaigns-dashboard.png
    :align: center
-   :alt: Six campaign template cards on the Campaigns dashboard of the Marketing Automation app.
+   :alt: 营销自动化应用程序中活动仪表板上的六个活动模板卡片。
 
-These templates are designed to be used as starting points for creating new campaigns. Click one of
-the template cards to open the campaign form.
+这些模板设计为创建新活动的起点。点击其中一个模板卡片即可打开活动表单。
 
 .. tip::
-   To display the campaign template cards again after a campaign has been created, type the name of
-   a campaign that does **not** exist in the database into the :guilabel:`Search...` bar, then press
-   :kbd:`Enter`.
+   创建活动后，如果想再次显示活动模板卡片，可以在 :guilabel:`搜索...` 栏中输入数据库中不存在的活动名称，然后按 :kbd:`Enter`。
 
-   For example, searching for `empty` displays the campaign template cards again, as long as there
-   is not a campaign with the name "empty" in the database.
+   例如，搜索 `empty` 可以再次显示活动模板卡片，只要数据库中没有名为 "empty" 的活动。
 
-Targets and filters
+目标与过滤器
 ===================
 
-On the campaign form, the :guilabel:`Target` and :guilabel:`Filter` section, also referred to as the
-domain, contains the fields used to define the target audience for the campaign's reach (i.e.,
-the unique contact records in the database).
+在活动表单中的 :guilabel:`目标` 和 :guilabel:`过滤器` 部分（也称为域）包含用于定义活动目标受众（即数据库中的唯一联系人记录）的字段。
 
-The target audience specifies the type of records available for use in the campaign, such as
-*Lead/Opportunity*, *Event Registration*, *Contact*, and more.
+目标受众指定活动中可以使用的记录类型，例如 *潜在客户/机会*、*活动注册*、*联系人* 等。
 
-Records
+记录
 -------
 
-The contacts in the system that fit the specified criteria for a campaign are referred to as
-*records*.
+系统中符合指定活动标准的联系人称为 *记录*。
 
-The number of records that are displayed next to the campaign :guilabel:`Filter` represent the total
-number of records the campaign is targeting.
+显示在活动 :guilabel:`过滤器` 旁边的记录数量代表活动目标的记录总数。
 
-Participants
+参与者
 ------------
 
-The records that are engaged by the campaign are referred to as *participants*.
+活动中参与的记录称为 *参与者*。
 
-The number of participants engaged in a test run are shown in the *Tests* smart button, which
-displays on the top of the campaign form after a test has been run.
+测试运行后参与的参与者数量显示在测试完成后出现在活动表单顶部的 *测试* 智能按钮中。
 
-The number of participants engaged in a running, or stopped, campaign are shown in the
-*Participants* smart button at the top of the campaign form.
+运行或停止的活动中参与的参与者数量显示在活动表单顶部的 *参与者* 智能按钮中。
 
 .. seealso::
-   :doc:`Audience targeting <marketing_automation/target_audience>`
+   :doc:`受众目标 <marketing_automation/target_audience>`
 
-Workflow
+工作流程
 ========
 
-A *workflow* consists of an activity, many activities, or a sequence of activities organized in a
-campaign. A campaign's workflow is defined in the :guilabel:`Workflow` section of the campaign form.
+*工作流程* 由一个或多个活动组成，或是按顺序排列的活动组成的工作流。活动的工作流程定义在活动表单的 :guilabel:`工作流程` 部分中。
 
-Activities
+活动
 ----------
 
-*Activities* are the methods of communication or server actions, organized in a workflow, that are
-executed within a campaign. Once running, each activity displays the number of participants that
-are engaged by the activity as *Success* and *Rejected* counts.
+*活动* 是在活动中执行的沟通方式或服务器操作，按照工作流程组织。活动运行后，每个活动显示参与者的 *成功* 和 *被拒绝* 计数。
 
-To create one of the following activities, click :guilabel:`Add new activity` in the
-:guilabel:`Workflow` section of the campaign form:
+要创建以下活动之一，请点击活动表单中 :guilabel:`工作流程` 部分中的 :guilabel:`添加新活动`：
 
-- :ref:`Email <marketing_automation/email-activity-type>`: an email that is sent to the target
-  audience.
-- :ref:`Server action <marketing_automation/sa-activity-type>`: an internal action within the
-  database that is executed.
-- :ref:`SMS <marketing_automation/sms-activity-type>`: a text message that is sent to the target
-  audience.
+- :ref:`电子邮件 <marketing_automation/email-activity-type>`：向目标受众发送电子邮件。
+- :ref:`服务器操作 <marketing_automation/sa-activity-type>`：在数据库中执行的内部操作。
+- :ref:`短信 <marketing_automation/sms-activity-type>`：向目标受众发送短信。
 
 .. seealso::
    :doc:`marketing_automation/workflow_activities`
 
-Testing and running
+测试与运行
 ===================
 
-Once a campaign has been created, it can be tested to ensure the workflow is functioning as
-expected, to check for errors, and correct any mistakes before it reaches its target audience.
+创建活动后，可以对其进行测试，以确保工作流程按预期运行，检查是否存在错误，并在目标受众接收到之前修正任何错误。
 
-After testing, the campaign can be launched to start engaging the target audience. The campaign can
-also be launched *without* testing, if the user is confident in the workflow.
+测试后，可以启动活动以开始吸引目标受众。如果用户对工作流程有信心，也可以在不进行测试的情况下直接启动活动。
 
 .. seealso::
    :doc:`marketing_automation/testing_running`
 
-Reporting
+报告
 =========
 
-A range of reporting metrics are available to measure the success of each campaign. Navigate to
-:menuselection:`Marketing Automation app --> Reporting` to access the following menu options:
+提供一系列报告指标来衡量每个活动的成功。导航至 :menuselection:`营销自动化应用程序 --> 报告` 以访问以下菜单选项：
 
-- :guilabel:`Link Tracker`: displays the metrics of links to track the number of clicks.
-- :guilabel:`Traces`: displays the results of all activities from all campaigns.
-- :guilabel:`Participants`: displays an overview of the participants of all campaigns.
+- :guilabel:`链接跟踪器`：显示链接的指标以跟踪点击次数。
+- :guilabel:`痕迹`：显示所有活动中所有活动的结果。
+- :guilabel:`参与者`：显示所有活动参与者的概览。
 
-Additionally, each activity within the workflow of a campaign displays its engagement metrics.
+此外，每个活动中的每个活动还显示其参与指标。
 
 .. seealso::
    :doc:`marketing_automation/understanding_metrics`

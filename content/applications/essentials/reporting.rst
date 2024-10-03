@@ -1,187 +1,157 @@
 =========
-Reporting
+报告
 =========
 
-You can find several reports under the :guilabel:`Reporting` menu of most apps that let you analyze
-and visualize the data of your records.
+在大多数应用的 :guilabel:`报告` 菜单下，您可以找到多个报告，帮助您分析和可视化记录中的数据。
 
 .. _reporting/views:
 
-Selecting a view
+选择视图
 ================
 
-Depending on the report, Odoo can display the data in various ways. Sometimes, a unique view
-fully tailored to the report is available, while several views are available for others. However,
-two generic views are dedicated to reporting: the graph and pivot views.
+根据报告的不同，Odoo 可以以多种方式显示数据。某些报告有特定的专属视图，而其他报告则提供了多个视图选择。不过，有两个通用视图专门用于报告：图表视图和数据透视表视图。
 
 .. _reporting/views/graph:
 
-Graph view
+图表视图
 ----------
 
-The :ref:`graph view <reporting/using-graph>` is used to visualize your records' data, helping you
-identify patterns and trends. The view is often found under the :guilabel:`Reporting` menu of apps
-but can be found elsewhere. Click the **graph view button** located at the top right to access
-it.
+:ref:`图表视图 <reporting/using-graph>` 用于可视化记录的数据，帮助您识别模式和趋势。该视图通常位于应用的 :guilabel:`报告` 菜单下，但也可以在其他地方找到。点击右上角的 **图表视图按钮** 进入此视图。
 
 .. image:: reporting/graph-button.png
-   :alt: Selecting the graph view
+   :alt: 选择图表视图
 
 .. _reporting/views/pivot:
 
-Pivot view
+数据透视表视图
 ----------
 
-The :ref:`pivot view <reporting/using-pivot>` is used to aggregate your records' data and break it
-down for analysis. The view is often found under the :guilabel:`Reporting` menu of apps but can be
-found elsewhere. Click the **pivot view button** located at the top right to access it.
+:ref:`数据透视表视图 <reporting/using-pivot>` 用于汇总记录的数据并进行分析。该视图通常位于应用的 :guilabel:`报告` 菜单下，但也可以在其他地方找到。点击右上角的 **数据透视表视图按钮** 进入此视图。
 
 .. image:: reporting/pivot-button.png
-   :alt: Selecting the pivot view
+   :alt: 选择数据透视表视图
 
 .. _reporting/choosing-measures:
 
-Choosing measures
+选择指标
 =================
 
-After selecting a view, you should ensure only the relevant records are :doc:`filtered <search>`.
-Next, you should choose what is measured. By default, a measure is always selected. If you wish to
-edit it, click :guilabel:`Measures` and choose one or, only for pivots, multiple measures.
+选择视图后，应确保只过滤相关的记录 :doc:`<search>`。接下来，您应选择要衡量的内容。默认情况下，总会选择一个衡量指标。如果您希望编辑它，请点击 :guilabel:`指标` 并选择一个，或者在数据透视表中选择多个指标。
 
 .. note::
-   When you select a measure, Odoo aggregates the values recorded on that field for the filtered
-   records. Only numerical fields (:ref:`integer <studio/fields/simple-fields/integer>`,
-   :ref:`decimal <studio/fields/simple-fields/decimal>`, :ref:`monetary
-   <studio/fields/simple-fields/monetary>`) can be measured. In addition, the :guilabel:`Count`
-   option is used to count the total number of filtered records.
+   当您选择一个指标时，Odoo 会汇总该字段中已过滤记录的值。只有数值字段 (:ref:`整数 <studio/fields/simple-fields/integer>`、:ref:`小数 <studio/fields/simple-fields/decimal>`、:ref:`货币 <studio/fields/simple-fields/monetary>`) 可以被衡量。此外，:guilabel:`计数` 选项用于统计已过滤记录的总数。
 
-After choosing what you want to measure, you can define how the data should be :ref:`grouped
-<search/group>` depending on the dimension you want to analyze. By default, the data is often
-grouped by *Date > Month*, which is used to analyze the evolution of a measure over the months.
+选择要衡量的内容后，您可以根据要分析的维度，定义数据应如何 :ref:`分组 <search/group>`。默认情况下，数据通常按 *日期 > 月份* 分组，用于分析某个指标在几个月内的变化。
 
 .. tip::
-   When you filter a single time period, the option to compare it against another one appears.
+   当您过滤一个时间段时，系统会出现与另一个时间段进行对比的选项。
 
    .. image:: reporting/comparison.png
-      :alt: Using the comparison option
+      :alt: 使用比较选项
 
 .. example::
 
    .. tabs::
 
-      .. tab:: Select measures
+      .. tab:: 选择指标
 
-         Among other measures, you could add the :guilabel:`Margin` and :guilabel:`Count` measures
-         to the Sales Analysis report. By default, the :guilabel:`Untaxed Amount` measure is
-         selected.
+         在其他指标中，您可以在销售分析报告中添加 :guilabel:`利润率` 和 :guilabel:`计数` 指标。默认情况下，已选择 :guilabel:`未税金额` 指标。
 
          .. image:: reporting/measures.png
-            :alt: Selecting different measures on the Sales Analysis report
+            :alt: 在销售分析报告中选择不同的指标
 
-      .. tab:: Group measures
+      .. tab:: 分组指标
 
-         You could group the measures by :guilabel:`Product Category` at the level of rows on the
-         previous Sales Analysis report example.
+         您可以在前面的销售分析报告示例中按 :guilabel:`产品类别` 对指标进行分组。
 
          .. image:: reporting/single-group.png
-            :alt: Adding a group on the Sales Analysis report
+            :alt: 在销售分析报告中添加分组
 
 .. _reporting/using-pivot:
 
-Using the pivot view
+使用数据透视表视图
 ====================
 
-Grouping data is quintessential to the pivot view. It enables drilling down the data to gain deeper
-insights. While you can use the :guilabel:`Group By` option to quickly add a group at the level of
-rows, as shown in the example above, you can also click the plus button (:guilabel:`➕`) next to the
-:guilabel:`Total` header at the level of rows *and* columns, and then select one of the
-**preconfigured groups**. To remove one, click the minus button (:guilabel:`➖`).
+数据分组是数据透视表视图的核心功能，它使您能够深入挖掘数据以获取更深入的见解。您可以使用 :guilabel:`按组` 选项快速在行级别添加分组，如上面的示例所示，您还可以点击行级别和列级别的 :guilabel:`总计` 标题旁边的加号按钮 (:guilabel:`➕`)，然后选择一个 **预配置分组**。要移除一个分组，点击减号按钮 (:guilabel:`➖`)。
 
-Once you have added a group, you can add new ones on the opposite axis or the newly created
-subgroups.
+添加一个分组后，您可以在相反的轴或新创建的子组中添加新的分组。
 
 .. example::
-   You could further divide the measures on the previous Sales Analysis report example by the
-   :guilabel:`Salesperson` group at the level of columns and by the :guilabel:`Order Date > Month`
-   group on the :guilabel:`All / Saleable / Office Furniture` product category.
+   您可以在前面的销售分析报告示例中按列级别的 :guilabel:`销售人员` 分组，并按 :guilabel:`订单日期 > 月份` 对 :guilabel:`全部 / 可销售 / 办公家具` 产品类别进行分组。
 
    .. image:: reporting/multiple-groups.png
-      :alt: Adding multiple groups on the Sales Analysis report
+      :alt: 在销售分析报告中添加多个分组
 
 .. tip::
-   - Switch the rows and columns' groups by clicking the flip axis button (:guilabel:`⇄`).
-   - Click on a measure's label to sort the values by ascending (⏶) or descending (⏷) order.
-   - Download a `.xlsx` version of the pivot by clicking the download button (:guilabel:`⭳`).
+   - 点击翻转轴按钮 (:guilabel:`⇄`) 切换行和列的分组。
+   - 点击某个指标的标签，可以按升序 (⏶) 或降序 (⏷) 排序。
+   - 点击下载按钮 (:guilabel:`⭳`)，可以下载数据透视表的 `.xlsx` 版本。
 
 .. _reporting/using-graph:
 
-Using the graph view
+使用图表视图
 ====================
 
-Three graphs are available: the bar, line, and pie charts.
+图表视图中提供三种图表：柱状图、折线图和饼图。
 
-**Bar charts** are used to show the distribution or a comparison of several categories. They are
-especially useful as they can deal with larger data sets.
+**柱状图** 用于展示多个类别的分布或对比，特别适用于处理较大的数据集。
 
-**Line charts** are useful to show changing time series and trends over time.
+**折线图** 适用于展示时间序列的变化和趋势。
 
-**Pie charts** are used to show the distribution or a comparison of a small number of categories
-when they form a meaningful whole.
+**饼图** 用于展示较少类别的分布或对比，适合形成一个有意义整体的情况。
 
 .. tabs::
 
-   .. tab:: Bar chart
+   .. tab:: 柱状图
 
       .. image:: reporting/bar.png
-         :alt: Viewing the Sales Analysis report as a bar chart
+         :alt: 以柱状图查看销售分析报告
 
-   .. tab:: Line chart
+   .. tab:: 折线图
 
       .. image:: reporting/line.png
-         :alt: Viewing the Sales Analysis report as a line chart
+         :alt: 以折线图查看销售分析报告
 
-   .. tab:: Pie chart
+   .. tab:: 饼图
 
       .. image:: reporting/pie.png
-         :alt: Viewing the Sales Analysis report as a pie chart
+         :alt: 以饼图查看销售分析报告
 
 .. tip::
-   For **bar** and **line** charts, you can use the stacked option when you have at least two
-   groups, which then appear on top of each other instead of next to each other.
+   对于 **柱状图** 和 **折线图**，当您至少有两个分组时，可以使用堆叠选项，这时分组会叠加在一起，而不是并列显示。
 
    .. tabs::
 
-      .. tab:: Stacked bar chart
+      .. tab:: 堆叠柱状图
 
          .. image:: reporting/stacked-bar.png
-            :alt: Stacked bar chart example
+            :alt: 堆叠柱状图示例
 
-      .. tab:: Regular bar chart
+      .. tab:: 常规柱状图
 
          .. image:: reporting/non-stacked-bar.png
-            :alt: Non-stacked bar chart example
+            :alt: 常规柱状图示例
 
-      .. tab:: Stacked line chart
+      .. tab:: 堆叠折线图
 
          .. image:: reporting/stacked-line.png
-            :alt: Stacked line chart example
+            :alt: 堆叠折线图示例
 
-      .. tab:: Regular line chart
+      .. tab:: 常规折线图
 
          .. image:: reporting/non-stacked-line.png
-            :alt: Non-stacked line chart example
+            :alt: 常规折线图示例
 
-   For **line** charts, you can use the cumulative option to sum values, which is especially useful
-   to show the change in growth over a time period.
+   对于 **折线图**，您可以使用累计选项来累加数值，这对于展示某个时间段内的增长变化尤其有用。
 
    .. tabs::
 
-      .. tab:: Cumulative line chart
+      .. tab:: 累计折线图
 
          .. image:: reporting/cumulative.png
-            :alt: Cumulative line chart example
+            :alt: 累计折线图示例
 
-      .. tab:: Regular line chart
+      .. tab:: 常规折线图
 
          .. image:: reporting/non-cumulative.png
-            :alt: Regular line chart example
+            :alt: 常规折线图示例

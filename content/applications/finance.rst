@@ -1,7 +1,7 @@
 :nosearch:
 
 =======
-Finance
+财务
 =======
 
 .. toctree::

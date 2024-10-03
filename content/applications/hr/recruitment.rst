@@ -1,377 +1,239 @@
 :show-content:
 
 ===========
-Recruitment
+招聘
 ===========
 
-Odoo keeps all job applicants organized with a pre-configured series of steps and stages that each
-applicant goes through. Each stage has a specific step(s) that should be performed. These range from
-scheduling a phone call, conducting an interview, or sending a job offer, for example. This process
-is referred to as the 'applicant flow.'
+Odoo 通过一系列预先配置的步骤和阶段，帮助组织所有的求职者。每个阶段都有具体的步骤，例如安排电话会议、进行面试或发送工作邀请。这一过程称为“申请人流程”。
 
-When an applicant applies for a job position, an *applicant card* is automatically created in Odoo's
-*Recruitment* app for that specific job position. As the applicant progresses through the
-recruitment pipeline, the recruitment team moves their card from one stage to the next.
+当申请人申请职位时，Odoo 的 *Recruitment* 应用会自动为该职位创建一个 *申请人卡片*。随着申请人在招聘流程中的进展，招聘团队会将他们的卡片从一个阶段移动到下一个阶段。
 
-:ref:`Stages can be configured <recruitment/modify-stages>` so that an email is automatically sent
-out using a set, pre-configured template as soon as an applicant's card enters a stage. These
-automated emails are defined on each stage in the applicant flow.
+:ref:`阶段可以配置 <recruitment/modify-stages>`，以便当申请人的卡片进入某个阶段时，系统会使用预先配置的模板自动发送电子邮件。这些自动化的电子邮件由申请人流程中的每个阶段定义。
 
-The applicant flow explained in this document is the default flow in Odoo, and goes through the
-applicant flow when using the *Recruitment* application's default configuration. The applicant flow
-is able to be modified to suit the specific recruitment flow for any business.
+本文档中解释的申请人流程是 Odoo 的默认流程，并使用 *Recruitment* 应用的默认配置进行。申请人流程可以根据任何企业的具体招聘流程进行修改。
 
 .. note::
-   The applicant flow with all its stages are universal and applies to all job positions, unless
-   specified. :ref:`A specific stage can be configured <recruitment/customize-stages>` to be
-   job-specific, meaning that specific stage is only visible for that specific job position.
-   Otherwise, if a new stage is created, or an existing stage is modified, those changes are
-   visible on all job positions.
+   申请人流程及其所有阶段是通用的，适用于所有职位，除非另有说明。:ref:`可以将某个特定阶段配置为职位特定的 <recruitment/customize-stages>`，这意味着该特定阶段仅对该特定职位可见。否则，如果创建了新的阶段或修改了现有阶段，这些更改将应用于所有职位。
 
 .. _recruitment/settings:
 
-Settings
+设置
 ========
 
-Before creating a job position in Odoo, configure the necessary settings for the *Recruitment* app.
-To view and edit the settings, navigate to :menuselection:`Recruitment app --> Configuration -->
-Settings`. After any changes are made, click the :guilabel:`Save` button in the top-left corner to
-save all the changes.
+在 Odoo 中创建职位之前，首先配置 *Recruitment* 应用的必要设置。要查看和编辑设置，请导航到 :menuselection:`Recruitment app --> Configuration --> Settings`。进行任何更改后，点击左上角的 :guilabel:`保存` 按钮以保存所有更改。
 
-Job posting
+职位发布
 -----------
 
-The :guilabel:`Job Posting` section of the *Recruitment* app settings has only one selection to
-make. If job positions are to be posted to the company's website, enable the :guilabel:`Online
-Posting` option.
+*Recruitment* 应用的 :guilabel:`职位发布` 设置部分只有一个选项。如果要将职位发布到公司网站上，请启用 :guilabel:`在线发布` 选项。
 
 .. note::
-   The :guilabel:`Online Posting` is only available if the *Website* application is also installed.
+   只有在安装了 *Website* 应用时，:guilabel:`在线发布` 选项才可用。
 
-Recruitment process
+招聘流程
 -------------------
 
-The :guilabel:`Recruitment process` section of the settings page specifies what the database can and
-cannot do during the recruitment process.
+设置页面的 :guilabel:`招聘流程` 部分指定了数据库在招聘过程中可以执行的操作。
 
-Send interview survey
+发送面试调查
 ~~~~~~~~~~~~~~~~~~~~~
 
-Odoo is capable of having a survey sent to an applicant to gather more information about them.
-Surveys can be thought of as exams, or questionnaires, and can be customized in various ways to
-provide the recruitment team with valuable insights into the applicant
+Odoo 可以向申请人发送调查，以收集更多关于他们的信息。调查可以被视为考试或问卷，并且可以以多种方式定制，为招聘团队提供申请人的宝贵见解。
 
-Enable the :guilabel:`Send Interview Survey` option to send surveys to applicants. Once enabled, an
-:icon:`fa-arrow-right` :guilabel:`Interview Survey` internal link appears. Click the
-:icon:`fa-arrow-right` :guilabel:`Interview Survey` link to navigate to a list of all created
-surveys.
+启用 :guilabel:`发送面试调查` 选项即可向申请人发送调查。启用后，会出现 :icon:`fa-arrow-right` :guilabel:`面试调查` 内部链接。点击 :icon:`fa-arrow-right` :guilabel:`面试调查` 链接，查看已创建的所有调查列表。
 
-This list includes all surveys that were created in the database, not just surveys used in the
-*Recruitment* app. If no surveys have been created, the surveys list displays a :guilabel:`No Survey
-Found` message, and presents options to create a survey from several pre-configured survey
-templates.
+该列表包括数据库中创建的所有调查，而不仅仅是 *Recruitment* 应用中使用的调查。如果尚未创建任何调查，则调查列表会显示 :guilabel:`未找到调查` 消息，并提供从几个预先配置的调查模板中创建调查的选项。
 
 .. seealso::
-   For more detailed information about surveys, refer to the :doc:`survey essentials
-   <../marketing/surveys/create>` documentation.
+   有关调查的详细信息，请参阅 :doc:`survey essentials <../marketing/surveys/create>` 文档。
 
 .. note::
-   Enabling the :guilabel:`Send Interview Survey` option will install the *Surveys* application once
-   the settings are saved, if it is not installed already.
+   启用 :guilabel:`发送面试调查` 选项时，如果尚未安装 *Surveys* 应用，则在保存设置后会自动安装该应用。
 
-Send SMS
+发送短信
 ~~~~~~~~
 
-It is possible to send text messages to applicants directly through the *Recruitment* app. To do so,
-enable the :guilabel:`Send SMS` option. This option requires credits to use, which can be obtained
-by clicking the :icon:`fa-arrow-right` :guilabel:`Buy credits` internal link that emerges when the
-feature is enabled.
+可以直接通过 *Recruitment* 应用向申请人发送短信。要这样做，启用 :guilabel:`发送短信` 选项。此选项需要购买积分，启用该功能后，可以通过点击出现的 :icon:`fa-arrow-right` :guilabel:`购买积分` 内部链接进行购买。
 
 .. seealso::
-   For more information, refer to the :doc:`SMS pricing and FAQs
-   <../marketing/sms_marketing/pricing_and_faq>` documentation.
+   有关更多信息，请参阅 :doc:`SMS pricing and FAQs <../marketing/sms_marketing/pricing_and_faq>` 文档。
 
-.. _recruitment/cv-display:
-
-CV display
+简历显示
 ~~~~~~~~~~
 
-When applicants submit an application, one of the default required fields is a resumé, or :abbr:`CV
-(curriculum vitae)`. All resumés are stored in the *Documents* application, and are accessible on
-the applicant's card.
+当申请人提交申请时，默认要求填写简历或 :abbr:`CV (curriculum vitae)`。所有简历都存储在 *Documents* 应用中，可以通过申请人的卡片访问。
 
-A resumé has the option to appear on the applicant's form, which can be viewed by clicking on the
-applicant's card. The resumé appears on the right-side of the screen. If this is not enabled, the
-resumé is accessed via a link in the chatter, where it needs to be clicked to expand and view it, or
-downloaded.
+可以选择在申请人表单上显示简历，点击申请人卡片即可查看简历。简历显示在屏幕右侧。如果未启用此功能，简历可以通过聊天中的链接访问，需要点击展开查看或下载。
 
-Enable the :guilabel:`CV Display` option to show the resumé on the applicant's card by default, and
-in addition to the document link. When enabled, the resumé appears on the right side of the
-applicant's card.
+启用 :guilabel:`简历显示` 选项，即可默认在申请人卡片上显示简历，并且可以通过文档链接查看。当启用时，简历显示在申请人卡片的右侧。
 
 .. note::
-   For the resumé to appear on the right-side, the browser window must be in full-screen mode (where
-   the browser spans the entire screen).
+   要在右侧显示简历，浏览器窗口必须处于全屏模式（浏览器覆盖整个屏幕）。
 
-   If the browser window is set to a size smaller than the entire width of the screen (not
-   full-screen), then the resumé does not appear on the right-side. Instead, the resumé appears in
-   the :guilabel:`Files` section of the chatter, below the applicant's card.
+   如果浏览器窗口未设置为全屏（不是全屏模式），则简历不会显示在右侧。相反，简历会出现在申请人卡片下方的 :guilabel:`文件` 部分。
 
 .. image:: recruitment/cv-display.png
    :align: center
-   :alt: The resumé on an applicant's card, appearing on the right side.
+   :alt: 在申请人卡片右侧显示的简历。
 
-.. _recruitment/cv-ocr:
-
-CV digitization (OCR)
+简历数字化 (OCR)
 ~~~~~~~~~~~~~~~~~~~~~
 
-When an application is submitted using any of the available methods, such as an online application
-submission, emailing a resume to the job position alias, or creating an applicant record directly
-from the database, it is possible to have Odoo extract the applicant's name, phone number, and email
-address from the resumé and populate the applicant's form. To do so, enable the :guilabel:`CV
-Digitization (OCR)` option.
+无论是通过在线申请提交、发送简历到职位别名的电子邮件，还是直接从数据库创建申请记录，Odoo 都可以从简历中提取申请人的姓名、电话号码和电子邮件地址，并填充到申请人的表单中。要启用此功能，请启用 :guilabel:`简历数字化 (OCR)` 选项。
 
-When enabled, additional options appear. Click on the corresponding radio button to select one of
-the following options:
+启用后，会出现额外的选项。点击相应的单选按钮，选择以下选项之一：
 
-- :guilabel:`Do not digitize`: this option turns off resumé digitization.
-- :guilabel:`Digitize on demand only`: this option only digitizes resumes when requested. A
-  :guilabel:`Digitize document` buttons appears on applicant cards. When clicked, the resumé is
-  scanned and the applicant's card is updated.
-- :guilabel:`Digitize automatically`: this option automatically digitizes all resumés when they are
-  submitted.
+- :guilabel:`不进行数字化`: 关闭简历数字化功能。
+- :guilabel:`仅按需数字化`: 仅在请求时数字化简历。申请人卡片上会出现 :guilabel:`数字化文档` 按钮。点击后，简历将被扫描，并更新申请人卡片。
+- :guilabel:`自动数字化`: 所有提交的简历将自动进行数字化处理。
 
-Beneath these options are two additional links. Click the :icon:`fa-arrow-right` :guilabel:`Buy
-credits` button to purchase credits for CV digitization. Click the :icon:`fa-arrow-right`
-:guilabel:`View My Services` to view a list of all current services, and their remaining credit
-balances.
+在这些选项下方还有两个附加链接。点击 :icon:`fa-arrow-right` :guilabel:`购买积分` 按钮以购买简历数字化的积分。点击 :icon:`fa-arrow-right` :guilabel:`查看我的服务` 链接可查看所有当前服务及其剩余积分余额。
 
-For more information on document digitization and :abbr:`IAP's (in-app purchases)`, refer to the
-:doc:`In-app purchase (IAP) <../essentials/in_app_purchase>` documentation.
+有关文档数字化和 :abbr:`IAP (应用内购买)` 的更多信息，请参阅 :doc:`In-app purchase (IAP) <../essentials/in_app_purchase>` 文档。
 
 .. note::
-   The :guilabel:`Do not digitize` option for :guilabel:`CV digitization (OCR)` at first may seem
-   like a redundancy. It seems to be the same as disabling the :guilabel:`CV digitization (OCR)`
-   option.
+   :guilabel:`不要数字化` 选项对于 :guilabel:`简历数字化 (OCR)` 可能一开始看起来是重复的。这似乎与禁用 :guilabel:`简历数字化 (OCR)` 选项相同。
 
-   When the :guilabel:`CV digitization (OCR)` option is enabled, a module is installed so that
-   resumés can be scanned. Disabling this option would uninstall the module.
+   当启用 :guilabel:`简历数字化 (OCR)` 选项时，会安装一个模块，以便扫描简历。禁用此选项将卸载该模块。
 
-   If at some point, there is a desire to temporarily stop digitizing resumés, the :guilabel:`Do not
-   digitize` option is selected. The reason this option is available is so that the module is not
-   uninstalled, allowing for digitization to be enabled in the future by selecting one of the other
-   two options.
+   如果有一段时间希望暂时停止简历数字化，可以选择 :guilabel:`不要数字化` 选项。此选项的存在是为了防止卸载模块，从而在将来只需选择另外两个选项之一即可重新启用数字化。
 
-Salary package configurator
+薪资包配置器
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When sending an offer to an applicant, an expiration date can be set on the offer. Enter the number
-of days an offer is valid for in the :guilabel:`days` field. After the set amount of days has
-passed, if the applicant has not accepted the offer, the offer is no longer available.
+在向申请人发送报价时，可以为报价设置有效期。在 :guilabel:`天数` 字段中输入报价有效的天数。在设定的天数之后，如果申请人未接受报价，则该报价将不再可用。
 
-Kanban view
+看板视图
 ===========
 
-To access the Kanban view for a job position, navigate to the main :menuselection:`Recruitment app`
-dashboard, which is the default view when opening the application. All job positions appear on the
-main dashboard. Click the :guilabel:`(#) New Applications` smart button on a job position card to
-navigate to the Kanban view for all the applicants for that particular job position.
+要访问某职位的看板视图，请导航到主 :menuselection:`Recruitment app` 仪表板，这是打开应用时的默认视图。所有职位都会显示在主仪表板上。点击职位卡片上的 :guilabel:`(#) 新申请` 智能按钮，即可导航到该职位所有申请人的看板视图。
 
 .. image:: recruitment/new-applicants-button.png
    :align: center
-   :alt: Main dashboard view of job position card, showing new applications button.
+   :alt: 职位卡片主仪表板视图，显示新申请按钮。
 
-Inside the job application, the Kanban stages appear, with all the applicants populated in their
-respective columns, indicating what stage they are currently in. There are six default stages in
-Odoo:
+在职位申请页面中，会显示看板阶段，每个申请人都会在相应的列中，表示他们当前所处的阶段。Odoo 中有六个默认阶段：
 
-- :ref:`New <recruitment/new>`
-- :ref:`Initial Qualification <recruitment/initial-qualification>`
-- :ref:`First Interview <recruitment/first-interview>`
-- :ref:`Second Interview <recruitment/second-interview>`
-- :doc:`Contract Proposal <recruitment/offer_job_positions>`
-- :ref:`Contract Signed <recruitment/offer_job_positions/contract-signed>`
+- :ref:`新 <recruitment/new>`
+- :ref:`初步资格审查 <recruitment/initial-qualification>`
+- :ref:`第一次面试 <recruitment/first-interview>`
+- :ref:`第二次面试 <recruitment/second-interview>`
+- :doc:`合同提议 <recruitment/offer_job_positions>`
+- :ref:`合同签署 <recruitment/offer_job_positions/contract-signed>`
 
-The last column, :guilabel:`Contract Signed`, is folded by default. Folded columns appear gray, and
-the applicants in it are hidden from view. To expand the folded stage and view the applicant cards
-for that column, click anywhere on the thin gray column that says the stage name and the column
-expands, revealing the applicants.
+最后一列 :guilabel:`合同签署` 是默认折叠的。折叠的列显示为灰色，申请人会被隐藏。要展开折叠的阶段并查看该列的申请人卡片，请点击显示阶段名称的细灰列，该列会展开，显示申请人。
 
 .. image:: recruitment/stages.png
    :align: center
-   :alt: Expand a folded column by clicking on it in the Kanban view.
+   :alt: 在看板视图中点击以展开折叠列。
 
-Each stage has a color-coded bar beneath the stage name, providing status information for the
-applicant's in that specific stage. The status colors are:
+每个阶段名称下方都有一个颜色编码的条，提供该阶段中申请人的状态信息。状态颜色如下：
 
-- :guilabel:`Green`: the applicant is ready to move to the next stage.
-- :guilabel:`Red`: the applicant is blocked from moving to the next stage.
-- :guilabel:`Gray`: the applicant is still in progress in the current stage and is neither ready nor
-  blocked from the next stage.
+- :guilabel:`绿色`: 申请人准备进入下一阶段。
+- :guilabel:`红色`: 申请人被阻止进入下一阶段。
+- :guilabel:`灰色`: 申请人仍在当前阶段进行中，尚未准备好或被阻止进入下一阶段。
 
-The status for each card is set manually. To set the status, click on the small circle in the
-lower-left of the applicant card. A status pop-up window appears. Click on the desired status for
-the applicant. The status dot on the applicant card as well as the status bar updates.
+每个卡片的状态是手动设置的。要设置状态，请点击申请人卡片左下角的小圆圈。会弹出状态选择窗口，点击申请人的所需状态。申请人卡片上的状态点和状态条会更新。
 
 .. image:: recruitment/status-dots.png
    :align: center
-   :alt: The applicant card statuses, and status bar.
+   :alt: 申请人卡片状态和状态条。
 
 .. tip::
-   The names for the three status colors (`In Progress`, `Blocked`, and `Ready for Next Stage`)
-   :ref:`can be modified <recruitment/modify-stages>`, if desired.
+   如果需要，可以修改三种状态颜色（`进行中`、`阻止` 和 `准备进入下一阶段`）的名称 :ref:`<recruitment/modify-stages>`。
 
 .. _recruitment/customize-stages:
 
-Customize stages
+自定义阶段
 ================
 
-Stages can be modified, added, or deleted to best meet the needs of the particular hiring steps of
-a business.
+阶段可以进行修改、添加或删除，以最佳满足特定企业的招聘步骤。
 
-New stage
+新阶段
 ---------
 
-To create a new stage, click on :icon:`fa-plus` :guilabel:`Stage` and a new column appears. Enter
-the title for the new stage in the :guilabel:`Stage title` field, then click :guilabel:`Add`. The
-new column appears, and another new stage is available to create. If no new stages are needed, click
-anywhere on the screen to exit the new stage creation.
+要创建新阶段，请点击 :icon:`fa-plus` :guilabel:`阶段`，将出现一个新列。在 :guilabel:`阶段标题` 字段中输入新阶段的标题，然后点击 :guilabel:`添加`。新列会出现，并可以继续创建另一个新阶段。如果不需要新的阶段，点击屏幕上的任意位置退出新阶段创建。
 
 .. image:: recruitment/add-column.png
    :align: center
-   :alt: The plus sign to click to add a new column to the Kanban stages.
+   :alt: 点击加号以添加新列到看板阶段。
 
 .. _recruitment/modify-stages:
 
-Modify stage
+修改阶段
 ------------
 
-To modify the settings of a stage, hover over the name of the stage, and a :icon:`fa-cog`
-:guilabel:`(gear)` icon appears in the upper right hand side of the stage. Click on the
-:icon:`fa-cog` :guilabel:`(gear)` icon and a menu appears. Then click on the :guilabel:`Edit`
-option. An :guilabel:`Edit: (Stage)` form appears. Make any desired modifications to the form, then
-click :guilabel:`Save & Close` when done.
+要修改阶段的设置，将鼠标悬停在阶段名称上，右上角会出现一个 :icon:`fa-cog` :guilabel:`(齿轮)` 图标。点击 :icon:`fa-cog` :guilabel:`(齿轮)` 图标，会出现一个菜单。然后点击 :guilabel:`编辑` 选项。会出现 :guilabel:`编辑: (阶段)` 表单。进行任何所需的修改，然后点击 :guilabel:`保存并关闭`。
 
 .. image:: recruitment/gear.png
    :align: center
-   :alt: The gear icon that appears when a column name is moused over, and the drop-down menu it
-         displays when clicked.
+   :alt: 将鼠标悬停在列名上时出现的齿轮图标，以及点击后显示的下拉菜单。
 
 .. _recruitment/edit-stage:
 
-Edit stage form
+编辑阶段表单
 ~~~~~~~~~~~~~~~
+:guilabel:`编辑: (阶段)` 表单用于配置阶段的设置。唯一必填字段是 :guilabel:`阶段名称`。
 
-The :guilabel:`Edit: (Stage)` form is where the stage's settings are configured. The only required
-field is the :guilabel:`Stage Name`.
+需要填写或修改的字段有：
 
-The fields to be populated or modified are:
+- :guilabel:`阶段名称`: 输入阶段的名称。
+- :guilabel:`电子邮件模板`: 从下拉菜单中选择一个电子邮件模板。如果选择了模板，当申请人卡片进入该阶段时，系统会自动向申请人发送一封使用选定模板的电子邮件。
+- :guilabel:`在看板中折叠`: 勾选此框，使该阶段始终以折叠（隐藏）形式出现在默认视图中。
+- :guilabel:`聘用阶段`: 勾选此框，如果此阶段表示申请人已被聘用。当申请人的卡片进入此阶段时，卡片右上角会显示一个 :guilabel:`已聘用` 的横幅。如果勾选了此框，此阶段将用于确定申请人的聘用日期。
+- :guilabel:`职位特定`: 如果该阶段仅适用于特定的职位，请从下拉菜单中选择职位。可以选择多个职位。
+- :guilabel:`在推荐中显示`: 勾选此框，若该阶段应在 *推荐* 应用中显示，并允许推荐人当其推荐的申请人到达此阶段时累计积分。如果此功能启用，会出现一个 :guilabel:`积分` 字段。输入当申请人进入该阶段时员工获得的推荐积分。要使用此选项，必须安装 *推荐* 应用。
+- :guilabel:`工具提示` 部分: 每个申请人卡片都有三个预配置的状态标签（彩色圆圈），指示其状态。这些颜色显示在每个阶段的顶部，以反映该阶段中申请人的状态。可以修改这些标签的 *名称*，但标签本身（颜色）不能更改。默认名称和标签是：:guilabel:`进行中`（灰色）、:guilabel:`阻止`（红色）和 :guilabel:`准备进入下一阶段`（绿色）。
+- :guilabel:`要求`: 输入此阶段的任何内部说明，以解释该阶段的要求。
 
-- :guilabel:`Stage Name`: type in a name for the stage.
-- :guilabel:`Email Template`: select an email template to be used from the drop-down menu. If a
-  template is selected, when the applicant card enters the stage, an email is automatically sent to
-  the applicant using the selected template.
-- :guilabel:`Folded in Kanban`: check the box to have the stage appear folded (hidden) at all times
-  in the default view.
-- :guilabel:`Hired Stage`: check the box if this stage indicates that the applicant is hired. When
-  an applicant's card enters this stage, the card displays a :guilabel:`Hired` banner in the upper
-  right corner. If this box is checked, this stage is used to determine the hire date of an
-  applicant.
-- :guilabel:`Job Specific`: if the stage only applies to specific job positions, select the job
-  positions from the drop-down menu. Multiple job positions can be selected.
-- :guilabel:`Show in Referrals`: check the box if this stage should be seen in the *Referrals*
-  application, and allow the referrer to accrue points when a referral of theirs reaches this stage.
-  If this is active, a :guilabel:`Points` field appears. Enter the amount of referral points the
-  employee receives when an applicant enters this stage. The *Referrals* app must be installed in
-  order to use this option.
-- :guilabel:`Tooltips` section: there are three pre-configured status labels (colored circles) for
-  each applicant's card, indicating its status. These colors are displayed at the top of each stage
-  to reflect the statuses of the applicants in the stage. The *names* for the label can be modified,
-  but the label itself (the color) cannot. The default names and labels are: :guilabel:`In Progress`
-  (gray), :guilabel:`Blocked` (red), and :guilabel:`Ready for Next Stage` (green).
-- :guilabel:`Requirements`: enter any internal notes for this stage explaining any requirements of
-  the stage.
-
-Delete stage
+删除阶段
 ------------
 
-If a stage is no longer needed, the stage can be deleted. To delete a stage, hover over the name of
-the stage, and a :icon:`fa-cog` :guilabel:`(gear)` icon appears. First, click on the :icon:`fa-cog`
-:guilabel:`(gear)` icon to reveal a drop-down menu, then click :guilabel:`Delete`. A
-:guilabel:`Confirmation` pop-up warning appears, asking :guilabel:`Are you sure you want to delete
-this column?` Click :guilabel:`Delete` to delete the column.
+如果不再需要某个阶段，可以删除该阶段。要删除阶段，将鼠标悬停在阶段名称上，右上角会出现一个 :icon:`fa-cog` :guilabel:`(齿轮)` 图标。首先，点击 :icon:`fa-cog` :guilabel:`(齿轮)` 图标以显示下拉菜单，然后点击 :guilabel:`删除`。会弹出一个 :guilabel:`确认` 弹窗，警告并询问 :guilabel:`您确定要删除此列吗？` 点击 :guilabel:`删除` 来删除该列。
 
 .. important::
-   If there are applicants currently in the stage being deleted, an error pops up when attempting to
-   delete the stage. The records currently in the stage to need to be either deleted, archived, or
-   moved to a different stage before the stage can be deleted.
+   如果在删除阶段时，该阶段中仍有申请人，会弹出错误信息。需要将该阶段中的记录删除、归档或移动到其他阶段后，才能删除该阶段。
 
-Email templates
+电子邮件模板
 ===============
 
-To communicate with the applicant, Odoo has several pre-configured email templates that can be used.
-The pre-configured email templates and when to use them are as follows:
+为了与申请人进行沟通，Odoo 提供了多个预配置的电子邮件模板可以使用。以下是预配置电子邮件模板及其使用场景：
 
-- :guilabel:`Recruitment: Applicant Acknowledgement`: this template is used to let the applicant
-  know that their application was received. This email is automatically sent out once the applicant
-  is in the :guilabel:`New` stage.
-- :guilabel:`Recruitment: Interest`: this template is used to let the applicant know that their
-  application caught the recruiter's attention, and they have been shortlisted for either a phone
-  call or an interview.
-- :guilabel:`Recruitment: Schedule Interview`: this template is used to let the applicant know that
-  they have passed the :guilabel:`Initial Qualification` stage and they will be contacted to set up
-  an interview with the recruiter. This email is automatically sent out once the applicant is in the
-  :guilabel:`Initial Qualification` stage.
-- :guilabel:`Recruitment: Not interested anymore`: this template is used when an applicant
-  communicates that they are no longer interested in the position, and thanks them for their time
-  and consideration.
-- :guilabel:`Recruitment: Refuse`: this template is used when an applicant is no longer being
-  considered for the position.
+- :guilabel:`招聘: 申请确认`: 此模板用于告知申请人已收到他们的申请。当申请人进入 :guilabel:`新建` 阶段时，系统会自动发送此电子邮件。
+- :guilabel:`招聘: 感兴趣`: 此模板用于告知申请人他们的申请引起了招聘人员的注意，并且他们已被列入电话或面试的候选名单。
+- :guilabel:`招聘: 安排面试`: 此模板用于告知申请人他们已通过 :guilabel:`初步资格审查` 阶段，并会联系他们安排与招聘人员的面试。当申请人进入 :guilabel:`初步资格审查` 阶段时，系统会自动发送此电子邮件。
+- :guilabel:`招聘: 不再感兴趣`: 此模板用于当申请人告知他们不再对该职位感兴趣时，表示感谢并祝愿其未来成功。
+- :guilabel:`招聘: 拒绝`: 此模板用于告知申请人他们不再被考虑为该职位的候选人。
 
 .. note::
-   Email templates can be created, modified, and deleted to suit the needs of a business. For more
-   information on email templates, refer to the :doc:`../general/companies/email_template` document.
+   可以创建、修改和删除电子邮件模板，以满足企业的需求。有关电子邮件模板的更多信息，请参阅 :doc:`../general/companies/email_template` 文档。
 
-To manually send an email, click :guilabel:`Send message` in the chatter. A text box appears, as
-well as the applicant's email address.
+要手动发送电子邮件，请点击聊天框中的 :guilabel:`发送消息`。会出现一个文本框，以及申请人的电子邮件地址。
 
 .. image:: recruitment/full-composer.png
    :align: center
-   :alt: Send an email from the chatter.
+   :alt: 从聊天框发送电子邮件。
 
-Click the :icon:`fa-expand` :guilabel:`(expand)` full composer icon in the bottom right corner of
-the :guilabel:`Send Message` tab in the chatter. A :guilabel:`Compose Email` pop-up window loads,
-with the :guilabel:`Recipients` and :guilabel:`Subject` pre-populated. The applicant's email address
-is entered in the :guilabel:`Recipients` line, and the :guilabel:`Subject` is `(Job Position)`. The
-email body is empty by default.
+点击聊天框中 :guilabel:`发送消息` 选项卡右下角的 :icon:`fa-expand` :guilabel:`(展开)` 全编写图标。会弹出一个 :guilabel:`编写电子邮件` 弹窗，收件人和主题字段会预先填充。申请人的电子邮件地址已输入 :guilabel:`收件人` 行，:guilabel:`主题` 显示为 `(职位)`。电子邮件正文默认是空的。
 
-To use a pre-configured email template, click the field next to :guilabel:`Load template` in the
-bottom section of the window. Select the email template to use from the drop-down menu.
+要使用预配置的电子邮件模板，请点击窗口底部的 :guilabel:`加载模板` 字段旁边的下拉菜单。选择要使用的电子邮件模板。
 
-Pre-configured email templates may contain dynamic placeholders so unique information can be
-populated in the email for a more personalized message to the applicant. There are several
-pre-configured email templates to choose from. Depending on the template selected, the email subject
-and/or body may change.
-
+预配置的电子邮件模板可能包含动态占位符，因此可以在电子邮件中填入唯一信息，以便向申请人发送更个性化的消息。可供选择的预配置电子邮件模板有多个。根据选择的模板，电子邮件的主题和/或正文可能会更改。
 .. note::
-   Only the email templates that are configured for the model load. There are other email templates
-   pre-configured in Odoo, but if they are not configured for the recruitment application, they do
-   not appear in the list of available templates.
+   只有为模型配置的电子邮件模板才会加载。Odoo中还有其他预配置的电子邮件模板，
+   但如果它们未配置用于招聘应用程序，则不会出现在可用模板列表中。
 
-If any attachments are to be added, click the :guilabel:`Attachments` button in the lower left
-corner. Navigate to the file to be attached, then click :guilabel:`Open` to attach it. To delete an
-attachment, click the :icon:`fa-close` :guilabel:`(delete)` icon to the right of the attachment.
+如果需要添加附件，请单击左下角的 :guilabel:`附件` 按钮。导航到要附加的文件，
+然后单击 :guilabel:`打开` 以附加它。要删除附件，请单击附件右侧的 
+:icon:`fa-close` :guilabel:`(删除)` 图标。
 
-If any changes need to be made to the email, edit the body of the email. If the edits should be
-saved to be used in the future, the email can be saved as a new template. Click the :guilabel:`Save
-Template` button in the bottom. To send the email, click :guilabel:`Send` and the email is sent to
-the applicant. The email then appears in the chatter.
+如果需要对电子邮件进行修改，可以编辑电子邮件的正文。如果要保存编辑内容以供将来使用，
+可以将电子邮件保存为新模板。单击底部的 :guilabel:`保存模板` 按钮。
+要发送电子邮件，请单击 :guilabel:`发送`，邮件将发送给申请人。然后该邮件会出现在对话中。
 
 .. image:: recruitment/send-survey.png
    :align: center
-   :alt: Send a custom survey, also referred to as an interview form, to an applicant using a
-         pre-configured template.
+   :alt: 使用预配置模板向申请人发送自定义调查（也称为面试表）。
 
 .. seealso::
    - :doc:`recruitment/new_job`

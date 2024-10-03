@@ -4,14 +4,13 @@
 :show-toc:
 
 ===========
-Maintenance
+维护管理
 ===========
 
-**Odoo Maintenance** helps extend the effectiveness of equipment by keeping track of maintenance
-requirements.
+**Odoo 维护管理** 帮助通过跟踪维护需求来延长设备的有效使用寿命。
 
 .. seealso::
-   - `Odoo Tutorials: Managing Equipment Maintenance
+   - `Odoo 教程：设备维护管理
      <https://www.odoo.com/slides/slide/managing-equipment-maintenance-709>`_
 
 .. toctree::
