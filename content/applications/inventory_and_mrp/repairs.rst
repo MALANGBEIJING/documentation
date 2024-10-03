@@ -4,11 +4,10 @@
 :show-toc:
 
 =======
-Repairs
+维修
 =======
 
-Odoo *Repairs* assists companies in creating and processing repairs for damaged products returned by
-customers.
+Odoo *维修* 帮助公司创建和处理客户退回的损坏产品的维修。
 
 .. toctree::
    :titlesonly:

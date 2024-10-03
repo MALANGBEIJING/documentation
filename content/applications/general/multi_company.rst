@@ -1,140 +1,107 @@
 =============
-Multi-company
+多公司
 =============
 
-.. |mcd| replace:: multi-company database
+.. |mcd| replace:: 多公司数据库
 
-In Odoo, multiple companies can exist within a single database. This allows for some data to be
-shared among companies, while still maintaining some level of separation between entities.
+在 Odoo 中，多个公司可以存在于同一个数据库中。这使得一些数据可以在公司之间共享，同时仍然保持实体之间的一定程度的分离。
 
-Before deciding to use the multi-company feature, there are several factors to consider.
+在决定使用多公司功能之前，需要考虑几个因素。
 
 .. important::
-   Multi-company is **only** available in *One App Free* databases, or with `Custom
-   <https://www.odoo.com/pricing-plan>`_ plans.
+   多公司功能**仅**适用于*一款免费应用*数据库或`自定义计划 <https://www.odoo.com/pricing-plan>`_。
 
-Accessing multiple companies
-============================
+访问多个公司
+================
 
-The list of :ref:`companies an employee has access to <general/employee-access>` in a |mcd| can be
-found at the top-right of the main Odoo menu bar, where the active company is listed. Click on the
-company name to reveal a list of all allowed companies. To switch to a different company, click on
-the company name in the drop-down menu. To enable multiple companies at once, tick the checkbox next
-to each desired company name.
+员工在 |mcd| 中可以访问的公司列表可以在 Odoo 主菜单栏的右上角找到，那里列出了当前活动的公司。点击公司名称可以显示所有允许访问的公司列表。要切换到另一个公司，只需点击下拉菜单中的公司名称。要同时启用多个公司，请选中每个所需公司名称旁边的复选框。
 
 .. figure:: multi_company/company-access.png
    :align: center
-   :alt: An example of the list of companies a user has access to when logged into a database.
+   :alt: 用户登录数据库时可以访问的公司列表示例。
 
-   An example of a user with access to multiple companies. The current company is My Company (San
-   Francisco), while My Company (Chicago) is also active.
+   一个用户可以访问多个公司的示例。当前公司是我的公司（旧金山），同时我的公司（芝加哥）也是活动状态。
 
 .. note::
-   The database may refresh after each checkbox is ticked.
+   在每次选中复选框后，数据库可能会刷新。
 
 .. _general/active-companies:
 
-Multiple active companies
--------------------------
+多个活动公司
+----------------
 
-If more than one company is active at a time, one company is highlighted in purple, and is listed on
-the menu bar. This is the considered the *current* company.
+如果一次启用了多个公司，一个公司将以紫色高亮显示，并列在菜单栏上。这被认为是*当前*公司。
 
-When creating a new record, the current company is added to the record in the *Company* field,
-except under the following circumstances:
+在创建新记录时，当前公司会自动添加到记录中的*公司*字段中，以下情况除外：
 
-- The *Company* field for a new product, or a new contact, is left blank.
-- If there is a related document already in the system, the *Company* field on the new record
-  defaults to the same company.
+- 对于新产品或新联系人，*公司*字段留空。
+- 如果系统中已经存在相关文档，新记录上的*公司*字段默认为相同的公司。
 
 .. example::
-   Mitchell Admin has multiple companies enabled, but the current company is `My Company (Chicago)`.
-   When he creates a new product record, the :guilabel:`Company` field is left blank by default.
+   Mitchell Admin 启用了多个公司，但当前公司是 `我的公司（芝加哥）`。当他创建一个新的产品记录时，:guilabel:`公司`字段默认是空的。
 
-   When a new sales team is created, the :guilabel:`Company` field automatically defaults to `My
-   Company (Chicago)`.
+   当创建一个新的销售团队时，:guilabel:`公司`字段会自动默认为 `我的公司（芝加哥）`。
 
 .. _general/sharing-data:
 
-Share data
+共享数据
 ==========
 
-In a |mcd|, certain records are able to be utilized by all of the companies (or several, based on
-permissions).
+在 |mcd| 中，某些记录可以被所有公司使用（或根据权限由多个公司使用）。
 
-Products
+产品
 --------
 
-In an |mcd|, new products are created with the :ref:`Company field <general/active-companies>`
-blank, by default. If the *Company* field remains blank, the product is shared across all companies.
+在 |mcd| 中，新创建的产品默认情况下，:ref:`公司字段 <general/active-companies>`为空。如果*公司*字段保持为空，则该产品在所有公司之间共享。
 
-Contacts
+联系人
 --------
 
-Similar to products, contact records are shared across companies, by default. To limit access to a
-single company, click the :ref:`Company field <general/active-companies>` on a contact form, and
-select a company to assign the contact to.
+与产品类似，联系人记录默认情况下在公司之间共享。要将访问权限限制为单个公司，只需点击联系人表单中的 :ref:`公司字段 <general/active-companies>`，并选择一个公司来分配给联系人。
 
-Inter-company transactions
+跨公司交易
 ==========================
 
-The :ref:`Inter-Company Transactions <general/inter-company>` feature allows for one company in the
-database to sell or purchase goods and services from another company within the same database.
-Counterpart documents for orders and invoices can be automatically generated and synchronized,
-depending on the configuration settings.
+:ref:`跨公司交易 <general/inter-company>` 功能允许同一个数据库中的一个公司向另一个公司出售或购买商品和服务。根据配置设置，可以自动生成并同步订单和发票的对应文档。
 
 .. warning::
-   To ensure inter-company transactions are handled appropriately, certain configurations, such as
-   fiscal positions and localizations, need to be accurately assigned. See :ref:`Inter-Company
-   Transactions <general/inter-company>` for additional information.
+   为确保跨公司交易得到适当处理，需要准确分配某些配置，例如财务定位和本地化。有关更多信息，请参见 :ref:`跨公司交易 <general/inter-company>`。
 
-Use cases
+用例
 =========
 
-Multinational companies
+跨国公司
 -----------------------
 
-A multinational retail chain, which operates in the United States and Canada, needs to manage
-transactions in both USD and CAD currencies.
+一家在美国和加拿大运营的跨国零售连锁店需要管理美元（USD）和加元（CAD）两种货币的交易。
 
-Additionally, because both countries have different tax laws and regulations, it is in the best
-interest of the customer to utilize the multi-company feature.
+此外，由于两国有不同的税法和法规，客户最好利用多公司功能。
 
-This allows for inter-company transactions they need to manage inventory moves across international
-borders, while making it simple to sell to customers in both countries in their own currency.
+这使得他们可以管理跨国界的库存移动，同时让客户可以在两国以他们的本币进行销售。
 
-Separate processes
+独立流程
 ------------------
 
-A small furniture company is developing a new line of products that require a separate procurement,
-inventory, and manufacturing process. The new products are drastically different from the existing
-catalog. The company is considering utilizing the multi-company feature to treat this new line as a
-different entity.
+一家小型家具公司正在开发一条需要单独的采购、库存和生产流程的新产品线。新产品与现有产品目录有很大不同。公司正在考虑利用多公司功能将这条新产品线视为一个不同的实体。
 
-To keep their database from becoming overly complex, the furniture company does not need to add an
-entirely new company. Instead, they can take advantage of existing features, such as :doc:`analytic
-accounting <../finance/accounting/reporting/analytic_accounting>`, and multiple warehouses, to
-manage the new product line, without having to overly complicate transactions.
+为了防止数据库变得过于复杂，家具公司不需要添加一个全新的公司。相反，他们可以利用现有功能，例如 :doc:`分析会计 <../finance/accounting/reporting/analytic_accounting>` 和多个仓库，来管理新的产品线，而不必让交易变得过于复杂。
 
-Limitations
+限制
 ===========
 
-In some instances, a |mcd| may *not* be the best option, due to potential limitations.
+在某些情况下，|mcd| 可能不是最佳选择，原因在于潜在的限制。
 
-Access rights
+访问权限
 -------------
 
-A user's access rights are configured on a database level. If a user has access to more than one
-company in a |mcd|, their access rights are the same across every company.
+用户的访问权限在数据库层面进行配置。如果用户可以访问 |mcd| 中的多个公司，那么他们在每个公司的访问权限都是相同的。
 
-Shared records
+共享记录
 --------------
 
-Individual records are either :ref:`shared <general/sharing-data>` between all companies, or belong
-to a single company.
+单个记录要么在所有公司之间 :ref:`共享 <general/sharing-data>`，要么属于一个公司。
 
-PDF Reports
+PDF 报告
 -----------
 
-Some customizations, specifically for PDF reports, apply to all companies. It is not always possible
-to separate reports for individual companies.
+某些定制化，特别是针对 PDF 报告的定制，适用于所有公司。不一定能够将报告单独分开用于每个公司。

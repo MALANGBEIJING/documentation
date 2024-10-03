@@ -1,241 +1,203 @@
-:show-content:
-
 ========================
-Accounting and Invoicing
+会计与发票管理
 ========================
 
-**Odoo Invoicing** is a standalone invoicing app to create invoices, send them to your customers,
-and manage payments.
+**Odoo 发票管理** 是一个独立的应用程序，用于创建发票，将其发送给客户并管理付款。
 
-**Odoo Accounting** is a full featured accounting app. Accountant productivity is at the core of its
-development with features such as AI-powered invoice recognition, synchronization with your bank
-accounts, smart matching suggestions, etc.
+**Odoo 会计** 是一个功能齐全的会计应用程序，其开发重点在于提高会计师的工作效率，具有诸如 AI 驱动的发票识别、与银行账户同步、智能匹配建议等功能。
 
 .. seealso::
-   `Odoo Tutorials: Accounting <https://www.odoo.com/slides/accounting-19>`_
+   `Odoo 教程：会计 <https://www.odoo.com/slides/accounting-19>`_
 
 .. cards::
 
-   .. card:: Get started
+   .. card:: 开始使用
       :target: accounting/get_started
       :large:
 
-      Basic concepts of accounting and initial setup of your accounting
+      会计的基本概念及初始设置
 
-   .. card:: Taxes
+   .. card:: 税务
       :target: accounting/taxes
 
-      Taxes, fiscal positions, and integrations
+      税务、财务位置及集成
 
-   .. card:: Customer invoices
+   .. card:: 客户发票
       :target: accounting/customer_invoices
 
-      Customer invoices, payment terms, and electronic invoicing
+      客户发票、付款条件和电子发票
 
-   .. card:: Vendor bills
+   .. card:: 供应商账单
       :target: accounting/vendor_bills
 
-      Vendor bills, assets, and invoice digitization (OCR)
+      供应商账单、资产及发票数字化（OCR）
 
-   .. card:: Payments
+   .. card:: 付款
       :target: accounting/payments
 
-      Invoices and bills payments (online, checks, batches) and follow-up on invoices
+      发票与账单支付（在线、支票、批处理）及发票跟进
 
-   .. card:: Bank and cash accounts
+   .. card:: 银行和现金账户
       :target: accounting/bank
 
-      Bank synchronization, reconciliation, and cash registers
+      银行同步、对账及现金管理
 
-   .. card:: Reporting
+   .. card:: 报告
       :target: accounting/reporting
 
-      Reporting, declarations, and analytic accounting
+      报告、申报及分析会计
 
-Double-entry bookkeeping
-========================
+双重记账法
+===========
 
-Odoo automatically creates all the underlying journal entries for all accounting transactions (e.g.,
-customer invoices, vendor bills, point-of-sales orders, expenses, inventory valuations, etc.).
+Odoo 自动为所有会计交易（如客户发票、供应商账单、销售点订单、费用、库存估价等）创建相关的会计分录。
 
-Odoo uses the double-entry bookkeeping system, whereby every entry needs a corresponding and
-opposite counterpart in a different account, with one account debited and the other credited.
-It ensures that all transactions are recorded accurately and consistently and that the accounts
-always balance.
+Odoo 采用双重记账系统，即每个分录都需要在不同的账户中有一个对应且相反的项目，一个账户借记，另一个账户贷记。这确保了所有交易都被准确一致地记录，且账户始终保持平衡。
 
 .. seealso::
-   :doc:`Accounting Cheat Sheet <accounting/get_started/cheat_sheet>`
+   :doc:`会计速查表 <accounting/get_started/cheat_sheet>`
 
-Accrual and cash basis
-======================
+权责发生制和现金制
+====================
 
-Both accrual and cash basis accounting are supported in Odoo. This allows reporting income and
-expense either when the transaction occurs (accrual basis) or when the payment is made or received
-(cash basis).
+Odoo 支持权责发生制和现金制会计。这允许在交易发生时（权责发生制）或付款发生时（现金制）报告收入和费用。
 
 .. seealso::
-   :doc:`Cash basis <accounting/taxes/cash_basis>`
+   :doc:`现金制 <accounting/taxes/cash_basis>`
 
 .. _accounting/multi-company:
 
-Multi-company
-=============
+多公司管理
+===========
 
-Several companies can be managed within the same database. Each company has its :doc:`chart of
-accounts <accounting/get_started/chart_of_accounts>`, which is also useful to generate consolidation
-reports. Users can access several companies but can only work on a single company's accounting at a
-time.
+同一个数据库中可以管理多家公司。每个公司都有其独立的 :doc:`会计科目表 <accounting/get_started/chart_of_accounts>`，这对于生成合并报告也很有用。用户可以访问多家公司，但一次只能操作其中一家公司的会计。
 
-Multi-currency environment
-==========================
+多币种环境
+==========
 
-A :doc:`multi-currency <accounting/get_started/multi_currency>` environment with an automated
-exchange rate to ease international transactions is available in Odoo. Every transaction is recorded
-in the company's default currency; for transactions occurring in another currency, Odoo stores both
-the value in the company's currency and the transactions' currency value. Odoo generates currency
-gains and losses after reconciling the journal items.
+Odoo 提供一个 :doc:`多币种 <accounting/get_started/multi_currency>` 环境，自动汇率功能简化了国际交易。每笔交易都以公司的默认货币记录；对于以其他货币进行的交易，Odoo 记录了公司的货币值和交易的货币值。在对账后，Odoo 会生成汇兑损益。
 
 .. seealso::
-   :doc:`Manage a bank in a foreign currency <accounting/bank/foreign_currency>`
+   :doc:`管理外币银行账户 <accounting/bank/foreign_currency>`
 
-Branch management
-=================
-
-Multiple branches can be managed thanks to multi-company hierarchies. This allows to post journal
-entries on each branch as well as setting up a common lock date managed by the main company.
-
-International standards
-=======================
-
-Odoo Accounting supports more than 70 countries. It provides the central standards and mechanisms
-common to all nations, and thanks to country-specific modules, local requirements are fulfilled.
-Fiscal positions exist to address regional specificities like the chart of accounts, taxes, or any
-other requirements.
-
-.. seealso::
-   :doc:`Fiscal localization packages <fiscal_localizations>`
-
-Accounts receivable and payable
-===============================
-
-By default, there is a single account for the account receivable entries and one for the account
-payable entries. As transactions are linked to your **contacts**, you can run a report per customer,
-vendor, or supplier.
-
-The **Partner Ledger** report displays the balance of your customers and suppliers. It is available
-by going to :menuselection:`Accounting --> Reporting --> Partner Ledger`.
-
-Reporting
+分支管理
 =========
 
-The following financial :doc:`reports <accounting/reporting>` are available and updated in
-real-time:
+多公司层次结构允许管理多个分支。这样可以在每个分支上发布会计分录，并由母公司设置共同的锁定日期。
+
+国际标准
+=========
+
+Odoo 会计支持超过 70 个国家。它提供了所有国家的通用标准和机制，并通过特定的国家模块满足当地要求。财务位置模块用于处理地区特殊性，如会计科目表、税务或其他要求。
+
+.. seealso::
+   :doc:`财政本地化包 <fiscal_localizations>`
+
+应收和应付账款
+===============
+
+默认情况下，系统会为应收和应付账款创建单一账户。由于交易与 **联系人** 相关联，因此可以根据客户、供应商或供货商生成报告。
+
+**合作伙伴总账** 报告显示了客户和供应商的余额。可以通过 :menuselection:`会计 --> 报告 --> 合作伙伴总账` 访问该报告。
+
+报告
+=====
+
+以下财务 :doc:`报告 <accounting/reporting>` 可用并实时更新：
 
 +-----------------------------------------------+
-|               Financial reports               |
+|               财务报告                        |
 +============+==================================+
-| Statement  | Balance sheet                    |
+| 报表       | 资产负债表                        |
 |            +----------------------------------+
-|            | Profit and loss                  |
+|            | 利润与损失表                      |
 |            +----------------------------------+
-|            | Cash flow statement              |
+|            | 现金流量表                        |
 |            +----------------------------------+
-|            | Tax report                       |
+|            | 税务报告                          |
 |            +----------------------------------+
-|            | ES sales list                    |
+|            | ES 销售清单                       |
 +------------+----------------------------------+
-| Audit      | General ledger                   |
+| 审计       | 总账                             |
 |            +----------------------------------+
-|            | Trial balance                    |
+|            | 试算平衡表                        |
 |            +----------------------------------+
-|            | Journal report                   |
+|            | 日记账报告                        |
 |            +----------------------------------+
-|            | Intrastat report                 |
+|            | 进出口报告                        |
 |            +----------------------------------+
-|            | Check register                   |
+|            | 支票登记簿                        |
 +------------+----------------------------------+
-| Partner    | Partner ledger                   |
+| 合作伙伴   | 合作伙伴总账                      |
 |            +----------------------------------+
-|            | Aged receivable                  |
+|            | 应收账款龄期分析                   |
 |            +----------------------------------+
-|            | Aged payable                     |
+|            | 应付账款龄期分析                   |
 +------------+----------------------------------+
-| Management | Invoice analysis                 |
+| 管理       | 发票分析                          |
 |            +----------------------------------+
-|            | Unrealized currency gains/losses |
+|            | 未实现汇兑损益                     |
 |            +----------------------------------+
-|            | Depreciation schedule            |
+|            | 折旧表                            |
 |            +----------------------------------+
-|            | Disallowed expenses              |
+|            | 不允许扣除的费用                   |
 |            +----------------------------------+
-|            | Budget analysis                  |
+|            | 预算分析                          |
 |            +----------------------------------+
-|            | Product margins                  |
+|            | 产品利润                          |
 |            +----------------------------------+
-|            | 1099 report                      |
+|            | 1099 报告                        |
 +------------+----------------------------------+
 
 .. tip::
-   :doc:`Create and customize reports <accounting/reporting/customize>` with Odoo's report engine.
+   使用 Odoo 的报告引擎 :doc:`创建和自定义报告 <accounting/reporting/customize>`。
 
-Tax report
-----------
+税务报告
+--------
 
-Odoo computes all accounting transactions for the specific tax period and uses these totals to
-calculate the tax obligation.
+Odoo 计算特定税期内的所有会计交易，并使用这些总数计算税务义务。
 
 .. important::
-   Once the tax report has been generated for a period, Odoo locks it and prevents the creation of
-   new journal entries involving VAT. Any correction to customer invoices or vendor bills has to
-   be recorded in the next period.
+   一旦为某一期间生成了税务报告，Odoo 会锁定该报告并防止创建涉及增值税的新会计分录。任何对客户发票或供应商账单的更正必须记录在下一个期间。
 
 .. note::
-   Depending on the country's localization, an XML version of the tax report can be generated to be
-   uploaded to the VAT platform of the relevant taxation authority.
+   根据国家的本地化设置，可以生成税务报告的 XML 版本，以上传至相关税务机构的平台。
 
-Bank synchronization
-====================
+银行同步
+=========
 
-The bank synchronization system directly connects with your bank institution to automatically
-import all transactions into your database. It gives an overview of your cash flow without logging
-into an online banking system or waiting for paper bank statements.
+银行同步系统直接连接您的银行机构，将所有交易自动导入数据库。无需登录在线银行系统或等待纸质银行对账单，即可概览现金流。
 
 .. seealso::
-   :doc:`Bank synchronization <accounting/bank/bank_synchronization>`
+   :doc:`银行同步 <accounting/bank/bank_synchronization>`。
 
-Inventory valuation
-===================
+库存估价
+=========
 
-Both periodic (manual) and perpetual (automated) inventory valuations are supported in Odoo. The
-available methods are standard price, average price, :abbr:`LIFO (Last-In, First-Out)` and
-:abbr:`FIFO (First-In, First-Out).`
+Odoo 支持定期（手动）和永续（自动）库存估价。可用的方法包括标准成本、平均成本、:abbr:`LIFO (后进先出)` 和 :abbr:`FIFO (先进先出)`。
 
 .. seealso::
    :doc:`../inventory_and_mrp/inventory/product_management/inventory_valuation/inventory_valuation_config`
 
-Retained earnings
-=================
+留存收益
+=========
 
-Retained earnings are the portion of income retained by a business. Odoo calculates current year
-earnings in real-time, so no year-end journal or rollover is required. The profit
-and loss balance is automatically reported on the balance sheet report.
+留存收益是企业保留的收入部分。Odoo 实时计算当年收益，因此无需进行年终分录或结转。利润与损失的余额会自动报告在资产负债表中。
 
 .. seealso::
-   :doc:`Accounting Cheat Sheet <accounting/get_started/cheat_sheet>`
+   :doc:`会计速查表 <accounting/get_started/cheat_sheet>`。
 
 .. _fiduciaries:
 
-Fiduciaries
-===========
+受托人
+=====
 
-The :guilabel:`Accounting Firms` mode can be activated by going to :menuselection:`Accounting -->
-Configuration --> Settings --> Accounting Firms mode`. When enabled:
+通过进入 :menuselection:`会计 --> 配置 --> 设置 --> 受托人模式` 激活 :guilabel:`会计事务所` 模式。启用后：
 
-- The document's sequence becomes editable on all documents;
-- The :guilabel:`Total (tax incl.)` field appears to speed up and control the encoding by automating
-  line creation with the right account and tax;
-- :guilabel:`Invoice Date` and :guilabel:`Bill Date` are pre-filled when encoding a transaction.
-- A :guilabel:`Quick encoding` option is available for customer invoices and vendor bills.
+- 文档的序列号在所有文档上可编辑；
+- :guilabel:`含税总额` 字段会显示出来，以加快编码速度，并通过自动创建相应的会计科目和税项来进行控制；
+- 在编码交易时，:guilabel:`发票日期` 和 :guilabel:`账单日期` 会被预填充；
+- 客户发票和供应商账单可用 :guilabel:`快速编码` 选项。
 
 .. toctree::
    :titlesonly:

@@ -1,253 +1,174 @@
 ======================
-Export and import data
+导出和导入数据
 ======================
 
-.. |list| replace:: :icon:`oi-view-list` :guilabel:`(list)` icon
-.. |actions| replace:: :icon:`fa-cog` :guilabel:`Actions`
+.. |list| replace:: :icon:`oi-view-list` :guilabel:`(列表)` 图标
+.. |actions| replace:: :icon:`fa-cog` :guilabel:`操作`
 
-In Odoo, it is sometimes necessary to export or import data for running reports, or for data
-modification. This document covers the export and import of data into and out of Odoo.
+在 Odoo 中，有时需要导出或导入数据以运行报表或修改数据。本文档涵盖了将数据导入和导出 Odoo 的过程。
 
 .. important::
-   Sometimes, users run into a 'time out' error, or a record does not process, due to its size. This
-   can occur with large exports, or in cases where the import file is too large. To circumvent this
-   limitation surrounding the size of the records, process exports or imports in smaller batches.
+   有时由于数据量过大，用户可能会遇到“超时”错误，或记录无法处理。这种情况可能发生在大型导出或导入文件过大的情况下。为避免记录大小限制，可以将导出或导入分成较小的批次处理。
 
 .. _export-data:
 
-Export data from Odoo
+从 Odoo 导出数据
 =====================
 
-When working with a database, it is sometimes necessary to export data in a distinct file. Doing so
-can aid in reporting on activities, although, Odoo provides a precise and easy reporting tool with
-each available application.
+在使用数据库时，有时需要将数据导出为单独的文件。这对于报告活动很有帮助，尽管 Odoo 提供了每个应用的精确而简便的报告工具。
 
-With Odoo, the values can be exported from any field in any record. To do so, activate the list view
-(|list|), on the items that need to be exported, then select the records that should be exported. To
-select a record, tick the checkbox next to the corresponding record. Finally, click on |actions|,
-then :guilabel:`Export`.
+使用 Odoo，可以从任何记录中的任何字段导出值。为此，激活列表视图（|list|），选择需要导出的项目，然后选择要导出的记录。要选择记录，请勾选相应记录旁边的复选框。最后，点击 |actions|，然后选择 :guilabel:`导出`。
 
 .. image:: export_import_data/list-view-export.png
    :align: center
-   :alt: View of the different things to enable/click to export data.
+   :alt: 启用/点击导出数据的不同步骤视图。
 
-When clicking on :guilabel:`Export`, an :guilabel:`Export Data` pop-over window appears, with
-several options for the data to export:
+点击 :guilabel:`导出` 后，会弹出一个 :guilabel:`导出数据` 窗口，其中有多个导出数据的选项：
 
 .. image:: export_import_data/export-data-overview.png
    :align: center
-   :alt: Overview of options to consider when exporting data in Odoo..
+   :alt: 在 Odoo 中导出数据时需要考虑的选项概览。
 
-#. With the :guilabel:`I want to update data (import-compatable export)` option ticked, the system
-   only shows the fields that can be imported. This is helpful in the case where the :ref:`existing
-   records need to be updated <essentials/update-data>`. This works like a filter. Leaving the box
-   unticked, gives many more field options because it shows all the fields, not just the ones that
-   can be imported.
-#. When exporting, there is the option to export in two formats: `.csv` and `.xls`. With `.csv`,
-   items are separated by a comma, while `.xls` holds information about all the worksheets in a
-   file, including both content and formatting.
-#. These are the items that can be exported. Use the :guilabel:`> (right arrow)` icon to display
-   more sub-field options. Use the :guilabel:`Search` bar to find specific fields. To use the
-   :guilabel:`Search` option more efficiently, click on all the :guilabel:`> (right arrows)` to
-   display all fields.
-#. The :guilabel:`+ (plus sign)` icon button is present to add fields to the :guilabel:`Fields to
-   export` list.
-#. The :guilabel:`↕️ (up-down arrow)` to the left of the selected fields can be used to move the
-   fields up and down, to change the order in which they are displayed in the exported file.
-   Drag-and-drop using the :guilabel:`↕️ (up-down arrow)` icon.
-#. The :guilabel:`🗑️ (trash can)` icon is used to remove fields. Click on the :guilabel:`🗑️ (trash
-   can)` icon to remove the field.
-#. For recurring reports, it is helpful to save export presets. Select all the needed fields, and
-   click on the template drop-down menu. Once there, click on :guilabel:`New template`, and give a
-   unique name to the export just created. Click the :guilabel:`💾 (floppy drive)` icon to save the
-   configuration. The next time the same list needs to be exported, select the related template that
-   was previously saved from the drop-down menu.
+#. 勾选 :guilabel:`我想更新数据（兼容导入的导出）` 选项时，系统只显示可以导入的字段。这在 :ref:`需要更新现有记录 <essentials/update-data>` 时很有帮助。这类似于一个过滤器。不勾选此框时，会显示更多的字段选项，因为它显示了所有字段，而不仅仅是可以导入的字段。
+#. 导出时，可以选择两种格式：`.csv` 和 `.xls`。使用 `.csv` 时，项目以逗号分隔，而 `.xls` 文件包含有关所有工作表的信息，包括内容和格式。
+#. 这些是可以导出的项目。使用 :guilabel:`> (右箭头)` 图标显示更多子字段选项。使用 :guilabel:`搜索` 栏查找特定字段。为了更有效地使用 :guilabel:`搜索` 选项，点击所有 :guilabel:`> (右箭头)` 显示所有字段。
+#. :guilabel:`+ (加号)` 图标按钮用于将字段添加到 :guilabel:`导出的字段` 列表中。
+#. 选定字段左侧的 :guilabel:`↕️ (上下箭头)` 用于上下移动字段，以更改它们在导出文件中的显示顺序。可以通过拖放 :guilabel:`↕️ (上下箭头)` 图标来实现。
+#. :guilabel:`🗑️ (垃圾桶)` 图标用于删除字段。点击 :guilabel:`🗑️ (垃圾桶)` 图标删除字段。
+#. 对于定期报告，保存导出预设很有帮助。选择所有需要的字段，然后点击模板下拉菜单。在此处点击 :guilabel:`新建模板`，并为刚创建的导出指定唯一名称。点击 :guilabel:`💾 (软盘)` 图标保存配置。下次需要导出相同列表时，从下拉菜单中选择之前保存的相关模板。
 
 .. tip::
-   It is helpful to know the field's external identifier. For example, :guilabel:`Related Company`
-   in the export user interface is equal to *parent_id* (external identifier). This is helpful
-   because then, the only data exported is what should be modified and re-imported.
+   了解字段的外部标识符非常有帮助。例如，导出用户界面中的 :guilabel:`关联公司` 等同于 *parent_id*（外部标识符）。这非常有用，因为只有导出的数据是需要修改并重新导入的数据。
 
 .. _import-data:
 
-Import data into Odoo
+将数据导入 Odoo
 =====================
 
-Importing data into Odoo is extremely helpful during implementation, or in times where data needs to
-be :ref:`updated in bulk <essentials/update-data>`. The following documentation covers how to import
-data into an Odoo database.
+在实施期间或需要 :ref:`批量更新数据 <essentials/update-data>` 时，将数据导入 Odoo 非常有帮助。以下文档介绍了如何将数据导入 Odoo 数据库。
 
 .. warning::
-   Imports are permanent and **cannot** be undone. However, it is possible to use filters (`created
-   on` or `last modified`) to identify records changed or created by the import.
+   导入操作是永久性的，**无法撤销**。不过，可以使用过滤器（如 `创建时间` 或 `最后修改时间`）来识别通过导入更改或创建的记录。
 
 .. tip::
-   Activating :ref:`developer mode <developer-mode>` changes the visible import settings in the left
-   menu. Doing so reveals an :menuselection:`Advanced` menu. Included in this advanced menu are two
-   options: :guilabel:`Track history during import` and :guilabel:`Allow matching with subfields`.
+   激活 :ref:`开发者模式 <developer-mode>` 会更改左侧菜单中显示的导入设置。激活后会显示 :menuselection:`高级` 菜单。此高级菜单包括两个选项：:guilabel:`在导入期间跟踪历史` 和 :guilabel:`允许与子字段匹配`。
 
    .. image:: export_import_data/advanced-import.png
       :align: center
-      :alt: Advanced import options when developer mode is activated.
+      :alt: 启用开发者模式时的高级导入选项。
 
-   If the model uses openchatter, the :guilabel:`Track history during import` option sets up
-   subscriptions and sends notifications during the import, but leads to a slower import.
+   如果模型使用 openchatter，选中 :guilabel:`在导入期间跟踪历史` 选项会在导入期间设置订阅并发送通知，但会导致导入速度较慢。
 
-   Should the :guilabel:`Allow matching with subfields` option be selected, then all subfields
-   within a field are used to match under the :guilabel:`Odoo Field` while importing.
+   如果选中 :guilabel:`允许与子字段匹配` 选项，则在导入时，所有字段中的子字段都会用于匹配。
 
-Get started
+开始导入
 -----------
 
-Data can be imported on any Odoo business object using either Excel (`.xlsx`) or :abbr:`CSV
-(Comma-separated Values)` (`.csv`) formats. This includes: contacts, products, bank statements,
-journal entries, and orders.
+可以使用 Excel (`.xlsx`) 或 :abbr:`CSV (逗号分隔值)` (`.csv`) 格式将数据导入到 Odoo 中的任何业务对象中。这包括：联系人、产品、银行对账单、日记账分录和订单。
 
-Open the view of the object to which the data should be imported/populated, and click on
-:menuselection:`⚙️ (Action) --> Import records`.
+打开要导入数据的对象视图，点击 :menuselection:`⚙️ (操作) --> 导入记录`。
 
 .. image:: export_import_data/import-button.png
    :align: center
-   :alt:  Action menu revealed with the import records option highlighted.
+   :alt:  操作菜单显示的导入记录选项。
 
-After clicking :guilabel:`Import records`, Odoo reveals a separate page with templates that can be
-downloaded and populated with the company's own data. Such templates can be imported in one click,
-since the data mapping is already done. To download a template click :guilabel:`Import Template for
-Customers` at the center of the page.
+点击 :guilabel:`导入记录` 后，Odoo 会显示一个单独的页面，其中包含可以下载的模板，并填充公司自己的数据。由于数据映射已经完成，因此可以一键导入这些模板。要下载模板，请点击页面中央的 :guilabel:`客户导入模板`。
 
 .. important::
-   When importing a :abbr:`CSV (Comma-separated Values)` file, Odoo provides :guilabel:`Formatting`
-   options. These options do **not** appear when importing the proprietary Excel file type (`.xls`,
-   `.xlsx`).
+   当导入 :abbr:`CSV (逗号分隔值)` 文件时，Odoo 会提供 :guilabel:`格式化` 选项。导入专有 Excel 文件类型 (`.xls`, `.xlsx`) 时，不会出现这些选项。
 
    .. image:: export_import_data/formatting.png
       :align: center
-      :alt: Formatting options presented when a CVS file is imported in Odoo.
+      :alt: 导入 CSV 文件时 Odoo 提供的格式化选项。
 
-Make necessary adjustments to the *Formatting* options, and ensure all columns in the
-:guilabel:`Odoo field` and :guilabel:`File Column` are free of errors. Finally, click
-:guilabel:`Import` to import the data.
+对 *格式化* 选项进行必要调整，确保 :guilabel:`Odoo 字段` 和 :guilabel:`文件列` 中的所有列均无错误。最后，点击 :guilabel:`导入` 导入数据。
 
-Adapt a template
+调整模板
 ----------------
 
-Import templates are provided in the import tool of the most common data to import (contacts,
-products, bank statements, etc.). Open them with any spreadsheet software (*Microsoft Office*,
-*OpenOffice*, *Google Drive*, etc.).
+导入工具中提供了导入最常见数据（联系人、产品、银行对账单等）的模板。可以使用任何电子表格软件（*Microsoft Office*、*OpenOffice*、*Google Drive* 等）打开这些模板。
 
-Once the template is downloaded, proceed to follow these steps:
+下载模板后，按照以下步骤操作：
 
-- Add, remove, and sort columns to best fit the data structure.
-- It is strongly advised to **not** remove the :guilabel:`External ID` (ID) column (see why in the
-  next section).
-- Set a unique ID to every record by dragging down the ID sequencing in the :guilabel:`External ID`
-  (ID) column.
+- 添加、删除和排序列以最好地适应数据结构。
+- 强烈建议 **不要** 删除 :guilabel:`外部 ID` (ID) 列（在下一节中解释原因）。
+- 通过在 :guilabel:`外部 ID` (ID) 列中向下拖动 ID 序列，为每条记录设置唯一 ID。
 
 .. image:: export_import_data/dragdown.gif
    :align: center
-   :alt: An animation of the mouse dragging down the ID column, so each record has a unique ID.
+   :alt: 显示鼠标向下拖动 ID 列，使每条记录都有唯一 ID 的动画。
 
 .. note::
-   When a new column is added, Odoo may not be able to map it automatically, if its label does not
-   fit any field within Odoo. However, new columns can be mapped manually when the import is tested.
-   Search the drop-down menu for the corresponding field.
+   当添加新列时，如果其标签不符合 Odoo 中的任何字段，Odoo 可能无法自动映射它。不过，可以在测试导入时手动映射新列。通过下拉菜单查找相应字段。
 
    .. image:: export_import_data/field_list.png
       :align: center
-      :alt: Drop-down menu expanded in the initial import screen on Odoo.
+      :alt: 在 Odoo 的初始导入屏幕中展开的下拉菜单。
 
-   Then, use this field's label in the import file to ensure future imports are successful.
+   然后，在导入文件中使用该字段的标签，以确保将来导入成功。
 
 .. tip::
-   Another useful way to find out the proper column names to import is to export a sample file
-   using the fields that should be imported. This way, if there is not a sample import template,
-   the names are accurate.
-
+   另一个找到正确导入列名的有用方法是使用应导入的字段导出示例文件。这样，如果没有样本导入模板，名称也会是准确的。
 
 .. _essentials/external-id:
 
-Import from another application
+从其他应用导入
 -------------------------------
 
-The :guilabel:`External ID` (ID) is a unique identifier for the line item. Feel free to use one
-from previous software to facilitate the transition to Odoo.
+:guilabel:`外部 ID` (ID) 是每个项目的唯一标识符。可以随意使用来自以前软件的外部 ID 来简化迁移到 Odoo 的过程。
 
-Setting an ID is not mandatory when importing, but it helps in many cases:
+在导入时设置 ID 不是强制性的，但在许多情况下很有帮助：
 
-- :ref:`Update imports <essentials/update-data>`: import the same file several times without
-  creating duplicates.
-- :ref:`Import relation fields <export_import_data/relation-fields>`.
+- :ref:`更新导入 <essentials/update-data>`：多次导入同一文件而不创建重复项。
+- :ref:`导入关联字段 <export_import_data/relation-fields>`。
 
-To recreate relationships between different records, the unique identifier from the original
-application should be used to map it to the :guilabel:`External ID` (ID) column in Odoo.
+要重新创建不同记录之间的关系，应使用原始应用中的唯一标识符将其映射到 Odoo 中的 :guilabel:`外部 ID` (ID) 列。
 
-When another record is imported that links to the first one, use **XXX/ID** (XXX/External ID) for
-the original unique identifier. This record can also be found using its name.
+当另一个记录链接到第一个记录时，使用 **XXX/ID** (XXX/外部 ID) 作为原始唯一标识符。该记录也可以通过其名称找到。
 
 .. warning::
-   It should be noted that conflicts occur if two (or more) records have the same *External ID*.
+   请注意，如果两个（或更多）记录具有相同的 *外部 ID*，则会发生冲突。
 
-Field missing to map column
+无法映射列的字段
 ---------------------------
 
-Odoo heuristically tries to find the type of field for each column inside the imported file, based
-on the first ten lines of the files.
+Odoo 会根据导入文件的前十行，启发式地尝试为每列找到相应字段的类型。
 
-For example, if there is a column only containing numbers, only the fields with the *integer* type
-are presented as options.
+例如，如果某列仅包含数字，则仅显示具有 *整数* 类型的字段作为选项。
 
-While this behavior might be beneficial in most cases, it is also possible that it could fail, or
-the column may be mapped to a field that is not proposed by default.
+虽然这种行为在大多数情况下很有用，但也有可能失败，或者该列可能映射到一个默认情况下未提供的字段。
 
-If this happens, check the :guilabel:`Show fields of relation fields (advanced) option`, then a
-complete list of fields becomes available for each column.
+如果发生这种情况，请选中 :guilabel:`显示关联字段的字段（高级）选项`，然后为每一列提供完整的字段列表。
 
 .. image:: export_import_data/field_list.png
    :align: center
-   :alt: Searching for the field to match the tax column.
+   :alt: 正在为税列匹配字段。
 
-Change data import format
+更改数据导入格式
 -------------------------
 
 .. note::
-   Odoo can automatically detect if a column is a date, and tries to guess the date format from a
-   set of most commonly used date formats. While this process can work for many date formats, some
-   date formats are not recognizable. This can cause confusion, due to day-month inversions; it is
-   difficult to guess which part of a date format is the day, and which part is the month, in a
-   date, such as `01-03-2016`.
+   Odoo 可以自动检测某列是否为日期，并尝试从最常用的日期格式集中猜测日期格式。虽然此过程可以处理多种日期格式，但某些日期格式无法识别。这可能会导致日期格式混淆，因为日期格式中的哪部分是日、哪部分是月可能会不清楚，例如 `01-03-2016`。
 
-When importing a :abbr:`CSV (Comma-separated Values)` file, Odoo provides :guilabel:`Formatting`
-options.
+当导入 :abbr:`CSV (逗号分隔值)` 文件时，Odoo 提供 :guilabel:`格式化` 选项。
 
-To view which date format Odoo has found from the file, check the :guilabel:`Date Format` that is
-shown when clicking on options under the file selector. If this format is incorrect, change it to
-the preferred format using *ISO 8601* to define the format.
+要查看 Odoo 从文件中找到的日期格式，请在文件选择器下点击选项时查看 :guilabel:`日期格式`。如果此格式不正确，请使用 *ISO 8601* 定义的格式更改为首选格式。
 
 .. important::
-   *ISO 8601* is an international standard, covering the worldwide exchange, along with the
-   communication of date and time-related data. For example, the date format should be `YYYY-MM-DD`.
-   So, in the case of July 24th 1981, it should be written as `1981-07-24`.
+   *ISO 8601* 是一个国际标准，涵盖全球范围内的日期和时间相关数据交换及通信。例如，日期格式应为 `YYYY-MM-DD`。因此，对于 1981 年 7 月 24 日，应该写为 `1981-07-24`。
 
 .. tip::
-   When importing Excel files (`.xls`, `.xlsx`), consider using *date cells* to store dates. This
-   maintains locale date formats for display, regardless of how the date is formatted in Odoo. When
-   importing a :abbr:`CSV (Comma-separated Values)` file, use Odoo's :guilabel:`Formatting` section
-   to select the date format columns to import.
+   导入 Excel 文件（`.xls`、`.xlsx`）时，建议使用 *日期单元格* 存储日期。这可保持区域日期格式的显示，无论 Odoo 中的日期如何格式化。导入 :abbr:`CSV (逗号分隔值)` 文件时，使用 Odoo 的 :guilabel:`格式化` 部分选择要导入的日期格式列。
 
-Import numbers with currency signs
+带货币符号的数字导入
 ----------------------------------
 
-Odoo fully supports numbers with parenthesis to represent negative signs, as well as numbers with
-currency signs attached to them. Odoo also automatically detects which thousand/decimal separator is
-used. If a currency symbol unknown to Odoo is used, it might not be recognized as a number, and the
-import crashes.
+Odoo 完全支持使用括号表示负数的数字以及附有货币符号的数字。Odoo 还会自动检测使用的千位分隔符/小数分隔符。如果 Odoo 不识别的货币符号被使用，可能无法识别为数字，导入将失败。
 
 .. note::
-   When importing a :abbr:`CSV (Comma-separated Values)` file, the :guilabel:`Formatting` menu
-   appears on the left-hand column. Under these options, the :guilabel:`Thousands Separator` can be
-   changed.
+   导入 :abbr:`CSV (逗号分隔值)` 文件时，:guilabel:`格式化` 菜单会出现在左侧栏下。在这些选项中，可以更改 :guilabel:`千位分隔符`。
 
-Examples of supported numbers (using 'thirty-two thousand' as the figure):
+以下是支持的数字示例（使用“三万二千”作为数字）：
 
 - 32.000,00
 - 32000,00
@@ -257,268 +178,185 @@ Examples of supported numbers (using 'thirty-two thousand' as the figure):
 - $ 32.000,00
 - (32000.00 €)
 
-Example that will not work:
+不支持的示例：
 
 - ABC 32.000,00
 - $ (32.000,00)
 
 .. important::
-   A :guilabel:`() (parenthesis)` around the number indicates that the number is a negative value.
-   The currency symbol **must** be placed within the parenthesis for Odoo to recognize it as a
-   negative currency value.
+   用括号 :guilabel:`() (括号)` 包围的数字表示负值。货币符号 **必须** 放置在括号内，Odoo 才能将其识别为负的货币值。
 
-Import preview table not displayed correctly
+导入预览表显示不正确
 --------------------------------------------
-
-By default, the import preview is set on commas as field separators, and quotation marks as text
-delimiters. If the :abbr:`CSV (Comma-separated Values)` file does not have these settings, modify
-the :guilabel:`Formatting` options (displayed under the :guilabel:`Import` :abbr:`CSV
-(Comma-separated Values)` file bar after selecting the :abbr:`CSV (Comma-separated Values)` file).
+默认情况下，导入预览设置为使用逗号作为字段分隔符，双引号作为文本定界符。如果 :abbr:`CSV (逗号分隔值)` 文件不符合这些设置，请修改 :guilabel:`格式化` 选项（在选择 :abbr:`CSV (逗号分隔值)` 文件后显示在 :guilabel:`导入` 文件栏下方）。
 
 .. important::
-   If the :abbr:`CSV (Comma-separated Values)` file has a tabulation as a separator, Odoo does
-   **not** detect the separations. The file format options need to be modified in the spreadsheet
-   application. See the following :ref:`Change CSV file format <export_import_data/change-csv>`
-   section.
+   如果 :abbr:`CSV (逗号分隔值)` 文件使用制表符作为分隔符，Odoo **不会** 检测到分隔符。需要在电子表格应用程序中修改文件格式选项。请参阅以下 :ref:`更改 CSV 文件格式 <export_import_data/change-csv>` 部分。
 
 .. _export_import_data/change-csv:
 
-Change CSV file format in spreadsheet application
+在电子表格应用中更改 CSV 文件格式
 -------------------------------------------------
 
-When editing and saving :abbr:`CSV (Comma-separated Values)` files in spreadsheet applications, the
-computer's regional settings are applied for the separator and delimiter. Odoo suggests using
-*OpenOffice* or *LibreOffice*, as both applications allow modifications of all three options (from
-*LibreOffice* application, go to :menuselection:`'Save As' dialog box --> Check the box 'Edit filter
-settings' --> Save`).
+在电子表格应用程序中编辑和保存 :abbr:`CSV (逗号分隔值)` 文件时，计算机的区域设置会应用于分隔符和定界符。Odoo 建议使用 *OpenOffice* 或 *LibreOffice*，因为这两个应用程序允许修改所有三个选项（在 *LibreOffice* 应用程序中，转到 :menuselection:`'另存为' 对话框 --> 勾选 '编辑过滤器设置' 复选框 --> 保存`）。
 
-Microsoft Excel can modify the encoding when saving (:menuselection:`'Save As' dialog box -->
-'Tools' drop-down menu --> Encoding tab`).
+Microsoft Excel 可以在保存时修改编码（:menuselection:`'另存为' 对话框 --> '工具' 下拉菜单 --> 编码选项卡`）。
 
-Difference between Database ID and External ID
+数据库 ID 和外部 ID 之间的区别
 ----------------------------------------------
 
-Some fields define a relationship with another object. For example, the country of a contact is a
-link to a record of the 'Country' object. When such fields are imported, Odoo has to recreate links
-between the different records. To help import such fields, Odoo provides three mechanisms.
+某些字段定义了与另一个对象的关系。例如，联系人的国家/地区是与 'Country' 对象记录的链接。当导入此类字段时，Odoo 必须重新创建不同记录之间的链接。为帮助导入此类字段，Odoo 提供了三种机制。
 
 .. important::
-   **Only one** mechanism should be used per field that is imported.
+   **每个导入的字段只能使用一种** 机制。
 
-For example, to reference the country of a contact, Odoo proposes three different fields to import:
+例如，要引用联系人的国家/地区，Odoo 提供三种不同的导入字段：
 
-- :guilabel:`Country`: the name or code of the country
-- :guilabel:`Country/Database ID`: the unique Odoo ID for a record, defined by the ID PostgreSQL
-  column
-- :guilabel:`Country/External ID`: the ID of this record referenced in another application (or the
-  `.XML` file that imported it)
+- :guilabel:`国家/地区`: 国家/地区的名称或代码
+- :guilabel:`国家/地区/数据库 ID`: 记录的唯一 Odoo ID，由 PostgreSQL 列中的 ID 定义
+- :guilabel:`国家/地区/外部 ID`: 此记录在另一个应用程序中引用的 ID（或导入该记录的 `.XML` 文件）
 
-For the country of Belgium, for example, use one of these three ways to import:
+例如，对于比利时国家/地区，可以使用以下三种方式之一进行导入：
 
-- :guilabel:`Country`: `Belgium`
-- :guilabel:`Country/Database ID`: `21`
-- :guilabel:`Country/External ID`: `base.be`
+- :guilabel:`国家/地区`: `比利时`
+- :guilabel:`国家/地区/数据库 ID`: `21`
+- :guilabel:`国家/地区/外部 ID`: `base.be`
 
-According to the company's need, use one of these three ways to reference records in relations. Here
-is an example when one or the other should be used, according to the need:
+根据公司的需求，使用这三种方式之一来引用关系中的记录。以下是根据需求使用哪一种方式的示例：
 
-- Use :guilabel:`Country`: this is the easiest way when data comes from :abbr:`CSV (Comma-separated
-  Values)` files that have been created manually.
-- Use :guilabel:`Country/Database ID`: this should rarely be used. It is mostly used by developers
-  as the main advantage is to never have conflicts (there may be several records with the same name,
-  but they always have a unique Database ID)
-- Use :guilabel:`Country/External ID`: use *External ID* when importing data from a third-party
-  application.
+- 使用 :guilabel:`国家/地区`: 当数据来自手动创建的 :abbr:`CSV (逗号分隔值)` 文件时，这是最简单的方式。
+- 使用 :guilabel:`国家/地区/数据库 ID`: 这种方式很少使用。它主要由开发人员使用，其主要优势在于永远不会产生冲突（可能有多个记录具有相同的名称，但它们总是具有唯一的数据库 ID）。
+- 使用 :guilabel:`国家/地区/外部 ID`: 当从第三方应用程序导入数据时，使用 *外部 ID*。
 
-When *External IDs* are used, import :abbr:`CSV (Comma-separated Values)` files with the
-:guilabel:`External ID` (ID) column defining the *External ID* of each record that is imported.
-Then, a reference can be made to that record with columns, like `Field/External ID`. The following
-two :abbr:`CSV (Comma-separated Values)` files provide an example for products and their categories.
+当使用 *外部 ID* 时，导入的 :abbr:`CSV (逗号分隔值)` 文件中包含定义每个记录的 *外部 ID* 的 :guilabel:`外部 ID` (ID) 列。然后可以使用类似 `字段/外部 ID` 的列来引用该记录。以下两个 :abbr:`CSV (逗号分隔值)` 文件为产品及其类别提供了示例。
 
-- :download:`CSV file for categories
+- :download:`类别的 CSV 文件
   <export_import_data/External_id_3rd_party_application_product_categories.csv>`
-- :download:`CSV file for Products
+- :download:`产品的 CSV 文件
   <export_import_data/External_id_3rd_party_application_products.csv>`
 
 .. _export_import_data/relation-fields:
 
-Import relation fields
+导入关系字段
 ----------------------
 
-An Odoo object is always related to many other objects (e.g. a product is linked to product
-categories, attributes, vendors, etc.). To import those relations, the records of the related object
-need to be imported first, from their own list menu.
+Odoo 对象总是与许多其他对象相关联（例如，产品与产品类别、属性、供应商等关联）。要导入这些关系，首先需要从相关对象的列表菜单中导入其记录。
 
-This can be achieved by using either the name of the related record, or its ID, depending on the
-circumstances. The ID is expected when two records have the same name. In such a case add `/ ID`
-at the end of the column title (e.g. for product attributes: `Product Attributes / Attribute / ID`).
+这可以通过使用相关记录的名称或 ID 实现，具体取决于情况。当两个记录具有相同的名称时，预期使用 ID。在这种情况下，在列标题末尾添加 `/ ID`（例如，对于产品属性：`产品属性 / 属性 / ID`）。
 
-Options for multiple matches on fields
+字段多次匹配的选项
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If, for example, there are two product categories with the child name `Sellable` (e.g. `Misc.
-Products/Sellable` & `Other Products/Sellable`), the validation is halted, but the data may still be
-imported. However, Odoo recommends that the data is not imported because it will all be linked to
-the first `Sellable` category found in the *Product Category* list (`Misc. Products/Sellable`).
-Odoo, instead, recommends modifying one of the duplicate's values, or the product category
-hierarchy.
+例如，如果有两个产品类别都包含子名称 `可销售`（例如，`杂项产品/可销售` 和 `其他产品/可销售`），则验证会暂停，但数据可能仍会导入。然而，Odoo 建议不要导入这些数据，因为它们都将链接到 *产品类别* 列表中找到的第一个 `可销售` 类别（`杂项产品/可销售`）。Odoo 建议修改其中一个重复值，或修改产品类别层次结构。
 
-However, if the company does not wish to change the configuration of product categories, Odoo
-recommends making use of the *External ID* for this field, 'Category'.
+但是，如果公司不希望更改产品类别的配置，Odoo 建议为该字段 `类别` 使用 *外部 ID*。
 
-Import many2many relationship fields
+导入多对多关系字段
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+标签应以逗号分隔，不带空格。例如，如果需要将客户链接到两个标签：`制造商` 和 `零售商`，那么在 :abbr:`CSV (逗号分隔值)` 文件中的同一列中应编码为 'Manufacturer,Retailer'。
 
-The tags should be separated by a comma, without any spacing. For example, if a customer needs to be
-linked to both tags: `Manufacturer` and `Retailer` then 'Manufacturer,Retailer' needs to be encoded
-in the same column of the :abbr:`CSV (Comma-separated Values)` file.
+- :download:`制造商和零售商的 CSV 文件 <export_import_data/m2m_customers_tags.csv>`
 
-- :download:`CSV file for Manufacturer, Retailer <export_import_data/m2m_customers_tags.csv>`
-
-Import one2many relationships
+导入一对多关系
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If a company wants to import a sales order with several order lines, a specific row **must** be
-reserved in the :abbr:`CSV (Comma-separated Values)` file for each order line. The first order line
-is imported on the same row as the information relative to order. Any additional lines need an
-additional row that does not have any information in the fields relative to the order.
+如果公司希望导入包含多个订单行的销售订单，则必须在 :abbr:`CSV (逗号分隔值)` 文件中为每个订单行保留特定的行。第一个订单行与订单相关信息一起导入到同一行。任何附加的订单行需要额外的行，并且这些行不应包含与订单相关的字段信息。
 
-As an example, here is a :abbr:`CSV (Comma-separated Values)` file of some quotations that can be
-imported, based on demo data:
+以下是基于演示数据可以导入的某些报价单的 :abbr:`CSV (逗号分隔值)` 文件示例：
 
-- :download:`File for some Quotations
-  <export_import_data/purchase.order_functional_error_line_cant_adpat.csv>`
+- :download:`一些报价单的文件 <export_import_data/purchase.order_functional_error_line_cant_adpat.csv>`
 
-The following :abbr:`CSV (Comma-separated Values)` file shows how to import purchase orders with
-their respective purchase order lines:
+以下 :abbr:`CSV (逗号分隔值)` 文件显示了如何导入包含订单行的采购订单：
 
-- :download:`Purchase orders with their respective purchase order lines
-  <export_import_data/o2m_purchase_order_lines.csv>`
+- :download:`包含订单行的采购订单 <export_import_data/o2m_purchase_order_lines.csv>`
 
-The following :abbr:`CSV (Comma-separated Values)` file shows how to import customers and their
-respective contacts:
+以下 :abbr:`CSV (逗号分隔值)` 文件显示了如何导入客户及其相关联系人：
 
-- :download:`Customers and their respective contacts
-  <export_import_data/o2m_customers_contacts.csv>`
+- :download:`客户及其相关联系人的文件 <export_import_data/o2m_customers_contacts.csv>`
 
-Import records several times
+多次导入记录
 ----------------------------
 
-If an imported file contains one of the columns: :guilabel:`External ID` or :guilabel:`Database ID`,
-records that have already been imported are modified, instead of being created. This is extremely
-useful as it allows users to import the same :abbr:`CSV (Comma-separated Values)` file several
-times, while having made some changes in between two imports.
+如果导入的文件包含 :guilabel:`外部 ID` 或 :guilabel:`数据库 ID` 之一，已经导入的记录将被修改，而不是被创建。这非常有用，因为它允许用户多次导入相同的 :abbr:`CSV (逗号分隔值)` 文件，同时在两次导入之间进行一些更改。
 
-Odoo takes care of creating or modifying each record, depending if it is new or not.
+Odoo 将负责根据记录是新的还是已有的来创建或修改每条记录。
 
-This feature allows a company to use the *Import/Export tool* in Odoo to modify a batch of records
-in a spreadsheet application.
+此功能允许公司使用 Odoo 的 *导入/导出工具* 来在电子表格应用程序中修改批量记录。
 
-Value not provided for a specific field
+未为特定字段提供值
 ---------------------------------------
 
-If all fields are not set in the CSV file, Odoo assigns the default value for every non-defined
-field. But, if fields are set with empty values in the :abbr:`CSV (Comma-separated Values)` file,
-Odoo sets the empty value in the field, instead of assigning the default value.
+如果 CSV 文件中未设置所有字段，Odoo 将为每个未定义字段分配默认值。但是，如果 :abbr:`CSV (逗号分隔值)` 文件中的字段被设置为空值，Odoo 将为该字段设置空值，而不是分配默认值。
 
-Export/import different tables from an SQL application to Odoo
+从 SQL 应用导出/导入不同表格到 Odoo
 --------------------------------------------------------------
 
-If data needs to be imported from different tables, relations need to be recreated between records
-belonging to different tables. For instance, if companies and people are imported, the link between
-each person and the company they work for needs to be recreated.
+如果需要从不同表格导入数据，则需要重新创建属于不同表格的记录之间的关系。例如，如果公司和员工都被导入，则需要重新创建每个员工与其所属公司的链接。
 
-To manage relations between tables, use the `External ID` facilities of Odoo. The `External ID` of a
-record is the unique identifier of this record in another application. The `External ID` must be
-unique across all records of all objects. It is a good practice to prefix this `External ID` with
-the name of the application or table. (like, 'company_1', 'person_1' - instead of '1')
+要管理表格之间的关系，请使用 Odoo 的 `外部 ID` 功能。记录的 `外部 ID` 是该记录在另一个应用程序中的唯一标识符。`外部 ID` 必须在所有对象的所有记录中唯一。最好在 `外部 ID` 前加上应用程序或表格的名称。（例如，'company_1'，'person_1'，而不是 '1'）
 
-As an example, suppose there is an SQL database with two tables that are to be imported: companies
-and people. Each person belongs to one company, so the link between a person and the company they
-work for must be recreated.
+例如，假设有一个 SQL 数据库，其中有两个要导入的表：公司和员工。每个员工都属于一个公司，因此必须重新创建员工与其所属公司的链接。
 
-Test this example, with a :download:`sample of a PostgreSQL database
-<export_import_data/database_import_test.sql>`.
+使用 :download:`PostgreSQL 数据库示例 <export_import_data/database_import_test.sql>` 测试此示例。
 
-First, export all companies and their *External ID*. In PSQL, write the following command:
+首先，导出所有公司的 *外部 ID*。在 PSQL 中，编写以下命令：
 
 .. code-block:: sh
 
-   > copy (select 'company_'||id as "External ID",company_name as "Name",'True' as "Is a Company" from companies) TO '/tmp/company.csv' with CSV HEADER;
+   > copy (select 'company_'||id as "外部 ID",company_name as "名称",'True' as "是否为公司" from companies) TO '/tmp/company.csv' with CSV HEADER;
 
-This SQL command creates the following :abbr:`CSV (Comma-separated Values)` file:
+此 SQL 命令创建了以下 :abbr:`CSV (逗号分隔值)` 文件：
 
 .. code-block:: text
 
-   External ID,Name,Is a Company
+   外部 ID,名称,是否为公司
    company_1,Bigees,True
    company_2,Organi,True
    company_3,Boum,True
 
-To create the :abbr:`CSV (Comma-separated Values)` file for people linked to companies, use the
-following SQL command in PSQL:
+要为与公司关联的人员创建 :abbr:`CSV (逗号分隔值)` 文件，请在 PSQL 中使用以下 SQL 命令：
 
 .. code-block:: sh
 
-    > copy (select 'person_'||id as "External ID",person_name as "Name",'False' as "Is a Company",'company_'||company_id as "Related Company/External ID" from persons) TO '/tmp/person.csv' with CSV
+    > copy (select 'person_'||id as "外部 ID",person_name as "名称",'False' as "是否为公司",'company_'||company_id as "关联公司/外部 ID" from persons) TO '/tmp/person.csv' with CSV
 
-It produces the following :abbr:`CSV (Comma-separated Values)` file:
+此命令生成了以下 :abbr:`CSV (逗号分隔值)` 文件：
 
 .. code-block:: text
 
-   External ID,Name,Is a Company,Related Company/External ID
+   外部 ID,名称,是否为公司,关联公司/外部 ID
    person_1,Fabien,False,company_1
    person_2,Laurence,False,company_1
    person_3,Eric,False,company_2
    person_4,Ramsy,False,company_3
 
-In this file, Fabien and Laurence are working for the Bigees company (`company_1`), and Eric is
-working for the Organi company. The relation between people and companies is done using the
-*External ID* of the companies. The *External ID* is prefixed by the name of the table to avoid a
-conflict of ID between people and companies (`person_1` and `company_1`, who shared the same ID 1 in
-the original database).
+在此文件中，Fabien 和 Laurence 为 Bigees 公司（`company_1`）工作，而 Eric 为 Organi 公司工作。员工与公司之间的关系是通过公司的 *外部 ID* 完成的。*外部 ID* 以表名为前缀，以避免员工和公司之间 ID 冲突（例如，`person_1` 和 `company_1` 在原始数据库中共享相同的 ID 1）。
 
-The two files produced are ready to be imported in Odoo without any modifications. After having
-imported these two :abbr:`CSV (Comma-separated Values)` files, there are four contacts and three
-companies (the first two contacts are linked to the first company). Keep in mind to first import
-the companies, and then the people.
+生成的这两个文件可以直接导入 Odoo，无需任何修改。在导入这两个 :abbr:`CSV (逗号分隔值)` 文件后，系统中会有四个联系人和三家公司（前两个联系人链接到第一家公司）。请记住，首先导入公司，然后导入员工。
 
 .. _essentials/update-data:
 
-Update data in Odoo
+在 Odoo 中更新数据
 ===================
 
-Existing data can be updated in bulk through a data import, as long as the :ref:`External ID
-<essentials/external-id>` remains consistent.
+只要 :ref:`外部 ID <essentials/external-id>` 保持一致，现有数据就可以通过数据导入进行批量更新。
 
-Prepare data export
+准备数据导出
 -------------------
 
-To update data through an import, first navigate to the data to be updated, and select the |list| to
-activate list view. On the far-left side of the list, tick the checkbox for any record to be
-updated. Then, click |actions|, and select :icon:`fa-upload` :guilabel:`Export` from the drop-down
-menu.
+要通过导入更新数据，首先导航到要更新的数据，并选择 |list| 以激活列表视图。在列表的最左侧，勾选要更新的任何记录的复选框。然后，点击 |actions|，并从下拉菜单中选择 :icon:`fa-upload` :guilabel:`导出`。
 
-On the resulting :guilabel:`Export Data` pop-up window, tick the checkbox labeled, :guilabel:`I want
-to update data (import-compatible export)`. This automatically includes the *External ID* in the
-export. Additionally, it limits the :guilabel:`Fields to export` list to **only** include fields
-that are able to be imported.
+在弹出的 :guilabel:`导出数据` 窗口中，勾选标记为 :guilabel:`我想更新数据（兼容导入的导出）` 的复选框。这样会自动将 *外部 ID* 包含在导出中。此外，它将 :guilabel:`导出字段` 列表限制为 **仅** 包含能够导入的字段。
 
 .. note::
-   The :guilabel:`External ID` field does **not** appear in the :guilabel:`Fields to export` list
-   unless it is manually added, but it is still included in the export. However, if the :guilabel:`I
-   want to update data (import-compatible export)` checkbox is ticked, it is included in the export.
+   除非手动添加，否则 :guilabel:`外部 ID` 字段不会出现在 :guilabel:`导出字段` 列表中，但它仍然会包含在导出中。然而，如果勾选了 :guilabel:`我想更新数据（兼容导入的导出）` 复选框，它将包含在导出中。
 
-Select the required fields to be included in the export using the :ref:`options <export-data>` on
-the pop-up window, then click :guilabel:`Export`.
+使用弹出窗口中的 :ref:`选项 <export-data>` 选择要包含在导出中的字段，然后点击 :guilabel:`导出`。
 
-Import updated data
+导入更新的数据
 -------------------
 
-After exporting, make any necessary changes to the data file. When the file is ready, it can be
-:ref:`imported <import-data>` by following the same process as a normal data import.
+导出后，对数据文件进行必要的更改。准备好文件后，可以按照正常数据导入的过程 :ref:`导入数据 <import-data>`。
 
 .. danger::
-   When updating data, it is extremely important that the *External ID* remain consistent, as
-   this is how the system identifies a record. If an ID is altered, or removed, the system may add a
-   duplicate record, instead of updating the existing one.
+   在更新数据时，保持 *外部 ID* 一致非常重要，因为这是系统识别记录的方式。如果 ID 被更改或删除，系统可能会添加重复记录，而不是更新现有记录。

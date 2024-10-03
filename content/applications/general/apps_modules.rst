@@ -1,74 +1,62 @@
 ================
-Apps and modules
+应用程序和模块
 ================
 
-You can :ref:`install <general/install>`, :ref:`upgrade <general/upgrade>` and :ref:`uninstall
-<general/uninstall>` all apps and modules from the :menuselection:`Apps` dashboard.
+您可以从 :menuselection:`应用程序` 仪表板中 :ref:`安装 <general/install>`、:ref:`升级 <general/upgrade>` 和 :ref:`卸载 <general/uninstall>` 所有应用程序和模块。
 
-By default, an *Apps* filter is applied. If you want to search for modules, click on
-*Filters* and select *Extra*.
+默认情况下，应用了 *应用程序* 筛选器。如果您想搜索模块，请点击 *筛选器* 并选择 *额外*。
 
 .. image:: apps_modules/apps-search-filter.png
    :align: center
-   :alt: Add "Extra" filter in Odoo Apps
+   :alt: 在 Odoo 应用中添加 "额外" 筛选器
 
 .. warning::
-   Odoo is *not a smartphone*, and its apps shouldn't be installed or uninstalled carelessly. Apply
-   caution when adding or removing apps and modules on your database since this may impact your
-   subscription costs.
+   Odoo 不是 *智能手机*，其应用程序不应随意安装或卸载。添加或删除数据库上的应用程序和模块时请谨慎操作，因为这可能影响您的订阅成本。
 
-   - | **Installing or uninstalling apps and managing users is up to you.**
-     | As the administrator of your database, you are responsible for its usage, as you know best
-       how your organization works.
-   - | **Odoo apps have dependencies.**
-     | Installing some apps and features with dependencies may also install additional apps and
-       modules that are technically required, even if you won't actively use them.
-   - | **Test app installation/removal on a duplicate of your database.**
-     | This way, you can know what app dependencies may be required or what data may be erased.
+   - | **安装或卸载应用程序以及管理用户是您的责任。**
+     | 作为数据库的管理员，您负责其使用，因为您最了解贵组织的运作方式。
+   - | **Odoo 应用程序具有依赖关系。**
+     | 安装某些具有依赖关系的应用程序和功能可能还会安装技术上必需的其他应用程序和模块，即使您不会主动使用它们。
+   - | **在数据库的副本上测试应用程序的安装/卸载。**
+     | 这样，您可以了解可能需要哪些应用程序依赖项或可能会删除哪些数据。
 
 .. _general/install:
 
-Install apps and modules
+安装应用程序和模块
 ========================
 
-Go to :menuselection:`Apps`, and click on the *Install* button of the app you want to install.
+转到 :menuselection:`应用程序`，然后点击您想要安装的应用程序的 *安装* 按钮。
 
 .. note::
-   If the module you are looking for is not listed, you can **update the app list**.
+   如果您找不到所需的模块，您可以 **更新应用程序列表**。
 
-   To do so, activate the :ref:`developer mode <developer-mode>`, then go to :menuselection:`Apps
-   --> Update Apps List` and click on *Update*.
+   要执行此操作，请激活 :ref:`开发者模式 <developer-mode>`，然后转到 :menuselection:`应用程序 --> 更新应用程序列表` 并点击 *更新*。
 
 .. _general/upgrade:
 
-Upgrade apps and modules
+升级应用程序和模块
 ========================
 
-On some occasions, new improvements or app features are added to :doc:`supported versions of Odoo
-</administration/supported_versions>`. To be able to use them, you must **upgrade** your app.
+在某些情况下，新的改进或应用程序功能已添加到 :doc:`Odoo 支持的版本 </administration/supported_versions>` 中。要能够使用它们，您必须 **升级** 您的应用程序。
 
-Go to :menuselection:`Apps`, click on the *dropdown menu* of the app you want to upgrade, then on
-*Upgrade*.
+转到 :menuselection:`应用程序`，点击您想要升级的应用程序的 *下拉菜单*，然后点击 *升级*。
 
 .. _general/uninstall:
 
-Uninstall apps and modules
+卸载应用程序和模块
 ==========================
 
-Go to :menuselection:`Apps`, click on the *dropdown menu* of the app you want to uninstall, then on
-*Uninstall*.
+转到 :menuselection:`应用程序`，点击您想要卸载的应用程序的 *下拉菜单*，然后点击 *卸载*。
 
 .. image:: apps_modules/uninstall.png
    :align: center
 
-Some apps have dependencies, meaning that one app requires another. Therefore, uninstalling one app
-may uninstall multiple apps and modules. Odoo warns you which dependent apps and modules are
-affected by it.
+某些应用程序具有依赖关系，意味着一个应用程序需要另一个应用程序。因此，卸载一个应用程序可能会卸载多个应用程序和模块。Odoo 会警告您受影响的依赖应用程序和模块。
 
 .. image:: apps_modules/uninstall_deps.png
    :align: center
 
-To complete the uninstallation, click on *Confirm*.
+要完成卸载，请点击 *确认*。
 
 .. danger::
-   Uninstalling an app also uninstalls all its dependencies and permanently erases their data.
+   卸载应用程序也会卸载其所有依赖关系并永久删除其数据。

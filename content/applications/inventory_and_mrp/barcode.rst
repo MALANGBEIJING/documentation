@@ -4,15 +4,13 @@
 :show-toc:
 
 =======
-Barcode
+条码
 =======
 
-**Odoo Barcode** allows users to assign barcodes to individual products and product categories, and
-track inventory movements using those barcodes. By connecting a barcode scanner, certain inventory
-processes can be triggered by scanning barcodes.
+**Odoo 条码** 允许用户为单个产品和产品类别分配条码，并使用这些条码跟踪库存移动。通过连接条码扫描器，可以通过扫描条码触发某些库存流程。
 
 .. seealso::
-   `Odoo Tutorials: Barcode <https://www.odoo.com/slides/barcode-30>`_
+   `Odoo 教程：条码 <https://www.odoo.com/slides/barcode-30>`_
 
 .. toctree::
    :titlesonly:

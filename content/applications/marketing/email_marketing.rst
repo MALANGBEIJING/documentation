@@ -1,825 +1,625 @@
 :show-content:
 
 ===============
-Email Marketing
+电子邮件营销
 ===============
 
-The Odoo *Email Marketing* app provides drag-and-drop design tools, pre-built templates, and other
-interactive features to create engaging email campaigns. The *Email Marketing* app also provides|
-detailed reporting metrics to track the campaigns' overall effectiveness.
+Odoo *电子邮件营销* 应用程序提供了拖放设计工具、预构建模板以及其他互动功能，帮助创建引人入胜的电子邮件营销活动。*电子邮件营销* 应用程序还提供了详细的报告指标，以跟踪活动的整体效果。
 
 .. seealso::
-   `Odoo Tutorial: Email Marketing
+   `Odoo 教程：电子邮件营销
    <https://www.odoo.com/slides/slide/email-marketing-essentials-989?fullscreen=1>`_
 
 .. cards::
 
-   .. card:: Mailing lists
+   .. card:: 邮件列表
       :target: email_marketing/mailing_lists
 
-      Silo contacts into specific mailing lists.
+      将联系人分组到特定的邮件列表中。
 
-   .. card:: Manage unsubscriptions (Blacklist)
+   .. card:: 管理退订（黑名单）
       :target: email_marketing/unsubscriptions
 
-      Allow recipients to unsubscribe and blacklist from future mailings.
+      允许收件人退订并列入未来邮件的黑名单。
 
-   .. card:: Lost leads reactivation email
+   .. card:: 重新激活丢失线索的邮件
       :target: email_marketing/lost_leads_email
 
-      Target lost leads with Email Marketing.
+      使用电子邮件营销定位丢失的潜在客户。
 
-   .. card:: Analyze Metrics
+   .. card:: 分析指标
       :target: email_marketing/analyze_metrics
 
-      Analyzing campaign metrics.
+      分析营销活动的指标。
 
-Email marketing dashboard
+电子邮件营销仪表板
 =========================
 
-After installing the application, click the :menuselection:`Email Marketing` app icon from the main
-Odoo dashboard. Doing so reveals the main :guilabel:`Mailings` dashboard in the default list view.
+安装应用程序后，点击 Odoo 主仪表板中的 :menuselection:`电子邮件营销` 应用图标。这将显示默认列表视图中的主 :guilabel:`邮件` 仪表板。
 
 .. image:: email_marketing/mailings-dashboard.png
    :align: center
-   :alt: View of the main dashboard of the Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序的主仪表板视图。
 
-In the search bar, the default filter of :guilabel:`My Mailings` is present to show all the mailings
-related to the current user. To remove that filter, click the :guilabel:`✖️ (remove)` icon next to
-the filter in the search bar. Doing so reveals all the mailings in the database.
+在搜索栏中，默认的过滤器 :guilabel:`我的邮件` 会显示当前用户相关的所有邮件。要移除该过滤器，请点击搜索栏中的 :guilabel:`✖️（移除）` 图标。这将显示数据库中的所有邮件。
 
-The information on the :guilabel:`Mailings` dashboard has four different view options, located in
-the upper-right corner as individual icons.
+:guilabel:`邮件` 仪表板的信息有四种不同的查看选项，位于右上角的各个图标中。
 
-The view options, from left-to-right, are:
+这些查看选项从左到右依次为：
 
-- :ref:`List <email_marketing/list-view>` (default view)
-- :ref:`Kanban <email_marketing/kanban-view>`
-- :ref:`Calendar <email_marketing/calendar-view>`
-- :ref:`Graph <email_marketing/graph-view>`
+- :ref:`列表 <email_marketing/list-view>`（默认视图）
+- :ref:`看板 <email_marketing/kanban-view>`
+- :ref:`日历 <email_marketing/calendar-view>`
+- :ref:`图表 <email_marketing/graph-view>`
 
 .. _email_marketing/list-view:
 
-List view
+列表视图
 ---------
 
-The list view, represented by the :guilabel:`☰ (horizontal lines)` icon in the upper-right corner,
-is the default view of the :guilabel:`Mailings` dashboard in the :guilabel:`Email Marketing` app.
+列表视图由右上角的 :guilabel:`☰（水平线）` 图标表示，是 :guilabel:`电子邮件营销` 应用中 :guilabel:`邮件` 仪表板的默认视图。
 
-While in list view, there are columns dedicated to different aspects of information related to the
-listed emails. Those columns are as follows:
+在列表视图中，相关电子邮件的信息会按列显示。列包括：
 
-- :guilabel:`Date`: the date the email was sent.
-- :guilabel:`Subject`: the subject of the email.
-- :guilabel:`Responsible`: the user who created the email, or the user who has been assigned to the
-  email.
-- :guilabel:`Sent`: how many times the email has been sent.
-- :guilabel:`Delivered (%)`: percentage of sent emails that have been successfully delivered.
-- :guilabel:`Opened (%)`: percentage of sent emails that have been opened by the recipients.
-- :guilabel:`Clicked (%)`: percentage of sent emails that have been clicked by the recipients.
-- :guilabel:`Replied (%)`: percentage of sent emails that have been replied to by the recipients.
-- :guilabel:`Status`: the status of the email (:guilabel:`Draft`, :guilabel:`In Queue`, or
-  :guilabel:`Sent`).
+- :guilabel:`日期`: 电子邮件发送的日期。
+- :guilabel:`主题`: 电子邮件的主题。
+- :guilabel:`负责人`: 创建电子邮件的用户，或已分配负责该邮件的用户。
+- :guilabel:`发送次数`: 电子邮件发送的次数。
+- :guilabel:`送达率（%）`: 发送的电子邮件中成功送达的百分比。
+- :guilabel:`打开率（%）`: 发送的电子邮件中被收件人打开的百分比。
+- :guilabel:`点击率（%）`: 发送的电子邮件中被收件人点击的百分比。
+- :guilabel:`回复率（%）`: 发送的电子邮件中被收件人回复的百分比。
+- :guilabel:`状态`: 电子邮件的状态（:guilabel:`草稿`、:guilabel:`队列中` 或 :guilabel:`已发送`）。
 
-To add or remove columns, click the :guilabel:`Additional Options (two horizontal lines with dots)`
-icon, located to the far-right of the column titles in list view. Doing so reveals a drop-down menu
-of additional column options.
+要添加或删除列，请点击列表视图中列标题最右侧的 :guilabel:`更多选项（两条带点的横线）` 图标。这将显示额外列选项的下拉菜单。
 
 .. _email_marketing/kanban-view:
 
-Kanban view
+看板视图
 -----------
 
-The Kanban view, represented by the :guilabel:`(inverted bar graph)` icon, can be accessed in the
-upper-right corner of the :guilabel:`Mailings` dashboard in the :guilabel:`Email Marketing` app.
+看板视图由右上角的 :guilabel:`（倒置条形图）` 图标表示，可以从 :guilabel:`电子邮件营销` 应用中 :guilabel:`邮件` 仪表板的右上角访问。
 
 .. image:: email_marketing/kanban-view.png
    :align: center
-   :alt: Kanban view of the main dashboard of the Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序主仪表板的看板视图。
 
-While in Kanban view, the email information is displayed in the various stages.
+在看板视图中，电子邮件信息显示在各个阶段。
 
-The stages are: :guilabel:`Draft`, :guilabel:`In Queue`, :guilabel:`Sending`, and :guilabel:`Sent`.
+这些阶段包括：:guilabel:`草稿`、:guilabel:`队列中`、:guilabel:`发送中` 和 :guilabel:`已发送`。
 
-- :guilabel:`Draft`: the email is still being written/created.
-- :guilabel:`In Queue`: the email is scheduled to be sent at a later date.
-- :guilabel:`Sending`: the email is currently being sent to its recipients.
-- :guilabel:`Sent`: the email has already been sent to its recipients.
+- :guilabel:`草稿`: 电子邮件仍在编写/创建中。
+- :guilabel:`队列中`: 电子邮件计划在稍后发送。
+- :guilabel:`发送中`: 电子邮件正在发送给收件人。
+- :guilabel:`已发送`: 电子邮件已发送给收件人。
 
-In each stage, there are drag-and-drop cards representing the emails that have been created/sent,
-and the stage they are in represents the current status of that mailing.
+在每个阶段中，代表已创建/已发送的电子邮件的卡片可以拖放，所处阶段代表该邮件的当前状态。
 
-Each card on the :guilabel:`Mailings` dashboard provides key information related to that specific
-email.
+在 :guilabel:`邮件` 仪表板上，每个邮件卡片提供与该特定电子邮件相关的关键信息。
 
-When the cursor hovers over the upper-right corner of an email campaign card, a :guilabel:`⋮ (three
-vertical dots)` icon appears. When clicked, a mini drop-down menu reveals the option to color-code
-the email, :guilabel:`Delete` the email, or :guilabel:`Archive` the message for potential future
-use.
+当光标悬停在电子邮件活动卡片的右上角时，会出现一个 :guilabel:`⋮（三竖点）` 图标。点击该图标时，会显示一个小型下拉菜单，提供为邮件设置颜色编码、:guilabel:`删除` 电子邮件或将消息 :guilabel:`归档` 以便将来使用的选项。
 
 .. image:: email_marketing/three-dot-dropdown.png
    :align: center
-   :alt: View of the three-dot drop-down menu on the Odoo Email Marketing dashboard.
+   :alt: Odoo 电子邮件营销仪表板上的三点下拉菜单视图。
 
 .. _email_marketing/calendar-view:
 
-Calendar view
+日历视图
 -------------
 
-The calendar view, represented by a :guilabel:`📆 (calendar)` icon, can be accessed in the
-upper-right corner of the :guilabel:`Mailings` dashboard in the :guilabel:`Email Marketing` app.
+日历视图表现为一个 :guilabel:`📆 (日历)` 图标，可以通过在 :guilabel:`邮件` 仪表板右上角的 :guilabel:`电子邮件营销` 应用程序中访问。
 
-While in calendar view, a monthly calendar (by default), shows when the mailings have been sent or
-are scheduled to be sent.
+在日历视图中，默认情况下会显示每月的日历，显示邮件的发送时间或计划发送的时间。
 
 .. image:: email_marketing/calendar-view.png
    :align: center
-   :alt: Calendar view of the mailings dashboard in the Email Marketing application.
+   :alt: 电子邮件营销应用程序中邮件仪表板的日历视图。
 
-The current date is represented by a :guilabel:`🔴 (red circle)` icon over the date on the calendar.
+当前日期通过日历上的 :guilabel:`🔴（红圈）` 图标表示。
 
-To the right of the calendar, the options to filter the results by :guilabel:`Responsible` and/or
-:guilabel:`Status` are available, via checkboxes.
+在日历右侧，提供了通过复选框按 :guilabel:`负责人` 和/或 :guilabel:`状态` 筛选结果的选项。
 
 .. tip::
-   To hide the right sidebar, click the :guilabel:`(panel-right)` icon, located above the sidebar.
+   要隐藏右侧边栏，请单击侧边栏上方的 :guilabel:`(panel-right)` 图标。
 
-In the top-left corner, above the calendar, the option to change the time period being displayed is
-available via a drop-down menu, which shows :guilabel:`Month`, by default. When clicked, the
-drop-down menu that appears reveals the options: :guilabel:`Day`, :guilabel:`Week`,
-:guilabel:`Month` (default), :guilabel:`Year`, and :guilabel:`Show weekends` (selected by default).
+在日历上方的左上角，通过下拉菜单可以更改显示的时间段，默认显示为 :guilabel:`月`。点击后，下拉菜单显示以下选项：:guilabel:`日`、:guilabel:`周`、:guilabel:`月`（默认）、:guilabel:`年` 和 :guilabel:`显示周末`（默认选择）。
 
-Clicking any of those options changes the calendar display to reflect that desired amount of time.
+点击任一选项后，日历显示将更改为所需的时间段。
 
-Clicking either :guilabel:`⬅️ (left arrow)` icon or :guilabel:`➡️ (right arrow)` icon changes the
-calendar to a previous or future time, depending on what is clicked, based on the chosen amount of
-time being represented.
+点击 :guilabel:`⬅️（左箭头）` 或 :guilabel:`➡️（右箭头）` 图标，可以根据选定的时间段调整日历到之前或之后的时间。
 
-To jump back to the current date, click the :guilabel:`Today` button.
+要跳回当前日期，请点击 :guilabel:`今天` 按钮。
 
 .. _email_marketing/graph-view:
 
-Graph view
+图表视图
 ----------
 
-The graph view, represented by a :guilabel:`(line graph)` icon, can be accessed in the upper-right
-corner of the :guilabel:`Mailings` dashboard in the :guilabel:`Email Marketing` app.
+图表视图由 :guilabel:`（折线图）` 图标表示，可以通过在 :guilabel:`邮件` 仪表板右上角的 :guilabel:`电子邮件营销` 应用程序中访问。
 
-While in graph view, the status of the emails on the :guilabel:`Mailings` page is represented in a
-bar graph, but other graph view options can be implemented, if needed.
+在图表视图中，邮件状态通过条形图显示，但如果需要，可以实施其他图表视图选项。
 
 .. image:: email_marketing/graph-view.png
    :align: center
-   :alt: How the Graph view appears in the Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中的图表视图。
 
-In the upper-left corner, above the graph, there is a :guilabel:`Measures` drop-down menu. When
-clicked, different filter options become available to further customize the graph views.
+在图表上方的左上角，有一个 :guilabel:`度量` 下拉菜单。点击后，会出现不同的筛选选项，以进一步自定义图表视图。
 
-Those :guilabel:`Measures` options are: :guilabel:`A/B Testing percentage` and :guilabel:`Count`
-(default).
+这些 :guilabel:`度量` 选项包括：:guilabel:`A/B 测试百分比` 和 :guilabel:`计数`（默认）。
 
-To the right of the :guilabel:`Measures` drop-down menu is an :guilabel:`Insert in Spreadsheet`
-button, if the *Documents* application is installed. When clicked, a pop-up window appears, in which
-the ability to add the graph to a spreadsheet or dashboard becomes available.
+在 :guilabel:`度量` 下拉菜单右侧，如果安装了 *文档* 应用程序，会出现一个 :guilabel:`插入电子表格` 按钮。点击该按钮时，会弹出一个窗口，提供将图表添加到电子表格或仪表板的选项。
 
-Beside the :guilabel:`Measures` drop-down menu and :guilabel:`Insert in Spreadsheet` button are
-different graph view options. From left-to-right, those graph view options are: :guilabel:`(bar
-chart)` (default), :guilabel:`(line chart)`, and :guilabel:`(pie chart)`.
+在 :guilabel:`度量` 下拉菜单和 :guilabel:`插入电子表格` 按钮旁边，有不同的图表视图选项。从左到右，这些图表视图选项包括：:guilabel:`（条形图）`（默认）、:guilabel:`（折线图）` 和 :guilabel:`（饼图）`。
 
 .. note::
-   Each graph view option provides its own series of additional view options, which appear to the
-   right of the selected graph view option.
+   每个图表视图选项都有其自己的额外视图选项，会显示在所选图表视图选项的右侧。
 
-Search options
+搜索选项
 --------------
+无论在 :guilabel:`电子邮件营销` 应用程序的 :guilabel:`邮件` 仪表板上选择了哪个视图，始终可以使用 :guilabel:`筛选器`、:guilabel:`分组依据` 和 :guilabel:`收藏` 选项来进一步自定义显示的信息。
 
-Regardless of the view chosen for the :guilabel:`Mailings` dashboard in the :guilabel:`Email
-Marketing` app, the :guilabel:`Filters`, :guilabel:`Group by`, and :guilabel:`Favorites` options are
-always available to further customize the information being displayed.
-
-To access those options, click the :guilabel:`(downward arrow)` icon, located to the right of the
-search bar. Doing so reveals a drop-down mega menu featuring those filtering and grouping options.
+要访问这些选项，请点击搜索栏右侧的 :guilabel:`（下箭头）` 图标。点击后，将显示包含这些筛选和分组选项的下拉菜单。
 
 .. image:: email_marketing/search-mega-menu.png
    :align: center
-   :alt: The drop-down mega menu of search options the Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中的搜索选项下拉菜单。
 
-These options provide various ways to specify and organize the information seen on the
-:guilabel:`Mailings` dashboard.
+这些选项提供了多种指定和组织在 :guilabel:`邮件` 仪表板上看到的信息的方式。
 
 .. tabs::
 
-   .. tab:: Filters
+   .. tab:: 筛选器
 
-      This section of the drop-down mega menu provides different ways to filter email results being
-      shown on the :guilabel:`Mailings` dashboard in the :guilabel:`Email Marketing` app.
+      此下拉菜单部分提供了在 :guilabel:`电子邮件营销` 应用程序的 :guilabel:`邮件` 仪表板上筛选电子邮件结果的不同方式。
 
       .. image:: email_marketing/filters-dropdown.png
          :align: center
-         :alt: View of filters drop-down menu options on the Odoo Email Marketing dashboard.
+         :alt: Odoo 电子邮件营销仪表板上的筛选器下拉菜单选项视图。
 
-      The options are: :guilabel:`My Mailings`, :guilabel:`Sent Date`, :guilabel:`A/B Tests`,
-      :guilabel:`A/B Tests to review`, :guilabel:`Archived`, and :guilabel:`Add Custom Filter`.
+      筛选器选项包括：:guilabel:`我的邮件`、:guilabel:`发送日期`、:guilabel:`A/B 测试`、:guilabel:`待审 A/B 测试`、:guilabel:`已归档` 和 :guilabel:`添加自定义筛选器`。
 
-      If :guilabel:`Add Custom Filter` is selected, Odoo reveals a pop-up window, with three
-      customizable fields to fill in, in order to create custom filter rules for Odoo to use to
-      retrieve results that fit more specific criteria.
+      如果选择了 :guilabel:`添加自定义筛选器`，Odoo 会显示一个弹出窗口，其中有三个可自定义字段，填写后可以创建自定义筛选规则，让 Odoo 检索符合更具体条件的结果。
 
       .. image:: email_marketing/add-custom-filter-popup.png
          :align: center
-         :alt: Add custom filter pop-up window that appears in Odoo Email Marketing app.
+         :alt: Odoo 电子邮件营销应用程序中出现的自定义筛选器弹出窗口。
 
-   .. tab:: Group By
+   .. tab:: 分组依据
 
-      This section of the drop-down mega menu provides different ways to group email results being
-      shown on the :guilabel:`Mailings` dashboard in the :guilabel:`Email Marketing` app.
+      此下拉菜单部分提供了在 :guilabel:`电子邮件营销` 应用程序的 :guilabel:`邮件` 仪表板上按不同方式分组电子邮件结果的选项。
 
       .. image:: email_marketing/group-by-dropdown.png
          :align: center
-         :alt: View of the Group By drop-down menu on the Odoo Email Marketing application.
+         :alt: Odoo 电子邮件营销应用程序中的分组依据下拉菜单视图。
 
-      Using this section, the data can be grouped by the messages' :guilabel:`Status`, or who it was
-      :guilabel:`Sent By`.
+      使用此部分，数据可以按邮件的 :guilabel:`状态` 或 :guilabel:`发送人` 进行分组。
 
-      There is also the option to group the data by :guilabel:`Sent Period`, which has its own
-      sub-menu of options to choose from. The :guilabel:`Sent Period` options are :guilabel:`Year`,
-      :guilabel:`Quarter`, :guilabel:`Month`, :guilabel:`Week`, and :guilabel:`Day`.
+      还可以选择按 :guilabel:`发送周期` 分组数据，该选项有自己的子菜单可供选择。:guilabel:`发送周期` 选项包括 :guilabel:`年`、:guilabel:`季度`、:guilabel:`月`、:guilabel:`周` 和 :guilabel:`日`。
 
-      If none of the above :guilabel:`Group By` options deliver the desired results, click
-      :guilabel:`Add Custom Group` at the bottom of the :guilabel:`Group By` section. Doing so
-      reveals a drop-down menu, wherein custom criteria can be selected and applied, thus delivering
-      any grouping of data that may be desired.
+      如果以上 :guilabel:`分组依据` 选项都不能提供所需结果，请点击 :guilabel:`添加自定义分组`，该选项位于 :guilabel:`分组依据` 部分的底部。点击后，将显示一个下拉菜单，您可以选择并应用自定义条件，从而获得所需的任何数据分组。
 
-   .. tab:: Favorites
+   .. tab:: 收藏
 
-      This section provides the opportunity to save custom filters and/or groupings for future use.
-      To utilize this section, click the :guilabel:`Save current search` field, which reveals
-      additional fields.
+      此部分提供了保存自定义筛选器和/或分组以供将来使用的机会。要使用此部分，请点击 :guilabel:`保存当前搜索` 字段，该字段会显示更多选项。
 
       .. image:: email_marketing/favorites-dropdown.png
          :align: center
-         :alt: View of the Favorites drop-down menu on the Odoo Email Marketing application.
+         :alt: Odoo 电子邮件营销应用程序中的收藏下拉菜单视图。
 
-      Give the favorited filter/grouping a title on the blank line above the checkboxes for
-      :guilabel:`Default filter` and :guilabel:`Shared`.
+      在复选框 :guilabel:`默认筛选器` 和 :guilabel:`共享` 之上的空白行中，为收藏的筛选器/分组命名。
 
-      Ticking the box for :guilabel:`Default filter` makes this favorited filter/grouping the
-      default option. Ticking the box for :guilabel:`Shared` allows other users to see and use this
-      favorited filter/grouping.
+      勾选 :guilabel:`默认筛选器` 框将此收藏的筛选器/分组设置为默认选项。勾选 :guilabel:`共享` 框则允许其他用户查看和使用此收藏的筛选器/分组。
 
-      When all desired options are configured, click :guilabel:`Save` to save the filter/grouping in
-      the :guilabel:`Favorites` section of the mega drop-down menu.
+      配置完所有所需选项后，点击 :guilabel:`保存` 按钮，将筛选器/分组保存在下拉菜单的 :guilabel:`收藏` 部分中。
 
-Settings
+设置
 ========
 
-To view and modify the *Email Marketing* settings, navigate to :menuselection:`Email Marketing app
---> Configuration --> Settings`.
+要查看和修改 *电子邮件营销* 设置，请导航到 :menuselection:`电子邮件营销应用程序 --> 配置 --> 设置`。
 
 .. image:: email_marketing/configuration-settings.png
    :align: center
-   :alt: View of the Configuration menu with Settings page in the Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中设置页面的配置菜单视图。
 
-On the :guilabel:`Settings` page, there are four features available.
+在 :guilabel:`设置` 页面上，有四个可用的功能。
 
 .. image:: email_marketing/settings.png
    :align: center
-   :alt: View of the Settings page in the Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中设置页面的视图。
 
-The features are:
+这些功能包括：
 
-- :guilabel:`Mailing Campaigns`: enables the option to manage mass mailing campaigns.
-- :guilabel:`Blacklist Option when Unsubscribing`: allows recipients to blacklist themselves from
-  future mailings during the unsubscribing process.
-- :guilabel:`Dedicated Server`: provides the option to utilize a separate, dedicated server for
-  mailings. When enabled, Odoo reveals a new field (and link), in which the specific server
-  configurations must be entered, in order for it to connect properly to Odoo.
-- :guilabel:`24H Stat Mailing Reports`: allows users to check how well mailings have performed a day
-  after it has been sent.
+- :guilabel:`邮件活动`: 启用管理批量邮件活动的选项。
+- :guilabel:`退订时的黑名单选项`: 允许收件人在退订过程中将自己列入未来邮件的黑名单。
+- :guilabel:`专用服务器`: 提供使用单独的专用服务器进行邮件发送的选项。启用后，Odoo 会显示一个新字段（及链接），用户必须在其中输入特定的服务器配置，以便正确连接到 Odoo。
+- :guilabel:`24小时邮件统计报告`: 允许用户在邮件发送后的第二天查看邮件的效果。
 
 .. _email_marketing/create_email:
 
-Create an email
+创建电子邮件
 ===============
+要创建电子邮件，请打开 :menuselection:`电子邮件营销` 应用程序，并点击 :guilabel:`新建` 按钮，该按钮位于 :guilabel:`邮件` 仪表板页面的左上角。
 
-To create an email, open the :menuselection:`Email Marketing` application, and click the
-:guilabel:`New` button in the upper-left corner of the :guilabel:`Mailings` dashboard page.
-
-Clicking :guilabel:`New` reveals a blank email form.
+点击 :guilabel:`新建` 后，将显示一个空白的电子邮件表单。
 
 .. image:: email_marketing/blank-email-detail-form.png
    :align: center
-   :alt: View of a blank email detail form in Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中的空白电子邮件详细表单视图。
 
-On the email form, there are fields for the :ref:`Subject <email_marketing/subject>` and
-:ref:`Recipients <email_marketing/recipients>` of the email.
+在电子邮件表单上，有用于电子邮件的 :ref:`主题 <email_marketing/subject>` 和 :ref:`收件人 <email_marketing/recipients>` 的字段。
 
-Beneath that, there are three tabs: :ref:`Mail Body <email_marketing/mail_body>`, :ref:`A/B Tests
-<email_marketing/ab_tests>`, and :ref:`Settings <email_marketing/settings_tab>`.
+在这些字段下，有三个选项卡：:ref:`邮件正文 <email_marketing/mail_body>`、:ref:`A/B 测试 <email_marketing/ab_tests>` 和 :ref:`设置 <email_marketing/settings_tab>`。
 
 .. _email_marketing/subject:
 
-Subject
+主题
 -------
 
-First, enter a :guilabel:`Subject` to the email. The :guilabel:`Subject` is visible in the
-recipients' inbox, allowing them to quickly see what the message is about.
+首先，输入电子邮件的 :guilabel:`主题`。主题会在收件人的收件箱中显示，让他们快速了解消息内容。
 
 .. note::
-   The :guilabel:`Subject` field is mandatory. An email can **not** be sent without a
-   :guilabel:`Subject`.
+   :guilabel:`主题` 字段是必填项。没有 :guilabel:`主题` 无法发送电子邮件。
 
-The :guilabel:`(smiley face with a plus sign)` icon at the end of the :guilabel:`Subject` field
-represents emojis that can be added to the :guilabel:`Subject` field. Clicking that icon reveals a
-pop-up menu of emojis that can be used.
+:guilabel:`主题` 字段末尾的 :guilabel:`（带加号的笑脸）` 图标表示可以将表情符号添加到 :guilabel:`主题` 字段。点击该图标后，将显示一个弹出菜单，提供可用的表情符号。
 
-Beside the :guilabel:`(smiley face with a plus sign)` icon at the end of the :guilabel:`Subject`
-field is an empty :guilabel:`(star)` icon. When clicked, the :guilabel:`(star)` icon turns gold, and
-the email is saved as a template in the :guilabel:`Mail Body` tab, which can be used again in the
-future.
+在 :guilabel:`主题` 字段末尾的 :guilabel:`（带加号的笑脸）` 图标旁边是一个空的 :guilabel:`（星星）` 图标。点击后，:guilabel:`（星星）` 图标会变为金色，并将电子邮件保存为 :guilabel:`邮件正文` 选项卡中的模板，供将来使用。
 
 .. _email_marketing/recipients:
 
-Recipients
+收件人
 ----------
 
-Beneath the :guilabel:`Subject` field on the email form is the :guilabel:`Recipients` field. In this
-field, select the recipients of the email. By default, the :guilabel:`Mailing List` option is
-selected, but clicking the field reveals a drop-down menu of other recipient options.
+在电子邮件表单中的 :guilabel:`主题` 字段下方是 :guilabel:`收件人` 字段。在此字段中，选择电子邮件的收件人。默认情况下，:guilabel:`邮件列表` 选项已被选中，但点击该字段将显示其他收件人选项的下拉菜单。
 
-With the default :guilabel:`Mailing List` option selected, a specific mailing list **must** be
-chosen from the adjacent :guilabel:`Select mailing lists` field drop-down menu.
+在选择默认的 :guilabel:`邮件列表` 选项时，必须从相邻的 :guilabel:`选择邮件列表` 字段的下拉菜单中选择特定的邮件列表。
 
 .. tip::
-   More than one mailing list can be chosen from the :guilabel:`Select mailing lists` field.
+   可以从 :guilabel:`选择邮件列表` 字段中选择多个邮件列表。
 
-Odoo then sends the email to contacts on that specific mailing list(s).
+然后，Odoo 将电子邮件发送到该特定邮件列表中的联系人。
 
 .. seealso::
    :doc:`email_marketing/mailing_lists`
 
-When the :guilabel:`Recipients` field is clicked, a drop-down menu of other options is revealed.
-Each option provides different ways Odoo can create a target audience for the email.
+点击 :guilabel:`收件人` 字段时，将显示其他选项的下拉菜单。每个选项提供不同的方式，Odoo 可以为电子邮件创建目标受众。
 
 .. image:: email_marketing/recipients-dropdown.png
    :align: center
-   :alt: View of recipients drop-down menu in the Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中的收件人下拉菜单视图。
 
-Those options (excluding the default :guilabel:`Mailing List`) provide the option to create a more
-specified recipient filter, in an equation-like format, which appears beneath the
-:guilabel:`Recipients` field.
+除了默认的 :guilabel:`邮件列表` 选项外，这些选项还提供了创建更具体的收件人筛选器的选项，以类似于方程的格式显示在 :guilabel:`收件人` 字段下方。
 
-The :guilabel:`Recipients` field options, other than the default :guilabel:`Mailing List` option,
-are as follows:
+:guilabel:`收件人` 字段的选项，除了默认的 :guilabel:`邮件列表` 选项外，还包括以下内容：
 
-- :guilabel:`Contact`: ties specifically to the *Contacts* app, and includes all the contacts
-  entered in the database.
-- :guilabel:`Event Registration`: ties specifically to the *Events* app, and provides opportunities
-  to interact with event registrants, in order to communicate important information about the
-  event(s), or nurture other valuable actions, such as post-event surveys, purchases, etc.
-- :guilabel:`Lead/Opportunity`: ties specifically to records in the *CRM* application, which opens
-  up a number of opportunities to influence sales or purchase decisions.
-- :guilabel:`Mailing Contact`: ties specifically to the *Email Marketing* app, and focuses on
-  specific mailing contacts that have been entered in that specific application, and are related to
-  a specific mailing list. These contacts are also unique because they do *not* have their own
-  contact card in the *Contacts* application. This list can be accessed by navigating to
-  :menuselection:`Email Marketing app --> Mailing Lists --> Mailing List Contacts`.
-- :guilabel:`Sales Order`: ties specifically to the *Sales* app, and focuses on a specific sales
-  orders in the database.
+- :guilabel:`联系人`: 与 *联系人* 应用程序直接相关，包括数据库中输入的所有联系人。
+- :guilabel:`活动注册`: 与 *活动* 应用程序直接相关，提供与活动注册者互动的机会，以便传达重要的活动信息，或促进其他有价值的操作，例如活动后调查、购买等。
+- :guilabel:`线索/机会`: 与 *CRM* 应用程序中的记录直接相关，提供了影响销售或购买决策的机会。
+- :guilabel:`邮件联系人`: 与 *电子邮件营销* 应用程序直接相关，重点是特定的邮件联系人，这些联系人已在该应用程序中输入，并与特定的邮件列表相关。这些联系人是独特的，因为他们在 *联系人* 应用程序中没有自己的联系卡。可以通过导航到 :menuselection:`电子邮件营销应用程序 --> 邮件列表 --> 邮件列表联系人` 访问此列表。
+- :guilabel:`销售订单`: 与 *销售* 应用程序直接相关，重点是数据库中的特定销售订单。
 
-Add recipient filter
+添加收件人筛选器
 ~~~~~~~~~~~~~~~~~~~~
 
-To add a more specific recipient filter to any :guilabel:`Recipient` option, select any recipient
-option (other than :guilabel:`Mailing List`), and click the :guilabel:`Modify filter (right-facing
-arrow)` icon beneath the :guilabel:`Recipient` field to reveal three subsequent filter rule fields,
-formatted like an equation.
+要为任何 :guilabel:`收件人` 选项添加更具体的收件人筛选器，请选择任意收件人选项（除 :guilabel:`邮件列表` 外），然后点击 :guilabel:`修改筛选器（右箭头）` 图标，该图标位于 :guilabel:`收件人` 字段下方，显示三个后续的筛选规则字段，格式类似于方程式。
 
-It is highly recommended that users implement detailed targeting criteria for the
-:guilabel:`Recipients` field. Typically, a single line of targeting logic is not sufficient enough
-for an email campaign.
+强烈建议用户为 :guilabel:`收件人` 字段实施详细的目标定位标准。通常，一行目标逻辑不足以满足电子邮件营销活动的需求。
 
-While the :guilabel:`Mailing List` option is adequate for the :guilabel:`Recipients` field, the
-:guilabel:`Lead/Opportunity` and :guilabel:`Event Registration` options provide far more detailed
-targeting criteria, which can be added on top of those seed sources.
+虽然 :guilabel:`邮件列表` 选项对于 :guilabel:`收件人` 字段是合适的，但 :guilabel:`线索/机会` 和 :guilabel:`活动注册` 选项提供了更详细的目标定位标准，可以在这些基础资源的基础上添加。
 
 .. example::
-   For example, with the :guilabel:`Lead/Opportunity` option chosen in the :guilabel:`Recipients`
-   field, users can add various custom criteria related to :guilabel:`Created on` dates,
-   :guilabel:`Stages`, :guilabel:`Tags`, :guilabel:`Lost Reasons`, :guilabel:`Sales Teams`,
-   :guilabel:`Active` statuses, :guilabel:`Country`, and so much more.
+   例如，选择了 :guilabel:`线索/机会` 选项后，用户可以添加与 :guilabel:`创建日期`、:guilabel:`阶段`、:guilabel:`标签`、:guilabel:`丢失原因`、:guilabel:`销售团队`、:guilabel:`活跃` 状态、:guilabel:`国家` 等相关的自定义条件。
 
    .. image:: email_marketing/detailed-filter-records.png
       :align: center
-      :alt: View of how recipient filters can be customized in Odoo Email Marketing.
+      :alt: 在 Odoo 电子邮件营销中如何自定义收件人筛选器的视图。
 
-To reveal the sub-menu options within the filter rule fields, click each field, and make the desired
-selections, until the preferred configuration has been achieved.
+点击每个字段以显示筛选规则字段中的子菜单选项，并进行所需选择，直到达到所需配置。
 
-The number of :guilabel:`records` in the database that match the configured rule(s) are indicated
-beneath the configured filter rule(s), in green.
+数据库中符合配置规则的 :guilabel:`记录` 数量以绿色表示在配置的筛选规则下方。
 
 .. image:: email_marketing/filter-records.png
    :align: center
-   :alt: View of how recipient filters can be customized in Odoo Email Marketing.
+   :alt: 在 Odoo 电子邮件营销中如何自定义收件人筛选器的视图。
 
 .. note::
-   Some sub-menu options in the first rule field allow for a second choice to provide even more
-   specificity.
+   第一规则字段中的某些子菜单选项允许进行第二个选择，以提供更多的特定性。
 
-To the right of each rule, there are three additional options, represented by :guilabel:`➕ (plus
-sign)`, :guilabel:`(sitemap)`, and :guilabel:`🗑️ (trash)` icons.
+在每条规则的右侧，有三个额外的选项，分别由 :guilabel:`➕（加号）`、:guilabel:`（站点地图）` 和 :guilabel:`🗑️（垃圾桶）` 图标表示。
 
-- The :guilabel:`➕ (plus sign)` icon adds a new node (line) to the overall targeting logic.
-- The :guilabel:`(sitemap)` icon adds a branch to the node. A branch contains two additional,
-  indented sub-nodes that are related to that specific rule, providing even more specificity to the
-  parent line above it.
-- The :guilabel:`🗑️ (trash)` icon deletes a specific node (line) in the array of logic.
+- :guilabel:`➕（加号）` 图标添加一个新节点（行）到总体的目标逻辑中。
+- :guilabel:`（站点地图）` 图标为该节点添加一个分支。分支包含与该规则相关的两个额外的缩进子节点，为上方的父行提供更多的特定性。
+- :guilabel:`🗑️（垃圾桶）` 图标删除逻辑数组中的特定节点（行）。
 
 .. _email_marketing/mail_body:
 
-Mail Body tab
+邮件正文选项卡
 -------------
-
-In the :guilabel:`Mail Body` tab, there are a number of pre-configured message templates to choose
-from.
+在 :guilabel:`邮件正文` 选项卡中，有许多预配置的消息模板可供选择。
 
 .. image:: email_marketing/mail-body-templates.png
    :align: center
-   :alt: View of the templates in the Mail Body tab in Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中的邮件正文选项卡模板视图。
 
-Select the desired template, and proceed to modify every element of its design details with Odoo's
-drag-and-drop building blocks, which appear on the right sidebar when a template is chosen.
+选择所需的模板，然后使用 Odoo 的拖放构建块来修改其设计细节的每个元素，这些构建块在选择模板后会显示在右侧边栏。
 
 .. image:: email_marketing/template-building-blocks.png
    :align: center
-   :alt: View of the building blocks in the Mail Body tab in Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中的邮件正文选项卡构建块视图。
 
-The features on the sidebar used to create and customize emails are separated into three sections:
-:guilabel:`Blocks`, :guilabel:`Customize`, and :guilabel:`Design`.
+用于创建和自定义电子邮件的边栏功能分为三个部分：:guilabel:`块`、:guilabel:`自定义` 和 :guilabel:`设计`。
 
-Each building block provides unique features and professional design elements. To use a building
-block, drag-and-drop the desired block element onto the body of the email being built. Once dropped,
-various aspects of the building block can be customized.
+每个构建块提供独特的功能和专业设计元素。要使用构建块，只需将所需的块元素拖放到正在构建的电子邮件正文中。一旦放置，可以自定义构建块的各个方面。
 
 .. tip::
-   To build an email from the ground up, without any building block elements, select the
-   :guilabel:`Plain Text` template. When selected, Odoo provides a completely blank email canvas,
-   which can be customized in a number of way using the front-end rich text editor that accepts
-   forward slash `/` commands.
+   要从头开始构建电子邮件，而不使用任何构建块元素，请选择 :guilabel:`纯文本` 模板。选择此模板时，Odoo 会提供一个完全空白的电子邮件画布，您可以使用前端富文本编辑器以多种方式进行自定义，该编辑器接受正斜杠 `/` 命令。
 
-   When `/` is typed into the blank body of the email, while using a :guilabel:`Plain Text`
-   template, a drop-down menu of various design elements appears, which can be used to create the
-   desired email design.
+   当在 :guilabel:`纯文本` 模板的电子邮件空白正文中输入 `/` 时，会显示各种设计元素的下拉菜单，您可以使用这些元素创建所需的电子邮件设计。
 
    .. image:: email_marketing/template-blank-slash.png
       :align: center
-      :alt: View of the rich text editor drop-down in the Odoo Email Marketing application.
+      :alt: Odoo 电子邮件营销应用程序中的富文本编辑器下拉菜单视图。
 
 .. _email_marketing/ab_tests:
 
-A/B Tests tab
+A/B 测试选项卡
 -------------
 
-Initially, when the :guilabel:`A/B Tests` tab is opened on an email form, the only option available
-is :guilabel:`Allow A/B Testing`. This is **not** a required option.
+最初，当在电子邮件表单上打开 :guilabel:`A/B 测试` 选项卡时，唯一可用的选项是 :guilabel:`允许 A/B 测试`。这是一个**非**必需的选项。
 
-If this option is enabled, recipients are only mailed *once* for the entirety of the campaign.
+如果启用了此选项，则整个活动中收件人只会收到一次邮件。
 
-This allows the user to send different versions of the same mailing to randomly selected recipients
-to gauge the effectiveness of various designs, formats, layouts, content, and so on -- without any
-duplicate messages being sent.
+这使用户可以将同一邮件的不同版本发送给随机选择的收件人，以评估不同设计、格式、布局、内容等的效果——而不会发送重复的消息。
 
-When the checkbox beside :guilabel:`Allow A/B Testing` is ticked, an :guilabel:`on (%)` field
-appears, in which the user determines the percentage of the pre-configured recipients that are going
-to be sent this current version of the mailing as part of the test.
+当勾选 :guilabel:`允许 A/B 测试` 复选框时，会出现一个 :guilabel:`百分比 (%)` 字段，用户可以在其中确定预配置收件人的百分比，这些收件人将作为测试的一部分收到当前版本的邮件。
 
 .. note::
-   The default figure in the :guilabel:`on (%)` field is `10`, but that figure can be changed at any
-   time.
+   :guilabel:`百分比 (%)` 字段的默认值为 `10`，但此数字可以随时更改。
 
-Beneath that, two additional fields appear:
+在此字段下，会出现两个额外的字段：
 
-The :guilabel:`Winner Selection` field provides a drop-down menu of options, wherein the user
-decides what criteria should be used to determine the "winning" version of the email tests that are
-sent.
+:guilabel:`胜者选择` 字段提供一个下拉菜单，用户可以在其中决定应使用哪些标准来确定发送邮件测试的“胜者”版本。
 
-The options in the :guilabel:`Winner Selection` field are as follows:
+:guilabel:`胜者选择` 字段中的选项如下：
 
-- :guilabel:`Manual`: allows the user to determine the "winning" version of the mailing. This option
-  removes the :guilabel:`Send Final On` field.
-- :guilabel:`Highest Open Rate` (default): the mailing with the highest open rate is determined to
-  be the "winning" version.
-- :guilabel:`Highest Click Rate`: the mailing with the highest click rate is determined to be the
-  "winning" version.
-- :guilabel:`Highest Reply Rate`: the mailing with the highest reply rate is determined to be the
-  "winning" version.
-- :guilabel:`Leads`: the mailing with the most leads generated is determined to be the "winning"
-  version.
-- :guilabel:`Quotations`: the mailing with the most quotations generated is determined to be the
-  "winning" version.
-- :guilabel:`Revenues`: the mailing with the most revenue generated is determined to be the
-  "winning" version.
+- :guilabel:`手动`: 允许用户手动确定邮件的“胜者”版本。此选项会删除 :guilabel:`发送最终邮件于` 字段。
+- :guilabel:`最高打开率`（默认）: 拥有最高打开率的邮件被确定为“胜者”版本。
+- :guilabel:`最高点击率`: 拥有最高点击率的邮件被确定为“胜者”版本。
+- :guilabel:`最高回复率`: 拥有最高回复率的邮件被确定为“胜者”版本。
+- :guilabel:`线索`: 生成最多潜在客户的邮件被确定为“胜者”版本。
+- :guilabel:`报价`: 生成最多报价的邮件被确定为“胜者”版本。
+- :guilabel:`收入`: 生成最多收入的邮件被确定为“胜者”版本。
 
-The :guilabel:`Send Final On` field allows users to choose a date that is used to know *when* Odoo
-should determine the "winning" email, and subsequently, send that version of the email to the
-remaining recipients.
+:guilabel:`发送最终邮件于` 字段允许用户选择日期，Odoo 会根据此日期确定“胜者”邮件，并随后将该版本发送给其余收件人。
 
 .. image:: email_marketing/ab-test-tab.png
    :align: center
-   :alt: View of the A/B Tests tab in Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中的 A/B 测试选项卡视图。
 
-To the right of those fields is a :guilabel:`Create an Alternative Version` button. When clicked,
-Odoo presents a new :guilabel:`Mail Body` tab for the user to create an alternate version of the
-email to test.
+在这些字段的右侧，有一个 :guilabel:`创建一个替代版本` 按钮。点击后，Odoo 会显示一个新的 :guilabel:`邮件正文` 选项卡，供用户创建测试的替代电子邮件版本。
 
 .. _email_marketing/settings_tab:
 
-Settings tab
+设置选项卡
 ------------
 
-The options present in the :guilabel:`Settings` tab of the mail form are divided into two sections:
-:guilabel:`Email Content` and :guilabel:`Tracking`.
+邮件表单中的 :guilabel:`设置` 选项卡中的选项分为两部分：:guilabel:`电子邮件内容` 和 :guilabel:`跟踪`。
 
 .. note::
-   The options available in the :guilabel:`Settings` tab vary depending on if the *Mailing
-   Campaigns* feature is activated in :menuselection:`Email Marketing --> Configuration -->
-   Settings`. See :ref:`email_marketing/mailing-campaigns` for more information.
+   :guilabel:`设置` 选项卡中可用的选项取决于是否激活了 *邮件活动* 功能，路径为 :menuselection:`电子邮件营销 --> 配置 --> 设置`。有关详细信息，请参阅 :ref:`email_marketing/mailing-campaigns`。
 
-Without the *Mailing Campaigns* feature activated, the :guilabel:`Settings` tab on the email form
-only contains the :guilabel:`Preview Text`, :guilabel:`Send From`, :guilabel:`Reply To`,
-:guilabel:`Attachments`, and :guilabel:`Responsible` fields.
+如果未激活 *邮件活动* 功能，电子邮件表单中的 :guilabel:`设置` 选项卡仅包含 :guilabel:`预览文本`、:guilabel:`发送人`、:guilabel:`回复至`、:guilabel:`附件` 和 :guilabel:`负责人` 字段。
 
 .. image:: email_marketing/settings-without-features.png
    :align: center
-   :alt: View of settings tab in Odoo Email Marketing app, without campaign setting activated.
+   :alt: Odoo 电子邮件营销应用程序中未激活活动设置时的设置选项卡视图。
 
-Email content
+电子邮件内容
 ~~~~~~~~~~~~~
 
-- :guilabel:`Preview Text`: allows the user to enter a preview sentence to encourage recipients to
-  open the email. In most inboxes, this is displayed next to the subject. If left empty, the first
-  characters of the email content appear, instead. The ability to add an emoji in this field is
-  available, as well, via the :guilabel:`(smiley face with a plus sign)` icon.
-- :guilabel:`Send From`: designate an email alias that displays as the sender of this particular
-  email.
-- :guilabel:`Reply To`: designate an email alias to whom all the replies of this particular email
-  are sent.
-- :guilabel:`Attach a file`: if any specific files are required (or helpful) for this email, click
-  the :guilabel:`Attachments` button, and upload the desired file(s) to the email.
+- :guilabel:`预览文本`: 允许用户输入预览句子以鼓励收件人打开电子邮件。在大多数收件箱中，它会显示在主题旁边。如果留空，则会显示电子邮件内容的前几个字符。此字段也可以通过 :guilabel:`（带加号的笑脸）` 图标添加表情符号。
+- :guilabel:`发送人`: 指定一个显示为该电子邮件发件人的电子邮件别名。
+- :guilabel:`回复至`: 指定一个电子邮件别名，所有对该电子邮件的回复都会发送到此地址。
+- :guilabel:`附件`: 如果该电子邮件需要（或有帮助）任何特定文件，请点击 :guilabel:`附件` 按钮，并将所需文件上传到电子邮件中。
 
-Tracking
+跟踪
 ~~~~~~~~
-
-- :guilabel:`Responsible`: designate a user in the database to be responsible for this particular
-  email.
+- :guilabel:`负责人`: 指定数据库中的用户负责该电子邮件。
 
 .. note::
-   If the *Mailing Campaign* feature *is* activated, an additional :guilabel:`Campaign` field
-   appears in the :guilabel:`Tracking` section of the :guilabel:`Settings` tab.
+   如果激活了 *邮件活动* 功能，则在 :guilabel:`设置` 选项卡的 :guilabel:`跟踪` 部分中会出现一个额外的 :guilabel:`活动` 字段。
 
    .. image:: email_marketing/settings-tab-with-campaign.png
       :align: center
-      :alt: View of settings tab in Odoo Email Marketing when campaign setting is activated.
+      :alt: 激活活动设置时，Odoo 电子邮件营销应用程序中设置选项卡的视图。
 
-   The additional :guilabel:`Campaign` field allows users to attach this particular email to a
-   mailing campaign, if desired.
+   额外的 :guilabel:`活动` 字段允许用户将此电子邮件附加到一个邮件活动中（如果需要）。
 
-   If the desired campaign is not available in the initial drop-down menu, select :guilabel:`Search
-   More` to reveal a complete list of all mailing campaigns in the database.
+   如果所需的活动在初始下拉菜单中不可用，请选择 :guilabel:`查看更多` 以显示数据库中所有邮件活动的完整列表。
 
-   Or, type the name of the desired mailing campaign in the :guilabel:`Campaign` field, until Odoo
-   reveals the desired campaign in the drop-down menu. Then, select the desired campaign.
+   或者，在 :guilabel:`活动` 字段中键入所需的邮件活动的名称，直到 Odoo 在下拉菜单中显示所需的活动，然后选择该活动。
 
-Send, schedule, test
+发送、安排、测试
 ====================
 
-Once the mailing is finalized, the following options can be utilized, via buttons located in the
-upper-left corner of the email form: :ref:`Send <email_marketing/send>`, :ref:`Schedule
-<email_marketing/schedule>`, and :ref:`Test <email_marketing/test>`.
+邮件确认完成后，可以通过电子邮件表单左上角的按钮使用以下选项：:ref:`发送 <email_marketing/send>`、:ref:`安排 <email_marketing/schedule>` 和 :ref:`测试 <email_marketing/test>`。
 
 .. _email_marketing/send:
 
-Send
+发送
 ----
 
-The :guilabel:`Send` button reveals a :guilabel:`Ready to unleash emails?` pop-up window.
+点击 :guilabel:`发送` 按钮后，会显示一个 :guilabel:`准备好发送电子邮件了吗？` 的弹出窗口。
 
 .. image:: email_marketing/send-popup.png
    :align: center
-   :alt: View of pop-up window that appears when the send button on an email form is clicked.
+   :alt: 点击电子邮件表单上的发送按钮时出现的弹出窗口视图。
 
-When the :guilabel:`Send to all` button is clicked, Odoo sends the email to the desired recipients.
-Once Odoo has sent the mailing, the status changes to :guilabel:`Sent`.
+点击 :guilabel:`发送给所有人` 按钮后，Odoo 会将电子邮件发送给所需的收件人。Odoo 发送完邮件后，状态变为 :guilabel:`已发送`。
 
 .. _email_marketing/schedule:
 
-Schedule
+安排
 --------
 
-The :guilabel:`Schedule` button reveals a :guilabel:`When do you want to send your mailing?` pop-up
-window.
+点击 :guilabel:`安排` 按钮后，会显示一个 :guilabel:`您想何时发送邮件？` 的弹出窗口。
 
 .. image:: email_marketing/schedule-popup.png
    :align: center
-   :alt: View of pop-up window that appears when the schedule button on an email form is clicked.
+   :alt: 点击电子邮件表单上的安排按钮时出现的弹出窗口视图。
 
-In this pop-up window, click the :guilabel:`Send on` field to reveal a calendar pop-up window.
+在此弹出窗口中，点击 :guilabel:`发送于` 字段，以显示日历弹出窗口。
 
 .. image:: email_marketing/schedule-popup-calendar.png
    :align: center
-   :alt: View of pop-up window that appears when the schedule button on an email form is clicked.
+   :alt: 点击电子邮件表单上的安排按钮时出现的日历弹出窗口视图。
 
-From the calendar pop-up window, select the future date and time for Odoo to send this email. Then,
-click :guilabel:`✔️ Apply`. When a date and time are chosen, click the :guilabel:`Schedule` button,
-and the status of the mailing changes to :guilabel:`In Queue`.
+在日历弹出窗口中，选择 Odoo 发送此电子邮件的未来日期和时间。然后，点击 :guilabel:`✔️ 应用`。选择日期和时间后，点击 :guilabel:`安排` 按钮，邮件状态变为 :guilabel:`队列中`。
 
 .. _email_marketing/test:
 
-Test
+测试
 ----
 
-The :guilabel:`Test` button reveals a :guilabel:`Test Mailing` pop-up window.
+点击 :guilabel:`测试` 按钮后，会显示一个 :guilabel:`测试邮件` 的弹出窗口。
 
 .. image:: email_marketing/test-popup.png
    :align: center
-   :alt: View of pop-up window that appears when the test button on an email form is clicked.
+   :alt: 点击电子邮件表单上的测试按钮时出现的弹出窗口视图。
 
-From this pop-up window, enter the email addresses of the contacts to whom Odoo should send this
-test email in the :guilabel:`Recipients` field. Multiple contacts can be added in this field, if
-desired.
+在此弹出窗口中，在 :guilabel:`收件人` 字段中输入要接收测试电子邮件的联系人的电子邮件地址。如果需要，可以在此字段中添加多个联系人。
 
-Once all the desired email addresses have been entered in the :guilabel:`Recipients` field, click
-the :guilabel:`Send Test` button.
+在 :guilabel:`收件人` 字段中输入所有所需的电子邮件地址后，点击 :guilabel:`发送测试` 按钮。
 
 .. warning::
-   By default, there's a daily limit applied for **all emails** sent throughout **all
-   applications**. So, if there are remaining emails to be sent after a limit has been reached,
-   those mailings are **not** sent automatically the next day. The sending needs to be forced, by
-   opening the email and clicking :guilabel:`Retry`.
+   默认情况下，所有应用程序中的**所有电子邮件**的发送都有每日限制。因此，如果在达到限制后还有剩余的电子邮件要发送，这些邮件将不会**自动**在第二天发送。需要通过打开邮件并点击 :guilabel:`重试` 来强制发送。
 
 .. _email_marketing/mailing-campaigns:
 
-Mailing campaigns
+邮件活动
 =================
 
-The *Email Marketing* application provides users with the ability to build mailing campaigns.
+*电子邮件营销* 应用程序为用户提供了创建邮件活动的能力。
 
-In order to create and customize mailing campaigns, the *Mailing Campaigns* feature **must** be
-activated in the *Settings* page of the *Email Marketing* application. To do that, navigate to
-:menuselection:`Email Marketing app --> Configuration --> Settings`, tick the box beside
-:guilabel:`Mailing Campaigns`, and click the :guilabel:`Save` button.
+要创建和自定义邮件活动，必须在 *电子邮件营销* 应用程序的*设置*页面中激活 *邮件活动* 功能。为此，请导航到 :menuselection:`电子邮件营销应用程序 --> 配置 --> 设置`，勾选 :guilabel:`邮件活动` 旁边的框，然后点击 :guilabel:`保存` 按钮。
 
 .. image:: email_marketing/campaigns-feature.png
    :align: center
-   :alt: View of the campaign feature setting in Odoo Email Marketing.
+   :alt: Odoo 电子邮件营销中的活动功能设置视图。
 
-Once the :guilabel:`Mailing Campaigns` feature is activated, a new :guilabel:`Campaigns` menu option
-appears in the header.
+激活 :guilabel:`邮件活动` 功能后，标题中会出现一个新的 :guilabel:`活动` 菜单选项。
 
-When that is clicked, Odoo reveals a separate :guilabel:`Campaigns` page, displaying all the mailing
-campaigns in the database, and the current stage they are in, showcased in a default Kanban view.
+点击该选项后，Odoo 会显示一个单独的 :guilabel:`活动` 页面，显示数据库中的所有邮件活动及其当前阶段，并以默认的看板视图展示。
 
 .. image:: email_marketing/campaigns-page.png
    :align: center
-   :alt: View of the campaign page in Odoo Email Marketing.
+   :alt: Odoo 电子邮件营销应用程序中的活动页面视图。
 
 .. note::
-   This information can also be viewed in a list, by clicking the :guilabel:`☰ (horizontal lines)`
-   icon in the upper-right corner.
+   这些信息也可以通过点击右上角的 :guilabel:`☰（水平线）` 图标以列表形式查看。
 
-Clicking any campaign from the :guilabel:`Campaigns` page reveals that campaign's form.
+点击 :guilabel:`活动` 页面中的任一活动会显示该活动的表单。
 
-There are two different ways to create and customize campaigns in the *Email Marketing* application,
-either directly from the :ref:`Campaigns page <email_marketing/campaign-page>` or through the
-:ref:`Settings tab <email_marketing/campaign-settings>` on an email form.
+在 *电子邮件营销* 应用程序中有两种不同的方式来创建和自定义活动，您可以通过 :ref:`活动页面 <email_marketing/campaign-page>` 或通过电子邮件表单上的 :ref:`设置选项卡 <email_marketing/campaign-settings>` 来完成。
 
 .. _email_marketing/campaign-page:
 
-Create mailing campaign (from campaigns page)
+创建邮件活动（通过活动页面）
 ---------------------------------------------
 
-When the *Mailing Campaigns* feature is activated, a new *Campaigns* option appears in the header of
-the *Email Marketing* application. Campaigns can be created directly on the *Campaigns* page in the
-*Email Marketing* app.
+激活 *邮件活动* 功能后，*电子邮件营销* 应用程序的标题中会出现一个新的 *活动* 选项。可以直接在 *电子邮件营销* 应用程序的 *活动* 页面中创建活动。
 
-To do that, navigate to :menuselection:`Email Marketing app --> Campaigns --> New`.
+为此，请导航到 :menuselection:`电子邮件营销应用程序 --> 活动 --> 新建`。
 
-Kanban view
+看板视图
 ~~~~~~~~~~~
-
-When the :guilabel:`New` button is clicked in the default Kanban view on the :guilabel:`Campaigns`
-page, a Kanban card appears in the :guilabel:`New` stage.
+当在 :guilabel:`活动` 页面上的默认看板视图中点击 :guilabel:`新建` 按钮时，一个看板卡片会出现在 :guilabel:`新建` 阶段。
 
 .. image:: email_marketing/campaigns-kanban-popup.png
    :align: center
-   :alt: View of the campaign pop-up kanban in Odoo Email Marketing.
+   :alt: Odoo 电子邮件营销应用程序中的活动弹出看板视图。
 
-New campaign cards can also be made by clicking the :guilabel:`➕ (plus sign)` at the top of any
-Kanban stage on the :guilabel:`Campaigns` page.
+也可以通过点击 :guilabel:`➕（加号）`，该图标位于 :guilabel:`活动` 页面上的任何看板阶段顶部，来创建新的活动卡片。
 
-When the new campaign Kanban card appears, the options to enter a :guilabel:`Campaign Name`, a
-:guilabel:`Responsible`, and :guilabel:`Tags` become readily available.
+当新的活动看板卡片出现时，用户可以填写 :guilabel:`活动名称`、:guilabel:`负责人` 和 :guilabel:`标签`。
 
-To add the campaign to the Kanban stage, click the :guilabel:`Add` button.
+要将活动添加到看板阶段，点击 :guilabel:`添加` 按钮。
 
-To delete the campaign, click the :guilabel:`🗑️ (trash can)` icon.
+要删除活动，点击 :guilabel:`🗑️（垃圾桶）` 图标。
 
-To further customize the campaign, click the :guilabel:`Edit` button, which reveals the campaign
-form for additional modifications.
+要进一步自定义活动，点击 :guilabel:`编辑` 按钮，这将显示活动表单以进行其他修改。
 
 .. note::
-   A :guilabel:`Campaign Name` **must** be entered in the Kanban card, in order for the
-   :guilabel:`Edit` button to reveal the campaign form for further modifications.
+   必须在看板卡片中输入 :guilabel:`活动名称`，才能点击 :guilabel:`编辑` 按钮并显示活动表单以进行进一步修改。
 
-List view
+列表视图
 ~~~~~~~~~
 
-To enter the list view on the :guilabel:`Campaigns` page, click the :guilabel:`☰ (horizontal lines)`
-icon in the upper-right corner. Doing so reveals all campaign information in a list format.
+要进入 :guilabel:`活动` 页面上的列表视图，点击右上角的 :guilabel:`☰（水平线）` 图标。这样会以列表格式显示所有活动信息。
 
 .. image:: email_marketing/campaign-page-list-view.png
    :align: center
-   :alt: View of the campaign page in list view in Odoo Email Marketing.
+   :alt: Odoo 电子邮件营销应用程序中列表视图的活动页面视图。
 
-To create a campaign from the :guilabel:`Campaigns` page while in list view, click the
-:guilabel:`New` button. Doing so reveals a blank campaign form.
+在列表视图中创建活动时，点击 :guilabel:`新建` 按钮。这将显示一个空白的活动表单。
 
 .. image:: email_marketing/blank-campaign-form.png
    :align: center
-   :alt: View of the blank campaign form in Odoo Email Marketing.
+   :alt: Odoo 电子邮件营销应用程序中的空白活动表单视图。
 
-From this campaign form, a :guilabel:`Campaign Name`, a :guilabel:`Responsible`, and
-:guilabel:`Tags` can be added.
+在此活动表单中，可以添加 :guilabel:`活动名称`、:guilabel:`负责人` 和 :guilabel:`标签`。
 
-At the top of the form, various metric-related smart buttons can be seen that showcase specific
-analytics related to the campaign. Those smart buttons are: :guilabel:`Revenues`,
-:guilabel:`Quotations`, :guilabel:`Opportunities`, and :guilabel:`Clicks`.
+在表单顶部，可以看到各种与活动相关的指标按钮。这些智能按钮包括：:guilabel:`收入`、:guilabel:`报价`、:guilabel:`机会` 和 :guilabel:`点击量`。
 
 .. note::
-   Once a :guilabel:`Campaign Name` is entered and saved, additional buttons appear at the top of
-   the campaign form.
+   一旦输入并保存了 :guilabel:`活动名称`，活动表单顶部会出现额外的按钮。
 
-   Those additional buttons are: :guilabel:`Send Mailing` and :guilabel:`Send SMS`.
+   这些额外的按钮是：:guilabel:`发送邮件` 和 :guilabel:`发送短信`。
 
-Campaign form
+活动表单
 -------------
 
-On the campaign form (after clicking :guilabel:`Edit` from the Kanban card, or selecting an existing
-campaign from the :guilabel:`Campaigns` page) there are additional options and metrics available.
+在活动表单中（通过点击看板卡片上的 :guilabel:`编辑` 或从 :guilabel:`活动` 页面选择现有活动），可以看到更多选项和指标。
 
 .. image:: email_marketing/campaign-form.png
    :align: center
-   :alt: View of the campaign form in Odoo Email Marketing.
+   :alt: Odoo 电子邮件营销应用程序中的活动表单视图。
 
-At the top of the form, various smart buttons can be seen that showcase specific analytics related
-to the campaign. Those smart buttons are: :guilabel:`Revenues`, :guilabel:`Quotations`,
-:guilabel:`Opportunities`, and :guilabel:`Clicks`.
+在表单顶部，可以看到与活动相关的各种智能按钮。这些按钮包括：:guilabel:`收入`、:guilabel:`报价`、:guilabel:`机会` 和 :guilabel:`点击量`。
 
-There are also buttons to :guilabel:`Send Mailing`, :guilabel:`Send SMS`, :guilabel:`Add Post`, and
-:guilabel:`Add Push` (push notification).
+还有 :guilabel:`发送邮件`、:guilabel:`发送短信`、:guilabel:`添加帖子` 和 :guilabel:`发送推送`（推送通知）按钮。
 
 .. note::
-   If the :guilabel:`Send Mailing` and :guilabel:`Send SMS` buttons are not readily available, enter
-   a :guilabel:`Campaign Name`, then save (either manually or automatically). Doing so reveals those
-   buttons.
+   如果 :guilabel:`发送邮件` 和 :guilabel:`发送短信` 按钮不可用，请输入 :guilabel:`活动名称`，然后保存（手动或自动）。这样将显示这些按钮。
 
-The status of the campaign can be viewed in the upper-right corner of the campaign form, as well.
+还可以在活动表单的右上角查看活动的状态。
 
 .. _email_marketing/campaign-settings:
 
-Create mailing campaign (from settings tab)
+通过设置选项卡创建邮件活动
 -------------------------------------------
 
-To create a new campaign from the :guilabel:`Settings` tab of a mailing form, click the
-:guilabel:`Campaign` field, and start typing the name of the new campaign. Then, select either
-:guilabel:`Create "[Campaign Name]"` or :guilabel:`Create and edit...` from the drop-down menu that
-appears.
+要从邮件表单的 :guilabel:`设置` 选项卡创建新的活动，点击 :guilabel:`活动` 字段并开始输入新活动的名称。然后，从出现的下拉菜单中选择 :guilabel:`创建 "[活动名称]"` 或 :guilabel:`创建并编辑...`。
 
 .. image:: email_marketing/mailing-campaign-settings.png
    :align: center
-   :alt: View of the mailing campaign creation in the Settings tab of an email form.
+   :alt: Odoo 电子邮件营销应用程序中设置选项卡的邮件活动创建视图。
 
-Select :guilabel:`Create` to add this new mailing campaign to the database, and modify its settings
-in the future.
+选择 :guilabel:`创建` 以将此新邮件活动添加到数据库，并在未来修改其设置。
 
-Select :guilabel:`Create and Edit...` to add this new mailing campaign to the database, and reveal a
-:guilabel:`Create Campaign` pop-up window.
+选择 :guilabel:`创建并编辑...` 以将此新邮件活动添加到数据库，并显示一个 :guilabel:`创建活动` 弹出窗口。
 
 .. image:: email_marketing/mailing-campaign-popup.png
    :align: center
-   :alt: View of the email mailing campaign pop-up window in Odoo Email Marketing application.
+   :alt: Odoo 电子邮件营销应用程序中的邮件活动弹出窗口视图。
 
-Here, the new mailing campaign can be further customized. Users can adjust the :guilabel:`Campaign
-Name`, assign a :guilabel:`Responsible`, and add :guilabel:`Tags`.
+在这里，可以进一步自定义新的邮件活动。用户可以调整 :guilabel:`活动名称`，指定 :guilabel:`负责人`，并添加 :guilabel:`标签`。
 
-Buttons to :guilabel:`Add Post` or :guilabel:`Send Push` (push notifications) are also available.
+还有 :guilabel:`添加帖子` 或 :guilabel:`发送推送`（推送通知）按钮。
 
-There is also a status located in the upper-right corner of the :guilabel:`Create Campaign` pop-up
-window.
+在 :guilabel:`创建活动` 弹出窗口的右上角也有状态显示。
 
-When all modifications are ready to be finalized, click :guilabel:`Save & Close`. To delete the
-entire campaign, click :guilabel:`Discard`.
+准备好所有修改后，点击 :guilabel:`保存并关闭`。要删除整个活动，点击 :guilabel:`放弃`。
 
 .. seealso::
    - :doc:`email_marketing/mailing_lists`

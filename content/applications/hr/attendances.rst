@@ -1,306 +1,189 @@
 :show-content:
-
 ===========
-Attendances
+考勤管理
 ===========
 
-Odoo's *Attendances* application functions as a time clock. Employees are able to check in and out
-of work using a dedicated device in kiosk mode, while users are also able to check in and out of
-work directly from the database. Managers can quickly see who is available at any given time, create
-reports to see everyone's hours, and gain insights on which employees are working overtime, or
-checking out of work earlier than expected.
+Odoo 的 *考勤管理* 应用程序充当时间打卡工具。员工可以使用专用设备在 kiosk 模式下进行上下班打卡，用户也可以直接从数据库中进行上下班打卡。管理者可以快速查看当前的可用人员，创建报告以查看所有人的工作时间，并获得有关哪些员工加班或提前下班的见解。
 
 .. _attendances/access-rights:
 
-Access rights
+访问权限
 =============
 
-It is important to understand how the different access rights affect what options and features users
-can access in the *Attendances* application.
+了解不同访问权限如何影响用户在 *考勤管理* 应用程序中可访问的选项和功能非常重要。
 
-Every user in the database is able to check in and out directly from the database, without needing
-access to the *Attendances* application. Additionally, all users can access their own attendance
-records from their employee form in the *Employees* app.
+数据库中的每个用户都可以直接从数据库中上下班打卡，而无需访问 *考勤管理* 应用程序。此外，所有用户都可以通过 *员工* 应用程序从他们的员工表单中访问自己的考勤记录。
 
-Access to both the *Attendances* application, and the various features within the application is
-determined by access rights.
+访问 *考勤管理* 应用程序及其中各种功能的权限由访问权限决定。
 
-To see what access rights a user has, navigate to the :menuselection:`Settings app --> Users &
-Companies: Users`, and click on an individual user. The :guilabel:`Access Rights` tab is visible by
-default. Scroll down to the :guilabel:`Human Resources` section to see the setting. For the
-:guilabel:`Attendances` field, the options are either to leave the field blank or select
-:guilabel:`Administrator`.
+要查看用户拥有的访问权限，请导航至 :menuselection:`设置应用程序 --> 用户与公司: 用户`，然后点击单个用户。:guilabel:`访问权限` 选项卡会默认显示。向下滚动到 :guilabel:`人力资源` 部分查看设置。在 :guilabel:`考勤管理` 字段中，可以选择留空或选择 :guilabel:`管理员`。
 
-If the :guilabel:`Administrator` option is selected, the user has full access to the entire
-*Attendances* application, with no restrictions. They can view all employee attendance records,
-enter *Kiosk mMode* from the application, access all reporting metrics, and make modifications to
-the settings. If left blank, the user does **not** have access to the *Attendances* application.
+如果选择了 :guilabel:`管理员` 选项，则用户拥有对整个 *考勤管理* 应用程序的完整访问权限，没有任何限制。他们可以查看所有员工的考勤记录，进入 *Kiosk 模式*，访问所有的报告指标，并对设置进行修改。如果留空，则该用户**没有**对 *考勤管理* 应用程序的访问权限。
 
 .. _attendances/approvers:
 
-Approvers
+审批人
 ---------
 
-The **only** other scenario where different information may be accessible in the *Attendances*
-application is for approvers. If a user does *not* have administrative rights for the *Attendances*
-application, but they are set as an employee's approver for the *Attendances* application, that user
-is able to view the attendance records for that specific employee, as well as make modifications to
-that employee's attendance records, if necessary. This applies to all employees for whom the user is
-listed as the *Attendances* application approver. Approvers are typically managers, though this is
-not required.
+*考勤管理* 应用程序中的唯一其他场景是审批人。如果用户没有 *考勤管理* 应用程序的管理权限，但他们被设置为某个员工的 *考勤管理* 应用程序审批人，那么该用户可以查看该特定员工的考勤记录，并在必要时修改该员工的考勤记录。这适用于所有指定该用户为 *考勤管理* 应用程序审批人的员工。审批人通常是经理，但这不是必须的。
 
-To see who the attendance approver is for an employee, navigate to the :menuselection:`Employees
-application` and click on the specific employee. Click on the :guilabel:`Work Information` tab,
-scroll to the :guilabel:`Approvers` section, and check the :guilabel:`Attendance` field. The person
-selected is able to view that employees' attendance records, both on the *Attendances* application
-dashboard as well as in the attendance reports, and make modifications to their records.
+要查看某个员工的考勤审批人是谁，请导航至 :menuselection:`员工应用程序`，点击该特定员工。点击 :guilabel:`工作信息` 选项卡，滚动到 :guilabel:`审批人` 部分，并检查 :guilabel:`考勤` 字段。所选人员可以查看该员工的考勤记录，无论是在 *考勤管理* 应用程序仪表板上，还是在考勤报告中，并可对其记录进行修改。
 
-Configuration
+配置
 =============
 
-Few configurations are needed in the *Attendances* application. Determining how employees check in
-and out, defining how the kiosks function, and determining how extra hours are computed are all set
-in the Configuration menu. Navigate to the :menuselection:`Attendances application -->
-Configuration` to access the configuration menu.
+在 *考勤管理* 应用程序中需要进行的配置较少。确定员工如何上下班打卡，定义 kiosk 的功能，以及确定如何计算额外工时，这些都在配置菜单中设置。请导航至 :menuselection:`考勤管理应用程序 --> 配置` 访问配置菜单。
 
-Modes
+模式
 -----
 
-- :guilabel:`Attendances from Backend`: activate this selection to allow users to check in and out
-  directly from the Odoo database. If this is not activated, users must use a kiosk to check in and
-  out of work.
+- :guilabel:`从后台考勤`: 激活此选项允许用户直接从 Odoo 数据库上下班打卡。如果未激活此选项，则用户必须使用 kiosk 进行上下班打卡。
 
-Extra hours
+额外工时
 -----------
 
-This section specifies how extra time is calculated, including when extra time is counted and what
-time is not logged.
+此部分指定如何计算额外时间，包括何时计算额外时间以及哪些时间不记录。
 
-- :guilabel:`Count of Extra Hours`: enable this box to allow employees to log extra hours beyond
-  their set working hours (sometimes referred to as *overtime*). Activating this selection displays
-  the following settings as well. If this is not activated, no other configurations appear.
+- :guilabel:`额外工时统计`: 启用此选项允许员工记录超出其设定工作时间的额外工时（有时称为*加班*）。激活此选项后还会显示以下设置。如果未激活此选项，则不会出现其他配置。
 
-  - :guilabel:`Start From`: the current date is automatically entered in this field. If desired,
-    click on this field and use the calendar selector to modify the start date on which extra hours
-    are logged.
-  - :guilabel:`Tolerance Time In Favor Of Company`: enter the amount of time, in minutes, that is
-    **not** counted towards an employee's overtime. When an employee checks out, and the extra time
-    logged is below the specified minutes, the extra time is **not** counted as overtime for the
-    employee.
-  - :guilabel:`Tolerance Time In Favor Of Employee`: enter the amount of time, in minutes, that an
-    employee is given, that does **not** adversely affect their attendance if they log less time
-    than their working hours. When an employee checks out, and the total time logged for the day is
-    less than their specified working hours and less than this specified grace period, they are
-    **not** penalized for their reduced hours.
+  - :guilabel:`开始日期`: 当前日期会自动填入此字段。如果需要，请点击此字段并使用日历选择器修改额外工时记录的开始日期。
+  - :guilabel:`公司容忍时间`: 输入不计入员工加班的时间，以分钟为单位。当员工下班打卡时，如果额外时间少于规定的分钟数，则不会将这些时间计为员工的加班时间。
+  - :guilabel:`员工容忍时间`: 输入员工获得的容忍时间，以分钟为单位，当员工记录的时间少于其工作时间时，不会对其考勤产生不利影响。如果员工下班打卡时，当天记录的总时间少于其规定的工作时间，并且少于该指定的宽限期，则不会因工时不足而受到处罚。
 
     .. example::
-       A company sets both of the :guilabel:`Tolerance` fields to `15` minutes, and the working
-       hours for the entire company are set from 9:00 AM to 5:00 PM.
+       公司将两个 :guilabel:`容忍时间` 字段都设置为 `15` 分钟，公司全体员工的工作时间为上午 9:00 至下午 5:00。
 
-       If an employee checks in at 9:00 AM, and checks out at 5:14 PM, the extra 14 minutes are
-       **not** counted towards their overtime.
+       如果员工在上午 9:00 打卡上班，下午 5:14 打卡下班，则额外的 14 分钟**不**计为加班时间。
 
-       If an employee checks in at 9:05 AM, and checks out at 4:55 PM, even though they logged a
-       total of 10 minutes less than their full working hours, they are **not** penalized for this
-       discrepancy.
+       如果员工在上午 9:05 打卡上班，下午 4:55 打卡下班，即使他们的工作时间比规定的工作时间少了 10 分钟，也不会因为这一差异而受到处罚。
 
-  - :guilabel:`Display Extra Hours`: activate this box to display the extra hours logged by an
-    employee when they check out with a kiosk, or when a user checks out in the database.
+  - :guilabel:`显示额外工时`: 启用此选项可在员工通过 kiosk 或用户在数据库中下班打卡时显示员工记录的额外工时。
 
 .. note::
-   Employees are still able to log overtime hours even if the :guilabel:`Count of Extra Hours`
-   option is not activated. The difference is that when :guilabel:`Count of Extra Hours` is
-   activated, the extra hours can be :ref:`deducted from an approved time off request
-   <time_off/deduct-extra-hours>`.
+   即使未激活 :guilabel:`额外工时统计` 选项，员工仍然可以记录加班工时。不同之处在于，激活 :guilabel:`额外工时统计` 后，额外的工时可以从批准的休假请求中扣除。
 
-Overview
+概览
 ========
 
-When entering the *Attendances* application, the :guilabel:`Overview` dashboard is presented,
-containing all the check in and check out information for the signed in user. If the user has
-specific :ref:`access rights <attendances/access-rights>` and/or are :ref:`approvers
-<attendances/approvers>` for specific employees, then those additional employee's check in and check
-out information is also visible on the :guilabel:`Overview` dashboard.
+进入 *考勤管理* 应用程序时，系统会显示 :guilabel:`概览` 仪表板，包含已登录用户的上下班打卡信息。如果用户具有特定的 :ref:`访问权限 <attendances/access-rights>` 和/或是某些员工的 :ref:`审批人 <attendances/approvers>`，则这些员工的上下班打卡信息也会显示在 :guilabel:`概览` 仪表板中。
 
-Views
+视图
 -----
 
-To change the view from the default Gantt chart to a list view, click the :guilabel:`List` icon in
-the top right of the dashboard, beneath the user's photo. To switch back to the Gantt chart, click
-the :guilabel:`Gantt` button, located next to the :guilabel:`List` button.
+要将视图从默认的甘特图切换为列表视图，请点击位于仪表板右上角用户照片下方的 :guilabel:`列表` 图标。要切换回甘特图，请点击 :guilabel:`甘特图` 按钮，位于 :guilabel:`列表` 按钮旁边。
 
-The default view presents the current day's information. To present the information for the
-:guilabel:`Week`, :guilabel:`Month`, or :guilabel:`Year`, click on the :guilabel:`Day` button to
-reveal a drop-down, displaying those other options. Select the desired view, and the dashboard
-updates, presenting the selected information. To change the :guilabel:`Day`, :guilabel:`Week`,
-:guilabel:`Month`, or :guilabel:`Year` presented, click the :guilabel:`← (left arrow)` or
-:guilabel:`→ (right arrow)` buttons on either side of the drop-down menu. To jump back to a view
-containing the current day, click the :guilabel:`Today` button. This refreshes the dashboard,
-presenting information containing the current day's information.
+默认视图显示当前日期的信息。要显示 :guilabel:`周`，:guilabel:`月` 或 :guilabel:`年` 的信息，请点击 :guilabel:`日` 按钮以显示下拉菜单，选择其他选项。选择所需视图后，仪表板将更新，显示选定的信息。要更改显示的 :guilabel:`日`，:guilabel:`周`，:guilabel:`月` 或 :guilabel:`年`，请点击下拉菜单两侧的 :guilabel:`← (左箭头)` 或 :guilabel:`→ (右箭头)` 按钮。要跳回包含当前日期的视图，请点击 :guilabel:`今日` 按钮。此操作将刷新仪表板，显示包含当天信息的视图。
 
-In the :guilabel:`Day` view, the column for the current hour is highlighted in yellow. If the
-:guilabel:`Week` or :guilabel:`Month` view is selected, the column for the current day is
-highlighted. If the :guilabel:`Year` view is selected, the current month is highlighted.
+在 :guilabel:`日` 视图中，当前小时的列以黄色突出显示。如果选择了 :guilabel:`周` 或 :guilabel:`月` 视图，则当前日期的列被突出显示。如果选择了 :guilabel:`年` 视图，则当前月份被突出显示。
 
 .. image:: attendances/overview.png
    :align: center
-   :alt: The overview dashboard presenting the information for the week, with the current day
-         highlighted.
+   :alt: 概览仪表板显示了本周的信息，当前日期已突出显示。
 
-Any entries that have errors appear in red, indicating they need to be resolved by a user with the
-proper :ref:`access rights <attendances/access-rights>` and/or are :ref:`approvers
-<attendances/approvers>` for the employee(s) with the errors.
+任何有错误的记录会以红色显示，表示需要由具有适当 :ref:`访问权限 <attendances/access-rights>` 的用户和/或是员工的 :ref:`审批人 <attendances/approvers>` 进行处理。
 
 .. _attendances/filters-groups:
 
-Filters and groups
+筛选和分组
 ------------------
 
-To filter the results in the overview dashboard, or to present different groups of information,
-click the :guilabel:`🔻 (triangle drop down)` button in the right side of the :guilabel:`Search` bar
-above the dashboard, and select one of the available :guilabel:`Filters` or :guilabel:`Group By`
-options. There are several pre-configured filters and groups to choose from, as well as an option to
-create custom ones.
+要在概览仪表板中过滤结果或显示不同的信息组，请点击仪表板上方 :guilabel:`搜索` 栏右侧的 :guilabel:`🔻 (下拉三角)` 按钮，并选择一个可用的 :guilabel:`筛选器` 或 :guilabel:`分组依据` 选项。有几个预配置的筛选器和分组可供选择，此外还有创建自定义选项的功能。
 
-Filters
+筛选器
 ~~~~~~~
 
-The default filters that can be selected are:
+可以选择的默认筛选器包括：
 
-- :guilabel:`My Attendances`: this filter only presents the user's attendance data.
-- :guilabel:`My Team`: this filter presents the attendance data for the user's team.
-- :guilabel:`At Work`: this filter displays the attendance data for everyone currently checked in.
-- :guilabel:`Errors`: this filter displays any entries with :ref:`errors <attendances/errors>` that
-  need to be resolved.
-- :guilabel:`Check In`: this filter has a drop-down to further select a specific time period. Select
-  the desired time period from the options presented, a specific month, quarter, or year.
-- :guilabel:`Last 7 days`: this filter presents the attendance data for the last seven days.
-- :guilabel:`Add Custom Filter`: create a custom filter using the pop-up that appears when this is
-  selected.
+- :guilabel:`我的考勤`: 仅显示用户的考勤数据。
+- :guilabel:`我的团队`: 显示用户团队的考勤数据。
+- :guilabel:`上班中`: 显示当前已打卡上班的人员考勤数据。
+- :guilabel:`错误`: 显示有需要解决的 :ref:`错误 <attendances/errors>` 的考勤记录。
+- :guilabel:`打卡`: 提供下拉菜单供选择特定的时间段。选择所需的时间段，例如某个月、某个季度或某一年。
+- :guilabel:`最近7天`: 显示最近七天的考勤数据。
+- :guilabel:`添加自定义筛选器`: 选择此选项后，会弹出窗口创建自定义筛选器。
 
-Groups
+分组
 ~~~~~~
 
-The default groups that can be selected are:
+可以选择的默认分组包括：
 
-- :guilabel:`Check In`: this grouping presents a drop-down menu containing the following time period
-  options: :guilabel:`Year`, :guilabel:`Quarter`, :guilabel:`Month`, :guilabel:`Week`, and
-  :guilabel:`Day`. Selected the time period to display all the check-in information, grouped by the
-  selected time period.
-- :guilabel:`Employee`: this group presents the attendance data organized by employee.
-- :guilabel:`Check Out`: this grouping presents a drop-down menu containing the following time
-  period options: :guilabel:`Year`, :guilabel:`Quarter`, :guilabel:`Month`, :guilabel:`Week`, and
-  :guilabel:`Day`. Selected the time period to display all the check-out information, grouped by the
-  selected time period.
-- :guilabel:`Add Custom Group`: this option displays a drop-down menu with a variety of options to
-  group the attendance data by, including :guilabel:`City`, :guilabel:`Country`, :guilabel:`Mode`,
-  and :guilabel:`IP Address`.
+- :guilabel:`打卡`: 此分组提供下拉菜单，包含以下时间段选项：:guilabel:`年`，:guilabel:`季度`，:guilabel:`月`，:guilabel:`周` 和 :guilabel:`日`。选择所需时间段以显示按该时间段分组的打卡信息。
+- :guilabel:`员工`: 此分组按员工组织考勤数据。
+- :guilabel:`下班`: 此分组提供下拉菜单，包含以下时间段选项：:guilabel:`年`，:guilabel:`季度`，:guilabel:`月`，:guilabel:`周` 和 :guilabel:`日`。选择所需时间段以显示按该时间段分组的下班信息。
+- :guilabel:`添加自定义分组`: 此选项显示下拉菜单，可以按多种选项分组考勤数据，包括 :guilabel:`城市`，:guilabel:`国家`，:guilabel:`模式` 和 :guilabel:`IP地址`。
 
 .. _attendances/errors:
 
-Attendance log details
+考勤记录详细信息
 ----------------------
 
-Odoo captures various time and location details when a user checks in and out. The specific details
-provided are determined by the method the user checked in and out.
+Odoo 记录用户上下班打卡时的各种时间和位置信息。提供的具体信息由用户打卡的方式决定。
 
-To view the specific check in and/or check out details for an employee, click on an individual entry
-in the overview dashboard.
+要查看员工的具体打卡信息，请点击概览仪表板中的某条考勤记录。
 
-A detailed attendance log for the user appears in a pop-up window. To close the detailed attendance
-log, click the :guilabel:`Save & Close` button in the bottom-left corner of the form.
+系统会弹出一个窗口，显示该用户的详细考勤记录。要关闭详细考勤记录，点击表单左下角的 :guilabel:`保存并关闭` 按钮。
 
-The detailed attendance log contains the following information:
+详细考勤记录包含以下信息：
 
-Main details
+主要信息
 ~~~~~~~~~~~~
 
-- :guilabel:`Employee`: the name of the employee.
-- :guilabel:`Check In`: the date and time the employee checked in.
-- :guilabel:`Check Out`: the date and time the employee checked out. This only appears if the
-  employee has checked out.
-- :guilabel:`Worked Hours`: the total amount of time the employee logged for the day, in an hour and
-  minute format (HH:MM). This value calculates all the checks in and check outs for the day, if the
-  employee checked in and out multiple times.
-- :guilabel:`Extra Hours`: any extra hours the employee logged that is beyond their expected working
-  hours.
+- :guilabel:`员工`: 员工姓名。
+- :guilabel:`打卡时间`: 员工打卡的日期和时间。
+- :guilabel:`下班时间`: 员工下班的日期和时间。仅当员工已下班时显示此项。
+- :guilabel:`工作时长`: 员工当天记录的总时间，以小时和分钟格式（HH:MM）显示。如果员工当天多次打卡上下班，则计算所有打卡时间。
+- :guilabel:`额外时长`: 员工超出预期工作时长的额外时间。
 
-Check in/check out details
+打卡/下班详细信息
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following information appears for both the :guilabel:`Check In` and :guilabel:`Check Out`
-sections.
+以下信息同时显示在 :guilabel:`打卡` 和 :guilabel:`下班` 部分。
 
-- :guilabel:`Mode`: the method with which the attendance information was gathered.
-  :guilabel:`Systray` is displayed if the employee logged in and out :ref:`directly from the
-  database <attendances/check-in>`, :guilabel:`Manual` is displayed if the employee logged in and
-  out :ref:`using an attendance kiosk <attendances/kiosk-mode-entry>`.
-- :guilabel:`IP Address`: the IP address for the computer the employee used to log in or out.
-- :guilabel:`Browser`: the web browser the employee used to log in or out.
-- :guilabel:`Localization`: the city and country associated with the computer's IP address.
-- :guilabel:`GPS Coordinates`: the specific coordinates when the user logged in or out. To view the
-  specific coordinates on a map, click the :guilabel:`→ View on Maps` button beneath the
-  :guilabel:`GPS Coordinates`. This opens a map in a new browser tab, with the specific location
-  pointed out.
+- :guilabel:`模式`: 考勤信息的记录方式。如果员工是通过 :ref:`直接从数据库打卡 <attendances/check-in>`，则显示 :guilabel:`Systray`；如果员工通过 :ref:`使用考勤 kiosk 打卡 <attendances/kiosk-mode-entry>`，则显示 :guilabel:`手动`。
+- :guilabel:`IP 地址`: 员工打卡或下班时使用的计算机的 IP 地址。
+- :guilabel:`浏览器`: 员工打卡或下班时使用的网页浏览器。
+- :guilabel:`地理位置`: 与计算机 IP 地址相关的城市和国家。
+- :guilabel:`GPS 坐标`: 用户打卡或下班时的具体坐标。要在地图上查看具体坐标，请点击 :guilabel:`→ 在地图上查看` 按钮，此操作会在新浏览器标签页中打开地图，并显示具体位置。
 
 .. image:: attendances/details.png
    :align: center
-   :alt: The detailed information for an attendance entry.
+   :alt: 考勤记录的详细信息。
 
-Errors
+错误
 ------
 
-Entries that contain an error appear on the overview dashboard in red. In the :guilabel:`Gantt
-view`, the entry appears with a red background. If in the :guilabel:`List view`, the entry text
-appears in red.
+包含错误的记录会在概览仪表板上以红色显示。在 :guilabel:`甘特图` 视图中，记录的背景为红色。如果在 :guilabel:`列表视图` 中，记录的文本显示为红色。
 
-An error typically occurs when an employee has checked in but has not checked out within the last
-24 hours, or when an employee has a check in and check out period spanning over 16 hours.
+当员工打卡后 24 小时内未下班，或当员工打卡和下班时间超过 16 小时时，通常会出现错误。
 
-To fix the error, the attendance entry must be modified or deleted. Click on the entry to reveal a
-pop-up containing the details for that particular entry. To modify the :guilabel:`Check In` and/or
-:guilabel:`Check Out` information, click on the :guilabel:`Check In` or :guilabel:`Check Out` field
-and a calendar selector appears. Click on the desired date, then use the time selector beneath the
-calendar to select the specific time for the entry. When the information is correct, click
-:guilabel:`Apply.`
+要修复错误，必须修改或删除考勤记录。点击该记录会弹出包含该记录详细信息的窗口。要修改 :guilabel:`打卡` 和/或 :guilabel:`下班` 信息，点击 :guilabel:`打卡` 或 :guilabel:`下班` 字段，会出现日历选择器。点击所需日期，然后使用日历下方的时间选择器选择具体时间。当信息正确时，点击 :guilabel:`应用`。
 
 .. image:: attendances/errors.png
    :align: center
-   :alt: The pop-up that allows for modifications to an attendance entry with an error. The calendar
-         selector is shown, and the time selector is highlighted.
+   :alt: 允许修改包含错误的考勤记录的弹出窗口。显示了日历选择器，并突出显示了时间选择器。
 
-When all the information on the pop-up is correct, click :guilabel:`Save & Close`. When the entry no
-longer has an error, the entry appears in gray instead of red.
+当弹出窗口中的所有信息都正确后，点击 :guilabel:`保存并关闭`。当记录不再有错误时，记录会显示为灰色，而非红色。
 
-To delete an entry, click :guilabel:`Remove` on the pop-up instead of making modifications to the
-entry.
+要删除记录，请点击弹出窗口中的 :guilabel:`删除`，而不是修改记录。
 
-Reporting
+报告
 =========
 
-To view attendance reports, click :guilabel:`Reporting` in the top menu. The default report displays
-each employee's attendance information for the past 3 months, in a :guilabel:`Line Chart`.
+要查看考勤报告，请点击顶部菜单中的 :guilabel:`报告`。默认报告会以 :guilabel:`折线图` 显示每位员工过去 3 个月的考勤信息。
 
-The default view is a :guilabel:`Graph`. To view the data in a pivot table, click the
-:guilabel:`Pivot Table` button on the top right of the report. To switch back to the graph view,
-click the :guilabel:`Graph` button, located next to the :guilabel:`Pivot Table` button.
+默认视图为 :guilabel:`图表`。要以数据透视表形式查看数据，请点击报告右上角的 :guilabel:`数据透视表` 按钮。要切换回图表视图，点击位于 :guilabel:`数据透视表` 按钮旁边的 :guilabel:`图表` 按钮。
 
-To present different information, adjust the :ref:`filters and groups <attendances/filters-groups>`
-in the same way as in the :guilabel:`Overview` dashboard.
+要显示不同的信息，请像在 :guilabel:`概览` 仪表板中一样，调整 :ref:`筛选器和分组 <attendances/filters-groups>`。
 
-The data can be presented in either a :guilabel:`Bar Chart`, :guilabel:`Line Chart`, :guilabel:`Pie
-Chart`, :guilabel:`Stacked` chart, or in :guilabel:`Descending` or :guilabel:`Ascending` order. To
-change the view to any of these charts, click the corresponding button above the displayed chart.
+数据可以以 :guilabel:`柱状图`，:guilabel:`折线图`，:guilabel:`饼图`，:guilabel:`堆叠图` 显示，或以 :guilabel:`降序` 或 :guilabel:`升序` 排列。要切换为这些图表中的任何一种，请点击显示的图表上方的相应按钮。
 
-To change the :guilabel:`Measures`, click the :guilabel:`Measures` button and select the desired
-measure from the drop-down menu.
+要更改 :guilabel:`度量标准`，点击 :guilabel:`度量标准` 按钮，然后从下拉菜单中选择所需的度量标准。
 
-The report can also be inserted into a spreadsheet. Click the :guilabel:`Insert in Spreadsheet`
-button and a pop-up appears. Select the desired spreadsheet, and click :guilabel:`Confirm`.
+报告还可以插入到电子表格中。点击 :guilabel:`插入到电子表格` 按钮，会弹出一个窗口。选择所需的电子表格，然后点击 :guilabel:`确认`。
 
 .. image:: attendances/reporting.png
    :align: center
-   :alt: The default report view, with all the optional view buttons highlighted.
+   :alt: 默认报告视图，突出显示了所有可选视图按钮。
 
 .. seealso::
    - :doc:`attendances/check_in_check_out`

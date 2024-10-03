@@ -3,17 +3,15 @@
 :show-toc:
 
 =============
-Manufacturing
+制造
 =============
 
-**Odoo Manufacturing** helps manufacturers schedule, plan, and process manufacturing orders. With
-the work center control panel, put tablets on the shop floor to control work orders in real-time and
-allow workers to trigger maintenance operations, feedback loops, quality issues, etc.
+**Odoo 制造** 帮助制造商安排、计划和处理生产订单。通过工作中心控制面板，将平板电脑放置在车间，以实时控制工作订单，并允许工人触发维护操作、反馈循环、质量问题等。
 
 .. seealso::
-   - `Odoo Tutorials: MRP <https://www.odoo.com/slides/mrp-29>`_
-   - `Odoo Tutorials: Barcode Scanner <https://www.odoo.com/slides/barcode-30>`_
-   - :doc:`IoT Boxes (MES) </applications/general/iot>`
+   - `Odoo 教程：MRP <https://www.odoo.com/slides/mrp-29>`_
+   - `Odoo 教程：条码扫描器 <https://www.odoo.com/slides/barcode-30>`_
+   - :doc:`IoT 盒子 (MES) </applications/general/iot>`
 
 .. toctree::
    :titlesonly:

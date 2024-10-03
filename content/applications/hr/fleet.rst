@@ -1,85 +1,59 @@
 :show-content:
 
 =====
-Fleet
+车辆管理
 =====
 
-This document outlines the configurations and settings for the *Fleet* application, for both
-:ref:`settings <fleet/settings>` and :ref:`manufacturers <fleet/manufacturers>`.
+本文档概述了 *Fleet* 应用程序的配置和设置，包括 :ref:`settings <fleet/settings>` 和 :ref:`manufacturers <fleet/manufacturers>`。
 
 .. _fleet/settings:
 
-Settings
-========
+设置
+====
 
-To access the settings menu, go to :menuselection:`Fleet app --> Configuration --> Settings`. Only
-two settings need configuration: :guilabel:`End Date Contract Alert` and :guilabel:`New Vehicle
-Request`.
+要访问设置菜单，请转到 :menuselection:`Fleet app --> Configuration --> Settings`。 需要配置的设置只有两个：:guilabel:`End Date Contract Alert` 和 :guilabel:`New Vehicle Request`。
 
 .. image:: fleet/fleet-settings.png
    :align: center
-   :alt: Settings available for the Fleet application.
+   :alt: Fleet 应用程序的设置界面。
 
-End Date Contract Alert
------------------------
-
-The :guilabel:`End Date Contract Alert` field how many days before the end of a vehicle contract an
-alert should be sent. The responsible people receive an email informing them a vehicle contract is
-about to expire in the number of days defined in this field.
-
-.. note::
-   To determine who the responsible person is for a contract, open an individual contract. The
-   person listed as :guilabel:`Responsible` under the :guilabel:`Contract Information` section of
-   the contract is the person who will receive the alert.
-
-   To access all contracts, navigate to :menuselection:`Fleet app --> Fleet --> Contracts` and all
-   contracts appear in the list. Click on a :guilabel:`Contract` to view it.
-
-   An individual contract can also be found by navigating to :menuselection:`Fleet app --> Fleet -->
-   Fleet` and clicking on an individual vehicle. On the vehicle form, click the
-   :guilabel:`Contracts` smart button at the top of the page. The contract(s) associated with this
-   vehicle only appears in the list. Click on an individual contract to open it. The
-   :guilabel:`Responsible` person is listed on the contract.
-
-New Vehicle Request
+合同结束日期提醒
 -------------------
 
-The :guilabel:`New Vehicle Request` field sets a limit on how many new vehicles are requested based
-on fleet availability. An employee filling out the salary configurator form (after being offered a
-position), will *not* be able to request a new car if the number of existing cars is greater than
-the number specified in the :guilabel:`New Vehicle Request` field. Enter the specific number limit
-for existing available cars in this field.
+:guilabel:`End Date Contract Alert` 字段设置在车辆合同结束前多少天发送提醒。 负责人员将收到一封电子邮件，告知他们车辆合同将在所定义的天数内到期。
+
+.. note::
+   要确定合同的负责人，打开单个合同。 在合同的 :guilabel:`Contract Information` 部分中列为 :guilabel:`Responsible` 的人将收到提醒。
+
+   要访问所有合同，请导航到 :menuselection:`Fleet app --> Fleet --> Contracts`，所有合同将显示在列表中。 点击 :guilabel:`Contract` 以查看它。
+
+   还可以通过导航到 :menuselection:`Fleet app --> Fleet --> Fleet` 并点击单个车辆来找到单个合同。 在车辆表单上，点击页面顶部的 :guilabel:`Contracts` 智能按钮。 仅此车辆关联的合同将显示在列表中。 点击单个合同以打开它。 合同中列出了 :guilabel:`Responsible` 人员。
+
+新车辆请求
+------------
+
+:guilabel:`New Vehicle Request` 字段根据车队可用性设置请求新车辆的限制。 填写薪资配置表（在获得职位后）的员工，如果现有车辆数量大于 :guilabel:`New Vehicle Request` 字段中指定的车辆数量，则将无法请求新车。 在此字段中输入现有可用车辆的具体数量限制。
 
 .. example::
-   If the :guilabel:`New Vehicle Request` limit is set to 20 vehicles, and there are 25 vehicles
-   available, an employee would not be able to request a new vehicle. If there are only 10 cars
-   available, then the employee would be able to request a new vehicle.
+   如果 :guilabel:`New Vehicle Request` 限制设置为 20 辆车辆，而有 25 辆车辆可用，则员工将无法请求新车辆。 如果仅有 10 辆车可用，则员工可以请求新车辆。
 
 .. _fleet/manufacturers:
 
-Manufacturers
-=============
+制造商
+====
 
-Odoo *Fleet* comes pre-configured with sixty-six commonly used car and bicycle manufacturers in the
-database, along with their logos. To view the pre-loaded manufacturers, go to :menuselection:`Fleet
-app --> Configuration --> Manufacturers`.
+Odoo *Fleet* 已预先配置了数据库中常用的六十六个汽车和自行车制造商及其徽标。 要查看预加载的制造商，请转到 :menuselection:`Fleet app --> Configuration --> Manufacturers`。
 
-The manufacturers appear in an alphabetical list. Each manufacturer's card lists how many specific
-models are configured for each particular manufacturer. Odoo comes with forty-six preconfigured
-:doc:`models <fleet/models>` from four major auto manufacturers, and one major bicycle manufacturer:
-Audi, BMW, Mercedes, Opel (cars), and Eddy Merckx (bicycle).
+制造商以字母顺序显示。 每个制造商的卡片列出为特定制造商配置的具体车型数量。 Odoo 预配置了来自四大汽车制造商和一家主要自行车制造商的四十六个 :doc:`models <fleet/models>`：奥迪、宝马、梅赛德斯、欧宝（汽车）和埃迪·默克斯（自行车）。
 
 .. image:: fleet/manufacturer.png
    :align: center
-   :alt: Manufacturer card with the amount of models listed.
+   :alt: 列出了车型数量的制造商卡片。
 
-Add a manufacturer
-------------------
+添加制造商
+------------
 
-To add a new manufacturer to the database, click :guilabel:`Create`. A manufacturer form will load.
-Only two pieces of information are needed, the :guilabel:`Name` of the manufacturer, and the logo.
-Type the name of the manufacturer in the name field, and select an image to upload for the logo.
-When the information is entered, click :guilabel:`Save`.
+要将新制造商添加到数据库，请点击 :guilabel:`Create`。 将加载一个制造商表单。 只需要两项信息：制造商的 :guilabel:`Name` 和徽标。 在名称字段中输入制造商的名称，并选择要上传的徽标图像。 输入信息后，点击 :guilabel:`Save`。
 
 .. seealso::
    - :doc:`fleet/models`

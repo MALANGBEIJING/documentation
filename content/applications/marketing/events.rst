@@ -1,254 +1,204 @@
-:show-content:
-
 ======
-Events
+活动
 ======
 
-Explore the various aspects of the Odoo **Events** detailed dashboard, and useful settings, that can
-be utilized to generate and gather valuable data about events (and their attendees), which can then
-be used to improve decision-making and event-planning.
+探索 Odoo **活动** 详细的仪表板和有用的设置，利用这些功能生成并收集有关活动（及其参与者）的有价值数据，进而帮助改进决策和活动策划。
 
 .. seealso::
-   `Odoo Tutorials: Events <https://www.odoo.com/slides/surveys-63>`_
+   `Odoo 教程: 活动 <https://www.odoo.com/slides/surveys-63>`_
 
 .. cards::
 
-   .. card:: Create events
+   .. card:: 创建活动
       :target: events/create_events
 
-      Discover how to create events with Odoo.
+      探索如何使用 Odoo 创建活动。
 
-   .. card:: Sell event tickets
+   .. card:: 销售活动票
       :target: events/sell_tickets
 
-      Learn how to create, configure, and sell event tickets.
+      学习如何创建、配置和销售活动票。
 
-   .. card:: Track and manage talks
+   .. card:: 跟踪和管理讲座
       :target: events/track_manage_talks
 
-      See how to create, track, and manage event tracks with Odoo.
+      了解如何使用 Odoo 创建、跟踪和管理活动的讲座。
 
-   .. card:: Event templates
+   .. card:: 活动模板
       :target: events/event_templates
 
-      Expedite the event-creation process with event templates.
+      使用活动模板加快活动创建过程。
 
-   .. card:: Event tracks
+   .. card:: 活动轨迹
       :target: events/event_tracks
 
-      Learn how to create, track, and manage event tracks with Odoo.
+      了解如何使用 Odoo 创建、跟踪和管理活动轨迹。
 
-   .. card:: Event booths
+   .. card:: 活动展位
       :target: events/event_booths
 
-      Create, manage, and sell event booths.
+      创建、管理和销售活动展位。
 
-   .. card:: Registration Desk
+   .. card:: 注册柜台
       :target: events/registration_desk
 
-      Instantly grant access to event attendees with Odoo's Registration Desk feature.
+      使用 Odoo 的注册柜台功能快速为活动参与者授予访问权限。
 
-   .. card:: Revenues report
+   .. card:: 收入报告
       :target: events/revenues_report
 
-      Analyze the financial success of events with Odoo.
+      使用 Odoo 分析活动的财务成功情况。
 
-Events dashboard
+活动仪表板
 ================
 
-When the **Events** application is opened, Odoo reveals the main :guilabel:`Events` dashboard, which
-can be viewed in a number of different ways. Those different view options are accessible from the
-:guilabel:`Events` dashboard in the upper-right corner, via a series of view-related icon buttons.
+打开 **活动** 应用程序时，Odoo 会显示主要的 :guilabel:`活动` 仪表板，可以通过多种不同方式查看。可以通过右上角的一系列视图相关图标按钮访问这些不同的视图选项。
 
-By default, the :guilabel:`Events` dashboard is displayed in the :icon:`oi-view-kanban`
-:guilabel:`Kanban` view, which is populated with a variety of pipeline stages.
+默认情况下，:guilabel:`活动` 仪表板以 :icon:`oi-view-kanban` :guilabel:`看板` 视图显示，展示了一系列不同的管道阶段。
 
 .. image:: events/kanban-dashboard.png
    :align: center
-   :alt: Overview of events setting with the kanban view in Odoo Events.
+   :alt: Odoo 活动中的看板视图设置概览。
 
-This view showcases all the events in the database in their respective stages. By default, the
-stages are: :guilabel:`New`, :guilabel:`Booked`, :guilabel:`Announced`, :guilabel:`Ended`, and
-:guilabel:`Cancelled`.
+此视图展示了数据库中所有活动在各自阶段的情况。默认阶段为：:guilabel:`新建`、:guilabel:`预定`、:guilabel:`已公布`、:guilabel:`结束` 和 :guilabel:`取消`。
 
 .. note::
-   The :guilabel:`Ended` and :guilabel:`Cancelled` stages are folded, by default, and located to the
-   right of the other stages.
+   默认情况下，:guilabel:`结束` 和 :guilabel:`取消` 阶段被折叠，并位于其他阶段的右侧。
 
-On each event card, find the scheduled date of the event, the name of the event, the location, the
-number of expected :guilabel:`Attendees`, any scheduled activities related to the event, the status
-of the event, and the person responsible for the event.
+每张活动卡上显示活动的日期、活动名称、地点、预计的 :guilabel:`参与者` 数量、与活动相关的计划活动、活动状态以及负责该活动的人员。
 
-To quickly add a new event to a pipeline, click the :icon:`fa-plus` :guilabel:`(plus)` icon at the
-top of the stage to which the event should be added to reveal a blank Kanban card to fill out.
+要快速将新活动添加到管道中，请点击阶段顶部的 :icon:`fa-plus` :guilabel:`（加号）` 图标，以显示一个空白的看板卡片并填写信息。
 
 .. image:: events/blank-kanban-card.png
    :align: center
-   :alt: Typical blank kanban card to fill out in the Odoo Events application.
+   :alt: Odoo 活动应用程序中的典型空白看板卡片。
 
-In this blank Kanban card, enter the name of :guilabel:`Event`, along with the start and end
-:guilabel:`Date` and time.
+在此空白看板卡片中，输入 :guilabel:`活动名称`，以及开始和结束的 :guilabel:`日期` 和时间。
 
-Then, either click :guilabel:`Add` to add it to the stage and edit it later, or click
-:guilabel:`Edit` to add the event to stage and edit its configurations on a separate page.
+然后，点击 :guilabel:`添加` 以将其添加到阶段中，稍后再进行编辑，或点击 :guilabel:`编辑` 以将活动添加到阶段，并在单独页面上编辑其配置。
 
-Each event card can be dragged-and-dropped into any stage on the Kanban pipeline, providing easy
-organizational access.
+每个活动卡片可以拖放到看板管道中的任何阶段，提供了便捷的组织访问方式。
 
-Settings
+设置
 ========
 
-To access the event settings and feature options in Odoo **Events**, navigate to
-:menuselection:`Events app --> Configuration --> Settings`. From here, tick the checkboxes beside
-the desired settings and/or features, and click :guilabel:`Save` to activate them.
+要访问 Odoo **活动** 中的设置和功能选项，请导航至 :menuselection:`活动应用程序 --> 配置 --> 设置`。在此页面上，勾选所需设置和/或功能旁边的复选框，然后点击 :guilabel:`保存` 以激活它们。
 
-Events section
+活动部分
 --------------
 
-In the :guilabel:`Events` section of the :guilabel:`Settings` page, there are selectable features
-that can be enabled to add various elements to events created with the Odoo **Events** application.
+在 :guilabel:`设置` 页面的 :guilabel:`活动` 部分，可以启用一些可选功能，以便为使用 Odoo **活动** 应用程序创建的活动添加不同元素。
 
 .. image:: events/settings-events-section.png
    :align: center
-   :alt: The Events section on the Odoo Events settings page in the Odoo Events application.
+   :alt: Odoo 活动应用程序设置页面中的活动部分视图。
 
-The :guilabel:`Schedule & Tracks` feature allows users to manage and publish a schedule with tracks
-for events. *Tracks* is a catch-all term that refers to talks, lectures, demonstrations,
-presentations, and other similar elements that users may choose to include as part of an event.
+:guilabel:`日程和轨迹` 功能允许用户管理并发布包含活动轨迹的日程。*轨迹* 是一个统称，涵盖了讲座、演示、展示、报告和其他类似的活动元素，用户可以选择将这些元素包含在活动中。
 
-When the :guilabel:`Schedule & Tracks` feature is enabled, two additional fields appear beneath it:
-:guilabel:`Live Broadcast` and :guilabel:`Event Gamification`.
+启用 :guilabel:`日程和轨迹` 功能后，会在其下方显示两个额外的字段：:guilabel:`现场直播` 和 :guilabel:`活动游戏化`。
 
-The :guilabel:`Live Broadcast` feature lets users air tracks online, via a *YouTube* integration.
+:guilabel:`现场直播` 功能让用户可以通过 *YouTube* 集成在线直播活动轨迹。
 
-The :guilabel:`Event Gamification` feature lets users share a quiz after any event track, in order
-for attendees to gauge how much they learned from the track they just saw/heard. Companies can also
-benefit from this feature, in that the subsequent responses and results of the quizzes can help
-determine where a company's strengths and weaknesses are, when it comes to their presentations.
+:guilabel:`活动游戏化` 功能让用户可以在任何活动轨迹后分享一个测验，以便参与者评估他们从该轨迹中学到了多少。公司还可以利用此功能，通过参与者的答题结果来判断公司展示内容的强项和弱项。
 
-Next, is the :guilabel:`Online Exhibitors` feature. This feature allows users to display sponsors
-and exhibitors on event pages, which can serve as a valuable incentive to encourage partners and
-businesses to participate in the event.
+接下来是 :guilabel:`在线展商` 功能。此功能允许用户在活动页面上展示赞助商和展商，这可以作为鼓励合作伙伴和企业参与活动的宝贵激励。
 
-The :guilabel:`Jitsi Server Domain` field represents an external conferencing service that is
-integrated with Odoo. It is what is used to create and host virtual conferences, community rooms,
-and other similar elements for events.
+:guilabel:`Jitsi 服务器域` 字段代表与 Odoo 集成的外部会议服务，用于创建和主办虚拟会议、社区房间和其他类似活动元素。
 
-The :guilabel:`Community Chat Rooms` feature allows users to create virtual conference rooms for
-event attendees, providing them with a centralized place to meet and discuss anything related to the
-event.
+:guilabel:`社区聊天室` 功能允许用户为活动参与者创建虚拟会议室，为他们提供一个集中的讨论场所，讨论与活动相关的任何话题。
 
-Lastly, there is the :guilabel:`Booth Management` feature. This feature provides users with the
-ability to create and manage event booths and booth reservations. When enabled, users can create
-different booth tiers, with individual price points, and sell them to interested parties.
+最后是 :guilabel:`展位管理` 功能。此功能为用户提供了创建和管理活动展位及展位预订的能力。启用后，用户可以创建不同的展位等级，设置各自的价格，并将其出售给感兴趣的客户。
 
-Registration section
+注册部分
 --------------------
 
-The :guilabel:`Registration` section of the :guilabel:`Settings` page provides selectable settings
-that are directly related to event registration.
+在 :guilabel:`设置` 页面的 :guilabel:`注册` 部分，提供了与活动注册直接相关的可选设置。
 
 .. image:: events/settings-registration-section.png
    :align: center
-   :alt: The Registration section in the Odoo Events settings page in the Odoo Events application.
+   :alt: Odoo 活动应用程序设置页面中的注册部分视图。
 
-The :guilabel:`Tickets` setting allows users to sell event tickets, via standard sales orders.
+:guilabel:`门票` 设置允许用户通过标准销售订单销售活动票。
 
-The :guilabel:`Online Ticketing` setting creates a selectable *Event Ticket* product type on product
-forms, which provides users with the ability to sell event tickets online, via their
-website/eCommerce store.
+:guilabel:`在线售票` 设置在产品表单上创建一个可选择的 *活动票* 产品类型，允许用户通过其网站/电子商务商店在线销售活动票。
 
-Attendance section
+参与部分
 ------------------
 
-In the :guilabel:`Attendance` section of the :guilabel:`Settings` page, there is a selectable
-setting that is directly related to how attendees can attend/enter the event.
+在 :guilabel:`设置` 页面的 :guilabel:`参与` 部分，有一个与参与者如何参加/进入活动直接相关的可选设置。
 
 .. image:: events/settings-attendance-section.png
    :align: center
-   :alt: The Attendance section in the Odoo Events Settings page in the Odoo Events application.
+   :alt: Odoo 活动应用程序设置页面中的参与部分视图。
 
-The :guilabel:`Use Event Barcode` setting, when activated, enables barcode (and QR code) scanning
-for attendees to enter the event. This provides attendees with quick access, and helps Odoo users
-easily track, manage, and analyze all event attendees.
+:guilabel:`使用活动条码` 设置启用后，允许通过条码（和二维码）扫描参与者进入活动。这为参与者提供了快速访问权限，帮助 Odoo 用户轻松跟踪、管理和分析所有活动参与者。
 
-The :guilabel:`Barcode Nomenclature` field, beneath the :guilabel:`Use Event Barcode` setting, is
-set to :guilabel:`Default Nomenclature`, by default, but can be changed at any time.
+:guilabel:`条码命名规则` 字段位于 :guilabel:`使用活动条码` 设置下方，默认为 :guilabel:`默认命名规则`，但可以随时更改。
 
-Create events
+创建活动
 =============
 
-With Odoo **Events**, events can be manually created from scratch or built off of pre-made
-templates.
+使用 Odoo **活动**，可以手动从头创建活动或基于预制模板构建活动。
 
-Once launched, the **Events** application then integrates with the **Website** app for the front-end
-promotion and registration of the event for attendees, the **Sales** app for the purchasing ability
-of paid tickets, and the **CRM** application through customizable lead generation rules.
+启动后，**活动** 应用程序与 **网站** 应用程序集成，便于前端的活动推广和参与者注册；与 **销售** 应用程序集成，便于付费票的购买；与 **CRM** 应用程序通过可自定义的线索生成规则集成。
 
 .. seealso::
    :doc:`events/create_events`
 
-Sell event tickets
+销售活动票
 ==================
 
-Create custom ticket tiers (with various price points) for potential event attendees to choose from,
-directly on the event template form, under the *Tickets* tab.
+在活动模板表单的 *门票* 选项卡下，为潜在的活动参与者创建自定义票务等级（具有不同的价格点）。
 
-Odoo simplifies the ticket-purchasing process by providing plenty of payment method options, as
-well.
+Odoo 提供了多种支付方式，简化了购票过程。
 
 .. seealso::
    :doc:`events/sell_tickets`
 
-Track and manage talks
+跟踪和管理讲座
 ======================
 
-Discover how to access various event tracks (talks, presentations, etc.), view entire agendas, and
-learn how attendees can propose talks for the event.
+了解如何访问各种活动轨迹（讲座、演示等）、查看完整议程，以及了解参与者如何为活动提出讲座。
 
 .. seealso::
    :doc:`events/track_manage_talks`
 
-Event templates
+活动模板
 ===============
 
-Learn the process to customize and configure event templates, which can be used to expedite the
-event-creation process.
+了解如何自定义和配置活动模板，以加快活动创建过程。
 
 .. seealso::
    :doc:`events/event_templates`
 
-Event booths
+活动展位
 ============
 
-Explore the various ways to create, manage, and sell event booths with the Odoo **Events**
-application.
+探索使用 Odoo **活动** 应用程序创建、管理和销售展位的各种方式。
 
 .. seealso::
    :doc:`events/event_booths`
 
-Event tracks
+活动轨迹
 ============
 
-Find out how to create, manage, and schedule different experiences (aka *Tracks*) for events with
-Odoo.
+了解如何使用 Odoo 创建、管理和安排不同的活动体验（即 *轨迹*）。
 
 .. seealso::
    :doc:`events/event_tracks`
 
-Registration desk
+注册柜台
 =================
 
-Grant access to event attendees quickly and easily with the Odoo **Events** *Registration Desk*
-feature.
+使用 Odoo **活动** 的 *注册柜台* 功能，快速为活动参与者授予访问权限。
 
 .. seealso::
    :doc:`events/registration_desk`
 
-Revenues report
+收入报告
 ===============
 
-Gain invaluable insight into event-related revenues with customizable reports and metrics.
+通过可自定义的报告和指标，深入了解与活动相关的收入情况。
 
 .. seealso::
    :doc:`events/revenues_report`

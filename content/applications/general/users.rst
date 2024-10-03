@@ -1,12 +1,9 @@
 :show-content:
-
 =====
-Users
+用户
 =====
 
-Odoo defines a *user* as someone who has access to a database. An administrator can add as many
-users as the company needs and, in order to restrict the type of information each user can access,
-rules can be applied to each user. Users and access rights can be added and changed at any point.
+Odoo 将*用户*定义为有权访问数据库的人。管理员可以根据公司需要添加任意数量的用户，并且为了限制每个用户可以访问的信息类型，可以为每个用户应用规则。可以随时添加和更改用户及其访问权限。
 
 .. seealso::
    - :doc:`users/language`
@@ -16,233 +13,174 @@ rules can be applied to each user. Users and access rights can be added and chan
 
 .. _users/add-individual:
 
-Add individual users
+添加单个用户
 ====================
 
-To add new users, navigate to :menuselection:`Settings app --> Users section --> Manage Users`, and
-click on :guilabel:`New`.
+要添加新用户，请导航到 :menuselection:`设置应用 --> 用户部分 --> 管理用户`，然后点击 :guilabel:`新建`。
 
 .. image:: users/manage-users.png
    :align: center
-   :alt: View of the settings page emphasizing the manage users field in Odoo.
+   :alt: Odoo 中设置页面中的管理用户字段视图。
 
-Fill in the form with all the required information. Under the :doc:`Access Rights
-<users/access_rights>` tab, choose the group within each application the user can have access to.
+填写表单的所有必填信息。在 :doc:`访问权限 <users/access_rights>` 标签下，选择用户可以访问的每个应用程序的组。
 
-The list of applications shown is based on the applications installed on the database.
+显示的应用程序列表基于数据库中安装的应用程序。
 
 .. image:: users/new-user.png
    :align: center
-   :alt: View of a user's form emphasizing the access rights tab in Odoo.
+   :alt: Odoo 中用户表单的访问权限标签视图。
 
-After filling out all the necessary fields on the page, manually :guilabel:`Save`. An invitation
-email is automatically sent to the user, using the email in the :guilabel:`Email Address` field. The
-user must click on the link included in the email to accept the invitation, and to create a database
-login.
+填写页面上所有必需字段后，手动点击 :guilabel:`保存`。系统会自动使用 :guilabel:`电子邮件地址` 字段中的电子邮件向用户发送邀请电子邮件。用户必须点击电子邮件中的链接接受邀请，并创建数据库登录信息。
 
 .. image:: users/invitation-email.png
    :align: center
-   :alt: View of a user's form with a notification that the invitation email has been sent in Odoo.
+   :alt: Odoo 中用户表单显示邀请电子邮件已发送的通知。
 
 .. warning::
-   If the company is on a monthly subscription plan, the database automatically updates to reflect
-   the added users. If the company is on a yearly or multi-year plan, an expiration banner appears
-   in the database. An upsell quotation can be created by clicking the banner to update the
-   subscription. Alternatively, `send a support ticket <https://www.odoo.com/help>`_ to resolve the
-   issue.
+   如果公司使用的是按月订阅计划，数据库会自动更新以反映添加的用户。如果公司使用的是按年或多年订阅计划，数据库中会出现到期通知横幅。可以点击横幅创建升级报价以更新订阅。或者，`发送支持工单 <https://www.odoo.com/help>`_ 以解决问题。
 
-User type
+用户类型
 ---------
 
-:guilabel:`User Type` can be selected from the :guilabel:`Access Rights` tab of the user form,
-accessible via :menuselection:`Settings app --> Users section --> Manage Users`.
+可以通过用户表单的 :guilabel:`访问权限` 标签选择 :guilabel:`用户类型`，可通过 :menuselection:`设置应用 --> 用户部分 --> 管理用户` 访问。
 
-There are three types of users: :guilabel:`Internal User`, :guilabel:`Portal`, and
-:guilabel:`Public`.
+用户有三种类型：:guilabel:`内部用户`、:guilabel:`门户`和 :guilabel:`公共`。
 
 .. image:: users/user-type.png
    :align: center
-   :alt: View of a user's form in developer mode emphasizing the user type field in Odoo.
+   :alt: 在开发者模式下 Odoo 中用户表单强调用户类型字段的视图。
 
 .. tip::
-   Users are considered internal database users. Portal users are external users, who only have
-   access to the database portal to view records. See the documentation on :doc:`users/portal`.
+   用户被认为是内部数据库用户。门户用户是外部用户，他们只能访问数据库门户以查看记录。有关更多信息，请参阅 :doc:`users/portal`。
 
-   Public users are those visiting websites, via the website's frontend.
+   公共用户是那些通过网站前端访问网站的用户。
 
-The :guilabel:`Portal` and :guilabel:`Public` user options do **not** allow the administrator to
-choose access rights. These users have specific access rights pre-set (such as, record rules and
-restricted menus), and usually do not belong to the usual Odoo groups.
+:guilabel:`门户` 和 :guilabel:`公共` 用户选项**不**允许管理员选择访问权限。这些用户具有预设的特定访问权限（例如记录规则和限制菜单），通常不属于 Odoo 的常规用户组。
 
 .. _users/deactivate:
 
-Deactivate users
+停用用户
 ================
 
-To deactivate (i.e. archive) a user, navigate to :menuselection:`Settings app --> Users section -->
-Manage Users`. Then, tick the checkbox to the left of the user(s) to be deactivated.
+要停用（即归档）用户，请导航到 :menuselection:`设置应用 --> 用户部分 --> 管理用户`。然后，勾选要停用的用户左侧的复选框。
 
-After selecting the appropriate user to be archived, click the :guilabel:`⚙️ Actions` icon, and
-select :guilabel:`Archive` from the resulting drop-down menu. Then, click :guilabel:`OK` from the
-:guilabel:`Confirmation` pop-up window that appears.
+选择要归档的用户后，点击 :guilabel:`⚙️ 操作` 图标，然后从下拉菜单中选择 :guilabel:`归档`。接着，点击弹出窗口中的 :guilabel:`确定`。
 
 .. danger::
-   **Never** deactivate the main/administrator user (admin). Making changes to admin users can have
-   a detrimental impact on the database. This includes *impotent admin*, which means that no user in
-   the database can make changes to the access rights. For this reason, Odoo recommends contacting
-   an Odoo Business Analyst, or our Support Team, before making changes.
+   **切勿**停用主要/管理员用户（admin）。更改管理员用户可能会对数据库产生不利影响。这包括*无权管理的管理员*，即数据库中没有用户可以更改访问权限。因此，Odoo 建议在进行更改之前联系 Odoo 商业分析师或我们的支持团队。
 
-Error: too many users
+错误：用户数量过多
 ---------------------
 
-If there are more users in an Odoo database than provisioned in the Odoo Enterprise subscription,
-the following message is displayed.
+如果 Odoo 数据库中的用户数量超过 Odoo 企业版订阅中规定的数量，则会显示以下消息。
 
 .. image:: users/add-more-users.png
    :align: center
-   :alt: Too many users on a database error message.
+   :alt: 数据库用户过多错误消息。
 
-When the message appears, the database administrator has 30 days to act before the database expires.
-The countdown is updated every day.
+当出现该消息时，数据库管理员有 30 天的时间采取行动，否则数据库将过期。每天都会更新倒计时。
 
-To resolve the issue, either:
+要解决此问题，可以选择：
 
-- Add more users to the subscription by clicking the :guilabel:`Upgrade your subscription` link
-  displayed in the message to validate the upsell quotation, and pay for the extra users.
-- :ref:`Deactivate users <users/deactivate>`, and reject the upsell quotation.
+- 通过点击消息中显示的 :guilabel:`升级您的订阅` 链接，添加更多用户到订阅中，验证升级报价并支付额外的用户费用。
+- :ref:`停用用户 <users/deactivate>`，并拒绝升级报价。
 
 .. warning::
-   If the company is on a monthly subscription plan, the database automatically updates to reflect
-   the added users. If the company is on a yearly or multi-year plan, an expiration banner appears
-   in the database. An upsell quotation can be created by clicking the banner to update the
-   subscription. Alternatively, users can `send a support ticket <https://www.odoo.com/help>`_ to
-   resolve the issue.
+   如果公司使用的是按月订阅计划，数据库会自动更新以反映添加的用户。如果公司使用的是按年或多年订阅计划，数据库中会出现到期通知横幅。可以点击横幅创建升级报价以更新订阅。或者，用户可以 `发送支持工单 <https://www.odoo.com/help>`_ 以解决问题。
 
-Once the database has the correct number of users, the expiration message disappears automatically
-after a few days, when the next verification occurs.
+一旦数据库中的用户数量正确，过期消息将在几天后自动消失，下次验证时会更新状态。
 
 .. _users/passwords-management:
 
-Password management
+密码管理
 ===================
 
-Password management is an important part of granting users autonomous access to the database at all
-times. Odoo offers a few different methods to reset a user's password.
+密码管理是确保用户随时独立访问数据库的重要部分。Odoo 提供了几种不同的重置用户密码的方法。
 
 .. tip::
-   Odoo has a setting to specify the length needed for a password. This setting can be accessed by
-   navigating to :menuselection:`Settings app --> Permissions` section, and entering the desired
-   password length in the :guilabel:`Minimum Password Length` field. By default the value is `8`.
+   Odoo 有一个设置可以指定密码所需的长度。可以通过导航到 :menuselection:`设置应用 --> 权限` 部分，并在 :guilabel:`最低密码长度` 字段中输入所需的密码长度来访问该设置。默认值为 `8`。
 
 .. image:: users/minimum-password-length.png
    :align: center
-   :alt: Minimum Password Length highlighted in the Permissions section of General Settings.
+   :alt: Odoo 中常规设置中权限部分中的最低密码长度字段。
 
 .. _users/reset-password:
 
-Reset password
+重置密码
 --------------
 
-Sometimes, users might wish to reset their personal password for added security, so they are the
-only ones with access to the password. Odoo offers two different reset options: one initiated by the
-user to reset the password, and another where the administrator triggers a reset.
+有时，用户可能希望重置其个人密码以增强安全性，从而确保只有他们自己可以访问密码。Odoo 提供了两种不同的重置选项：一种是由用户自行发起密码重置，另一种是由管理员触发的重置。
 
 .. _users/reset-password-login:
 
-Enable password reset from login page
+从登录页面启用密码重置
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-It is possible to enable/disable password resets directly from the login page. This action is
-completed by the individual user, and this setting is enabled by default.
+可以启用/禁用直接从登录页面进行密码重置的功能。此操作由个人用户完成，并且该设置默认启用。
 
-To change this setting, go to :menuselection:`Settings app --> Permissions` section, activate
-:guilabel:`Password Reset`, and then click :guilabel:`Save`.
+要更改此设置，请转到 :menuselection:`设置应用 --> 权限` 部分，激活 :guilabel:`密码重置`，然后点击 :guilabel:`保存`。
 
 .. image:: users/password-reset-login.png
    :align: center
-   :alt: Enabling Password Reset in Odoo Settings
+   :alt: 在 Odoo 设置中启用密码重置。
 
-On the login page, click :guilabel:`Reset Password` to initiate the password reset process, and have
-a reset-token sent to the email on file.
+在登录页面，点击 :guilabel:`重置密码` 以启动密码重置过程，系统会将重置令牌发送到存档的电子邮件地址。
 
 .. image:: users/password-reset.png
    :align: center
-   :alt: Login screen on Odoo.com with the password reset option highlighted.
+   :alt: Odoo 登录页面上的密码重置选项高亮显示。
 
 .. _users/reset-password-email:
 
-Send reset instructions
+发送重置说明
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Go to :menuselection:`Settings app --> Users & Companies --> Users`, select the user from the list,
-and click on :guilabel:`Send Password Reset Instructions` on the user form. An email is
-automatically sent to them with password reset instructions.
+导航到 :menuselection:`设置应用 --> 用户和公司 --> 用户`，从列表中选择用户，然后在用户表单上点击 :guilabel:`发送密码重置说明`。系统会自动向他们发送包含密码重置说明的电子邮件。
 
 .. note::
-   The :guilabel:`Send Password Reset Instructions` button **only** appears if the Odoo invitation
-   email has already been confirmed by the user. Otherwise, a :guilabel:`Re-send Invitation Email`
-   button appears.
+   如果用户尚未确认 Odoo 邀请电子邮件，则 :guilabel:`发送密码重置说明` 按钮**不会**显示。取而代之的是 :guilabel:`重新发送邀请邮件` 按钮。
 
-This email contains all the instructions needed to reset the password, along with a link redirecting
-the user to an Odoo login page.
+该电子邮件包含重置密码所需的所有说明以及一个重定向用户到 Odoo 登录页面的链接。
 
 .. image:: users/password-reset-email.png
    :align: center
-   :alt: Example of an email with a password reset link for an Odoo account.
+   :alt: Odoo 帐户密码重置链接的电子邮件示例。
 
 .. _users/change-password:
 
-Change user password
+更改用户密码
 --------------------
 
-Go to :menuselection:`Settings app --> Users & Companies --> Users`, and select a user to access its
-form. Click on the :guilabel:`⚙️ Actions` icon, and select :guilabel:`Change Password` from, the
-resulting drop-down menu. Enter a new password in the :guilabel:`New Password` column of the
-:guilabel:`Change Password` pop-up window that appears, and confirm the change by clicking
-:guilabel:`Change Password`.
+导航至 :menuselection:`设置应用 --> 用户和公司 --> 用户`，选择一个用户以访问其表单。点击 :guilabel:`⚙️ 操作` 图标，从出现的下拉菜单中选择 :guilabel:`更改密码`。在弹出的 :guilabel:`更改密码` 窗口中的 :guilabel:`新密码` 列中输入新密码，并通过点击 :guilabel:`更改密码` 确认更改。
 
 .. image:: users/change-password.png
    :align: center
-   :alt: Change a user's password on Odoo.
+   :alt: 在 Odoo 中更改用户密码。
 
 .. note::
-   This operation only modifies the password of the users locally, and does **not** affect their
-   odoo.com account.
+   此操作仅修改本地用户密码，**不**会影响他们的 odoo.com 帐户。
 
-   If the odoo.com password needs to be changed, use the :ref:`send the password reset instructions
-   <users/reset-password-email>`. Odoo.com passwords grant access to the *My Databases* page, and
-   other portal features.
+   如果需要更改 odoo.com 的密码，请使用 :ref:`发送密码重置说明 <users/reset-password-email>`。Odoo.com 密码用于访问 *我的数据库* 页面以及其他门户功能。
 
-After clicking :guilabel:`Change Password`, the page is redirected to an Odoo login page where the
-database can be re-accessed using the new password.
+点击 :guilabel:`更改密码` 后，页面将重定向至 Odoo 登录页面，用户可以使用新密码重新访问数据库。
 
 .. _users/multi-companies:
 
-Multi Companies
+多公司管理
 ===============
 
-The :guilabel:`Multi Companies` field on a user form allows an administrator to provide access to
-multiple companies for users. To configure a multi-company environment for a user, navigate to the
-desired user by going to: :menuselection:`Settings app --> Users section --> Manage users`. Then,
-select the user to open their user form, and configure with multi-company access.
+用户表单中的 :guilabel:`多公司` 字段允许管理员为用户提供访问多个公司的权限。要为用户配置多公司环境，请通过导航至：:menuselection:`设置应用 --> 用户部分 --> 管理用户`，选择用户以打开其用户表单，并配置多公司访问权限。
 
-Under :guilabel:`Multi Companies` in the :guilabel:`Access Rights` tab, set the fields labeled
-:guilabel:`Allowed Companies` and :guilabel:`Default Company`.
+在 :guilabel:`访问权限` 标签下的 :guilabel:`多公司` 中，设置 :guilabel:`允许访问的公司` 和 :guilabel:`默认公司` 字段。
 
-The :guilabel:`Allowed Companies` field can contain multiple companies. These are the companies the
-user can access and edit, according to the set access rights. The :guilabel:`Default Company` is the
-company the user defaults to, upon logging in each time. This field can contain only **one**
-company.
+:guilabel:`允许访问的公司` 字段可以包含多个公司。这些公司是用户根据设置的访问权限可以访问和编辑的公司。:guilabel:`默认公司` 是用户每次登录时默认使用的公司。此字段只能包含**一个**公司。
 
 .. warning::
-   If multi-company access is not configured correctly, it could lead to inconsistent multi-company
-   behaviors. Because of this, only experienced Odoo users should make access rights changes to
-   users for databases with a multi-company configuration. For technical explanations, refer to the
-   developer documentation on :doc:`../../../developer/howtos/company`.
+   如果多公司访问权限未正确配置，可能会导致多公司行为不一致。因此，只有经验丰富的 Odoo 用户才应对具有多公司配置的数据库的用户进行访问权限更改。有关技术说明，请参阅 :doc:`../../../developer/howtos/company` 中的开发者文档。
 
 .. image:: users/multi-companies.png
    :align: center
-   :alt: View of a user's form emphasizing the multi companies field in Odoo.
+   :alt: Odoo 中用户表单中的多公司字段视图。
 
 .. seealso::
    :doc:`companies`

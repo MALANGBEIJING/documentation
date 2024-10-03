@@ -4,14 +4,13 @@
 :show-toc:
 
 =========
-Inventory
+库存
 =========
 
-Odoo *Inventory* is both an inventory application and a warehouse management system. The app allows
-users to easily manage lead times, automate replenishment, configure advanced routes, and more.
+Odoo *库存* 是一个库存应用程序和仓库管理系统。该应用程序允许用户轻松管理交货时间、自动补货、配置高级路线等功能。
 
 .. seealso::
-   - `Odoo Tutorials: Inventory <https://www.odoo.com/slides/inventory-24>`_
+   - `Odoo 教程：库存 <https://www.odoo.com/slides/inventory-24>`_
 
 .. toctree::
    :titlesonly:

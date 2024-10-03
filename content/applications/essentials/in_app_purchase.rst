@@ -1,192 +1,142 @@
 ======================
-In-app purchases (IAP)
+应用内购买 (IAP)
 ======================
 
-.. |IAP| replace:: :abbr:`IAP (In-app purchases)`
+.. |IAP| replace:: :abbr:`IAP (应用内购买)`
 
-In-app purchases (IAP) are optional services that enhance Odoo databases. Each service provides its
-own specific features and functionality. A full list of services is available on the `Odoo IAP
-Catalog <https://iap.odoo.com/iap/all-in-app-services>`_.
+应用内购买 (IAP) 是可选服务，可增强 Odoo 数据库的功能。每项服务都提供其特定的功能和特色。完整的服务列表可以在 `Odoo IAP 目录 <https://iap.odoo.com/iap/all-in-app-services>`_ 上查看。
 
 .. image:: in_app_purchase/iap.png
    :align: center
-   :alt: The IAP catalog with various services available on IAP.Odoo.com.
+   :alt: IAP 目录，展示了 IAP.Odoo.com 上提供的各种服务。
 
 .. example::
-   The :guilabel:`SMS` service sends text messages to contacts directly from the database, and the
-   :guilabel:`Documents Digitization` service digitizes scanned or PDF vendor bills, expenses, and
-   resumes with optical character recognition (OCR) and artificial intelligence (AI).
+   :guilabel:`SMS` 服务直接从数据库向联系人发送短信，而 :guilabel:`文档数字化` 服务利用光学字符识别 (OCR) 和人工智能 (AI) 数字化扫描或 PDF 供应商账单、费用和简历。
 
-|IAP| services do **not** need to be configured or set up before use. Odoo users can simply click on
-the service in the app to activate it. However, each service requires its own prepaid credits, and
-when they run out, users **must** :ref:`buy more <iap/buying_credits>` in order to keep using it.
+|IAP| 服务在使用之前**不需要**进行配置或设置。Odoo 用户只需在应用中点击服务即可激活它。然而，每项服务都需要预付的积分，当积分用完时，用户**必须** :ref:`购买更多 <iap/buying_credits>` 才能继续使用该服务。
 
 .. note::
-   Enterprise Odoo users with a valid subscription get free credits to test IAP features before
-   deciding to purchase more credits for the database. This includes demo/training databases,
-   educational databases, and one-app-free databases.
+   拥有有效订阅的 Odoo 企业用户可以免费获得积分，用于测试 IAP 功能，然后再决定是否为数据库购买更多积分。这包括演示/培训数据库、教育数据库和免费单应用数据库。
 
 .. _in_app_purchase/portal:
 
-IAP services
+IAP 服务
 ============
 
-|IAP| services are provided by Odoo, as well as third-parties, and have a wide range of uses.
+|IAP| 服务由 Odoo 及第三方提供，涵盖广泛的用途。
 
-The following |IAP| services are offered by Odoo:
+Odoo 提供的 |IAP| 服务如下：
 
-- :guilabel:`Documents Digitization`: digitizes scanned or PDF vendor bills, expenses, and resumes
-  with OCR and AI.
-- :guilabel:`Partner Autocomplete`: automatically populates contact records with corporate data.
-- :guilabel:`SMS`: sends SMS text messages to contacts directly from the database.
-- :guilabel:`Lead Generation`: generates leads based on a set of criteria, and converts web visitors
-  into quality leads and opportunities.
-- :guilabel:`Snailmail`: sends customer invoices and follow-up reports by post, worldwide.
-- :guilabel:`Signer identification with itsme®️`: ask document signatories in Odoo *Sign* to provide
-  their identity using the *itsme®* identity platform, which is available in Belgium and the
-  Netherlands.
+- :guilabel:`文档数字化`：使用 OCR 和 AI 数字化扫描或 PDF 供应商账单、费用和简历。
+- :guilabel:`合作伙伴自动完成`：自动填充联系人记录中的公司数据。
+- :guilabel:`SMS`：直接从数据库向联系人发送 SMS 短信。
+- :guilabel:`线索生成`：根据一组标准生成线索，并将网站访问者转换为优质线索和商机。
+- :guilabel:`邮寄`：通过邮政向全球客户发送发票和跟进报告。
+- :guilabel:`使用 itsme®️ 进行签名识别`：在 Odoo *签名* 中要求文件签署方使用其身份平台 *itsme®* 提供身份验证（该平台在比利时和荷兰提供）。
 
-For more information on every service currently available (offered from developers other than Odoo),
-visit the `Odoo IAP Catalog <https://iap.odoo.com/iap/all-in-app-services>`_.
+有关所有当前提供的服务（由 Odoo 以外的开发者提供）的更多信息，请访问 `Odoo IAP 目录 <https://iap.odoo.com/iap/all-in-app-services>`_。
 
-Use IAP services
+使用 IAP 服务
 ----------------
 
-|IAP| services are automatically integrated with Odoo, and do **not** require users to configure any
-settings. To use a service, simply interact with it wherever it appears in the database.
+|IAP| 服务与 Odoo 自动集成，用户**不需要**配置任何设置。要使用服务，只需在数据库中与其交互即可。
 
 .. example::
-   The following flow focuses on the *SMS* |IAP| service being used from a contact's record.
+   以下流程展示了如何从联系人的记录中使用 *SMS* |IAP| 服务。
 
-   This can be done by clicking the :guilabel:`📱 SMS` icon within the database.
+   可以通过点击数据库中的 :guilabel:`📱 SMS` 图标来完成此操作。
 
    .. image:: in_app_purchase/sms-icon.png
       :align: center
-      :alt: The SMS icon on a typical contact information form located within an Odoo database.
+      :alt: Odoo 数据库中联系人信息表单上的 SMS 图标。
 
-   One way to utilize the *SMS* |IAP| service with Odoo is showcased in the following steps:
+   以下步骤展示了在 Odoo 中使用 *SMS* |IAP| 服务的方式：
 
-   First, navigate to the :menuselection:`Contacts application`, and click on a contact with a
-   mobile phone number entered in either the :guilabel:`Phone` or :guilabel:`Mobile` field of the
-   contact form.
+   首先，导航到 :menuselection:`联系人应用`，然后点击在联系人表单的 :guilabel:`电话` 或 :guilabel:`手机` 字段中输入了手机号的联系人。
 
-   Next, find the :guilabel:`📱 SMS` icon that appears to the right of the :guilabel:`Phone` or
-   :guilabel:`Mobile` fields. Click the :guilabel:`📱 SMS` icon, and a :guilabel:`Send SMS Text
-   Message` pop-up window appears.
+   接着，找到出现在 :guilabel:`电话` 或 :guilabel:`手机` 字段右侧的 :guilabel:`📱 SMS` 图标。点击 :guilabel:`📱 SMS` 图标，会弹出一个 :guilabel:`发送 SMS 短信` 窗口。
 
-   Type a message in the :guilabel:`Message` field of the pop-up window. Then, click the
-   :guilabel:`Send SMS` button. Odoo then sends the message, via SMS, to the contact, and logs what
-   was sent in the *chatter* of the contact's form.
+   在弹出窗口的 :guilabel:`消息` 字段中输入消息内容。然后点击 :guilabel:`发送 SMS` 按钮。Odoo 会通过 SMS 将消息发送给联系人，并在联系人的 *沟通记录* 中记录发送的内容。
 
-   Upon sending the SMS message, the prepaid credits for the *SMS* |IAP| service are automatically
-   deducted from the existing credits. If there are not enough credits to send the message, Odoo
-   prompts the user to purchase more.
+   发送 SMS 消息后，*SMS* |IAP| 服务的预付积分会自动从现有积分中扣除。如果没有足够的积分发送消息，Odoo 会提示用户购买更多积分。
 
 .. seealso::
-   For more information on how to use various |IAP| services, and for more in-depth instructions
-   related to SMS functionality in Odoo, review the documentation below:
+   有关如何使用各种 |IAP| 服务的更多信息，以及与 Odoo 中 SMS 功能相关的详细说明，请参阅以下文档：
 
-   - :doc:`Lead mining <../sales/crm/acquire_leads/lead_mining>`
-   - :doc:`Enrich your contacts base with Partner Autocomplete
-     <../sales/crm/optimize/partner_autocomplete>`
-   - :doc:`SMS Marketing <../marketing/sms_marketing>`
+   - :doc:`线索挖掘 <../sales/crm/acquire_leads/lead_mining>`
+   - :doc:`通过合作伙伴自动完成丰富您的联系人库 <../sales/crm/optimize/partner_autocomplete>`
+   - :doc:`SMS 营销 <../marketing/sms_marketing>`
 
 .. _in_app_purchase/credits:
 
-IAP credits
+IAP 积分
 ===========
 
-Every time an |IAP| service is used, the prepaid credits for that service are spent. Odoo prompts
-the purchase of more credits when there are not enough credits left to continue using a service.
-Email alerts can also be set up for when :ref:`credits are low <in_app_purchase/low-credits>`.
+每次使用 |IAP| 服务时，都会消耗该服务的预付积分。当积分不足以继续使用某项服务时，Odoo 会提示购买更多积分。还可以设置电子邮件提醒，当 :ref:`积分不足 <in_app_purchase/low-credits>` 时收到提醒。
 
-Credits are purchased in *Packs* from the `Odoo IAP Catalog
-<https://iap.odoo.com/iap/all-in-app-services>`_, and pricing is specific to each service.
+积分可以从 `Odoo IAP 目录 <https://iap.odoo.com/iap/all-in-app-services>`_ 中以 *套餐* 形式购买，每项服务的定价不同。
 
 .. example::
-   The `SMS service <https://iap.odoo.com/iap/in-app-services/1>`_ has four packs available, in
-   denominations of:
+   `SMS 服务 <https://iap.odoo.com/iap/in-app-services/1>`_ 提供四种套餐，面额如下：
 
-   - :guilabel:`Starter Pack`: 10 credits
-   - :guilabel:`Standard Pack`: 100 credits
-   - :guilabel:`Advanced Pack`: 500 credits
-   - :guilabel:`Expert Pack`: 1,000 credits
+   - :guilabel:`入门套餐`：10 积分
+   - :guilabel:`标准套餐`：100 积分
+   - :guilabel:`高级套餐`：500 积分
+   - :guilabel:`专家套餐`：1,000 积分
 
    .. image:: in_app_purchase/packs.png
       :align: center
-      :alt: Four different packs of credits for the SMS IAP service.
+      :alt: 四种不同的 SMS IAP 服务积分套餐。
 
-   The number of credits consumed depends on the length of the SMS and the country of destination.
+   消耗的积分数量取决于 SMS 的长度和目的地国家。
 
-   For more information, refer to the :doc:`SMS Pricing and FAQ
-   <../marketing/sms_marketing/pricing_and_faq>` documentation.
+   有关更多信息，请参阅 :doc:`SMS 定价和常见问题 <../marketing/sms_marketing/pricing_and_faq>` 文档。
 
 .. _iap/buying_credits:
 
-Buy credits
+购买积分
 -----------
 
-If there are not enough credits to perform a task, the database automatically prompts the purchase
-of more credits.
+如果积分不足以执行任务，数据库会自动提示购买更多积分。
 
-Users can check the current balance of credits for each service, and manually purchase more credits,
-by navigating to the :menuselection:`Settings app --> Contacts section`, and beneath the
-:guilabel:`Odoo IAP` setting, click :guilabel:`View My Services`.
+用户可以通过导航到 :menuselection:`设置应用 --> 联系人部分`，并在 :guilabel:`Odoo IAP` 设置下点击 :guilabel:`查看我的服务`，检查每项服务的当前积分余额，并手动购买更多积分。
 
-Doing so reveals an :guilabel:`IAP Service` page, listing the various |IAP| services in the
-database. From here, click an |IAP| service to open its :guilabel:`Account Information` page, where
-additional credits can be purchased.
+这样会显示一个 :guilabel:`IAP 服务` 页面，列出了数据库中的各种 |IAP| 服务。在此页面中，点击某项 |IAP| 服务以打开其 :guilabel:`账户信息` 页面，可以在该页面购买更多积分。
 
-Manually buy credits
+手动购买积分
 ~~~~~~~~~~~~~~~~~~~~
 
-To manually buy credits in Odoo, follow these steps:
+要在 Odoo 中手动购买积分，请按照以下步骤操作：
 
-First, go to the :menuselection:`Settings application` and type `IAP` in the :guilabel:`Search...`
-bar. Alternatively users can scroll down to the :guilabel:`Contacts` section. Under the
-:guilabel:`Contacts` section, where it says :guilabel:`Odoo IAP`, click :guilabel:`View My
-Services`.
+首先，转到 :menuselection:`设置应用`，并在 :guilabel:`搜索...` 栏中输入 `IAP`。或者，用户可以向下滚动到 :guilabel:`联系人` 部分。在 :guilabel:`联系人` 部分，点击 :guilabel:`Odoo IAP` 下的 :guilabel:`查看我的服务`。
 
 .. image:: in_app_purchase/view-services.png
    :align: center
-   :alt: The Settings app showing the Odoo IAP heading and View My Services button.
+   :alt: 设置应用显示了 Odoo IAP 标题和查看我的服务按钮。
 
-Doing so reveals an :guilabel:`IAP Account` page, listing the various |IAP| services in the
-database. From here, click an |IAP| service to open its :guilabel:`Account Information` page, where
-additional credits can be purchased.
+这样会显示一个 :guilabel:`IAP 账户` 页面，列出了数据库中的各种 |IAP| 服务。在此页面中，点击某项 |IAP| 服务以打开其 :guilabel:`账户信息` 页面，可以在该页面购买更多积分。
 
-On the :guilabel:`Account Information` page, click the :guilabel:`Buy Credit` button. Doing so loads
-a :guilabel:`Buy Credits for (IAP Account)` page in a new tab. From here, click :guilabel:`Buy` on
-the desired pack of credits. Then, follow the prompts to enter payment details, and confirm the
-order.
+在 :guilabel:`账户信息` 页面上，点击 :guilabel:`购买积分` 按钮。此操作会在新选项卡中加载一个 :guilabel:`为 (IAP 账户) 购买积分` 页面。在此页面上，点击所需积分套餐旁的 :guilabel:`购买` 按钮。然后，按照提示输入付款详细信息并确认订单。
 
 .. image:: in_app_purchase/buy-pack.png
    :align: center
-   :alt: The SMS service page on IAP.Odoo.com with four packs of credits available for purchase.
+   :alt: IAP.Odoo.com 上的 SMS 服务页面，显示了可购买的四个积分套餐。
 
-Once the transaction is complete, the credits are available for use in the database.
+交易完成后，积分即可在数据库中使用。
 
 .. _in_app_purchase/low-credits:
 
-Low-credit notification
+低积分通知
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-It is possible to be notified when credits are low, in order to avoid running out of credits, while
-using an |IAP| service. To do that, follow this process:
+可以在积分不足时收到通知，以避免在使用 |IAP| 服务时用完积分。要做到这一点，请按照以下步骤操作：
 
-Go to the :menuselection:`Settings application`, and type `IAP` in the :guilabel:`Search...` bar.
-Under the :guilabel:`Contacts` section, where it says :guilabel:`Odoo IAP`, click :guilabel:`View My
-Services`.
+转到 :menuselection:`设置应用`，并在 :guilabel:`搜索...` 栏中输入 `IAP`。在 :guilabel:`联系人` 部分，点击 :guilabel:`Odoo IAP` 下的 :guilabel:`查看我的服务`。
 
-The available |IAP| accounts appear in a list view on the :guilabel:`IAP Account` page. From here,
-click on the desired |IAP| account to view that service's :guilabel:`Account Information` page.
+在 :guilabel:`IAP 账户` 页面中会以列表视图显示可用的 |IAP| 账户。在此页面中，点击所需的 |IAP| 账户查看该服务的 :guilabel:`账户信息` 页面。
 
-On the :guilabel:`Account Information` page, tick the :guilabel:`Warn Me` checkbox. Doing so reveals
-two fields on the form: :guilabel:`Threshold` and :guilabel:`Warning Email`.
+在 :guilabel:`账户信息` 页面上，勾选 :guilabel:`警告我` 复选框。此操作会显示表单中的两个字段：:guilabel:`阈值` 和 :guilabel:`警告邮箱`。
 
-In the :guilabel:`Threshold` field, enter an amount of credits Odoo should use as the
-minimum threshold for this service. In the :guilabel:`Warning Email` field, enter the email address
-that receives the notification.
+在 :guilabel:`阈值` 字段中，输入 Odoo 应用于该服务的最低积分阈值。在 :guilabel:`警告邮箱` 字段中，输入接收通知的邮箱地址。
 
-Odoo sends a low-credit alert to the :guilabel:`Warning Email` when the balance of credits falls
-below the amount listed as the :guilabel:`Threshold`.
+当积分余额低于设定的 :guilabel:`阈值` 时，Odoo 会向 :guilabel:`警告邮箱` 发送低积分警告。

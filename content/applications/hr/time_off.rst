@@ -1,584 +1,397 @@
 :show-content:
 
 ========
-Time Off
+请假管理
 ========
 
-Odoo's **Time Off** application serves as a centralized hub for all time-off-related information.
-This application manages requests, balances, allocations, approvals, and reports.
+Odoo 的 **请假管理** 应用程序是集中管理所有请假相关信息的枢纽。该应用程序管理请假申请、余额、分配、审批和报告。
 
-Users can :doc:`request time off <../hr/time_off/request_time_off>`, and see an overview of their
-requests and time off balances. Managers can :doc:`allocate time off <time_off/allocations>` to
-individuals, teams, or the whole company, and :ref:`approve time off requests
-<time_off/manage-time-off>`.
+用户可以 :doc:`申请请假 <../hr/time_off/request_time_off>`，并查看他们的请假申请和请假余额概览。管理者可以 :doc:`分配请假 <time_off/allocations>` 给个人、团队或整个公司，并 :ref:`批准请假申请 <time_off/manage-time-off>`。
 
-Detailed :ref:`reports <time_off/reporting>` can be run to see how much time off (and what kinds of
-time off) are being used, :ref:`accrual plans <time_off/accrual-plans>` can be created, and
-:ref:`public holidays <time_off/public-holidays>` can be set.
+可以生成详细的 :ref:`报告 <time_off/reporting>` 查看已使用的请假时长（以及请假的种类），还可以创建 :ref:`累积计划 <time_off/accrual-plans>`，并设置 :ref:`公共假期 <time_off/public-holidays>`。
 
 .. note::
-   Be advised, only users with specific access rights can see all aspects of the **Time Off** app.
+   请注意，只有具有特定访问权限的用户才能查看 **请假管理** 应用程序的所有内容。
 
-   All users can access the *My Time Off* and *Overview* sections of the **Time Off** app. All other
-   sections require specific access rights.
+   所有用户都可以访问 **请假管理** 应用程序中的 *我的请假* 和 *概览* 部分。其他部分则需要特定的访问权限。
 
-   To better understand how access rights affect the **Time Off** app, refer to the
-   :doc:`employees/new_employee` document, specifically the section about configuring the work
-   information tab.
+   为了更好地理解访问权限如何影响 **请假管理** 应用程序，请参考 :doc:`员工/new_employee` 文档，特别是有关配置工作信息选项卡的部分。
 
-Configuration
+配置
 =============
 
-In order to allocate time off to employees, and for employees to request and use their time off, the
-various time off types must be configured first, then allocated to employees (if allocation is
-required).
+为了分配请假给员工，并让员工能够申请和使用他们的请假，首先必须配置各种请假类型，然后分配给员工（如果需要分配）。
 
 .. _time_off/time-off-types:
 
-Time off types
+请假类型
 --------------
 
-To view the currently configured time off types, navigate to :menuselection:`Time Off app -->
-Configuration --> Time Off Types`. The time off types are presented in a list view.
+要查看当前配置的请假类型，请导航到 :menuselection:`请假管理应用程序 --> 配置 --> 请假类型`。请假类型以列表视图显示。
 
-The **Time Off** app comes with four preconfigured time off types: :guilabel:`Paid Time Off`,
-:guilabel:`Sick Time Off`, :guilabel:`Unpaid`, and :guilabel:`Compensatory Days`. These can be
-modified to suit business needs, or used as-is.
+**请假管理** 应用程序预配置了四种请假类型：:guilabel:`带薪假期`、:guilabel:`病假`、:guilabel:`无薪假` 和 :guilabel:`补休`。这些类型可以根据业务需求进行修改，也可以按原样使用。
 
-Create time off type
+创建请假类型
 ~~~~~~~~~~~~~~~~~~~~
 
-To create a new time off type, navigate to :menuselection:`Time Off app --> Configuration --> Time
-Off Types`. From here, click the :guilabel:`New` button to reveal a blank time off type form.
+要创建新的请假类型，请导航到 :menuselection:`请假管理应用程序 --> 配置 --> 请假类型`。然后，点击 :guilabel:`新建` 按钮，显示一个空白的请假类型表单。
 
-Enter the name for the particular type of time off in the blank line at the top of the form, such as
-`Sick Time` or `Vacation`. Then, enter the following information on the form.
+在表单顶部的空白行中输入特定请假类型的名称，例如 `病假` 或 `假期`。然后，在表单上输入以下信息。
 
 .. note::
-   The only **required** fields on the time off type form are the name of the :guilabel:`Time Off
-   Type`, the :guilabel:`Take Time Off In`, and the :guilabel:`Kind of Time Off`. In addition, the
-   :guilabel:`Time Off Requests` and :guilabel:`Allocation Requests` sections **must** be
-   configured.
+   请假类型表单上唯一**必填**的字段是 :guilabel:`请假类型` 的名称、:guilabel:`请假时间单位` 和 :guilabel:`请假类型`。此外，:guilabel:`请假申请` 和 :guilabel:`分配请求` 部分**必须**配置。
 
-Time Off Requests section
+请假申请部分
 *************************
 
-- :guilabel:`Approval`: select what specific kind of approval is required for the time off type. The
-  options are:
+- :guilabel:`审批`: 选择此请假类型需要的特定审批类型。选项如下：
 
-  - :guilabel:`No Validation`: No approvals are required when requesting this type of time off. The
-    time off request is automatically approved.
-  - :guilabel:`By Time Off Officer`: Only the specified :ref:`Time Off Officer
-    <time_off/time-off-officer>`, set on this form in the :guilabel:`Notified Time Off Officer`
-    field, is required to approve the time off request. This option is selected, by default.
-  - :guilabel:`By Employee's Approver`: Only the employee's specified approver for time off, which
-    is set on the *Work Information* tab on the :ref:`employee's form <employees/work-info-tab>`, is
-    required to approve the time off request.
-  - :guilabel:`By Employee's Approver and Time Off Officer`: Both the employee's :ref:`specified
-    time off approver<employees/work-info-tab>` and the :ref:`Time Off Officer
-    <time_off/time-off-officer>` are required to approve the time off request.
+  - :guilabel:`无需验证`: 申请此类请假不需要审批。请假申请会自动批准。
+  - :guilabel:`由请假主管审批`: 只有在此表单上的 :guilabel:`通知请假主管` 字段中指定的 :ref:`请假主管 <time_off/time-off-officer>` 需要批准请假申请。默认情况下，选择此选项。
+  - :guilabel:`由员工审批人审批`: 只有员工在 :ref:`员工表单 <employees/work-info-tab>` 的 *工作信息* 选项卡上指定的请假审批人需要批准请假申请。
+  - :guilabel:`由员工审批人和请假主管审批`: 员工的 :ref:`指定请假审批人 <employees/work-info-tab>` 和 :ref:`请假主管 <time_off/time-off-officer>` 都需要批准请假申请。
 
-Allocation Requests section
+分配请求部分
 ***************************
 
-- :guilabel:`Requires allocation`: If the time off must be allocated to employees, select
-  :guilabel:`Yes`. If the time off can be requested without time off being previously allocated,
-  select :guilabel:`No Limit`. If :guilabel:`No Limit` is selected, the following options do not
-  appear on the form.
-- :guilabel:`Employee Requests`: Select :guilabel:`Extra Days Requests Allowed` if the employee is
-  able to request more time off than was allocated.
+- :guilabel:`需要分配`: 如果此请假必须分配给员工，则选择 :guilabel:`是`。如果不需要提前分配时间即可申请此类请假，则选择 :guilabel:`无限制`。如果选择了 :guilabel:`无限制`，则表单中不会显示以下选项。
+- :guilabel:`员工请求`: 如果允许员工申请超过分配的请假天数，则选择 :guilabel:`允许申请额外天数`。
 
-  If employees should **not** be able to make requests for more time off than what was allocated,
-  select the :guilabel:`Not Allowed` option.
+  如果不允许员工申请超出分配的请假天数，则选择 :guilabel:`不允许`。
 
   .. example::
-     Ten days are allocated to the employee for this particular type of time off, and the
-     :guilabel:`Extra Days Requests Allowed` option is enabled. The employee wants to take a
-     vacation for twelve days. They may submit a request for two additional days, since the
-     :guilabel:`Extra Days Requests Allowed` option is enabled.
+     为员工分配了10天的此类请假，并启用了 :guilabel:`允许申请额外天数` 选项。员工想申请12天的假期。由于启用了 :guilabel:`允许申请额外天数` 选项，因此他们可以提交申请额外的两天。
 
   .. important::
-     It is important to note that requesting additional time off does **not** guarantee that time
-     off is granted.
+     请注意，申请额外的假期并**不**保证假期一定会被批准。
 
-- :guilabel:`Approval`: Select the type of approvals required for the allocation of this particular
-  time off type.
+- :guilabel:`审批`: 选择此请假类型分配所需的审批类型。
 
-  - :guilabel:`Approved by Time Off Officer` indicates the :ref:`Time Off Officer
-    <time_off/time-off-officer>` set on this form must approve the allocation.
-  - :guilabel:`No validation needed` indicates that no approvals are required.
+  - :guilabel:`由请假主管批准` 表示此表单上设置的 :ref:`请假主管 <time_off/time-off-officer>` 必须批准分配。
+  - :guilabel:`无需验证` 表示不需要任何审批。
 
-Configuration section
+配置部分
 *********************
 
   .. _`time_off/time-off-officer`:
 
-- :guilabel:`Notified Time Off Officer`: Select the person who is notified and responsible for
-  approving requests and allocations for this specific type of time off.
-- :guilabel:`Take Time Off in`: Select the format the time off is requested in from the drop-down
-  menu.
+- :guilabel:`通知请假主管`: 选择此请假类型的请求和分配的审批人。
+- :guilabel:`请假时间单位`: 从下拉菜单中选择申请请假的单位。
 
-  The options are:
+  选项如下：
 
-  - :guilabel:`Day`: if time off can only be requested in full day increments (8 hours).
-  - :guilabel:`Half Day`: if time off can only be requested in half day increments (4 hours).
-  - :guilabel:`Hours`: if the time off can be taken in hourly increments.
+  - :guilabel:`天`: 请假只能以整天为单位申请（8小时）。
+  - :guilabel:`半天`: 请假只能以半天为单位申请（4小时）。
+  - :guilabel:`小时`: 请假可以按小时申请。
 
   .. _`time_off/deduct-extra-hours`:
 
-- :guilabel:`Deduct Extra Hours`: Enable this option if the time off request should factor in any
-  extra time accrued by the employee.
+- :guilabel:`扣除额外时间`: 如果请假申请应考虑员工的额外工作时间，请启用此选项。
 
   .. example::
-     If an employee works two extra hours for the week, and requests five hours of time off, the
-     request would be for three hours, since the two extra worked hours are used first, and deducted
-     from the request.
+     如果员工一周多工作了两小时，并申请五小时的请假，那么请假申请将为三小时，因为先扣除了两小时的额外工作时间。
 
-- :guilabel:`Allow To Attach Supporting Document`: Enable this option to allow the employee to
-  attach documents to the time off request. This is useful in situations where documentation is
-  required, such as long-term medical leave.
-- :guilabel:`Kind of Time Off`: From the drop-down menu, select the type of time off, either
-  :guilabel:`Worked Time` or :guilabel:`Absence`. :guilabel:`Worked Time` indicates the time off
-  taken counts toward worked time for any type of accrual the employee is working towards, whereas
-  :guilabel:`Absence` does not count toward any type of accrual.
-- :guilabel:`Company`: If multiple companies are created in the database, and this time off type
-  only applies to one company, select the company from the drop-down menu. If this field is left
-  blank, the time off type applies to all companies in the database. This field **only** appears in
-  a multi-company database.
+- :guilabel:`允许附加支持文件`: 启用此选项以允许员工在请假申请中附加文件。在需要文档的情况下（如长期病假）这很有用。
+- :guilabel:`请假类型`: 从下拉菜单中选择请假类型，选项为 :guilabel:`工作时间` 或 :guilabel:`缺勤`。:guilabel:`工作时间` 表示请假期间计入员工的累计工时，而 :guilabel:`缺勤` 则不计入任何累计。
+- :guilabel:`公司`: 如果数据库中创建了多个公司，并且此请假类型仅适用于某个公司，则从下拉菜单中选择公司。如果此字段留空，则该请假类型适用于数据库中的所有公司。此字段**仅**在多公司数据库中显示。
 
-Negative Cap section
+负余额部分
 ********************
 
-Enable the :guilabel:`Allow Negative Cap` option if employees are able to request more time off than
-they currently have, allowing a negative balance. If enabled, an :guilabel:`Amount in Negative`
-field appears. In this field, enter the maximum amount of negative time allowed, in days.
+如果员工能够申请超过他们当前拥有的请假时长，允许产生负余额，请启用 :guilabel:`允许负余额` 选项。如果启用，将出现一个 :guilabel:`负余额金额` 字段。在此字段中输入允许的最大负余额天数。
 
 .. example::
-   Sara currently has three days of the time off type `Vacation`. She is planning a trip that
-   requires five days of time off.
+   Sara 目前有三天的 `假期`。她计划休假五天。
 
-   The `Vacation` time off type has the :guilabel:`Allow Negative Cap` option enabled, and the
-   :guilabel:`Amount in Negative` is set to five.
+   `假期` 请假类型启用了 :guilabel:`允许负余额` 选项，并将 :guilabel:`负余额金额` 设置为五天。
 
-   These settings allow Sara to submit a request for five days of the `Vacation` time off type. If
-   approved, her `Vacation` time off balance will be negative two (-2) days.
+   这些设置允许 Sara 提交五天的 `假期` 申请。如果批准，她的 `假期` 余额将为负两天 (-2)。
 
 .. image:: time_off/time-off-type-form-top.png
    :align: center
-   :alt: The top half of the time off type form, with all the information filled out for sick time
-         off.
+   :alt: 请假类型表单的上半部分，填写了病假的所有信息。
 
-Payroll section
+工资单部分
 ***************
 
-If the time off type should create :doc:`../hr/payroll/work_entries` in the **Payroll** app, select
-the :guilabel:`Work Entry Type` from the drop-down list.
+如果请假类型应在 **工资单** 应用程序中创建 :doc:`../hr/payroll/work_entries`，请从下拉列表中选择 :guilabel:`工作条目类型`。
 
-Timesheets section
+工时报表部分
 ******************
 
 .. note::
-   The :guilabel:`Timesheets` section only appears if the user is in developer mode. Refer to the
-   :ref:`developer-mode` document for details on how to access the developer mode.
+   只有在开发者模式下，才会显示 :guilabel:`工时报表` 部分。有关如何访问开发者模式的详细信息，请参阅 :ref:`developer-mode` 文档。
 
-When an employee takes time off, and is also using timesheets, Odoo creates entries in the
-**Timesheets** app for the time off. This section defines how they are entered.
+当员工请假且同时使用工时报表时，Odoo 会在 **工时报表** 应用程序中为请假创建条目。本节定义这些条目的创建方式。
 
-- :guilabel:`Project`: Select the project the time off type entries appear in.
-- :guilabel:`Task`: Select the task that appears in the timesheet for this time off type. The
-  default options are: :guilabel:`Time Off`, :guilabel:`Meeting`, or :guilabel:`Training`.
+- :guilabel:`项目`: 选择该请假类型条目将显示在哪个项目中。
+- :guilabel:`任务`: 选择该请假类型在工时报表中显示的任务。默认选项包括：:guilabel:`请假`、:guilabel:`会议` 或 :guilabel:`培训`。
 
-Display Option section
+显示选项部分
 **********************
 
-- :guilabel:`Color`: Select a color to be used in the **Time Off** app dashboard.
-- :guilabel:`Cover Image`: Select an icon to be used in the **Time Off** app dashboard.
+- :guilabel:`颜色`: 选择在 **请假管理** 应用程序仪表板中使用的颜色。
+- :guilabel:`封面图片`: 选择在 **请假管理** 应用程序仪表板中使用的图标。
 
 .. image:: time_off/time-off-type-form-bottom.png
    :align: center
-   :alt: The lower half of the time off type form, with all the information filled out for sick time
-         off.
+   :alt: 请假类型表单的下半部分，填写了病假的所有信息。
 
 .. _time_off/accrual-plans:
 
-Accrual plans
+累积计划
 -------------
 
-Some time off is earned through an accrual plan, meaning that for every specified amount of time an
-employee works (hour, day, week, etc), they earn or *accrue* a specified amount of time off.
+有些请假是通过累积计划获得的，这意味着员工每工作一段特定的时间（小时、天、周等），就可以获得或“累积”一定的请假时长。
 
 .. example::
-   If an employee accrues a vacation day for every week they work, they would earn 0.2 vacation days
-   for each hour they work. At the end of a forty hour work week, they would earn one whole vacation
-   day (8 hours).
+   如果员工每周工作累积一天假期，他们每工作一小时就能获得0.2天假期。到40小时工作周结束时，他们将获得一整天（8小时）的假期。
 
-Create accrual plan
+创建累积计划
 ~~~~~~~~~~~~~~~~~~~
 
-To create a new accrual plan, navigate to :menuselection:`Time Off app --> Configuration --> Accrual
-Plans`. Then, click the :guilabel:`New` button, which reveals a blank accrual plan form.
+要创建新的累积计划，请导航到 :menuselection:`请假管理应用程序 --> 配置 --> 累积计划`。然后点击 :guilabel:`新建` 按钮，显示一个空白的累积计划表单。
 
-Enter the following information on the form:
+在表单中输入以下信息：
 
-- :guilabel:`Name`: Enter the accrual plan name.
-- :guilabel:`Accrued Gain Time`: Select when the employee begins to accrue time off, either
-  :guilabel:`At the start of the accrual period` or :guilabel:`At the end of the accrual period`.
-- :guilabel:`Carry-Over Time`: Select when the employee received previously earned time. The options
-  are:
+- :guilabel:`名称`: 输入累积计划名称。
+- :guilabel:`累积增益时间`: 选择员工开始累积请假的时间，选项为 :guilabel:`累积周期开始时` 或 :guilabel:`累积周期结束时`。
+- :guilabel:`结转时间`: 选择员工获得之前累积的时间的时间点。选项为：
 
-  - :guilabel:`At the start of the year`: Select this if the accrual rolls over on January 1 of the
-    upcoming year.
-  - :guilabel:`At the allocation date`: Select this if the accrual rolls over as soon as time is
-    allocated to the employee.
-  - :guilabel:`Other`: Select this option if neither of the other two options are applicable. When
-    selected, a :guilabel:`Carry-Over Date` field appears. Select the date using the two drop-down
-    menus, one for the day and one for the month.
+  - :guilabel:`年初`: 选择此选项时，累积将在下一年1月1日结转。
+  - :guilabel:`分配日期`: 选择此选项时，累积会在时间分配给员工后立即结转。
+  - :guilabel:`其他`: 如果前两种选项均不适用，请选择此选项。选择此选项时，将出现一个 :guilabel:`结转日期` 字段。使用两个下拉菜单选择日期，一个选择日，一个选择月。
 
-- :guilabel:`Based on worked time`: Enable this option if time off accrual is determined by the
-  employee's worked hours. Days **not** considered as worked time do **not** contribute to the
-  accrual plan in Odoo.
+- :guilabel:`基于工时累积`: 如果请假累积是根据员工的工作时间来决定的，请启用此选项。未被视为工时的天数将**不**计入 Odoo 中的累积计划。
 
   .. example::
-     An employee is granted time off from an accrual plan configured to accrue one day of vacation
-     for every five days worked. The accrual plan is based on the employee's worked time (the
-     :guilabel:`Based on worked time` checkbox is ticked).
+     公司为员工设置了一个累积计划，规定每工作五天累积一天假期。该累积计划基于员工的工时（勾选了 :guilabel:`基于工时累积` 选项）。
 
-     The employee works standard 40-hour weeks. According to the accrual plan, they should earn
-     four vacation days per month.
+     该员工每周工作标准40小时。根据累积计划，他们每月应获得四天假期。
 
-     The employee takes five days off. The :ref:`time off type <time_off/time-off-types>` the
-     employee has taken has the :guilabel:`Kind of Time Off` configured as an :guilabel:`Absence`.
+     员工请了五天假。员工请假的 :ref:`请假类型 <time_off/time-off-types>` 被配置为 :guilabel:`缺勤`。
 
-     Since the accrual plan only grants time off based on the worked time, the employee does **not**
-     accrue a vacation day for the five days of time off that is considered an absence.
+     由于累积计划仅基于工时来授予请假，该员工不会为五天的缺勤获得一天假期。
 
-     At the end of the month, the employee accrues only three days, instead of four.
+     到月底，该员工仅累积了三天假期，而不是四天。
 
-- :guilabel:`Milestone Transition`: This field is **only** visible after a minimum of two
-  :ref:`rules <time_off/rules>` have been configured on the accrual plan. This selection determines
-  when employees move up to a new milestone. If they qualify to change milestones in the middle of a
-  pay period, decide whether the employee changes milestones :guilabel:`Immediately` or
-  :guilabel:`After this accrual's period` (after the current pay period).
-- :guilabel:`Company`: This field **only** appears in a multi-company database. Using the drop-down
-  menu, select the company the accrual plan applies to. If left blank, the accrual plan can be used
-  for all companies.
+- :guilabel:`里程碑转换`: 该字段**仅**在累积计划上配置了至少两个 :ref:`规则 <time_off/rules>` 后可见。此选项决定员工何时达到新的里程碑。如果他们在支付周期中间符合更换里程碑的条件，请决定员工是在 :guilabel:`立即` 更换里程碑，还是在 :guilabel:`本累积周期结束后` 更换（当前支付周期结束后）。
+- :guilabel:`公司`: 此字段**仅**在多公司数据库中显示。使用下拉菜单选择累积计划适用的公司。如果留空，累积计划可以适用于所有公司。
 
 .. image:: time_off/accrual-plan-form.png
    :align: center
-   :alt: An accrual plan form with all the entries filled out.
+   :alt: 所有条目都已填写的累积计划表单。
 
 .. _time_off/rules:
 
-Rules
+规则
 *****
 
-Rules must be created in order for employees to accrue time off from the accrual plan.
+必须创建规则，员工才能根据累积计划累积请假。
 
-To create a new rule, click the :guilabel:`New Milestone` button in the gray :guilabel:`Rules`
-section, and a :guilabel:`Create Milestone` modal form appears.
+要创建新规则，请点击灰色 :guilabel:`规则` 部分中的 :guilabel:`新里程碑` 按钮，将会弹出一个 :guilabel:`创建里程碑` 模态表单。
 
-Fill out the following fields on the form:
+在表单上填写以下字段：
 
-- :guilabel:`Employee accrue`: Select the parameters for earned time off in this section.
+- :guilabel:`员工累积`: 在此部分选择获得请假的参数。
 
-  First, select either :guilabel:`Days` or :guilabel:`Hours` for the increment of accrued time using
-  the drop-down menu.
+  首先，使用下拉菜单选择累积的时间单位，选项为 :guilabel:`天` 或 :guilabel:`小时`。
 
-  Next, enter the numerical amount of the selected parameter that is accrued. The numerical format
-  is `X.XXXX`, so that partial days or hours can also be configured.
+  接下来，输入所选参数的数值。数值格式为 `X.XXXX`，因此可以配置部分天数或小时。
 
-  Last, select how often the time is accrued using the drop-down menu. The default options are
-  :guilabel:`Hourly`, :guilabel:`Daily`, :guilabel:`Weekly`, :guilabel:`Twice a month`,
-  :guilabel:`Monthly`, :guilabel:`Twice a year`, and :guilabel:`Yearly`.
+  最后，使用下拉菜单选择时间累积的频率。默认选项为 :guilabel:`按小时`、:guilabel:`按天`、:guilabel:`按周`、:guilabel:`每月两次`、:guilabel:`每月`、:guilabel:`每半年` 和 :guilabel:`每年`。
 
-  Depending on which option is selected, additional fields may appear. For example, if
-  :guilabel:`Twice a month` is selected, two additional fields appear, to specify the two days of
-  each month the milestone occurs.
-- :guilabel:`Cap accrued time`: If there is a maximum amount of days the employee can accrue with
-  this plan, enable this option.
+  根据所选选项，可能会出现额外字段。例如，如果选择了 :guilabel:`每月两次`，则会出现两个额外字段，以指定每月的两天。
 
-  When enabled, two additional fields appear beneath it. Select the type of time period from the
-  drop-down menu, either :guilabel:`Days` or :guilabel:`Hours`.
+- :guilabel:`累积上限`: 如果此计划有员工可以累积的最大天数，请启用此选项。
 
-  Then, enter a numerical value in the field to specify the maximum amount of time that can be
-  accrued.
-- :guilabel:`Milestone reached`: Enter the number and value of the time period that must pass before
-  the employee starts to accumulate time off. The first value is numerical; enter a number in the
-  first field.
+  启用后，在其下方会出现两个额外字段。使用下拉菜单选择时间段类型，选项为 :guilabel:`天` 或 :guilabel:`小时`。
 
-  Then, select the type of time period using the drop-down menu in the second field. The options
-  are: :guilabel:`Days`, :guilabel:`Months`, or :guilabel:`Years`.
-- :guilabel:`Carry over`: select how any unused time off is handled. The options are either:
+  然后，在字段中输入数值，以指定可以累积的最大时间。
 
-  - :guilabel:`None. Accrued time reset to 0`: Any unused time off is gone.
-  - :guilabel:`All accrued time carried over`: All unused time off is rolled over to the next
-    calendar year.
-  - :guilabel:`Carry over with a maximum`: Unused time off is rolled over to the next calendar year,
-    but there is a cap. An :guilabel:`Up to` field appears if this is selected. Enter the maximum
-    number of :guilabel:`Days` that can roll over to the following year. Any time off beyond this
-    parameter is lost.
+- :guilabel:`达到里程碑`: 输入员工开始累积请假之前必须经过的时间段数值。第一个值为数值；在第一个字段中输入一个数字。
+
+  然后，在第二个字段中使用下拉菜单选择时间段类型。选项包括：:guilabel:`天`、:guilabel:`月` 或 :guilabel:`年`。
+
+- :guilabel:`结转`: 选择如何处理未使用的请假时间。选项为：
+
+  - :guilabel:`无。累积时间重置为0`: 未使用的请假时间将被清零。
+  - :guilabel:`所有累积时间结转`: 所有未使用的请假时间将结转至下一年。
+  - :guilabel:`有上限的结转`: 未使用的请假时间将结转至下一年，但有上限。如果选择此选项，将出现一个 :guilabel:`最多` 字段。在此字段中输入可以结转至下一年的 :guilabel:`天数` 上限。超出此参数的时间将作废。
 
 .. important::
-   If the :guilabel:`Carry over` field is set to :guilabel:`None. Accrued time reset to 0`, that
-   rule *overrides* the :guilabel:`Carry-Over Time` set on the accrual plan.
+   如果将 :guilabel:`结转` 字段设置为 :guilabel:`无。累积时间重置为0`，该规则将*覆盖*累积计划上设置的 :guilabel:`结转时间`。
 
-   If a company creates an accrual plan, granting employees time off :guilabel:`At the start of the
-   accrual period` (i.e., the beginning of the year), and sets the :guilabel:`Carry-Over Time` on
-   the *accrual plan* to :guilabel:`At the start of the year`, it allows unused vacation time to
-   rollover to the following year.
+   如果公司创建了一个累积计划，允许员工在 :guilabel:`累积周期开始时`（即年初）获得假期，并在 *累积计划* 上将 :guilabel:`结转时间` 设置为 :guilabel:`年初`，这允许未使用的假期结转至下一年。
 
-   Then, the company adds rules to the accrual plan, allocating five days of vacation, annually, on
-   the first of the year (one week of vacation allocated on January 1st).
+   然后，公司在累积计划上添加规则，分配每年五天假期，每年一月一日分配一周的假期。
 
-   If the :guilabel:`Carry over` field is set to :guilabel:`None. Accrual time reset to 0` on the
-   :guilabel:`Create Milestone` pop-up for, any unused vacation time *does not* carry over, even
-   though on the :guilabel:`Accrual Plan` form, the :guilabel:`Carry-Over Time` is set to
-   :guilabel:`At the start of the year`.
+   如果在 :guilabel:`创建里程碑` 弹出框中将 :guilabel:`结转` 字段设置为 :guilabel:`无。累积时间重置为0`，那么即使在 *累积计划* 表单上将 :guilabel:`结转时间` 设置为 :guilabel:`年初`，未使用的假期也不会结转。
 
-   The carry over set on the *rule* takes precedence over the carry over set on the *accrual plan
-   form*.
+   设置在*规则*上的结转优先于设置在*累积计划表单*上的结转。
 
-Once the form is completed, click :guilabel:`Save & Close` to save the :guilabel:`Create Milestone`
-form, and close the modal, or click :guilabel:`Save & New` to save the form and create another
-milestone. Add as many milestones as desired.
+填写完表单后，单击 :guilabel:`保存并关闭` 保存 :guilabel:`创建里程碑` 表单并关闭模态框，或单击 :guilabel:`保存并新建` 以保存表单并创建另一个里程碑。根据需要添加多个里程碑。
 
 .. image:: time_off/milestone.png
    :align: center
-   :alt: A milestone form with all the entries filled out.
+   :alt: 所有条目都已填写的里程碑表单。
 
 .. _time_off/public-holidays:
 
-Public holidays
+公共假期
 ---------------
 
-To observe public or national holidays, and provide extra days off as holidays to employees,
-configure the observed *public holidays* in Odoo.
+要观测公共或国家假期，并为员工提供额外的假期，您可以在 Odoo 中配置观测到的*公共假期*。
 
-It is important to configure these days in Odoo, so employees are aware of the days they have off,
-and do not request time off on days that are already set as a public holiday (non-working days).
+在 Odoo 中配置这些假期很重要，这样员工可以知道他们的假期，不会在已经设置为公共假期（非工作日）的日子申请请假。
 
-Additionally, all public holidays configured in the **Time Off** app are also reflected in any app
-that uses working schedules, such as **Calendar**, **Planning**, **Manufacturing**, and more.
+此外，所有在 **请假管理** 应用程序中配置的公共假期也会反映在使用工作计划的任何应用程序中，如 **日历**、**规划**、**制造** 等。
 
-Due to Odoo's integration with other apps that use working schedules, it is considered best practice
-to ensure *all* public holidays are configured.
+由于 Odoo 与其他使用工作计划的应用程序集成，最佳实践是确保配置*所有*公共假期。
 
-Create public holiday
+创建公共假期
 ~~~~~~~~~~~~~~~~~~~~~
 
-To create a public holiday, navigate to :menuselection:`Time Off app --> Configuration --> Public
-Holidays`.
+要创建公共假期，请导航到 :menuselection:`请假管理应用程序 --> 配置 --> 公共假期`。
 
-All currently configured public holidays appear in a list view.
+所有当前配置的公共假期将以列表视图显示。
 
-Click the :guilabel:`New` button, and a new line appears at the bottom of the list.
+点击 :guilabel:`新建` 按钮，在列表底部出现一行新数据。
 
-Enter the following information on that new line:
+在该新行中输入以下信息：
 
-- :guilabel:`Name`: Enter the name of the holiday.
-- :guilabel:`Company`: If in a multi-company database, the current company populates this field by
-  default. It is **not** possible to edit this field.
+- :guilabel:`名称`: 输入假期名称。
+- :guilabel:`公司`: 如果在多公司数据库中，当前公司会默认填充此字段。此字段**不可**编辑。
 
   .. note::
-     The :guilabel:`Company` field is hidden, by default. To view this field, click the
-     :icon:`oi-settings-adjust` :guilabel:`(additional options)` icon in the top-right corner of the
-     list, to the far-right of the column titles, and activate the :guilabel:`Company` selection
-     from the drop-down menu that appears.
+     :guilabel:`公司` 字段默认隐藏。要查看此字段，请点击列表右上角列标题右侧的 :icon:`oi-settings-adjust` :guilabel:`（更多选项）` 图标，并从出现的下拉菜单中启用 :guilabel:`公司` 选项。
 
-- :guilabel:`Start Date`: Using the date and time picker, select the date and time the holiday
-  starts, then click :icon:`fa-check` :guilabel:`Apply`. By default, this field is configured for
-  the current date. The start time is set according to the start time for the company (according to
-  the :ref:`working schedules <payroll/working-times>`). If the user's computer is set to a
-  different time zone, the start time is adjusted according, compared to the company's time zone.
-- :guilabel:`End Date`: Using the date and time picker, select the date and time the holiday ends,
-  then click :icon:`fa-check` :guilabel:`Apply`. By default, this field is configured for the
-  current date, and the time is set to the end time for the company (according to the :ref:`working
-  schedules <payroll/working-times>`). If the user's computer is set to a different time zone, the
-  start time is adjusted accordingly, compared to the company's time zone.
+- :guilabel:`开始日期`: 使用日期和时间选择器，选择假期的开始日期和时间，然后点击 :icon:`fa-check` :guilabel:`应用`。默认情况下，此字段设置为当前日期。开始时间根据公司的开始时间设置（根据 :ref:`工作时间 <payroll/working-times>`）。如果用户的计算机设置了不同的时区，则开始时间会根据公司的时区进行调整。
+- :guilabel:`结束日期`: 使用日期和时间选择器，选择假期的结束日期和时间，然后点击 :icon:`fa-check` :guilabel:`应用`。默认情况下，此字段设置为当前日期，结束时间根据公司的结束时间设置（根据 :ref:`工作时间 <payroll/working-times>`）。如果用户的计算机设置了不同的时区，则结束时间会根据公司的时区进行调整。
 
   .. example::
-     A company located in San Francisco operates from 9:00 AM - 6:00 PM, with an eight hour work day
-     and one hour lunch break.
+     位于旧金山的公司工作时间为上午9:00至下午6:00，工作日为8小时，午餐时间为1小时。
 
-     For a user in New York, with a computer time zone set to Eastern Standard Time, a created
-     public holiday displays a start time of 12:00 PM - 9:00 PM, accounting for the three hour time
-     zone difference.
+     对于在纽约的用户，其计算机时区设置为东部标准时间，创建的公共假期显示的开始时间为中午12:00至晚上9:00，考虑到3小时的时区差异。
 
-     Similarly, a user located in Los Angeles, with a computer time zone set to Pacific Standard
-     Time, sees a public holiday time as 9:00 AM - 6:00 PM.
+     类似地，位于洛杉矶的用户，其计算机时区设置为太平洋标准时间，看到的公共假期时间为上午9:00至下午6:00。
 
-- :guilabel:`Working Hours`: If the holiday should only apply to employees who have a specific set
-  of working hours, select the working hours from the drop-down menu. If left blank, the holiday
-  applies to all employees.
-- :guilabel:`Work Entry Type`: If using the **Payroll** app, this field defines how the :ref:`work
-  entries <payroll/work-entries>` for the holiday appear. Select the work entry type from the
-  drop-down menu.
+- :guilabel:`工作时间`: 如果假期仅适用于具有特定工作时间的员工，请从下拉菜单中选择工作时间。如果留空，则假期适用于所有员工。
+- :guilabel:`工作条目类型`: 如果使用 **工资单** 应用程序，此字段定义假期的 :ref:`工作条目 <payroll/work-entries>` 显示方式。从下拉菜单中选择工作条目类型。
 
 .. image:: time_off/holidays.png
    :align: center
-   :alt: The list of public holidays in the configuration menu.
+   :alt: 配置菜单中的公共假期列表。
 
-Mandatory days
+强制工作日
 --------------
 
-Some companies have special days where specific departments, or the entire staff, is required to be
-present, and time off is not allowed on those specific days.
+一些公司有特定的日子，要求特定部门或全体员工必须在岗，在这些特定日子不允许请假。
 
-These types of days are called *mandatory days* in Odoo. These can be configured to be company-wide,
-or department specific. When configured, employees in the specified department or company are unable
-to submit time off requests for these mandatory days.
+这些类型的日子在 Odoo 中称为*强制工作日*。这些可以配置为公司范围的或特定部门的。当配置好后，指定部门或公司的员工将无法在这些强制工作日提交请假申请。
 
-Create mandatory days
+创建强制工作日
 ~~~~~~~~~~~~~~~~~~~~~
 
-No mandatory days are configured in Odoo by default. To create a mandatory day, navigate to
-:menuselection:`Time Off app --> Configuration --> Mandatory Days`.
+Odoo 中默认未配置任何强制工作日。要创建强制工作日，请导航到 :menuselection:`请假管理应用程序 --> 配置 --> 强制工作日`。
 
-Click the :guilabel:`New` button in the top-left corner, and a blank line appears in the list.
+点击左上角的 :guilabel:`新建` 按钮，列表中会出现一行空白数据。
 
-Enter the following information on that new line:
+在该新行中输入以下信息：
 
-- :guilabel:`Name`: Enter the name of the mandatory day.
-- :guilabel:`Company`: If in a multi-company database, this field is visible, and the current
-  company populates this field, by default. Using the drop-down menu, select the company the
-  mandatory day is for.
-- :guilabel:`Departments`: This column is hidden by default. First, click the
-  :icon:`oi-settings-adjust` :guilabel:`(additional options)` icon in the top-right corner, next to
-  :guilabel:`Color`, and then tick the checkbox next to :guilabel:`Departments` to reveal that
-  column.
+- :guilabel:`名称`: 输入强制工作日的名称。
+- :guilabel:`公司`: 如果在多公司数据库中，此字段可见，且默认填充当前公司。使用下拉菜单选择强制工作日所属的公司。
+- :guilabel:`部门`: 此列默认隐藏。首先点击右上角的 :icon:`oi-settings-adjust` :guilabel:`（更多选项）` 图标，接着勾选 :guilabel:`部门` 复选框以显示此列。
 
-  Next, select the desired departments from the drop-down menu. Multiple departments can be
-  selected, and there is no limit to the amount of departments that can be added.
+  接下来，从下拉菜单中选择所需的部门。可以选择多个部门，且添加部门的数量没有限制。
 
-  If this field is left blank, the mandatory day applies to the entire company.
-- :guilabel:`Start Date`: Using the calendar picker, select the date the mandatory day starts.
-- :guilabel:`End Date`: Using the calendar picker, select the date the mandatory day ends. If
-  creating a single mandatory day, the end date should be the same as the start date.
-- :guilabel:`Color`: If desired, select a color from the available presented options. If no color is
-  desired, select the `No color` option, represented by a white box with a red line diagonally
-  across it. The selected color appears on the main **Time Off** app dashboard, in both the calendar
-  and in the legend.
+  如果此字段留空，则强制工作日适用于整个公司。
+- :guilabel:`开始日期`: 使用日历选择器选择强制工作日的开始日期。
+- :guilabel:`结束日期`: 使用日历选择器选择强制工作日的结束日期。如果创建单个强制工作日，则结束日期应与开始日期相同。
+- :guilabel:`颜色`: 如果需要，从提供的选项中选择一种颜色。如果不需要颜色，则选择 `无颜色` 选项，该选项由一个红线斜穿的白框表示。所选颜色将显示在 **请假管理** 应用程序仪表板中，无论是在日历中还是在图例中。
 
 .. image:: time_off/mandatory.png
    :align: center
-   :alt: The Mandatory Days section with three configured days.
+   :alt: 强制工作日部分，配置了三个工作日。
 
-Overview
+概览
 ========
 
-To view a color-coded schedule of the user's time off, and/or of the team managed by them, navigate
-to :menuselection:`Time Off app --> Overview`. This presents a calendar with the default filter of
-`My Team`, in a month view.
+要查看用户和/或他们管理的团队的请假颜色编码日程，请导航到 :menuselection:`请假管理应用程序 --> 概览`。此页面显示的默认日历过滤器为 `我的团队`，以月视图显示。
 
-To change the time period displayed, click on the :guilabel:`Month` button to reveal a drop-down
-menu. Then, select either :guilabel:`Day`, :guilabel:`Week`, or :guilabel:`Year` to present the
-calendar in that corresponding view.
+要更改显示的时间段，请点击 :guilabel:`月` 按钮，显示下拉菜单。然后，选择 :guilabel:`日`、:guilabel:`周` 或 :guilabel:`年`，以相应的视图显示日历。
 
-To navigate forward or backward in time, in the selected increment (:guilabel:`Month`,
-:guilabel:`Week`, etc.), click the :guilabel:`← (left arrow)` or :guilabel:`→ (right arrow)` to move
-either forward or backward in that specified amount of time.
+要按所选时间段（:guilabel:`月`、:guilabel:`周` 等）前后导航，请点击 :guilabel:`←（左箭头）` 或 :guilabel:`→（右箭头）` 以相应时间段向前或向后移动。
 
-For example, if :guilabel:`Month` is selected, the arrows adjust the view by one month.
+例如，如果选择了 :guilabel:`月`，则箭头按月份调整视图。
 
-To return to a view containing the current day, click the :guilabel:`Today` button at any time.
+随时单击 :guilabel:`今天` 按钮，即可返回包含当前日期的视图。
 
-Team members are listed alphabetically on individual lines, and their requested time off,
-regardless of the status (*validated* or *to approve*), is visible on the calendar.
+团队成员按字母顺序列在单独的行上，他们的请假申请，无论状态如何（*已验证* 或 *待审批*），都会显示在日历上。
 
-Each employee is color-coded. The employee's color is selected at random, and does *not* correspond
-to the type of time off they requested.
+每位员工都有颜色编码。员工的颜色是随机选择的，并且*不会*与他们请求的请假类型对应。
 
-The status of the time off is represented by the color detail of the request, either appearing solid
-(*validated*) or striped (*to approve*).
+请假申请的状态通过请求的颜色细节表示，已验证的请求显示为实心颜色，待审批的请求显示为条纹。
 
-The number of days or hours requested is written on the request (if there is enough space).
+请求的天数或小时数会显示在请求上（如果有足够的空间）。
 
-At the bottom of the calendar, in the :guilabel:`Total` line, a bar graph shows how many people are
-projected to be out on any given day. The number on each individual bar represents the number of
-employees out for those highlighted days.
+在日历底部的 :guilabel:`总计` 行中，柱状图显示了任何给定日期预计将缺席的人数。每个柱子上的数字表示那些高亮显示日期的缺席员工人数。
 
-Click on a time off entry to view the details for the specific time off entry. The total number of
-hours or days are listed, along with the start and end time of the time off. To view the details of
-the time off request in a modal, click the :guilabel:`View` button.
+点击请假条目以查看特定请假条目的详细信息。请求的总小时数或天数以及请假的开始和结束时间都会显示。要在模态框中查看请假申请的详细信息，请点击 :guilabel:`查看` 按钮。
 
 .. image:: time_off/overview.png
    :align: center
-   :alt: Overview of the user's team, with time off requests shown.
+   :alt: 用户团队的概览，显示了请假申请。
 
 .. _time_off/reporting:
 
-Reporting
+报告
 =========
 
-The reporting feature allows users to view time off for their team, either by employee or type of
-time off. This allows users to see which employees are taking time off, how much time off they are
-taking, and what time off types are being used.
+报告功能允许用户按员工或请假类型查看其团队的请假情况。这使得用户可以看到哪些员工正在请假，休了多少假以及使用了哪些请假类型。
 
-Any report can be added to a spreadsheet, when in either the :icon:`fa-area-chart`
-:guilabel:`(Graph)` or :icon:`oi-view-pivot` :guilabel:`(Pivot)` view, through the *Insert in
-Spreadsheet* button that appears in the top-left of the report.
+在 :icon:`fa-area-chart` :guilabel:`（图形）` 或 :icon:`oi-view-pivot` :guilabel:`（数据透视表）` 视图中，可以通过报告左上角的 *插入到电子表格* 按钮将报告添加到电子表格中。
 
 .. note::
-   If the **Documents** app is installed, an option to add the report to a spreadsheet appears. If
-   not, the report can be added to a *Dashboard*.
+   如果安装了 **文档** 应用程序，则会出现将报告添加到电子表格的选项。如果未安装，则可以将报告添加到 *仪表板*。
 
-By employee
+按员工
 -----------
 
-To view a report of employee time off requests, navigate to :menuselection:`Time Off app -->
-Reporting --> by Employee`.
+要查看员工请假申请的报告，请导航到 :menuselection:`请假管理应用程序 --> 报告 --> 按员工`。
 
-The default report presents the current year's data in a list view, displaying all the employees in
-alphabetical order. Each employee's line is collapsed by default. To expand a line, click anywhere
-on the line.
+默认报告以列表视图显示当年的数据，按字母顺序排列所有员工。每位员工的行默认折叠。要展开某一行，请单击该行任意位置。
 
-The view expands, and has the time off requests organized by time off type. Click anywhere on a time
-off type line to expand it, and view all the individual time off requests that fall under that type.
+视图会展开，并按请假类型组织请假申请。点击某一请假类型行的任意位置以展开，查看该类型下的所有单个请假申请。
 
-The information shown in the list includes: the :guilabel:`Employee` name, :guilabel:`Number of
-Days` off requested, the :guilabel:`Start Date`, :guilabel:`End Date`, :guilabel:`Status`, and
-:guilabel:`Description`.
+列表中显示的信息包括：:guilabel:`员工` 名字、申请的 :guilabel:`天数`、:guilabel:`开始日期`、:guilabel:`结束日期`、:guilabel:`状态` 和 :guilabel:`描述`。
 
 .. image:: time_off/employee-report.png
    :align: center
-   :alt: Report of time off, shown by each employee in a list view.
+   :alt: 按员工显示的请假报告，以列表视图显示。
 
-The report can be displayed in other ways, as well. Click the corresponding button option in the
-top-right corner of the page to view the data in that specific way. The various options are a
-:icon:`oi-view-list` :guilabel:`(List)`, or default view, :icon:`fa-area-chart` :guilabel:`(Graph)`,
-:icon:`oi-view-pivot` :guilabel:`(Pivot)` table, or :icon:`fa-calendar` :guilabel:`(Calendar)` view.
+报告还可以通过其他方式显示。单击页面右上角的相应按钮选项，以该特定方式查看数据。各种选项包括 :icon:`oi-view-list` :guilabel:`（列表）` 或默认视图、:icon:`fa-area-chart` :guilabel:`（图形）`、:icon:`oi-view-pivot` :guilabel:`（数据透视表）` 或 :icon:`fa-calendar` :guilabel:`（日历）` 视图。
 
-When a selection has been made, additional options appear for that particular selection. For more
-detailed information on the reports and their various options, refer to the :doc:`reporting
-<../essentials/reporting>` documentation.
+做出选择后，将出现该特定选择的其他选项。有关报告及其各种选项的详细信息，请参考 :doc:`reporting <../essentials/reporting>` 文档。
 
-By type
+按类型
 -------
 
-To view a list of all time off, organized by time off type, navigate to :menuselection:`Time Off app
---> Reporting --> by Type`. This shows all time off requests in a default bar chart.
+要按请假类型查看所有请假的列表，请导航到 :menuselection:`请假管理应用程序 --> 报告 --> 按类型`。这将默认显示所有请假申请的柱状图。
 
-Hover over a bar to view the :guilabel:`Duration (Days)` of that specific time off type.
+将鼠标悬停在柱状图上，可以查看该特定请假类型的 :guilabel:`时长（天）`。
 
 .. image:: time_off/bar-chart.png
    :align: center
-   :alt: The various time off types, and how many days requested, in a bar chart. Details are
-         highlighted in a red box.
+   :alt: 各种请假类型，以及所请求的天数，以柱状图显示。详细信息以红框高亮显示。
 
-Click on a bar to go to a detailed list view of all the time off requests for that time off type.
+点击某个柱状图，可以转到该请假类型的所有请假申请的详细列表视图。
 
-Each request is listed, with the following information displayed: the :guilabel:`Employee`,
-:guilabel:`Number of Days`, :guilabel:`Request Type`, :guilabel:`Start Date`, :guilabel:`End Date`,
-:guilabel:`Status`, and the :guilabel:`Description`.
+每个请求都会列出，并显示以下信息：:guilabel:`员工`、:guilabel:`天数`、:guilabel:`请求类型`、:guilabel:`开始日期`、:guilabel:`结束日期`、:guilabel:`状态` 和 :guilabel:`描述`。
 
-The report can be displayed in other ways, as well. Click the corresponding button option in the
-top-right corner of the page to view the data in that way. The various options are a
-:icon:`fa-area-chart` :guilabel:`(Graph)` (the default view), :icon:`oi-view-list`
-:guilabel:`(List)`, or :icon:`oi-view-pivot` :guilabel:`(Pivot)` table.
+报告还可以通过其他方式显示。单击页面右上角的相应按钮选项，以这种方式查看数据。各种选项包括 :icon:`fa-area-chart` :guilabel:`（图形）`（默认视图）、:icon:`oi-view-list` :guilabel:`（列表）` 或 :icon:`oi-view-pivot` :guilabel:`（数据透视表）`。
 
-When a selection has been made, additional options appear for that particular selection. For more
-detailed information on the reports, and their various options, refer to the :doc:`reporting
-<../essentials/reporting>` documentation.
+做出选择后，将出现该特定选择的其他选项。有关报告及其各种选项的详细信息，请参考 :doc:`reporting <../essentials/reporting>` 文档。
 
 .. seealso::
    - :doc:`time_off/allocations`

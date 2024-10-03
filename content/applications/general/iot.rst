@@ -4,7 +4,7 @@
 :show-toc:
 
 ========================
-Internet of Things (IoT)
+物联网 (IoT)
 ========================
 
 .. toctree::

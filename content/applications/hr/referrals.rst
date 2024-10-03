@@ -1,259 +1,152 @@
 :show-content:
 
 =========
-Referrals
+推荐计划
 =========
 
-Odoo's *Referrals* application is a centralized place where all information regarding referrals is
-housed - from points earned, coworkers hired, and rewards selected. Users can recommend people they
-know for job positions, and then earn referral points as those people progress through the
-recruitment pipeline. Once enough referral points are earned, they can be exchanged for prizes. The
-*Referrals* application integrates with the *Employees*, *Recruitment*, and *Website* applications,
-all of which must be installed in order for the *Referrals* application to function.
+Odoo 的 *推荐计划* 应用程序是一个集中管理所有推荐信息的地方——从获得的积分、雇用的同事到选择的奖励。用户可以推荐他们认识的人申请职位，当这些人通过招聘流程时，用户可以获得推荐积分。一旦获得足够的推荐积分，用户可以将其兑换为奖品。*推荐计划* 应用程序与 *员工*、*招聘* 和 *网站* 应用程序集成，所有这些应用程序都必须安装，*推荐计划* 才能运行。
 
-The only configurations needed for the *Referrals* application *after* it has been installed, are
-related to the :doc:`rewards <referrals/rewards>`; everything else is pre-configured when Odoo
-*Referrals* is installed.
+*推荐计划* 应用程序在安装后，唯一需要配置的部分是与 :doc:`奖励 <referrals/rewards>` 相关的内容；其他所有内容在安装 Odoo *推荐计划* 时已预配置。
 
-Users with either :guilabel:`Referral User`, :guilabel:`Officer`, or :guilabel:`Administrator`
-access rights for the *Recruitment* application have access to the *Referrals* application. Only
-users with :guilabel:`Administrator` access rights for the *Recruitment* application have access to
-the :doc:`reporting <referrals/reporting>` and configurations menus. For more information on users
-and access rights, refer to these documents: :doc:`../general/users` and
-:doc:`../general/users/access_rights`.
+拥有 :guilabel:`推荐用户`、:guilabel:`主管` 或 :guilabel:`管理员` 访问权限的用户可以访问 *招聘* 应用程序的 *推荐计划* 应用程序。只有拥有 *招聘* 应用程序 :guilabel:`管理员` 访问权限的用户才可以访问 :doc:`报告 <referrals/reporting>` 和配置菜单。有关用户和访问权限的更多信息，请参考以下文档：:doc:`../general/users` 和 :doc:`../general/users/access_rights`。
 
 .. _referrals/onboarding:
 
-Onboarding
+入职培训
 ==========
 
-When opening the *Referrals* application for the first time, a pre-configured onboarding script
-appears. This is in the form of four slides, each explaining the different parts of the *Referrals*
-application. At the top of the dashboard, the following message is displayed throughout all the
-onboarding slides: :guilabel:`GATHER YOUR TEAM! Job Referral Program`. Behind this main message is
-an image, and beneath it some more explanatory text.
+首次打开 *推荐计划* 应用程序时，会显示一个预配置的入职培训脚本。这是以四张幻灯片的形式展示的，每张幻灯片解释 *推荐计划* 应用程序的不同部分。在仪表板顶部，在所有入职培训幻灯片中显示以下消息：:guilabel:`召集你的团队！职位推荐计划`。在此主消息的背后是一幅图像，下面还有一些解释性文本。
 
-Each of the onboarding slides has a corresponding image and message that is displayed. After reading
-each message, click the :guilabel:`Next` button to advance to the next slide.
+每张入职培训幻灯片都有对应的图像和显示的消息。阅读每条消息后，单击 :guilabel:`下一步` 按钮继续到下一张幻灯片。
 
-The text that appears on each slide is as follows:
+每张幻灯片上显示的文本如下：
 
-#. :guilabel:`Oh no! Villains are lurking the city! Help us recruit a team of superheroes to save
-   the day!`
-#. :guilabel:`Browse through open job positions, promote them on social media, or refer friends.`
-#. :guilabel:`Collect points and exchange them for awesome gifts in the shop.`
-#. :guilabel:`Compete against your colleagues to build the best justice league!`
+#. :guilabel:`哦不！恶棍正在城市中潜伏！帮助我们招募一支超级英雄团队来拯救世界吧！`
+#. :guilabel:`浏览开放的职位，在社交媒体上推广它们，或推荐朋友。`
+#. :guilabel:`收集积分并在商店中兑换精彩奖品。`
+#. :guilabel:`与同事竞争，组建最强正义联盟！`
 
 .. note::
-   The onboarding slides will appear every time the *Referrals* application is opened, until all the
-   slides have been viewed and the :guilabel:`Start Now` button has been clicked. If the onboarding
-   is exited at any point, or if the :guilabel:`Start Now` button has *not* been clicked, the
-   onboarding slides will begin again when the *Referrals* application is opened. Once the
-   :guilabel:`Start Now` button has been clicked, the onboarding slides will not be seen again, and
-   the main dashboard will load when the *Referrals* application is opened from that point on.
+   每次打开 *推荐计划* 应用程序时，都会显示入职培训幻灯片，直到所有幻灯片都已查看并单击了 :guilabel:`立即开始` 按钮。如果在任何时候退出了入职培训，或者*没有*单击 :guilabel:`立即开始` 按钮，重新打开 *推荐计划* 应用程序时，入职培训幻灯片将再次开始显示。一旦单击了 :guilabel:`立即开始` 按钮，入职培训幻灯片将不再显示，今后每次打开 *推荐计划* 应用程序时，都会直接加载主仪表板。
 
-At any point during onboarding, the :guilabel:`Skip` button may be clicked. This exits the
-onboarding, and the main *Referrals* dashboard loads. If :guilabel:`Skip` is clicked, onboarding
-slides will not load anymore when opening the *Referrals* application.
+在入职培训的任何阶段，都可以单击 :guilabel:`跳过` 按钮退出入职培训，主 *推荐计划* 仪表板将加载。如果单击 :guilabel:`跳过`，打开 *推荐计划* 应用程序时，入职培训幻灯片将不再加载。
 
 .. image:: referrals/onboarding.png
    :align: center
-   :alt: An onboarding slide with the skip and next buttons visible at the bottom.
+   :alt: 显示跳过和下一步按钮的入职培训幻灯片。
 
 .. note::
-   If there are any candidates hired that the user had referred prior to opening the Referrals app
-   (meaning the onboarding slides have not appeared before), when :guilabel:`Start Now` is clicked
-   at the end of onboarding, instead of going to the main dashboard, a :ref:`hired
-   <referrals/hired>` screen appears instead.
+   如果用户在打开推荐应用程序之前曾推荐过任何被雇用的候选人（即之前未显示入职培训幻灯片），当入职培训结束时单击 :guilabel:`立即开始` 后，将显示一个 :ref:`hired <referrals/hired>` 屏幕，而不是转到主仪表板。
 
-Modifying onboarding slides
+修改入职培训幻灯片
 ---------------------------
 
-Onboarding slides can be modified if desired. Only users with :guilabel:`Administrator` rights for
-the *Recruitment* application can modify onboarding slides. To edit a slide, navigate to
-:menuselection:`Referrals app --> Configuration --> Onboarding.` Each line displays the text for the
-individual onboarding slide. To edit an onboarding slide, click on an individual slide line to open
-the slide's onboarding form.
+如果需要，可以修改入职培训幻灯片。只有拥有 *招聘* 应用程序 :guilabel:`管理员` 权限的用户才能修改入职培训幻灯片。要编辑幻灯片，导航到 :menuselection:`推荐计划应用程序 --> 配置 --> 入职培训`。每行显示各个入职培训幻灯片的文本。要编辑幻灯片，单击每行幻灯片文本以打开幻灯片的入职培训表单。
 
-Make any changes to the message in the :guilabel:`Text` field. A :guilabel:`Company` may be
-selected, as well. However, if this field is populated, that slide is *only* displayed for that
-particular company.
+在 :guilabel:`文本` 字段中修改消息。也可以选择一个 :guilabel:`公司`。但是，如果填写了此字段，则该幻灯片*仅*显示给该公司。
 
 .. note::
-   The :guilabel:`Company` field only appears when in a multi-company database.
+   只有在多公司数据库中，:guilabel:`公司` 字段才会显示。
 
-The image can be modified, as well. Hover over the image thumbnail in the top-right corner of the
-form. A :guilabel:`✏️ (pencil)` icon and :guilabel:`🗑️ (garbage can)` icon appear. Click the
-:guilabel:`✏️ (pencil)` icon to change the image. A file navigator window loads. Navigate to the
-desired image, select it, then click :guilabel:`Open`. The new image appears in the thumbnail. To
-delete an image, click the :guilabel:`🗑️ (garbage can)` icon, then select a new image using the
-:guilabel:`✏️ (pencil)` icon.
+图像也可以修改。将鼠标悬停在表单右上角的缩略图上，将会出现 :guilabel:`✏️ (铅笔)` 图标和 :guilabel:`🗑️ (垃圾桶)` 图标。单击 :guilabel:`✏️ (铅笔)` 图标以更换图像，将会加载一个文件导航器窗口。导航到所需的图像，选择它，然后单击 :guilabel:`打开`。新图像将显示在缩略图中。要删除图像，单击 :guilabel:`🗑️ (垃圾桶)` 图标，然后使用 :guilabel:`✏️ (铅笔)` 图标选择新图像。
 
 .. image:: referrals/edit-onboarding.png
    :align: center
-   :alt: An onboarding slide in edit mode, with the main fields highlighted.
+   :alt: 显示编辑模式中的入职培训幻灯片，主字段已高亮显示。
 
-The sequence in which the slides appear can be changed from the *Onboarding* dashboard. Click the
-:guilabel:`(six small gray boxes)` icon to the left of the the slide text, and drag the slide to the
-desired position.
+可以从 *入职培训* 仪表板更改幻灯片的顺序。单击幻灯片文本左侧的 :guilabel:`(六个小灰色方框)` 图标，然后将幻灯片拖动到所需位置。
 
 .. image:: referrals/onboarding-reorder.png
    :align: center
-   :alt: The onboarding slides in a list, with the drag and drop arrows highlighted.
+   :alt: 入职培训幻灯片列表，拖放箭头高亮显示。
 
 .. _referrals/hired:
 
-Hired referrals
+被推荐候选人被雇用
 ===============
 
-When a candidate that has been referred by a user is hired, the user "grows their superhero team"
-and adds superhero avatars to their Referrals dashboard.
+当用户推荐的候选人被雇用时，用户将“壮大他们的超级英雄团队”，并在他们的推荐计划仪表板中添加超级英雄头像。
 
-After a referral has been hired, when the user next opens the Referrals app, instead of the main
-dashboard, a hired page loads. The text :guilabel:`(Referral Name) has been hired! Choose an avatar
-for your new friend!` appears.
+推荐候选人被雇用后，下次用户打开推荐计划应用程序时，不是显示主仪表板，而是加载一个被雇用的页面。页面上显示文本 :guilabel:`(推荐人姓名) 已被雇用！为你的新朋友选择一个头像！`。
 
-Below this message are five avatar thumbnails to choose from. If an avatar has already been assigned
-to a referral, the thumbnail is grayed out, and the name that the avatar has been chosen for appears
-beneath the avatar. Click on an available avatar to select it.
+在此消息下方有五个头像缩略图可供选择。如果已经为某个推荐人分配了头像，则该缩略图会变灰，且在头像下方显示分配该头像的推荐人的姓名。单击一个可用头像即可选择它。
 
-If more than one referral was hired since opening the *Referrals* application, after selecting the
-first avatar, the user is prompted to select another avatar for the subsequent hired referral. Once
-all avatars have been selected, the dashboard loads and all the avatars are now visible. Mouse over
-each avatar and their name is displayed above them.
+如果在打开 *推荐计划* 应用程序后有多个推荐人被雇用，则在选择第一个头像后，系统将提示用户为后续被雇用的推荐人选择头像。选择完所有头像后，仪表板加载并显示所有头像。将鼠标悬停在每个头像上，会显示他们的姓名。
 
 .. image:: referrals/avatars.png
    :align: center
-   :alt: The hired screen. A selection of avatars are presented to chose from, with any already
-         chosen are greyed out.
+   :alt: 被雇用的页面。呈现一组选定的头像，任何已选择的头像都会变灰。
 
-Modify friends
+修改朋友
 --------------
 
-Friend avatars are able to be modified in the same manner that :ref:`levels <referrals/levels>` are
-modified. Only users with :guilabel:`Administrator` rights for the *Recruitment* application can
-make modifications to friends. The pre-configured friends can be seen and modified by navigating to
-:menuselection:`Referrals app --> Configuration --> Friends`. Each friend avatar appears in the
-:guilabel:`Dashboard Image` column, and the corresponding name appears in the :guilabel:`Friend
-Name` column. The default images are a motley group of hero characters, ranging from robots to dogs.
+朋友头像可以像 :ref:`等级 <referrals/levels>` 一样进行修改。只有拥有 *招聘* 应用程序 :guilabel:`管理员` 权限的用户才能修改朋友。可以通过导航到 :menuselection:`推荐计划应用程序 --> 配置 --> 朋友` 查看和修改预配置的朋友。每个朋友的头像显示在 :guilabel:`仪表板图像` 列中，对应的姓名显示在 :guilabel:`朋友姓名` 列中。默认图像是一群形形色色的英雄角色，范围从机器人到狗。
 
-To modify a friend's dashboard image, thumbnail, name, or position, click on an individual friend to
-open the referral friend form. Click :guilabel:`Edit` to make modifications. Type the name in the
-:guilabel:`Friend Name` field. The name is solely to differentiate the friends in the configuration
-menu; the friend's name is not visible anywhere else in the *Referrals* application.
+要修改朋友的仪表板图像、缩略图、姓名或位置，单击某个朋友以打开推荐朋友表单。单击 :guilabel:`编辑` 以进行修改。在 :guilabel:`朋友姓名` 字段中输入姓名。该姓名仅用于在配置菜单中区分朋友；该朋友的姓名不会显示在 *推荐计划* 应用程序的任何其他地方。
 
-The :guilabel:`Position` can be set to either :guilabel:`Front` or :guilabel:`Back`. This determines
-the position of the friend in relation to the user's super hero avatar. Click the radio button next
-to the desired selection, and the friend will appear either in front of or behind the user's avatar
-when activated.
+:guilabel:`位置` 可以设置为 :guilabel:`前` 或 :guilabel:`后`。这决定了朋友相对于用户超级英雄头像的位置。单击所需选择旁边的单选按钮，激活后，朋友会显示在用户头像的前面或后面。
 
-If desired, both the thumbnail :guilabel:`Image` and the :guilabel:`Dashboard Image` can be
-modified. Hover over the image being replaced to reveal a :guilabel:`✏️ (pencil)` icon and
-:guilabel:`🗑️ (garbage can)` icon. Click the :guilabel:`✏️ (pencil)` icon, and a file explorer
-window appears. Navigate to the desired image file, then click :guilabel:`Open` to select it.
+如果需要，也可以修改缩略图 :guilabel:`图像` 和 :guilabel:`仪表板图像`。将鼠标悬停在要替换的图像上，将会显示 :guilabel:`✏️ (铅笔)` 图标和 :guilabel:`🗑️ (垃圾桶)` 图标。单击 :guilabel:`✏️ (铅笔)` 图标，文件资源管理器窗口将出现。导航到所需的图像文件，然后单击 :guilabel:`打开` 以选择它。
 
-The referral friend form automatically saves, but can be saved manually at any time by clicking the
-*Save manually* option, represented by a :guilabel:`(cloud upload)` icon, located in the top-left
-corner. To cancel any changes made, click the :guilabel:`✖️ (Discard all changes)` icon to delete
-any changes, and revert to the original content.
+推荐朋友表单会自动保存，但也可以随时手动保存，方法是单击左上角的 :guilabel:`(云上传)` 图标，表示 *手动保存* 选项。要取消所做的任何更改，请单击 :guilabel:`✖️ (丢弃所有更改)` 图标删除所有更改，并恢复原始内容。
 
 .. image:: referrals/edit-friend.png
    :align: center
-   :alt: A friend form in edit mode.
+   :alt: 编辑模式中的朋友表单。
 
 .. warning::
-   It is not advised to edit the images. An image file must have a transparent background in order
-   for it to render properly. Only users with knowledge about transparent images should attempt
-   adjusting any images in the *Referrals* application.
+   不建议编辑图像。图像文件必须具有透明背景才能正确渲染。只有具备透明图像知识的用户才应尝试调整 *推荐计划* 应用程序中的任何图像。
 
-   Once an image is changed and the friend is saved, it is **not possible** to revert to the
-   original image. To revert to the original image, the *Referrals* application must be *uninstalled
-   then reinstalled.*
+   一旦图像更改并保存了朋友，**无法**恢复原始图像。要恢复原始图像，必须*卸载并重新安装*推荐计划应用程序。
 
 .. _referrals/levels:
 
-Levels
+等级
 ======
 
-The *Referrals* application has pre-configured levels that are reflected in the user's avatar on the
-Referrals dashboard. As a user refers potential employees and earns points, they can *level up*,
-much like in a video game.
+*推荐计划* 应用程序有预配置的等级，反映在用户的推荐计划仪表板头像中。随着用户推荐潜在员工并获得积分，他们可以像玩电子游戏一样“升级”。
 
-Levels have no functional impact on the performance of the application. They are solely used for the
-purpose of adding achievement tiers for participants to aim for, gamifying referrals for the user.
+等级对应用程序的功能没有影响。它们仅用于添加成就等级，供参与者追求，从而为用户提供推荐计划的游戏化体验。
 
-The user's current level is displayed at the top of the main *Referrals* application dashboard,
-directly beneath their photo, in a :guilabel:`Level: X` format. In addition, a colored ring appears
-around the user's photo, indicating how many points the user currently has, and how many additional
-points they need to level up. The cyan colored portion of the ring represents points earned, while
-the white colored portion represents the points still needed before they can level up.
+用户的当前等级显示在 *推荐计划* 应用程序主仪表板顶部，直接位于其照片下方，以 :guilabel:`等级: X` 格式显示。此外，用户照片周围会出现一个彩色环，指示用户当前拥有多少积分，以及他们还需要多少额外积分才能升级。环中青色部分表示已获得的积分，白色部分表示升级前仍需获得的积分。
 
-Modify levels
+修改等级
 -------------
 
-Only users with :guilabel:`Administrator` rights for the *Recruitment* application can modify
-levels. The pre-configured levels can be seen and modified by navigating to
-:menuselection:`Referrals app --> Configuration --> Levels`. Each avatar appears in the
-:guilabel:`Image` column, and the corresponding level number appears in the :guilabel:`Level Name`
-column. The default images are of Odoo superheroes, and each level adds an additional element to
-their avatar, such as capes and shields.
+只有拥有 *招聘* 应用程序 :guilabel:`管理员` 权限的用户才能修改等级。可以通过导航到 :menuselection:`推荐计划应用程序 --> 配置 --> 等级` 查看和修改预配置的等级。每个头像显示在 :guilabel:`图像` 列中，对应的等级编号显示在 :guilabel:`等级名称` 列中。默认图像是 Odoo 超级英雄，每个等级都会为他们的头像添加一个新元素，例如披风和盾牌。
 
-To modify a level's image, name, or points required to reach the level, click on an individual level
-in the list to open the level form, then make modifications.
+要修改等级的图像、名称或达到该等级所需的积分，请单击列表中的某个等级以打开等级表单，然后进行修改。
 
-Type in the name (or number) of the level in the :guilabel:`Level Name` field. What is entered is
-displayed beneath the user's photo on the main dashboard when they reach that level. Enter the
-number of referral points needed to reach that level in the :guilabel:`Requirements` field. The
-points needed to level up are the total accumulated points earned over the lifetime of the employee,
-not additional points from the previous level that must be earned.
+在 :guilabel:`等级名称` 字段中输入等级的名称（或编号）。输入的内容将在用户达到该等级时显示在其照片下方的主仪表板上。在 :guilabel:`要求` 字段中输入达到该等级所需的推荐积分。升级所需的积分是员工整个生命周期中累计获得的总积分，而不是从上一级别开始的额外积分。
 
-If desired, the :guilabel:`Image` can also be modified. Hover over the image to reveal a
-:guilabel:`✏️ (pencil)` icon and :guilabel:`🗑️ (garbage can)` icon. Click the :guilabel:`✏️
-(pencil)` icon, and a file explorer window appears. Navigate to the desired image file, then click
-:guilabel:`Open` to select it.
+如果需要，也可以修改 :guilabel:`图像`。将鼠标悬停在图像上，将会显示 :guilabel:`✏️ (铅笔)` 图标和 :guilabel:`🗑️ (垃圾桶)` 图标。单击 :guilabel:`✏️ (铅笔)` 图标，文件资源管理器窗口将出现。导航到所需的图像文件，然后单击 :guilabel:`打开` 以选择它。
 
-The level form saves automatically, but can be saved manually at any time by clicking the *save
-manually* option, represented by a :guilabel:`(cloud upload)` icon, located in the top-left corner.
-To cancel any changes made, click the :guilabel:`✖️ (Discard all changes)` icon to delete any
-changes, and revert to the original content.
+等级表单会自动保存，但也可以随时手动保存，方法是单击左上角的 :guilabel:`(云上传)` 图标，表示 *手动保存* 选项。要取消所做的任何更改，请单击 :guilabel:`✖️ (丢弃所有更改)` 图标删除所有更改，并恢复原始内容。
 
 .. image:: referrals/levels.png
    :align: center
-   :alt: A level form in edit mode.
+   :alt: 编辑模式中的等级表单。
 
 .. warning::
-   It is not advised to edit the images. An image file must have a transparent background in order
-   for it to render properly. Only users with knowledge about transparent images should attempt
-   adjusting any images in the *Referrals* application.
+   不建议编辑图像。图像文件必须具有透明背景才能正确渲染。只有具备透明图像知识的用户才应尝试调整 *推荐计划* 应用程序中的任何图像。
 
-   Once an image is changed and the level is saved, it is **not possible** to revert to the original
-   image. To revert to the original image, the *Referrals* application must be *uninstalled then
-   reinstalled.*
+   一旦图像更改并保存了等级，**无法**恢复原始图像。要恢复原始图像，必须*卸载并重新安装*推荐计划应用程序。
 
-Level up
+升级
 --------
 
-Once enough points have been accumulated to level up, the circle around the user's photo is
-completely filled in with a cyan color, a large image stating :guilabel:`Level up!` appears above
-the photo, and the phrase :guilabel:`Click to level up!` appears beneath the user's photo and
-current level.
+一旦积累了足够的积分升级，用户照片周围的圆环将完全填充青色，照片上方将出现一个大图像，显示 :guilabel:`升级！`，照片下方会显示 :guilabel:`单击升级！`。
 
-Click on either the :guilabel:`LEVEL UP!` graphic, the user's photo, or the text :guilabel:`Click to
-level up!` beneath the user's photo to level up the user. The user's avatar changes to the current
-level, and the ring around the photo is updated to indicate the current amount of points.
+单击 :guilabel:`升级！` 图形、用户照片或照片下方的 :guilabel:`单击升级！` 文本，即可完成升级。用户的头像将更改为当前等级，照片周围的环也会更新，以指示当前的积分数量。
 
-Leveling up does not cost the user any points, the user simply needs to earn the specified amount of
-points required.
+升级不会消耗用户的任何积分，用户只需获得所需的积分即可升级。
 
 .. image:: referrals/level-up.png
    :align: center
-   :alt: A 'Click to level up!' appears beneath the user's image, and a large 'Level up!' appears
-         above their image.
+   :alt: 用户图片下方显示“单击升级！”，图片上方显示一个大的“升级！”图像。
 
 .. note::
-   Once a user has reached the highest configured level, they will continue to accrue points that
-   can be redeemed for rewards, but they are no longer able to level up. The ring around their photo
-   remains solid cyan.
+   一旦用户达到最高配置的等级，他们将继续积累可以兑换奖励的积分，但将无法继续升级。照片周围的环将保持为纯青色。
 
 .. seealso::
    - :doc:`referrals/share_jobs`

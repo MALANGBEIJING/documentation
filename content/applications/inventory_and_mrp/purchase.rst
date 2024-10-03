@@ -4,14 +4,13 @@
 :show-toc:
 
 ========
-Purchase
+采购
 ========
 
-**Odoo Purchase** helps keep track of purchase agreements, quotations, and purchase orders. Learn
-how to monitor purchase tender, automate replenishment, and follow up on your orders.
+**Odoo 采购** 帮助跟踪采购协议、报价和采购订单。了解如何监控采购招标、自动补货以及跟进订单。
 
 .. seealso::
-   - `Odoo Tutorials: Purchase <https://www.odoo.com/slides/purchase-23>`_
+   - `Odoo 教程：采购 <https://www.odoo.com/slides/purchase-23>`_
 
 .. toctree::
    :titlesonly:

@@ -1,5 +1,5 @@
 ===============
-Odoo essentials
+Odoo 基础知识
 ===============
 
 .. toctree::
