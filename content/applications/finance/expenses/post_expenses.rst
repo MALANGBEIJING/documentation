@@ -1,75 +1,54 @@
 =============
-Post expenses
+发布费用
 =============
 
-Once an expense report is :doc:`approved <../expenses/approve_expenses>`, the next step is to post
-the expense report to the proper accounting journal.
+一旦费用报告被 :doc:`批准 <../expenses/approve_expenses>`，下一步是将费用报告发布到相应的会计日记账中。
 
 .. important::
-   To post expense reports to an accounting journal, the user **must** have the following
-   :doc:`access rights <../../general/users/access_rights>`:
+   要将费用报告发布到会计日记账中，用户 **必须** 拥有以下 :doc:`访问权限 <../../general/users/access_rights>`：
 
-   - Accounting: *Accountant* or *Adviser*
-   - Expenses: *Manager*
+   - 会计：*会计师* 或 *顾问*
+   - 费用：*经理*
 
-Only expense reports with an *Approved* status can post the expenses to a journal. To view all
-expense reports, navigate to :menuselection:`Expenses app --> Expense Reports`. Next, to view
-**only** approved expense reports that need to be posted, adjust the filters on the left side, so
-only the :guilabel:`Approved` checkbox is ticked.
+只有状态为 *已批准* 的费用报告才能将费用发布到日记账中。要查看所有费用报告，请导航到 :menuselection:`费用应用 --> 费用报告`。接着，为了只查看需要发布的**已批准**的费用报告，调整左侧的过滤器，只勾选 :guilabel:`已批准` 复选框。
 
 .. image:: post_expenses/post-reports.png
    :align: center
-   :alt: View reports to post by clicking on expense reports, then reports to post.
+   :alt: 通过点击费用报告查看要发布的报告，然后报告待发布。
 
 .. note::
-   The default :guilabel:`All Reports` dashboard displays all expense reports, except reports with a
-   status of :guilabel:`Refused`.
+   默认的 :guilabel:`所有报告` 仪表盘会显示所有费用报告，除了状态为 :guilabel:`已拒绝` 的报告。
 
-Expense reports can be posted to accounting journals in two ways: :ref:`individually
-<expenses/individual-reports>` or :ref:`in bulk <expenses/multiple-reports>`.
+费用报告可以通过两种方式发布到会计日记账：:ref:`单独发布 <expenses/individual-reports>` 或 :ref:`批量发布 <expenses/multiple-reports>`。
 
 .. _expenses/individual-reports:
 
-Post individual reports
+单独发布报告
 -----------------------
 
-To post an individual report, navigate to :menuselection:`Expenses app --> Expense Reports`, and
-click on an individual report with a :guilabel:`Status` of :guilabel:`Approved`, to view the report
-form. In this view, several options are presented: :guilabel:`Post Journal Entries`,
-:guilabel:`Report In Next Payslip`, :guilabel:`Refuse`, or :guilabel:`Reset to Draft`.
+要单独发布报告，导航到 :menuselection:`费用应用 --> 费用报告`，然后点击状态为 :guilabel:`已批准` 的单个报告，以查看报告表单。在此视图中，有几个选项可供选择：:guilabel:`发布日记账分录`，:guilabel:`在下一个工资单中报告`，:guilabel:`拒绝`，或 :guilabel:`重置为草稿`。
 
-Click :guilabel:`Post Journal Entries` to post the report.
+点击 :guilabel:`发布日记账分录` 以发布报告。
 
-The accounting journal the expenses are posted to is listed in the :guilabel:`Journal` field of the
-expense report.
+费用发布的会计日记账会显示在费用报告的 :guilabel:`日记账` 字段中。
 
-After posting the expenses to an accounting journal, a :guilabel:`Journal Entry` smart button
-appears at the top of the screen. Click the :guilabel:`Journal Entry` smart button, and the details
-for the journal entry appear, with a status of :guilabel:`Posted`.
+将费用发布到会计日记账后，屏幕顶部会出现一个 :guilabel:`日记账分录` 智能按钮。点击 :guilabel:`日记账分录` 智能按钮，日记账分录的详细信息将显示，状态为 :guilabel:`已发布`。
 
 .. _expenses/multiple-reports:
 
-Post multiple reports
+批量发布报告
 ---------------------
 
-To post multiple expense reports at once, navigate to :menuselection:`Expenses app --> Expense
-Reports` to view a list of expense reports. Next, select the reports to approve by ticking the
-checkbox next to each report being approved.
+要一次发布多个费用报告，导航到 :menuselection:`费用应用 --> 费用报告`，以查看费用报告列表。接着，勾选每个要批准的报告旁的复选框。
 
 .. note::
-   Only expense reports with a status of :guilabel:`Approved` are able to post the expenses to an
-   accounting journal. If an expense report is selected that **cannot** be posted, such as an
-   unapproved report, or the report has already been posted to a journal, the :guilabel:`Post
-   Entries` button is **not** visible.
+   只有状态为 :guilabel:`已批准` 的费用报告才能将费用发布到会计日记账中。如果选择了**无法**发布的费用报告，例如未批准的报告，或者该报告已经发布到日记账中，:guilabel:`发布分录` 按钮将**不可见**。
 
 .. tip::
-   To select **only** approved expense reports, adjust the filters on the left side, so that only
-   the :guilabel:`Approved` checkbox is ticked. Next, tick the checkbox next to the
-   :guilabel:`Employee` column title to select **all** the :guilabel:`Approved` reports in the list
-   at once.
+   要只选择**已批准**的费用报告，调整左侧的过滤器，只勾选 :guilabel:`已批准` 复选框。接着，勾选 :guilabel:`员工` 列标题旁的复选框，以一次选择列表中**所有** :guilabel:`已批准` 的报告。
 
-Next, click the :guilabel:`Post Entries` button.
+接着，点击 :guilabel:`发布分录` 按钮。
 
 .. image:: post_expenses/post-entries.png
    :align: center
-   :alt: Post multiple reports at a time from the Expense Reports view, with the Approved filter.
+   :alt: 从费用报告视图中一次发布多个报告，使用已批准过滤器。

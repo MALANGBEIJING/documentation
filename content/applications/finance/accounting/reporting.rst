@@ -1,133 +1,106 @@
 :show-content:
 
 =========
-Reporting
+报告
 =========
 
-Odoo includes **generic** and **dynamic** reports available for all countries, regardless of the
-:doc:`localization package <../../finance/fiscal_localizations>` installed:
+Odoo 提供 **通用** 和 **动态** 报告，适用于所有国家，无论安装了何种 :doc:`本地化包 <../../finance/fiscal_localizations>`：
 
--  :ref:`accounting/reporting/balance-sheet`
--  :ref:`accounting/reporting/profit-and-loss`
--  :ref:`accounting/reporting/executive-summary`
--  :ref:`accounting/reporting/general-ledger`
--  :ref:`accounting/reporting/aged-receivable`
--  :ref:`accounting/reporting/aged-payable`
--  :ref:`accounting/reporting/cash-flow-statement`
--  :ref:`accounting/reporting/tax-report`
+-  :ref:`资产负债表 <accounting/reporting/balance-sheet>`
+-  :ref:`利润和损失表 <accounting/reporting/profit-and-loss>`
+-  :ref:`管理摘要 <accounting/reporting/executive-summary>`
+-  :ref:`总账 <accounting/reporting/general-ledger>`
+-  :ref:`应收账款账龄分析 <accounting/reporting/aged-receivable>`
+-  :ref:`应付账款账龄分析 <accounting/reporting/aged-payable>`
+-  :ref:`现金流量表 <accounting/reporting/cash-flow-statement>`
+-  :ref:`税务报告 <accounting/reporting/tax-report>`
 
-To expand the lines of a report and view its details, click the :icon:`fa-caret-right`
-(:guilabel:`right arrow`) on the left. Then click the :icon:`fa-caret-down` (:guilabel:`down arrow`)
-to the right of the account, journal entry, payment, invoice, etc. to :guilabel:`Annotate` and view
-the details.
+要展开报告并查看其详细信息，请点击左侧的 :icon:`fa-caret-right` (:guilabel:`右箭头`)。然后点击帐户、日记账分录、付款、发票等右侧的 :icon:`fa-caret-down` (:guilabel:`下箭头`)，以 :guilabel:`注释` 并查看详细信息。
 
 .. image:: reporting/reporting-annotate.png
-   :alt: Annotate reports.
+   :alt: 注释报告。
 
-To export reports in PDF or XLSX format, click :guilabel:`PDF` at the top or click the
-:icon:`fa-caret-down` (:guilabel:`down arrow`) icon next to the :guilabel:`PDF` button and
-select :guilabel:`XLSX`.
+要以 PDF 或 XLSX 格式导出报告，请点击顶部的 :guilabel:`PDF`，或点击 :guilabel:`PDF` 按钮旁边的 :icon:`fa-caret-down` (:guilabel:`下箭头`) 并选择 :guilabel:`XLSX`。
 
-To compare values across periods, click the :guilabel:`Comparison` menu and select the periods you
-want to compare.
+要比较不同期间的值，请点击 :guilabel:`比较` 菜单并选择要比较的期间。
 
 .. image:: reporting/reporting-comparison.png
-   :alt: Comparison menu to compare time periods.
+   :alt: 比较菜单以比较时间段。
 
 .. _accounting/reporting/balance-sheet:
 
-Balance Sheet
+资产负债表
 =============
 
-The :guilabel:`Balance Sheet` shows a snapshot of your organization's assets, liabilities, and
-equity at a particular date.
+:guilabel:`资产负债表` 显示了在特定日期您组织的资产、负债和权益的快照。
 
 .. _accounting/reporting/profit-and-loss:
 
-Profit and Loss
+利润和损失表
 ===============
 
-The :guilabel:`Profit and Loss` report (or **Income Statement**) shows your company's net income by
-deducting expenses from revenue for the reporting period.
+:guilabel:`利润和损失表`（或 **收入报表**）通过从收入中扣除费用，显示您公司在报告期间的净收入。
 
 .. _accounting/reporting/executive-summary:
 
-Executive Summary
+管理摘要
 =================
 
-The :guilabel:`Executive Summary` provides an overview of all the important figures for overseeing
-your company's performance.
+:guilabel:`管理摘要` 提供了监督您公司业绩的所有重要数据的概述。
 
-It includes the following items:
+它包括以下项目：
 
-- :guilabel:`Performance`:
-    - :guilabel:`Gross profit margin`:
-        The contribution of all sales your business makes **minus** any direct costs needed to
-        make those sales (labor, materials, etc.).
-    - :guilabel:`Net profit margin`:
-        The contribution of all sales made by your business **minus** any direct costs needed to
-        make those sales *and* fixed overheads your company has (electricity, rent, taxes
-        to be paid as a result of those sales, etc.).
-    - :guilabel:`Return on investment (per annum)`:
-        The ratio of the net profit to the amount of assets the company used to make those profits.
-- :guilabel:`Position`:
-    - :guilabel:`Average debtors days`:
-        The average number of days it takes your customers to (fully) pay you across all your
-        customer invoices.
-    - :guilabel:`Average creditors days`:
-        The average number of days it takes you to (fully) pay your suppliers across all your bills.
-    - :guilabel:`Short-term cash forecast`:
-        How much cash is expected in or out of your business in the next month, i.e., the balance of
-        your **Sales account** for the month **minus** the balance of your **Purchases account** for
-        the month.
-    - :guilabel:`Current assets to liabilities`:
-        Also referred to as the **current ratio**, this is the ratio of current assets (:dfn:`assets
-        that could be turned into cash within a year`) to the current liabilities (:dfn:`liabilities
-        that will be due in the next year`). It is typically used to measure a company's ability to
-        service its debt.
+- :guilabel:`绩效`:
+    - :guilabel:`毛利率`:
+        您业务所有销售的贡献 **减去** 实现这些销售所需的任何直接成本（人工、材料等）。
+    - :guilabel:`净利率`:
+        您业务所有销售的贡献 **减去** 实现这些销售所需的任何直接成本 *和* 您公司拥有的固定开销（电费、租金、销售产生的税款等）。
+    - :guilabel:`投资回报率（每年）`:
+        净利润与公司用来获得这些利润的资产金额的比率。
+- :guilabel:`财务状况`:
+    - :guilabel:`平均应收账款天数`:
+        您的客户支付您的所有发票所需的平均天数。
+    - :guilabel:`平均应付账款天数`:
+        您支付所有账单所需的平均天数。
+    - :guilabel:`短期现金预测`:
+        您的业务在下个月预计有多少现金流入或流出，即 **销售账户** 的月余额 **减去** **采购账户** 的月余额。
+    - :guilabel:`流动资产与负债比率`:
+        也称为 **流动比率**，这是流动资产（:dfn:`在一年内可以变现的资产`）与流动负债（:dfn:`将在下一年到期的负债`）的比率。通常用于衡量公司偿还债务的能力。
 
 .. _accounting/reporting/general-ledger:
 
-General Ledger
+总账
 ==============
 
-The :guilabel:`General Ledger` report shows all transactions from all accounts for a selected date
-range. The initial summary report shows the totals for each account. To expand an account and view
-its details, click the :icon:`fa-caret-right` (:guilabel:`right arrow`) on the left.
-This report is useful for reviewing each transaction that occurred during a specific period.
+:guilabel:`总账` 报告显示选定日期范围内所有帐户的所有交易。初始汇总报告显示每个帐户的总额。要展开帐户并查看其详细信息，请点击左侧的 :icon:`fa-caret-right` (:guilabel:`右箭头`)。此报告对于审查特定期间内发生的每笔交易非常有用。
 
 .. _accounting/reporting/aged-receivable:
 
-Aged Receivable
+应收账款账龄分析
 ===============
 
-The :guilabel:`Aged Receivable` report shows the sales invoices awaiting payment during a selected
-month and several months prior.
+:guilabel:`应收账款账龄分析` 报告显示在选定月份及之前几个月待付款的销售发票。
 
 .. _accounting/reporting/aged-payable:
 
-Aged Payable
+应付账款账龄分析
 ============
 
-The :guilabel:`Aged Payable` report displays information on individual bills, credit notes, and
-overpayments you owe and how long these have gone unpaid.
+:guilabel:`应付账款账龄分析` 报告显示您所欠的个人账单、贷记单和多付款项以及它们未支付的时间。
 
 .. _accounting/reporting/cash-flow-statement:
 
-Cash Flow Statement
+现金流量表
 ===================
 
-The :guilabel:`Cash Flow Statement` shows how changes in balance sheet accounts and income affect
-cash and cash equivalents and breaks the analysis down to operating, investing, and financing
-activities.
+:guilabel:`现金流量表` 显示资产负债表账户和收入变化如何影响现金及现金等价物，并将分析分解为经营活动、投资活动和融资活动。
 
 .. _accounting/reporting/tax-report:
 
-Tax Report
+税务报告
 ==========
 
-The :guilabel:`Tax Report` shows the :guilabel:`NET` and :guilabel:`TAX` amounts for all the
-taxes grouped by type (:guilabel:`Sales`/:guilabel:`Purchases`).
+:guilabel:`税务报告` 显示按类型（:guilabel:`销售`/:guilabel:`采购`）分组的所有税收的 :guilabel:`净额` 和 :guilabel:`税额`。
 
 .. toctree::
    :titlesonly:

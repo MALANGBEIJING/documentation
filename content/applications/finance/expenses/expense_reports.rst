@@ -1,129 +1,90 @@
 ===============
-Expense reports
+费用报销单
 ===============
 
-When expenses are ready to submit (such as, at the end of a business trip, or once a month), an
-*expense report* needs to be created. Open the main :menuselection:`Expenses app` dashboard, which
-displays the :guilabel:`My Expenses` dashboard, by default. Alternatively, navigate to
-:menuselection:`Expenses app --> My Expenses --> My Expenses`.
+当费用准备好提交时（例如，在商务旅行结束时或每月一次），需要创建一个 *费用报销单*。打开主界面 :menuselection:`费用应用` 仪表盘，默认显示 :guilabel:`我的费用` 仪表盘。或者，导航到 :menuselection:`费用应用 --> 我的费用 --> 我的费用`。
 
-Expenses are color-coded by status. Any expense with a status of :guilabel:`To Report` (expenses
-that still need to be added to an expense report) is shown in blue text. All other statuses
-(:guilabel:`To Submit`, :guilabel:`Submitted`, and :guilabel:`Approved`) the text appears in black.
+费用根据状态进行颜色编码。任何状态为 :guilabel:`待报告`（需要添加到费用报销单中的费用）的费用以蓝色文本显示。其他状态 (:guilabel:`待提交`, :guilabel:`已提交`, 和 :guilabel:`已批准`) 的费用文本显示为黑色。
 
 .. _expenses/create_report:
 
-Create expense reports
-======================
+创建费用报销单
+================
 
-First, select each desired expense to be added to the report on the :guilabel:`My Expenses`
-dashboard, by ticking the checkbox next to each entry, or quickly select all the expenses in the
-list by ticking the checkbox next to the :guilabel:`Expense Date` column title, if needed.
+首先，在 :guilabel:`我的费用` 仪表盘中选择要添加到报销单中的每项费用，通过勾选每项条目旁的复选框，或快速选择列表中的所有费用（如有需要），通过勾选 :guilabel:`费用日期` 列标题旁的复选框。
 
-Another way to quickly add all expenses that are not on a expense report, is to click the
-:guilabel:`Create Report` button, *without* selecting any expenses, and Odoo automatically selects
-all expenses with a status of :guilabel:`To Submit` that are not already on a report.
+另一种快速添加尚未在费用报销单上的所有费用的方法是，在未选择任何费用的情况下点击 :guilabel:`创建报销单` 按钮，Odoo 将自动选择所有状态为 :guilabel:`待提交` 且尚未在其他报销单上的费用。
 
 .. image:: expense_reports/create-report.png
    :align: center
-   :alt: Select the expenses to submit, then create the report.
+   :alt: 选择要提交的费用，然后创建报销单。
 
 .. note::
-   Any expense can be selected from the :guilabel:`My Expenses` list, except for expenses with a
-   status of :guilabel:`Approved`.
+   可以从 :guilabel:`我的费用` 列表中选择任何费用，除了状态为 :guilabel:`已批准` 的费用。
 
-   The :guilabel:`Create Report` button is visible as long as there is a minimum of one expense on
-   the list with a status of either :guilabel:`To Report` or :guilabel:`To Submit`.
+   只要列表中至少有一项状态为 :guilabel:`待报告` 或 :guilabel:`待提交` 的费用，:guilabel:`创建报销单` 按钮就会显示。
 
-   When the :guilabel:`Create Report` button is clicked, all expenses with a status of :guilabel:`To
-   Submit` that are *not* currently on another expense report appears in the newly-created expense
-   report.
+   当点击 :guilabel:`创建报销单` 按钮时，所有状态为 :guilabel:`待提交` 且未在其他报销单上的费用都会出现在新创建的费用报销单中。
 
-   If all expenses on the :guilabel:`My Expenses` report are already associated with another expense
-   report, an :guilabel:`Invalid Operation` pop-up window appears, stating :guilabel:`You have no
-   expenses to report.`
+   如果 :guilabel:`我的费用` 报销单上的所有费用都已经关联到另一个报销单，将会弹出一个 :guilabel:`无效操作` 窗口，显示 :guilabel:`您没有费用可报告`。
 
-Once the expenses have been selected, click the :guilabel:`Create Report` button. The new report
-appears with all the expenses listed in the :guilabel:`Expense` tab. If there is a receipt attached
-to an individual expense, a :icon:`fa-paperclip` :guilabel:`(paperclip)` icon appears between the
-:guilabel:`Customer to Reinvoice` and :guilabel:`Analytic Distribution` columns.
+选择费用后，点击 :guilabel:`创建报销单` 按钮。新报销单将显示所有列出的费用在 :guilabel:`费用` 标签下。如果某个费用附有收据，:icon:`fa-paperclip` :guilabel:`(回形针)` 图标会显示在 :guilabel:`客户可重计费` 和 :guilabel:`分析分配` 列之间。
 
-When the report is created, the date range for the expenses appears in the :guilabel:`Expense Report
-Summary` field, by default. It is recommended to edit this field with a short summary for each
-report to help keep expenses organized. Enter a description for the expense report, such as `Client
-Trip NYC`, or `Office Supplies for Presentation`, in the :guilabel:`Expense Report Summary` field.
+创建报销单后，费用的日期范围默认显示在 :guilabel:`费用报销单摘要` 字段中。建议编辑此字段，为每个报销单添加简短摘要，以帮助整理费用。在 :guilabel:`费用报销单摘要` 字段中输入报销单的描述，如 `客户行程 NYC` 或 `演示文稿办公用品`。
 
-The :guilabel:`Employee`, :guilabel:`Paid By`, and :guilabel:`Company` fields autopoulate with the
-information listed on the individual expenses.
+:guilabel:`员工`, :guilabel:`支付方` 和 :guilabel:`公司` 字段会根据个人费用中的信息自动填写。
 
-Next, select a :guilabel:`Manager` from the drop-down menu to assign a manager to review the report.
-If needed, update the :guilabel:`Journal` field, using the drop-down menu.
+接下来，从下拉菜单中选择一个 :guilabel:`经理` 来审核报销单。如有需要，使用下拉菜单更新 :guilabel:`日记账` 字段。
 
 .. image:: expense_reports/expense-report-summary.png
    :align: center
-   :alt: Enter a short description and select a manager for the report.
+   :alt: 输入简短描述并为报销单选择经理。
 
-If some expenses are missing from the report, they can still be added from this report form. To do
-so, click :guilabel:`Add a line` at the bottom of the :guilabel:`Expense` tab.
+如果报销单中缺少某些费用，仍然可以从此报销单表单中添加。为此，请点击 :guilabel:`添加一行` 按钮，位于 :guilabel:`费用` 标签的底部。
 
-An :guilabel:`Add: Expense Lines` pop-up window appears, displaying all the available expenses (with
-a :guilabel:`To Submit` status) that can be added to the report.
+弹出窗口 :guilabel:`添加：费用行` 会显示所有可以添加到报销单的费用（状态为 :guilabel:`待提交`）。
 
-If a new expense needs to be added that does **not** appear on the list, click :guilabel:`New` to
-:doc:`create a new expense <../expenses/log_expenses>` and add it to the report.
+如果需要添加一个不在列表中的新费用，点击 :guilabel:`新建` 以 :doc:`创建新费用 <../expenses/log_expenses>` 并将其添加到报销单中。
 
-Tick the checkbox next to each expense being added, then click :guilabel:`Select`.
+勾选每项要添加的费用旁的复选框，然后点击 :guilabel:`选择`。
 
-Doing so removes the pop-up window, and the items now appear on the report.
+这样会关闭弹出窗口，所选项目现在显示在报销单中。
 
 .. image:: expense_reports/add-an-expense-line.png
    :align: center
-   :alt: Add more expenses to the report before submitting.
+   :alt: 在提交前添加更多费用到报销单。
 
 .. note::
-   Expense reports can be created in one of three places:
+   可以在三个地方创建费用报销单：
 
-   #. Navigate to the main :menuselection:`Expenses app` dashboard (also accessible, via
-      :menuselection:`Expenses app --> My Expenses --> My Expenses`)
-   #. Navigate to :menuselection:`Expenses app --> My Expenses --> My Reports`
-   #. Navigate to :menuselection:`Expenses app --> Expense Reports`
+   #. 导航到主界面 :menuselection:`费用应用` 仪表盘（也可以通过 :menuselection:`费用应用 --> 我的费用 --> 我的费用` 访问）
+   #. 导航到 :menuselection:`费用应用 --> 我的费用 --> 我的报销单`
+   #. 导航到 :menuselection:`费用应用 --> 费用报销单`
 
-   In any of these views, click :guilabel:`New` to create a new expense report.
+   在这些视图中的任意一个，点击 :guilabel:`新建` 以创建新的费用报销单。
 
 .. _expenses/submit:
 
-Submit expense reports
-======================
+提交费用报销单
+=================
 
-When an expense report is completed, the next step is to submit the report to a manager for
-approval. To view all expense reports, navigate to :menuselection:`Expenses app --> My Expenses -->
-My Reports`. Open the specific report from the list of expense reports.
+当费用报销单完成后，下一步是将报销单提交给经理审批。要查看所有费用报销单，导航到 :menuselection:`费用应用 --> 我的费用 --> 我的报销单`。从报销单列表中打开特定报销单。
 
 .. note::
-   Reports must be individually submitted, and **cannot** be submitted in batches.
+   报销单必须单独提交，**不能** 批量提交。
 
-If the list is large, grouping the results by status may be helpful, since only reports with a
-:guilabel:`To Submit` status need to be submitted; reports with an :guilabel:`Approved` or
-:guilabel:`Submitted` status do not.
+如果列表很大，将结果按状态分组可能会有帮助，因为只有状态为 :guilabel:`待提交` 的报销单需要提交；状态为 :guilabel:`已批准` 或 :guilabel:`已提交` 的报销单不需要提交。
 
-The :guilabel:`To Submit` expenses are identifiable by the :guilabel:`To Submit` status, and by the
-blue text, while all other expense text appears in black.
+状态为 :guilabel:`待提交` 的报销单可以通过 :guilabel:`待提交` 状态和蓝色文本识别，而所有其他报销单的文本显示为黑色。
 
 .. image:: expense_reports/expense-status.png
    :align: center
-   :alt: Submit the report to the manager.
+   :alt: 将报销单提交给经理。
 
 .. note::
-   The status of each report is shown in the :guilabel:`Status` column. If the :guilabel:`Status`
-   column is not visible, click the :icon:`oi-settings-adjust` :guilabel:`(additional options)` icon
-   at the end of the row, and tick the checkbox beside :guilabel:`Status` from the resulting
-   drop-down menu.
+   每个报销单的状态显示在 :guilabel:`状态` 列中。如果 :guilabel:`状态` 列不可见，请点击行末的 :icon:`oi-settings-adjust` :guilabel:`(附加选项)` 图标，然后在下拉菜单中勾选 :guilabel:`状态` 复选框。
 
-Click on a report to open it, then click :guilabel:`Submit To Manager`. After submitting a report,
-the next step is to wait for the manager to approve it.
+点击报销单打开它，然后点击 :guilabel:`提交给经理`。提交报销单后，下一步是等待经理批准。
 
 .. important::
-   :doc:`Approving <../expenses/approve_expenses>` expenses, :doc:`posting
-   <../expenses/post_expenses>` expenses, and :doc:`reimbursing <../expenses/reimburse>` expenses
-   are **only** for users with the appropriate :doc:`access rights documentation
-   </applications/general/users>`.
+   :doc:`审批 <../expenses/approve_expenses>` 费用、:doc:`过账 <../expenses/post_expenses>` 费用和 :doc:`报销 <../expenses/reimburse>` 费用 **仅限** 具有相应权限的用户执行。请参阅 :doc:`访问权限文档 </applications/general/users>`。

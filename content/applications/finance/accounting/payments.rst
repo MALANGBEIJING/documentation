@@ -1,145 +1,100 @@
 :show-content:
 
 ========
-Payments
+付款
 ========
 
-In Odoo, payments can either be automatically linked to an invoice or bill or be stand-alone records
-for use at a later date:
+在 Odoo 中，付款可以自动关联到发票或账单，或者作为独立记录用于以后使用：
 
-- If a payment is **linked to an invoice or bill**, it reduces/settles the amount due of the
-  invoice. You can have multiple payments related to the same invoice.
-
-- If a payment is **not linked to an invoice or bill**, the customer has an outstanding credit with
-  your company, or your company has an outstanding debit with a vendor. You can use those
-  outstanding amounts to reduce/settle unpaid invoices/bills.
+- 如果付款是 **关联到发票或账单** 的，它将减少/结清发票的应付款项。您可以有多个付款与同一张发票相关联。
+  
+- 如果付款 **没有关联到发票或账单**，客户对您的公司有未结清的信用，或者您的公司对供应商有未结清的借记。您可以使用这些未结金额来减少/结清未付款的发票/账单。
 
 .. seealso::
-   - :doc:`Internal transfers <payments/internal_transfers>`
-   - :doc:`bank/reconciliation`
-   - `Odoo Tutorials: Bank Configuration
-     <https://www.odoo.com/slides/slide/bank-configuration-1880>`_
+   - :doc:`内部转账 <payments/internal_transfers>`
+   - :doc:`银行对账 <bank/reconciliation>`
+   - `Odoo 教程：银行配置 <https://www.odoo.com/slides/slide/bank-configuration-1880>`_
 
 .. _payments/register:
 
-Registering payment from an invoice or bill
-===========================================
+从发票或账单中登记付款
+===========================
 
-When clicking :guilabel:`Register payment` in a customer invoice or vendor bill, it generates a new
-journal entry and changes the amount due according to the payment amount. The counterpart is
-reflected in an :ref:`outstanding <bank/outstanding-accounts>` **receipts** or **payments** account.
-At this point, the customer invoice or vendor bill is marked as :guilabel:`In payment`. Then, when
-the outstanding account is reconciled with a bank statement line, the invoice or vendor bill changes
-to the :guilabel:`Paid` status.
+在客户发票或供应商账单中点击 :guilabel:`登记付款`，它将生成一条新的日记账分录，并根据付款金额更改应付款项。对应的金额反映在 :ref:`未清款项 <bank/outstanding-accounts>` **收款** 或 **付款** 账户中。此时，客户发票或供应商账单的状态为 :guilabel:`付款中`。然后，当未清账户与银行对账单行对账时，发票或供应商账单的状态会变为 :guilabel:`已支付`。
 
-The information icon near the payment line displays more information about the payment. You can
-access additional information, such as the related journal, by clicking :guilabel:`View`.
+付款行旁边的信息图标显示了有关付款的更多信息。您可以通过点击 :guilabel:`查看` 访问相关日记账等其他信息。
 
 .. image:: payments/information-icon.png
-   :alt: See detailed information of a payment.
+   :alt: 查看付款的详细信息。
 
 .. note::
-   - The customer invoice or vendor bill must be in the :guilabel:`Posted` status to register the
-     payment.
-   - If you unreconcile a payment, it still appears in your books but is no longer linked to the
-     invoice.
-   - If you (un)reconcile a payment in a different currency, a journal entry is automatically
-     created to post the currency exchange gains/losses (reversal) amount.
-   - If you (un)reconcile a payment and an invoice having cash basis taxes, a journal entry is
-     automatically created to post the cash basis tax (reversal) amount.
+   - 客户发票或供应商账单必须处于 :guilabel:`已过账` 状态才能登记付款。
+   - 如果您取消对账付款，付款仍然会在您的账簿中显示，但不再与发票关联。
+   - 如果您在不同货币中（取消）对账付款，系统将自动生成一条日记账分录，以记录货币兑换的损益（反向）金额。
+   - 如果您在（取消）对账付款和带有现金基础税的发票，系统将自动生成一条日记账分录，以记录现金基础税（反向）金额。
 
 .. tip::
-   - If your main bank account is set as an :ref:`outstanding account
-     <bank/outstanding-accounts>`, and the payment is registered in Odoo (not through a related
-     bank statement), invoices and bills are directly registered as :guilabel:`Paid`.
+   - 如果您的主银行账户设置为 :ref:`未清账户 <bank/outstanding-accounts>`，并且付款在 Odoo 中登记（未通过相关银行对账单），发票和账单将直接被登记为 :guilabel:`已支付`。
 
-Registering payments not tied to an invoice or bill
-===================================================
+未关联发票或账单的付款登记
+=================================
 
-When a new payment is registered via :menuselection:`Customers / Vendors --> Payments` menu, it is
-not directly linked to an invoice or bill. Instead, the account receivable or the account payable is
-matched with the **outstanding account** until it is manually matched with its related invoice or
-bill.
+通过 :menuselection:`客户 / 供应商 --> 付款` 菜单登记的新付款不会直接关联到发票或账单。相反，账户应收款或账户应付款会与 **未清账户** 匹配，直到手动将其与相关发票或账单匹配。
 
-Matching invoices and bills with payments
------------------------------------------
+匹配发票和账单与付款
+--------------------------
 
-A blue banner appears when you validate a new invoice/bill and an **outstanding payment** exists for
-this specific customer or vendor. It can easily be matched from the invoice or bill by clicking
-:guilabel:`ADD` under :guilabel:`Outstanding Credits` or :guilabel:`Outstanding Debits`.
+当您验证新发票/账单并且存在该特定客户或供应商的 **未清付款** 时，将显示一个蓝色横幅。您可以通过点击 :guilabel:`添加` 在 :guilabel:`未清信用` 或 :guilabel:`未清借方` 下轻松匹配发票或账单。
 
 .. image:: payments/add-option.png
-   :alt: Shows the ADD option to reconcile an invoice or a bill with a payment.
+   :alt: 显示添加选项以对发票或账单与付款进行对账。
 
-The invoice or bill is now marked as :guilabel:`In payment` until it is reconciled with its
-corresponding bank statement.
+发票或账单现在标记为 :guilabel:`付款中`，直到与相应的银行对账单对账为止。
 
 .. _payments/batch-payments:
 
-Batch payment
--------------
+批量付款
+---------
 
-Batch payments allow you to group different payments to ease :doc:`reconciliation
-<bank/reconciliation>`. They are also useful when you deposit :doc:`checks <payments/checks>` to the
-bank or for :doc:`SEPA payments <payments/pay_sepa>`. To do so, go to :menuselection:`Accounting -->
-Customers --> Batch Payments` or :menuselection:`Accounting --> Vendors --> Batch Payments`. In the
-list view of payments, you can select and group several payments in a batch by clicking
-:menuselection:`Action --> Create Batch Payment`.
+批量付款允许您将不同的付款分组，以便于 :doc:`对账 <bank/reconciliation>`。它们在您将 :doc:`支票 <payments/checks>` 存入银行或用于 :doc:`SEPA 付款 <payments/pay_sepa>` 时也很有用。为此，请转到 :menuselection:`会计 --> 客户 --> 批量付款` 或 :menuselection:`会计 --> 供应商 --> 批量付款`。在付款的列表视图中，您可以选择并通过点击 :menuselection:`操作 --> 创建批量付款` 将多个付款分组成一个批量。
 
 .. seealso::
-  - :doc:`payments/batch`
-  - :doc:`payments/batch_sdd`
+  - :doc:`批量付款 <payments/batch>`
+  - :doc:`批量 SDD 付款 <payments/batch_sdd>`
 
 .. _payments/matching:
 
-Payments matching
------------------
+付款对账
+----------
 
-The :guilabel:`Payments matching` tool opens all unreconciled customer invoices or vendor bills and
-allows you to process them individually, matching all payments and invoices in one place. You can
-reach this tool from the :menuselection:`Accounting Dashboard --> Customer Invoices / Vendor Bills`,
-click the drop-down menu button (:guilabel:`⋮`), and select :guilabel:`Payments Matching`, or go to
-:menuselection:`Accounting --> Accounting --> Reconciliation`.
+:guilabel:`付款对账` 工具打开所有未对账的客户发票或供应商账单，允许您单独处理它们，在一个地方匹配所有付款和发票。您可以从 :menuselection:`会计仪表板 --> 客户发票 / 供应商账单`，点击下拉菜单按钮 (:guilabel:`⋮`)，并选择 :guilabel:`付款对账`，或转到 :menuselection:`会计 --> 会计 --> 对账`。
 
 .. image:: payments/payments-journal.png
-   :alt: Payments matching menu in the drop-down menu.
+   :alt: 下拉菜单中的付款对账选项。
 
 .. note::
-   During the :doc:`reconciliation <bank/reconciliation>`, if the sum of the debits and credits does
-   not match, there is a remaining balance. This either needs to be reconciled at a later date or
-   needs to be written off directly.
+   在 :doc:`对账 <bank/reconciliation>` 过程中，如果借方和贷方的总和不匹配，则会有一个剩余余额。这个余额要么需要在以后对账，要么直接核销。
 
-Batch payments matching
------------------------
+批量付款对账
+--------------
 
-You can use the **batch reconciliation feature** to reconcile several outstanding payments or
-invoices simultaneously for a specific customer or vendor. Go to your **Accounting Dashboard** and
-open your **bank journal**. In the **bank reconciliation** view, select a **transaction**, and click
-the :guilabel:`Batch Payments` tab. From here, you can reconcile your
-:doc:`batch payments <payments/batch>` with your outstanding payments or invoices.
+您可以使用 **批量对账功能** 同时对特定客户或供应商的多个未清付款或发票进行对账。进入您的 **会计仪表板** 并打开您的 **银行日记账**。在 **银行对账** 视图中，选择一个 **交易**，然后点击 :guilabel:`批量付款` 选项卡。从这里，您可以将您的 :doc:`批量付款 <payments/batch>` 与您的未清付款或发票对账。
 
 .. image:: payments/reconcile-option.png
-   :alt: The batch payment reconcile option.
+   :alt: 批量付款对账选项。
 
-Registering a partial payment
-=============================
+登记部分付款
+===============
 
-To register a **partial payment**, click :guilabel:`Register payment` from the related invoice or
-bill, and enter the amount received or paid. Upon entering the amount, a prompt appears to decide
-whether to :guilabel:`Keep open` the invoice or bill, or :guilabel:`Mark as fully paid`. Select
-:guilabel:`Keep open` and click :guilabel:`Create payment`. The invoice or bill is now marked as
-:guilabel:`Partial`. Select :guilabel:`Mark as fully paid` if you wish to settle the invoice or bill
-with a difference in the amount.
+要登记 **部分付款**，请从相关发票或账单中点击 :guilabel:`登记付款`，并输入收到或支付的金额。输入金额后，系统会提示您决定是 :guilabel:`保持未结` 发票或账单，还是 :guilabel:`标记为已全额支付`。选择 :guilabel:`保持未结` 并点击 :guilabel:`创建付款`。发票或账单现在标记为 :guilabel:`部分`。如果您希望以不同金额结清发票或账单，请选择 :guilabel:`标记为已全额支付`。
 
 .. image:: payments/payment-difference.png
-   :alt: Partial payment of an invoice or bill.
+   :alt: 发票或账单的部分付款。
 
-Reconciling payments with bank statements
-=========================================
+与银行对账单对账付款
+=========================
 
-Once a payment has been registered, the status of the invoice or bill is :guilabel:`In payment`. The
-next step is :doc:`reconciling <bank/reconciliation>` it with the related bank statement line to
-have the transaction finalized and the invoice or bill marked as :guilabel:`Paid`.
+一旦付款登记完毕，发票或账单的状态为 :guilabel:`付款中`。下一步是将其与相关银行对账单行 :doc:`对账 <bank/reconciliation>`，以完成交易并将发票或账单标记为 :guilabel:`已支付`。
 
 .. toctree::
    :titlesonly:

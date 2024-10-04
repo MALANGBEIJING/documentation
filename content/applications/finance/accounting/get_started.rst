@@ -1,29 +1,23 @@
 :show-content:
 
 ===========
-Get started
+快速入门
 ===========
 
-When you first open your Odoo Accounting app, the :guilabel:`Accounting Dashboard` welcomes you with
-a step-by-step onboarding banner, a wizard that helps you get started. This onboarding banner is
-displayed until you choose to close it.
+当您第一次打开 Odoo 会计应用程序时，:guilabel:`会计仪表板` 会欢迎您，显示分步入门横幅，这是一个帮助您入门的向导。此入门横幅会一直显示，直到您选择将其关闭为止。
 
-The settings visible in the onboarding banner can still be modified later by going to
-:menuselection:`Accounting --> Configuration --> Settings`.
+横幅中显示的设置稍后仍然可以通过导航到 :menuselection:`会计 --> 配置 --> 设置` 进行修改。
 
 .. note::
-   Odoo Accounting automatically installs the appropriate **Fiscal Localization Package** for your
-   company, according to the country selected at the creation of the database. This way, the right
-   accounts, reports, and taxes are ready-to-go. :ref:`Click here <fiscal_localizations/packages>`
-   for more information about Fiscal Localization Packages.
+   Odoo 会计根据数据库创建时选择的国家，自动安装适合您公司的 **财政本地化包**。这样，相关的账户、报告和税项都可以直接使用。:ref:`点击此处了解更多关于财政本地化包的信息 <fiscal_localizations/packages>`。
 
-Accounting onboarding banner
-============================
+会计入门横幅
+================
 
-The step-by-step Accounting onboarding banner is composed of four steps:
+分步会计入门横幅由四个步骤组成：
 
 .. image:: get_started/accounting-onboarding-banner.png
-   :alt: Step-by-step onboarding banner in Odoo Accounting
+   :alt: Odoo 会计中的分步入门横幅
 
 #. :ref:`accounting-setup-periods`
 #. :ref:`accounting-setup-bank`
@@ -32,95 +26,74 @@ The step-by-step Accounting onboarding banner is composed of four steps:
 
 .. _accounting-setup-periods:
 
-Accounting Periods
-------------------
+会计期间
+---------
 
-Define the **Fiscal Years**’ opening and closing dates, which are used to generate reports
-automatically, and set your **Tax Return Periodicity**, along with a reminder to never miss a tax
-return deadline.
+定义 **财务年度** 的起止日期，用于自动生成报告，并设置您的 **税务申报周期**，同时设置一个提醒，以免错过任何税务申报截止日期。
 
-By default, the opening date is set on the 1st of January and the closing date on the 31st of
-December, as this is the most common use.
+默认情况下，起始日期设置为 1 月 1 日，结束日期为 12 月 31 日，这是最常见的使用方式。
 
 .. note::
-   You can also change these settings by going to :menuselection:`Accounting --> Configuration -->
-   Settings --> Fiscal Periods` and updating the values.
+   您还可以通过导航到 :menuselection:`会计 --> 配置 --> 设置 --> 财务期间` 并更新这些值来更改这些设置。
 
 .. _accounting-setup-bank:
 
-Bank Account
-------------
+银行账户
+---------
 
-Connect your bank account to your database and have your bank statements synced automatically. To do
-so, find your bank in the list, click :guilabel:`Connect`, and follow the instructions on-screen.
-
-.. note::
-   :doc:`Click here <bank/bank_synchronization>` for more information about this feature.
-
-If your Bank Institution can’t be synchronized automatically, or if you prefer not to sync it with
-your database, you can also configure your bank account manually by typing its name, clicking
-:guilabel:`Create your Bank Account`, and filling out the form.
-
-- :guilabel:`Name`: the bank account's name, as displayed in Odoo.
-- :guilabel:`Account Number`: your bank account number (IBAN in Europe).
-- :guilabel:`Bank`: click :guilabel:`Create and edit` to configure the bank's details. Add the
-  bank institution's :guilabel:`Name` and its :guilabel:`Identifier Code` (BIC or SWIFT).
-- :guilabel:`Code`: this code is your Journal's :guilabel:`Short Code`, as displayed in Odoo.
-  By default, Odoo creates a new Journal with this short code.
-- :guilabel:`Journal`: This field is displayed if you have an existing bank journal that is not
-  linked yet to a bank account. If so, then select the :guilabel:`Journal` you want to use to record
-  the financial transactions linked to this bank account or create a new one by clicking
-  :guilabel:`Create and Edit`.
+将您的银行账户连接到数据库中，并自动同步银行对账单。为此，请在列表中找到您的银行，点击 :guilabel:`连接`，并按照屏幕上的指示操作。
 
 .. note::
-   - You can add as many bank accounts as needed with this tool by going to
-     :menuselection:`Accounting --> Configuration --> Add a Bank Account`.
-   - :doc:`Click here <bank>` for more information about Bank Accounts.
+   :doc:`点击此处 <bank/bank_synchronization>` 了解有关此功能的更多信息。
+
+如果您的银行无法自动同步，或者您不希望将其与数据库同步，您也可以通过输入其名称，点击 :guilabel:`创建您的银行账户`，并填写表格来手动配置银行账户。
+
+- :guilabel:`名称`: 在 Odoo 中显示的银行账户名称。
+- :guilabel:`账号`: 您的银行账号（欧洲为 IBAN）。
+- :guilabel:`银行`: 点击 :guilabel:`创建并编辑` 来配置银行的详细信息。添加银行机构的 :guilabel:`名称` 和其 :guilabel:`标识代码`（BIC 或 SWIFT）。
+- :guilabel:`代码`: 此代码是您的日记账的 :guilabel:`短代码`，在 Odoo 中显示。默认情况下，Odoo 会创建一个带有此短代码的新日记账。
+- :guilabel:`日记账`: 如果您已有一个尚未关联到银行账户的现有银行日记账，则此字段会显示。如果是这样，请选择 :guilabel:`日记账` 来记录与此银行账户关联的财务交易，或者通过点击 :guilabel:`创建并编辑` 来创建一个新日记账。
+
+.. note::
+   - 您可以使用此工具添加所需的任意多个银行账户，路径为：:menuselection:`会计 --> 配置 --> 添加银行账户`。
+   - :doc:`点击此处 <bank>` 了解有关银行账户的更多信息。
 
 .. _accounting-setup-taxes:
 
-Taxes
------
+税项
+------
 
-This menu allows you to create new taxes, (de)activate, or modify existing taxes. Depending on the
-:doc:`localization package <../fiscal_localizations>` installed on your database, taxes required for
-your country are already configured.
+此菜单允许您创建新的税项、（停）启用或修改现有税项。根据您数据库中安装的 :doc:`本地化包 <../fiscal_localizations>`，所需的税项已为您的国家配置好。
 
 .. note::
-   :doc:`Click here <taxes>` for more information about taxes.
+   :doc:`点击此处 <taxes>` 了解有关税项的更多信息。
 
 .. _accounting-setup-chart:
 
-Chart of Accounts
------------------
+会计科目表
+------------
 
-With this menu, you can add accounts to your **Chart of Accounts** and indicate their initial
-opening balances.
+通过此菜单，您可以向 **会计科目表** 添加账户并指示其初始余额。
 
-Basic settings are displayed on this page to help you review your Chart of Accounts. To access all
-the settings of an account, click on the :guilabel:`Setup` button at the end of the line.
+此页面显示了基本设置，以帮助您审查您的会计科目表。要访问账户的所有设置，请点击行末的 :guilabel:`设置` 按钮。
 
 .. image:: get_started/setup_chart_of_accounts.png
-   :alt: Setup of the Chart of Accounts and their opening balances in Odoo Accounting
+   :alt: Odoo 会计中的会计科目表及其初始余额的设置
 
 .. note::
-   :doc:`Click here <get_started/chart_of_accounts>` for more information on how to configure your
-   Chart of Accounts.
+   :doc:`点击此处 <get_started/chart_of_accounts>` 了解如何配置您的会计科目表。
 
-Invoicing onboarding banner
-===========================
+发票入门横幅
+===============
 
-There is another step-by-step onboarding banner that helps you take advantage of your Odoo Invoicing
-and Accounting apps. The Invoicing onboarding banner is the one that welcomes you if you use the
-Invoicing app rather than the Accounting app.
+另一个分步入门横幅帮助您利用 Odoo 的发票和会计应用程序。如果您使用发票应用程序而不是会计应用程序，发票入门横幅将是欢迎您的内容。
 
-If you have Odoo Accounting installed on your database, you can reach it by going to
-:menuselection:`Accounting --> Customers --> Invoices`.
+如果您的数据库中安装了 Odoo 会计，您可以通过导航到 :menuselection:`会计 --> 客户 --> 发票` 来访问它。
 
-The Invoicing onboarding banner consists of four main steps:
+发票入门横幅由四个主要步骤组成：
 
 .. image:: get_started/invoicing-onboarding-banner.png
-   :alt: Step-by-step onboarding banner in Odoo Invoicing
+   :alt: Odoo 发票中的分步入门横幅
 
 #. :ref:`invoicing-setup-company`
 #. :ref:`invoicing-setup-layout`
@@ -129,60 +102,50 @@ The Invoicing onboarding banner consists of four main steps:
 
 .. _invoicing-setup-company:
 
-Company Data
-------------
+公司信息
+---------
 
-Add your company’s details, such as the name, address, logo, website, phone number, email address,
-and Tax ID or VAT number. These details are then displayed on your documents, such as invoices.
+添加您公司的详细信息，例如名称、地址、徽标、网站、电话号码、电子邮件地址和税号或增值税号。这些详细信息将显示在您的文件中，如发票。
 
 .. note::
-   You can also change the company's details by going to :menuselection:`Settings --> General
-   Settings`, scrolling down to the :guilabel:`Companies` section, and :guilabel:`Update Info`.
+   您还可以通过导航到 :menuselection:`设置 --> 常规设置`，向下滚动到 :guilabel:`公司` 部分并 :guilabel:`更新信息` 来更改公司详细信息。
 
 .. _invoicing-setup-layout:
 
-Documents Layout
-----------------
+文档布局
+---------
 
-Customize the :ref:`default invoice layout <studio/pdf-reports/default-layout>`.
+自定义 :ref:`默认发票布局 <studio/pdf-reports/default-layout>`。
 
 .. note::
-   You can also change the invoice layout by going to :menuselection:`Settings --> General
-   Settings`, scrolling down to the :guilabel:`Companies` section, and clicking :guilabel:`Configure
-   Document Layout`.
+   您还可以通过导航到 :menuselection:`设置 --> 常规设置`，向下滚动到 :guilabel:`公司` 部分并点击 :guilabel:`配置文档布局` 来更改发票布局。
 
 .. _invoicing-setup-invoice:
 
-Create Invoice
---------------
+创建发票
+----------
 
-Create your first invoice.
+创建您的第一张发票。
 
 .. tip::
-   Add your **bank account number** and a link to your **General Terms & Condition** in the footer.
-   This way, your contacts can find the full content of your GT&C online without having to print
-   them on the invoices you issue.
+   在页脚中添加您的 **银行账号** 和指向您 **通用条款和条件** 的链接。这样，您的联系人可以在线查看 GT&C 的完整内容，而无需在您签发的发票上打印它们。
 
 .. _invoicing-setup-payments:
 
-Online Payments
----------------
+在线支付
+---------
 
-Get started with Stripe and enable secure integrated credit and debit card payments within Odoo.
+使用 Stripe 开始操作，并在 Odoo 中启用安全的集成信用卡和借记卡支付。
 
 .. tip::
-   To use other payment providers, go to
-   :guilabel:`Invoicing --> Configuration --> Payment Providers` and
-   :doc:`enable the desired providers <../payment_providers>`.
-
+   要使用其他支付提供商，请前往 :guilabel:`发票 --> 配置 --> 支付提供商` 并 :doc:`启用所需的提供商 <../payment_providers>`。
 
 .. seealso::
-   * :doc:`bank`
-   * :doc:`get_started/chart_of_accounts`
-   * :doc:`bank/bank_synchronization`
-   * :doc:`../fiscal_localizations`
-   * `Odoo Tutorials: Accounting and Invoicing - Getting started [video]
-     <https://www.odoo.com/slides/slide/getting-started-1692>`_
+   * :doc:`银行账户 <bank>`
+   * :doc:`会计科目表 <get_started/chart_of_accounts>`
+   * :doc:`银行同步 <bank/bank_synchronization>`
+   * :doc:`本地化包 <../fiscal_localizations>`
+   * `Odoo 教程：会计与发票 - 快速入门 [视频] <https://www.odoo.com/slides/slide/getting-started-1692>`_
 
 .. toctree::
    :titlesonly:

@@ -1,343 +1,290 @@
 :show-content:
 
 =====
-Taxes
+税收
 =====
 
-There are numerous types of **taxes**, and their application varies greatly, depending mostly on
-your company's localization. To make sure they are recorded with accuracy, Odoo's tax engine
-supports all kinds of uses and computations.
+税收种类繁多，其应用方式因公司所在的本地化而异。为了确保准确记录，Odoo 的税收引擎支持各种用途和计算方式。
 
 .. _taxes/default:
 
-Default taxes
+默认税收
 =============
 
-**Default taxes** define which taxes are automatically selected when creating a new product. They
-are also used to prefill the :guilabel:`Taxes` field when adding a new line on an invoice in
-:ref:`Accounting Firms <fiduciaries>` mode.
+**默认税收**定义了创建新产品时自动选择的税种。它们还用于在 :ref:`会计事务所模式 <fiduciaries>` 中添加发票行时自动填写 :guilabel:`税收` 字段。
 
 .. image:: taxes/default-configuration.png
-   :alt: Odoo fills out the Tax field automatically according to the Default Taxes
+   :alt: Odoo 根据默认税收自动填写税收字段
 
-To change your **default taxes**, go to :menuselection:`Accounting --> Configuration --> Settings
---> Taxes --> Default Taxes`, select the appropriate taxes for your default sales tax and purchase
-tax, and click on :guilabel:`Save`.
+要更改您的 **默认税收**，请前往 :menuselection:`会计 --> 配置 --> 设置 --> 税收 --> 默认税收`，选择适当的销售税和采购税，然后点击 :guilabel:`保存`。
 
 .. image:: taxes/default-taxes.png
-   :alt: Define which taxes to use by default on Odoo
+   :alt: 在 Odoo 中定义默认使用的税种
 
 .. note::
-   **Default taxes** are automatically set up according to the country selected at the creation of
-   your database, or when you set up a :ref:`fiscal localization package
-   <fiscal_localizations/packages>` for your company.
+   **默认税收**会根据创建数据库时选择的国家自动设置，或者在您为公司设置 :ref:`财务本地化包 <fiscal_localizations/packages>` 时进行设置。
 
 .. _taxes/list_activation:
 
-Activate sales taxes from the list view
+从列表视图启用销售税
 =======================================
 
-As part of your :ref:`fiscal localization package <fiscal_localizations/packages>`, most of your
-country's sales taxes are already preconfigured on your database. However, only a few taxes are
-activated by default. To activate taxes relevant to your business, go to :menuselection:`Accounting
---> Configuration --> Taxes` and enable the toggle button under the :guilabel:`Active` column.
+作为您的 :ref:`财务本地化包 <fiscal_localizations/packages>` 的一部分，大多数国家的销售税已在您的数据库中预先配置。然而，默认情况下只有少数税收被激活。要启用与您的业务相关的税种，请前往 :menuselection:`会计 --> 配置 --> 税收`，并在 :guilabel:`活跃` 列下启用切换按钮。
 
 .. image:: taxes/list.png
-   :alt: Activate pre-configured taxes in Odoo Accounting
+   :alt: 在 Odoo 会计中启用预配置的税收
 
 .. _taxes/configuration:
 
-Configuration
+配置
 =============
 
-To edit or create a **tax**, go to :menuselection:`Accounting --> Configuration --> Taxes` and open
-a tax or click on :guilabel:`New`.
+要编辑或创建 **税收**，请前往 :menuselection:`会计 --> 配置 --> 税收`，打开一个税种或点击 :guilabel:`新建`。
 
 .. image:: taxes/edit.png
-   :alt: Edition of a tax in Odoo Accounting
+   :alt: 在 Odoo 会计中编辑税收
 
-Basic options
+基本选项
 -------------
 
 .. _taxes/name:
 
-Tax name
+税收名称
 ~~~~~~~~
 
-The **tax name** is displayed for backend users in the :guilabel:`Taxes` field in
-:doc:`sales orders <../../sales/sales>`, :doc:`invoices <customer_invoices>`, product forms, etc.
+**税收名称**显示在后台用户的 :guilabel:`税收` 字段中，例如 :doc:`销售订单 <../../sales/sales>`、:doc:`发票 <customer_invoices>`、产品表单等。
 
 .. _taxes/computation:
 
-Tax computation
+税收计算
 ~~~~~~~~~~~~~~~
 
-- **Group of Taxes**
+- **税收组**
 
-  The tax is a combination of multiple sub-taxes. You can add as many taxes as you want, in the
-  order you want them to be applied.
+  该税收是多个子税的组合。您可以根据需要添加任意多个税种，并按您希望的顺序应用它们。
 
   .. important::
-     Make sure that the tax sequence is correct, as the order in which they are may impact the
-     taxes' amounts computation, especially if one of the taxes :ref:`affects the base of the
-     subsequent ones <taxes/base-subsequent>`.
+     确保税收顺序正确，因为税收的顺序可能会影响税额的计算，特别是当某些税收 :ref:`影响后续税收的基数 <taxes/base-subsequent>` 时。
 
-- **Fixed**
+- **固定金额**
 
-  The tax has a fixed amount in the default currency. The amount remains the same, regardless of the
-  sales price.
+  该税收在默认货币中具有固定金额。无论销售价格如何，金额保持不变。
 
 .. example::
-   A product has a sales price of $1000, and we apply a $10 *fixed* tax. We then have:
+   一个产品的销售价格为 1000 美元，我们应用 10 美元的 *固定* 税收。然后我们得到：
 
    +-------------+-------------+----------+----------+
-   | Product     | Price       | Tax      | Total    |
-   | sales price | without tax |          |          |
+   | 产品        | 价格        | 税收     | 总计     |
+   | 销售价格    | 不含税      |          |          |
    +=============+=============+==========+==========+
    | 1,000       | 1,000       | 10       | 1,010.00 |
    +-------------+-------------+----------+----------+
 
-- **Percentage of price**
+- **价格百分比**
 
-  The *sales price* is the taxable basis: the tax amount is computed by multiplying the sales price
-  by the tax percentage.
+  *销售价格* 是应税基数：通过将销售价格乘以税率来计算税额。
 
 .. example::
-   A product has a sales price of $1000, and we apply a *10% of Price* tax. We then have:
+   一个产品的销售价格为 1000 美元，我们应用 *10% 的价格百分比* 税收。然后我们得到：
 
    +-------------+-------------+----------+----------+
-   | Product     | Price       | Tax      | Total    |
-   | sales price | without tax |          |          |
+   | 产品        | 价格        | 税收     | 总计     |
+   | 销售价格    | 不含税      |          |          |
    +=============+=============+==========+==========+
    | 1,000       | 1,000       | 100      | 1,100.00 |
    +-------------+-------------+----------+----------+
 
-- **Percentage of Price Tax Included**
+- **包含税收的价格百分比**
 
-  The **total** is the taxable basis: the tax amount is a percentage of the total.
+  **总计** 是应税基数：税额是总价的一个百分比。
 
 .. example::
-   A product has a Sales Price of $1000, and we apply a *10% of Price Tax Included* tax. We then
-   have:
+   一个产品的销售价格为 1000 美元，我们应用 *10% 的包含税收的价格百分比* 税收。然后我们得到：
 
    +-------------+-------------+----------+----------+
-   | Product     | Price       | Tax      | Total    |
-   | sales price | without tax |          |          |
+   | 产品        | 价格        | 税收     | 总计     |
+   | 销售价格    | 不含税      |          |          |
    +=============+=============+==========+==========+
    | 1,000       | 1,000       | 111.11   | 1,111.11 |
    +-------------+-------------+----------+----------+
 
-- **Python code**
+- **Python 代码**
 
-  A tax defined as **Python code** consists of two snippets of Python code that are executed in a
-  local environment containing data such as the unit price, product or partner.
-  :guilabel:`Python Code` defines the amount of the tax, and :guilabel:`Applicable Code` defines if
-  the tax is to be applied. The formula is found at the bottom of the :guilabel:`Definition` tab.
+  定义为 **Python 代码** 的税收包含两段 Python 代码，这些代码在包含单价、产品或合作伙伴等数据的本地环境中执行。
+  :guilabel:`Python 代码` 定义了税收金额，而 :guilabel:`适用代码` 定义了税收是否适用。公式在 :guilabel:`定义` 选项卡的底部找到。
 
 .. example::
-   :guilabel:`Python Code`: `result = price_unit * 0.10`
-   :guilabel:`Applicable Code`: `result = true`
+   :guilabel:`Python 代码`：`result = price_unit * 0.10`
+   :guilabel:`适用代码`：`result = true`
 
 .. _taxes/active:
 
-Active
+活跃
 ~~~~~~
 
-Only **active** taxes can be added to new documents.
+只有 **活跃** 的税收才能添加到新文档中。
 
 .. important::
-   It is not possible to delete taxes that have already been used. Instead, you can deactivate them
-   to prevent future use.
+   已使用的税收无法删除。相反，您可以停用它们以防止将来使用。
 
 .. note::
-   This field can be modified from the :ref:`list view <taxes/list_activation>`.
+   该字段可以从 :ref:`列表视图 <taxes/list_activation>` 中进行修改。
 
 .. _taxes/scope:
 
-Tax type
+税种
 ~~~~~~~~
 
-The :guilabel:`Tax Type` determines the tax application, which also restricts where it is displayed.
+:guilabel:`税种` 决定税收的应用，并限制其显示位置。
 
-- **Sales**: Customer invoices, product customer taxes, etc.
-- **Purchase**: Vendor bills, product vendor taxes, etc.
-- **None**
+- **销售**：客户发票、产品客户税等。
+- **采购**：供应商账单、产品供应商税等。
+- **无**
 
 .. tip::
-   You can use :guilabel:`None` for taxes that you want to include in a :ref:`Group of Taxes
-   <taxes/computation>` but that you do not want to list along with other sales or purchase taxes.
+   对于您希望包含在 :ref:`税收组 <taxes/computation>` 中但不希望与其他销售或采购税收一起列出的税种，可以使用 :guilabel:`无`。
 
-Tax scope
+税收范围
 ~~~~~~~~~
 
-The :guilabel:`Tax Scope` restricts the use of taxes to a type of product, either **goods** or
-**services**.
+:guilabel:`税收范围` 将税收的使用限制为一种产品类型，**货物**或**服务**。
 
 .. _taxes/definition-tab:
 
-Definition tab
+定义选项卡
 --------------
 
-Allocate with precision the amount of the taxable basis or percentages of the computed tax to
-multiple accounts and tax grids.
+根据需要将应税基数或计算税额的百分比精确分配到多个帐户和税收网格中。
 
 .. image:: taxes/definition.png
-   :alt: Allocate tax amounts to the right accounts and tax grids
+   :alt: 将税额分配到正确的帐户和税收网格
 
-- **Based On**:
+- **基于**：
 
-  - :guilabel:`Base`: the price on the invoice line
-  - :guilabel:`% of tax`: a percentage of the computed tax.
+  - :guilabel:`基数`：发票行的价格
+  - :guilabel:`% 的税收`：计算税收的百分比。
 
-- **Account**: if defined, an additional journal item is recorded.
-- **Tax Grids**:  used to generate :doc:`tax reports <reporting/tax_returns>`
-  automatically, according to your country's regulations.
+- **帐户**：如果已定义，将记录一个额外的日记账分录。
+- **税收网格**：根据您的国家法规自动生成 :doc:`税收报告 <reporting/tax_returns>`。
 
 .. _taxes/advanced-tab:
 
-Advanced options tab
+高级选项卡
 --------------------
 
 .. _taxes/label-invoices:
 
-Label on invoices
+发票标签
 ~~~~~~~~~~~~~~~~~
 
-The tax label is displayed on each invoice line in the :guilabel:`Taxes` column. This is visible to
-*front-end* users on exported invoices, in customer portals, etc.
+税收标签显示在发票行的 :guilabel:`税收` 列中。这在导出的发票、客户门户等前端用户中可见。
 
 .. image:: taxes/invoice-label.png
-   :alt: The label on invoices is displayed on each invoice line
+   :alt: 发票上的标签显示在每个发票行中
 
 .. _taxes/tax-group:
 
-Tax group
+税收组
 ~~~~~~~~~
 
-Select which **tax group** the tax belongs to. The tax group name is the displayed above the
-**total** line on exported invoices and in customer portals.
+选择税收所属的 **税收组**。税收组名称显示在导出发票和客户门户的 **总计** 行上方。
 
-Tax groups include different iterations of the same tax. This can be useful when you must record
-the same tax differently according to :doc:`fiscal positions <taxes/fiscal_positions>`.
+税收组包括同一税种的不同迭代。这在您必须根据 :doc:`财务位置 <taxes/fiscal_positions>` 不同记录同一税收时非常有用。
 
 .. example::
 
    .. image:: taxes/invoice-tax-group.png
-      :alt: The Tax Group name is different from the Label on Invoices
+      :alt: 税收组名称与发票标签不同
 
-   In the example above, the :guilabel:`0% EU S` tax for intra-community customers in Europe records
-   the amount on specific accounts and tax grids. However, it remains a 0% tax to the customer. This
-   is why the label indicates :guilabel:`0% EU S`, and the tax group name above the
-   :guilabel:`Total` line indicates :guilabel:`VAT 0%`.
+   在上面的例子中，欧盟内部社区客户的 :guilabel:`0% EU S` 税收将金额记录在特定帐户和税收网格中。然而，对于客户来说，它仍然是 0% 的税收。这就是为什么标签显示为 :guilabel:`0% EU S`，而 :guilabel:`总计` 行上方的税收组名称显示为 :guilabel:`VAT 0%`。
 
 .. important::
-   Taxes have three different labels, each one having a specific use. Refer to the following table
-   to see where they are displayed.
+   税收有三种不同的标签，每一种都有特定的用途。请参阅下表了解它们的显示位置。
 
    +------------------+-------------------------+-------------------------+
-   | :ref:`Tax Name   | :ref:`Label on Invoice  | :ref:`Tax Group         |
+   | :ref:`税收名称   | :ref:`发票标签          | :ref:`税收组            |
    | <taxes/name>`    | <taxes/label-invoices>` | <taxes/tax-group>`      |
    +==================+=========================+=========================+
-   | Backend          | :guilabel:`Taxes` column| Above the               |
-   |                  | on exported invoices    | :guilabel:`Total` line  |
-   |                  |                         | on exported invoices    |
+   | 后台             | :guilabel:`税收` 列      | :guilabel:`总计` 行上方  |
+   |                  | 在导出发票中            | 在导出发票中            |
    +------------------+-------------------------+-------------------------+
 
 .. _taxes/analytic-cost:
 
-Include in analytic cost
+包括在分析成本中
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-With this option activated, the tax amount is assigned to the same **analytic account** as the
-invoice line.
+启用此选项后，税额将分配到与发票行相同的 **分析帐户**。
 
 .. _taxes/included-in-price:
 
-Included in price
+包含在价格中
 ~~~~~~~~~~~~~~~~~
 
-With this option activated, the total (including the tax) equals the **sales price**.
+启用此选项后，税收总额（包括税收）等于 **销售价格**。
 
-`Total = Sales Price = Computed Tax-Excluded price + Tax`
+`总计 = 销售价格 = 计算的不含税价格 + 税收`
 
 .. example::
-   A product has a sales price of $1000, and we apply a *10% of Price* tax, which is *included in
-   the price*. We then have:
+   一个产品的销售价格为 1000 美元，我们应用 *10% 的价格税收*，该税收 *包含在价格中*。然后我们得到：
 
    +-------------+-------------+----------+----------+
-   | Product     | Price       | Tax      | Total    |
-   | sales price | without tax |          |          |
+   | 产品        | 价格        | 税收     | 总计     |
+   | 销售价格    | 不含税      |          |          |
    +=============+=============+==========+==========+
    | 1,000       | 900.10      | 90.9     | 1,000.00 |
    +-------------+-------------+----------+----------+
 
 .. note::
-   If you need to define prices accurately, both tax-included and tax-excluded, please refer to the
-   following documentation: :doc:`taxes/B2B_B2C`.
+   如果您需要精确定义价格，无论是含税价格还是不含税价格，请参考以下文档：:doc:`taxes/B2B_B2C`。
 
 .. note::
-   By default, only the :guilabel:`Tax excluded` column is displayed on invoices. To display the
-   :guilabel:`Tax included` column, click the **dropdown toggle** button and check
-   :guilabel:`Tax incl.`.
+   默认情况下，发票上仅显示 :guilabel:`不含税` 列。要显示 :guilabel:`含税` 列，请点击 **下拉切换** 按钮并勾选 :guilabel:`含税`。
 
    .. image:: taxes/toggle-button.png
 
 .. _taxes/base-subsequent:
 
-Affect base of subsequent taxes
+影响后续税收的基数
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-With this option, the total tax-included becomes the taxable basis for the other taxes applied to
-the same product.
+启用此选项后，含税总额将成为应用于同一产品的其他税收的应税基数。
 
-You can configure a new :ref:`group of taxes <taxes/computation>` to include this tax or add it
-directly to a product line.
+您可以配置一个新的 :ref:`税收组 <taxes/computation>` 来包含此税收，或者将其直接添加到产品行中。
 
 .. image:: taxes/subsequent-line.png
-   :alt: The eco-tax is taken into the basis of the 21% VAT tax
+   :alt: 生态税计入 21% 增值税的基数
 
 .. warning::
-   The order in which you add the taxes on a product line has no effect on how amounts are computed.
-   If you add taxes directly on a product line, only the tax sequence determines the order in which
-   they are applied.
+   您在产品行中添加税收的顺序不会影响金额的计算方式。如果您直接在产品行中添加税收，只有税收顺序决定它们的应用顺序。
 
-   To reorder the sequence, go to :menuselection:`Accounting --> Configuration --> Taxes`, and drag
-   and drop the lines with the handles next to the tax names.
+   要重新排序，请前往 :menuselection:`会计 --> 配置 --> 税收`，并使用税名旁边的手柄拖放行。
 
    .. image:: taxes/list-sequence.png
-      :alt: The taxes' sequence in Odoo determines which tax is applied first
+      :alt: Odoo 中的税收顺序决定哪个税先应用
 
-Extra taxes
+附加税
 ===========
 
-"Extra taxes" is a broad term referring to additional taxes beyond the standard or basic taxes
-imposed by governments. These extra taxes can be **luxury** taxes, **environmental** taxes,
-**import** or **export duties** taxes, etc.
+“附加税”是指除标准或基本税外的额外税种。这些附加税可以是 **奢侈品税**、**环境税**、**进出口关税**等。
 
 .. note::
-   The method to compute these taxes varies across different countries. We recommend consulting your
-   country's regulations to understand how to calculate them for your business.
+   计算这些税收的方法因国家而异。我们建议您咨询所在国家的法规，以了解如何为您的业务计算这些税收。
 
-To compute an extra tax in Odoo, :ref:`create a tax <taxes/configuration>`, enter a tax name, select
-a :ref:`Tax Computation <taxes/configuration>`, set an :guilabel:`Amount`, and in the
-:guilabel:`Advanced Options` tab, check :guilabel:`Affect Base of Subsequent Taxes`. Then, drag and
-drop the taxes in the :ref:`order they should be computed <taxes/base-subsequent>`.
+要在 Odoo 中计算附加税，:ref:`创建一个税收 <taxes/configuration>`，输入税收名称，选择 :ref:`税收计算 <taxes/configuration>`，设置 :guilabel:`金额`，并在 :guilabel:`高级选项` 选项卡中勾选 :guilabel:`影响后续税收的基数`。然后，按 :ref:`计算顺序 <taxes/base-subsequent>` 拖放税收。
 
 .. example::
-   - In Belgium, the formula to compute an environmental tax is: `(product price + environmental
-     tax) x sales tax`. Therefore, our environmental tax has to come *before* the sales tax in the
-     computation sequence.
-   - In our case, we created a 5% environmental tax (Ecotax) and put it *before* the Belgian base
-     tax of 21%.
+   - 在比利时，计算环境税的公式为：`（产品价格 + 环境税）× 销售税`。因此，我们的环境税必须在销售税之前应用。
+   - 在我们的例子中，我们创建了 5% 的环境税（生态税），并将其置于比利时 21% 的基础税之前。
 
    .. image:: taxes/ecotax.png
-      :alt: Environmental tax sequence in Belgium.
+      :alt: 比利时环境税的计算顺序。
 
 .. seealso::
-  - :doc:`taxes/fiscal_positions`
-  - :doc:`taxes/B2B_B2C`
-  - :doc:`taxes/taxcloud`
-  - :doc:`reporting/tax_returns`
+  - :doc:`税收/财务位置 <taxes/fiscal_positions>`
+  - :doc:`税收/B2B_B2C <taxes/B2B_B2C>`
+  - :doc:`税收/TaxCloud <taxes/taxcloud>`
+  - :doc:`报告/税务申报 <reporting/tax_returns>`
 
 .. toctree::
    :titlesonly:

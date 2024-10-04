@@ -1,140 +1,91 @@
 ===================
-Reimburse employees
+报销员工费用
 ===================
 
-After an expense report is :doc:`posted to an accounting journal <../expenses/post_expenses>`, the
-next step is to reimburse the employee. Just like approving and posting expenses, employees can be
-reimbursed in two ways: with cash, check, or direct deposit (:ref:`individually
-<expenses/reimburse-single>` or :ref:`in bulk <expenses/reimburse-bulk>`), or :ref:`reimbursed in a
-payslip <expenses/reimburse-payslip>`.
+在费用报告 :doc:`发布到会计日记账 <../expenses/post_expenses>` 之后，下一步是报销员工的费用。与批准和发布费用一样，员工的报销也可以通过现金、支票或直接存款的方式进行 (:ref:`单独报销 <expenses/reimburse-single>` 或 :ref:`批量报销 <expenses/reimburse-bulk>`)，或者 :ref:`在工资单中报销 <expenses/reimburse-payslip>`。
 
-Settings
-========
+设置
+====
 
-Reimbursements can be paid via paycheck, check, cash, or bank transfer. To set up payment options,
-first configure the various settings by navigating to :menuselection:`Expenses app -->
-Configuration --> Settings`.
+费用报销可以通过工资单、支票、现金或银行转账进行支付。首先，通过导航到 :menuselection:`费用应用 --> 配置 --> 设置` 来配置各种设置。
 
-To reimburse employees for expenses :ref:`in their paychecks <expenses/reimburse-payslip>`, tick the
-checkbox beside the :guilabel:`Reimburse in Payslip` option in the :guilabel:`Expenses` section.
+要通过 :ref:`工资单报销员工费用 <expenses/reimburse-payslip>`，在 :guilabel:`费用` 部分中勾选 :guilabel:`工资单报销` 选项旁的复选框。
 
-Next, set how payments are made in the :guilabel:`Accounting` section. Click the drop-down menu
-under :guilabel:`Payment Methods`, and select the desired payment option. Default options include
-paying by :guilabel:`Manual (Cash)`, :guilabel:`Checks (Bank)`, :guilabel:`NACHA (Bank)`, and
-others. Leaving this field blank allows for **all** available payment options to be used.
+接着，在 :guilabel:`会计` 部分中设置支付方式。点击 :guilabel:`支付方式` 下拉菜单，选择所需的支付选项。默认选项包括 :guilabel:`手动 (现金)`，:guilabel:`支票 (银行)`，:guilabel:`NACHA (银行)`，以及其他选项。将此字段留空则允许使用**所有**可用的支付选项。
 
-When all desired configurations are complete, click :guilabel:`Save` to activate the settings.
+完成所有设置后，点击 :guilabel:`保存` 以激活设置。
 
 .. _expenses/reimburse-single:
 
-Reimburse individually
-======================
+单独报销
+========
 
-To reimburse an individual expense report, first navigate to :menuselection:`Expenses app -->
-Expense Reports`. All expense reports are presented in a default list view. Click on the expense
-report being reimbursed to view the report details.
+要单独报销费用报告，首先导航到 :menuselection:`费用应用 --> 费用报告`。所有费用报告都以默认列表视图显示。点击要报销的费用报告以查看报告详细信息。
 
 .. important::
-   **Only** expense reports with a status of :guilabel:`Posted` can be reimbursed.
+   只有状态为 :guilabel:`已发布` 的费用报告可以进行报销。
 
-Click the :guilabel:`Register Payment` button in the top-left corner of the expense report, and a
-:guilabel:`Register Payment` pop-up window appears. Enter the following information in the pop-up
-window:
+点击费用报告左上角的 :guilabel:`登记付款` 按钮，弹出一个 :guilabel:`登记付款` 弹窗。在弹窗中输入以下信息：
 
-- :guilabel:`Journal`: Select the accounting journal to post the payment to using the drop-down
-  menu. The default options are :guilabel:`Bank` or :guilabel:`Cash`.
-- :guilabel:`Payment Method`: Select how the payment is made using the drop-down menu. If
-  :guilabel:`Cash` is selected for the :guilabel:`Journal`, the only option available is
-  :guilabel:`Manual`. If :guilabel:`Bank` is selected for the :guilabel:`Journal`, the default
-  options are :guilabel:`Manual` or :guilabel:`Checks`.
-- :guilabel:`Recipient Bank Account`: Select the employee's bank account the payment is being sent
-  to. If the employee has a bank account on file in the :ref:`Private Information tab
-  <employees/private-info>` of their employee form in the **Employees** app, that bank account
-  populates this field, by default.
-- :guilabel:`Amount`: The total amount being reimbursed populates this field, by default. The
-  currency, located to the right of the field, can be modified using the drop-down menu.
-- :guilabel:`Payment Date`: Enter the date the payments are issued in this field. The current date
-  populates this field, by default.
-- :guilabel:`Memo`: The text entered in the :doc:`Expense Report Summary
-  <../expenses/expense_reports>` field of the expense report populates this field, by default.
+- :guilabel:`日记账`：使用下拉菜单选择要将付款发布到的会计日记账。默认选项为 :guilabel:`银行` 或 :guilabel:`现金`。
+- :guilabel:`支付方式`：使用下拉菜单选择支付方式。如果 :guilabel:`现金` 被选择为 :guilabel:`日记账`，唯一可用的选项是 :guilabel:`手动`。如果 :guilabel:`银行` 被选择为 :guilabel:`日记账`，默认选项为 :guilabel:`手动` 或 :guilabel:`支票`。
+- :guilabel:`收款人银行账户`：选择员工的银行账户以发送付款。如果员工在 :ref:`员工表单中的私密信息标签 <employees/private-info>` 中登记了银行账户，系统会自动填充该银行账户。
+- :guilabel:`金额`：此字段会自动填入总报销金额。货币字段位于右侧，可以使用下拉菜单修改。
+- :guilabel:`付款日期`：输入付款日期。默认情况下，该字段会填入当天的日期。
+- :guilabel:`备忘录`：费用报告中的 :doc:`费用报告摘要 <../expenses/expense_reports>` 字段中的文本会自动填入此字段。
 
 .. image:: reimburse/payment.png
    :align: center
-   :alt: The Register Payment pop-up window filled out for an individual expense report
-         reimbursement.
+   :alt: 为单个费用报告报销填写的登记付款弹窗。
 
-When the fields of the pop-up window are completed, click the :guilabel:`Create Payment` button to
-register the payment, and reimburse the employee.
+完成弹窗中的所有字段后，点击 :guilabel:`创建付款` 按钮以登记付款并报销员工费用。
 
 .. _expenses/reimburse-bulk:
 
-Reimburse in bulk
-=================
+批量报销
+========
 
-To reimburse multiple expense reports at once, navigate to :menuselection:`Expenses app --> Expense
-Reports` to view all expense reports in a list view. Next, adjust the :guilabel:`STATUS` filters on
-the left side to only present expense reports with a status of :guilabel:`Posted`.
+要一次报销多个费用报告，导航到 :menuselection:`费用应用 --> 费用报告` 以查看所有费用报告的列表视图。接着，调整左侧的 :guilabel:`状态` 过滤器，使其只显示状态为 :guilabel:`已发布` 的费用报告。
 
 .. tip::
-   Adjusting the :guilabel:`STATUS` filters to only show :guilabel:`Posted` expense reports is not
-   necessary, but removes the step of selecting each individual report in the list.
+   调整 :guilabel:`状态` 过滤器以仅显示 :guilabel:`已发布` 的费用报告不是必须的，但这可以省去选择每个单独报告的步骤。
 
-Tick the checkbox next to the :guilabel:`Employee` column title to select all the reports in the
-list. Once ticked, the number of selected expense reports appears at the top of the page
-(:guilabel:`(#) Selected`). Additionally, a :guilabel:`Register Payment` button also appears in the
-upper-left corner.
+勾选 :guilabel:`员工` 列标题旁的复选框以选择列表中的所有报告。勾选后，页面顶部会显示选中的费用报告数量 (:guilabel:`(#) 已选`)。同时，左上角还会出现 :guilabel:`登记付款` 按钮。
 
 .. image:: reimburse/multiple-reports.png
    :align: center
-   :alt: Expense reports filtered by the status Posted, making the Register Payment button visible.
+   :alt: 已过滤为已发布状态的费用报告，登记付款按钮已显示。
 
-Click the :guilabel:`Register Payment` button, and a :guilabel:`Register Payment` pop-up window
-appears. Enter the following information in the pop-up window:
+点击 :guilabel:`登记付款` 按钮，弹出一个 :guilabel:`登记付款` 弹窗。在弹窗中输入以下信息：
 
-- :guilabel:`Journal`: Select the accounting journal the payment should be posted to, using the
-  drop-down menu. The default options are :guilabel:`Bank` or :guilabel:`Cash`.
-- :guilabel:`Payment Method`: Select how the payment is made using the drop-down menu. If
-  :guilabel:`Cash` is selected for the :guilabel:`Journal`, the only option available is
-  :guilabel:`Manual`. If :guilabel:`Bank` is selected for the :guilabel:`Journal`, the default
-  options are :guilabel:`Manual` or :guilabel:`Checks`.
-- :guilabel:`Group Payments`: When multiple expense reports are selected for the same employee, this
-  option appears. Tick the checkbox to have only one payment made, rather than issuing multiple
-  payments to the same employee.
-- :guilabel:`Payment Date`: Enter the date the payments are issued. The current date populates this
-  field, by default.
+- :guilabel:`日记账`：使用下拉菜单选择付款应发布到的会计日记账。默认选项为 :guilabel:`银行` 或 :guilabel:`现金`。
+- :guilabel:`支付方式`：使用下拉菜单选择支付方式。如果 :guilabel:`现金` 被选择为 :guilabel:`日记账`，唯一可用的选项是 :guilabel:`手动`。如果 :guilabel:`银行` 被选择为 :guilabel:`日记账`，默认选项为 :guilabel:`手动` 或 :guilabel:`支票`。
+- :guilabel:`合并付款`：如果为同一员工选择了多个费用报告，此选项会出现。勾选该复选框以只进行一次付款，而不是向同一员工发出多次付款。
+- :guilabel:`付款日期`：输入付款日期。默认情况下，该字段会填入当天的日期。
 
 .. image:: reimburse/register.png
    :align: center
-   :alt: The Register Payment pop-up window filled out.
+   :alt: 填写的登记付款弹窗。
 
-When the fields on the pop-up window are completed, click the :guilabel:`Create Payments` button to
-register the payments, and reimburse the employees.
+完成弹窗中的所有字段后，点击 :guilabel:`创建付款` 按钮以登记付款并报销员工费用。
 
 .. _expenses/reimburse-payslip:
 
-Report in next payslip
-======================
+在下一个工资单中报告
+=======================
 
-If the  *Reimburse in Payslip* option is activated on the *Settings* page, payments can be added to
-their next payslip, instead of issued manually.
+如果在 *设置* 页面中激活了 *工资单报销* 选项，付款可以添加到员工的下一个工资单中，而不是手动发放。
 
 .. important::
-   Reimbursing expenses on payslips can **only** be done individually, on an expense report with a
-   status of *Approved*. Once an expense report has a status of *Posted*, the option to reimburse in
-   the following payslip does **not** appear.
+   通过工资单报销费用**只能**单独进行，且只能在费用报告状态为 *已批准* 时执行。一旦费用报告状态为 *已发布*，则不再显示通过下一工资单报销的选项。
 
-Navigate to :menuselection:`Expenses app --> Expense Reports`, and click on the individual expense
-report being reimbursed on the following paycheck. Click the :guilabel:`Report in Next Payslip`
-smart button, and the expenses are added to the next payslip issued for that employee. Additionally,
-a message is logged in the chatter stating the expense is added to the following payslip.
+导航到 :menuselection:`费用应用 --> 费用报告`，点击要在下一工资单中报销的个人费用报告。点击 :guilabel:`在下一个工资单中报告` 智能按钮，费用会被添加到该员工下一次发放的工资单中。同时，聊天记录中会记录一条消息，表明该费用已添加到下一份工资单中。
 
 .. image:: reimburse/pay-via-payslip.png
    :align: center
-   :alt: The Report in Next Payslip button, visible with an expense report status of Approved.
+   :alt: 状态为已批准的费用报告中显示的在下一工资单中报告按钮。
 
-The status for the expense report remains :guilabel:`Approved`. The status only changes to
-:guilabel:`Posted` (and then :guilabel:`Done`), when the paycheck is processed.
+费用报告的状态仍然为 :guilabel:`已批准`。只有在工资单处理后，状态才会变为 :guilabel:`已发布`（随后变为 :guilabel:`已完成`）。
 
 .. seealso::
-   Refer to the :doc:`Payslips <../../hr/payroll/payslips>` documentation for more information about
-   processing paychecks.
+   有关处理工资单的更多信息，请参阅 :doc:`工资单 <../../hr/payroll/payslips>` 文档。

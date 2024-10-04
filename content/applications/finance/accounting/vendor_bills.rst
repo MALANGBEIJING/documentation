@@ -1,115 +1,86 @@
 :show-content:
 
 ============
-Vendor bills
+供应商账单
 ============
 
-In Odoo, we can register vendor bills **manually** or **automatically**, while the
-**Aged Payable report** provides an overview of all outstanding bills to help us pay the correct
-amounts on time.
+在 Odoo 中，我们可以 **手动** 或 **自动** 登记供应商账单，同时 **应付账款报告** 提供所有未结账单的概览，帮助我们及时支付正确的金额。
 
 .. seealso::
-   - Tutorial `Registering a vendor bill <https://www.odoo.com/slides/slide/registering-a-vendor-bill-1683?fullscreen=1>`_
+   - 教程 `登记供应商账单 <https://www.odoo.com/slides/slide/registering-a-vendor-bill-1683?fullscreen=1>`_
    - :doc:`/applications/inventory_and_mrp/purchase/manage_deals/manage`
 
-Bill creation
+账单创建
 =============
 
-Manually
+手动创建
 --------
 
-Create a vendor bill manually by going to :menuselection:`Accounting --> Vendors --> Bills` and
-clicking :guilabel:`Create`.
+通过前往 :menuselection:`会计 --> 供应商 --> 账单` 并点击 :guilabel:`创建` 手动创建供应商账单。
 
-Automatically
+自动创建
 -------------
 
-Vendor bills can be automatically created by **sending an email** to an :ref:`email alias
-<invoice-digitization/email-alias>` associated with the purchase journal, or by **uploading a PDF**
-in :menuselection:`Accounting --> Vendors --> Bills` and then clicking :guilabel:`Upload`.
+供应商账单可以通过 **发送电子邮件** 到与采购日记账关联的 :ref:`电子邮件别名 <invoice-digitization/email-alias>` 自动创建，或通过在 :menuselection:`会计 --> 供应商 --> 账单` 中上传 PDF 文件并点击 :guilabel:`上传` 来自动创建。
 
-Bill completion
+账单填写
 ===============
 
-Whether the bill is created manually or automatically, make sure the following fields are
-appropriately completed:
+无论账单是手动创建还是自动创建，确保以下字段填写正确：
 
-- :guilabel:`Vendor`: Odoo automatically fills some information based on the vendor's registered
-  information, previous purchase orders, or bills.
-- :guilabel:`Bill Reference`: add the sales order reference provided by the vendor and is used to do
-  the :ref:`matching <payments/matching>` when you receive the products.
-- :guilabel:`Auto-Complete`: select a past bill/purchase order to automatically complete the
-  document. The :guilabel:`Vendor` field should be completed prior to completing this field.
-- :guilabel:`Bill Date`: is the issuance date of the document.
-- :guilabel:`Accounting Date`: is the date on which the document is registered in your accounting.
-- :guilabel:`Payment Reference`: when registering the payment, it is automatically indicated in the
-  :guilabel:`Memo` field.
-- :guilabel:`Recipient Bank`: to indicate to which account number the payment has to be made.
-- :guilabel:`Due Date` or :guilabel:`Terms` to pay the bill.
-- :guilabel:`Journal`: select in which journal the bill should be recorded and the :doc:`Currency
-  <get_started/multi_currency>`.
+- :guilabel:`供应商`：Odoo 根据供应商的注册信息、以前的采购订单或账单自动填写部分信息。
+- :guilabel:`账单参考`：添加供应商提供的销售订单参考，并用于在收到产品时进行 :ref:`匹配 <payments/matching>`。
+- :guilabel:`自动完成`：选择过去的账单/采购订单来自动填写文档。应先填写 :guilabel:`供应商` 字段再完成此字段。
+- :guilabel:`账单日期`：该字段是文件的发出日期。
+- :guilabel:`会计日期`：该字段是文件在会计系统中注册的日期。
+- :guilabel:`付款参考`：在登记付款时，它会自动显示在 :guilabel:`备注` 字段中。
+- :guilabel:`收款银行`：指定付款应支付到哪个账户号码。
+- :guilabel:`到期日` 或 :guilabel:`条款` 用于支付账单。
+- :guilabel:`日记账`：选择该账单应记录在哪个日记账中，以及 :doc:`货币 <get_started/multi_currency>`。
 
 .. image:: vendor_bills/bill-completion.png
-   :alt: filling the vendor bill
+   :alt: 填写供应商账单
 
 .. note::
-   - Bills can be :doc:`digitized <vendor_bills/invoice_digitization>` for
-     automatic completion by clicking :guilabel:`Send for Digitization`.
-   - If you upload the bill, the PDF document is displayed on the right of the screen, allowing you
-     to easily fill in the bill information.
+   - 可以通过点击 :guilabel:`发送进行数字化` 来 :doc:`数字化账单 <vendor_bills/invoice_digitization>` 以自动完成。
+   - 如果您上传了账单，PDF 文件将显示在屏幕右侧，方便您轻松填写账单信息。
 
-Bill confirmation
+账单确认
 =================
 
-Click :guilabel:`Confirm` when the document is completed. The status of your document changes to
-:guilabel:`Posted` and a journal entry is generated based on the configuration on the invoice.
+在完成文档后，点击 :guilabel:`确认`。文档状态变为 :guilabel:`已过账`，并根据发票配置生成日记账分录。
 
 .. note::
-   Once confirmed, it is no longer possible to update it. Click :guilabel:`Reset to draft` if
-   changes are required.
+   一旦确认，无法再更新文档。如果需要进行更改，请点击 :guilabel:`重置为草稿`。
 
-Bill Payment
+账单付款
 ============
 
-Upon payment of the vendor bill, click on :guilabel:`Register Payment` to open a new payment window.
+在支付供应商账单后，点击 :guilabel:`登记付款` 以打开新的付款窗口。
 
-Select the :guilabel:`Journal`, the :guilabel:`Payment Method`, the :guilabel:`Amount` you wish to
-pay (full or partial payment), and the :guilabel:`Currency`. In the case of a partial payment (when
-the :guilabel:`Amount` paid is less than the total remaining amount on the vendor bill), the
-:guilabel:`Payment Difference` field displays the outstanding balance.
-You have two options:
+选择 :guilabel:`日记账`、:guilabel:`付款方式`、您希望支付的 :guilabel:`金额`（全额或部分付款），并选择 :guilabel:`货币`。如果是部分付款（支付金额少于供应商账单的剩余总金额），则 :guilabel:`付款差异` 字段将显示未结余额。
+您有两个选项：
 
-- :guilabel:`Keep open`: to keep the bill open and mark it with a :guilabel:`Partial` banner;
-- :guilabel:`Mark as fully paid`: In this case, select an account in the
-  :guilabel:`Post Difference In` field and change the :guilabel:`Label` if needed. A journal entry
-  will be created to balance the account receivable with the selected account.
+- :guilabel:`保持未结`：保持账单未结状态，并标记为 :guilabel:`部分付款`；
+- :guilabel:`标记为全额支付`：在这种情况下，请在 :guilabel:`将差额过账到` 字段中选择一个账户，并根据需要更改 :guilabel:`标签`。将创建一笔日记账分录，以将应收账款与所选账户结清。
 
 .. image:: vendor_bills/partial-payment.png
-   :alt: register a partial payment
+   :alt: 登记部分付款
 
-The :guilabel:`Memo` field is filled automatically if the :guilabel:`Payment Reference` has been
-set correctly in the vendor bill. If the field is empty, select the vendor invoice number as a
-reference.
+如果在供应商账单中正确设置了 :guilabel:`付款参考`，则 :guilabel:`备注` 字段会自动填写。如果该字段为空，请选择供应商发票号作为参考。
 
-Once confirmed, an :guilabel:`In Payment` banner appears on the bill until it is :doc:`reconciled
-<bank/reconciliation>`.
+一旦确认，账单上会显示 :guilabel:`付款中` 横幅，直到它被 :doc:`对账 <bank/reconciliation>`。
 
-Aged payable report
+应付账款报告
 ===================
 
-To get an overview of your open vendor bills and their related due dates, you can use the
-**Aged Payable report**. Go to :menuselection:`Accounting --> Reporting --> Partner Reports: Aged
-payable`.
+要查看未结供应商账单及其相关的到期日，您可以使用 **应付账款报告**。前往 :menuselection:`会计 --> 报告 --> 合作伙伴报告：应付账款`。
 
-Click on a vendor's name to open up the details of all outstanding bills, the amounts due, the due
-dates, etc.
+点击供应商名称，查看所有未结账单的详细信息、应付金额、到期日等。
 
 .. Note::
-   - By clicking the :guilabel:`Save` button, you can export the information available on the screen
-     as a PDF or XLSX file and save it in the folder of your choice.
-   - You might receive several bills for the same purchase order if your vendor is in back-order and
-     is sending you invoices as they ship the products, or if your vendor is sending you a partial
-     bill or asking for a deposit.
+   - 点击 :guilabel:`保存` 按钮，您可以将屏幕上可用的信息导出为 PDF 或 XLSX 文件，并将其保存到您选择的文件夹中。
+   - 如果您的供应商处于未完全交货的状态并根据产品的发货情况向您发送发票，或者您的供应商向您发送部分账单或要求支付定金，您可能会为同一采购订单收到多张账单。
 
 .. toctree::
    :titlesonly:

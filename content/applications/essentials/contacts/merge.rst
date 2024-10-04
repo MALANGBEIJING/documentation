@@ -1,78 +1,59 @@
 ==============
-Merge contacts
+合并联系人
 ==============
 
-Odoo's *Contacts* application allows user's to merge duplicate contacts, without losing any
-information in the process. This keeps the database organized, and prevents contacts from being
-contacted by more than one salesperson.
+Odoo 的 *联系人* 应用程序允许用户合并重复的联系人，同时不会丢失任何信息。这使得数据库保持井然有序，并防止联系人被多个销售人员重复联系。
 
 .. _contacts/merge-duplicate:
 
-Merge duplicate contacts
-========================
+合并重复的联系人
+==================
 
 .. danger::
-   Merging is an irreversible action. Do **not** merge contacts unless absolutely certain they
-   should be combined.
+   合并是不可逆的操作。除非绝对确定应将联系人合并，否则请**不要**合并联系人。
 
-Navigate to the :menuselection:`Contacts app`, and select the :icon:`oi-view-list`
-:guilabel:`(list)` icon. Select two or more duplicate contacts from the list, and tick the checkbox
-(on the far-left) for the contacts that should be merged. Then, click the :icon:`fa-cog`
-:guilabel:`Actions` icon, and select :guilabel:`Merge` from the resulting drop-down menu.
+导航到 :menuselection:`联系人应用`，并选择 :icon:`oi-view-list` :guilabel:`(列表)` 图标。从列表中选择两个或多个重复的联系人，勾选应合并的联系人的复选框（在最左边）。然后，点击 :icon:`fa-cog` :guilabel:`操作` 图标，并从结果的下拉菜单中选择 :guilabel:`合并`。
 
 .. image:: merge/merge-menu.png
    :align: center
-   :alt: The merge contacts option in the Contacts application.
+   :alt: 联系人应用中的合并联系人选项。
 
-This opens the :guilabel:`Merge` pop-up window. From here, review the details of the contacts before
-confirming they should be merged. If any contacts in the list should **not** be merged, click the
-:icon:`fa-times` :guilabel:`(delete)` icon at the far right of the contact.
+这将打开 :guilabel:`合并` 弹出窗口。在这里，审查联系人的详细信息以确认它们应当被合并。如果列表中的某个联系人**不应**被合并，点击联系人最右侧的 :icon:`fa-times` :guilabel:`(删除)` 图标。
 
 .. tip::
-   Click the individual contact to open the record for that contact, and view additional
-   information.
+   点击单个联系人可以打开该联系人的记录并查看更多信息。
 
 .. image:: merge/merge-window.png
    :align: center
-   :alt: The merge pop-up window in the Contacts application.
+   :alt: 联系人应用中的合并弹出窗口。
 
-Click the :guilabel:`Destination Contact` field, and select an option from the drop-down list. This
-field defaults to the contact record that was created first in the system.
+点击 :guilabel:`目标联系人` 字段，并从下拉列表中选择一个选项。该字段默认选择系统中第一个创建的联系人记录。
 
-After confirming the information on the pop-up window, click :guilabel:`Merge Contacts`.
+确认弹出窗口中的信息后，点击 :guilabel:`合并联系人`。
 
-Deduplicate contacts
+去重联系人
 ====================
 
-After the merge is finished, a pop-up window appears confirming it is complete. This pop-up window
-also contains a :guilabel:`Deduplicate the other Contacts` button. This feature searches for
-duplicated records, based on selected criteria, and merges them automatically, or after manual
-approval.
+合并完成后，将出现一个弹出窗口，确认操作已完成。该弹出窗口还包含一个 :guilabel:`去重其他联系人` 按钮。此功能根据所选的条件搜索重复的记录，并自动或在手动批准后合并它们。
 
-Click the :guilabel:`Deduplicate the other Contacts` button to open the :guilabel:`Deduplicate
-Contacts` pop-up window.
+点击 :guilabel:`去重其他联系人` 按钮以打开 :guilabel:`去重联系人` 弹出窗口。
 
-Select one or more fields to be used in the search for duplicated records. Duplicated contacts can
-be searched, based on the following criteria:
+选择一个或多个字段来用于搜索重复的记录。可以根据以下标准搜索重复的联系人：
 
-- :guilabel:`Email`
-- :guilabel:`Name`
-- :guilabel:`Is Company`
-- :guilabel:`VAT`
-- :guilabel:`Parent Company`
+- :guilabel:`邮箱`
+- :guilabel:`名称`
+- :guilabel:`是否为公司`
+- :guilabel:`税号`
+- :guilabel:`母公司`
 
 .. note::
-   If more than one field is selected, only records that have **all** fields in common are suggested
-   as duplicates.
+   如果选择了多个字段，则只有所有字段都相同的记录才会被建议为重复项。
 
-If necessary, select criteria to be used to exclude potential duplicates from the search. Potential
-duplicates can be excluded from the search, based on the following criteria:
+如果需要，选择用于从搜索中排除潜在重复项的标准。可以根据以下标准排除潜在重复项：
 
-- :guilabel:`A user associated to the contact`
-- :guilabel:`Journal Items associated to the contact`
+- :guilabel:`与联系人关联的用户`
+- :guilabel:`与联系人关联的会计凭证`
 
-After confirming the search criteria, click either :guilabel:`Merge with Manual Check`,
-:guilabel:`Merge Automatically`, or :guilabel:`Merge Automatically all process`.
+确认搜索条件后，点击 :guilabel:`手动检查后合并`、:guilabel:`自动合并` 或 :guilabel:`自动合并所有流程`。
 
-If :guilabel:`Merge with Manual Check` is selected, complete the merge by following the :ref:`steps
-above <contacts/merge-duplicate>`.
+如果选择了 :guilabel:`手动检查后合并`，请按照 :ref:`上述步骤 <contacts/merge-duplicate>` 完成合并。
