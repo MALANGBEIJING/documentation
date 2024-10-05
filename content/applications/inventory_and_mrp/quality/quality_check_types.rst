@@ -1,7 +1,7 @@
 :nosearch:
 
 ===================
-Quality check types
+质检类型
 ===================
 
 .. toctree::

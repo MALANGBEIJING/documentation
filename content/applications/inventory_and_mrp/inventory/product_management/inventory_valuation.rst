@@ -1,7 +1,7 @@
 :nosearch:
 
 ===================
-Inventory valuation
+库存估值
 ===================
 
 .. toctree::

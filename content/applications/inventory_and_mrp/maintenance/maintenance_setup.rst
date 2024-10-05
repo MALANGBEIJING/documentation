@@ -1,243 +1,175 @@
 =================
-Maintenance setup
+维护设置
 =================
 
-.. |MTBF| replace:: :abbr:`MTBF (Mean Time Between Failure)`
-.. |MTTR| replace:: :abbr:`MTTR (Mean Time To Repair)`
+.. |MTBF| replace:: :abbr:`MTBF (平均故障间隔时间)`
+.. |MTTR| replace:: :abbr:`MTTR (平均修复时间)`
 
-Odoo *Maintenance* helps companies schedule corrective and preventive maintenance on equipment used
-in their warehouse. This helps companies avoid equipment breakdowns, blocks in warehouse work
-centers, and emergency repair costs.
+Odoo *维护*模块帮助企业对仓库中使用的设备进行纠正性和预防性维护。这有助于企业避免设备故障、仓库工作中心的阻塞以及紧急维修费用。
 
-Maintenance teams
-=================
+维护团队
+==========
 
-When creating maintenance requests, a *maintenance team* can be assigned to the request as the team
-responsible for handling the request.
+创建维护请求时，可以分配一个*维护团队*负责处理请求。
 
-To view existing maintenance teams, navigate to :menuselection:`Maintenance app --> Configuration
---> Maintenance Teams`.
+要查看现有的维护团队，请导航到 :menuselection:`维护应用 --> 配置 --> 维护团队`。
 
-From the resulting :guilabel:`Teams` page, a list of all existing teams (if any) is displayed, with
-the :guilabel:`Team Name`, :guilabel:`Team Members`, and :guilabel:`Company` listed in the columns,
-by default.
+在显示的 :guilabel:`团队` 页面上，会列出所有现有的团队（如果有），默认显示的列包括 :guilabel:`团队名称`、:guilabel:`团队成员` 和 :guilabel:`公司`。
 
 .. image:: maintenance_setup/maintenance-setup-teams-list.png
    :align: center
-   :alt: List of Teams on Maintenance Teams page.
+   :alt: 维护团队页面上的团队列表.
 
-To add a new team, click :guilabel:`New`. This adds a blank line at the bottom of the list of teams.
-In the blank field that appears below the :guilabel:`Team Name` column, assign a name to the new
-maintenance team.
+要添加新团队，点击 :guilabel:`新建`。这将在团队列表的底部添加一条空行。在显示的 :guilabel:`团队名称`列下的空白字段中，为新维护团队命名。
 
-In the :guilabel:`Team Members` column, click the field to reveal a drop-down menu with existing
-users in the database. Choose which users should be members of the new maintenance team.
+在 :guilabel:`团队成员`列中，点击字段以显示数据库中的现有用户下拉菜单。选择应成为新维护团队成员的用户。
 
-Click :guilabel:`Search More...` to open a :guilabel:`Search: Team Members` pop-up window to search
-for users **not** shown on the initial drop-down menu.
+点击 :guilabel:`搜索更多...` 以打开 :guilabel:`搜索：团队成员` 弹出窗口，搜索下拉菜单中未显示的用户。
 
 .. image:: maintenance_setup/maintenance-setup-search-team-members.png
    :align: center
-   :alt: Search: Team Members pop-up window.
+   :alt: 搜索：团队成员弹出窗口.
 
-In the :guilabel:`Company` column, if in a multi-company environment, click the drop-down menu to
-select the company in the database to which this new maintenance team belongs.
+在 :guilabel:`公司` 列中，如果处于多公司环境下，点击下拉菜单选择此新维护团队所属的公司。
 
-Once ready, click :guilabel:`Save` to save changes.
+完成后，点击 :guilabel:`保存` 以保存更改。
 
 .. tip::
-   The team members assigned to maintenance teams are also referred to as *Technicians*, when
-   viewing the *Maintenance Calendar*.
+   分配给维护团队的成员在查看*维护日历*时也称为*技术人员*。
 
-   Navigate to :menuselection:`Maintenance app --> Maintenance --> Maintenance Calendar`, and click
-   on an existing maintenance request. From the resulting popover, locate the :guilabel:`Technician`
-   field. The name listed in the field is the team member, and is the user responsible for that
-   particular request.
+   导航到 :menuselection:`维护应用 --> 维护 --> 维护日历`，点击现有的维护请求。在结果弹出窗口中，找到 :guilabel:`技术人员` 字段。字段中显示的名字是团队成员，负责处理该特定请求的用户。
 
    .. image:: maintenance_setup/maintenance-setup-popover-technician.png
       :align: center
-      :alt: Maintenance request popover with Technician field shown.
+      :alt: 显示技术人员字段的维护请求弹出窗口.
 
-   At the far-right side of the page is a sidebar column, containing a minimized calendar set to
-   today's date, and a :guilabel:`Technician` list, displaying all the technicians (or team members)
-   with requests currently open.
+   页面右侧的边栏包含一个设置为今天日期的最小化日历，以及一个 :guilabel:`技术人员` 列表，显示所有技术人员（或团队成员）当前有开放的请求。
 
-Equipment
-=========
+设备
+====
 
-In Odoo *Maintenance*, *equipment* refers to machines and tools used internally in warehouse work
-centers. Equipment can include technology such as computers or tablets, power tools, machines used
-for manufacturing, and more.
+在 Odoo *维护*模块中，*设备*指的是仓库工作中心中内部使用的机器和工具。设备可以包括计算机或平板电脑等技术设备、电动工具、制造机器等。
 
-Equipment categories
---------------------
+设备类别
+----------
 
-Each piece of equipment belongs to an *equipment category*. Before adding new equipment, make sure
-that a fitting equipment category is created.
+每件设备都属于一个*设备类别*。在添加新设备之前，请确保已创建适合的设备类别。
 
-To create a new equipment category, navigate to :menuselection:`Maintenance app --> Configuration
---> Equipment Categories`, and click :guilabel:`New`. Doing so opens a blank equipment category
-form.
+要创建新的设备类别，请导航到 :menuselection:`维护应用 --> 配置 --> 设备类别`，然后点击 :guilabel:`新建`。这样会打开一个空白的设备类别表单。
 
 .. image:: maintenance_setup/maintenance-setup-category-form.png
    :align: center
-   :alt: Equipment category form with various information filled out.
+   :alt: 填写了各种信息的设备类别表单.
 
-On the blank form, assign a name in the :guilabel:`Category Name` field.
+在空白表单上，在 :guilabel:`类别名称`字段中为设备类别分配一个名称。
 
-In the :guilabel:`Responsible` field, assign a user to be responsible for the equipment in this
-category, if necessary. By default, the user who creates the category is selected as
-:guilabel:`Responsible`, by default.
+在 :guilabel:`负责人`字段中，如果需要，分配一个用户负责该类别中的设备。默认情况下，创建类别的用户会被自动选为 :guilabel:`负责人`。
 
-If in a multi-company environment, click the drop-down menu in the :guilabel:`Company` field, and
-select the company in the database to whom the equipment in this category belongs.
+如果处于多公司环境中，点击 :guilabel:`公司`字段中的下拉菜单，选择此类别中的设备所属的公司。
 
-In the :guilabel:`Email Alias` field, assign an email alias to this category, if necessary.
+在 :guilabel:`电子邮件别名`字段中，必要时为该类别分配一个电子邮件别名。
 
-In the :guilabel:`Comments` field, type any comments or notes for internal users to reference in
-relation to this category, if necessary.
+在 :guilabel:`评论`字段中，输入任何供内部用户参考的与此类别相关的备注或说明，如果需要。
 
 .. note::
-   Once a new equipment category is created, all equipment belonging to that category, as well as
-   any past or currently open maintenance requests, are available from the equipment category form.
+   一旦创建了新的设备类别，属于该类别的所有设备以及任何过去或当前的维护请求都可以从设备类别表单中查看。
 
-   Navigate to :menuselection:`Maintenance app --> Configuration --> Equipment Categories`, and
-   select a category to view. Locate the :guilabel:`Equipment` and :guilabel:`Maintenance` smart
-   buttons at the top of the form.
+   导航到 :menuselection:`维护应用 --> 配置 --> 设备类别`，选择一个类别以查看。在表单顶部找到 :guilabel:`设备` 和 :guilabel:`维护` 智能按钮。
 
    .. image:: maintenance_setup/maintenance-setup-smart-buttons.png
       :align: center
-      :alt: Equipment and Maintenance smart buttons on equipment category form.
+      :alt: 设备类别表单上的设备和维护智能按钮.
 
-   Click the :guilabel:`Equipment` smart button to view all equipment belonging to this category.
-   Click the :guilabel:`Maintenance` smart button to view any past, or currently open, maintenance
-   requests.
+   点击 :guilabel:`设备` 智能按钮以查看该类别中的所有设备。点击 :guilabel:`维护` 智能按钮以查看任何过去或当前的维护请求。
 
-Machines & tools
-----------------
+机器与工具
+----------
 
-To add new equipment, navigate to :menuselection:`Maintenance app --> Equipment --> Machines &
-Tools`, and click :guilabel:`New`. This opens a blank equipment form.
+要添加新设备，请导航到 :menuselection:`维护应用 --> 设备 --> 机器与工具`，然后点击 :guilabel:`新建`。这样会打开一个空白的设备表单。
 
-In the :guilabel:`Name` field, assign a name for the new equipment. In the :guilabel:`Equipment
-Category` field, click the drop-down menu and select which category this new equipment should belong
-to.
+在 :guilabel:`名称`字段中为新设备分配一个名称。在 :guilabel:`设备类别`字段中，点击下拉菜单选择此新设备应属于的类别。
 
-If in a multi-company environment, click the drop-down menu in the :guilabel:`Company` field, and
-select the company in the database to whom the new equipment belongs.
+如果处于多公司环境中，点击 :guilabel:`公司`字段中的下拉菜单，选择新设备所属的公司。
 
-In the :guilabel:`Used By` field, select from one of three radio button options:
-:guilabel:`Department`, :guilabel:`Employee`, or :guilabel:`Other`.
+在 :guilabel:`使用者`字段中，从三个单选按钮选项中选择一个：:guilabel:`部门`、:guilabel:`员工`或 :guilabel:`其他`。
 
 .. image:: maintenance_setup/maintenance-setup-new-equipment-left-side.png
    :align: center
-   :alt: Left-hand side of information fields on new equipment form.
+   :alt: 新设备表单上的左侧信息字段.
 
-If :guilabel:`Department` is selected, a :guilabel:`Department` field appears below the
-:guilabel:`Used By` field. Click the drop-down menu and select the department that uses this
-equipment.
+如果选择了 :guilabel:`部门`，则在 :guilabel:`使用者`字段下方会出现一个 :guilabel:`部门`字段。点击下拉菜单选择使用该设备的部门。
 
-If :guilabel:`Employee` is selected, an :guilabel:`Employee` field appears below the :guilabel:`Used
-By` field. Click the drop-down menu, and select the employee who uses this equipment.
+如果选择了 :guilabel:`员工`，则在 :guilabel:`使用者`字段下方会出现一个 :guilabel:`员工`字段。点击下拉菜单选择使用该设备的员工。
 
-If the :guilabel:`Other` option is selected, both the :guilabel:`Department` and
-:guilabel:`Employee` fields appear below the :guilabel:`Used By` field. Click the drop-down menus
-for the respective fields, and choose which department and employee uses this equipment.
+如果选择了 :guilabel:`其他` 选项，则在 :guilabel:`使用者` 字段下方会同时出现 :guilabel:`部门` 和 :guilabel:`员工`字段。点击相应字段的下拉菜单，选择使用该设备的部门和员工。
 
-In the :guilabel:`Maintenance Team` field, select the team responsible for this equipment. In the
-:guilabel:`Technician` field, select the team member/user responsible for this equipment.
+在 :guilabel:`维护团队`字段中，选择负责该设备的团队。在 :guilabel:`技术人员`字段中，选择负责该设备的团队成员/用户。
 
 .. image:: maintenance_setup/maintenance-setup-new-equipment-right-side.png
    :align: center
-   :alt: Right-hand side of information fields on new equipment form.
+   :alt: 新设备表单上的右侧信息字段.
 
-In the :guilabel:`Used in location` field, enter the location wherein this equipment will be used,
-if not in an internal work center (e.g. in an office).
+在 :guilabel:`使用位置`字段中，输入该设备的使用位置（如果不在内部工作中心，例如在办公室）。
 
-In the :guilabel:`Work Center` field, click the drop-down menu, and select which work center this
-equipment will be used in.
+在 :guilabel:`工作中心`字段中，点击下拉菜单选择该设备将使用的工作中心。
 
-In the blank space under the :guilabel:`Description` tab at the bottom of the form, add any relevant
-information describing the equipment for users to reference.
+在表单底部的 :guilabel:`描述` 选项卡下的空白处，添加任何相关信息供用户参考。
 
-Product Information tab
-~~~~~~~~~~~~~~~~~~~~~~~
+产品信息选项卡
+~~~~~~~~~~~~~~~
 
-To add any relevant information while creating a new piece of equipment, from the equipment form,
-click the :guilabel:`Product Information` tab.
+要在创建新设备时添加任何相关信息，请从设备表单中点击 :guilabel:`产品信息`选项卡。
 
 .. image:: maintenance_setup/maintenance-setup-product-information.png
    :align: center
-   :alt: Product Information tab with available fields below it.
+   :alt: 显示了可用字段的产品信息选项卡.
 
-In the :guilabel:`Vendor` field, add the vendor from which the equipment was purchased. In the
-:guilabel:`Vendor Reference` field, add the product reference number obtained from the vendor, if
-applicable.
+在 :guilabel:`供应商`字段中，添加购买该设备的供应商。在 :guilabel:`供应商参考`字段中，添加从供应商获得的产品参考编号（如果适用）。
 
-In the :guilabel:`Model` field, specify which model this equipment is, if applicable. If the
-equipment is serialized, add a serial number in the :guilabel:`Serial Number` field.
+在 :guilabel:`型号`字段中，指定此设备的型号（如果适用）。如果该设备有序列号，请在 :guilabel:`序列号`字段中添加序列号。
 
-In the :guilabel:`Effective Date` field, click the date to reveal a calendar popover, and select a
-date. This date indicates when this equipment was first put in use, and will be used to compute the
-Mean Time Between Failure (MTBF) in the equipment's :guilabel:`Maintenance` tab.
+在 :guilabel:`生效日期`字段中，点击日期以显示日历弹出窗口，然后选择日期。此日期表示该设备首次投入使用的时间，并将用于计算设备 :guilabel:`维护`选项卡中的平均故障间隔时间 (MTBF)。
 
-In the :guilabel:`Cost` field, specify how much the equipment cost to acquire, if applicable.
+在 :guilabel:`成本`字段中，指定获取该设备的费用（如果适用）。
 
-If the equipment is covered under a warranty, specify the :guilabel:`Warranty Expiration Date` by
-selecting a date from the calendar popover in that field.
+如果设备有保修，选择 :guilabel:`保修到期日`字段中的日历弹出窗口中的日期。
 
-Maintenance tab
-~~~~~~~~~~~~~~~
+维护选项卡
+~~~~~~~~~~~~~
 
-Various maintenance metrics are available for each piece of equipment, and are automatically
-computed, based on corrective maintenance, and planned preventive maintenance.
+每件设备都有各种维护指标，并基于纠正性维护和计划中的预防性维护自动计算。
 
-To view the maintenance metrics for a specific piece of equipment, from the equipment form, click
-the :guilabel:`Maintenance` tab.
+要查看特定设备的维护指标，请从设备表单中点击 :guilabel:`维护`选项卡。
 
 .. image:: maintenance_setup/maintenance-setup-metrics.png
    :align: center
-   :alt: Maintenance tab on equipment form showing computed metrics fields.
+   :alt: 设备表单上显示计算的指标字段的维护选项卡.
 
-Doing so reveals the following fields:
+这将显示以下字段：
 
-- :guilabel:`Expected Mean Time Between Failure`: the amount of time (in days) before the next
-  failure is expected. This is the **only** field not greyed-out, and the **only** field users can
-  edit.
-- :guilabel:`Mean Time Between Failure`: the amount of time (in days) between reported failures.
-  This value is computed based on completed corrective maintenances.
-- :guilabel:`Estimated Next Failure`: the date on which the next failure is expected. This date is
-  computed as the Latest Failure Date + |MTBF|.
-- :guilabel:`Latest Failure`: The date of the latest failure. The value in this field updates once a
-  failure is reported for this equipment.
-- :guilabel:`Mean Time To Repair`: the amount of time (in days) it takes to repair this equipment
-  upon failure. This value updates once a maintenance request is completed for this equipment.
+- :guilabel:`预计平均故障间隔时间`: 距离下一次故障的预期时间（天）。这是唯一未灰显的字段，用户可以编辑的唯一字段。
+- :guilabel:`平均故障间隔时间`: 报告故障之间的时间（天）。该值根据完成的纠正性维护计算。
+- :guilabel:`预计下次故障`: 预计下一次故障的日期。该日期根据最新故障日期 + |MTBF| 计算得出。
+- :guilabel:`最新故障`: 最新故障的日期。此字段中的值会在报告该设备的故障后更新。
+- :guilabel:`平均修复时间`: 修复该设备故障所需的时间（天）。该值会在为此设备完成维护请求后更新。
 
-Work centers
-============
+工作中心
+==========
 
-To view the work centers where equipment is being used, and how the equipment is being used in them,
-navigate to :menuselection:`Maintenance app --> Equipment --> Work Centers`, and click into a work
-center.
+要查看设备使用的工作中心及其在工作中心中的使用方式，请导航到 :menuselection:`维护应用 --> 设备 --> 工作中心`，然后点击某个工作中心。
 
-From the resulting work center form, click the :guilabel:`Equipment` tab to view all machines and
-tools being used in that specific work center.
+在显示的工作中心表单中，点击 :guilabel:`设备` 选项卡以查看该工作中心使用的所有机器和工具。
 
-Each piece of equipment is listed with certain relevant information: the :guilabel:`Equipment Name`,
-the responsible :guilabel:`Technician`, the :guilabel:`Equipment Category` it belongs to, and a few
-important maintenance metrics: its |MTBF|, |MTTR|, and :guilabel:`Est. Next Failure` date.
+每件设备都会列出一些相关信息：:guilabel:`设备名称`、负责的 :guilabel:`技术人员`、其所属的 :guilabel:`设备类别`，以及一些重要的维护指标：其 |MTBF|、|MTTR| 和 :guilabel:`预计下次故障`日期。
 
 .. image:: maintenance_setup/maintenance-setup-work-center.png
    :align: center
-   :alt: List of equipment included in a work center.
+   :alt: 包含在工作中心中的设备列表.
 
 .. tip::
-   To add new equipment to a work center directly from the work center form, click :guilabel:`Add a
-   line` under the :guilabel:`Equipment` tab. This opens an :guilabel:`Add: Maintenance Equipment`
-   pop-up window.
+   要直接从工作中心表单添加新设备，请点击 :guilabel:`设备`选项卡下的 :guilabel:`添加一行`。这将打开一个 :guilabel:`添加：维护设备` 弹出窗口。
 
-   From the pop-up window, select the equipment that should be added to the work center, and click
-   :guilabel:`Select`.
+   在弹出窗口中，选择应添加到工作中心的设备，然后点击 :guilabel:`选择`。
 
 .. seealso::
    :doc:`add_new_equipment`

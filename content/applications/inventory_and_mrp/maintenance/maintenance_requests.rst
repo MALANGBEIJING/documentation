@@ -1,106 +1,65 @@
 ====================
-Maintenance requests
+维护请求
 ====================
 
-.. |MO| replace:: :abbr:`MO (Manufacturing Order)`
+.. |MO| replace:: :abbr:`MO (制造订单)`
 
-In order to keep equipment and work centers functioning properly, it is often necessary to perform
-maintenance on them. This can include preventive maintenance, intended to prevent equipment from
-breaking down, or corrective maintenance, which is used to fix equipment that is broken or otherwise
-unusable.
+为了确保设备和工作中心能够正常运作，通常需要对它们进行维护。这可以包括预防性维护（旨在防止设备故障）或纠正性维护（用于修复已损坏或无法使用的设备）。
 
-In Odoo *Maintenance*, users can create *maintenance requests* to schedule and track the progress of
-equipment and work center maintenance.
+在 Odoo *维护*模块中，用户可以创建*维护请求*来安排和跟踪设备和工作中心的维护进度。
 
-Create maintenance request
-==========================
+创建维护请求
+===============
 
-To create a new maintenance request, navigate to :menuselection:`Maintenance app --> Maintenance -->
-Maintenance Requests`, and click :guilabel:`New`.
+要创建新的维护请求，请导航到 :menuselection:`维护应用 --> 维护 --> 维护请求`，然后点击 :guilabel:`新建`。
 
-Begin filling out the form by entering a descriptive title in the :guilabel:`Request` field (e.g.,
-`Drill not working`).
+首先在 :guilabel:`请求`字段中输入描述性的标题（例如，“钻头无法工作”）。
 
-The :guilabel:`Created By` field auto-populates with the user creating the request, but a different
-user can be selected by clicking on the drop-down menu.
+:guilabel:`创建者`字段会自动填写为创建请求的用户，但也可以通过下拉菜单选择其他用户。
 
-In the :guilabel:`For` drop-down menu, select :guilabel:`Equipment` if the maintenance request is
-being created for a piece of equipment, or :guilabel:`Work Center` if it is being created for a work
-center.
+在 :guilabel:`用于`下拉菜单中，选择 :guilabel:`设备` 如果该维护请求是为某件设备创建的；或者选择 :guilabel:`工作中心` 如果是为工作中心创建的。
 
-Depending on the option selected in the :guilabel:`For` field, the next field is titled either
-:guilabel:`Equipment` or :guilabel:`Work Center`. Using the drop-down menu for either field, select
-a piece of equipment or a work center.
+根据 :guilabel:`用于` 字段中选择的选项，下一个字段会被命名为 :guilabel:`设备` 或 :guilabel:`工作中心`。使用这两个字段中的下拉菜单，选择一件设备或工作中心。
 
-If the *Custom Maintenance Worksheets* setting is enabled in the *Maintenance* app's settings, a
-:guilabel:`Worksheet Template` field appears below the :guilabel:`Equipment` or :guilabel:`Work
-Center` field. If necessary, use this field to select a worksheet to be filled out by the employee
-performing the maintenance.
+如果在*维护*应用的设置中启用了*自定义维护工作表*设置，则在 :guilabel:`设备` 或 :guilabel:`工作中心` 字段下方会出现一个 :guilabel:`工作表模板`字段。如果需要，使用此字段选择一个工作表，供执行维护的员工填写。
 
-The next field is titled :guilabel:`Request Date`, and is set by default to the date on which the
-maintenance request is created. This date cannot be changed by the user.
+接下来的字段是 :guilabel:`请求日期`，默认设置为创建维护请求的日期。用户无法更改此日期。
 
-In the :guilabel:`Maintenance Type` field, select the :guilabel:`Corrective` option if the request
-is intended to fix an existing issue, or the :guilabel:`Preventive` option if the request is
-intended to prevent issues from occurring in the future.
+在 :guilabel:`维护类型`字段中，选择 :guilabel:`纠正性` 选项，如果该请求是用于修复现有问题，或选择 :guilabel:`预防性` 选项，如果该请求是为了防止未来的问题。
 
-If the request is being created to address an issue that arose during a specific manufacturing order
-(MO), select it in the :guilabel:`Manufacturing Order` field.
+如果请求是为了处理在某个特定制造订单 (MO) 期间出现的问题，则在 :guilabel:`制造订单` 字段中选择该 MO。
 
-If an |MO| was selected in the :guilabel:`Manufacturing Order` field, a :guilabel:`Work Order` field
-appears below it. If the issue arose during a specific work order, specify it in this field.
+如果在 :guilabel:`制造订单`字段中选择了一个 |MO|，则在其下方会出现一个 :guilabel:`工单` 字段。如果问题出现在某个特定的工单期间，请在此字段中指定。
 
-In the :guilabel:`Team` field, select the maintenance team that is responsible for managing the
-request. If a specific team member is responsible, select them in the :guilabel:`Responsible` field.
+在 :guilabel:`团队`字段中，选择负责管理该请求的维护团队。如果有特定的团队成员负责，在 :guilabel:`负责人` 字段中选择他们。
 
-The :guilabel:`Scheduled Date` field is used to specify the date on which maintenance should take
-place, and the time it should begin. Choose a date by clicking on the field to open a calendar in a
-pop-up window, and then select a day on the calendar. Enter an hour and minute in the two fields
-below the calendar, and click :guilabel:`Apply` to save the date and time.
+:guilabel:`计划日期`字段用于指定维护的执行日期和开始时间。点击该字段，弹出日历窗口，然后在日历中选择一天。输入小时和分钟，点击 :guilabel:`应用` 以保存日期和时间。
 
-The :guilabel:`Duration` field is used to specify the time it takes to complete the maintenance
-request. Use the text-entry field to enter the time in a `00:00` format.
+:guilabel:`持续时间`字段用于指定完成维护请求所需的时间。使用文本输入字段以 `00:00` 格式输入时间。
 
-If :guilabel:`Work Center` was selected in the :guilabel:`For` field, a :guilabel:`Block Workcenter`
-checkbox appears below the :guilabel:`Duration` field. Enable the checkbox to prevent work orders or
-other maintenance from being scheduled at the specified work center while the maintenance request is
-being processed.
+如果在 :guilabel:`用于`字段中选择了 :guilabel:`工作中心`，则 :guilabel:`阻止工作中心`复选框会出现在 :guilabel:`持续时间`字段下方。启用复选框以防止在指定的工作中心处理该维护请求时安排其他工单或维护。
 
-The :guilabel:`Priority` field is used to communicate the importance (or urgency) of the maintenance
-request. Assign the request a priority between zero and three :guilabel:`⭐⭐⭐ (stars)`, by clicking
-on the desired star number. Requests assigned a higher priority appear above those with a lower
-priority, on the Kanban board used to track the progression of maintenance requests.
+:guilabel:`优先级`字段用于传达维护请求的重要性（或紧急性）。通过点击所需的星数，为请求分配优先级，范围从零到三 :guilabel:`⭐⭐⭐ (星)`。优先级较高的请求将在用于跟踪维护请求进度的看板板上排在较低优先级请求的上方。
 
-In the :guilabel:`Notes` tab at the bottom of the form, enter any relevant details about the
-maintenance request (why the maintenance issue arose, when it occurred, etc.).
+在表单底部的 :guilabel:`备注` 选项卡中，输入有关维护请求的相关详细信息（例如，维护问题发生的原因、时间等）。
 
-The :guilabel:`Instructions` tab is used to include instructions for how maintenance should be
-performed. Select one of the three options, and then include the instructions as detailed below:
+:guilabel:`说明`选项卡用于包含维护执行的说明。选择以下三个选项之一，然后按照详细说明输入说明：
 
-- :guilabel:`PDF`: click the :guilabel:`Upload your file` button to open the device's file manager,
-  and then select a file to upload.
-- :guilabel:`Google Slide`: enter a :guilabel:`Google Slide link` in the text-entry field that
-  appears after the option is selected.
-- :guilabel:`Text`: enter the instructions in the text-entry field that appears after the option is
-  selected.
+- :guilabel:`PDF`: 点击 :guilabel:`上传文件` 按钮打开设备的文件管理器，然后选择一个要上传的文件。
+- :guilabel:`Google Slide`: 在选择此选项后出现的文本输入字段中输入 :guilabel:`Google 幻灯片链接`。
+- :guilabel:`文本`: 在选择此选项后出现的文本输入字段中输入说明。
 
 .. image:: maintenance_requests/request-form.png
    :align: center
-   :alt: A maintenance request form filled out for a piece of equipment.
+   :alt: 针对设备的维护请求表单.
 
-Process maintenance request
-===========================
+处理维护请求
+=================
 
-Once a maintenance request has been created, it appears in the *New Request* stage of the
-*Maintenance Requests* page, which can be accessed by navigating to :menuselection:`Maintenance app
---> Maintenance --> Maintenance Requests`.
+一旦创建了维护请求，它会出现在*新请求*阶段的*维护请求*页面上，可通过导航到 :menuselection:`维护应用 --> 维护 --> 维护请求` 进行访问。
 
-Maintenance requests can be moved to different stages by dragging and dropping them. They can also
-be moved by clicking on a request to open it in a new page, and then selecting the desired stage
-from the stage indicator bar, located above the top-right corner of the request's form.
+可以通过拖放方式将维护请求移动到不同的阶段。也可以点击某个请求将其在新页面中打开，然后从表单右上角的阶段指示栏中选择所需的阶段。
 
-Successful maintenance requests should be moved to the :guilabel:`Repaired` stage, indicating that
-the specified piece of equipment or work center is repaired.
+成功完成的维护请求应移至 :guilabel:`修复`阶段，表明指定的设备或工作中心已被修复。
 
-Failed maintenance requests should be moved to the :guilabel:`Scrap` stage, indicating the specified
-piece of equipment, or work center, could not be repaired, and must instead be scrapped.
+无法修复的维护请求应移至 :guilabel:`报废`阶段，表示指定的设备或工作中心无法修复，必须报废。

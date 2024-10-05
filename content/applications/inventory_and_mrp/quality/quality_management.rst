@@ -1,7 +1,7 @@
 :nosearch:
 
 ======================
-Quality control basics
+质量控制基础
 ======================
 
 .. toctree::

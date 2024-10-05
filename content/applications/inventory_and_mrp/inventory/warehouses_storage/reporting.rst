@@ -1,7 +1,7 @@
 :nosearch:
 
 =========
-Reporting
+报表
 =========
 
 .. toctree::

@@ -1,407 +1,287 @@
 ==========
-Lead times
+交货时间
 ==========
 
-.. |MOs| replace:: :abbr:`MOs (Manufacturing Orders)`
-.. |BoM| replace:: :abbr:`BoM (Bill of Materials)`
-.. |BoMs| replace:: :abbr:`BoMs (Bills of Materials)`
-.. |RFQ| replace:: :abbr:`RFQ (Request for Quotation)`
+.. |MOs| replace:: :abbr:`MOs (生产订单)`
+.. |BoM| replace:: :abbr:`BoM (物料清单)`
+.. |BoMs| replace:: :abbr:`BoMs (物料清单)`
+.. |RFQ| replace:: :abbr:`RFQ (询价单)`
 
-Accurately forecasting delivery dates is vital for fulfilling customer expectations. In Odoo, the
-*Inventory* app allows for comprehensive lead time configuration, allowing coordination and planning
-of manufacturing orders, deliveries, and receptions.
+准确预测交货日期对于满足客户期望至关重要。在 Odoo 中，*库存* 应用允许全面配置交货时间，以协调和计划生产订单、交货和接收。
 
-Lead time types
+交货时间类型
 ===============
 
-Different lead times for different operations can impact various stages of the order fulfillment
-process. Here's a summary of the types of lead times in Odoo:
+不同操作的不同交货时间会影响订单履行过程的各个阶段。以下是 Odoo 中交货时间类型的摘要：
 
 .. image:: lead_times/all-lead-times.png
    :align: center
-   :alt: Show graphic of all lead times working together.
+   :alt: 显示所有交货时间如何协同工作。
 
-- :ref:`Customer lead time <inventory/shipping_receiving/customer-lt>`: default time frame for
-  fulfilling customer orders. The customer lead time is the number of days from the date the sales
-  order (SO) is confirmed to the date the products are shipped from the warehouse. This is also
-  known as *delivery lead time*.
+- :ref:`客户交货时间 <inventory/shipping_receiving/customer-lt>`：履行客户订单的默认时间框架。客户交货时间是从销售订单 (SO) 确认之日起到产品从仓库发货之日的天数。也称为 *交货时间*。
 
-- :ref:`Sales security lead time <inventory/shipping_receiving/sales-security-lt>`: moves the
-  *scheduled delivery date* forward by a specified number of days. This serves as a buffer to allow
-  ample time to prepare the outgoing shipment earlier, considering the possibility of delays in the
-  fulfillment process.
+- :ref:`销售安全交货时间 <inventory/shipping_receiving/sales-security-lt>`：将 *计划交货日期* 向前移动指定天数。此操作作为缓冲，以便提前准备发货，考虑到履行过程中可能出现的延误。
 
-- :ref:`Purchase lead time <inventory/shipping_receiving/purchase-lt>`: number of days from the
-  confirmation of a purchase order (PO) to the receipt of products. It provides insight on the time
-  it takes for products to arrive at the warehouse, facilitating effective scheduling and planning
-  of supplier deliveries.
+- :ref:`采购交货时间 <inventory/shipping_receiving/purchase-lt>`：从采购订单 (PO) 确认到产品接收的天数。它提供了产品到达仓库所需时间的见解，有助于有效安排和计划供应商交货。
 
-- :ref:`Purchase security lead time <inventory/shipping_receiving/purchase-security-lt>`: advances
-  the order deadline on a :abbr:`PO (Purchase Order)` by a specified number of days. This proactive
-  approach of placing orders earlier mitigates the risk of vendor or shipping delays. Thus, for
-  products that are set to replenish to order, the need appears on the *Replenishment report*
-  earlier, according to the specified number of days.
+- :ref:`采购安全交货时间 <inventory/shipping_receiving/purchase-security-lt>`：将采购订单 (PO) 的截止日期提前指定的天数。这种提前下订单的方法可以减轻供应商或运输延误的风险。因此，对于设置为按订单补充的产品，需求会提前出现在 *补货报告* 中。
 
-- :ref:`Days to Purchase <inventory/shipping_receiving/days-to-purchase>`: days needed for the
-  vendor to receive a request for quotation (RFQ) and confirm it. It advances the deadline to
-  schedule a |RFQ| by a specified number of days.
+- :ref:`采购准备时间 <inventory/shipping_receiving/days-to-purchase>`：供应商收到询价单 (RFQ) 并确认所需的天数。它将安排询价单的截止日期提前指定的天数。
 
-- :ref:`Manufacturing lead time <inventory/shipping_receiving/manuf-lt>`: number of days needed to
-  complete a manufacturing order (MO) from the date of confirmation. This lead time includes
-  weekends (non-working hours in Odoo), and is used to forecast an approximate production date for a
-  finished good.
+- :ref:`生产交货时间 <inventory/shipping_receiving/manuf-lt>`：从确认生产订单 (MO) 到完成产品所需的天数。此交货时间包括周末（Odoo 中的非工作时间），用于预测成品的预期生产日期。
 
-- :ref:`Days to prepare manufacturing order
-  <inventory/shipping_receiving/prepare-manufacturing-order>`: number of days needed to replenish
-  components, or manufacture sub-assemblies of the product. Either set one directly on the bill of
-  materials (BoM), or click *Compute* to sum up purchase and manufacturing lead times of components
-  in the |BoM|.
+- :ref:`准备生产订单的天数 <inventory/shipping_receiving/prepare-manufacturing-order>`：补充组件或制造产品的子组件所需的天数。可以直接在物料清单 (BoM) 中设置，也可以点击 *计算* 以汇总物料清单中的采购和生产交货时间。
 
-- :ref:`Manufacturing security lead time <inventory/shipping_receiving/manuf-security-lt>`: moves
-  the scheduled date of the :abbr:`MO (Manufacturing Order)` forward by a specified number of days.
-  When used in conjunction with :ref:`replenish to order
-  <inventory/management/products/strategies>`, the security lead time makes the need appear earlier
-  on the replenishment report.
+- :ref:`生产安全交货时间 <inventory/shipping_receiving/manuf-security-lt>`：将生产订单 (MO) 的计划日期提前指定的天数。当与 :ref:`按订单补充 <inventory/management/products/strategies>` 配合使用时，安全交货时间会使需求更早地出现在补货报告中。
 
 .. _inventory/shipping_receiving/customer-lt:
 
-Sales lead times
+销售交货时间
 ================
 
-Customer lead times and sales security lead times can be configured to automatically compute an
-*expected delivery date* on a :abbr:`SO (Sales Order)`. The expected delivery date ensures a
-realistic *delivery dates* setting for shipments from the warehouse.
+客户交货时间和销售安全交货时间可以配置为在销售订单 (SO) 上自动计算 *预计交货日期*。预计交货日期确保从仓库发货的运输时间有一个现实的 *交货日期* 设置。
 
-Odoo issues a warning message if the set delivery date is earlier than the expected date, as it may
-not be feasible to fulfill the order by that time, which would impact other warehouse operations.
+如果设置的交货日期早于预计日期，Odoo 会发出警告消息，因为在该时间内履行订单可能不可行，这会影响其他仓库操作。
 
 .. example::
-   A :abbr:`SO (Sales Order)` containing a `Coconut-scented candle` is confirmed on July 11th. The
-   product has a customer lead time of 14 days, and the business uses a sales security lead time of
-   1 day. Based on the lead time inputs, Odoo suggests a delivery date in 15 days, on July 26th.
+   一个包含 `椰子香味蜡烛` 的销售订单 (SO) 于7月11日确认。该产品的客户交货时间为14天，企业使用1天的销售安全交货时间。根据交货时间输入，Odoo 建议的交货日期为15天后的7月26日。
 
    .. image:: lead_times/scheduled-date.png
       :align: center
-      :alt: Set *Delivery Date* in a sales order. Enables delivery lead times feature.
+      :alt: 在销售订单中设置 *交货日期*。启用交货时间功能。
 
-The following sections demonstrate how to automatically compute expected delivery dates.
+以下部分演示如何自动计算预计交货日期。
 
-Customer lead time
+客户交货时间
 ------------------
 
-Set the customer lead time on each product form, by navigating to the products page. To do so, go to
-:menuselection:`Sales app --> Products --> Products`. From there, select the desired product, and
-switch to the :guilabel:`Inventory` tab. Then, under the :guilabel:`Customer Lead Time` field, fill
-in the number of calendar days required to fulfill the delivery order from start to finish.
+在每个产品表单上设置客户交货时间，方法是导航到产品页面。为此，请前往 :menuselection:`销售应用 --> 产品 --> 产品`。从那里选择所需的产品，并切换到 :guilabel:`库存` 标签。然后，在 :guilabel:`客户交货时间` 字段中填写完成交货订单所需的日历天数。
 
 .. example::
-   Set a 14-day customer lead time for the `Coconut-scented candle` by navigating to its product
-   form. Then, in the :guilabel:`Inventory` tab, type `14.00` days into the :guilabel:`Customer Lead
-   Time` field.
+   通过导航到 `椰子香味蜡烛` 的产品表单，将客户交货时间设置为14天。然后，在 :guilabel:`库存` 标签中，在 :guilabel:`客户交货时间` 字段中输入 `14.00` 天。
 
    .. image:: lead_times/customer.png
       :align: center
-      :alt: Set *Customer Lead Time* on the product form.
+      :alt: 在产品表单上设置 *客户交货时间*。
 
 .. _inventory/shipping_receiving/sales-security-lt:
 
-Sales security lead time
+销售安全交货时间
 ------------------------
 
-*Sales security lead time* is set globally for the business in :menuselection:`Inventory app -->
-Configuration --> Settings`.
+*销售安全交货时间* 在企业的 :menuselection:`库存应用 --> 配置 --> 设置` 中全局设置。
 
-On the configuration page, under the :guilabel:`Advanced Scheduling` heading, locate the box for
-:guilabel:`Security Lead Time for Sales`, and click the checkbox to enable the feature.
+在配置页面的 :guilabel:`高级排程` 标题下，找到 :guilabel:`销售安全交货时间` 复选框，并勾选以启用该功能。
 
-Next, enter the desired number of calendar days. This security lead time is a buffer notifying the
-team to prepare for outgoing shipments earlier than the scheduled date.
+接下来，输入所需的日历天数。此安全交货时间是一个缓冲，通知团队提前准备发货，以防万一发货日期提前。
 
 .. example::
-   Setting the :guilabel:`Security Lead Time for Sales` to `1.00` day, pushes the
-   :guilabel:`Scheduled Date` of a delivery order (DO) forward by one day. In that case, if a
-   product is initially scheduled for delivery on April 6th, but with a one-day security lead time,
-   the new scheduled date for the delivery order would be April 5th.
+   将 :guilabel:`销售安全交货时间` 设置为 `1.00` 天，将交货单 (DO) 的 :guilabel:`计划日期` 提前一天。在这种情况下，如果产品最初计划于4月6日发货，但有1天的安全交货时间，则交货单的新计划日期为4月5日。
 
    .. image:: lead_times/sales-security.png
       :align: center
-      :alt: View of the security lead time for sales configuration from the sales settings.
+      :alt: 从销售设置中查看销售安全交货时间配置。
 
-Deliver several products
+交付多个产品
 ------------------------
 
-For orders that include multiple products with different lead times, the lead times can be
-configured directly from the quotation itself. On a quotation, click the :guilabel:`Other Info` tab,
-and set the :guilabel:`Shipping Policy` to:
+对于包含多个具有不同交货时间的产品的订单，可以直接从报价单中配置交货时间。在报价单上，点击 :guilabel:`其他信息` 标签，并将 :guilabel:`发货政策` 设置为：
 
-#. :guilabel:`As soon as possible` to deliver products as soon as they are ready. The
-   :guilabel:`Scheduled Date` of the :abbr:`DO (Delivery Order)` is determined by adding today's
-   date to the shortest lead time among the products in the order.
+#. :guilabel:`尽快发货`，以便产品准备好后立即发货。交货单 (DO) 的 :guilabel:`计划日期` 由今天的日期加上订单中产品的最短交货时间确定。
 
-#. :guilabel:`When all products are ready` to wait to fulfill the entire order at once. The
-   :guilabel:`Scheduled Date` of the :abbr:`DO (Delivery Order)` is determined by adding today's
-   date to the longest lead time among the products in the order.
+#. :guilabel:`所有产品准备好后再发货`，以便一次性履行整个订单。交货单 (DO) 的 :guilabel:`计划日期` 由今天的日期加上订单中产品的最长交货时间确定。
 
 .. image:: lead_times/shipping-policy.png
    :align: center
-   :alt: Show *Shipping Policy* field in the *Other Info* tab of a quotation.
+   :alt: 显示报价单 *其他信息* 标签中的 *发货政策* 字段。
 
 .. example::
-   In a quotation containing 2 products, `Yoga mat` and `Resistance band,` the products have a lead
-   time of 8 days and 5 days, respectively. Today's date is April 2nd.
+   在包含2种产品的报价单中，`瑜伽垫` 和 `阻力带` 的交货时间分别为8天和5天。今天的日期是4月2日。
 
-   When the :guilabel:`Shipping Policy` is set to :guilabel:`As soon as possible`, the scheduled
-   delivery date is 5 days from today: April 7th. On the other hand, selecting :guilabel:`When all
-   products are ready` configures the scheduled date to be 8 days from today: April 10th.
+   当 :guilabel:`发货政策` 设置为 :guilabel:`尽快发货` 时，计划的交货日期为今天起5天后：4月7日。另一方面，选择 :guilabel:`所有产品准备好后再发货` 会将计划日期设置为今天起8天后：4月10日。
 
 .. _inventory/shipping_receiving/purchase-lt:
 
-Purchase lead times
+采购交货时间
 ===================
 
-Automatically determining the dates on which to place orders from suppliers can help simplify the
-procurement process.
+自动确定从供应商处下单的日期有助于简化采购过程。
 
-Odoo calculates the supplier shipment *receipt date*, and :abbr:`PO (Purchase Order)` deadline,
-based on the required date the product is needed in the warehouse. By working backwards from the
-receipt date, vendor lead times and purchase security lead times are taken into account, in order to
-determine the :abbr:`PO (Purchase Order)` deadline.
+Odoo 根据产品在仓库中需要的日期计算供应商发货的 *接收日期* 和采购订单 (PO) 截止日期。通过从接收日期向前推，考虑供应商交货时间和采购安全交货时间，以确定采购订单 (PO) 截止日期。
 
-This deadline is the date by which the order should be confirmed, in order to ensure timely arrival
-by the expected receipt date.
+该截止日期是为了确保产品按预期接收日期及时到达，订单应确认的日期。
 
 .. image:: lead_times/vendor-lead-times.png
    :align: center
-   :alt: Visualization of PO deadline and receipt date used with vendor lead times.
+   :alt: 显示供应商交货时间与采购订单截止日期。
 
 .. seealso::
-   :ref:`PO scheduling with reordering rules <inventory/management/reordering_rules>`
+   :ref:`通过补货规则安排采购订单 <inventory/management/reordering_rules>`
 
-Vendor lead time
+供应商交货时间
 ----------------
 
-To set a vendor lead time for orders arriving in the warehouse from a vendor location, begin by
-navigating to a product form through :menuselection:`Purchase app --> Products --> Products`.
+要为从供应商地点到达仓库的订单设置供应商交货时间，请通过 :menuselection:`采购应用 --> 产品 --> 产品` 导航到产品表单。
 
-Next, select the desired product, and switch to the :guilabel:`Purchase` tab. In the editable vendor
-pricelist, click the :guilabel:`Add a line` button to add vendor details, such as the
-:guilabel:`Vendor` name, :guilabel:`Price` offered for the product, and lastly, the
-:guilabel:`Delivery Lead Time`.
+接下来，选择所需产品，并切换到 :guilabel:`采购` 标签。在可编辑的供应商价格表中，点击 :guilabel:`添加一行` 按钮，添加供应商详细信息，如 :guilabel:`供应商` 名称、产品的 :guilabel:`价格`，最后是 :guilabel:`交货时间`。
 
 .. note::
-   Multiple vendors and lead times can be added to the vendor pricelist. The default vendor and lead
-   time selected will be the entry at the top of the list.
+   可以在供应商价格表中添加多个供应商和交货时间。默认选择的供应商和交货时间将是列表顶部的条目。
 
 .. example::
-   On the vendor pricelist of the product form, the :guilabel:`Delivery Lead Time` for the selected
-   vendor is set to `10 days.`
+   在产品表单的供应商价格表上，所选供应商的 :guilabel:`交货时间` 设置为 `10天`。
 
    .. image:: lead_times/set-vendor.png
       :align: center
-      :alt: Add delivery lead times to vendor pricelist on a product.
+      :alt: 在产品的供应商价格表中添加交货时间。
 
-By setting the vendor lead time, the expected arrival date of the item is automatically determined
-as the date of the :abbr:`PO (Purchase Order)` confirmation, plus the vendor lead time. This ensures
-that warehouse employees are notified, if the products do **not** arrive within the expected
-timeframe.
+通过设置供应商交货时间，预计的物品到货日期自动确定为采购订单 (PO) 确认日期加上供应商交货时间。这确保了如果产品没有在预期时间内到达，仓库员工会收到通知。
 
 .. example::
-   On a :abbr:`PO (Purchase Order)` confirmed on July 11th, for a product configured with a 10-day
-   vendor lead time, Odoo automatically sets the :guilabel:`Receipt Date` to July 21st. The receipt
-   date also appears as the :guilabel:`Scheduled Date` on the warehouse receipt form, accessible
-   from the :guilabel:`Receipt` smart button, located on the :guilabel:`PO (Purchase Order)`.
+   对于7月11日确认的采购订单 (PO)，对于配置了10天供应商交货时间的产品，Odoo 会自动将 :guilabel:`接收日期` 设置为7月21日。接收日期也会显示为仓库收货单上的 :guilabel:`计划日期`，可以通过 :guilabel:`接收` 智能按钮从采购订单 (PO) 中访问。
 
    .. image:: lead_times/receipt-date.png
       :align: center
-      :alt: Show expected *Receipt Date* of the product from the vendor.
+      :alt: 显示供应商产品的预期 *接收日期*。
 
    .. image:: lead_times/scheduled-date-receipt.png
       :align: center
-      :alt: Show expected *Scheduled Date* of arrival of the product from the vendor.
+      :alt: 显示供应商产品的预期 *到货计划日期*。
 
 .. _inventory/shipping_receiving/purchase-security-lt:
 
-Purchase security lead time
+采购安全交货时间
 ---------------------------
 
-*Purchase security lead time* is set globally for the business in :menuselection:`Inventory app -->
-Configuration --> Settings`.
+*采购安全交货时间* 在企业的 :menuselection:`库存应用 --> 配置 --> 设置` 中全局设置。
 
-On the :guilabel:`Settings` page, under the :guilabel:`Advanced Scheduling` heading, tick the
-checkbox for :guilabel:`Security Lead Time for Purchase`.
+在 :guilabel:`设置` 页面上的 :guilabel:`高级排程` 标题下，勾选 :guilabel:`采购安全交货时间` 复选框。
 
-Next, enter the desired number of calendar days. By configuring the security lead time, a buffer is
-set to account for potential delays in supplier deliveries. Then, click :guilabel:`Save`.
+接下来，输入所需的日历天数。通过配置安全交货时间，可以设置一个缓冲，以应对供应商交货延误的可能性。然后，点击 :guilabel:`保存`。
 
 .. example::
-   Setting the :guilabel:`Security Lead Time for Purchase` to `2.00` days, pushes the
-   :guilabel:`Scheduled Date` of receipt back by two days. In that case, if a product is initially
-   scheduled to arrive on April 6th, with a two-day security lead time, the new scheduled date for
-   the receipt would be April 8th.
+   将 :guilabel:`采购安全交货时间` 设置为 `2.00` 天，将接收的 :guilabel:`计划日期` 推迟两天。在这种情况下，如果产品最初计划于4月6日到达，有两天的安全交货时间，则接收的计划新日期为4月8日。
 
    .. image:: lead_times/vendor-security.png
       :align: center
-      :alt: Set security lead time for purchase from the Inventory > Configuration > Settings.
+      :alt: 在库存 > 配置 > 设置中设置采购安全交货时间。
 
 .. _inventory/shipping_receiving/days-to-purchase:
 
-Days to purchase
+采购准备时间
 ----------------
 
-To set up the *days to purchase* lead time, go to :menuselection:`Inventory app --> Configuration
---> Settings`. Under the :guilabel:`Advanced Scheduling` section, in the :guilabel:`Days to
-Purchase` field, specify the number of days required for the vendor to confirm a |RFQ| after
-receiving it from the company.
+要设置 *采购准备时间*，请前往 :menuselection:`库存应用 --> 配置 --> 设置`。在 :guilabel:`高级排程` 部分的 :guilabel:`采购准备时间` 字段中，指定供应商从公司收到询价单 (RFQ) 并确认所需的天数。
 
 .. image:: lead_times/days-to-purchase.png
    :align: center
-   :alt: Show "Days to Purchase" configuration in the Settings page.
+   :alt: 在设置页面中显示“采购准备时间”配置。
 
 .. _inventory/shipping_receiving/manuf-lt:
 
-Manufacturing lead times
+生产交货时间
 ========================
 
-Lead times can help simplify the procurement process for consumable materials and components used in
-manufactured products with bills of materials (BoMs).
+交货时间有助于简化用于生产产品的消耗材料和组件的采购过程，这些产品具有物料清单 (BoMs)。
 
-The :abbr:`MO (Manufacturing Order)` deadline, which is the deadline to begin the manufacturing
-process to complete the product by the scheduled delivery date, can be determined by configuring the
-manufacturing lead times and manufacturing security lead times.
+通过配置生产交货时间和生产安全交货时间，可以确定生产订单 (MO) 截止日期，即开始生产以在计划交货日期之前完成产品的截止日期。
 
 .. image:: lead_times/manuf-lead-times.png
    :align: center
-   :alt: Visualization of the determination of planned MO date manufacturing lead times.
+   :alt: 显示计划的生产交货时间如何确定生产订单 (MO) 日期。
 
-Manufacturing lead time
+生产交货时间
 -----------------------
 
-Manufacturing lead times for products are configured from a product's bill of materials (BoM) form.
+产品的生产交货时间在产品的物料清单 (BoM) 表单中配置。
 
-To add a lead time to a |BoM|, navigate to :menuselection:`Manufacturing app --> Products --> Bills
-of Materials`, and select the desired |BoM| to edit.
+要在物料清单 (BoM) 中添加交货时间，请导航到 :menuselection:`生产应用 --> 产品 --> 物料清单`，然后选择所需的物料清单 (BoM) 进行编辑。
 
-On the |BoM| form, click the :guilabel:`Miscellaneous` tab. Change the value (in days) in the
-:guilabel:`Manuf. Lead Time` field to specify the calendar days needed to manufacture the product.
+在物料清单 (BoM) 表单上，点击 :guilabel:`杂项` 标签。在 :guilabel:`生产交货时间` 字段中更改值（以天为单位），以指定制造产品所需的日历天数。
 
 .. image:: lead_times/set-manufacturing.png
    :align: center
-   :alt: Manuf. Lead Time value specified on a product's Bill of Material form.
+   :alt: 在产品的物料清单表单中指定生产交货时间。
 
 .. note::
-   If the selected |BoM| is a multi-level |BoM|, the manufacturing lead times of the components are
-   added.
+   如果所选物料清单 (BoM) 是多层物料清单，则会添加组件的生产交货时间。
 
-   If the |BoM| product is subcontracted, the :guilabel:`Manuf. Lead Time` can be used to determine
-   the date at which components should be sent to the subcontractor.
+   如果物料清单 (BoM) 产品是外包的，则可以使用 :guilabel:`生产交货时间` 来确定应将组件发送给分包商的日期。
 
-Establish a :abbr:`MO (Manufacturing Order)` deadline, based on the *expected delivery date*,
-indicated in the :guilabel:`Scheduled Date` field of the :abbr:`DO (Delivery Order)`.
+根据交货单 (DO) 中指示的 *预计交货日期*，确定生产订单 (MO) 截止日期。
 
-The :abbr:`MO (Manufacturing Order)` deadline, which is the :guilabel:`Scheduled Date` field on the
-:abbr:`MO (Manufacturing Order)`, is calculated as the *expected delivery date* subtracted by the
-manufacturing lead time.
+生产订单 (MO) 的截止日期，即生产订单 (MO) 上的 :guilabel:`计划日期` 字段，计算方法为预计交货日期减去生产交货时间。
 
-This ensures the manufacturing process begins on time, in order to meet the delivery date.
+这确保了生产过程按时开始，以满足交货日期。
 
-However, it is important to note that lead times are based on calendar days. Lead times do **not**
-consider weekends, holidays, or *work center capacity* (:dfn:`the number of operations that can be
-performed at the work center simultaneously`).
+然而，需要注意的是，交货时间基于日历天。交货时间 **不** 考虑周末、假期或 *工作中心容量*（:dfn:`工作中心同时可以执行的操作数量`）。
 
 .. seealso::
-   - :doc:`Manufacturing planning <../../../manufacturing/workflows/use_mps>`
-   - :doc:`Schedule MOs with reordering rules <reordering_rules>`
+   - :doc:`生产计划 <../../../manufacturing/workflows/use_mps>`
+   - :doc:`使用补货规则安排生产订单 <reordering_rules>`
 
 .. example::
-   A product's scheduled shipment date on the :abbr:`DO (Delivery Order)` is August 15th. The
-   product requires 14 days to manufacture. So, the latest date to start the :abbr:`MO
-   (Manufacturing Order)` to meet the commitment date is August 1st.
+   产品的交货单 (DO) 上的计划发货日期是8月15日。产品需要14天生产。因此，满足承诺日期的最迟开始生产订单 (MO) 日期是8月1日。
 
 .. _inventory/shipping_receiving/prepare-manufacturing-order:
 
-Days to prepare manufacturing order
+准备生产订单的天数
 -----------------------------------
 
-Configure the days required to gather components to manufacture a product by going to its |BoM|. To
-do that, go to :menuselection:`Manufacturing app --> Products --> Bills of Materials`, and select
-the desired |BoM|.
+通过进入产品的物料清单 (BoM) 配置生产产品所需组件的准备时间。为此，前往 :menuselection:`生产应用 --> 产品 --> 物料清单`，并选择所需的物料清单 (BoM)。
 
-In the :guilabel:`Miscellaneous` tab of the |BoM|, specify the calendar days needed to obtain
-components of the product in the :guilabel:`Days to prepare Manufacturing Order` field. Doing so
-creates |MOs| in advance, and ensures there is enough time to either replenish components, or
-manufacture semi-finished products.
+在物料清单 (BoM) 的 :guilabel:`杂项` 标签中，指定获得产品组件所需的日历天数，在 :guilabel:`准备生产订单的天数` 字段中填写。这样可以提前创建生产订单 (MOs)，并确保有足够的时间来补充组件或制造半成品。
 
 .. tip::
-   Clicking :guilabel:`Compute`, located next to the :guilabel:`Days to prepare Manufacturing Order`
-   field, calculates the longest lead time among all the components listed on the |BoM|.
+   点击位于 :guilabel:`准备生产订单的天数` 字段旁边的 :guilabel:`计算`，计算物料清单 (BoM) 上所有组件的最长交货时间。
 
-   *Purchase security lead times* that impact this specific |BoM| are also added to this value.
+   *采购安全交货时间* 也会添加到此值中。
 
 .. example::
 
-   A |BoM| has two components, one has a manufacturing lead time of two days, and the other has a
-   purchase lead time of four days. The :guilabel:`Days to prepare Manufacturing Order` is four
-   days.
+   一个物料清单 (BoM) 有两个组件，一个组件的生产交货时间为两天，另一个组件的采购交货时间为四天。:guilabel:`准备生产订单的天数` 为四天。
 
 .. _inventory/shipping_receiving/manuf-security-lt:
 
-Manufacturing security lead time
+生产安全交货时间
 --------------------------------
 
-*Manufacturing security lead time* is set globally for the business in :menuselection:`Manufacturing
-app --> Configuration --> Settings`. Under the :guilabel:`Planning` heading, tick the checkbox for
-:guilabel:`Security Lead Time`.
+*生产安全交货时间* 在企业的 :menuselection:`生产应用 --> 配置 --> 设置` 中全局设置。在 :guilabel:`计划` 标题下，勾选 :guilabel:`安全交货时间` 复选框。
 
-Next, enter the desired number of calendar days. By configuring the security lead time, a buffer is
-set to account for potential delays in the manufacturing process. Then, click :guilabel:`Save`.
+接下来，输入所需的日历天数。通过配置安全交货时间，可以设置一个缓冲，以应对生产过程中的潜在延误。然后，点击 :guilabel:`保存`。
 
 .. image:: lead_times/manuf-security.png
    :align: center
-   :alt: View of the security lead time for manufacturing from the manufacturing app settings.
+   :alt: 从生产应用设置中查看生产安全交货时间。
 
 .. example::
-   A product has a scheduled shipment date on the :abbr:`DO (Delivery Order)` set for August 15th.
-   The manufacturing lead time is 7 days, and manufacturing security lead time is 3 days. So, the
-   :guilabel:`Scheduled Date` on the :abbr:`MO (Manufacturing Order)` reflects the latest date to
-   begin the manufacturing order. In this example, the planned date on the :abbr:`MO (Manufacturing
-   Order)` is August 5th.
+   产品在交货单 (DO) 上的计划发货日期是8月15日。生产交货时间为7天，生产安全交货时间为3天。因此，生产订单 (MO) 上的 :guilabel:`计划日期` 反映了开始生产订单的最迟日期。在此示例中，生产订单 (MO) 上的计划日期是8月5日。
 
-Global example
+全局示例
 ==============
 
-See the following example to understand how all the lead times work together to ensure timely order
-fulfillment:
+请参阅以下示例，了解所有交货时间如何协同工作以确保及时履行订单：
 
-- **Sales security lead time**: 1 day
-- **Manufacturing security lead time**: 2 days
-- **Manufacturing lead time**: 3 days
-- **Purchase security lead time**: 1 day
-- **Vendor lead time**: 4 days
+- **销售安全交货时间**：1天
+- **生产安全交货时间**：2天
+- **生产交货时间**：3天
+- **采购安全交货时间**：1天
+- **供应商交货时间**：4天
 
-The customer places an order for a manufactured product on September 1st, and the scheduled delivery
-date from the warehouse is on September 20th. Odoo uses lead times and automated reordering rules to
-schedule the necessary operations, based on the outgoing shipment delivery date, September 20th:
+客户在9月1日下单购买一件制造产品，仓库的计划发货日期是9月20日。Odoo 使用交货时间和自动补货规则，根据9月20日的发货日期安排必要的操作：
 
 .. image:: lead_times/global-example.png
    :align: center
-   :alt: Show timeline of how lead times work together to schedule warehouse operations.
+   :alt: 显示所有交货时间如何协同工作以安排仓库操作的时间表。
 
-- **September 1st**: Sales order created, confirmed by salesperson.
+- **9月1日**：销售订单由销售人员创建并确认。
 
-- **September 9th**: Deadline to order components to ensure they arrive in time when manufacturing
-  begins (4-day supplier lead time).
+- **9月9日**：下单组件的截止日期，以确保它们在生产开始时及时到达（4天供应商交货时间）。
 
-- **September 13th**: Scheduled date of receipt for components. Initially, it was set to 9/14, but
-  the 1-day purchase security lead time pushed the date earlier by 1 day.
+- **9月13日**：计划的组件接收日期。最初设置为9月14日，但1天的采购安全交货时间将日期提前了1天。
 
-- **September 14th**: Deadline to begin manufacturing. Calculated by subtracting the manufacturing
-  lead time of 3 days, and the manufacturing security lead time of 2 days, from the expected
-  delivery date of September 19th.
+- **9月14日**：开始生产的截止日期。通过从9月19日的预计交货日期中减去3天的生产交货时间和2天的生产安全交货时间来计算。
 
-- **September 19th**: :guilabel:`Scheduled Date` on the delivery order form indicates the updated
-  expected delivery date, which was originally set as September 20th. But the sales security lead
-  time pushed the date forward by a day.
+- **9月19日**：交货单上的 :guilabel:`计划日期` 指示更新后的预计交货日期，最初设置为9月20日。但销售安全交货时间将日期提前了1天。
 
-Odoo's replenishment planning maps a business' order fulfillment process, setting pre-determined
-deadlines and raw material order dates, including buffer days for potential delays. This ensures
-products are delivered on time.
+Odoo 的补货计划映射了企业的订单履行流程，设置了预定的截止日期和原材料订购日期，包括潜在延误的缓冲天数。这确保了产品按时交付。

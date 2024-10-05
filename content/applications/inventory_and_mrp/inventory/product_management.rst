@@ -1,7 +1,7 @@
 :nosearch:
 
 ==================
-Product management
+产品管理
 ==================
 
 .. toctree::

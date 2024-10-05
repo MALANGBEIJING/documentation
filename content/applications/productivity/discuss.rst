@@ -1,101 +1,74 @@
-:show-content:
-:show-toc:
-
 =======
-Discuss
+讨论
 =======
 
-Odoo *Discuss* is an internal communication app that allows users to connect through messages,
-notes, and file sharing, either through a persistent chat window that works across applications, or
-through the dedicated *Discuss* dashboard.
+Odoo *讨论* 应用是一个内部沟通工具，允许用户通过消息、笔记和文件共享进行连接，可以通过跨应用程序的持久聊天窗口，或通过专用的 *讨论* 仪表板进行沟通。
 
 .. _discuss_app/notification_preferences:
 
-Choose notifications preference
+选择通知偏好
 ===============================
 
-Access user-specific preferences for the *Discuss* app by navigating to :menuselection:`Settings app
---> Users --> User --> Preferences tab`.
+通过导航到 :menuselection:`设置应用程序 --> 用户 --> 用户 --> 偏好选项卡`，访问 *讨论* 应用的用户特定偏好。
 
 .. image:: discuss/preferences-user.png
-   :alt: View of the Preferences tab for Odoo Discuss.
+   :alt: Odoo Discuss 偏好选项卡视图。
 
-By default, the :guilabel:`Notification` field is set as :guilabel:`Handle by Emails`. With this
-setting enabled, a notification email will be sent by Odoo every time a message is sent from the
-chatter, a note is sent with an `@` mention (from chatter), or a notification is sent for a record
-that the user follows. Something that triggers a notification is changing of the stage (if an email\
-is configured to be sent, for example if the task is set to :guilabel:`Done`).
+默认情况下，:guilabel:`通知` 字段设置为 :guilabel:`通过电子邮件处理`。启用此设置后，每当从聊天框发送消息，使用 `@` 提及发送笔记（从聊天框），或发送用户关注的记录的通知时，Odoo 都会发送通知电子邮件。触发通知的操作包括更改阶段（例如，如果任务设置为 :guilabel:`完成`，并配置发送电子邮件）。
 
-By choosing :guilabel:`Handle in Odoo`, the above notifications are shown in the *Discuss* app's
-*inbox*. Messages can have the following actions taken on them: respond with an emoji by clicking
-:guilabel:`Add a Reaction`, or reply to the message by clicking on :guilabel:`Reply`. Additional
-actions may include starring the message by clicking :guilabel:`Marked as Todo`, or pinning the
-message by selecting :guilabel:`Pin` or even mark the message as unread by selecting
-:guilabel:`Marked as unread`.
+通过选择 :guilabel:`在 Odoo 中处理`，上述通知将显示在 *讨论* 应用的 *收件箱* 中。消息可以执行以下操作：点击 :guilabel:`添加反应` 以响应表情符号，或点击 :guilabel:`回复` 以回复消息。其他操作可能包括通过点击 :guilabel:`标记为待办` 加星标消息，或选择 :guilabel:`固定` 以固定消息，甚至选择 :guilabel:`标记为未读`。
 
 .. image:: discuss/reactions-discuss.png
-   :alt: View of an inbox message and its action options in Odoo Discuss.
+   :alt: Odoo Discuss 收件箱消息及其操作选项视图。
 
-Clicking :guilabel:`Mark as Todo` on a message causes it to appear on the :guilabel:`Starred` page,
-while clicking :guilabel:`Mark as Read` moves the message to :guilabel:`History`.
+点击 :guilabel:`标记为待办` 会使消息出现在 :guilabel:`已加星标` 页面，而点击 :guilabel:`标记为已读` 会将消息移到 :guilabel:`历史记录`。
 
 .. image:: discuss/starred-messages.png
-   :alt: View of messages marked as todo in Odoo Discuss.
+   :alt: Odoo Discuss 中标记为待办的消息视图。
 
-Start chatting
+开始聊天
 ==============
 
-The first time a user logs in to their account, OdooBot sends a message asking for permission to
-send desktop notifications for chats. If accepted, the user will receive push notifications on their
-desktop for the messages they receive, regardless of where the user is in Odoo.
+用户首次登录他们的账户时，OdooBot 会发送一条消息，询问是否允许发送聊天桌面通知。如果接受，用户将收到桌面消息推送通知，无论用户在 Odoo 的哪个位置。
 
 .. image:: discuss/odoobot-push.png
-   :alt: View of the messages under the messaging menu emphasizing the request for push
-         notifications for Odoo Discuss.
+   :alt: Odoo Discuss 消息菜单中的请求推送通知视图。
 
 .. tip::
-   To stop receiving desktop notifications, reset the notifications settings of the browser.
+   若要停止接收桌面通知，请重置浏览器的通知设置。
 
-To start a chat, go to the :menuselection:`Discuss` app and click on the :guilabel:`+ (plus)` icon
-next to :guilabel:`Direct Messages` or :guilabel:`Channels` in the left menu of the dashboard.
+要开始聊天，请转到 :menuselection:`讨论` 应用，并点击仪表板左侧菜单中 :guilabel:`直接消息` 或 :guilabel:`频道` 旁的 :guilabel:`+ (加号)` 图标。
 
 .. image:: discuss/channels-direct-messages.png
    :height: 400
-   :alt: View of Discuss's panel emphasizing the titles channels and direct messages in Odoo
-         Discuss.
+   :alt: Odoo Discuss 中的频道和直接消息标题视图。
 
-A company can also easily create :doc:`public and private channels <discuss/team_communication>`.
+公司还可以轻松创建 :doc:`公共和私人频道 <discuss/team_communication>`。
 
-Mentions in the chat and on the chatter
+在聊天和聊天框中提及
 ---------------------------------------
 
-To mention a user within a chat or the chatter, type `@user-name`; to refer to a channel, type
-`#channel-name`. The user mentioned will be notified in their *inbox* or through an email, depending
-on their communication settings.
+要在聊天或聊天框中提及用户，输入 `@用户名`；要提及频道，输入 `#频道名`。提及的用户将根据其通信设置在 *收件箱* 中或通过电子邮件收到通知。
 
 .. image:: discuss/chat-windows.png
-   :alt: View of a couple of chat window messages for Odoo Discuss.
+   :alt: Odoo Discuss 中的几个聊天窗口消息视图。
 
 .. tip::
-   When a user is mentioned, the search list (list of names) suggests values first based on the
-   task's followers, and secondly on employees. If the record being searched does not match with
-   either a follower or employee, the scope of the search becomes all partners.
+   当提及用户时，搜索列表（姓名列表）首先基于任务的关注者推荐值，其次基于员工。如果搜索的记录既不匹配关注者也不匹配员工，搜索范围将扩展到所有合作伙伴。
 
-User status
+用户状态
 -----------
 
-It is helpful to see what colleagues are up to and how quickly they can respond to messages by
-checking their *status*. The status is shown on the left side of a contact's name on the
-:guilabel:`Discuss` sidebar, on the *messaging menu* and when listed in the *chatter*.
+通过检查同事的 *状态*，可以了解他们的动态以及回复消息的速度。状态显示在联系人姓名的左侧，位于 :guilabel:`讨论` 侧边栏、*消息菜单* 和 *聊天框* 中列出时。
 
-- Green = online
-- Orange = away
-- White = offline
-- Airplane = out of the office
+- 绿色 = 在线
+- 橙色 = 离开
+- 白色 = 离线
+- 飞机图标 = 离开办公室
 
 .. image:: discuss/status.png
    :height: 300
-   :alt: View of the contacts' status for Odoo Discuss.
+   :alt: Odoo Discuss 中的联系人状态视图。
 
 .. seealso::
    - :doc:`discuss/team_communication`

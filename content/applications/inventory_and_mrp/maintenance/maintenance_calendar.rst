@@ -1,380 +1,272 @@
 ====================
-Maintenance calendar
+维护日历
 ====================
 
-.. |MO| replace:: :abbr:`MO (Manufacturing Order)`
+.. |MO| replace:: :abbr:`MO (制造订单)`
 
-Avoiding equipment breakdowns, and blocks in warehouse work centers, requires constant equipment
-maintenance. Timely corrective maintenance for machines and tools that break unexpectedly, as well
-as preventive maintenance to ensure that such issues are avoided, are key to keeping warehouse
-operations running smoothly.
+避免设备故障和仓库工作中心的停滞需要持续的设备维护。对突然故障的机器和工具进行及时的纠正性维护，以及为避免此类问题进行预防性维护，是保持仓库运作顺利的关键。
 
-In Odoo *Maintenance*, users can access the *Maintenance Calendar* to create, schedule, and edit
-both corrective and preventive maintenance requests, to stay on top of equipment and work centers.
+在 Odoo *维护* 模块中，用户可以访问 *维护日历*，创建、安排和编辑纠正性和预防性维护请求，以确保设备和工作中心的正常运行。
 
-Create maintenance request
+创建维护请求
 ==========================
 
-Maintenance requests can be created directly from the *Maintenance Calendar*. To access the
-calendar, navigate to :menuselection:`Maintenance app --> Maintenance --> Maintenance Calendar`.
+维护请求可以直接在 *维护日历* 中创建。要访问日历，请前往 :menuselection:`维护应用 --> 维护 --> 维护日历`。
 
-To create a new request, click anywhere on the calendar. Doing so opens a :guilabel:`New Event`
-pop-up window. In the :guilabel:`Name:` field, assign a title to the new request.
+要创建新请求，点击日历上的任意位置。这样会弹出一个 :guilabel:`新事件` 弹窗。在 :guilabel:`名称:` 字段中，为新请求指定标题。
 
 .. image:: maintenance_calendar/maintenance-calendar-new-event-popup.png
    :align: center
-   :alt: New event creation pop-up window.
+   :alt: 新事件创建弹窗。
 
-Clicking :guilabel:`Create` on the pop-up window saves the new request with no additional details.
-If the request's creation should be canceled, click :guilabel:`Cancel`.
+点击弹窗中的 :guilabel:`创建` 按钮可以保存新请求而无需填写其他细节。如果需要取消请求的创建，点击 :guilabel:`取消`。
 
-To add more details and schedule the request for a specific date and time, click :guilabel:`Edit`.
+要添加更多详细信息并为请求安排特定的日期和时间，点击 :guilabel:`编辑`。
 
-Clicking :guilabel:`Edit` opens a blank maintenance request form, where various details about the
-request can be filled out.
+点击 :guilabel:`编辑` 会打开一个空白的维护请求表单，在这里可以填写有关请求的各种详细信息。
 
-Edit maintenance request
+编辑维护请求
 ------------------------
 
-In the :guilabel:`Request` field, assign a title to the new request. In the :guilabel:`Created By`
-field, from the drop-down menu, select which user the request was created by. By default, this field
-populates with the user actually creating the request.
+在 :guilabel:`请求` 字段中，为新请求指定一个标题。在 :guilabel:`创建者` 字段中，从下拉菜单中选择请求的创建者。默认情况下，该字段会填充实际创建请求的用户。
 
 .. image:: maintenance_calendar/maintenance-calendar-new-request-form.png
    :align: center
-   :alt: New maintenance request form creation.
+   :alt: 新维护请求表单创建。
 
-In the :guilabel:`For` field, from the drop-down menu, select if this request is being created for a
-piece of :guilabel:`Equipment`, or a :guilabel:`Work Center`.
+在 :guilabel:`为` 字段中，从下拉菜单中选择该请求是为 :guilabel:`设备` 还是 :guilabel:`工作中心` 创建的。
 
 .. note::
-   If :guilabel:`Work Center` is selected in the :guilabel:`For` field's drop-down menu, two
-   additional fields appear on the form: :guilabel:`Work Center` and :guilabel:`Block Workcenter`.
+   如果在 :guilabel:`为` 字段的下拉菜单中选择了 :guilabel:`工作中心`，表单中将出现两个额外的字段：:guilabel:`工作中心` 和 :guilabel:`阻止工作中心`。
 
-   In the :guilabel:`Work Center` field, select which work center in the warehouse this maintenance
-   request applies to.
+   在 :guilabel:`工作中心` 字段中，选择该维护请求适用的仓库中的工作中心。
 
-   If the :guilabel:`Block Workcenter` option's checkbox is ticked, it is not possible to plan work
-   orders, or other maintenance requests, in this work center during the time that this request is
-   being performed.
+   如果勾选了 :guilabel:`阻止工作中心` 选项，则在执行该请求期间，无法在此工作中心计划工作订单或其他维护请求。
 
-If :guilabel:`Equipment` is selected in the :guilabel:`For` field, which it is by default, select
-which machine or tool requires maintenance from the :guilabel:`Equipment` field. Once a specific
-piece of equipment is selected, a greyed-out :guilabel:`Category` field appears, listing the
-*Equipment Category* to which the equipment belongs.
+如果在 :guilabel:`为` 字段中选择了 :guilabel:`设备`（默认情况下为此选项），请从 :guilabel:`设备` 字段中选择需要维护的机器或工具。一旦选择了特定的设备，会显示一个灰色的 :guilabel:`类别` 字段，列出设备所属的 *设备类别*。
 
-In the :guilabel:`Worksheet Template` field, if necessary, click the drop-down menu to select a
-worksheet template. These templates are custom templates that can be filled out by the employee
-performing the maintenance.
+在 :guilabel:`工作表模板` 字段中，如果需要，点击下拉菜单选择一个工作表模板。这些模板是可由执行维护的员工填写的自定义模板。
 
-Under the :guilabel:`Category` field, the :guilabel:`Request Date` field displays the date requested
-for the maintenance to happen.
+在 :guilabel:`类别` 字段下，:guilabel:`请求日期` 字段显示了请求进行维护的日期。
 
-The :guilabel:`Maintenance Type` field provides two selectable radio button options:
-:guilabel:`Corrective` and :guilabel:`Preventive`.
+:guilabel:`维护类型` 字段提供了两个可选的单选按钮选项：:guilabel:`纠正性` 和 :guilabel:`预防性`。
 
-:guilabel:`Corrective` maintenance is for requests that arise for immediate needs, such as broken
-equipment, while :guilabel:`Preventive` maintenance is for planned requests, to avoid breakdowns in
-the future.
+:guilabel:`纠正性` 维护是针对诸如设备故障等即时需求而发出的请求，而 :guilabel:`预防性` 维护是计划中的请求，以避免未来的故障。
 
-If this request is tied to a specific |MO|, select that |MO| from the :guilabel:`Manufacturing
-Order` field.
+如果该请求与特定的 |MO| 相关，请从 :guilabel:`制造订单` 字段中选择该 |MO|。
 
-From the drop-down menu for the :guilabel:`Team` field, select the desired maintenance team who will
-perform the maintenance. In the :guilabel:`Responsible` field, select the technician responsible for
-the request.
+从 :guilabel:`团队` 字段的下拉菜单中，选择负责执行维护的团队。在 :guilabel:`负责人` 字段中，选择负责该请求的技术人员。
 
 .. image:: maintenance_calendar/maintenance-calendar-filled-out-form.png
    :align: center
-   :alt: Filled-out details of maintenance request form.
+   :alt: 填写完成的维护请求表单详细信息。
 
-In the :guilabel:`Scheduled Date` field, click the date to open a calendar popover. From this
-popover, select the planned date of the maintenance, and click :guilabel:`Apply` to save the date.
+在 :guilabel:`计划日期` 字段中，点击日期以打开日历弹窗。从弹窗中选择维护的计划日期，然后点击 :guilabel:`应用` 保存日期。
 
-In the :guilabel:`Duration` field, enter the the amount of hours (in a `00:00` format) that the
-maintenance is planned to take.
+在 :guilabel:`持续时间` 字段中，输入计划进行维护的小时数（格式为 `00:00`）。
 
-In the :guilabel:`Priority` field, choose a priority between one and three :guilabel:`⭐⭐⭐ (stars)`.
-This indicates the importance of the maintenance request.
+在 :guilabel:`优先级` 字段中，选择一个优先级，介于一到三颗 :guilabel:`⭐⭐⭐ (星)` 之间。这表示维护请求的重要性。
 
-If working in a multi-company environment, from the drop-down menu in the :guilabel:`Company` field,
-select the company to which this maintenance request belongs.
+如果是在多公司环境中操作，请从 :guilabel:`公司` 字段的下拉菜单中选择该维护请求所属的公司。
 
-At the bottom of the form, there are two tabs: :guilabel:`Notes` and :guilabel:`Instructions`.
+在表单的底部有两个选项卡：:guilabel:`备注` 和 :guilabel:`指示`。
 
-In the :guilabel:`Notes` tab, type out any internal notes for the team or technician assigned to the
-request, if necessary.
+在 :guilabel:`备注` 选项卡中，如果需要，可以为分配到请求的团队或技术人员输入任何内部备注。
 
-In the :guilabel:`Instructions` tab, if necessary, select one of the three radio button options to
-provide maintenance instructions to the assigned team or technician. The available methods for
-providing instructions are via :guilabel:`PDF`, :guilabel:`Google Slide`, or :guilabel:`Text`.
+在 :guilabel:`指示` 选项卡中，如果需要，选择三个单选按钮中的一个，为分配的团队或技术人员提供维护指示。可用的指示方法包括 :guilabel:`PDF`、:guilabel:`Google 幻灯片` 或 :guilabel:`文本`。
 
 .. image:: maintenance_calendar/maintenance-calendar-instructions-tab.png
    :align: center
-   :alt: Instructions tab options on maintenance request form.
+   :alt: 维护请求表单上的指示选项卡选项。
 
-Calendar elements
+日历元素
 =================
 
-The *Maintenance Calendar* provides various views, search functions, and filters to help keep track
-of the progress of ongoing and planned maintenance requests.
+*维护日历* 提供了多种视图、搜索功能和过滤器，帮助跟踪正在进行的和计划中的维护请求的进度。
 
-The following sections describe elements found across various views of the calendar.
+以下部分描述了日历中各视图的元素。
 
-Filters and Favorites
+过滤器和收藏
 ---------------------
 
-To access the maintenance calendar, navigate to :menuselection:`Maintenance app --> Maintenance -->
-Maintenance Calendar`.
+要访问维护日历，请前往 :menuselection:`维护应用 --> 维护 --> 维护日历`。
 
-To add and remove filters for sorting data on the *Maintenance Calendar*, click the :guilabel:`🔻
-(triangle pointed down)` icon, to the right of the search bar at the top of the page.
+要添加和删除 *维护日历* 上的数据过滤器，请点击页面顶部搜索栏右侧的 :guilabel:`🔻 (向下三角形)` 图标。
 
-The left-hand side of the resulting drop-down menu lists all the different :guilabel:`Filters` users
-can select. By default, :guilabel:`To Do` and :guilabel:`Active` are selected, so all open requests
-are displayed.
+结果下拉菜单的左侧列出了用户可以选择的所有不同的 :guilabel:`过滤器`。默认情况下，:guilabel:`待办` 和 :guilabel:`活动` 被选中，因此显示所有打开的请求。
 
 .. tip::
-   To add a custom filter to the :guilabel:`Maintenance Calendar`, click :guilabel:`Add Custom
-   Filter`, under the :guilabel:`Filters` section of the drop-down menu. This opens an
-   :guilabel:`Add Custom Filter` pop-up window.
+   要为 *维护日历* 添加自定义过滤器，点击下拉菜单中 :guilabel:`过滤器` 部分下的 :guilabel:`添加自定义过滤器`。这样会打开一个 :guilabel:`添加自定义过滤器` 弹窗。
 
-   From this pop-up window, configure the properties of the new rule for the filter. Once ready,
-   click :guilabel:`Add`.
+   从此弹窗中，配置新过滤器规则的属性。准备就绪后，点击 :guilabel:`添加`。
 
-The right-hand side of the drop-down menu lists the :guilabel:`Favorites`, or any searches that have
-been saved as a favorite to be revisited at a later date.
+结果下拉菜单的右侧列出了 :guilabel:`收藏`，即已保存为收藏的搜索，供以后重新访问。
 
 .. image:: maintenance_calendar/maintenance-calendar-favorites-popover.png
    :align: center
-   :alt: Favorites section of filters drop-down menu.
+   :alt: 过滤器下拉菜单中的收藏部分。
 
-To save a new :guilabel:`Favorite` search, select the desired :guilabel:`Filters`. Then, click
-:guilabel:`Save current search`. In the field directly below :guilabel:`Save current search`, assign
-a name to the search.
+要保存新的 :guilabel:`收藏` 搜索，选择所需的 :guilabel:`过滤器`。然后，点击 :guilabel:`保存当前搜索`。在 :guilabel:`保存当前搜索` 直接下方的字段中，为搜索指定一个名称。
 
-Under the assigned name, there are two options, to save the current search either as the
-:guilabel:`Default filter`, or as a :guilabel:`Shared` filter.
+在分配的名称下方，有两个选项可以将当前搜索保存为 :guilabel:`默认过滤器` 或 :guilabel:`共享过滤器`。
 
-Selecting :guilabel:`Default filter` sets this filter as the default when opening this calendar
-view.
+选择 :guilabel:`默认过滤器`，将此过滤器设置为打开此日历视图时的默认过滤器。
 
-Selecting the :guilabel:`Shared` filter makes this filter available to other users.
+选择 :guilabel:`共享过滤器` 将此过滤器共享给其他用户。
 
-Once ready, click :guilabel:`Save`. When clicked, the new :guilabel:`Favorite` filter appears in the
-:guilabel:`Favorites` column, and a :guilabel:`⭐ (gold star)` icon appears with the filter's name in
-the search bar.
+准备就绪后，点击 :guilabel:`保存`。点击后，新的 :guilabel:`收藏` 过滤器将出现在 :guilabel:`收藏` 列中，并且过滤器名称旁边的搜索栏中会出现一个 :guilabel:`⭐ (金色星星)` 图标。
 
-Views
+视图
 -----
 
-The :guilabel:`Maintenance Calendar` is available in six different views: :guilabel:`Calendar`
-(default), :guilabel:`Kanban`, :guilabel:`List`, :guilabel:`Pivot`, :guilabel:`Graph`, and
-:guilabel:`Activity`.
+:guilabel:`维护日历` 有六种不同的视图：:guilabel:`日历`（默认）、:guilabel:`看板`、:guilabel:`列表`、:guilabel:`数据透视表`、:guilabel:`图表` 和 :guilabel:`活动`。
 
 .. image:: maintenance_calendar/maintenance-calendar-view-type-icons.png
    :align: center
-   :alt: Different view type icons for maintenance calendar.
+   :alt: 维护日历的不同视图类型图标。
 
-Calendar view
+日历视图
 ~~~~~~~~~~~~~
 
-:guilabel:`Calendar` is the default view displayed when the :guilabel:`Maintenance Calendar` is
-opened. There are a number of options in this view type for sorting and grouping information about
-maintenance requests.
+:guilabel:`日历` 是打开 :guilabel:`维护日历` 时默认显示的视图。此视图类型中有多个选项可用于排序和分组有关维护请求的信息。
 
-In the top-left corner of the page, there is a drop-down menu set to :guilabel:`Week`, by default.
-Clicking that drop-down menu reveals the different periods of time, in which the calendar can be
-viewed: :guilabel:`Day`, :guilabel:`Month`, and :guilabel:`Year`. There is also an option to
-:guilabel:`Show weekends`, selected by default. If unselected, weekends are not shown on the
-calendar.
-
+在页面左上角，默认情况下，下拉菜单设置为 :guilabel:`周`。点击该下拉菜单可显示日历可查看的不同时间段：:guilabel:`天`、:guilabel:`月` 和 :guilabel:`年`。还有一个 :guilabel:`显示周末` 选项，默认情况下被选中。如果取消选中，则不显示周末。
 .. image:: maintenance_calendar/maintenance-calendar-period-dropdown.png
    :align: center
-   :alt: Calendar period drop-down menu options.
+   :alt: 日历周期下拉菜单选项.
 
-To the left of this menu, there is a :guilabel:`⬅️ (left arrow)` icon and a :guilabel:`➡️ (right
-arrow)` icon. Clicking these arrows moves the calendar backward or forward in time, respectively.
+在这个菜单的左侧，有一个 :guilabel:`⬅️ (左箭头)` 图标和一个 :guilabel:`➡️ (右箭头)` 图标。点击这些箭头可以分别向前或向后移动日历。
 
-To the right of the drop-down menu set to :guilabel:`Week`, by default, is a :guilabel:`Today`
-button. Clicking this button resets the calendar to view today's date, no matter which point in time
-is being viewed before clicking it.
+在默认设置为 :guilabel:`Week` 的下拉菜单右侧，有一个 :guilabel:`Today` 按钮。点击此按钮将日历重置为显示今天的日期，无论之前查看的是哪个时间点。
 
-At the far-right side of the page is a sidebar column, containing a minimized calendar set to
-today's date, and a :guilabel:`Technician` list, displaying all the *Technicians* with requests
-currently open. Click the :guilabel:`(panel)` icon at the top of this sidebar to open or close the
-sidebar.
+在页面的最右侧是一个侧边栏，包含一个设置为今天日期的缩略日历，以及一个 :guilabel:`Technician` 列表，显示所有当前打开请求的技术人员。点击此侧边栏顶部的 :guilabel:`(panel)` 图标可以打开或关闭侧边栏。
 
 .. note::
-   The :guilabel:`Technician` list only displays if technicians are assigned to open requests, and
-   individual technicians are only listed, if they are listed as :guilabel:`Responsible` on at least
-   **one** maintenance request form.
+   :guilabel:`Technician` 列表仅在技术人员被分配到打开的请求时显示，并且只有当某个技术人员至少负责一个维护请求时，才会在列表中显示该技术人员。
 
-Kanban view
+看板视图
 ~~~~~~~~~~~
 
-With the :guilabel:`Kanban` view, all open maintenance requests are displayed in Kanban-style
-columns, in their respective stages of the maintenance process.
+在 :guilabel:`看板视图` 中，所有打开的维护请求以看板风格的列显示，按照维护流程中的各个阶段展示。
 
-Each maintenance request appears on its own task card, and each task card can be dragged-and-dropped
-to a different stage of the Kanban pipeline.
+每个维护请求都会以任务卡片的形式出现，且每张任务卡片可以被拖放到看板管道的不同阶段。
 
-Each column has a name (i.e. :guilabel:`In Progress`). Hovering at the top of a column reveals a
-:guilabel:`⚙️ (gear)` icon. Clicking the :guilabel:`⚙️ (gear)` icon reveals a list of options for
-that column: :guilabel:`Fold`, :guilabel:`Edit`, :guilabel:`Automations`, and :guilabel:`Delete`.
+每列都有一个名称（例如 :guilabel:`In Progress`）。将鼠标悬停在列的顶部会显示一个 :guilabel:`⚙️ (齿轮)` 图标。点击 :guilabel:`⚙️ (齿轮)` 图标会显示该列的选项列表：:guilabel:`Fold`，:guilabel:`Edit`，:guilabel:`Automations`，以及 :guilabel:`Delete`。
 
 .. image:: maintenance_calendar/maintenance-calendar-kanban-column.png
    :align: center
-   :alt: Column options for stage in Kanban view.
+   :alt: 看板视图列中的阶段选项.
 
-Clicking :guilabel:`Fold` folds the column to hide its contents.
+点击 :guilabel:`Fold` 可以折叠该列以隐藏其内容。
 
-Clicking :guilabel:`Edit` opens an :guilabel:`Edit: (stage name)` pop-up window, with the
-corresponding stage name, wherein the column's details can be edited. The following are the column
-options that can be edited:
+点击 :guilabel:`Edit` 会弹出 :guilabel:`Edit: (阶段名称)` 窗口，允许编辑该列的详细信息。以下是可以编辑的列选项：
 
 .. image:: maintenance_calendar/maintenance-calendar-edit-stage-popup.png
    :align: center
-   :alt: Edit In Progress pop-up window.
+   :alt: 编辑进行中的弹出窗口.
 
-- :guilabel:`Name`: the name of the stage in the Kanban pipeline.
-- :guilabel:`Folded in Maintenance Pipe`: when checked, this stage's column is folded by default in
-  the :guilabel:`Kanban` view type.
-- :guilabel:`Request Confirmed`: when this box is not ticked, and the maintenance request type is
-  set to *Work Center*, no leave is created for the respective work center when a maintenance
-  request is created. If the box *is* ticked, the work center is automatically blocked for the
-  listed duration, either at the specified date, or as soon as possible, if the work center is
-  unavailable.
-- :guilabel:`Sequence`: the order in the maintenance process, in which this stage appears.
-- :guilabel:`Request Done`: if ticked, this box indicates this stage is the final step of the
-  maintenance process. Requests moved to this stage are closed.
+- :guilabel:`Name`: 看板管道中阶段的名称。
+- :guilabel:`Folded in Maintenance Pipe`: 当勾选此项时，此阶段的列在 :guilabel:`看板` 视图类型中默认是折叠的。
+- :guilabel:`Request Confirmed`: 当未勾选此框时，如果维护请求类型设置为工作中心，则创建维护请求时不会为相应的工作中心创建请假。若勾选此框，系统会自动在列出的时间内阻止该工作中心，无论是在指定日期，还是尽可能快地执行，如果工作中心不可用。
+- :guilabel:`Sequence`: 维护流程中的顺序，决定此阶段的显示位置。
+- :guilabel:`Request Done`: 如果勾选此框，表示此阶段为维护流程的最终步骤，移动到此阶段的请求会被关闭。
 
-Once ready, click :guilabel:`Save & Close`. If no changes have been made, click :guilabel:`Discard`,
-or click the :guilabel:`X` icon to close the pop-up window.
+完成后，点击 :guilabel:`Save & Close` 保存并关闭。如果没有进行任何更改，点击 :guilabel:`Discard` 或点击 :guilabel:`X` 图标关闭弹出窗口。
 
-List view
+列表视图
 ~~~~~~~~~
 
-With the :guilabel:`List` view selected, all open maintenance requests are displayed in a list, with
-information about each request listed in its respective row.
+在 :guilabel:`列表视图` 中，所有打开的维护请求会以列表形式显示，并显示每个请求的相关信息。
 
-The columns of information displayed in this view type are the following:
+此视图类型中显示的信息列如下：
 
-- :guilabel:`Subjects`: the name assigned to the maintenance request.
-- :guilabel:`Employee`: the employee who originally created the maintenance request.
-- :guilabel:`Technician`: the technician responsible for the maintenance request.
-- :guilabel:`Category`: the category the equipment being repaired belongs to.
-- :guilabel:`Stage`: the stage of the maintenance process the request is currently in.
-- :guilabel:`Company`: if in a multi-company environment, the company in the database the request is
-  assigned to.
+- :guilabel:`Subjects`: 分配给维护请求的名称。
+- :guilabel:`Employee`: 创建维护请求的员工。
+- :guilabel:`Technician`: 负责维护请求的技术人员。
+- :guilabel:`Category`: 设备维修所属的类别。
+- :guilabel:`Stage`: 维护请求当前所在的阶段。
+- :guilabel:`Company`: 如果是多公司环境，请求所属的公司。
 
-Pivot view
+数据透视表视图
 ~~~~~~~~~~
 
-With the :guilabel:`Pivot` view selected, maintenance requests are displayed in a pivot table, and
-can be customized to show different data metrics.
+在 :guilabel:`数据透视表视图` 中，维护请求会以数据透视表的形式显示，并且可以自定义显示不同的数据指标。
 
-To add more data to the pivot table, click the :guilabel:`Measures` button to reveal a drop-down
-menu. By default, :guilabel:`Count` is selected. Additional options to add to the table are
-:guilabel:`Additional Leaves to Plan Ahead`, :guilabel:`Duration`, and :guilabel:`Repeat Every`.
+要向数据透视表中添加更多数据，请点击 :guilabel:`Measures` 按钮以显示下拉菜单。默认情况下，选中 :guilabel:`Count`。还可以选择其他选项，如 :guilabel:`Additional Leaves to Plan Ahead`，:guilabel:`Duration`，和 :guilabel:`Repeat Every`。
 
 .. image:: maintenance_calendar/maintenance-calendar-measures-menu.png
    :align: center
-   :alt: Measures options on Pivot view page.
+   :alt: 数据透视表页面上的测量选项。
 
-To the right of the :guilabel:`Measures` button is the :guilabel:`Insert in Spreadsheet` button.
-Clicking this button opens a pop-up window titled :guilabel:`Select a spreadsheet to insert your
-pivot.`.
+在 :guilabel:`Measures` 按钮的右侧是 :guilabel:`Insert in Spreadsheet` 按钮。点击此按钮会弹出一个标题为 :guilabel:`选择要插入数据透视表的电子表格。` 的弹窗。
 
-There are two tabs in this pop-up window: :guilabel:`Spreadsheets` and :guilabel:`Dashboards`. Click
-into one of these tabs, and select a spreadsheet or dashboard in the database to add this pivot
-table to. Once ready, click :guilabel:`Confirm`. If this table shouldn't be added to a spreadsheet
-or dashboard, click :guilabel:`Cancel`, or click the :guilabel:`X` icon to close the pop-up window.
+弹窗中有两个标签页：:guilabel:`电子表格` 和 :guilabel:`仪表盘`。点击其中一个标签页，然后选择数据库中的电子表格或仪表盘，将数据透视表添加到其中。准备好后，点击 :guilabel:`Confirm`。如果不想将此表格添加到电子表格或仪表盘中，点击 :guilabel:`Cancel` 或点击 :guilabel:`X` 图标关闭弹窗。
 
-To the right of the :guilabel:`Insert in Spreadsheet` button are three buttons:
+在 :guilabel:`Insert in Spreadsheet` 按钮的右侧有三个按钮：
 
-- :guilabel:`Flip axis`: the x and y axis of the pivot data table flip.
-- :guilabel:`Expand all`: all the available rows and columns of the pivot data table expand fully.
-- :guilabel:`Download xlsx`: the pivot data table is downloaded as an .xlsx file.
+- :guilabel:`Flip axis`: 翻转数据透视表的数据轴。
+- :guilabel:`Expand all`: 完全展开数据透视表中的所有行和列。
+- :guilabel:`Download xlsx`: 将数据透视表下载为 .xlsx 文件。
 
-Graph view
+图形视图
 ~~~~~~~~~~
 
-With the graph view selected, the following options appear between the search bar and visual
-representation of the data. These graph-specific options are located to the right of the
-:guilabel:`Measures` and :guilabel:`Insert in Spreadsheet` buttons.
+选择图形视图后，在搜索栏与数据可视化之间会显示以下选项。这些特定于图形的选项位于 :guilabel:`Measures` 和 :guilabel:`Insert in Spreadsheet` 按钮的右侧。
 
 .. image:: maintenance_calendar/maintenance-calendar-graph-view-icons.png
    :align: center
-   :alt: Graph type icons on Graph view page.
+   :alt: 图形视图页面上的图形类型图标。
 
-There are three different types of graphs available to users to view the data:
+用户可以选择三种不同类型的图形来查看数据：
 
-- :guilabel:`Bar Chart`: the data is displayed in a bar chart.
-- :guilabel:`Line Chart`: the data is displayed in a line chart.
-- :guilabel:`Pie Chart`: the data is displayed in a pie chart.
+- :guilabel:`Bar Chart`: 数据以条形图显示。
+- :guilabel:`Line Chart`: 数据以折线图显示。
+- :guilabel:`Pie Chart`: 数据以饼图显示。
 
-When viewing the data as a :guilabel:`Bar Chart` graph, the data can be formatted in the following
-ways:
+当以 :guilabel:`Bar Chart`（条形图）方式查看数据时，可以用以下方式格式化数据：
 
-- :guilabel:`Stacked`: the data is stacked on the graph.
-- :guilabel:`Descending`: the data is displayed in descending order.
-- :guilabel:`Ascending`: the data is displayed in ascending order.
+- :guilabel:`Stacked`: 数据以堆叠方式显示。
+- :guilabel:`Descending`: 数据按降序显示。
+- :guilabel:`Ascending`: 数据按升序显示。
 
-When viewing the data as a :guilabel:`Line Chart` graph, the data can be formatted in the following
-ways:
+当以 :guilabel:`Line Chart`（折线图）方式查看数据时，可以用以下方式格式化数据：
 
-- :guilabel:`Stacked`: the data is stacked on the graph.
-- :guilabel:`Cumulative`: the data is increasingly accumulated.
-- :guilabel:`Descending`: the data is displayed in descending order.
-- :guilabel:`Ascending`: the data is displayed in ascending order.
+- :guilabel:`Stacked`: 数据以堆叠方式显示。
+- :guilabel:`Cumulative`: 数据累积增加。
+- :guilabel:`Descending`: 数据按降序显示。
+- :guilabel:`Ascending`: 数据按升序显示。
 
-When viewing the data as a :guilabel:`Pie Chart` graph, all relevant data is displayed by default,
-and no additional formatting options are available.
+当以 :guilabel:`Pie Chart`（饼图）方式查看数据时，所有相关数据都会默认显示，且没有其他额外的格式选项。
 
-Activity view
-~~~~~~~~~~~~~
+活动视图
+~~~~~~~~~
 
-With the :guilabel:`Activity` view selected, all open maintenance requests are listed in their own
-row, with the ability to schedule activities related to those requests.
+选择 :guilabel:`活动视图` 后，所有打开的维护请求都会以行显示，并可以为这些请求安排活动。
 
 .. image:: maintenance_calendar/maintenance-calendar-activity-view-type.png
    :align: center
-   :alt: Maintenance requests on Activity view.
+   :alt: 活动视图中的维护请求。
 
-Maintenance requests are listed in the :guilabel:`Maintenance Request` column as activities.
-Clicking a request opens a :guilabel:`Maintenance Request` popover that indicates the status of the
-request, and the responsible technician. To schedule an activity directly from the popover, click
-:guilabel:`➕ Schedule an activity`. This opens a :guilabel:`Schedule Activity` pop-up window.
+维护请求在 :guilabel:`维护请求` 列中以活动的形式显示。点击某个请求会打开 :guilabel:`维护请求` 弹窗，显示请求的状态以及负责的技术人员。要直接从弹窗中安排活动，点击 :guilabel:`➕ 安排活动`。这会打开一个 :guilabel:`安排活动` 弹窗。
 
-From the pop-up window, choose the :guilabel:`Activity Type`, provide a :guilabel:`Summary`,
-schedule a :guilabel:`Due Date`, and choose the responsible user in the :guilabel:`Assigned to`
-field.
+在弹窗中，选择 :guilabel:`活动类型`，提供一个 :guilabel:`概要`，安排一个 :guilabel:`截止日期`，并在 :guilabel:`分配给` 字段中选择负责用户。
 
 .. image:: maintenance_calendar/maintenance-calendar-schedule-activity-popover.png
    :align: center
-   :alt: Schedule Activity pop-up window.
+   :alt: 安排活动弹窗。
 
-Type any additional notes for the new activity in the blank space under the greyed-out
-:guilabel:`Log a note...` field. When clicked, this changes to :guilabel:`Type "/" for commands`.
+在灰色的 :guilabel:`记录备注...` 字段下方的空白处输入活动的额外备注。点击时，该字段会变为 :guilabel:`输入"/"以获取命令`。
 
-Once ready, click :guilabel:`Schedule` to schedule the activity. Alternatively, click
-:guilabel:`Schedule & Mark as Done` to close the activity, click :guilabel:`Done & Schedule Next` to
-close the activity and open a new one, or click :guilabel:`Cancel` to cancel the activity.
+准备就绪后，点击 :guilabel:`安排` 来安排活动。或者，点击 :guilabel:`安排并标记为完成` 关闭活动，点击 :guilabel:`完成并安排下一个` 关闭活动并打开一个新活动，或点击 :guilabel:`取消` 取消活动。
 
-With the :guilabel:`Activity` view selected, each activity type available when scheduling an
-activity is listed as its own column. These columns are :guilabel:`Email`, :guilabel:`Call`,
-:guilabel:`Meeting`, :guilabel:`Maintenance Request`, :guilabel:`To-Do`, :guilabel:`Upload
-Document`, :guilabel:`Request Signature`, and :guilabel:`Grant Approval`.
+在选择 :guilabel:`活动视图` 后，每种活动类型都会以自己的列显示。这些列包括 :guilabel:`电子邮件`，:guilabel:`电话`，:guilabel:`会议`，:guilabel:`维护请求`，:guilabel:`待办`，:guilabel:`上传文档`，:guilabel:`请求签名`，以及 :guilabel:`授予批准`。
 
-To schedule an activity with that specific activity type, click into any blank box on the
-corresponding row for the desired maintenance request, and click the :guilabel:`➕ (plus)` icon. This
-opens an :guilabel:`Odoo` pop-up window, wherein the activity can be scheduled.
+要为某一特定活动类型安排活动，点击该维护请求的对应行中的任意空白框，点击 :guilabel:`➕ (加号)` 图标。这会打开一个 :guilabel:`Odoo` 弹窗，在其中可以安排活动。
 
 .. image:: maintenance_calendar/maintenance-calendar-odoo-activity-popup.png
    :align: center
-   :alt: Odoo pop-up schedule activity window.
+   :alt: Odoo 弹窗安排活动窗口。
 
 .. seealso::
-   - :doc:`maintenance_requests`
-   - :doc:`add_new_equipment`
+   - :doc:`维护请求`
+   - :doc:`添加新设备`

@@ -1,7 +1,7 @@
 :nosearch:
 
 ======================
-Shipping and receiving
+发货与收货
 ======================
 
 .. toctree::

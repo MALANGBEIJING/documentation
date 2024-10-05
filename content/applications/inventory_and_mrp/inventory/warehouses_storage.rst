@@ -1,7 +1,7 @@
 :nosearch:
 
 ======================
-Warehouses and storage
+仓库与存储
 ======================
 
 .. toctree::

@@ -1,7 +1,7 @@
 :nosearch:
 
 =================
-Configure product
+配置产品
 =================
 
 .. toctree::
@@ -11,4 +11,3 @@ Configure product
    configure/uom
    configure/package
    configure/packaging
-

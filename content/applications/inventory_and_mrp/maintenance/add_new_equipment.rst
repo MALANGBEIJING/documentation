@@ -1,92 +1,57 @@
 =================
-Add new equipment
+添加新设备
 =================
 
 .. _maintenance/equipment_management/add_new_equipment:
 
-In Odoo, *equipment* refers to any item that is used in everyday operations, including the
-manufacturing of products. This can mean a piece of machinery on a production line, a tool that is
-used in different locations, or a computer in an office space. Equipment registered in Odoo can be
-owned by the company that uses the Odoo database, or by a third party, such as a vendor in the case
-of equipment rentals.
+在 Odoo 中，*设备* 指的是日常操作中使用的任何物品，包括产品制造过程中的机器设备。这可以是生产线上的某个机械设备、不同地点使用的工具或办公室中的电脑。注册在 Odoo 中的设备可以由使用 Odoo 数据库的公司拥有，也可以由第三方拥有，例如设备租赁中的供应商。
 
-Using Odoo *Maintenance*, it is possible to track individual pieces of equipment, along with
-information about their maintenance requirements. To add a new piece of equipment, navigate to the
-:guilabel:`Maintenance` module, select :menuselection:`Equipments --> Machines & Tools --> Create`,
-and configure the equipment as follows:
+通过 Odoo *维护* 模块，可以追踪单个设备的详细信息以及其维护需求。要添加新设备，请前往 :guilabel:`维护` 模块，选择 :menuselection:`设备 --> 机器与工具 --> 创建`，并按以下要求配置设备：
 
-- :guilabel:`Equipment Name`: the product name of the piece of equipment
-- :guilabel:`Equipment Category`: the category that the equipment belongs to; for example,
-  computers, machinery, tools, etc.; new categories can be created by navigating to
-  :menuselection:`Configuration --> Equipment Categories` and clicking :guilabel:`Create`
-- :guilabel:`Company`: the company that owns the equipment; again, this can be the company that uses
-  the Odoo database, or a third-party company
-- :guilabel:`Used By`: specify if the equipment is used by a specific employee, department, or both;
-  select :guilabel:`Other` to specify both an employee and a department
-- :guilabel:`Maintenance Team`: the team responsible for servicing the equipment; new teams can be
-  created by navigating to :menuselection:`Configuration --> Maintenance Teams` and
-  selecting :guilabel:`Create`; the members of each team can also be assigned from this page
-- :guilabel:`Technician`: the person responsible for servicing the equipment; this can be used to
-  assign a specific individual in the event that no maintenance team is assigned or when a specific
-  member of the assigned team should always be responsible for the equipment; any person added to
-  Odoo as a user can be assigned as a technician
-- :guilabel:`Used in location`: the location where the equipment is used; this is a simple text
-  field that can be used to specify locations that are not work centers, like an office, for
-  example
-- :guilabel:`Work Center`: if the equipment is used at a work center, specify it here; equipment can
-  also be assigned to a work center by navigating to :menuselection:`Maintenance --> Equipments -->
-  Work Centers`, selecting a work center or creating a new one using the :guilabel:`Create` button,
-  and clicking the :guilabel:`Equipment` tab on the work center form
+- :guilabel:`设备名称`: 设备的产品名称
+- :guilabel:`设备类别`: 设备所属的类别，例如电脑、机器、工具等；新类别可以通过前往 :menuselection:`配置 --> 设备类别` 并点击 :guilabel:`创建` 来创建
+- :guilabel:`公司`: 拥有该设备的公司；可以是使用 Odoo 数据库的公司或第三方公司
+- :guilabel:`使用者`: 指定设备由某个特定员工、部门或二者共同使用；选择 :guilabel:`其他` 来同时指定员工和部门
+- :guilabel:`维护团队`: 负责维护设备的团队；可以通过前往 :menuselection:`配置 --> 维护团队` 并选择 :guilabel:`创建` 来创建新的团队；每个团队的成员也可以在此页面分配
+- :guilabel:`技术人员`: 负责维护设备的人员；可以用于在未分配维护团队或指定团队的特定成员总是负责设备的情况下分配特定个人；任何添加到 Odoo 的用户都可以被分配为技术人员
+- :guilabel:`使用位置`: 设备使用的位置；这是一个简单的文本字段，可用于指定不是工作中心的位置，例如办公室
+- :guilabel:`工作中心`: 如果设备在工作中心使用，请在此处指定；也可以通过前往 :menuselection:`维护 --> 设备 --> 工作中心`，选择一个工作中心或使用 :guilabel:`创建` 按钮创建新的工作中心，然后在工作中心表单的 :guilabel:`设备` 选项卡中分配设备
 
 .. image:: add_new_equipment/new-equipment-form.png
    :align: center
-   :alt: An example of a fully configured new equipment form.
+   :alt: 一个完全配置的设备表单示例。
 
-Include additional product information
---------------------------------------
+添加额外的产品信息
+--------------------------
 
-The :guilabel:`Product Information` tab at the bottom of the page can be used to provide further
-details about the piece of equipment:
+页面底部的 :guilabel:`产品信息` 选项卡可用于提供有关设备的进一步详细信息：
 
-- :guilabel:`Vendor`: the vendor that the equipment was purchased from
-- :guilabel:`Vendor Reference`: the reference code assigned to the vendor
-- :guilabel:`Model`: the specific model of the piece of equipment
-- :guilabel:`Serial Number`: the unique serial number of the equipment
-- :guilabel:`Effective Date`: the date that the equipment became available for use; this is used to
-  calculate the :abbr:`MTBF (Mean Time Between Failures)`
-- :guilabel:`Cost`: the amount the equipment was purchased for
-- :guilabel:`Warranty Expiration Date`: the date on which the equipment's warranty will expire
+- :guilabel:`供应商`: 设备的购买供应商
+- :guilabel:`供应商参考`: 供应商分配的参考代码
+- :guilabel:`型号`: 设备的具体型号
+- :guilabel:`序列号`: 设备的唯一序列号
+- :guilabel:`生效日期`: 设备开始使用的日期；此日期用于计算 :abbr:`MTBF (平均故障间隔时间)`
+- :guilabel:`成本`: 设备的购买价格
+- :guilabel:`保修到期日`: 设备保修到期的日期
 
 .. image:: add_new_equipment/new-equipment-product-information.png
    :align: center
-   :alt: The product information tab for the new piece of equipment.
+   :alt: 新设备的产品信息选项卡。
 
-Add maintenance details
+添加维护详情
 -----------------------
 
-The :guilabel:`Maintenance` tab at the bottom of the page provides information about the failure
-frequency of the piece of equipment:
+页面底部的 :guilabel:`维护` 选项卡提供有关设备故障频率的信息：
 
-- :guilabel:`Expected Mean Time Between Failure`: the average number of days the equipment is
-  expected to operate between failures. This number can be configured manually.
-- :guilabel:`Mean Time Between Failure`: the average number of days the equipment operates between
-  failures. This number is calculated automatically based on previous failures, and cannot
-  be configured manually.
-- :guilabel:`Estimated Next Failure`: the estimated date the equipment may experience its next
-  failure.
-  This date is calculated automatically based on the data in the :guilabel:`Mean Time Between
-  Failure` and :guilabel:`Latest Failure` fields, and cannot be configured manually.
-- :guilabel:`Latest Failure`: the most recent date on which the equipment failed. This date is based
-  on the creation date of the equipment's most recent maintenance request, and cannot be configured
-  manually.
-- :guilabel:`Mean Time To Repair`: the average number of days needed to repair the equipment. This
-  number is calculated automatically based on the duration of previous maintenance requests, and
-  cannot be configured manually.
+- :guilabel:`预期的平均故障间隔时间`: 设备预期的平均故障间隔天数。此数字可以手动配置。
+- :guilabel:`平均故障间隔时间`: 设备实际的平均故障间隔天数。此数字根据先前的故障自动计算，不能手动配置。
+- :guilabel:`预计下次故障`: 预计设备可能发生下一次故障的日期。此日期根据 :guilabel:`平均故障间隔时间` 和 :guilabel:`最近一次故障` 字段中的数据自动计算，不能手动配置。
+- :guilabel:`最近一次故障`: 设备最近一次发生故障的日期。此日期基于设备最近一次维护请求的创建日期，不能手动配置。
+- :guilabel:`平均修复时间`: 修复设备所需的平均天数。此数字根据先前维护请求的持续时间自动计算，不能手动配置。
 
 .. image:: add_new_equipment/new-equipment-maintenance.png
    :align: center
-   :alt: The maintenance tab for a piece of equipment.
+   :alt: 一台设备的维护选项卡。
 
 .. tip::
-   To see any open maintenance requests for a piece of equipment, go to the page for the equipment,
-   and click the :guilabel:`Maintenance` smart button at the top of the page.
+   要查看设备的任何开放维护请求，请前往设备页面并点击页面顶部的 :guilabel:`维护` 智能按钮。

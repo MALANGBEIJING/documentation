@@ -1,7 +1,7 @@
 :nosearch:
 
 ============
-Manage deals
+管理交易
 ============
 
 .. toctree::

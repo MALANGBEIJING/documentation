@@ -1,341 +1,265 @@
 =============
-Data Cleaning
+数据清理
 =============
 
-The Odoo *Data Cleaning* app keeps the database neat and organized throughout the use of its
-provided features:
+Odoo *数据清理*应用程序通过以下功能帮助保持数据库整洁有序：
 
-- :ref:`Deduplicates <data_cleaning/deduplication>`: merges or removes duplicate entries to ensure
-  data is unique.
-- :ref:`Recycles <data_cleaning/recycle>`: identifies outdated records to either archive or delete
-  them.
-- :ref:`Merges <data_cleaning/merge-action-manager>`: combines multiple similar entries into one
-  streamlined record.
-- :ref:`Formats <data_cleaning/field-cleaning>`: standardizes text data by finding and replacing it
-  according to specified needs.
+- :ref:`去重 <data_cleaning/deduplication>`：合并或删除重复的条目，以确保数据的唯一性。
+- :ref:`回收 <data_cleaning/recycle>`：识别过时的记录以进行归档或删除。
+- :ref:`合并 <data_cleaning/merge-action-manager>`：将多个相似的条目合并为一个简化的记录。
+- :ref:`格式化 <data_cleaning/field-cleaning>`：通过查找和替换来标准化文本数据，以满足特定需求。
 
-Through customizable automated rules (or manual praxis), individual records and accompanying text
-data in the database will remain up-to-date and consistently formatted, tailored to company
-specifications.
+通过可自定义的自动规则（或手动操作），数据库中的单个记录及其相关的文本数据将始终保持最新和一致的格式，符合公司规范。
 
 .. _data_cleaning/install-modules:
 
-Install modules
+安装模块
 ===============
 
-The *Data Cleaning* application consists of several modules. :ref:`Install <general/install>` the
-following to access all available features:
+*数据清理*应用程序包含多个模块。:ref:`安装 <general/install>`以下模块以访问所有可用功能：
 
 .. list-table::
    :header-rows: 1
    :widths: 25 25 50
 
-   * - Name
-     - Technical name
-     - Description
-   * - :guilabel:`Data Recycle`
+   * - 名称
+     - 技术名称
+     - 描述
+   * - :guilabel:`数据回收`
      - `data_recycle`
-     - Base module to enable the recycle feature, available on Odoo Community edition.
-   * - :guilabel:`Data Cleaning`
+     - 启用回收功能的基础模块，适用于Odoo社区版。
+   * - :guilabel:`数据清理`
      - `data_cleaning`
-     - Enables field cleaning feature to format text data across multiple records, available
-       **only** on Odoo Enterprise edition.
-   * - :guilabel:`Data Cleaning (merge)`
+     - 启用字段清理功能，格式化多个记录中的文本数据，仅适用于Odoo企业版。
+   * - :guilabel:`数据清理（合并）`
      - `data_merge`
-     - Enables the deduplication feature to find similar (or duplicate) records, and merge them,
-       available **only** on Odoo Enterprise edition.
+     - 启用去重功能，以查找相似（或重复）的记录并合并它们，仅适用于Odoo企业版。
 
-.. spoiler:: Additionally, several app-specific modules are available
+.. spoiler:: 另外，还有几个特定应用的模块可供使用
 
    .. list-table::
       :widths: 25 25 50
 
-      * - :guilabel:`CRM Deduplication`
+      * - :guilabel:`CRM去重`
         - `data_merge_crm`
-        - Enables the deduplication feature on the *CRM* app, and uses the :doc:`CRM default merging
-          feature <../sales/crm/pipeline/merge_similar>`.
-      * - :guilabel:`Helpdesk Merge action`
+        - 启用*CRM*应用中的去重功能，并使用 :doc:`CRM默认合并功能 <../sales/crm/pipeline/merge_similar>`。
+      * - :guilabel:`帮助台合并操作`
         - `data_merge_helpdesk`
-        - Enables the merge feature for the *Helpdesk* app.
-      * - :guilabel:`Project Merge action`
+        - 启用*帮助台*应用的合并功能。
+      * - :guilabel:`项目合并操作`
         - `data_merge_project`
-        - Enables the merge feature for the *Projects* app.
-      * - :guilabel:`UTM Deduplication`
+        - 启用*项目*应用的合并功能。
+      * - :guilabel:`UTM去重`
         - `data_merge_utm`
-        - Enables the merge feature for the *UTM Tracker* app.
-      * - :guilabel:`WMS Accounting Merge`
+        - 启用*UTM Tracker*应用的合并功能。
+      * - :guilabel:`WMS会计合并`
         - `data_merge_stock_account`
-        - Creates a warning in cases of products merging that may affect inventory valuation, if the
-          *Inventory* app is installed.
+        - 在合并可能影响库存估值的产品时发出警告，如果安装了*库存*应用。
 
 .. _data_cleaning/deduplication:
-
-Deduplication
+去重
 =============
 
-On the :guilabel:`Duplicates` dashboard (:menuselection:`Data Cleaning app --> Deduplication`), Odoo
-suggests groups of similar records to be :ref:`merged <data_cleaning/merge-records>` by matching
-conditions within the records set by the :ref:`deduplication rules
-<data_cleaning/deduplication-rules>`.
+在 :guilabel:`重复项` 仪表板 (:menuselection:`数据清理应用程序 --> 去重`) 中，Odoo 根据 :ref:`去重规则 <data_cleaning/deduplication-rules>` 设置的条件，建议将一组相似的记录进行 :ref:`合并 <data_cleaning/merge-records>`。
 
 .. image:: data_cleaning/data-cleaning-duplicates.png
    :align: center
-   :alt: Deduplication dashboard in the Data Cleaning application.
+   :alt: 数据清理应用程序中的去重仪表板。
 
-The :guilabel:`RULE` sidebar lists each of the active deduplication rules, and displays the total
-number of duplicates detected beside each rule.
+在左侧的 :guilabel:`规则` 侧边栏中列出了所有活动的去重规则，并显示了每个规则旁边检测到的重复项的总数。
 
-By default, the :guilabel:`All` rule is selected. Displayed records are grouped by their rule, with
-a :guilabel:`Similarity` rating (out of 100%) in the list view, with the following columns:
+默认情况下，选中 :guilabel:`全部` 规则。显示的记录按照规则分组，并在列表视图中显示相似度评分（满分100%），包括以下列：
 
-- :guilabel:`Created On`: the date and time the original record was created.
-- :guilabel:`Name`: the name or title of the original record.
-- :guilabel:`Field Values`: the original record's values for the fields used to detect duplicates.
-- :guilabel:`Used In`: lists other models referencing the original record.
-- :guilabel:`ID`: the original record's unique ID.
-- :guilabel:`Is Master`: the duplicates are merged into the *master* record. There can be **one**
-  master record in a grouping of similar records.
+- :guilabel:`创建日期`：原始记录的创建日期和时间。
+- :guilabel:`名称`：原始记录的名称或标题。
+- :guilabel:`字段值`：用于检测重复项的字段值。
+- :guilabel:`使用于`：列出引用原始记录的其他模型。
+- :guilabel:`ID`：原始记录的唯一ID。
+- :guilabel:`是否为主记录`：重复项将被合并到主记录中。在相似记录的分组中只能有 **一条** 主记录。
 
-Select a specific rule in the :guilabel:`RULE` sidebar to filter the duplicate records.
+在 :guilabel:`规则` 侧边栏中选择特定规则，以筛选重复记录。
 
 .. _data_cleaning/merge-records:
 
-Merge duplicate records
+合并重复记录
 -----------------------
 
-To merge records, first choose a *master* record within the grouping of similar records. The master
-record acts as the base, at which any additional information from similar records are merged into.
+要合并记录，首先在相似记录的分组中选择一条 *主记录*。主记录作为基础，其他相似记录的附加信息将合并到其中。
 
-Optionally, no master record can be set, leaving Odoo to choose a record at random to merge into.
+可以选择不设置主记录，此时Odoo会随机选择一条记录进行合并。
 
-Next, click the :guilabel:`Merge` button at the top of the similar records grouping. Then, click
-:guilabel:`Ok` to confirm the merge.
+接下来，点击相似记录分组顶部的 :guilabel:`合并` 按钮。然后点击 :guilabel:`确定` 确认合并。
 
-Once a record is merged, a message is logged in the chatter of the master record, describing the
-merge. Certain records, like *Project* tasks, are logged in the chatter with a link to the old
-record for a convenient reference.
+记录合并后，会在主记录的聊天框中记录一条消息，描述此次合并。某些记录（如 *项目* 任务）会在聊天框中记录一个链接，方便参考旧记录。
 
 .. tip::
-   Discard groupings by clicking the :guilabel:`DISCARD` button. Upon doing so, the grouping is
-   hidden from the list and archived.
+   通过点击 :guilabel:`丢弃` 按钮丢弃分组。这样，分组会从列表中隐藏并归档。
 
-   View discarded groupings by selecting the :guilabel:`Discarded` filter from the :ref:`Search...
-   <search/filters>` bar.
+   通过从 :ref:`搜索栏 <search/filters>` 中选择 :guilabel:`已丢弃` 筛选器，查看已丢弃的分组。
 
 .. _data_cleaning/deduplication-rules:
-
-Deduplication rules
+去重规则
 -------------------
 
-The :guilabel:`Deduplication Rules` page (:menuselection:`Data Cleaning app --> Configuration -->
-Rules: Deduplication`) is where the conditions for records to be detected as duplicates can be set.
+在 :guilabel:`去重规则` 页面 (:menuselection:`数据清理应用程序 --> 配置 --> 规则: 去重`) 中，可以设置检测重复记录的条件。
 
-These rules can be configured for each model in the database, and with varying levels of
-specificity.
+这些规则可以针对数据库中的每个模型进行配置，并具有不同的具体性级别。
 
 .. tip::
-   The deduplication rules run once every day, by default, as part of a scheduled action chron
-   (*Data Merge: Find Duplicate Records*). However, each rule can be :ref:`ran manually
-   <data_cleaning/run-deduplication-rule>` anytime.
+   去重规则默认情况下每天运行一次，作为计划操作时间表 (*数据合并: 查找重复记录*) 的一部分。然而，可以随时 :ref:`手动运行 <data_cleaning/run-deduplication-rule>` 每个规则。
 
-Modify a deduplication rule
+修改去重规则
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Select a default rule to edit, or create a new rule by clicking on the :guilabel:`New` button, on
-the :guilabel:`Deduplication Rules` page (:menuselection:`Data Cleaning app --> Configuration -->
-Rules: Deduplication`).
+选择一个默认规则进行编辑，或点击 :guilabel:`新建` 按钮，创建一个新规则，位于 :guilabel:`去重规则` 页面 (:menuselection:`数据清理应用程序 --> 配置 --> 规则: 去重`)。
 
-First, choose a :guilabel:`Model` for this rule to target. Selecting a model updates the rule title
-to the chosen model.
+首先，选择一个 :guilabel:`模型` 作为此规则的目标。选择模型后，规则标题将更新为选定的模型。
 
-Optionally, configure a :guilabel:`Domain` to specify the records eligible for this rule. The number
-of eligible records is shown in the :icon:`oi-arrow-right` :guilabel:`# record(s)` link.
+可选地，配置 :guilabel:`域` 以指定此规则适用的记录。符合条件的记录数量显示在 :icon:`oi-arrow-right` :guilabel:`# 条记录` 链接中。
 
-Depending on the selected :guilabel:`Model`, the :guilabel:`Duplicate Removal` field appears.
-Choose whether to :guilabel:`Archive` or :guilabel:`Delete` merged records.
+根据所选的 :guilabel:`模型`，会显示 :guilabel:`重复项处理方式` 字段。选择是 :guilabel:`归档` 还是 :guilabel:`删除` 合并的记录。
 
-Next, select a :guilabel:`Merge Mode`:
+接下来，选择一个 :guilabel:`合并模式`：
 
-- :guilabel:`Manual`: requires each duplicate grouping to be manually merged, also enables the
-  :guilabel:`Notify Users` field.
-- :guilabel:`Automatic`: automatically merges duplicate groupings, without notifying users, based on
-  the records with a similarity percentage above the threshold set in the :guilabel:`Similarity
-  Threshold` field.
+- :guilabel:`手动`：需要手动合并每组重复项，同时启用 :guilabel:`通知用户` 字段。
+- :guilabel:`自动`：自动合并重复项，不通知用户，基于相似度百分比高于 :guilabel:`相似度阈值` 字段设定值的记录。
 
-Enable the :guilabel:`Active` toggle to start capturing duplicates with this rule as soon as it is
-saved.
+启用 :guilabel:`激活` 切换按钮以使此规则保存后开始捕捉重复项。
 
-Lastly, create at least one deduplication rule in the :guilabel:`Deduplication Rules` field, by
-clicking :guilabel:`Add a line`, under the :guilabel:`Unique ID Field` column.
+最后，在 :guilabel:`去重规则` 字段中，至少创建一个去重规则，通过点击 :guilabel:`添加一行`，位于 :guilabel:`唯一ID字段` 列下。
 
-- Select a field in the model from the :guilabel:`Unique ID Field` drop-down menu. This field is
-  referenced for similar records.
-- Select a matching condition in the :guilabel:`Match If` field to apply the deduplication rule,
-  depending on the text in the :guilabel:`Unique ID Field`:
+- 从 :guilabel:`唯一ID字段` 下拉菜单中选择模型中的一个字段。该字段将用于相似记录的检测。
+- 在 :guilabel:`匹配条件` 字段中选择一个匹配条件，以根据 :guilabel:`唯一ID字段` 中的文本应用去重规则：
 
-  - :guilabel:`Exact Match`: the characters in the text match exactly.
-  - :guilabel:`Case/Accent Insensitive Match`: the characters in the text match, regardless of
-    casing and language-specific accent differences.
+  - :guilabel:`完全匹配`：文本中的字符完全匹配。
+  - :guilabel:`大小写/重音不敏感匹配`：文本中的字符匹配，忽略大小写和语言特定的重音差异。
 
 .. important::
-   The rule does **not** capture duplicates without at least one deduplication rule set in the
-   :guilabel:`Deduplication Rules` field.
+   如果在 :guilabel:`去重规则` 字段中没有设置至少一个去重规则，则此规则不会捕捉重复项。
 
 .. tip::
-   A few more fields are available for an advanced configuration.
+   可以启用更多字段进行高级配置。
 
-   If on a multi-company database, the :guilabel:`Cross-Company` field is available. When enabled,
-   duplicates across different companies are suggested.
+   如果在多公司数据库中， :guilabel:`跨公司` 字段可用。启用后，跨公司重复项将被建议。
 
-   Activate :ref:`developer-mode` to display the :guilabel:`Suggestion Threshold` field. Duplicates
-   with a similarity below the threshold set in this field are **not** suggested.
+   启用 :ref:`开发者模式` 以显示 :guilabel:`建议阈值` 字段。低于此字段设定值的相似度的重复项不会被建议。
 
-With the rule's configuration complete, either close the rule form, or :ref:`run the rule manually
-<data_cleaning/run-deduplication-rule>` to instantly capture duplicate records.
+规则配置完成后，可以关闭规则表单，或 :ref:`手动运行规则 <data_cleaning/run-deduplication-rule>` 以立即捕捉重复记录。
 
 .. _data_cleaning/run-deduplication-rule:
-
-Manually run a deduplication rule
+手动运行去重规则
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To manually run a specific deduplication rule at any time, navigate to :menuselection:`Data Cleaning
-app --> Configuration --> Rules: Deduplication`, and select the rule to run.
+要随时手动运行特定的去重规则，导航到 :menuselection:`数据清理应用程序 --> 配置 --> 规则: 去重`，然后选择要运行的规则。
 
-Then, on the rule form, select the :guilabel:`Deduplicate` button on the top-left. Upon doing so,
-the :icon:`fa-clone` :guilabel:`Duplicates` smart button displays the number of duplicates captured.
+接下来，在规则表单上，选择左上角的 :guilabel:`去重` 按钮。这样做后，:icon:`fa-clone` :guilabel:`重复项` 智能按钮将显示捕获的重复项数量。
 
-Click on the :icon:`fa-clone` :guilabel:`Duplicates` smart button to manage these records.
+点击 :icon:`fa-clone` :guilabel:`重复项` 智能按钮以管理这些记录。
 
 .. _data_cleaning/recycle:
 
-Recycle records
+回收记录
 ===============
 
-Use the *Recycle Records* feature to rid the database of old and outdated records.
+使用 *回收记录* 功能清理数据库中的旧记录和过时记录。
 
-On the :guilabel:`Field Recycle Records` dashboard (:menuselection:`Data Cleaning app --> Recycle
-Records`), Odoo detects records that can be archived or deleted, by matching conditions within the
-records set by the :ref:`recycle record's rules <data_cleaning/recylce-rule>`.
+在 :guilabel:`字段回收记录` 仪表板 (:menuselection:`数据清理应用程序 --> 回收记录`) 上，Odoo 通过匹配由 :ref:`回收记录规则 <data_cleaning/recylce-rule>` 设置的条件，检测可以归档或删除的记录。
 
 .. image:: data_cleaning/data-cleaning-recycle.png
    :align: center
-   :alt: Field Recycle Records dashboard in the Data Cleaning application.
+   :alt: 数据清理应用程序中的字段回收记录仪表板。
 
-The :guilabel:`RECYCLE RULES` sidebar lists each of the active recycle record rules, and displays
-the total number of records detected beside each rule.
+:guilabel:`回收规则` 侧边栏列出了每个活动的回收记录规则，并在每个规则旁显示检测到的记录总数。
 
-By default, the :guilabel:`All` option is selected. Records are displayed in the list view, with the
-following columns:
+默认情况下，选择 :guilabel:`全部` 选项。记录以列表视图显示，列中包括以下信息：
 
-- :guilabel:`Record ID`: the ID of the original record.
-- :guilabel:`Record Name`: the name or title of the original record.
+- :guilabel:`记录ID`：原始记录的ID。
+- :guilabel:`记录名称`：原始记录的名称或标题。
 
-Select a specific rule in the :guilabel:`RECYCLE RULES` sidebar to filter the duplicate records.
+在 :guilabel:`回收规则` 侧边栏中选择特定的规则，以筛选重复记录。
 
-To recycle records, click the :icon:`fa-check` :guilabel:`Validate` button on the row of the record.
+要回收记录，点击记录行上的 :icon:`fa-check` :guilabel:`验证` 按钮。
 
-Upon doing so, the record is recycled, depending on how the rule is configured, to be either
-archived or deleted from the database.
+执行此操作后，记录将根据规则配置进行回收，要么被归档，要么从数据库中删除。
 
 .. tip::
-   Discard groupings by clicking the :icon:`fa-times` :guilabel:`Discard` button. Upon doing so, the
-   record is hidden from the list, and is not detected by the recycle rule again in the future.
+   通过点击 :icon:`fa-times` :guilabel:`丢弃` 按钮丢弃分组。执行此操作后，记录将从列表中隐藏，并且以后不会再被回收规则检测到。
 
-   View discarded records by selecting the :guilabel:`Discarded` filter from the :ref:`search bar
-   <search/filters>` drop-down menu.
+   通过从 :ref:`搜索栏 <search/filters>` 下拉菜单中选择 :guilabel:`丢弃` 筛选器来查看丢弃的记录。
 
 .. _data_cleaning/recylce-rule:
 
-Recycle record rules
+回收记录规则
 --------------------
 
-The :guilabel:`Recycle Records Rules` page (:menuselection:`Data Cleaning app --> Configuration -->
-Rules: Recycle Records`) is where the conditions for records to be recycled can be set.
+在 :guilabel:`回收记录规则` 页面 (:menuselection:`数据清理应用程序 --> 配置 --> 规则: 回收记录`) 中，可以设置回收记录的条件。
 
-These rules can be configured for each model in the database, and with varying levels of
-specificity.
+这些规则可以针对数据库中的每个模型进行配置，并具有不同的具体性级别。
 
 .. tip::
-   The recycle rules run once a day, by default, as part of a scheduled action chron (*Data
-   Recycle: Clean Records*). However, each rule can be :ref:`run manually
-   <data-cleaning/run-recycle-rule>` anytime.
+   默认情况下，回收规则每天运行一次，作为计划操作 (*数据回收: 清理记录*) 的一部分。不过，每个规则都可以 :ref:`手动运行 <data_cleaning/run-recycle-rule>`。
 
-By default, no recycle record rules exist. Click the :guilabel:`New` button to create a new rule.
+默认情况下，不存在回收记录规则。点击 :guilabel:`新建` 按钮创建新规则。
 
-On the recycle record rule form, first choose a :guilabel:`Model` for this rule to target. Selecting
-a model updates the rule title to the chosen model.
+在回收记录规则表单上，首先选择一个 :guilabel:`模型` 作为此规则的目标。选择模型后，规则标题将更新为选定的模型。
 
-Optionally, configure a :guilabel:`Filter` to specify the records eligible for this rule. The number
-of eligible records is shown in the :icon:`oi-arrow-right` :guilabel:`# record(s)` link.
+可选地，配置 :guilabel:`过滤器` 以指定此规则适用的记录。符合条件的记录数量显示在 :icon:`oi-arrow-right` :guilabel:`# 条记录` 链接中。
 
-Next, configure the field and time range for how the rule detects the records to recycle:
+接下来，配置字段和时间范围，以确定规则如何检测要回收的记录：
 
-- :guilabel:`Time Field`: select a field from the model to base the time (:dfn:`Delta`).
-- :guilabel:`Delta`: type the length of time, which must be a whole number (e.g. `7`).
-- :guilabel:`Delta Unit`: select the unit of time (:guilabel:`Days`, :guilabel:`Weeks`,
-  :guilabel:`Months`, or :guilabel:`Years`).
+- :guilabel:`时间字段`：选择一个字段作为时间依据 (:dfn:`时间间隔`)。
+- :guilabel:`时间间隔`：输入时长，必须是一个整数 (例如 `7`)。
+- :guilabel:`时间单位`：选择时间单位 (:guilabel:`天`、:guilabel:`周`、:guilabel:`月` 或 :guilabel:`年`)。
 
-Then, select a :guilabel:`Recycle Mode`:
+然后，选择一个 :guilabel:`回收模式`：
 
-- :guilabel:`Manual`: requires each detected record to be manually recycled, and enables the
-  :guilabel:`Notify Users` field.
-- :guilabel:`Automatic`: automatically merges recycled groupings, without notifying users.
+- :guilabel:`手动`：需要手动回收每条检测到的记录，同时启用 :guilabel:`通知用户` 字段。
+- :guilabel:`自动`：自动合并回收分组，不通知用户。
 
-Lastly, select a :guilabel:`Recycle Action` to either :guilabel:`Archive` or :guilabel:`Delete`
-records. If :guilabel:`Delete` is selected, choose whether or not to :guilabel:`Include Archived`
-records in the rule.
+最后，选择一个 :guilabel:`回收操作`，要么 :guilabel:`归档`，要么 :guilabel:`删除` 记录。如果选择 :guilabel:`删除`，请选择是否在规则中 :guilabel:`包含已归档` 记录。
 
-With the rule's configuration complete, either close the rule form, or :ref:`run the rule manually
-<data-cleaning/run-recycle-rule>` to instantly capture records to recycle.
+规则配置完成后，可以关闭规则表单，或 :ref:`手动运行规则 <data_cleaning/run-recycle-rule>` 以立即捕捉要回收的记录。
 
 .. example::
-   A recycle rule can be configured to delete archived leads and opportunities that were last
-   updated a year ago, and with a specific lost reason, by using the following configuration:
+   可以将回收规则配置为删除一年未更新的已归档线索和商机，并指定一个特定的丢失原因，使用以下配置：
 
-   - :guilabel:`Model`: :guilabel:`Lead/Opportunity`
-   - :guilabel:`Filter`:
+   - :guilabel:`模型`: :guilabel:`线索/商机`
+   - :guilabel:`过滤器`:
 
-     - `Active` `is` `not set`
-     - `Lost Reason` `is in` `Too expensive`
+     - `活动` `未设置`
+     - `丢失原因` `在` `太贵了`
 
-   - :guilabel:`Time Field`: :guilabel:`Last Updated on (Lead/Opportunity)`
-   - :guilabel:`Delta`: `1`
-   - :guilabel:`Delta Unit`: :guilabel:`Years`
-   - :guilabel:`Recycle Mode`: :guilabel:`Automatic`
-   - :guilabel:`Recycle Action`: :guilabel:`Delete`
-   - :guilabel:`Include Archived`: :icon:`fa-check-square`
+   - :guilabel:`时间字段`: :guilabel:`最后更新时间 (线索/商机)`
+   - :guilabel:`时间间隔`: `1`
+   - :guilabel:`时间单位`: :guilabel:`年`
+   - :guilabel:`回收模式`: :guilabel:`自动`
+   - :guilabel:`回收操作`: :guilabel:`删除`
+   - :guilabel:`包含已归档`: :icon:`fa-check-square`
 
    .. image:: data_cleaning/data-cleaning-recycle-rule.png
       :align: center
-      :alt: Recycle records rule form for a lead/opportunity.
+      :alt: 线索/商机的回收记录规则表单。
 
-.. _data-cleaning/run-recycle-rule:
-
-Manually run a recycle rule
+.. _data_cleaning/run-recycle-rule:
+手动运行回收规则
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To manually run a specific recycle rule at any time, navigate to :menuselection:`Data Cleaning app
---> Configuration --> Rules: Recycle Records`, and select the rule to run.
+要随时手动运行特定的回收规则，导航到 :menuselection:`数据清理应用程序 --> 配置 --> 规则: 回收记录`，并选择要运行的规则。
 
-Then, on the rule form, click the :guilabel:`Run Now` button on the top-left. Upon doing so, the
-:icon:`fa-bars` :guilabel:`Records` smart button displays the number of records captured.
+然后，在规则表单中，点击左上角的 :guilabel:`立即运行` 按钮。执行此操作后，:icon:`fa-bars` :guilabel:`记录` 智能按钮将显示捕获的记录数量。
 
-Click the :icon:`fa-bars` :guilabel:`Records` smart button to manage these records.
+点击 :icon:`fa-bars` :guilabel:`记录` 智能按钮以管理这些记录。
 
 .. _data_cleaning/field-cleaning:
 
-Field cleaning
+字段清理
 ==============
 
-On the :guilabel:`Field Cleaning Records` dashboard (:menuselection:`Data Cleaning app --> Field
-Cleaning`), Odoo suggests formatting changes to data in fields of a record, to follow a convention
-set by the field cleaning rules.
+在 :guilabel:`字段清理记录` 仪表板 (:menuselection:`数据清理应用程序 --> 字段清理`) 上，Odoo 根据字段清理规则建议对记录中的字段数据进行格式化更改，以遵循指定的规范。
 
 .. _data_cleaning/merge-action-manager:
 
-Merge action manager
+合并操作管理器
 ====================
 
-The :guilabel:`Merge Action Manager` (:menuselection:`Data Cleaning app --> Configuration --> Merge
-Action Manager`) enables or disables the *Merge* action available in the *Actions* menu for models
-in the database.
+:guilabel:`合并操作管理器` (:menuselection:`数据清理应用程序 --> 配置 --> 合并操作管理器`) 启用或禁用数据库模型中 *操作* 菜单中的 *合并* 操作功能。

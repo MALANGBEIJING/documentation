@@ -1,138 +1,93 @@
 ========================
-Replenish on order (MTO)
+按订单补货 (MTO)
 ========================
 
-.. |SO| replace:: :abbr:`SO (sales order)`
-.. |SOs| replace:: :abbr:`SOs (sales orders)`
-.. |MO| replace:: :abbr:`MO (manufacturing order)`
-.. |PO| replace:: :abbr:`PO (purchase order)`
-.. |MTO| replace:: :abbr:`MTO (make to order)`
-.. |RFQ| replace:: :abbr:`RFQ (request for quotation)`
-.. |BOM| replace:: :abbr:`BOM (bill of materials)`
+.. |SO| replace:: :abbr:`SO (销售订单)`
+.. |SOs| replace:: :abbr:`SOs (销售订单)`
+.. |MO| replace:: :abbr:`MO (生产订单)`
+.. |PO| replace:: :abbr:`PO (采购订单)`
+.. |MTO| replace:: :abbr:`MTO (按订单生产)`
+.. |RFQ| replace:: :abbr:`RFQ (询价单)`
+.. |BOM| replace:: :abbr:`BOM (物料清单)`
 
-*Replenish on order*, also known as *MTO* (make to order), is a replenishment strategy that creates
-a draft order for a product every time it is required to fulfill a sales order (SO), or when it is
-needed as a component in a manufacturing order (MO).
+*按订单补货*，也称为 *MTO* (按订单生产)，是一种补货策略，每当需要满足销售订单 (SO) 或在生产订单 (MO) 中作为组件时，都会为产品创建一个草稿订单。
 
-For products that are purchased from a vendor, a request for quotation (RFQ) is created to replenish
-the product, while an |MO| is created for products that are manufactured. The creation of an |RFQ|
-or |MO| occurs every time an |SO| or |MO| that requires the product is confirmed, regardless of the
-current stock level of the product being ordered.
+对于从供应商采购的产品，将创建询价单 (RFQ) 以补充产品，而对于制造的产品，则会创建 |MO|。无论所订购产品的当前库存水平如何，只要确认了需要该产品的 |SO| 或 |MO|，就会创建 |RFQ| 或 |MO|。
 
 .. important::
-   In order to use the |MTO| route, the :guilabel:`Multi-Step Routes` feature must be enabled. To do
-   so, navigate to :menuselection:`Inventory app --> Configuration --> Settings`, and tick the
-   checkbox next to :guilabel:`Multi-Step Routes`, under the :guilabel:`Warehouse` heading.
+   为了使用 |MTO| 路线，必须启用 :guilabel:`多步骤路线` 功能。为此，导航至 :menuselection:`库存应用 --> 配置 --> 设置`，并在 :guilabel:`仓库` 标题下勾选 :guilabel:`多步骤路线` 旁的复选框。
 
-   Finally, click :guilabel:`Save` to save the change.
+   最后，点击 :guilabel:`保存` 保存更改。
 
-Unarchive MTO route
+取消归档 MTO 路线
 ===================
 
-By default, Odoo sets the |MTO| route as *archived*. This is because |MTO| is a somewhat niche
-workflow that is only used by certain companies. However, it is easy to unarchive the route in just
-a few simple steps.
+默认情况下，Odoo 将 |MTO| 路线设置为 *归档*。这是因为 |MTO| 是一种较为小众的工作流程，只有某些公司会使用。然而，只需几个简单步骤即可轻松取消归档此路线。
 
-To do so, begin by navigating to :menuselection:`Inventory app --> Configuration --> Routes`. On the
-:guilabel:`Routes` page, click the :icon:`fa-caret-down` :guilabel:`(down arrow)` icon on the right
-side of the search bar, and click the :guilabel:`Archived` filter to enable it.
+为此，首先导航至 :menuselection:`库存应用 --> 配置 --> 路线`。在 :guilabel:`路线` 页面，点击搜索栏右侧的 :icon:`fa-caret-down` :guilabel:`(下箭头)` 图标，然后点击 :guilabel:`归档` 筛选器以启用它。
 
 .. image:: mto/archived-filter.png
    :align: center
-   :alt: The archived filter on the Routes page.
+   :alt: 路线页面上的归档筛选器。
 
-After enabling the :guilabel:`Archived` filter, the :guilabel:`Routes` page shows all routes which
-are currently archived. Tick the checkbox next to :guilabel:`Replenish on Order (MTO)`, then click
-the :icon:`fa-cog` :guilabel:`Actions` button to reveal a drop-down menu. From the drop-down menu,
-select :guilabel:`Unarchive`.
+启用 :guilabel:`归档` 筛选器后，:guilabel:`路线` 页面将显示所有当前归档的路线。勾选 :guilabel:`按订单补货 (MTO)` 旁的复选框，然后点击 :icon:`fa-cog` :guilabel:`操作` 按钮以显示下拉菜单。从下拉菜单中选择 :guilabel:`取消归档`。
 
 .. image:: mto/unarchive-button.png
    :align: center
-   :alt: The unarchive action on the Routes page.
+   :alt: 路线页面上的取消归档操作。
 
-Finally, remove the :guilabel:`Archived` filter from the search bar. The :guilabel:`Routes` page now
-shows all unarchived routes, including :guilabel:`Replenish on Order (MTO)`, which is selectable on
-the *Inventory* tab of each product page.
+最后，从搜索栏中移除 :guilabel:`归档` 筛选器。现在，:guilabel:`路线` 页面将显示所有未归档的路线，包括 :guilabel:`按订单补货 (MTO)`，可以在每个产品页面的 *库存* 标签中选择。
 
-Configure product for MTO
+为 MTO 配置产品
 =========================
 
-With the |MTO| route unarchived, products can now be properly configured to use replenish on order.
-To do so, begin by going to :menuselection:`Inventory app --> Products --> Products`, then select an
-existing product, or click :guilabel:`New` to configure a new one.
+取消归档 |MTO| 路线后，现在可以正确配置产品以使用按订单补货。为此，首先进入 :menuselection:`库存应用 --> 产品 --> 产品`，然后选择一个现有产品，或点击 :guilabel:`新建` 以配置一个新产品。
 
-On the product page, select the :guilabel:`Inventory` tab and enable the :guilabel:`Replenish on
-Order (MTO)` route in the :guilabel:`Routes` section, along with the :guilabel:`Buy` or
-:guilabel:`Manufacture` route.
+在产品页面，选择 :guilabel:`库存` 标签，并在 :guilabel:`路线` 部分启用 :guilabel:`按订单补货 (MTO)` 路线，以及 :guilabel:`采购` 或 :guilabel:`生产` 路线。
 
 .. important::
-   The :guilabel:`Replenish on Order (MTO)` route **does not** work unless another route is selected
-   as well. This is because Odoo needs to know how to replenish the product when an order is placed
-   for it (buy or manufacture it).
+   :guilabel:`按订单补货 (MTO)` 路线 **不会** 独立工作，必须选择另一条路线。这是因为 Odoo 需要知道在下订单时如何补充产品（是采购还是生产）。
 
 .. image:: mto/select-routes.png
    :align: center
-   :alt: Select the MTO route and a second route on the Inventory tab.
+   :alt: 在库存标签中选择 MTO 路线和另一条路线。
 
-If the product is purchased from a vendor to fulfill |SOs|, enable the :guilabel:`Can be Purchased`
-checkbox under the product name. Doing so makes the :guilabel:`Purchase` tab appear alongside the
-other tabs below.
+如果该产品是从供应商采购以满足 |SOs|，请在产品名称下启用 :guilabel:`可采购` 复选框。这样会使 :guilabel:`采购` 标签显示在其他标签旁边。
 
-Click the :guilabel:`Purchase` tab and specify a :guilabel:`Vendor` and the :guilabel:`Price` they
-sell the product for.
+点击 :guilabel:`采购` 标签，并指定一个 :guilabel:`供应商` 以及他们销售该产品的 :guilabel:`价格`。
 
 .. important::
-   Specifying a vendor is essential for this workflow, because Odoo cannot generate an |RFQ| without
-   knowing who the product is purchased from.
+   指定供应商是此工作流程的关键，因为如果不知道产品从谁处采购，Odoo 无法生成 |RFQ|。
 
-If the product is manufactured, make sure it has a bill of materials (BOM) configured for it. To do
-so, click the :guilabel:`Bill of Materials` smart button at the top of the screen, then click
-:guilabel:`New` on the :guilabel:`Bill of Materials` page to configure a new |BOM| for the product.
+如果产品是制造的，请确保为其配置了物料清单 (BOM)。为此，点击屏幕顶部的 :guilabel:`物料清单` 智能按钮，然后在 :guilabel:`物料清单` 页面上点击 :guilabel:`新建` 以为该产品配置新的 |BOM|。
 
 .. seealso::
-   For a full overview of |BOM| creation, see the documentation on :doc:`bills of materials
-   <../../../manufacturing/basic_setup/bill_configuration>`.
+   有关 |BOM| 创建的完整概述，请参阅 :doc:`物料清单 <../../../manufacturing/basic_setup/bill_configuration>` 文档。
 
-Replenish using MTO
+使用 MTO 补货
 ===================
 
-After configuring a product to use the |MTO| route, a replenishment order is created for it every
-time an |SO| or |MO| including the product is confirmed. The type of order created depends on the
-second route selected in addition to |MTO|.
+在将产品配置为使用 |MTO| 路线后，每当确认包含该产品的 |SO| 或 |MO| 时，都会为其创建补货订单。创建的订单类型取决于除 |MTO| 之外选择的第二条路线。
 
-For example, if *Buy* was the second route selected, then a |PO| is created upon confirmation of an
-|SO|.
+例如，如果选择了 *采购* 作为第二条路线，那么在确认 |SO| 时将创建 |PO|。
 
 .. important::
-   When the |MTO| route is enabled for a product, a replenishment order is always created upon
-   confirmation of an |SO| or |MO|. This is the case, even if there is enough stock of the product
-   on-hand to fulfill the |SO|, without buying or manufacturing additional units of it.
+   当为产品启用 |MTO| 路线时，每当确认 |SO| 或 |MO| 时，都会创建补货订单。即使有足够的现有库存来满足 |SO|，也会这样做，而无需采购或生产额外的产品。
 
-While the |MTO| route can be used in unison with the *Buy* or *Manufacture* routes, the *Buy* route
-is used as the example for this workflow. Begin by navigating to the :menuselection:`Sales` app,
-then click :guilabel:`New`, which opens a blank quotation form.
+虽然可以将 |MTO| 路线与 *采购* 或 *生产* 路线一起使用，但本文将 *采购* 路线作为此工作流程的示例。首先，导航至 :menuselection:`销售` 应用，然后点击 :guilabel:`新建`，打开一个空白的报价单表单。
 
-On the blank quotation form, add a :guilabel:`Customer`. Then, click :guilabel:`Add a product` under
-the :guilabel:`Order Lines` tab, and enter a product configured to use the *MTO* and *Buy* routes.
-Click :guilabel:`Confirm`, and the quotation is turned into an |SO|.
+在空白报价单表单上，添加一个 :guilabel:`客户`。然后，在 :guilabel:`订单行` 标签下点击 :guilabel:`添加产品`，并输入已配置为使用 *MTO* 和 *采购* 路线的产品。点击 :guilabel:`确认`，报价单将变成 |SO|。
 
-A :guilabel:`Purchase` smart button now appears at the top of the page. Clicking it opens the |RFQ|
-associated with the |SO|.
+现在，页面顶部会出现一个 :guilabel:`采购` 智能按钮。点击它可以打开与该 |SO| 相关联的 |RFQ|。
 
-Click :guilabel:`Confirm Order` to confirm the |RFQ|, and turn it into a |PO|. A purple
-:guilabel:`Receive Products` button now appears above the |PO|. Once the products are received,
-click :guilabel:`Receive Products` to open the receipt order, and click :guilabel:`Validate` to
-enter the products into inventory.
+点击 :guilabel:`确认订单` 以确认 |RFQ|，并将其转为 |PO|。页面顶部现在会出现一个紫色的 :guilabel:`接收产品` 按钮。收到产品后，点击 :guilabel:`接收产品` 打开收货单，然后点击 :guilabel:`验证` 以将产品录入库存。
 
-Return to the |SO| by clicking the :guilabel:`SO` breadcrumb, or by navigating to
-:menuselection:`Sales app --> Orders --> Orders`, and selecting the|SO|.
+通过点击 :guilabel:`SO` 面包屑返回 |SO|，或导航至 :menuselection:`销售应用 --> 订单 --> 订单`，并选择 |SO|。
 
-Finally, click the :guilabel:`Delivery` smart button at the top of the order to open the delivery
-order. Once the products have been shipped to the customer, click :guilabel:`Validate` to confirm
-the delivery.
+最后，点击订单顶部的 :guilabel:`发货` 智能按钮以打开发货单。当产品已发给客户后，点击 :guilabel:`验证` 以确认发货。
 
 .. seealso::
-   For information on workflows that include the |MTO| route, see the following documentation:
+   有关包含 |MTO| 路线的工作流程的信息，请参阅以下文档：
 
    - :doc:`resupply_warehouses`
    - :doc:`../../../manufacturing/subcontracting/subcontracting_basic`

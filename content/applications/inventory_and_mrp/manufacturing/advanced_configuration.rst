@@ -1,7 +1,5 @@
-:nosearch:
-
 ======================
-Advanced configuration
+高级配置
 ======================
 
 .. toctree::

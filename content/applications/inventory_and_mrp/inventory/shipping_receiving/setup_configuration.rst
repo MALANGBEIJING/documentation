@@ -2,271 +2,208 @@
 :hide-page-toc:
 
 ================
-Delivery methods
+配送方法
 ================
 
-When activated in Odoo, the *Delivery Methods* setting adds the option of calculating the cost of
-shipping on sales orders and e-commerce shopping carts.
+在 Odoo 中激活 *配送方法* 设置后，可以在销售订单和电子商务购物车中添加计算运费的选项。
 
-When integrated with a :ref:`third-party carrier <inventory/shipping/third_party>`, shipping prices
-are calculated based on the carrier's pricing and packaging information.
+当与 :ref:`第三方承运商 <inventory/shipping/third_party>` 集成时，运费根据承运商的定价和包装信息进行计算。
 
 .. seealso::
-   - :ref:`Third-party shipping carrier setup <inventory/shipping/third_party>`
-   - `Odoo Tutorials: Delivery Prices
+   - :ref:`第三方承运商设置 <inventory/shipping/third_party>`
+   - `Odoo 教程：配送价格
      <https://www.odoo.com/slides/slide/delivery-prices-613?fullscreen=1>`_
 
-Configuration
+配置
 =============
 
-To calculate shipping on sales orders and e-commerce, the *Delivery Costs* module must be installed.
-To do so, navigate to the :menuselection:`Apps` application from the main Odoo dashboard.
+要在销售订单和电子商务中计算运费，必须安装 *配送成本* 模块。为此，请从 Odoo 主仪表盘导航到 :menuselection:`应用` 应用程序。
 
-Then, remove the :guilabel:`Apps` filter, and type in `Delivery Costs` in the :guilabel:`Search...`
-bar. After finding the :guilabel:`Delivery Costs` module, click :guilabel:`Activate` to install it.
+然后，移除 :guilabel:`应用` 筛选器，并在 :guilabel:`搜索...` 栏中输入 `配送成本`。找到 :guilabel:`配送成本` 模块后，点击 :guilabel:`激活` 进行安装。
 
 .. image:: setup_configuration/setup_configuration/install-module.png
    :align: center
-   :alt: Install the Delivery Costs module.
+   :alt: 安装配送成本模块。
 
-Add shipping method
+添加配送方式
 ===================
 
-To configure delivery methods, go to :menuselection:`Inventory app --> Configuration --> Shipping
-Methods`.
+要配置配送方式，请前往 :menuselection:`库存应用 --> 配置 --> 配送方式`。
 
 .. note::
-   If the :guilabel:`Shipping Methods` option is not available from the :guilabel:`Configuration`
-   drop-down menu, verify whether the feature is enabled by following these steps:
+   如果 :guilabel:`配送方式` 选项未出现在 :guilabel:`配置` 下拉菜单中，请按照以下步骤验证该功能是否启用：
 
-   #. Go to :menuselection:`Inventory app --> Configuration --> Settings`.
-   #. Scroll to the :guilabel:`Shipping` section and enable the :guilabel:`Delivery Methods` feature
-      by checking the corresponding checkbox.
+   #. 前往 :menuselection:`库存应用 --> 配置 --> 设置`。
+   #. 向下滚动到 :guilabel:`配送` 部分，勾选 :guilabel:`配送方法` 旁的复选框以启用此功能。
 
    .. image:: setup_configuration/setup_configuration/enable-delivery.png
       :align: center
-      :alt: Enable the *Delivery Methods* feature by checking the box in Configuration > Settings.
+      :alt: 在配置 > 设置中启用 *配送方法* 功能。
 
-On the :guilabel:`Shipping Methods` page, add a method by clicking :guilabel:`New`. Doing so opens
-a form to provide details about the shipping provider, including:
+在 :guilabel:`配送方式` 页面上，点击 :guilabel:`新建` 添加新配送方式。这样将打开一个表单，用于提供关于配送提供商的详细信息，包括：
 
-- :guilabel:`Shipping Method` (*Required field*): the name of the delivery method (e.g. `flat-rate
-  shipping`, `same day delivery`, etc.).
-- :guilabel:`Provider` (*Required field*): choose the delivery service, like Fedex, if using a
-  :ref:`third-party carrier <inventory/shipping/third_party>`. Ensure the integration with the
-  shipping carrier is properly installed and select the provider from the drop-down menu.
+- :guilabel:`配送方式` (*必填字段*): 配送方式的名称（例如 `固定运费`、`当天送达` 等）。
+- :guilabel:`提供商` (*必填字段*): 选择配送服务，例如 Fedex（如果使用 :ref:`第三方承运商 <inventory/shipping/third_party>`）。确保已正确安装与承运商的集成，并从下拉菜单中选择提供商。
 
-  For more details on configuring custom shipping methods, such as :ref:`fixed price
-  <inventory/shipping/fixed>`, :ref:`based on rules <inventory/shipping/rules>`, or :ref:`pickup in
-  store <inventory/shipping/pickup>` options, refer to their respective sections below.
-- :guilabel:`Website`: configure shipping methods for an e-commerce page. Select the applicable
-  website from the drop-down menu, or leave it blank to apply the method to all web pages.
-- :guilabel:`Company`: If the shipping method should apply to a specific company, select it from the
-  drop-down menu. Leave the field blank to apply the method to all companies.
-- :guilabel:`Routes`: select the applicable route(s) to define different delivery methods, such as
-  standard or express shipping, based on varying lead times. For more information, jump
-  to the :ref:`Set routes on shipping method <inventory/shipping_receiving/shipping-route>` section.
+  有关配置自定义配送方式的更多详细信息，例如 :ref:`固定价格 <inventory/shipping/fixed>`、:ref:`基于规则 <inventory/shipping/rules>` 或 :ref:`店内取货 <inventory/shipping/pickup>` 选项，请参阅下方的相关章节。
+- :guilabel:`网站`: 为电子商务页面配置配送方式。从下拉菜单中选择适用的网站，或将其留空以将方法应用于所有网页。
+- :guilabel:`公司`: 如果配送方式应适用于特定公司，请从下拉菜单中选择该公司。将此字段留空以将方法应用于所有公司。
+- :guilabel:`路线`: 选择适用的路线，以定义不同的配送方式，例如根据不同的交货时间进行标准或快递配送。有关更多信息，请跳转至 :ref:`设置配送方式的路线 <inventory/shipping_receiving/shipping-route>` 部分。
 
 .. _inventory/shipping_receiving/delivery-product:
 
-- :guilabel:`Delivery Product` (*Required field*): the product listed on the :ref:`sales order line
-  <inventory/shipping/sales-order>` as the delivery charge.
-- :guilabel:`Free if order amount is above`: checking this box enables free shipping if the customer
-  spends above the specified amount.
+- :guilabel:`配送产品` (*必填字段*): 在 :ref:`销售订单行 <inventory/shipping/sales-order>` 中列为配送费用的产品。
+- :guilabel:`如果订单金额超过则免费`: 勾选此框可在客户消费超过指定金额时启用免运费。
 
-For examples on how to configure specific shipping methods, refer to the sections below.
+有关如何配置特定配送方式的示例，请参阅下方章节。
 
 .. _inventory/shipping/fixed:
 
-Fixed price
+固定价格
 -----------
 
-To configure a shipping price that is the same for all orders, go to :menuselection:`Inventory app
---> Configuration --> Shipping Methods`. Then, click :guilabel:`New`, and on the shipping method
-form, set the :guilabel:`Provider` to the :guilabel:`Fixed Price` option. Selecting this option
-makes the :guilabel:`Fixed Price` field become available, which is where the fixed rate shipping
-amount is defined.
+要为所有订单配置相同的运费，请前往 :menuselection:`库存应用 --> 配置 --> 配送方式`。然后，点击 :guilabel:`新建`，在配送方式表单中，将 :guilabel:`提供商` 设置为 :guilabel:`固定价格` 选项。选择此选项后，将可用 :guilabel:`固定价格` 字段，在该字段中定义固定运费金额。
 
-To enable free shipping if the amount of the order exceeds a specified amount, check the box
-:guilabel:`Free if order amount is above` and fill in the amount.
+如果订单金额超过指定金额时启用免运费，请勾选 :guilabel:`如果订单金额超过则免费` 并填写金额。
 
 .. example::
-   To set up `$20` flat-rate shipping that becomes free if the customer spends over `$100`, fill in
-   the following fields:
+   要设置 `$20` 的固定运费，并在客户消费超过 `$100` 时免运费，请填写以下字段：
 
-   - :guilabel:`Shipping Method`: `Flat-rate shipping`
-   - :guilabel:`Provider`: :guilabel:`Fixed Price`
-   - :guilabel:`Fixed Price`: `$20.00`
-   - :guilabel:`Free if order amount is above`: `$100.00`
-   - :guilabel:`Delivery Product`: `[SHIP] Flat`
+   - :guilabel:`配送方式`: `固定运费`
+   - :guilabel:`提供商`: :guilabel:`固定价格`
+   - :guilabel:`固定价格`: `$20.00`
+   - :guilabel:`如果订单金额超过则免费`: `$100.00`
+   - :guilabel:`配送产品`: `[SHIP] Flat`
 
    .. image:: setup_configuration/setup_configuration/new-shipping-method.png
       :align: center
-      :alt: Example of filling out a shipping method.
+      :alt: 填写配送方式示例。
 
 .. _inventory/shipping/rules:
 
-Based on rules
+基于规则
 --------------
 
-To calculate the price of shipping based on pricing rules, set the :guilabel:`Provider` field to the
-:guilabel:`Based on Rules` option. Optionally, adjust :guilabel:`Margin on Rate` and
-:guilabel:`Additional margin` to include additional shipping costs.
+要根据定价规则计算运费，将 :guilabel:`提供商` 字段设置为 :guilabel:`基于规则` 选项。可选择调整 :guilabel:`费率加价` 和 :guilabel:`附加费用` 以包括额外的运费。
 
-Create pricing rules
+创建定价规则
 ~~~~~~~~~~~~~~~~~~~~
 
-Navigate to the :guilabel:`Pricing` tab and click :guilabel:`Add a line`. Doing so opens the
-:guilabel:`Create Pricing Rules` window, where the :guilabel:`Condition` related to the product
-weight, volume, price, or quantity is compared to a defined amount to calculate the
-:guilabel:`Delivery Cost`.
+导航到 :guilabel:`定价` 选项卡，点击 :guilabel:`添加一行`。此操作将打开 :guilabel:`创建定价规则` 窗口，其中根据产品的重量、体积、价格或数量与定义的金额进行比较，以计算 :guilabel:`配送费用`。
 
-Once finished, click either :guilabel:`Save & New` to add another rule, or :guilabel:`Save & Close`.
+完成后，点击 :guilabel:`保存并新建` 以添加另一条规则，或点击 :guilabel:`保存并关闭`。
 
 .. example::
-   To charge customers $20 in shipping for orders with five or fewer products, set the
-   :guilabel:`Condition` to `Quantity <= 5.00`, and the :guilabel:`Delivery Cost` to `$20`.
+   如果要为五个或更少产品的订单收取 $20 的运费，请将 :guilabel:`条件` 设置为 `数量 <= 5.00`，并将 :guilabel:`配送费用` 设置为 `$20`。
 
    .. image:: setup_configuration/setup_configuration/pricing-rule.png
       :align: center
-      :alt: Display window to add a pricing rule. Set a condition and delivery cost.
+      :alt: 显示添加定价规则的窗口。设置条件和配送费用。
 
-To restrict shipping to specific destinations on the eCommerce website, in the shipping method form,
-navigate to the :guilabel:`Destination Availability` tab and define the :guilabel:`Countries`,
-:guilabel:`States`, and :guilabel:`Zip Prefixes`. Leave these fields empty if all locations apply.
+要在电子商务网站上限制配送到特定目的地，请在配送方式表单中导航到 :guilabel:`目的地可用性` 选项卡，并定义 :guilabel:`国家`、:guilabel:`州` 和 :guilabel:`邮编前缀`。如果适用于所有位置，请将这些字段留空。
 
-Calculate delivery cost
+计算配送费用
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Shipping cost is the :guilabel:`Delivery cost` specified in the rule that satisfies the
-:guilabel:`Condition`, plus any extra charges from the :guilabel:`Margin on rate` and
-:guilabel:`Additional margin`.
+运费是满足 :guilabel:`条件` 的规则中指定的 :guilabel:`配送费用`，再加上 :guilabel:`费率加价` 和 :guilabel:`附加费用` 的任何额外费用。
 
 .. math::
-   Total = Rule's~Delivery~Cost + (Margin~on~rate \times Rule's~Delivery~Cost) + Additional~margin
+   总计 = 规则的~配送费用 + (费率加价 \times 规则的~配送费用) + 附加费用
 
 .. example::
-   With the two following rules set up:
+   设置以下两条规则：
 
-   #. If the order contains five or fewer products, shipping is $20
-   #. If the order contains more than five products, shipping is $50.
+   #. 如果订单包含五个或更少的产品，运费为 $20
+   #. 如果订单包含超过五个产品，运费为 $50。
 
-   :guilabel:`Margin on Rate` is `10%` and :guilabel:`Additional margin` is `$9.00`.
+   :guilabel:`费率加价` 为 `10%`，且 :guilabel:`附加费用` 为 `$9.00`。
 
    .. image:: setup_configuration/setup_configuration/delivery-cost-example.png
       :align: center
-      :alt: Show example of "Based on rules" shipping method with margins configured.
+      :alt: 显示“基于规则”的配送方式及其设置的加价示例。
 
-   When the first rule is applied, the delivery cost is $31 (20 + (0.1 * 20) + 9). When the second
-   rule is applied, the delivery cost is $64 (50 + (0.1 * 50) + 9).
+   当应用第一条规则时，运费为 $31 (20 + (0.1 * 20) + 9)。当应用第二条规则时，运费为 $64 (50 + (0.1 * 50) + 9)。
 
 .. _inventory/shipping/pickup:
 
-Pickup in store
+店内取货
 ---------------
 
-To configure in-store pickup, select :guilabel:`Pickup in store` in the :guilabel:`Provider` field
-and specify the pickup location in :guilabel:`Warehouse`.
+要配置店内取货，请在 :guilabel:`提供商` 字段中选择 :guilabel:`店内取货`，并在 :guilabel:`仓库` 字段中指定取货地点。
 
-To invoice the customer for the shipping cost to the pickup location, choose the :guilabel:`Get Rate
-and Create Shipment` option in the :guilabel:`Integration Level` field. Then, pick either the
-:guilabel:`Estimated cost` or :guilabel:`Real cost` radio options in the :guilabel:`Invoicing
-Policy` field to decide whether the added shipping charge on the sales order is the precise cost
-from the shipping carrier.
+要为客户开具运送至取货地点的运费发票，请在 :guilabel:`集成级别` 字段中选择 :guilabel:`获取费率并创建发货` 选项。然后，在 :guilabel:`开票政策` 字段中选择 :guilabel:`预计成本` 或 :guilabel:`实际成本` 单选选项，以决定在销售订单上添加的运费是承运商的确切费用。
 
 .. seealso::
-   :doc:`Invoice cost of shipping <setup_configuration/invoicing>`
+   :doc:`运费发票 <setup_configuration/invoicing>`
 
 .. _inventory/shipping_receiving/shipping-route:
 
-Route on shipping method
+配送方式的路线
 ------------------------
 
-Optionally, set different warehouse delivery processes for a shipping method by configuring
-different :doc:`routes <daily_operations/use_routes>` for it.
+可选择为配送方式配置不同的仓库配送流程，通过为其配置不同的 :doc:`路线 <daily_operations/use_routes>`。
 
 .. example::
-   Configuring multiple routes per shipping method is helpful for adjusting warehouse delivery
-   processes based on:
+   配置每个配送方式的多个路线有助于根据以下条件调整仓库配送流程：
 
-   - speed (e.g., use :doc:`one-step delivery <daily_operations/receipts_delivery_one_step>` for
-     express shipping, or :doc:`two-step <daily_operations/receipts_delivery_two_steps>` for
-     standard shipping).
-   - international shipping (e.g. use :doc:`three-step delivery
-     <daily_operations/delivery_three_steps>` to prepare documents for customs)
-   - in-store pickup or home delivery: ship from the central warehouse, or pick from the store's
-     stock, depending on customer selection.
+   - 速度（例如，使用 :doc:`一步交货 <daily_operations/receipts_delivery_one_step>` 进行快递配送，或使用 :doc:`两步交货 <daily_operations/receipts_delivery_two_steps>` 进行标准配送）。
+   - 国际配送（例如，使用 :doc:`三步交货 <daily_operations/delivery_three_steps>` 来准备海关文件）
+   - 店内取货或送货上门：根据客户选择，从中央仓库发货，或从商店库存中提货。
 
-To set up routes, go to :menuselection:`Inventory app --> Configuration --> Routes`. Click
-:guilabel:`New`, or select the desired route.
+要设置路线，请前往 :menuselection:`库存应用 --> 配置 --> 路线`。点击 :guilabel:`新建`，或选择所需路线。
 
-On the route form, in the :guilabel:`Applicable On` section, tick the :guilabel:`Shipping Methods`
-checkbox.
+在路线表单中，找到 :guilabel:`适用于` 部分，勾选 :guilabel:`配送方式` 复选框。
 
 .. figure:: setup_configuration/setup_configuration/shipping-route.png
    :align: center
-   :alt: Routes form with the Shipping Methods checkbox selected.
+   :alt: 路线表单中勾选“配送方式”复选框。
 
-   Routes form with the Shipping Methods checkbox ticked.
+   路线表单中勾选“配送方式”复选框。
 
-Then, go to :menuselection:`Inventory app --> Configuration --> Shipping Methods`, and select the
-desired shipping method.
+然后，前往 :menuselection:`库存应用 --> 配置 --> 配送方式`，并选择所需的配送方式。
 
-On the shipping method form, in the :guilabel:`Routes` field, select the available fulfillment
-routes from the drop-down menu.
+在配送方式表单中，在 :guilabel:`路线` 字段中，从下拉菜单中选择可用的履行路线。
 
 .. note::
-   If the desired route is not selectable, check that the *Shipping Methods* option is enabled in
-   the route's *Applicable On* section.
+   如果所需路线不可选择，请检查该路线的 *适用于* 部分是否启用了 *配送方式* 选项。
 
 .. figure:: setup_configuration/setup_configuration/set-routes.png
    :align: center
-   :alt: Show set routes on shipping method form.
+   :alt: 显示配送方式表单上的路线设置。
 
-   By default, most shipping methods are created with two routes available for standard or express
-   delivery.
+   默认情况下，大多数配送方式会创建两个可用于标准或快递配送的路线。
 
 .. _inventory/shipping/sales-order:
 
-Add shipping
+添加配送
 ============
 
-Shipping methods can be added to sales orders in the form of delivery products, which appear as
-individual line items. First, navigate to the desired sales order by going to :menuselection:`Sales
-app --> Orders --> Orders`.
+配送方式可以作为配送产品添加到销售订单中，并显示为单独的订单行项。首先，通过前往 :menuselection:`销售应用 --> 订单 --> 订单` 导航到所需的销售订单。
 
-On the sales order, click the :guilabel:`Add shipping` button, which opens the :guilabel:`Add a
-shipping method` pop-up window. Then, choose a :guilabel:`Shipping Method` from the list.
+在销售订单上，点击 :guilabel:`添加配送` 按钮，这将打开 :guilabel:`添加配送方式` 弹出窗口。然后，从列表中选择 :guilabel:`配送方式`。
 
-The :guilabel:`Total Order Weight` is pre-filled based on product weights (that are defined in the
-:guilabel:`Inventory` tab for each product form). Edit the field to specify the exact weight, and
-then click :guilabel:`Add` to add the shipping method.
+根据产品重量（在每个产品表单的 :guilabel:`库存` 标签中定义），:guilabel:`订单总重量` 会自动填写。编辑该字段以指定确切重量，然后点击 :guilabel:`添加` 以添加配送方式。
 
 .. note::
-   The amount defined in :guilabel:`Total Order Weight` overwrites the total product weights defined
-   on the product form.
+   定义在 :guilabel:`订单总重量` 中的金额将覆盖在产品表单中定义的产品总重量。
 
-The shipping cost is added to the *sales order line* as the :guilabel:`Delivery Product` detailed on
-the shipping method form.
+运费作为 *销售订单行* 中的 :guilabel:`配送产品` 添加，详细信息在配送方式表单中。
 
 .. example::
-   `Furniture Delivery`, a delivery product with a fixed rate of `$200`, is added to sales order
-   `S00088`.
+   `家具配送`，一项固定费用为 `$200` 的配送产品，已添加到销售订单 `S00088`。
 
      .. image:: setup_configuration/setup_configuration/delivery-product.png
         :align: center
-        :alt: Show delivery order on the sales order line.
+        :alt: 显示销售订单行中的配送订单。
 
-Delivery order
+配送订单
 --------------
 
-The shipping method added to the sales order is linked to the shipping carrier details on the
-delivery order. To add or change the delivery method on the delivery itself, go to the
-:guilabel:`Additional Info` tab and modify the :guilabel:`Carrier` field.
+添加到销售订单的配送方式与配送订单上的承运商详细信息相关联。要在配送单本身上添加或更改配送方式，请前往 :guilabel:`附加信息` 标签并修改 :guilabel:`承运商` 字段。
 
 .. image:: setup_configuration/setup_configuration/delivery-order.png
    :align: center
-   :alt: Shipping carrier information on the delivery form.
+   :alt: 配送单表单上的承运商信息。
 
 .. toctree::
    :titlesonly:

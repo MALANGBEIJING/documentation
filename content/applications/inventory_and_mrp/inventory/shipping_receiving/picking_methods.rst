@@ -1,7 +1,7 @@
 :nosearch:
 
 ===============
-Picking methods
+拣货方法
 ===============
 
 .. toctree::

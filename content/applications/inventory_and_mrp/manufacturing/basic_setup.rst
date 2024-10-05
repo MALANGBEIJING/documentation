@@ -1,7 +1,5 @@
-:nosearch:
-
 ===========
-Basic setup
+基本设置
 ===========
 
 .. toctree::

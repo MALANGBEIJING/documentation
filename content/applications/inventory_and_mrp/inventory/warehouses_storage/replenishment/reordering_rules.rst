@@ -1,339 +1,243 @@
 ================
-Reordering rules
+补货规则
 ================
 
 .. _inventory/management/reordering_rules:
-.. |SO| replace:: :abbr:`SO (sales order)`
-.. |PO| replace:: :abbr:`PO (purchase order)`
+.. |SO| replace:: :abbr:`SO (销售订单)`
+.. |PO| replace:: :abbr:`PO (采购订单)`
 
-*Reordering rules* are used to keep forecasted stock levels above a certain threshold without
-exceeding a specified upper limit. This is accomplished by specifying a minimum quantity that stock
-should not fall below and a maximum quantity that stock should not exceed.
+*补货规则*用于确保预测的库存水平保持在某个阈值以上，同时不超过指定的上限。通过指定库存不应低于的最低数量和不应超过的最大数量来实现这一目标。
 
-Reordering rules can be configured for each product based on the route used to replenish it. If a
-product uses the *Buy* route, then a Request for Quotation (RFQ) is created when the reordering rule
-is triggered. If a product uses the *Manufacture* route, then a Manufacturing Order (MO) is created
-instead. This is the case regardless of the selected replenishment route.
+可以根据用于补充产品的路线为每个产品配置补货规则。如果产品使用 *采购* 路线，当触发补货规则时，将创建询价单 (RFQ)。如果产品使用 *生产* 路线，则会改为创建生产订单 (MO)。无论选择哪种补充路线，都是如此。
 
 .. seealso::
-   - `Odoo Tutorials: Automatic Reordering Rules <https://www.youtube.com/watch?v=XEJZrCjoXaU>`_
-   - `Odoo Tutorials: Manual Reordering Rules <https://www.youtube.com/watch?v=deIREJ1FFj4>`_
+   - `Odoo 教程: 自动补货规则 <https://www.youtube.com/watch?v=XEJZrCjoXaU>`_
+   - `Odoo 教程: 手动补货规则 <https://www.youtube.com/watch?v=deIREJ1FFj4>`_
 
-Configure products for reordering rules
-=======================================
+为补货规则配置产品
+===================
 
-In order to use reordering rules for a product, it must first be correctly configured. Begin by
-navigating to :menuselection:`Inventory app --> Products --> Products`, then select an existing
-product, or create a new one by clicking :guilabel:`New`.
+要为产品使用补货规则，首先必须正确配置产品。首先，导航至 :menuselection:`库存应用 --> 产品 --> 产品`，然后选择一个现有产品，或通过点击 :guilabel:`新建` 来创建一个新产品。
 
-On the product form, under the :guilabel:`General Information` tab, make sure the :guilabel:`Product
-Type` is set to :guilabel:`Storable Product`. This is necessary because Odoo only tracks stock
-quantities for storable products, and this number is used to trigger reordering rules.
+在产品表单的 :guilabel:`基本信息` 标签下，确保 :guilabel:`产品类型` 设置为 :guilabel:`可存储产品`。这是必需的，因为 Odoo 仅跟踪可存储产品的库存数量，而此数量用于触发补货规则。
 
 .. image:: reordering_rules/product-type.png
    :align: center
-   :alt: Set the Product Type as Storable.
+   :alt: 将产品类型设置为可存储产品。
 
-Next, click on the :guilabel:`Inventory` tab and select one or more routes from the
-:guilabel:`Routes` section. Doing so tells Odoo which route to use to replenish the product.
+接下来，点击 :guilabel:`库存` 标签，并从 :guilabel:`路线` 部分选择一个或多个路线。这样做告诉 Odoo 使用哪条路线来补充产品。
 
 .. image:: reordering_rules/select-routes.png
    :align: center
-   :alt: Select one or more routes on the Inventory tab.
+   :alt: 在库存标签中选择一个或多个路线。
 
-If the product is reordered using the :guilabel:`Buy` route, confirm that the :guilabel:`Can be
-Purchased` checkbox is enabled under the product name. This makes the :guilabel:`Purchase` tab
-appear. Click on the :guilabel:`Purchase` tab, and specify at least one vendor, and the price that
-they sell the product for, so that Odoo knows which company the product should be purchased from.
+如果产品是通过 :guilabel:`采购` 路线补货的，请确认在产品名称下启用了 :guilabel:`可采购` 复选框。这样会显示 :guilabel:`采购` 标签。点击 :guilabel:`采购` 标签，并指定至少一个供应商以及他们销售该产品的价格，以便 Odoo 知道应从哪家公司采购产品。
 
 .. image:: reordering_rules/specify-vendor.png
    :align: center
-   :alt: Specify a vendor and price on the Purchase tab.
+   :alt: 在采购标签中指定供应商和价格。
 
-If the product is replenished using the :guilabel:`Manufacture` route, it needs to have at least one
-Bill of Materials (BoM) associated with it. This is necessary because Odoo only creates
-manufacturing orders for products with a :abbr:`BoM (Bill of Materials)`.
+如果产品是通过 :guilabel:`生产` 路线补充的，则需要至少一个与之关联的物料清单 (BoM)。这是必需的，因为 Odoo 仅为有 :abbr:`BoM (物料清单)` 的产品创建生产订单。
 
-If a :abbr:`BoM (Bill of Materials)` does not already exist for the product, select the
-:guilabel:`Bill of Materials` smart button at the top of the product form, then click
-:guilabel:`New` to configure a new :abbr:`BoM (Bill of Materials)`.
+如果产品还没有物料清单 (BoM)，请在产品表单顶部选择 :guilabel:`物料清单` 智能按钮，然后点击 :guilabel:`新建` 来配置新的 :abbr:`BoM (物料清单)`。
 
 .. image:: reordering_rules/bom-smart-button.png
    :align: center
-   :alt: The Bill of Materials smart button on a product form.
+   :alt: 产品表单上的物料清单智能按钮。
 
-Create new reordering rules
-===========================
+创建新的补货规则
+=================
 
-To create a new reordering rule, navigate to :menuselection:`Inventory app --> Configuration -->
-Reordering Rules`, then click :guilabel:`New`, and fill out the new line as follows:
+要创建新的补货规则，导航至 :menuselection:`库存应用 --> 配置 --> 补货规则`，然后点击 :guilabel:`新建`，并按以下步骤填写新行：
 
-- :guilabel:`Product`: The product that is replenished by the rule.
-- :guilabel:`Location`: The location where the product is stored.
-- :guilabel:`Min Quantity`: The minimum quantity that can be forecasted without the rule being
-  triggered. When forecasted stock falls below this number, a replenishment order for the product is
-  created.
-- :guilabel:`Max Quantity`: The maximum quantity that stock is replenished up to.
-- :guilabel:`Multiple Quantity`: Specify if the product should be replenished in batches of a
-  certain quantity (e.g., a product could be replenished in batches of 20).
-- :guilabel:`UoM`: The unit of measure used for reordering the product. This value can simply be
-  `Units` or a specific unit of measurement for weight, length, etc.
+- :guilabel:`产品`：由规则补充的产品。
+- :guilabel:`库位`：存储产品的库位。
+- :guilabel:`最小数量`：可以预测的最小数量，在不触发规则的情况下。当预测的库存低于此数量时，将创建产品的补货订单。
+- :guilabel:`最大数量`：库存最多补充到的数量。
+- :guilabel:`批量数量`：如果产品应以某个数量批量补充，请在此指定（例如，产品可以批量20个补充）。
+- :guilabel:`计量单位`：用于补货产品的计量单位。此值可以是 `单位`，也可以是重量、长度等特定的计量单位。
 
 .. image:: reordering_rules/reordering-rule-form.png
    :align: center
-   :alt: The form for creating a new reordering rule.
+   :alt: 创建新补货规则的表单。
 
 .. tip::
-   Reordering rules can also be created from each product form. To do so, navigate to
-   :menuselection:`Inventory app --> Products --> Products`, and select a product. Then, click the
-   :guilabel:`Reordering Rules` smart button, and click :guilabel:`New` to fill out the new line, as
-   detailed above.
+   补货规则也可以从每个产品表单中创建。为此，导航至 :menuselection:`库存应用 --> 产品 --> 产品`，选择一个产品。然后点击 :guilabel:`补货规则` 智能按钮，并点击 :guilabel:`新建`，按上述步骤填写新行。
 
-For advanced usage of reordering rules, learn about the following reordering rule fields:
+有关补货规则高级用法，请了解以下补货规则字段：
 
-- :ref:`Trigger <inventory/product_management/trigger>`
-- :ref:`Visibility days <inventory/product_management/visibility-days>`
-- :ref:`Route <inventory/product_management/route>`
+- :ref:`触发器 <inventory/product_management/trigger>`
+- :ref:`可见天数 <inventory/product_management/visibility-days>`
+- :ref:`路线 <inventory/product_management/route>`
 
-0/0/1 reordering rule
----------------------
+0/0/1 补货规则
+----------------
 
-The *0/0/1* reordering rule is a specialty rule used to replenish a product that is not kept
-on-hand, each time a sales order (SO) is confirmed for that product.
+*0/0/1* 补货规则是一种特殊规则，用于补充未保持现货的产品，每次确认该产品的销售订单 (SO) 时触发。
 
 .. important::
-   The 0/0/1 reordering rule is similar to the *Replenish on Order (MTO)* route, in that both
-   workflows are used to replenish a product upon confirmation of an |SO|.
+   0/0/1 补货规则类似于 *按订单补充 (MTO)* 路线，因为两种工作流程都用于在确认 |SO| 后补充产品。
 
-   The main difference between the two methods is that the *Replenish on Order* route automatically
-   reserves the product for the |SO| that caused it to be replenished. This means the product
-   **cannot** be used for a different |SO|.
+   两种方法的主要区别在于，*按订单补充* 路线会自动为导致补货的 |SO| 保留产品。这意味着产品 **不能** 用于其他 |SO|。
 
-   The 0/0/1 reordering rule does not have this limitation. A product replenished using the rule is
-   not reserved for any specific |SO|, and can be used as needed.
+   0/0/1 补货规则没有这个限制。通过该规则补充的产品不会为任何特定 |SO| 保留，可以根据需要使用。
 
-   Another key difference is that replenishment orders created by the *Replenish on Order* route are
-   linked to the original |SO| by a smart button at the top of the order. When using the 0/0/1
-   reordering rule, a replenishment order is created, but is not linked to the original |SO|.
+   另一个关键区别是，*按订单补充* 路线创建的补货订单通过智能按钮与原始 |SO| 关联。而使用 0/0/1 补货规则时，补货订单会创建，但不会与原始 |SO| 关联。
 
-   See the :doc:`Replenish on Order (MTO) <mto>` documentation for a full overview of the MTO route.
+   查看 :doc:`按订单补充 (MTO) <mto>` 文档，了解 MTO 路线的完整概述。
 
-To create a 0/0/1 reordering rule, navigate to :menuselection:`Inventory app --> Products -->
-Products`, and select a product.
+要创建 0/0/1 补货规则，导航至 :menuselection:`库存应用 --> 产品 --> 产品`，选择一个产品。
 
-At the top of the product's page, click the :icon:`fa-refresh` :guilabel:`Reordering Rules` smart
-button to open the :guilabel:`Reordering Rules` page for the product. On the resulting page, click
-:guilabel:`New` to begin configuring a new reordering rule.
+在产品页面顶部，点击 :icon:`fa-refresh` :guilabel:`补货规则` 智能按钮，打开产品的 :guilabel:`补货规则` 页面。在结果页面中，点击 :guilabel:`新建`，开始配置新的补货规则。
 
-In the :guilabel:`Location` field of the new reordering rule, select the location in which
-replenished products should be stored. By default, this location is set to :guilabel:`WH/Stock`.
+在新补货规则的 :guilabel:`库位` 字段中，选择补充产品应存放的库位。默认情况下，此库位设置为 :guilabel:`WH/Stock`。
 
-In the :guilabel:`Route` field, select the route the rule should use to replenish the item. For
-example, if the product should be purchased from a vendor, select the :guilabel:`Buy` route.
+在 :guilabel:`路线` 字段中，选择规则应使用的补货路线。例如，如果产品应从供应商处采购，则选择 :guilabel:`采购` 路线。
 
-In the :guilabel:`Min Quantity` field and :guilabel:`Max Quantity` field, leave the values set to
-`0.00`. In the :guilabel:`To Order` field, enter a value of `1.00`.
+在 :guilabel:`最小数量` 和 :guilabel:`最大数量` 字段中，将数值设置为 `0.00`。在 :guilabel:`订购数量` 字段中，输入 `1.00`。
 
 .. image:: reordering_rules/001-rule.png
    :align: center
-   :alt: A 0/0/1 reordering rule.
+   :alt: 一个 0/0/1 补货规则。
 
-With the reordering rule configured using these values, each time an |SO| causes the forecasted
-quantity of the product to fall below the :guilabel:`Min Quantity` of `0.00`, the selected
-:guilabel:`Route` is used to replenish the product in one-unit increments, back up to the
-:guilabel:`Max Quantity` of `0.00`.
+使用这些数值配置补货规则后，每当 |SO| 导致产品的预测数量低于 `0.00` 的 :guilabel:`最小数量` 时，将使用选定的 :guilabel:`路线` 以单位为一的增量补充产品，直到达到 `0.00` 的 :guilabel:`最大数量`。
 
 .. example::
-   A picture frame is configured with a 0/0/1 reordering rule that uses the *Buy* route. Zero units
-   of the picture frame are kept on-hand at any given time.
+   一个相框配置了使用 *采购* 路线的 0/0/1 补货规则。该相框在任何时间都没有现货。
 
-   An |SO| is confirmed for one unit of the picture frame, which causes the forecasted quantity to
-   drop to `-1.00`. This triggers the reordering rule, which automatically creates a |PO| for one
-   unit of the picture frame.
+   确认了一个相框的 |SO|，导致预测数量下降到 `-1.00`。这触发了补货规则，自动创建了一个相框的 |PO|。
 
-   Once the product is received from the vendor, the forecasted quantity of the picture frame
-   returns to `0.00`. There is now one picture frame on-hand, but it is not reserved for the |SO|
-   which triggered its purchase. It can be used to fulfill that |SO|, or reserved for a different
-   order.
+   一旦收到供应商发来的产品，相框的预测数量恢复到 `0.00`。现在手头有一个相框，但它未保留给触发其采购的 |SO|。该相框可以用于履行该 |SO|，也可以保留给其他订单。
 
 .. _inventory/product_management/trigger:
 
-Trigger
+触发器
 =======
 
-When stock falls below the reordering rule's minimum, set the reordering rule's *trigger* to
-*automatic* to automatically create purchase or manufacturing orders to replenish stock.
+当库存低于补货规则的最小值时，将补货规则的 *触发器* 设置为 *自动*，以自动创建采购或生产订单来补充库存。
 
-Alternatively, setting the reordering rule's trigger to *manual* displays the product and forecasted
-stock on the *replenishment dashboard*, where the procurement manager can review the stock levels,
-lead times, and forecasted dates of arrival.
+或者，将补货规则的触发器设置为 *手动*，则产品和预测库存将显示在 *补货仪表板* 上，采购经理可以在此查看库存水平、交货时间和预计到货日期。
 
 .. seealso::
    :doc:`../replenishment`
 
 .. tip::
-   The replenishment dashboard is accessible by going to :menuselection:`Inventory app -->
-   Operations --> Replenishment`.
+   补货仪表板可通过导航至 :menuselection:`库存应用 --> 运营 --> 补货` 进行访问。
 
-To enable the :guilabel:`Trigger` field, go to :menuselection:`Inventory app --> Configuration -->
-Reordering Rules`. Then, click the :guilabel:`(slider)` icon, located to the far-right of the column
-titles, and enable the :guilabel:`Trigger` option from the additional options drop-down menu that
-appears.
+要启用 :guilabel:`触发器` 字段，导航至 :menuselection:`库存应用 --> 配置 --> 补货规则`。然后，点击位于列标题最右侧的 :guilabel:`(滑块)` 图标，并在出现的附加选项下拉菜单中启用 :guilabel:`触发器` 选项。
 
 .. image:: reordering_rules/enable-trigger.png
    :align: center
-   :alt: Enable the Trigger field by toggling it in the additional options menu
+   :alt: 在附加选项菜单中启用触发器字段。
 
-In the :guilabel:`Trigger` column, select :guilabel:`Auto` or :guilabel:`Manual`. Refer to the
-sections below to learn about the different types of reordering rules.
+在 :guilabel:`触发器` 列中，选择 :guilabel:`自动` 或 :guilabel:`手动`。请参阅以下部分，了解不同类型的补货规则。
 
-Auto
+自动
 ----
 
-Automatic reordering rules, configured by setting the reordering rule's :guilabel:`Trigger` field to
-:guilabel:`Auto`, generates purchase or manufacturing orders when:
+通过将补货规则的 :guilabel:`触发器` 字段设置为 :guilabel:`自动` 来配置自动补货规则，当以下情况发生时，系统将生成采购或生产订单：
 
-#. the scheduler runs, and the *On Hand* quantity is below the minimum
-#. a sales order is confirmed, and lowers the *Forecasted* quantity of the product below the
-   minimum
+#. 调度程序运行时，*库存量* 低于最小值
+#. 确认销售订单时，产品的 *预测数量* 低于最小值
 
 .. tip::
-   The scheduler is set to run once a day, by default.
+   默认情况下，调度程序每天运行一次。
 
-   To manually trigger a reordering rule before the scheduler runs, ensure :ref:`developer mode
-   <developer-mode>` is enabled, and select :menuselection:`Inventory app --> Operations --> Run
-   Scheduler`. Then, click the purple :guilabel:`Run Scheduler` button on the pop-up window that
-   appears.
+   要在调度程序运行之前手动触发补货规则，请确保启用了 :ref:`开发者模式 <developer-mode>`，并选择 :menuselection:`库存应用 --> 运营 --> 运行调度器`。然后，在弹出窗口中点击紫色的 :guilabel:`运行调度器` 按钮。
 
-   Be aware that this also triggers any other scheduled actions.
+   请注意，这也会触发任何其他计划的操作。
 
 .. example::
-   The product, `Office Lamp`, has an automatic reordering rule set to trigger when the forecasted
-   quantity falls below the :guilabel:`Min Quantity` of `5.00`. Since the current
-   :guilabel:`Forecast` is `55.00`, the reordering rule is **not** triggered.
+   产品 `办公台灯` 配置了自动补货规则，当预测数量低于 `5.00` 的 :guilabel:`最小数量` 时触发。由于当前的 :guilabel:`预测数量` 为 `55.00`，补货规则 **未** 被触发。
 
    .. image:: reordering_rules/auto.png
       :align: center
-      :alt: Show automatic reordering rule from the Reordering Rule page.
+      :alt: 在补货规则页面显示自动补货规则。
 
-If the :guilabel:`Buy` route is selected, then an :abbr:`RFQ (Request for Quotation)` is generated.
-To view and manage :abbr:`RFQs (Requests for Quotation)`, navigate to :menuselection:`Purchase app
---> Orders --> Requests for Quotation`.
+如果选择了 *采购* 路线，则会生成 :abbr:`RFQ (询价单)`。要查看和管理 :abbr:`RFQ (询价单)`，导航至 :menuselection:`采购应用 --> 订单 --> 询价单`。
 
-If the :guilabel:`Manufacture` route is selected, then an :abbr:`MO (Manufacturing Order)` is
-generated. To view and manage :abbr:`MOs (Manufacturing Orders)`, navigate to
-:menuselection:`Manufacturing app --> Operations --> Manufacturing Orders`.
+如果选择了 *生产* 路线，则会生成 :abbr:`MO (生产订单)`。要查看和管理 :abbr:`MO (生产订单)`，导航至 :menuselection:`生产应用 --> 运营 --> 生产订单`。
 
-When no route is selected, Odoo selects the :guilabel:`Route` specified in the :guilabel:`Inventory`
-tab of the product form.
+如果未选择任何路线，Odoo 将选择产品表单 :guilabel:`库存` 标签中指定的 :guilabel:`路线`。
 
 .. _inventory/product_management/manual-rr:
 
-Manual
+手动
 ------
 
-Manual reordering rules, configured by setting the reordering rule's :guilabel:`Trigger` field to
-:guilabel:`Manual`, lists a product on the replenishment dashboard when the forecasted quantity
-falls below a specified minimum. Products on this dashboard are called *needs*, because they are
-needed to fulfill upcoming sales orders, but the forecasted quantity is not enough.
+通过将补货规则的 :guilabel:`触发器` 字段设置为 :guilabel:`手动` 来配置手动补货规则，当预测数量低于指定的最小值时，产品将显示在补货仪表板上。这些产品称为 *需求*，因为它们是履行即将到来的销售订单所需的，但预测数量不足。
 
-The replenishment dashboard, accessible by navigating to :menuselection:`Inventory app -->
-Operations --> Replenishment`, considers sales order deadlines, forecasted stock levels, and vendor
-lead times. It displays needs **only** when it is time to reorder items.
+补货仪表板，可通过导航至 :menuselection:`库存应用 --> 运营 --> 补货` 访问，考虑销售订单的截止日期、预测库存水平和供应商的交货时间。只有在该补货项目需要补货时，它才会显示需求。
 
 .. note::
-   If the one-day window for ordering products is too short, skip to the :ref:`visibility days
-   <inventory/product_management/visibility-days>` section to make the need appear on the
-   replenishment dashboard a specified number of days in advance.
+   如果订购产品的一天窗口时间过短，请跳转到 :ref:`可见天数 <inventory/product_management/visibility-days>` 部分，使需求提前几天出现在补货仪表板上。
 
-When a product appears on the replenishment dashboard, clicking the :guilabel:`Order Once` button
-generates the purchase or manufacturing order with the specified amounts :guilabel:`To Order`.
+当产品出现在补货仪表板上时，点击 :guilabel:`一次性订购` 按钮生成带有指定数量的采购或生产订单 :guilabel:`订购数量`。
 
 .. image:: reordering_rules/manual.png
    :align: center
-   :alt: Click the Order Once button on the replenishment dashboard to replenish stock.
+   :alt: 在补货仪表板上点击一次性订购按钮补充库存。
 
 .. _inventory/product_management/visibility-days:
 
-Visibility days
+可见天数
 ===============
 
 .. important::
-   Ensure :doc:`lead times <lead_times>` are understood before proceeding with this section.
+   在继续本节之前，确保理解了 :doc:`交货时间 <lead_times>`。
 
-When :ref:`manual reordering rules <inventory/product_management/manual-rr>` are assigned to a
-product, *visibility days* make the product appear on the replenishment dashboard
-(:menuselection:`Inventory app --> Operations --> Replenishment`) a certain number of days in
-advance.
+当产品分配了 :ref:`手动补货规则 <inventory/product_management/manual-rr>` 时，*可见天数* 可使产品在某个时间提前几天显示在补货仪表板 (:menuselection:`库存应用 --> 运营 --> 补货`) 上。
 
 .. example::
-   A product has a manual reordering rule set to trigger when the stock level falls below four
-   units. The current on-hand quantity is ten units.
+   一个产品设置了手动补货规则，当库存水平低于四个单位时触发。当前的库存数量为十个单位。
 
-   The current date is February 20th, and the *delivery date* on a sales order (in the
-   :guilabel:`Other Info` tab) is March 3rd — twelve days from the current date.
+   当前日期为2月20日，销售订单的 *交货日期*（在 :guilabel:`其他信息` 标签中）为3月3日——即距当前日期12天。
 
-   The :ref:`vendor lead time <inventory/shipping_receiving/purchase-lt>` is four days, and the
-   :ref:`purchase security lead time <inventory/shipping_receiving/purchase-security-lt>` is one
-   day.
+   供应商交货时间为4天，采购安全交货时间为1天。
 
-   When the :guilabel:`Visibility Days` field of the reordering rule is set to zero, the product
-   appears on the replenishment dashboard five days before the delivery date, which, in this case,
-   is February 27th.
+   当补货规则的 :guilabel:`可见天数` 字段设置为0时，产品将在交货日期前5天出现在补货仪表板上，在本例中为2月27日。
 
    .. image:: reordering_rules/need-dates.png
       :align: center
-      :alt: Graphic representing when the need appears on the replenishment dashboard: Feb 27th.
+      :alt: 显示需求出现在补货仪表板上的日期：2月27日。
 
-   To see the product on the replenishment dashboard for the current date, February 20, set
-   the :guilabel:`Visibility Days` to `7.00`.
+   要使产品在当前日期（2月20日）出现在补货仪表板上，请将 :guilabel:`可见天数` 设置为 `7.00`。
 
-To determine the amount of visibility days needed to see a product on the replenishment dashboard,
-subtract *today's date* from the *date the need appears* on the replenishment dashboard.
+要确定在补货仪表板上看到产品所需的可见天数，请用 *需求出现日期* 减去 *今天的日期*。
 
 .. math::
 
-   Visibility~days = Need~appears~date - Today's~date
+   可见天数 = 需求出现日期 - 今天的日期
 
 .. example::
-   Referring to the example above, today's date is February 20th, and the need for the product
-   appears on February 27th.
+   参照上述示例，今天的日期是2月20日，产品的需求将在2月27日出现。
 
-   (February 27 - February 20 = 7 days)
+   （2月27日 - 2月20日 = 7天）
 
-   Incorrectly setting the :guilabel:`Visibility Days` fewer than seven days in this case results in
-   the need **not** appearing on the replenishment dashboard.
+   在这种情况下，错误地将 :guilabel:`可见天数` 设置为少于7天，将导致需求 **不会** 出现在补货仪表板上。
 
    .. image:: reordering_rules/visibility-days.png
       :align: center
-      :alt: Show the replenishment dashboard with the correct and incorrect visibility days set.
+      :alt: 显示补货仪表板上设置正确和错误可见天数的情况。
 
 .. _inventory/product_management/route:
 
-Route
+路线
 =====
 
-Odoo allows for multiple routes to be selected under the :guilabel:`Inventory` tab on each product
-form. For instance, it is possible to select both :guilabel:`Buy` and :guilabel:`Manufacture`, thus
-enabling the functionality of both routes.
+Odoo 允许在每个产品表单的 :guilabel:`库存` 标签下选择多条路线。例如，可以同时选择 :guilabel:`采购` 和 :guilabel:`生产`，从而启用两条路线的功能。
 
-Odoo also enables users to set a preferred route for a product's reordering rule. This is the route
-that the rule defaults to, if multiple are selected. To select a preferred route, begin by
-navigating to :menuselection:`Inventory app --> Configuration --> Reordering Rules`.
+Odoo 还允许用户为产品的补货规则设置首选路线。这是规则默认使用的路线，如果选择了多条路线。要选择首选路线，首先导航至 :menuselection:`库存应用 --> 配置 --> 补货规则`。
 
-By default, the :guilabel:`Route` column is hidden on the :guilabel:`Reordering Rules` page.
+默认情况下，:guilabel:`路线` 列在 :guilabel:`补货规则` 页面上是隐藏的。
 
-Reveal the :guilabel:`Route` column by selecting the :guilabel:`(slider)` icon to the far-right of
-the column titles, and checking the :guilabel:`Route` option from the drop-down menu that appears.
+通过选择列标题最右侧的 :guilabel:`(滑块)` 图标，显示 :guilabel:`路线` 列，并从出现的下拉菜单中勾选 :guilabel:`路线` 选项。
 
-Click inside of the column on the row of a reordering rule, and a drop-down menu shows all available
-routes for that rule. Select one to set it as the preferred route.
+点击补货规则行中的列，显示该规则的所有可用路线的下拉菜单。选择一个作为首选路线。
 
 .. image:: reordering_rules/select-preferred-route.png
    :align: center
-   :alt: Select a preferred route from the drop-down.
+   :alt: 从下拉菜单中选择首选路线。
 
 .. important::
-   If multiple routes are enabled for a product but no preferred route is set for its reordering
-   rule, the product is reordered using the selected route that is listed first on the
-   :guilabel:`Inventory` tab of the product form.
+   如果为产品启用了多条路线，但未为其补货规则设置首选路线，则将使用产品表单 :guilabel:`库存` 标签中列出的第一条选定路线补货。

@@ -1,269 +1,203 @@
 =====================
-Process repair orders
+处理维修订单
 =====================
 
-.. |SO| replace:: :abbr:`SO (Sales Order)`
-.. |DO| replace:: :abbr:`DO (Delivery Order)`
-.. |RO| replace:: :abbr:`RO (Repair Order)`
-.. |UoM| replace:: :abbr:`UoM (Unit of Measure)`
+.. |SO| replace:: :abbr:`SO (销售订单)`
+.. |DO| replace:: :abbr:`DO (交货单)`
+.. |RO| replace:: :abbr:`RO (维修订单)`
+.. |UoM| replace:: :abbr:`UoM (计量单位)`
 
-Sometimes, products delivered to customers can break or be damaged in transit, and need to be
-returned for a refund, delivery of a replacement product, or repairs.
+有时，交付给客户的产品可能会损坏或在运输过程中受损，需要退回进行退款、更换或维修。
 
-In Odoo, repairs for products returned by customers can be tracked in the *Repairs* app. Once
-repaired, products can be redelivered to the customer.
+在 Odoo 中，可以通过 *维修* 应用来跟踪客户退回的产品的维修进度。维修完成后，产品可以重新交付给客户。
 
-The return and repair process for damaged products typically follows the below steps:
+损坏产品的退货和维修流程通常包括以下步骤：
 
-#. :ref:`Process return order for damaged product <repairs/repair_orders/return-order>`
-#. :ref:`Create repair order for returned product <repairs/repair_orders/repair>`
-#. :ref:`Return repaired product to customer <repairs/repair_orders/return-customer>`
+#. :ref:`处理损坏产品的退货订单 <repairs/repair_orders/return-order>`
+#. :ref:`为退回的产品创建维修订单 <repairs/repair_orders/repair>`
+#. :ref:`将维修后的产品退还给客户 <repairs/repair_orders/return-customer>`
 
 .. _repairs/repair_orders/return-order:
 
-Return order
-============
+退货订单
+=========
 
-Returns can be processed in Odoo via *reverse transfers*, created directly from a sales order (SO)
-once products have been delivered to a customer.
+退货可以通过 *逆向转移* 在 Odoo 中处理，逆向转移可以直接从客户的销售订单（SO）创建。
 
-To create a return, navigate to the :menuselection:`Sales app`, and click into an |SO| from which a
-product should be returned. Then, from the |SO| form, click the :guilabel:`Delivery` smart button.
-Doing so opens the delivery order (DO) form.
+要创建退货，请导航到 :menuselection:`销售应用`，并点击需要退货的 |SO|。然后，在 |SO| 表单中，点击 :guilabel:`交货` 智能按钮。这将打开交货单 (DO) 表单。
 
-From this form, click :guilabel:`Return`. This opens a :guilabel:`Reverse Transfer` pop-up window.
+在该表单中，点击 :guilabel:`退货`。这将打开一个 :guilabel:`逆向转移` 弹出窗口。
 
 .. image:: repair_orders/repair-orders-reverse-transfer.png
    :align: center
-   :alt: Reverse transfer pop-up window on delivery order form.
+   :alt: 交货单表单上的逆向转移弹出窗口。
 
-This pop-up lists the :guilabel:`Product` included in the order, the :guilabel:`Quantity` delivered
-to the customer, and the :guilabel:`Unit of Measure` the product was in.
+此弹出窗口列出了订单中的 :guilabel:`产品`、交付给客户的 :guilabel:`数量` 和产品的 :guilabel:`计量单位`。
 
-Click the value in the :guilabel:`Quantity` field to change the quantity of the product to be
-returned, if necessary.
+如有必要，点击 :guilabel:`数量` 字段中的数值来更改要退回的产品数量。
 
-Click the :guilabel:`🗑️ (trash)` icon at the far-right of the product line to remove it from the
-return, if necessary.
+如有需要，点击产品行最右侧的 :guilabel:`🗑️ (垃圾桶)` 图标将其从退货中删除。
 
-Once ready, click :guilabel:`Return` to confirm the return. This creates a new receipt for the
-returned products.
+准备就绪后，点击 :guilabel:`退货` 来确认退货。这样会为退回的产品创建新的入库单。
 
-Once the product has been returned to the warehouse, receipt of the return can be registered in the
-database by clicking :guilabel:`Validate` from the reverse transfer form.
+产品退回到仓库后，可以通过点击逆向转移表单中的 :guilabel:`验证` 按钮在数据库中登记退货。
 
 .. tip::
-   Once a reverse transfer for a return is validated, the value in the :guilabel:`Delivered` column
-   on the original |SO| updates to reflect the difference between the original :guilabel:`Quantity`
-   ordered, and the :guilabel:`Quantity` returned by the customer.
+   退货的逆向转移验证后，原始 |SO| 上的 :guilabel:`已交付` 列中的数值将更新，反映原始订单的 :guilabel:`数量` 与客户退回的 :guilabel:`数量` 之间的差异。
 
    .. image:: repair_orders/repair-orders-quantity-delivered.png
       :align: center
-      :alt: Delivered and Quantity columns on sales order after return.
+      :alt: 退货后销售订单上的已交付和数量列。
 
 .. _repairs/repair_orders/repair:
 
-Create repair order
-===================
+创建维修订单
+===========
 
-Once products have been returned, their repairs can be tracked by creating a repair order (RO).
+产品退回后，可以通过创建维修订单 (RO) 来跟踪其维修情况。
 
-To create a new |RO|, navigate to :menuselection:`Repairs app`, and click :guilabel:`New`. This
-opens a blank |RO| form.
+要创建新的 |RO|，导航到 :menuselection:`维修应用`，然后点击 :guilabel:`新建`。这将打开一个空白的 |RO| 表单。
 
 .. image:: repair_orders/repair-orders-left-hand-form.png
    :align: center
-   :alt: Left-hand side of blank repair order form.
+   :alt: 空白维修订单表单的左侧。
 
-On this form, begin by selecting a :guilabel:`Customer`. The customer selected should be for whom
-the order will be invoiced and delivered.
+在此表单中，首先选择 :guilabel:`客户`。所选客户应是将对订单进行开票和交付的客户。
 
-In the :guilabel:`Product to Repair` field, click the drop-down menu to select the product that
-needs repair. If necessary, click :guilabel:`Search More...` to open a :guilabel:`Search: Product to
-Repair` pop-up window, and browse all products in the database.
+在 :guilabel:`维修产品` 字段中，点击下拉菜单选择需要维修的产品。如有必要，点击 :guilabel:`查看更多...` 来打开 :guilabel:`搜索：维修产品` 弹出窗口，浏览数据库中的所有产品。
 
-Once a :guilabel:`Product to Repair` is selected, a new :guilabel:`Product Quantity` field appears
-below it. In that field, enter the quantity (in a `0.00` format) of the product that requires
-repair.
+选择好 :guilabel:`维修产品` 后，一个新的 :guilabel:`产品数量` 字段会出现在其下方。在该字段中，输入需要维修的产品数量（格式为 `0.00`）。
 
-To the right of that value, click the drop-down list to select the unit of measure (UoM) for the
-product.
+在该数值右侧，点击下拉列表选择产品的计量单位 (UoM)。
 
-In the :guilabel:`Return` field, click the drop-down menu and select the return order from which the
-product to be repaired comes from.
+在 :guilabel:`退货单` 字段中，点击下拉菜单选择退货的订单，该订单中的产品需要维修。
 
-Tick the :guilabel:`Under Warranty` checkbox, if the product being repaired is covered by a
-warranty. If ticked, the :guilabel:`Customer` is not charged for all the parts used in the repair
-order.
+如果维修的产品在保修期内，勾选 :guilabel:`在保修期内` 复选框。如果勾选了此复选框，客户将不会为维修订单中使用的所有零件收费。
 
-In the :guilabel:`Scheduled Date` field, click the date to reveal a calendar popover window. From
-this calendar, select a date for the repair, and click :guilabel:`Apply`.
+在 :guilabel:`计划日期` 字段中，点击日期以显示日历弹出窗口。然后从日历中选择维修日期并点击 :guilabel:`应用`。
 
 .. image:: repair_orders/repair-orders-completed-repair-form.png
    :align: center
-   :alt: Right-hand side of blank repair order form.
+   :alt: 空白维修订单表单的右侧。
 
-In the :guilabel:`Responsible` field, click the drop-down menu and select the user who should be
-responsible for the repair.
+在 :guilabel:`负责人` 字段中，点击下拉菜单选择应负责此次维修的用户。
 
-In the :guilabel:`Company` field, if in a multi-company environment, select which company this |RO|
-belongs to.
+如果处于多公司环境中，可以在 :guilabel:`公司` 字段中选择该 |RO| 所属的公司。
 
-In the :guilabel:`Tags` field, click the drop-down menu and select which tags should be applied to
-this |RO|.
+在 :guilabel:`标签` 字段中，点击下拉菜单选择应应用于此 |RO| 的标签。
 
-Parts tab
+零件标签
 ---------
 
-Add, remove, or recycle parts in the :guilabel:`Parts` tab. To do so, click :guilabel:`Add a line`
-at the bottom of the form.
+在 :guilabel:`零件` 标签中添加、移除或回收零件。为此，点击表单底部的 :guilabel:`添加行`。
 
-In the :guilabel:`Type` column, click the box to reveal three options to choose from:
-:guilabel:`Add` (selected by default), :guilabel:`Remove`, and :guilabel:`Recycle`.
+在 :guilabel:`类型` 列中，点击框以显示三个选项：:guilabel:`添加`（默认选择）、:guilabel:`移除` 和 :guilabel:`回收`。
 
 .. image:: repair_orders/repair-orders-type-column.png
    :align: center
-   :alt: Type column options or new part under Parts tab.
+   :alt: 零件标签下新零件的类型列选项。
 
-Choosing :guilabel:`Add` adds this part to the |RO|. Adding parts lists components for use in the
-repair. If the components are used, the user completing the repair can record they were used. If
-they were not used, the user can indicate that, too, and the components can be saved for another
-use.
+选择 :guilabel:`添加` 将该零件添加到 |RO|。添加零件列出了维修中使用的组件。如果组件已使用，完成维修的用户可以记录其使用情况。如果未使用，用户可以指出这一点，组件将保存以供其他用途。
 
-Choosing :guilabel:`Remove` removes this part from the |RO|. Removing parts lists components that
-should be removed from the product being repaired during the repair process. If the parts are
-removed, the user completing the repair can indicate they were removed.
+选择 :guilabel:`移除` 将该零件从 |RO| 中移除。移除零件列出了在维修过程中从被维修产品中移除的组件。完成维修的用户可以记录其移除情况。
 
-Choosing :guilabel:`Recycle` recycles this part from the |RO|, designating it for later use or to be
-repurposed for another use in the warehouse.
+选择 :guilabel:`回收` 将该零件回收到 |RO|，并将其指定为稍后使用或重新用于仓库的其他用途。
 
-In the :guilabel:`Product` column, select which product (part) should be added, removed, or
-recycled. In the :guilabel:`Demand` column, change the quantity, if necessary, to indicate what
-quantity of this part should be used in the repair process.
+在 :guilabel:`产品` 列中，选择应添加、移除或回收的产品（零件）。在 :guilabel:`需求` 列中，根据需要更改数量，指示在维修过程中应使用该零件的数量。
 
-In the :guilabel:`Done` column, change the value (in a `0.00` format) once the part has been
-successfully added, removed, or recycled.
+在 :guilabel:`完成` 列中，完成添加、移除或回收零件后，更改数值（格式为 `0.00`）。
 
-In the :guilabel:`Unit of Measure` column, select the |UoM| for the part.
+在 :guilabel:`计量单位` 列中，选择该零件的 |UoM|。
 
-Finally, in the :guilabel:`Used` column, tick the checkbox once the part has been used in the repair
-process.
+最后，在 :guilabel:`已用` 列中，勾选复选框，确认该零件已在维修过程中使用。
 
-To add additional columns to the line, click the :guilabel:`(optional columns drop-down)` icon, at
-the far-right of the header row. Select the desired options to add to the line.
+要为该行添加其他列，请点击标题行最右侧的 :guilabel:`（可选列下拉）` 图标。选择要添加到该行的所需选项。
 
 .. image:: repair_orders/repair-orders-additional-options.png
    :align: center
-   :alt: Optional additional options to add to new part line.
+   :alt: 新零件行的可选附加选项。
 
-Repair Notes and Miscellaneous tabs
------------------------------------
+维修备注和杂项标签
+--------------------
 
-Click the :guilabel:`Repair Notes` tab to add internal notes about this specific |RO|, and anything
-the user performing the repair might need to know.
+点击 :guilabel:`维修备注` 标签以添加有关此特定 |RO| 的内部备注，以及执行维修的用户可能需要了解的任何内容。
 
-Click the blank text field to begin writing notes.
+点击空白文本字段开始编写备注。
 
-Click the :guilabel:`Miscellaneous` tab to see the :guilabel:`Operation Type` for this repair. By
-default, this is set to :guilabel:`YourCompany: Repairs`, indicating this is a repair type
-operation.
+点击 :guilabel:`杂项` 标签以查看此次维修的 :guilabel:`操作类型`。默认情况下，设置为 :guilabel:`您的公司：维修`，表明这是维修类型操作。
 
-Once all desired configurations have been made on the |RO| form, click :guilabel:`Confirm Repair`.
-This moves the |RO| to the :guilabel:`Confirmed` stage, and reserves the necessary components needed
-for the repair.
+完成所有所需配置后，点击 :guilabel:`确认维修`。这样会将 |RO| 移动到 :guilabel:`已确认` 阶段，并预留维修所需的组件。
 
-A new :guilabel:`Forecasted` column appears on the product lines under the :guilabel:`Parts` tab,
-displaying the availability of all components needed for the repair.
+在 :guilabel:`零件` 标签下的产品行上会出现一个新的 :guilabel:`预测` 列，显示维修所需组件的可用性。
 
-Once ready, click :guilabel:`Start Repair`. This moves the |RO| to the :guilabel:`Under Repair`
-stage (in the upper-right corner). If the |RO| should be canceled, click :guilabel:`Cancel Repair`.
+准备就绪后，点击 :guilabel:`开始维修`。这会将 |RO| 移动到 :guilabel:`维修中` 阶段（右上角）。如果需要取消 |RO|，点击 :guilabel:`取消维修`。
 
-Once all products have been successfully repaired, the |RO| is completed. To register this in the
-database, click :guilabel:`End Repair`.
+所有产品成功维修后，|RO| 完成。要在数据库中注册此信息，请点击 :guilabel:`结束维修`。
 
 .. note::
-   If all parts added to the |RO| were not used, clicking :guilabel:`End Repair` causes an
-   :guilabel:`Uncomplete Move(s)` pop-up window to appear.
+   如果未使用所有添加到 |RO| 的零件，点击 :guilabel:`结束维修` 会弹出一个 :guilabel:`未完成的移动` 弹出窗口。
 
    .. image:: repair_orders/repair-orders-uncomplete-moves.png
       :align: center
-      :alt: Uncomplete Moves pop-up window for unused parts.
+      :alt: 未使用零件的未完成移动弹出窗口。
 
-   The pop-up window informs the user that there is a difference between the initial demand and the
-   actual quantity used for the order.
+   弹出窗口会通知用户初始需求和实际使用数量之间存在差异。
 
-   If the :guilabel:`Used` quantity should be changed, click :guilabel:`Discard` or close the pop-up
-   window. If the order should be confirmed, click :guilabel:`Validate`.
+   如果需要更改 :guilabel:`已用` 数量，请点击 :guilabel:`放弃` 或关闭弹出窗口。如果订单应确认，请点击 :guilabel:`验证`。
 
-This moves the |RO| to the :guilabel:`Repaired` stage. A :guilabel:`Product Moves` smart button also
-appears above the form.
+这会将 |RO| 移动到 :guilabel:`已维修` 阶段。表单上方还会出现一个 :guilabel:`产品移动` 智能按钮。
 
-Click the :guilabel:`Product Moves` smart button to view the product's moves history during and
-after the repair process.
+点击 :guilabel:`产品移动` 智能按钮可以查看产品在维修过程中的移动历史。
 
 .. image:: repair_orders/repair-orders-product-moves.png
    :align: center
-   :alt: Moves history of product included in the repair order.
+   :alt: 包含在维修订单中的产品移动历史。
 
 .. _repairs/repair_orders/return-customer:
 
-Return product to customer
---------------------------
+将产品退还给客户
+------------------
 
-Product is under warranty
-~~~~~~~~~~~~~~~~~~~~~~~~~
+产品在保修期内
+~~~~~~~~~~~~~~~
 
-Once the product has been successfully repaired, it can be returned to the customer.
+产品成功维修后，可以将其退还给客户。
 
-Product is not under warranty
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+产品不在保修期内
+~~~~~~~~~~~~~~~~~
 
-If the product is not under warranty, or should the customer bear the repair costs, click
-:guilabel:`Create Quotation`. This opens a new |SO| form, pre-populated with the parts used in the
-|RO|, with the total cost of the repair calculated.
+如果产品不在保修期内，或应由客户承担维修费用，请点击 :guilabel:`创建报价`。这将打开一个新的 |SO| 表单，预先填充了 |RO| 中使用的零件，并计算出了维修的总成本。
 
 .. image:: repair_orders/repair-orders-new-quotation.png
    :align: center
-   :alt: Pre-populated new quotation for parts included in repair order.
+   :alt: 为维修订单中包含的零件预先填充的新报价。
 
-If this |SO| should be sent to the customer, click :guilabel:`Confirm`, and proceed to invoice the
-customer for the repair.
+如果此 |SO| 应发送给客户，点击 :guilabel:`确认`，并继续为维修开具发票。
 
 .. tip::
-   If the customer should be charged for a repair service, a service type product can be created and
-   added to the |SO| for a repaired product.
+   如果需要向客户收取维修服务费用，可以创建一个服务类型的产品，并将其添加到已维修产品的 |SO| 中。
 
-To return the product to the customer, navigate to the :menuselection:`Sales app`, and select the
-original |SO| from which the initial return was processed. Then, click the :guilabel:`Delivery`
-smart button.
+要将产品退还给客户，请导航到 :menuselection:`销售应用`，然后选择最初处理退货的 |SO|。接着，点击 :guilabel:`交货` 智能按钮。
 
-From the resulting list of operations, click the reverse transfer, indicated by the
-:guilabel:`Source Document`, which should read `Return of WH/OUT/XXXXX`.
+在生成的操作列表中，点击由 :guilabel:`来源文件` 指示的逆向转移，来源文件应显示为 `退回 WH/OUT/XXXXX`。
 
-This opens the return form. At the top of this form, a :guilabel:`Repair Orders` smart button now
-appears, linking this return to the completed |RO|.
+这将打开退货表单。在此表单顶部，现在会显示一个 :guilabel:`维修订单` 智能按钮，将此退货与已完成的 |RO| 关联起来。
 
-Click :guilabel:`Return` at the top of the form. This opens a :guilabel:`Reverse Transfer` pop-up
-window.
+点击表单顶部的 :guilabel:`退货`。这将打开一个 :guilabel:`逆向转移` 弹出窗口。
 
 .. image:: repair_orders/repair-orders-reverse-transfer.png
    :align: center
-   :alt: Reverse transfer pop-up window on delivery order form.
+   :alt: 交货单表单上的逆向转移弹出窗口。
 
-This pop-up lists the :guilabel:`Product` included in the order, the :guilabel:`Quantity` delivered
-to the customer, and the :guilabel:`Unit of Measure` the product was in.
+此弹出窗口列出了订单中的 :guilabel:`产品`、交付给客户的 :guilabel:`数量` 和产品的 :guilabel:`计量单位`。
 
-Click the value in the :guilabel:`Quantity` field to change the quantity of the product to be
-returned, if necessary.
+如有必要，点击 :guilabel:`数量` 字段中的数值来更改要退回的产品数量。
 
-Click the :guilabel:`🗑️ (trash)` icon at the far-right of the product line to remove it from the
-return, if necessary.
+如有需要，点击产品行最右侧的 :guilabel:`🗑️ (垃圾桶)` 图标将其从退货中删除。
 
-Once ready, click :guilabel:`Return` to confirm the return. This creates a new delivery for the
-returned products.
+准备就绪后，点击 :guilabel:`退货` 来确认退货。这样会为退回的产品创建新的交货单。
 
-When the delivery has been processed and the product has been returned to the customer, click
-:guilabel:`Validate` to validate the delivery.
+交货处理完毕，产品退还给客户后，点击 :guilabel:`验证` 来验证交货。
 
 .. seealso::
    :doc:`../../sales/sales/products_prices/returns`

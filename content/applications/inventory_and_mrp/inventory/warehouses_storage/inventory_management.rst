@@ -2,38 +2,27 @@
 :hide-page-toc:
 
 ====================
-Inventory management
+库存管理
 ====================
 
-In the Odoo *Inventory* app, :doc:`warehouses <inventory_management/warehouses>` handle the broader
-organization and distribution of stock across different physical sites, while :doc:`locations
-<inventory_management/use_locations>` provide a more detailed breakdown within each warehouse for
-efficient item management.
+在 Odoo 的 *库存* 应用中，:doc:`仓库 <inventory_management/warehouses>` 处理跨不同物理地点的库存组织和分配，而 :doc:`库位 <inventory_management/use_locations>` 则为每个仓库内的物品管理提供了更详细的分解，以提高管理效率。
 
-This document serves as an introduction to the terminology and concepts necessary to master
-*Inventory*. For specific instructions and examples of how things work, refer to individual
-documentation pages.
+本文档作为掌握 *库存* 所需术语和概念的介绍。有关如何操作的具体说明和示例，请参阅各个文档页面。
 
 .. seealso::
-   `Odoo Tutorials: Warehouses & Locations <https://www.youtube.com/watch?v=zMvudZVLuUo>`_
+   `Odoo 教程: 仓库与库位 <https://www.youtube.com/watch?v=zMvudZVLuUo>`_
 
-Warehouses
+仓库
 ==========
 
-:doc:`Warehouses <inventory_management/warehouses>` represent a physical place, with a physical
-address, where a company's items are stored.
+:doc:`仓库 <inventory_management/warehouses>` 表示一个物理地点，具有实际地址，用于存储公司的物品。
 
-Configure :doc:`routes <../shipping_receiving/daily_operations/use_routes>` in a warehouse to
-control how products move to customers, from vendors, within the warehouse, or :doc:`between
-warehouses <replenishment/resupply_warehouses>`.
+在仓库中配置 :doc:`路线 <../shipping_receiving/daily_operations/use_routes>`，以控制产品如何向客户发货、从供应商处接收、在仓库内移动，或 :doc:`在仓库之间移动 <replenishment/resupply_warehouses>`。
 
-Locations
+库位
 =========
 
-:doc:`Locations <inventory_management/use_locations>` refer to specific areas within a warehouse,
-such as shelves, floors, or aisles. These are sub-divisions within a warehouse, and are unique to
-that warehouse. Users can create and manage numerous locations within a single warehouse to organize
-inventory more precisely.
+:doc:`库位 <inventory_management/use_locations>` 是指仓库中的特定区域，例如货架、地板或走道。这些是仓库内的细分，且是该仓库独有的。用户可以在一个仓库内创建和管理多个库位，以更精确地组织库存。
 
 .. seealso::
    - :doc:`inventory_management/use_locations`
@@ -43,92 +32,65 @@ inventory more precisely.
 
 .. _inventory/warehouses_storage/location-type:
 
-Location types
+库位类型
 --------------
 
-*Location types* in Odoo help categorize and manage where products are, and what actions need to be
-taken with them. By default, on the :menuselection:`Inventory app --> Configuration --> Locations`
-page, only internal locations are displayed.
+Odoo 中的 *库位类型* 帮助分类和管理产品所在的位置，以及需要对其采取的操作。默认情况下，在 :menuselection:`库存应用 --> 配置 --> 库位` 页面上，只显示内部库位。
 
-To view the seven location types in Odoo, select any location, and in the :guilabel:`Location Type`
-field, there are:
+要查看 Odoo 中的七种库位类型，请选择任意库位，并在 :guilabel:`库位类型` 字段中显示以下选项：
 
-- :guilabel:`Vendor Location`: defines an area where products purchased from vendors originate.
-  Items here are **not** in stock.
+- :guilabel:`供应商库位`：定义从供应商处购买的产品来源区域。此处的物品 **不** 计入库存。
 
-- :guilabel:`View`: used to organize and structure the warehouse hierarchy. For example, the view
-  location `WH` (short for warehouse) groups all internal locations, such as `Stock`, receiving
-  docks, quality checkpoints, and packing areas to show they all belong to the same warehouse.
+- :guilabel:`视图`：用于组织和构建仓库层次结构。例如，视图库位 `WH`（仓库缩写）将所有内部库位分组，如 `库存`、接收码头、质量检查点和包装区域，表明它们都属于同一仓库。
 
   .. important::
-     View locations should **not** contain products, but it is possible to move them there.
+     视图库位不应包含产品，但可以将产品移入该库位。
 
-- :guilabel:`Internal Location`: storage locations within the warehouse. Items stored in these
-  locations are accounted for in :doc:`inventory valuation
-  <../product_management/inventory_valuation/using_inventory_valuation>`.
+- :guilabel:`内部库位`：仓库内的存储库位。存放在这些库位中的物品在 :doc:`库存估值 <../product_management/inventory_valuation/using_inventory_valuation>` 中记账。
 
-- :guilabel:`Customer Location`: where sold products are tracked; items here are no longer in stock.
+- :guilabel:`客户库位`：用于追踪已售出的产品；此处的物品不再计入库存。
 
-- :guilabel:`Inventory Loss`: counterpart location to consume missing items or create stock,
-  accounting for discrepancies.
+- :guilabel:`库存损失`：用于消耗丢失物品或创建库存，以记录差异。
 
-  In Odoo, examples of inventory loss locations are *Inventory Adjustment*, used to account for
-  discrepancies during an inventory count, and *Scrap*, which is where damaged goods are sent to
-  account for inventory losses.
+  在 Odoo 中，库存损失库位的示例包括 *库存调整*，用于在库存盘点期间记录差异，以及 *报废*，用于将损坏的物品送至该位置，以记录库存损失。
 
    .. example::
-      `Virtual Locations/Inventory Adjustment` is a location with the :guilabel:`Inventory Loss`
-      type. The database shows `65` units in `WH/Stock`, but an inventory check reveals `60`. To
-      correct the quantity, five units are moved from `WH/Stock` to `Virtual Locations/Inventory
-      Adjustment`.
+      `虚拟库位/库存调整` 是一种库位类型为 :guilabel:`库存损失` 的库位。数据库显示 `WH/库存` 中有 `65` 单位，但库存检查显示为 `60`。为了更正数量，将五个单位从 `WH/库存` 移动到 `虚拟库位/库存调整`。
 
       .. image:: inventory_management/inventory_management/inventory-loss.png
          :align: center
-         :alt: Product ends up in Virtual Locations/Inventory Adjustment.
+         :alt: 产品最终移至虚拟库位/库存调整。
 
-- :guilabel:`Production`: where raw materials are consumed, and :doc:`manufactured products
-  <../../manufacturing>` are created.
+- :guilabel:`生产`：原材料被消耗且 :doc:`成品 <../../manufacturing>` 被制造的地方。
 
-- :guilabel:`Transit Location`: used for inter-company or inter-warehouse operations to track
-  products shipped between different addresses, such as :ref:`Physical Locations/Inter-warehouse
-  transit <inventory/warehouses_storage/interwarehouse-transit>`.
+- :guilabel:`运输库位`：用于跨公司或跨仓库操作，追踪在不同地址之间运输的产品，例如 :ref:`物理库位/仓库间运输 <inventory/warehouses_storage/interwarehouse-transit>`。
 
 .. image:: inventory_management/inventory_management/locations.png
    :align: center
-   :alt: List of locations in Odoo.
+   :alt: Odoo 中的库位列表。
 
 .. note::
-   In Odoo, location types are color-coded:
-     - **Red**: internal locations
-     - **Blue**: view locations
-     - **Black**: external locations (including inventory loss, vendor, and customer locations).
+   在 Odoo 中，库位类型按颜色编码：
+     - **红色**：内部库位
+     - **蓝色**：视图库位
+     - **黑色**：外部库位（包括库存损失、供应商和客户库位）。
 
-View locations in Odoo
+Odoo 中的视图库位
 ----------------------
 
-Odoo databases include pre-configured view locations to organize the hierarchy of locations. These
-provide helpful context, and distinguish between internal and external locations.
+Odoo 数据库包括预先配置的视图库位，以组织库位层次结构。这些提供了有用的上下文，并区分内部和外部库位。
 
-- *Physical locations* serve as an umbrella for external locations, without changing a product's
-  inventory value. (Inventory valuation changes occur when products move from internal to external
-  locations).
+- *物理库位* 作为外部库位的上层结构，而不会改变产品的库存价值。（当产品从内部库位移至外部库位时，库存估值发生变化）。
 
 .. _inventory/warehouses_storage/interwarehouse-transit:
 
   .. example::
-     When moving products in warehouses `WH` and `WH2`, the items are not in either warehouse, but
-     still belong to the company. While in transit, they are placed in the `Inter-warehouse transit`
-     location, a :guilabel:`Transit Location` type.
+     在仓库 `WH` 和 `WH2` 中移动产品时，物品不在任一仓库中，但仍属于公司。当产品处于运输过程中时，它们被放置在 `仓库间运输` 库位中，这是一个 :guilabel:`运输库位` 类型。
 
-     This location is under the view location, `Physical Locations`, indicating that
-     `Inter-warehouse transit` is outside of a warehouse, but still part of the company. Doing so
-     does not affect the inventory valuation of the products.
+     此库位位于视图库位 `物理库位` 之下，表示 `仓库间运输` 位于仓库之外，但仍属于公司。这样不会影响产品的库存估值。
 
-- *Partner locations* group customer and vendor locations (external locations) together. Transfers
-  to these locations affect inventory valuation.
-- *Virtual locations* are locations that do **not** exist physically, but it is where items that are
-  not in inventory can be placed. These can be items that are no longer in inventory due to loss, or
-  other factors.
+- *合作伙伴库位* 将客户和供应商库位（外部库位）分组。转移到这些库位会影响库存估值。
+- *虚拟库位* 是指物理上不存在的库位，但可以将不在库存中的物品放置在那里。这些物品可能由于丢失或其他原因不再计入库存。
 
 .. toctree::
    :titlesonly:
@@ -138,4 +100,3 @@ provide helpful context, and distinguish between internal and external locations
    inventory_management/count_products
    inventory_management/cycle_counts
    inventory_management/scrap_inventory
-

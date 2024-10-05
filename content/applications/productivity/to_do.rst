@@ -1,93 +1,78 @@
 =====
-To-do
+待办事项
 =====
 
-To-do assists you in organizing and managing personal tasks.
+**待办事项**帮助您组织和管理个人任务。
 
-Creating to-dos
+创建待办事项
 ===============
 
-To create a to-do, click :guilabel:`New` or the plus button (:guilabel:`➕`) next to a stage name.
-Add a title to your to-do, then click :guilabel:`Add` to save it or :guilabel:`Edit` to access more
-options.
+要创建一个待办事项，点击 :guilabel:`新建` 或在阶段名称旁边的加号按钮 (:guilabel:`➕`)。为您的待办事项添加标题，然后点击 :guilabel:`添加` 保存，或点击 :guilabel:`编辑` 以访问更多选项。
 
-If you choose to :guilabel:`Edit` a to-do, you have the option to add :guilabel:`Tags`,
-:guilabel:`Assignees`, or more information using the Odoo Editor.
+如果选择 :guilabel:`编辑` 待办事项，您可以添加 :guilabel:`标签`、:guilabel:`分配对象` 或使用 Odoo 编辑器添加更多信息。
 
 .. note::
-   - Adding :guilabel:`Assignees` shares the to-do with the users selected.
-   - Type `/` in the editor box to structure and format your content. You can also add media, links,
-     and widgets.
+   - 添加 :guilabel:`分配对象` 会将该待办事项共享给所选用户。
+   - 在编辑器框中输入 `/` 可以对内容进行结构化和格式化。您还可以添加媒体、链接和小部件。
 
 .. tip::
-   You can create a new to-do on the fly from anywhere in Odoo by opening the **command palette
-   tool** with the keyboard shortcut ´ctrl+k´ and clicking :guilabel:`Add a To-Do`, or by clicking
-   the clock button and then :guilabel:`Add a To-Do`.
+   您可以通过按下快捷键 `ctrl+k` 打开 **命令面板工具** 从 Odoo 任何地方创建新的待办事项，然后点击 :guilabel:`添加待办事项`，或点击时钟按钮，再点击 :guilabel:`添加待办事项`。
 
    .. image:: to_do/add-on-the-fly.png
-      :alt: Adding a to-do on the fly
+      :alt: 快速添加待办事项
 
-Converting to-dos into project tasks
+将待办事项转换为项目任务
 ------------------------------------
 
-If you use the :doc:`Project app <../services/project>`, you can convert to-dos into project tasks.
-To do so, open a to-do and click the gear button (:guilabel:`⚙`), then :guilabel:`Convert to Task`.
+如果您使用 :doc:`项目应用 <../services/project>`，可以将待办事项转换为项目任务。为此，打开一个待办事项并点击齿轮按钮 (:guilabel:`⚙`)，然后选择 :guilabel:`转换为任务`。
 
-Next, select the :guilabel:`Project`, :guilabel:`Assignees`, and :guilabel:`Tags`, then click
-:guilabel:`Convert to Task`. The to-do is now a project task and appears in the selected project.
+接下来，选择 :guilabel:`项目`、:guilabel:`分配对象` 和 :guilabel:`标签`，然后点击 :guilabel:`转换为任务`。该待办事项将被转换为项目任务，并显示在所选项目中。
 
 .. image:: to_do/convert-task-button.png
-   :alt: Converting a to-do into a task
+   :alt: 将待办事项转换为任务
 
-Managing the to-do pipeline
+管理待办事项流水线
 ===========================
 
-Your assigned **to-dos** are displayed on the app dashboard. You can drag and drop a to-do to move
-it from one stage to another.
+您被分配的 **待办事项** 会显示在应用的仪表盘上。您可以通过拖放操作将待办事项从一个阶段移动到另一个阶段。
 
 .. image:: to_do/to-do-pipeline.png
-   :alt: Example of a to-do pipeline
+   :alt: 待办事项流水线示例
 
 .. tip::
-   - Click the :guilabel:`+ Personal Stage` button on the left of the pipeline to create a new
-     stage.
-   - Click the gear button (:guilabel:`⚙`) next to a stage to :guilabel:`Fold`, :guilabel:`Edit`,
-     or :guilabel:`Delete` it.
+   - 点击流水线左侧的 :guilabel:`+ 添加个人阶段` 按钮以创建新阶段。
+   - 点击阶段旁边的齿轮按钮 (:guilabel:`⚙`) 以 :guilabel:`折叠`、:guilabel:`编辑` 或 :guilabel:`删除` 该阶段。
 
     .. image:: to_do/stage-options.png
-       :alt: Stage settings button
+       :alt: 阶段设置按钮
 
-Scheduling activities
+安排活动
 ---------------------
 
-To schedule an activity on a to-do, click the clock button on the app dashboard, then the
-:guilabel:`+ Schedule an activity` button.
+要为待办事项安排活动，请点击仪表盘上的时钟按钮，然后点击 :guilabel:`+ 安排活动` 按钮。
 
 .. image:: to_do/schedule-activity.png
-   :alt: Scheduling an activity from the To-do dashboard
+   :alt: 在待办事项仪表盘上安排活动
 
-To create the activity:
+创建活动时：
 
-- Select an :guilabel:`Activity Type`.
-- Select a :guilabel:`Due date`.
-- Choose who the activity should be :guilabel:`Assigned to`.
-- Add a brief :guilabel:`Summary` if needed. You can add a more elaborate description in the
-  :guilabel:`Log a note` box.
+- 选择 :guilabel:`活动类型`。
+- 选择 :guilabel:`截止日期`。
+- 选择活动应该 :guilabel:`分配给` 谁。
+- 如果需要，可以添加简短的 :guilabel:`摘要`。您可以在 :guilabel:`记录备注` 框中添加更详细的描述。
 
-Click :guilabel:`Schedule` to complete the action.
+点击 :guilabel:`安排` 以完成操作。
 
 .. note::
-   The :guilabel:`To Do` activity is *not* a to-do task. Selecting it does not create a to-do task.
+   :guilabel:`待办事项` 活动不是一个待办任务。选择它并不会创建一个待办任务。
 
-Viewing to-dos in the Project app
+在项目应用中查看待办事项
 ---------------------------------
 
-If you use the :doc:`Project app <../services/project>`, your to-dos also appear as private tasks
-under the :guilabel:`My Tasks` view.
+如果您使用 :doc:`项目应用 <../services/project>`，您的待办事项还会作为私人任务显示在 :guilabel:`我的任务` 视图中。
 
 .. image:: to_do/my-task-pipeline.png
-   :alt: Example of a "My Tasks" pipeline in the Project app
+   :alt: 项目应用中“我的任务”流水线示例
 
 .. note::
-   A padlock icon is visible on your private tasks to quickly identify them among your project
-   tasks.
+   私人任务中可见一个挂锁图标，以帮助您快速识别它们与项目任务的区别。

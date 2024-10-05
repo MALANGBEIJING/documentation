@@ -1,7 +1,5 @@
-:nosearch:
-
 ==========
-Shop Floor
+车间管理
 ==========
 
 .. toctree::

@@ -1,150 +1,95 @@
 ========================================================
-Transfer products between warehouses using replenishment
+通过补货在仓库之间转移产品
 ========================================================
 
-For companies that use multiple warehouses, it is often necessary to transfer items between them.
-This is referred to as an *inter-warehouse transfer*. Odoo *Inventory* handles the administrative
-process of inter-warehouse transfers to ensure that inventory counts remain accurate during and
-after the transfer. This document will detail the method for conducting an inter-warehouse transfer
-using replenishment.
+对于使用多个仓库的公司，通常需要在仓库之间转移物品。这被称为 *仓库间转移*。Odoo *库存* 处理仓库间转移的管理过程，以确保在转移期间和转移后库存数量的准确性。本文档将详细介绍使用补货进行仓库间转移的方法。
 
-Configure warehouses for inter-warehouse replenishment
-======================================================
+配置仓库以进行仓库间补货
+====================================
 
-First, ensure the :guilabel:`Multi-Step Routes` setting is enabled by navigating to
-:menuselection:`Inventory --> Configuration --> Settings`, and then check the box under the
-:guilabel:`Warehouse` tab. This will provide additional configuration options when creating a second
-warehouse that are needed for inter-warehouse replenishment.
+首先，通过导航到 :menuselection:`库存 --> 配置 --> 设置`，确保启用了 :guilabel:`多步骤路线` 设置，并在 :guilabel:`仓库` 选项卡下勾选复选框。启用此设置后，在创建第二个仓库时将提供进行仓库间补货所需的其他配置选项。
 
-By default, Odoo comes with a main warehouse already configured. If an additional warehouse has not
-already been created, do so now from the :guilabel:`Inventory` module by selecting
-:menuselection:`Configuration --> Warehouses --> Create`. Otherwise, select the warehouse that
-products will be transferred to from the :guilabel:`Warehouses` page and then click :guilabel:`Edit`
-to change its settings. Configure the warehouse as follows:
+默认情况下，Odoo 已经配置了一个主仓库。如果尚未创建附加仓库，请在 :guilabel:`库存` 模块中选择 :menuselection:`配置 --> 仓库 --> 创建` 来创建一个新的仓库。否则，选择产品将被转移到的仓库，并点击 :guilabel:`编辑` 来更改其设置。按以下步骤配置仓库：
 
-- :guilabel:`Warehouse`: choose a name that is not already being used for another warehouse (e.g.
-  `Alternative Warehouse`)
-- :guilabel:`Short Name`: choose a short name by which the warehouse will be identified (e.g.
-  `ALT_WH`)
+- :guilabel:`仓库`：选择一个尚未被其他仓库使用的名称（例如 `备用仓库`）
+- :guilabel:`简称`：选择一个仓库的简称（例如 `ALT_WH`）
 
-Click :guilabel:`Save` and the new warehouse will be created. In addition, a new :guilabel:`Resupply
-From` field will appear on the warehouse's form. Click :guilabel:`Edit` and then check the box next
-to the warehouse that will be used to resupply the warehouse that is currently being configured.
+点击 :guilabel:`保存`，新的仓库将被创建。此外，仓库的表单上会出现一个新的 :guilabel:`从...补货` 字段。点击 :guilabel:`编辑`，然后勾选将用于为当前配置的仓库补货的仓库旁边的复选框。
 
 .. image:: warehouse_replenishment_transfer/new-warehouse-configuration.png
    :align: center
-   :alt: A warehouse settings form configured to allow resupplying between warehouses.
+   :alt: 一个配置为允许仓库间补货的仓库设置表单。
 
 .. note::
-   For the purposes of this demonstration, the warehouse that products are transferred from
-   (outgoing) will be titled "San Francisco", and the warehouse that products are transferred to
-   (incoming) will be titled "San Francisco 2".
+   在本演示中，产品转移自的仓库（发货仓库）将命名为“旧金山”，而产品转移到的仓库（收货仓库）将命名为“旧金山2”。
 
-Configure products for inter-warehouse replenishment
-====================================================
+为仓库间补货配置产品
+====================================
 
-Products must also be configured properly in order for them to be transferred between warehouses.
-Navigate to :menuselection:`Inventory --> Products --> Products` and select an existing product or
-:guilabel:`Create` a new one, if necessary.
+为了能够在仓库之间转移产品，产品也必须正确配置。导航到 :menuselection:`库存 --> 产品 --> 产品` 并选择一个现有产品，或在必要时 :guilabel:`创建` 一个新产品。
 
-Then, on the product form, go to the :guilabel:`Inventory` tab and enable the checkbox for
-:guilabel:`X: Supply Product from Y`, with *X* being the warehouse receiving the transferred
-products and *Y* being the warehouse that products are transferred from.
+然后，在产品表单上，转到 :guilabel:`库存` 选项卡，启用复选框 :guilabel:`X: 从 Y 补充产品`，其中 *X* 是接收转移产品的仓库，*Y* 是产品转移自的仓库。
 
 .. image:: warehouse_replenishment_transfer/product-transfer-configuration.png
    :align: center
-   :alt: Enable the checkbox to resupply one warehouse from another.
+   :alt: 启用复选框以从另一个仓库补货。
 
-Replenish one warehouse from another
+从另一个仓库补充库存
 ====================================
 
-Starting in the :menuselection:`Inventory` module, select :menuselection:`Products --> Products` and
-then choose the product that will be replenished. Click the :guilabel:`Replenish` button on the top
-left of the product page and fill out the pop-up form as follows:
+在 :menuselection:`库存` 模块中，选择 :menuselection:`产品 --> 产品`，然后选择将被补货的产品。点击产品页面左上角的 :guilabel:`补货` 按钮，并按以下方式填写弹出表单：
 
-- :guilabel:`Quantity`: the number of units that will be sent to the warehouse being replenished
-- :guilabel:`Scheduled Date`: the date that the replenishment is scheduled to take place
-- :guilabel:`Warehouse`: the warehouse that will be replenished
-- :guilabel:`Preferred Routes`: select `X: Supply Product from Y`, with *X* being the warehouse to
-  be replenished and *Y* being the warehouse that the product will be transferred from
+- :guilabel:`数量`：将发送到补货仓库的单位数量
+- :guilabel:`计划日期`：计划进行补货的日期
+- :guilabel:`仓库`：将被补货的仓库
+- :guilabel:`首选路线`：选择 `X: 从 Y 补充产品`，其中 *X* 是将被补货的仓库，*Y* 是产品将被转移自的仓库
 
 .. image:: warehouse_replenishment_transfer/product-replenishment-form.png
    :align: center
-   :alt: The form for replenishing a product.
+   :alt: 用于补充产品的表单。
 
-Click :guilabel:`Confirm` and a delivery order will be created for the outgoing warehouse along with
-a receipt for the warehouse that will receive the product. Depending on the configuration settings
-for the outgoing and incoming warehouses, processing delivery orders and receipts will require
-between one and three steps. This document will detail how to process one-step deliveries and
-receipts.
+点击 :guilabel:`确认`，系统将为发货仓库创建发货单，并为接收产品的仓库创建收货单。根据发货仓库和收货仓库的配置设置，处理发货单和收货单的步骤可能在一到三步之间。本文档将详细介绍如何处理单步发货和收货。
 
-Process the delivery order
+处理发货单
 --------------------------
 
-The first stage of a replenishment order is processing the delivery from the warehouse that the
-product is being transferred from. On the :menuselection:`Inventory` dashboard, select the
-:guilabel:`X to Process` button on the :guilabel:`Delivery Orders` card for the outgoing warehouse,
-then the delivery order created for the replenishment. On the delivery order page, click the
-:guilabel:`Check Availability` button in the top left to reserve the quantity of the product to be
-transferred. Once the delivery has been dispatched, click the :guilabel:`Validate` button to
-register the quantities shipped.
+补货订单的第一阶段是处理来自产品转移自仓库的发货。在 :menuselection:`库存` 仪表板中，选择发货仓库的 :guilabel:`X 需处理` 按钮，然后选择为补货创建的发货单。在发货单页面上，点击左上角的 :guilabel:`检查可用性` 按钮，以预留要转移的产品数量。发货完成后，点击 :guilabel:`验证` 按钮以登记发货数量。
 
 .. image:: warehouse_replenishment_transfer/delivery-orders-card.png
    :align: center
-   :alt: The delivery orders card for the outgoing warehouse.
+   :alt: 发货仓库的发货订单卡片。
 
-Process the receipt
+处理收货单
 -------------------
 
-Once the goods arrive at the incoming warehouse, the receipt created for that warehouse must be
-processed as well. Return to the :menuselection:`Inventory` dashboard and select the :guilabel:`X to
-Process` button on the :guilabel:`Receipts` card for the incoming warehouse, then the receipt
-created for the replenishment. On the receipt page, click the :guilabel:`Validate` button in the top
-left of the page to register the quantities received.
+一旦货物到达收货仓库，还必须处理为该仓库创建的收货单。返回 :menuselection:`库存` 仪表板，选择收货仓库的 :guilabel:`X 需处理` 按钮，然后选择为补货创建的收货单。在收货单页面上，点击页面左上角的 :guilabel:`验证` 按钮，以登记接收到的数量。
 
 .. image:: warehouse_replenishment_transfer/receipts-card.png
    :align: center
-   :alt: The delivery orders card for the outgoing warehouse.
+   :alt: 发货仓库的发货订单卡片。
 
-After processing the receipt, the products transferred will now appear in the inventory of the
-incoming warehouse. The stock numbers for both warehouses can be viewed by returning to the product
-page and selecting the :guilabel:`X Units On Hand` button at the top of the screen.
+处理收货单后，转移的产品将出现在收货仓库的库存中。可以返回到产品页面，选择页面顶部的 :guilabel:`X 单位在手` 按钮，查看两个仓库的库存数量。
 
-Automate inter-warehouse replenishment
-======================================
+自动化仓库间补货
+====================================
 
-Using reordering rules, it is possible to automate the process of replenishing one warehouse from
-another.
+通过补货规则，可以自动化一个仓库从另一个仓库补货的过程。
 
-To get started, navigate to :menuselection:`Inventory --> Products --> Products`, and then
-choose the product that will be replenished. From the product page, select the :guilabel:`Reordering
-Rules` smart button at the top of the form, and then on the next page, click :guilabel:`Create` to
-configure the form as follows:
+要开始，请导航至 :menuselection:`库存 --> 产品 --> 产品`，然后选择将被补货的产品。在产品页面上，选择表单顶部的 :guilabel:`补货规则` 智能按钮，然后在下一页面中点击 :guilabel:`创建` 按以下方式配置表单：
 
-- :guilabel:`Location`: the location that the reordering rule will replenish when triggered, in this
-  case, the incoming warehouse
-- :guilabel:`Min Quantity`: when the quantity on hand at the incoming warehouse falls below this
-  number, the reordering rule will be triggered
-- :guilabel:`Max Quantity`: when the reordering rule is triggered, the product will be replenished
-  at the incoming warehouse up to this quantity
-- :guilabel:`Multiple Quantity`: specify if the product should be replenished in batches of a
-  certain quantity; for example, a product could be replenished in batches of 20
-- :guilabel:`UoM`: the unit of measure used for reordering the product; this value can simply be
-  `Units`, or a specific unit of measurement for weight, length, etc.
+- :guilabel:`库位`：补货规则触发时将补货的库位，在此情况下为收货仓库
+- :guilabel:`最小数量`：当收货仓库的现有数量低于此数量时，补货规则将被触发
+- :guilabel:`最大数量`：当补货规则被触发时，产品将在收货仓库中补充到此数量
+- :guilabel:`批量数量`：指定产品是否应按某个数量批量补充；例如，产品可以按20的批量补充
+- :guilabel:`计量单位`：用于补货产品的计量单位；此值可以是 `单位`，也可以是重量、长度等特定的计量单位
 
 .. image:: warehouse_replenishment_transfer/reordering-rule-configuration.png
    :align: center
-   :alt: A fully configured reordering rule.
+   :alt: 一个完全配置的补货规则。
 
-Finish by clicking :guilabel:`Save` and the reordering rule will be created. Now, when the scheduler
-runs automatically each day, a transfer will be created for each reordering rule that has been
-triggered.
+最后点击 :guilabel:`保存`，补货规则将被创建。现在，当系统每天自动运行调度程序时，将为每个被触发的补货规则创建一个转移。
 
 .. tip::
-   To manually trigger reordering rules, start from the :menuselection:`Inventory` module and select
-   :menuselection:`Operation --> Run Scheduler`, then click the green :guilabel:`Run Scheduler`
-   button in the pop-up that appears.
+   要手动触发补货规则，从 :menuselection:`库存` 模块开始，选择 :menuselection:`操作 --> 运行调度程序`，然后在弹出的窗口中点击绿色的 :guilabel:`运行调度程序` 按钮。
 
-After the scheduler runs, a delivery order and receipt will be created for the outgoing and incoming
-warehouses, respectively. Both the delivery order and receipt should be processed using the same
-method as detailed above.
+调度程序运行后，将分别为发货仓库和收货仓库创建发货单和收货单。发货单和收货单应使用上述相同的方法进行处理。
