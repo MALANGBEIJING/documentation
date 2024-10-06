@@ -1,188 +1,136 @@
 =============
-Access rights
+访问权限
 =============
 
-*Access rights* are permissions that determine the content and applications users can access and
-edit. In Odoo, these permissions can be set for individual users or for groups of users. Limiting
-permissions to only those who need them ensures that users do not modify or delete anything they
-should not have access to.
+*访问权限* 是决定用户可以访问和编辑哪些内容和应用程序的权限。在Odoo中，这些权限可以为单个用户或用户组设置。将权限限制为仅需要访问的人，确保用户不会修改或删除他们不应接触的内容。
 
-**Only** an *administrator* can change access rights.
+**只有** *管理员* 才能更改访问权限。
 
 .. danger::
-   Making changes to access rights can have a detrimental impact on the database. This includes
-   *impotent admin*, which means that no user in the database can make changes to the access rights.
-   For this reason, Odoo recommends contacting an Odoo Business Analyst, or our Support Team, before
-   making changes.
+   对访问权限进行更改可能会对数据库产生不利影响。这包括*无能管理员*，这意味着数据库中的任何用户都无法更改访问权限。因此，Odoo建议在更改之前联系Odoo业务分析师或我们的支持团队。
 
 .. tip::
-   A user **must** have the specific *Administration* access rights set on their user profile, in
-   order to make changes on another user's settings for access rights.
+   用户**必须**在其用户配置文件中设置特定的*管理*访问权限，才能更改其他用户的访问权限设置。
 
-   To access this setting, navigate to :menuselection:`Settings app --> Manage users --> select a
-   user --> Access Rights tab --> Administration section --> Administration field`.
+   要访问此设置，导航到 :menuselection:`设置应用程序 --> 管理用户 --> 选择用户 --> 访问权限选项卡 --> 管理部分 --> 管理字段`。
 
-   Once at the setting, an already existing administrator **must** change the setting in the
-   :guilabel:`Administration` field to :guilabel:`Access Rights`.
+   到达设置后，已经存在的管理员**必须**将 :guilabel:`管理` 字段中的设置更改为 :guilabel:`访问权限`。
 
-   Once complete, click :guilabel:`Save` to save the changes, and implement the user as an
-   administrator.
+   完成后，点击 :guilabel:`保存` 以保存更改，并将该用户设置为管理员。
 
-Users
+用户
 =====
 
-The access rights for :ref:`individual users <users/add-individual>` are set when the user is added
-to the database, but they can be adjusted at any point in the user's profile.
+:ref:`单个用户的访问权限 <users/add-individual>` 在将用户添加到数据库时设置，但可以在用户的配置文件中随时调整。
 
-To make changes to a user's rights, click on the desired user to edit their profile.
+要更改用户的权限，请点击要编辑的用户。
 
 .. image:: access_rights/navigate-to-users-menu.png
    :align: center
-   :alt: Users menu in the Users & Companies section of the Settings app of Odoo.
+   :alt: Odoo设置应用程序中用户和公司部分的用户菜单。
 
-On the user's profile page, in the :guilabel:`Access Rights` tab, scroll down to view the current
-permissions.
+在用户的配置文件页面中，在 :guilabel:`访问权限` 选项卡中向下滚动以查看当前权限。
 
-For each app, use the drop-down menu to select what level of permission this user should have. The
-options vary for each section, yet the most common are: :guilabel:`Blank/None`, :guilabel:`User: Own
-Documents`, :guilabel:`User: All Documents`, or :guilabel:`Administrator`.
+对于每个应用程序，使用下拉菜单选择该用户应拥有的权限级别。每个部分的选项可能不同，但最常见的包括：:guilabel:`空/无`，:guilabel:`用户：自己的文件`，:guilabel:`用户：所有文件`，或 :guilabel:`管理员`。
 
-The :guilabel:`Administration` field in the :guilabel:`Access Rights` tab has the following options:
-:guilabel:`Settings` or :guilabel:`Access Rights`.
+:guilabel:`访问权限` 选项卡中的 :guilabel:`管理` 字段提供以下选项：:guilabel:`设置` 或 :guilabel:`访问权限`。
 
 .. image:: access_rights/user-permissions-dropdown-menu.png
    :align: center
-   :alt: The Sales apps drop-down menu to set the user's level of permissions.
+   :alt: 销售应用程序的下拉菜单，用于设置用户的权限级别。
 
 .. _access-rights/groups:
 
-Create and modify groups
+创建和修改用户组
 ========================
 
-*Groups* are app-specific sets of permissions that are used to manage common access rights for a
-large amount of users. Administrators can modify the existing groups in Odoo, or create new ones to
-define rules for models within an application.
+*用户组* 是特定于应用程序的一组权限，用于管理大量用户的常见访问权限。管理员可以修改Odoo中现有的用户组，或创建新的用户组来定义应用程序内模型的规则。
 
-To access groups, first activate Odoo's :ref:`developer mode <developer-mode>`, then go to
-:menuselection:`Settings app --> Users & Companies --> Groups`.
+要访问用户组，首先启用Odoo的 :ref:`开发者模式 <developer-mode>`，然后转到 :menuselection:`设置应用程序 --> 用户和公司 --> 用户组`。
 
 .. image:: access_rights/click-users-and-companies.png
    :align: center
-   :alt: Groups menu in the Users & Companies section of the Settings app of Odoo.
+   :alt: Odoo设置应用程序中用户和公司部分的用户组菜单。
 
-To create a new group from the :guilabel:`Groups` page, click :guilabel:`Create`. Then, from the
-blank group form, select an :guilabel:`Application`, and complete the group form (detailed below).
+要在 :guilabel:`用户组` 页面创建新用户组，点击 :guilabel:`创建`。然后，在空白的用户组表单中选择一个 :guilabel:`应用程序`，并填写用户组表单（如下所述）。
 
-To modify existing groups, click on an existing group from the list displayed on the
-:guilabel:`Groups` page, and edit the contents of the form.
+要修改现有的用户组，从 :guilabel:`用户组` 页面显示的列表中点击一个现有的用户组，并编辑表单内容。
 
-Enter a :guilabel:`Name` for the group and tick the checkbox next to :guilabel:`Share Group`, if
-this group was created to set access rights for sharing data with some users.
+为用户组输入一个 :guilabel:`名称`，并勾选 :guilabel:`共享组` 旁边的复选框，如果该用户组是为了与某些用户共享数据而创建的。
 
 .. important::
-   Always test the settings being changed to ensure they are being applied to the correct users.
+   始终测试正在更改的设置，以确保它们已应用于正确的用户。
 
-The group form contains multiple tabs for managing all elements of the group. In each tab, click
-:guilabel:`Add a line` to add a new row for users or rules, and click the :guilabel:`❌ (remove)`
-icon to remove a row.
+用户组表单包含多个选项卡，用于管理用户组的所有元素。在每个选项卡中，点击 :guilabel:`添加行` 来为用户或规则添加新行，并点击 :guilabel:`❌（移除）` 图标删除行。
 
 .. image:: access_rights/groups-form.png
    :align: center
-   :alt: Tabs in the Groups form to modify the settings of the group.
+   :alt: 修改用户组设置的选项卡。
 
-- :guilabel:`Users` tab: lists the current users in the group. Users listed in black have
-  administrative rights. Users without administrative access appear in blue. Click :guilabel:`Add a
-  line` to add users to this group.
-- :guilabel:`Inherited` tab: inherited means that users added to this group are automatically added
-  to the groups listed on this tab. Click :guilabel:`Add a line` to add inherited groups.
+- :guilabel:`用户` 选项卡：列出了当前用户组中的用户。以黑色显示的用户拥有管理权限。没有管理权限的用户显示为蓝色。点击 :guilabel:`添加行` 将用户添加到该组。
+- :guilabel:`继承` 选项卡：继承意味着添加到该组的用户会自动添加到该选项卡中列出的用户组。点击 :guilabel:`添加行` 添加继承的用户组。
 
   .. example::
-     For example, if the group *Sales/Administrator* lists the group *Website/Restricted Editor* in
-     its :guilabel:`Inherited` tab, then any users added to the *Sales/Administrator* group
-     automatically receive access to the *Website/Restricted Editor* group, as well.
+     例如，如果*销售/管理员*组的 :guilabel:`继承` 选项卡中列出了 *网站/受限编辑器* 组，则任何添加到 *销售/管理员* 组的用户都会自动获得 *网站/受限编辑器* 组的访问权限。
 
-- :guilabel:`Menus` tab: defines which menus/models the group can have access to. Click
-  :guilabel:`Add a line` to add a specific menu.
-- :guilabel:`Views` tab: lists which views in Odoo the group has access to. Click :guilabel:`Add a
-  line` to add a view to the group.
-- :guilabel:`Access Rights` tab: lists the first level of rights (models) that this group has access
-  rights to. Click :guilabel:`Add a line` to link access rights to this group. In this tab, the
-  :guilabel:`Model` column represents the common name of the menu/model, and the :guilabel:`Name`
-  column represents the technical name given to the model. For each model, enable the following
-  options as appropriate:
+- :guilabel:`菜单` 选项卡：定义该组可以访问的菜单/模型。点击 :guilabel:`添加行` 添加特定菜单。
+- :guilabel:`视图` 选项卡：列出该组在Odoo中可以访问的视图。点击 :guilabel:`添加行` 为该组添加视图。
+- :guilabel:`访问权限` 选项卡：列出该组拥有访问权限的模型（第一层权限）。点击 :guilabel:`添加行` 为该组链接访问权限。在此选项卡中，:guilabel:`模型` 列代表菜单/模型的通用名称，:guilabel:`名称` 列代表模型的技术名称。对于每个模型，启用以下选项（视需要而定）：
 
-  - :guilabel:`Read`: users can see the object's existing values.
-  - :guilabel:`Write`: users can edit the object's existing values.
-  - :guilabel:`Create`: users can create new values for the object.
-  - :guilabel:`Delete`: users can delete values for the object.
+  - :guilabel:`读取`：用户可以查看对象的现有值。
+  - :guilabel:`写入`：用户可以编辑对象的现有值。
+  - :guilabel:`创建`：用户可以为对象创建新值。
+  - :guilabel:`删除`：用户可以删除对象的值。
 
   .. tip::
-     First try searching for the common name of the model in the drop-down menu of the
-     :guilabel:`Model` column. The :guilabel:`Model` technical name can be found by expanding the
-     model common name, which can be done by clicking the :guilabel:`(external link)` icon.
+     首先尝试在 :guilabel:`模型` 列的下拉菜单中搜索模型的通用名称。可以通过点击 :guilabel:`（外部链接）` 图标展开模型通用名称来找到模型技术名称。
 
-     The model technical name can also be accessed in :ref:`developer mode <developer-mode>`.
+     模型的技术名称也可以在 :ref:`开发者模式 <developer-mode>` 中访问。
 
-     On a form, navigate to any field, and hover over the field name. A box of backend information
-     reveals itself with the specific Odoo :guilabel:`Model` name in the backend. This is the
-     technical name of the model that should be added.
+     在表单中，导航到任何字段并悬停在字段名称上。一个包含特定Odoo :guilabel:`模型` 名称的后台信息框会显示。这是应添加的模型的技术名称。
 
      .. image:: access_rights/technical-info.png
         :align: center
-        :alt: Technical information shown on a field of a model, with object highlighted.
+        :alt: 模型字段上的技术信息，突出显示了对象。
 
-- :guilabel:`Record Rules`: lists the second layer of editing and visibility rights.
-  :guilabel:`Record Rules` overwrite, or refine, the group's access rights. Click :guilabel:`Add a
-  line` to add a record rule to this group. For each rule, choose values for the following options:
+- :guilabel:`记录规则`：列出了编辑和可见性权限的第二层。:guilabel:`记录规则` 覆盖或细化用户组的访问权限。点击 :guilabel:`添加行` 为该组添加记录规则。对于每条规则，选择以下选项的值：
 
-  - :guilabel:`Apply for Read`.
-  - :guilabel:`Apply for Write`.
-  - :guilabel:`Apply for Create`.
-  - :guilabel:`Apply for Delete`.
+  - :guilabel:`应用于读取`。
+  - :guilabel:`应用于写入`。
+  - :guilabel:`应用于创建`。
+  - :guilabel:`应用于删除`。
 
   .. important::
-     Record rules are written using a *domain*, or conditions that filter data. A domain expression
-     is a list of such conditions. For example:
+     记录规则使用*域*或条件来筛选数据。域表达式是这样条件的列表。例如：
 
      `[('mrp_production_ids', 'in', user.partner_id.commercial_partner_id.production_ids.ids)]`
 
-     This record rule is to enable MRP consumption warnings for subcontractors.
+     此记录规则用于为分包商启用MRP消耗警告。
 
-     Odoo has a library of preconfigured record rules for ease of use. Users without knowledge of
-     domains (and domain expressions) should consult an Odoo Business Analyst, or the Odoo Support
-     Team, before making changes.
+     Odoo有一个预配置记录规则的库，便于使用。没有域（和域表达式）知识的用户应在更改之前咨询Odoo业务分析师或Odoo支持团队。
 
 .. _access-rights/superuser:
 
-Superuser mode
+超级用户模式
 ==============
 
-*Superuser mode* allows the user to bypass record rules and access rights. To activate *Superuser
-mode*, first, activate :ref:`developer mode <developer-mode>`. Then, navigate to the *debug* menu,
-represented by a :guilabel:`🪲 (bug)` icon, located in the top banner.
+*超级用户模式* 允许用户绕过记录规则和访问权限。要激活*超级用户模式*，首先启用 :ref:`开发者模式 <developer-mode>`。然后，导航到顶部横幅中的*调试*菜单，表示为 :guilabel:`🪲（bug）` 图标。
 
-Finally, towards the bottom of the menu, click :guilabel:`Become Superuser`.
+最后，在菜单底部点击 :guilabel:`成为超级用户`。
 
 .. important::
-   Only users with *Settings* access for the *Administration* section of the *Access Rights* (in
-   their user profile) are allowed to log in to *Superuser mode*.
+   只有具有*管理*部分中*设置*访问权限的用户（在其用户配置文件中）才被允许登录*超级用户模式*。
 
 .. danger::
-   *Superuser mode* allows for circumvention of record rules and access rights, and therefore,
-   should be exercised with extreme caution.
+   *超级用户模式* 允许绕过记录规则和访问权限，因此，应极为谨慎地使用。
 
-   Upon exiting *Superuser mode*, users may be locked out of the database, due to changes that were
-   made. This can cause *impotent admin*, or an administrator without the ability to change access
-   rights/settings.
+   退出*超级用户模式*后，用户可能会由于所做的更改而被锁定数据库。这可能导致*无能管理员*，即无法更改访问权限/设置的管理员。
 
-   In this case contact Odoo Support here: `new help ticket <https://www.odoo.com/help>`_. The
-   support team is able to restore access using a support login.
+   在这种情况下，请联系Odoo支持：`新帮助工单 <https://www.odoo.com/help>`_。支持团队可以通过支持登录恢复访问权限。
 
-To leave *Superuser mode*, log out of the account, by navigating to the upper-right corner, and
-clicking on the :guilabel:`OdooBot` username. Then, select the :guilabel:`Log out` option.
+要退出*超级用户模式*，请通过导航到右上角，点击 :guilabel:`OdooBot` 用户名并选择 :guilabel:`登出` 选项退出账户。
 
 .. tip::
-   An alternative way to activate *Superuser mode* is to login as a superuser. To do that, navigate
-   to the login screen, and enter the appropriate :guilabel:`Email` and :guilabel:`Password`.
+   激活*超级用户模式*的另一种方法是以超级用户身份登录。为此，请导航到登录屏幕，输入相应的 :guilabel:`电子邮件` 和 :guilabel:`密码`。
 
-   Instead of clicking :guilabel:`Login`, click :guilabel:`Log in as superuser`.
+   而不是点击 :guilabel:`登录`，点击 :guilabel:`以超级用户身份登录`。

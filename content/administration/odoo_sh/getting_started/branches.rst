@@ -1,180 +1,157 @@
 ========
-Branches
+分支
 ========
 
-Overview
+概述
 ========
 
-The branches view gives you an overview of the different branches your repository has.
+分支视图让您概览您的存储库中不同的分支。
 
 .. image:: branches/interface-branches.png
    :align: center
 
 .. _odoosh-gettingstarted-branches-stages:
 
-Stages
+阶段
 ======
 
-Odoo.sh offers three different stages for your branches: production, staging and development.
+Odoo.sh 提供了三个不同的分支阶段：生产、预发布和开发。
 
-You can change the stage of a branch by drag and dropping it into the stage section title.
+您可以通过拖放分支到阶段部分标题来更改分支的阶段。
 
 .. image:: branches/interface-branches-stagechange.png
    :align: center
 
 .. _stage_production:
 
-Production
+生产
 ----------
 
-This is the branch holding the code on which your production database runs.
-There can be only one production branch.
+这是运行您生产数据库代码的分支。
+只能有一个生产分支。
 
-When you push a new commit in this branch,
-your production server is updated with the code of the new revision and is then restarted.
+当您向此分支推送新的提交时，您的生产服务器将使用新修订版的代码进行更新，并随后重启。
 
-If your changes require the update of a module, such as a change in a form view,
-and you want it to be performed automatically,
-increase the version number of the module in its manifest (*__manifest__.py*).
-The platform will then take care to perform the update during which the
-instance will be held temporarily unavailable for maintenance reason.
+如果您的更改需要更新模块（例如表单视图中的更改），并且您希望自动执行更新，请增加模块清单 (*__manifest__.py*) 中的版本号。
+平台将负责执行更新，在此期间，实例将暂时不可用以进行维护。
 
+此方法相当于通过应用菜单执行模块升级，或通过
+:code:`-u` 命令行开关进行升级。
+:doc:`命令行文档 </developer/reference/cli>`。
 
-This method is equivalent to perform an upgrade of the module through the Apps menu,
-or through the :code:`-u` switch of
-:doc:`the command line </developer/reference/cli>`.
+如果提交中的更改阻止了服务器重启，或如果模块更新失败，
+服务器将自动回滚到先前成功的代码修订版，数据库也会回滚到更新前的状态。
+您仍然可以访问失败更新的日志，以便进行故障排除。
 
-In the case the changes in the commit prevent the server to restart,
-or if the modules update fails,
-the server is automatically reverted to the previous successful code revision and
-the database is roll-backed as it was before the update.
-You still have access to the log of the failed update, so you can troubleshoot it.
+演示数据不会加载，因为不建议在生产数据库中使用。
+单元测试不会执行，因为这会增加更新期间生产数据库的不可用时间。
 
-The demo data is not loaded, as it is not meant to be used in a production database.
-The unit tests are not performed, as it would increase the unavailability time of the production
-database during the updates.
+试用项目的合作伙伴应注意，他们的生产分支及所有预发布分支将在30天后自动恢复为开发阶段。
 
-Partners using trial projects should be aware their production branch, along with all the staging branches,
-will automatically be set back to the development stage after 30 days.
-
-Staging
+预发布
 -------
 
-Staging branches are meant to test your new features using the production data without compromising
-the actual production database with test records. They will create databases that are neutralized
-duplicates of the production database.
+预发布分支旨在使用生产数据测试新功能，而不会用测试记录破坏实际的生产数据库。它们将创建中和的生产数据库副本。
 
-The neutralization includes:
+中和包括：
 
-* Disabling scheduled actions. If you want to test them, you can trigger their action manually or
-  re-enable them. Be aware that the platform will trigger them less often if no one is using the
-  database in order to save up resources.
-* Disabling outgoing emails by intercepting them with a mailcatcher. An
-  :ref:`interface to view <odoosh-gettingstarted-branches-tabs-mails>` the emails sent by your
-  database is provided. That way, you do not have to worry about sending test emails to your contacts.
-* Setting payment providers and shipping providers in test mode.
-* Disabling IAP services
+* 禁用计划动作。如果您想测试它们，您可以手动触发其动作或重新启用它们。请注意，如果没有人在使用数据库，平台会减少触发它们的频率以节省资源。
+* 禁用外发邮件，并通过邮件拦截器拦截它们。提供了一个
+  :ref:`查看邮件的界面 <odoosh-gettingstarted-branches-tabs-mails>`，这样您就不必担心将测试邮件发送给联系人。
+* 将支付提供商和运输提供商设置为测试模式。
+* 禁用 IAP 服务。
 
-The latest database will be kept alive indefinitely, older ones from the same branch may get garbage collected
-to make room for new ones. It will be valid for 3 months, after which you will be expected to rebuild the branch.
-If you make configuration or view changes in these databases, make sure to document them or write them directly
-in the modules of the branch, using XML data files overriding the default configuration or views.
+最新的数据库将无限期保留，来自同一分支的较旧数据库可能会被垃圾回收以腾出空间用于新数据库。有效期为3个月，之后您需要重新构建分支。
+如果您在这些数据库中进行配置或视图更改，请确保记录它们，或者直接在分支模块中编写它们，使用 XML 数据文件覆盖默认配置或视图。
 
-The unit tests are not performed as, in Odoo, they currently rely on the demo data, which is not loaded in the
-production database. In the future, if Odoo supports to run the unit tests without the demo data,
-Odoo.sh will then consider running the tests on staging databases.
+不会执行单元测试，因为在 Odoo 中，它们当前依赖于演示数据，而演示数据不会加载到生产数据库中。如果将来 Odoo 支持在没有演示数据的情况下运行单元测试，
+Odoo.sh 将考虑在预发布数据库上运行测试。
 
-Development
+开发
 -----------
 
-Development branches create new databases using the demo data to run the unit tests.
-The installed modules are the ones included in your branches. You can change this list of modules
-to install in your :ref:`project Settings <odoosh-gettingstarted-settings-modules-installation>`.
+开发分支使用演示数据创建新数据库以运行单元测试。
+安装的模块是分支中包含的模块。您可以在
+:ref:`项目设置 <odoosh-gettingstarted-settings-modules-installation>`中更改要安装的模块列表。
 
-When you push a new commit in one of these branches,
-a new server is started, with a database created from scratch and the new revision of the branch.
-The demo data is loaded, and the unit tests are performed by default.
-This verifies your changes do not break any of the features tested by them. If you wish, you can
-disable the tests or allow specific tests to be run with custom tags in the :ref:`branch's settings
-<odoosh-gettingstarted-branches-tabs-settings>`.
+当您向这些分支中的一个推送新的提交时，
+将启动一个新服务器，使用从头开始创建的数据库以及分支的新修订版。
+演示数据将被加载，并且默认情况下将执行单元测试。
+这会验证您的更改是否不会破坏任何已测试的功能。如果您愿意，您可以禁用测试或在
+:ref:`分支设置 <odoosh-gettingstarted-branches-tabs-settings>`中允许使用自定义标签运行特定测试。
 
-Similar to staging branches, the emails are not sent but are intercepted by a mailcatcher and
-scheduled actions are not triggered as long as the database is not in use.
+与预发布分支类似，邮件不会发送，而是由邮件拦截器拦截，并且只要数据库未使用，就不会触发计划动作。
 
-The databases created for development branches are meant to live around three days.
-After that, they can be automatically garbage collected to make room for new databases without prior notice.
+开发分支创建的数据库的预期寿命约为三天。
+之后，它们可以在没有事先通知的情况下自动被垃圾回收，以腾出空间用于新数据库。
 
 .. _odoosh-gettingstarted-branches-mergingbranches:
 
-Merging your branches
+合并您的分支
 ---------------------
 
-You can merge your branches easily by drag and dropping them into each other.
+您可以通过拖放分支轻松地将其合并到另一个分支中。
 
 .. image:: branches/interface-branches-merge.png
    :align: center
 
-When you want to test the changes of your development branches with the production data,
-you can either:
+当您想使用生产数据测试开发分支的更改时，您可以：
 
-* merge the development branch into your staging branch, by drag and dropping it onto the desired staging branch,
-* drag and dropping the development branch on the staging section title, to make it become a staging branch.
+* 将开发分支拖放到预发布分支上，以便将其合并到所需的预发布分支中，
+* 将开发分支拖放到预发布部分标题上，使其成为一个预发布分支。
 
-When your latest changes are ready for production,
-you can drag and drop your staging branch onto your production branch
-to merge and deploy in production your newest features.
+当您的最新更改准备好进入生产环境时，
+您可以将预发布分支拖放到生产分支上，
+将最新功能合并并部署到生产环境中。
 
-If you are bold enough,
-you can merge your development branches into your production branch as well.
-It just means you skip the validation of your changes with the production data through a staging branch.
+如果您足够大胆，
+也可以将开发分支合并到生产分支中。
+这意味着您跳过了通过预发布分支使用生产数据验证更改的步骤。
 
-You can merge your development branches into each other, and your staging branches into each other.
+您可以将开发分支彼此合并，也可以将预发布分支彼此合并。
 
-Of course, you can also use :code:`git merge` directly on your workstation to merge your branches.
-Odoo.sh will be notified when new revisions have been pushed in your branches.
+当然，您也可以直接在工作站上使用 :code:`git merge` 合并您的分支。
+当您的分支中推送了新修订版时，Odoo.sh 将会收到通知。
 
-Merging a staging branch in the production branch only merges the source code: Any configuration changes you made in the
-staging databases are not passed to the production database.
+将预发布分支合并到生产分支中只会合并源代码：您在预发布数据库中进行的任何配置更改都不会传递到生产数据库中。
 
-If you test configuration changes in staging branches, and want them to be applied in the production, you have to either:
+如果您在预发布分支中测试了配置更改，并希望将它们应用于生产环境，您可以选择：
 
-* write the configuration changes in XML data files
-  overriding the default configuration or views in your branches,
-  and then increase the version of your module in its manifest (*__manifest__.py*) to trigger the update of the module
-  when you merge your staging branch in your production branch.
-  This is the best practice for a better scalability of your developments as you will use the Git versioning features
-  for all your configuration changes, and therefore have a traceability for your changes.
-* pass them manually from your staging to your production database, by copy/pasting them.
+* 将配置更改写入 XML 数据文件中
+  覆盖默认配置或分支中的视图，
+  然后在模块的清单 (*__manifest__.py*) 中增加模块的版本号，以在将预发布分支合并到生产分支时触发模块更新。
+  这是最佳实践，能提高开发的可扩展性，因为您将使用 Git 的版本控制功能
+  记录所有配置更改，从而确保更改的可追溯性。
+* 手动将它们从预发布分支传递到生产数据库中，通过复制粘贴。
 
 .. _odoosh-gettingstarted-branches-tabs:
 
-Tabs
-====
+标签页
+======
 
-History
+历史记录
 -------
 
-An overview of your branch history:
+您的分支历史概览：
 
-* The messages of the commits and their authors,
-* The various events linked to the platform, such as stage changes, database imports, backup restores.
+* 提交的消息及其作者，
+* 与平台相关的各种事件，如阶段更改、数据库导入、备份还原等。
 
 .. image:: branches/interface-branches-history.png
    :align: center
 
-For each event, a status is displayed in the top right-hand corner.
-It can provide information about the ongoing operation on the database (installation, update, backup import, ...),
-or its result (tests feedback, successful backup import, ...).
-When an operation is successful, you can access the database thanks to the *connect* button.
+对于每个事件，状态显示在右上角。
+它可以提供有关数据库的当前操作信息（安装、更新、备份导入等），
+或其结果（测试反馈、成功的备份导入等）。
+当操作成功时，您可以通过 *连接* 按钮访问数据库。
 
 .. _odoosh-gettingstarted-branches-tabs-mails:
 
-Mails
+邮件
 -----
 
-This tab contains the mail catcher. It displays an overview of the emails sent by your database.
-The mail catcher is available for your development and
-staging branches as the emails of your production database are really sent instead of being intercepted.
+此标签包含邮件拦截器。它显示您的数据库发送的电子邮件概览。
+邮件拦截器适用于开发和预发布分支，而生产数据库的电子邮件则会真正发送而不是被拦截。
 
 .. image:: branches/interface-branches-mails.png
    :align: center
@@ -183,382 +160,335 @@ staging branches as the emails of your production database are really sent inste
 Shell
 -----
 
-A shell access to your container. You can perform basic linux commands (:code:`ls`, :code:`top`)
-and open a shell on your database by typing :code:`psql`.
+可以通过Shell访问您的容器。您可以执行基本的Linux命令（如 :code:`ls`, :code:`top`），
+并通过输入 :code:`psql` 打开数据库的Shell。
 
 .. image:: branches/interface-branches-shell.png
    :align: center
 
-You can open multiple tabs and drag-and-drop them to arrange the layout as you wish,
-for instance side by side.
+您可以打开多个标签页，并通过拖放它们来按照自己的意愿排列布局，
+例如并排显示。
 
-.. Note::
-  Long running shell instances are not guaranteed. Idle shells can be
-  disconnected at anytime in order to free up resources.
+.. 注::
+  长时间运行的Shell实例不受保证。闲置的Shell可能会随时断开连接以释放资源。
 
-Editor
+编辑器
 ------
 
-An online integrated development environment (IDE) to edit the source code.
-You can also open terminals, Python consoles and even Odoo Shell consoles.
+一个在线集成开发环境 (IDE)，用于编辑源代码。
+您还可以打开终端、Python控制台，甚至是Odoo Shell控制台。
 
 .. image:: branches/interface-branches-editor.png
    :align: center
 
-You can open multiple tabs and drag-and-drop them to arrange the layout as you wish,
-for instance side by side.
+您可以打开多个标签页，并通过拖放它们来按照自己的意愿排列布局，
+例如并排显示。
 
-Monitoring
+监控
 ----------
 
-This link contains various monitoring metrics of the current build.
+此链接包含当前构建的各种监控指标。
 
 .. image:: branches/interface-branches-monitoring.png
    :align: center
 
-You can zoom, change the time range or select a specific metric on each graph.
-On the graphs, annotations help you relate to changes on the build (database import, git push, etc...).
+您可以缩放、调整时间范围或选择每个图表上的特定指标。
+在图表上，注释有助于您与构建的更改相关联（如数据库导入、git推送等）。
 
 .. _odoosh/logs:
 
-Logs
+日志
 ----
 
-A viewer to have a look to your server logs.
+查看您的服务器日志的查看器。
 
 .. image:: branches/interface-branches-logs.png
    :align: center
 
-Different logs are available:
+可用的不同日志有：
 
-* install.log: The logs of the database installation. In a development branch, the logs of the tests are included.
-* pip.log: The logs of the Python dependencies installation.
-* odoo.log: The logs of the running server.
-* update.log: The logs of the database updates.
-* pg_long_queries.log: The logs of psql queries that take an unusual amount of time.
+* install.log：数据库安装日志。在开发分支中，还包括测试日志。
+* pip.log：Python依赖项的安装日志。
+* odoo.log：运行服务器的日志。
+* update.log：数据库更新的日志。
+* pg_long_queries.log：执行时间异常长的psql查询日志。
 
-If new lines are added in the logs, they will be displayed automatically.
-If you scroll to the bottom, the browser will scroll automatically each time a new line is added.
+如果日志中添加了新行，它们会自动显示。
+如果您滚动到页面底部，浏览器每次添加新行时都会自动滚动。
 
-You can pause the logs fetching by clicking on the according button in the upper right corner of the view.
-The fetching is automatically stopped after 5 minutes. You can restart it using the play button.
+您可以通过单击视图右上角的相应按钮暂停日志获取。
+获取将在5分钟后自动停止。您可以通过点击播放按钮重新启动它。
 
 .. _odoo_sh_branches_backups:
 
-Backups
+备份
 -------
 
-A list of the backups available for download and restore, the ability to perform a manual backup and to import a
-database.
+可供下载和还原的备份列表，执行手动备份和导入数据库的能力。
 
 .. image:: branches/interface-branches-backups.png
    :align: center
 
-Odoo.sh makes daily backups of the production database. It keeps 7 daily, 4 weekly and 3 monthly backups.
-Each backup includes the database dump, the filestore (attachments, binary fields), logs and sessions.
+Odoo.sh会对生产数据库进行每日备份。它保留7个每日备份、4个每周备份和3个每月备份。
+每个备份包括数据库转储、文件存储（附件、二进制字段）、日志和会话。
 
-Staging and development databases are not backed up.
-You nevertheless have the possibility to restore a backup of the production database in your staging branches, for
-testing purposes, or to manually recover data that has been deleted by accident from the production database.
+预发布和开发数据库不会备份。
+然而，您仍然可以将生产数据库的备份还原到预发布分支中进行测试，
+或手动恢复因意外删除生产数据库中的数据。
 
-The list contains the backups kept on the server your production database is hosted on.
-This server only keeps one month of backups: 7 daily and 4 weekly backups.
+列表包含保存在托管生产数据库的服务器上的备份。
+此服务器仅保留一个月的备份：7个每日备份和4个每周备份。
 
-Dedicated backup servers keep the same backups, as well as 3 additional monthly backups.
-To restore or download one of these monthly backups, please `contact us <https://www.odoo.com/help>`_.
+专用备份服务器保留相同的备份，以及另外3个每月备份。
+如需还原或下载这些每月备份，请 `联系我们 <https://www.odoo.com/help>`_。
 
-If you merge a commit updating the version of one or several modules (in :file:`__manifest__.py`), or their linked python
-dependencies (in :file:`requirements.txt`), then Odoo.sh performs a backup automatically (flagged with type Update in the list),
-as either the container will be changed by the installation of new pip packages, either the database itself will be
-changed with the module update triggered afterwards. In these two cases, we are doing a backup as it may potentially
-break things.
+如果您合并了更新一个或多个模块版本（在 :file:`__manifest__.py` 中）或其相关的Python依赖项（在 :file:`requirements.txt` 中）的提交，
+那么 Odoo.sh 将自动执行备份（列表中标记为类型Update），
+因为安装新的pip包会更改容器，或者模块更新之后会更改数据库。在这两种情况下，我们都会进行备份，因为这可能会破坏系统。
 
-If you merge a commit that only changes some code without the above-mentioned modifications, then no backup is done
-by Odoo.sh, as neither the container nor the database is modified so the platform considers this safe enough. Of course,
-as an extra precaution, you can make a backup manually before making big changes in your production sources in case
-something goes wrong (those manual backups are available for about one week). To avoid abuse, we limit manual backups
-to 5 per day.
+如果您合并的提交只更改了一些代码而没有上述修改，则 Odoo.sh 不会执行备份，
+因为既没有修改容器，也没有修改数据库，所以平台认为这是足够安全的。当然，作为额外的预防措施，您可以在对生产源进行重大更改之前手动备份，以防万一出了问题（这些手动备份约一周内可用）。为了防止滥用，我们将手动备份限制为每天最多5个。
 
-The *import database* feature accepts database archives in the format provided by:
+*导入数据库* 功能接受以下格式提供的数据库归档：
 
-* the standard Odoo databases manager,
-  (available for on-premise Odoo servers under :code:`/web/database/manager`)
-* the Odoo online databases manager,
-* the Odoo.sh backup download button of this *Backups* tab,
-* the Odoo.sh dump download button in the :ref:`Builds view <odoosh-gettingstarted-builds>`.
+* 标准Odoo数据库管理器
+  （适用于本地部署的Odoo服务器，位于 :code:`/web/database/manager`）
+* Odoo在线数据库管理器，
+* 此 *Backups* 标签中的 Odoo.sh 备份下载按钮，
+* :ref:`构建视图 <odoosh-gettingstarted-builds>` 中的 Odoo.sh 转储下载按钮。
 
 .. _odoo_sh/upgrade:
 
-Upgrade
+升级
 -------
-
-Available for production and staging branches for valid projects.
+可用于有效项目的生产和预发布分支。
 
 .. seealso::
-    :doc:`Upgrade documentation <../../upgrade>`
+    :doc:`升级文档 <../../upgrade>`
 
 .. _odoosh-gettingstarted-branches-tabs-settings:
 
-Settings
+设置
 --------
 
-Here you can find a couple of settings that only apply to the currently selected branch.
+在此页面，您可以找到仅适用于当前选定分支的几个设置。
 
 .. image:: branches/interface-branches-settings.jpg
    :align: center
 
-**Behaviour upon new commit**
+**新提交时的行为**
 
-For development and staging branches, you can change the branch's behavior upon receiving a new
-commit. By default, a development branch will create a new build and a staging branch will update
-the previous build (see the :ref:`Production Stage <stage_production>`). This is especially useful
-should the feature you're working on require a particular setup or configuration, to avoid having
-to manually set it up again on every commit. If you choose new build for a staging branch, it will
-make a fresh copy from the production build every time a commit is pushed. A branch that is put
-back from staging to development will automatically be set to 'Do nothing'.
+对于开发和预发布分支，您可以更改分支在接收到新提交时的行为。默认情况下，开发分支会创建一个新的构建，而预发布分支则会更新之前的构建（参见 :ref:`生产阶段 <stage_production>`）。如果您正在开发的功能需要特定的设置或配置，避免每次提交后手动设置，则此选项特别有用。如果您选择为预发布分支创建新构建，那么每次提交推送后，它都会从生产构建中创建一个新的副本。如果将分支从预发布设置为开发状态，它将自动设置为“什么也不做”。
 
-**Modules installation**
+**模块安装**
 
-Choose the modules to install automatically for your development builds.
+选择自动为您的开发构建安装的模块。
 
 .. image:: branches/interface-settings-modulesinstallation.png
    :align: center
 
-* *Install only my modules* will install the modules of the branch only. This is the default option.
-  The :ref:`submodules <odoosh-advanced-submodules>` are excluded.
-* *Full installation (all modules)* will install the modules of the branch, the modules included in the submodules
-  and all standard modules of Odoo. When running the full installation, the test suite is disabled.
-* *Install a list of modules* will install the modules specified in the input just below this option.
-  The names are the technical name of the modules, and they must be comma-separated.
+* *仅安装我的模块* 将只安装分支中的模块，这是默认选项。
+  :ref:`子模块 <odoosh-advanced-submodules>` 被排除在外。
+* *完全安装（所有模块）* 将安装分支中的模块、子模块中的模块以及Odoo的所有标准模块。在执行完全安装时，测试套件将被禁用。
+* *安装模块列表* 将安装输入框中指定的模块。名称为模块的技术名称，必须用逗号分隔。
 
-If the tests are enabled, the standard Odoo modules suite can take up to 1 hour.
-This setting applies to development builds only.
-Staging builds duplicate the production build and the production build only installs base.
+如果启用了测试，标准Odoo模块套件的运行可能需要长达1小时。
+此设置仅适用于开发构建。
+预发布构建会复制生产构建，而生产构建仅安装基本模块。
 
+**测试套件**
 
-**Test suite**
+对于开发分支，您可以选择启用或禁用测试套件。默认情况下是启用的。
+启用测试套件时，您可以通过指定测试标签来限制它们 :ref:`测试标签
+<developer/reference/testing/selection>`。
 
-For development branches, you can choose to enable or disable the test suite. It's enabled by default.
-When the test suite is enabled, you can restrict them by specifying test tags :ref:`test tags
-<developer/reference/testing/selection>`.
+**Odoo版本**
 
-**Odoo Version**
+仅对于开发分支，您可以更改Odoo的版本，如果您希望测试升级后的代码或在生产数据库升级到新版本的过程中开发功能。
 
-For development branches only, you can change the version of Odoo, should you want to test upgraded code or develop
-features while your production database is in the process of being upgraded to a newer version.
+此外，对于每个版本，您有两个选项来处理代码更新。
 
-In addition, for each version you have two options regarding the code update.
+* 您可以选择自动获取最新的漏洞修复、安全补丁和性能优化。您的Odoo服务器源代码每周都会更新一次。这是“最新”选项。
+* 您可以选择将Odoo源代码固定在特定的版本，通过选择日期列表中的一个修订版来实现。修订版将在3个月后过期。当到期日期临近时，您将收到电子邮件通知，如果在此之后没有采取行动，您将自动设置为最新修订版。
 
-* You can choose to benefit from the latest bug, security and performance fixes automatically. The
-  sources of your Odoo server will be updated weekly. This is the 'Latest' option.
-* You can choose to pin the Odoo sources to a specific revision by selecting them from a list of
-  dates. Revisions will expire after 3 months. You will be notified by mail when the expiration
-  date approaches and if you don't take action afterwards, you will automatically be set to the
-  latest revision.
+**自定义域名**
 
-**Custom domains**
+在此页面，您可以为选定的分支配置额外的域名。可以添加其他 *<name>.odoo.com* 域名或您自己的自定义域名。对于后者，您需要：
 
-Here you can configure additional domains for the selected branch. It's possible to add other
-*<name>.odoo.com* domains or your own custom domains. For the latter you have to:
+* 拥有或购买域名，
+* 在此列表中添加域名，
+* 在您的域名注册商的域名管理器中，使用 ``CNAME`` 记录将该域名配置为指向您的生产数据库域名。
 
-* own or purchase the domain name,
-* add the domain name in this list,
-* in your registrar's domain name manager,
-  configure the domain name with a ``CNAME`` record set to your production database domain name.
+例如，要将 *www.mycompany.com* 关联到您的数据库 *mycompany.odoo.com*：
 
-For instance, to associate *www.mycompany.com* to your database *mycompany.odoo.com*:
+* 在 Odoo.sh 中，将 *www.mycompany.com* 添加到项目设置的自定义域名中，
+* 在您的域名管理器（如 *godaddy.com*, *gandi.net*, *ovh.com*）中，将 *www.mycompany.com* 配置为 ``CNAME`` 记录，值为 *mycompany.odoo.com*。
 
-* in Odoo.sh, add *www.mycompany.com* in the custom domains of your project settings,
-* in your domain name manager (e.g. *godaddy.com*, *gandi.net*, *ovh.com*),
-  configure *www.mycompany.com* with a ``CNAME`` record with as value *mycompany.odoo.com*.
+裸域名（如 *mycompany.com*）不被接受：
 
-Bare domains (e.g. *mycompany.com*) are not accepted:
+* 它们只能通过 ``A`` 记录进行配置，
+* ``A`` 记录只接受IP地址作为值，
+* 您的数据库IP地址可能会更改，原因包括升级、硬件故障或您希望在其他国家或大陆托管您的数据库。
 
-* they can only be configured using ``A`` records,
-* ``A`` records only accept IP addresses as value,
-* the IP address of your database can change, following an upgrade, a hardware failure or
-  your wish to host your database in another country or continent.
+因此，由于IP地址的更改，裸域名可能突然停止工作。
 
-Therefore, bare domains could suddenly no longer work because of this change of IP address.
-
-In addition, if you would like both *mycompany.com* and *www.mycompany.com* to work with your database,
-having the first redirecting to the second is amongst the
-`SEO best practices <https://support.google.com/webmasters/answer/7451184?hl=en>`_
-(See *Provide one version of a URL to reach a document*)
-in order to have one dominant URL. You can therefore just configure *mycompany.com* to redirect to *www.mycompany.com*.
-Most domain managers have the feature to configure this redirection. This is commonly called a web redirection.
+此外，如果您希望 *mycompany.com* 和 *www.mycompany.com* 都可以与您的数据库一起工作，建议将第一个域名重定向到第二个域名。这也是 `SEO 最佳实践 <https://support.google.com/webmasters/answer/7451184?hl=zh>`_（请参阅 *提供一个版本的URL来访问文档*）。因此，您可以将 *mycompany.com* 配置为重定向到 *www.mycompany.com*。大多数域名管理器都有配置此重定向的功能，这通常称为网页重定向。
 
 **HTTPS/SSL**
 
-If the redirection is correctly set up, the platform will automatically generate an SSL certificate
-with `Let's Encrypt <https://letsencrypt.org/about/>`_ within the hour and your domain will be
-accessible through HTTPS.
+如果正确设置了重定向，平台将自动在一小时内使用 `Let's Encrypt <https://letsencrypt.org/about/>`_ 生成SSL证书，您的域名将通过HTTPS访问。
 
-While it is currently not possible to configure your own SSL certificates on the Odoo.sh platform
-we are considering the feature if there is enough demand.
+虽然目前无法在 Odoo.sh 平台上配置您自己的SSL证书，但如果有足够的需求，我们将考虑此功能。
+**SPF和DKIM合规**
 
-
-**SPF and DKIM compliance**
-
-In case the domain of your users email addresses use SPF (Sender Policy Framework) or DKIM
-(DomainKeys Identified Mail), don't forget to authorize Odoo as a sending host in your domain name
-settings to increase the deliverability of your outgoing emails. The configuration steps are
-explained in the documentation about :ref:`SPF <email-domain-spf>` and :ref:`DKIM
-<email-domain-dkim>`.
+如果用户的电子邮件域名使用SPF（发件人策略框架）或DKIM（域名密钥标识邮件），请不要忘记在您的域名设置中授权Odoo作为发送主机，以提高外发电子邮件的可送达性。配置步骤详见 :ref:`SPF <email-domain-spf>` 和 :ref:`DKIM <email-domain-dkim>` 文档。
 
 .. Warning::
-  Forgetting to configure your SPF or DKIM to authorize Odoo as a sending host can lead to the
-  delivery of your emails as spam in your contacts inbox.
+  如果忘记配置SPF或DKIM来授权Odoo作为发送主机，可能会导致您的邮件被投递到联系人收件箱的垃圾邮件文件夹中。
 
-Shell commands
+Shell命令
 ==============
 
-In the top right-hand corner of the view, different shell commands are available.
+在视图的右上角，可以使用不同的Shell命令。
 
 .. image:: branches/interface-branches-shellcommands.png
    :align: center
 
-Each command can be copied in the clipboard to be used in a terminal,
-and some of them can be used directly from Odoo.sh by clicking the *run* button
-in such case a popup will prompt the user in order to define eventual placeholders
-such as ``<URL>``, ``<PATH>``, ...
+每个命令都可以复制到剪贴板以用于终端中，有些命令可以直接从Odoo.sh中通过点击 *run* 按钮运行。在这种情况下，会弹出一个窗口，提示用户定义一些占位符，如 ``<URL>``、``<PATH>`` 等。
 
 Clone
 -----
 
-Download the Git repository.
+下载Git仓库。
 
 .. code-block:: bash
 
   $ git clone --recurse-submodules --branch master git@github.com:odoo/odoo.git
 
-Clones the repository *odoo/odoo*.
+克隆仓库 *odoo/odoo*。
 
-* :code:`--recurse-submodules`: Downloads the submodules of your repository. Submodules included in the submodules are downloaded as well.
-* :code:`--branch`: checks out a specific branch of the repository, in this case *master*.
+* :code:`--recurse-submodules`: 下载您仓库中的子模块。包含的子模块也会被下载。
+* :code:`--branch`: 检出仓库中的一个特定分支，在本例中为 *master*。
 
-The *run* button is not available for this command, as it is meant to be used on your machines.
+*run* 按钮不适用于此命令，因为它适用于您本地的机器。
 
 Fork
 ----
 
-Create a new branch based on the current branch.
+基于当前分支创建一个新分支。
 
 .. code-block:: bash
 
   $ git checkout -b feature-1 master
 
-Creates a new branch called *feature-1* based on the branch *master*, and then checkouts it.
+创建一个名为 *feature-1* 的新分支，基于 *master* 分支，然后检出该分支。
 
 .. code-block:: bash
 
   $ git push -u origin feature-1
 
-Uploads the new branch *feature-1* on your remote repository.
+将新分支 *feature-1* 上传到您的远程仓库。
 
 Merge
 -----
 
-Merge the current branch in another branch.
+将当前分支合并到另一个分支。
 
 .. code-block:: bash
 
   $ git merge staging-1
 
-Merges the branch *staging-1* in the current branch.
+将分支 *staging-1* 合并到当前分支。
 
 .. code-block:: bash
 
   $ git push -u origin master
 
-Uploads the changes you just added in the *master* branch on your remote repository.
+将您刚刚添加到 *master* 分支中的更改上传到您的远程仓库。
 
 SSH
 ---
 
-Setup
+设置
 ~~~~~
+为了使用SSH，您需要设置个人资料SSH公钥（如果还未设置）。请按照以下步骤操作：
 
-In order to use SSH, you have to set up your profile SSH public key (if it is not already done).
-To do so, follow these steps:
-
-#. `Generate a new SSH key
+#. `生成新的SSH密钥
    <https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key>`_
-#. `Copy the SSH key to your clipboard
+#. `将SSH密钥复制到剪贴板
    <https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account>`_
-   (only apply the step 1)
-#. Paste the copied content to your profile SSH keys and press "Add"
+   （只需执行第1步）
+#. 将复制的内容粘贴到您的个人资料SSH密钥中并点击"Add"
 
    .. image:: branches/SSH-key-pasting.png
       :align: center
 
-#. The key should appear below
+#. 密钥应该显示在下面
 
    .. image:: branches/SSH-key-appearing.png
       :align: center
 
-Connection
+连接
 ~~~~~~~~~~
 
-To connect to your builds using ssh use the following command in a terminal:
+要使用SSH连接到您的构建，您可以在终端中使用以下命令：
 
 .. code-block:: bash
 
   $ ssh <build_id>@<domain>
 
-You will find a shortcut for this command into the SSH tab in the upper right corner.
+您可以在右上角的SSH选项卡中找到此命令的快捷方式。
 
 .. image:: branches/SSH-panel.png
    :align: center
 
-Provided you have the :ref:`correct access rights <odoosh-gettingstarted-settings-collaborators>` on the project,
-you'll be granted ssh access to the build.
+前提是您拥有该项目的 :ref:`正确访问权限 <odoosh-gettingstarted-settings-collaborators>`，
+您将被授予SSH访问构建的权限。
 
 .. Note::
-  Long running ssh connections are not guaranteed. Idle connections will be
-  disconnected in order to free up resources.
+  长时间运行的SSH连接没有保障。空闲的连接可能会被断开以释放资源。
 
-Submodule
+子模块
 ---------
 
-Add a branch from another repository in your current branch as a *submodule*.
+将另一个存储库中的分支作为 *子模块* 添加到当前分支中。
 
-*Submodules* allows you to use modules from other repositories in your project.
+*子模块* 允许您在项目中使用其他存储库的模块。
 
-The submodules feature is detailed in the chapter
-:ref:`Submodules <odoosh-advanced-submodules>` of this documentation.
+子模块的功能在本文档的章节
+:ref:`Submodules <odoosh-advanced-submodules>` 中有详细说明。
 
 .. code-block:: bash
 
   $ git submodule add -b master <URL> <PATH>
 
-Adds the branch *master* of the repository *<URL>* as a submodule under the path *<PATH>* in your current branch.
+将存储库 *<URL>* 的 *master* 分支作为子模块添加到当前分支中的路径 *<PATH>* 下。
 
 .. code-block:: bash
 
   $ git commit -a
 
-Commits all your current changes.
+提交所有当前更改。
 
 .. code-block:: bash
 
   $ git push -u origin master
 
-Uploads the changes you just added in the *master* branch on your remote repository.
+将您刚刚在 *master* 分支中添加的更改上传到远程仓库。
 
-Delete
+删除
 ------
 
-Delete a branch from your repository.
+从存储库中删除分支。
 
 .. code-block:: bash
 
   $ git push origin :master
 
-Deletes the branch in your remote repository.
+删除远程存储库中的分支。
 
 .. code-block:: bash
 
   $ git branch -D master
 
-Deletes the branch in your local copy of the repository.
+删除本地副本中的分支。

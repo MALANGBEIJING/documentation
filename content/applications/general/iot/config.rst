@@ -1,7 +1,7 @@
 :nosearch:
 
 =============
-Configuration
+配置
 =============
 
 .. toctree::

@@ -1,52 +1,36 @@
 ====================
-Connect a footswitch
+连接脚踏开关
 ====================
 
-When working in a manufacturing environment, it's always better for an operator to have both hands
-available at all times. Odoo's :abbr:`IoT (Internet of Things)` box makes this possible when using a
-footswitch.
+在制造环境中工作时，操作员始终有双手可用是非常重要的。Odoo 的 :abbr:`IoT (物联网)` 盒子通过使用脚踏开关使这成为可能。
 
-In fact, with a footswitch, the operator is able to go from one screen to another, and perform
-actions using their foot. This can be configured in just a few steps on the work center in the
-*Manufacturing* app.
+实际上，使用脚踏开关，操作员可以通过脚来切换屏幕并执行操作。可以在 *制造* 应用的工作中心中通过几步简单的配置来实现这一点。
 
-Connection
+连接
 ==========
 
-To connect a footswitch to the :abbr:`IoT (Internet of Things)` box, connect the two devices via
-cable. More often than not, this is done with a :abbr:`USB (Universal Serial Bus)` cable.
+要将脚踏开关连接到 :abbr:`IoT (物联网)` 盒子，通过电缆将两台设备连接在一起。通常，这通过 :abbr:`USB (通用串行总线)` 电缆完成。
 
-If the footswitch is a `supported device <https://www.odoo.com/page/iot-hardware>`_, there is no
-need to take further action, since it'll be automatically detected when connected.
+如果脚踏开关是 `支持的设备 <https://www.odoo.com/page/iot-hardware>`_，则无需进一步操作，因为连接后会自动检测到。
 
 .. image:: footswitch/footswitch-dropdown.png
    :align: center
-   :alt: Footswitch recognized on the IoT box.
+   :alt: IoT 盒子上识别到的脚踏开关。
 
-Link a footswitch to a work center in the Odoo Manufacturing app
+在 Odoo 制造应用中将脚踏开关链接到工作中心
 ================================================================
 
-To link a footswitch to an action, it first needs to be configured on a work center. Navigate to
-:menuselection:`Manufacturing app --> Configuration --> Work Centers`. From here, go to the desired
-:guilabel:`Work Center` in which the footswitch will be used, and add the device in the
-:guilabel:`IoT Triggers` tab, under the :guilabel:`Device` column, by selecting :guilabel:`Add a
-Line`. Doing so means the footswitch can be linked to an option in the :guilabel:`Action` column
-drop-down, and optionally, a key can be added to trigger it. An example of an :guilabel:`Action` in
-the *Manufacturing app* could be the :guilabel:`Validate` or :guilabel:`Mark as Done` buttons on a
-manufacturing work order.
+要将脚踏开关链接到操作，首先需要在工作中心进行配置。导航到 :menuselection:`制造应用 --> 配置 --> 工作中心`。从这里，进入将使用脚踏开关的 :guilabel:`工作中心`，并在 :guilabel:`IoT 触发器` 选项卡中的 :guilabel:`设备` 列中点击 :guilabel:`添加行` 来添加设备。这样，脚踏开关可以链接到 :guilabel:`操作` 列中的下拉选项，并且可以选择添加按键来触发操作。在 *制造应用* 中，:guilabel:`操作` 的一个示例可以是制造工作订单上的 :guilabel:`验证` 或 :guilabel:`标记为完成` 按钮。
 
 .. image:: footswitch/footswitch-example.png
    :align: center
-   :alt: Footswitch trigger setup on the Odoo database.
+   :alt: Odoo 数据库中的脚踏开关触发器设置。
 
 .. important::
-   It should be noted that the first listed trigger is chosen first. So, the order matters, and
-   these triggers can be dragged into any order. In the picture above, using the footswitch
-   automatically skips the part of the process that's currently being worked on.
+   应注意的是，首先列出的触发器将优先选择。因此，顺序很重要，触发器可以拖动到任何顺序。在上图中，使用脚踏开关自动跳过当前正在处理的工艺步骤。
 
 .. note::
-   On the :guilabel:`Work Order` screen, a status graphic indicates whether the database is
-   correctly connected to the footswitch.
+   在 :guilabel:`工作订单` 屏幕上，状态图形指示数据库是否正确连接到脚踏开关。
 
 .. seealso::
    :ref:`workcenter_iot`

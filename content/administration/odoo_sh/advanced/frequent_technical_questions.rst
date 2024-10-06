@@ -1,52 +1,45 @@
-
 .. _odoosh-advanced-frequent_technical_questions:
 
 ============================
-Frequent Technical Questions
+常见技术问题
 ============================
 
-"Scheduled actions do not run at the exact time they were expected"
--------------------------------------------------------------------
+"计划的操作没有按预期的确切时间运行"
+-------------------------------------------
 
-On the Odoo.sh platform, we cannot guarantee an exact running time for scheduled actions.
+在 Odoo.sh 平台上，我们不能保证计划操作在确切的时间运行。
 
-This is due to the fact that there might be multiple customers on the same server, and we must guarantee a fair share of the server for every customer. Scheduled actions are therefore implemented slightly differently than on a regular Odoo server, and are run on a *best effort* policy.
+这是因为可能有多个客户在同一台服务器上运行，我们必须保证每个客户公平使用服务器资源。因此，计划操作的实现方式与常规 Odoo 服务器略有不同，并按照*尽力而为*的政策运行。
 
 .. warning::
-    Do not expect any scheduled action to be run more often than every 5 min.
+    请不要期望任何计划操作的运行频率超过每 5 分钟一次。
 
-Are there "best practices" regarding scheduled actions?
--------------------------------------------------------
+关于计划操作是否有“最佳实践”？
+------------------------------------------
 
-**Odoo.sh always limits the execution time of scheduled actions (*aka* crons).**
-Therefore, you must keep this fact in mind when developing your own crons.
+**Odoo.sh 总是限制计划操作（*即* crons）的执行时间。**
+因此，在开发您自己的 crons 时，必须牢记这一事实。
 
-We advise that:
+我们建议：
 
-- Your scheduled actions should work on small batches of records.
-- Your scheduled actions should commit their work after processing each batch;
-  this way, if they get interrupted by the time-limit, there is no need to start over.
-- Your scheduled actions should be
-  `idempotent <https://stackoverflow.com/a/1077421/3332416>`_: they must not
-  cause side-effects if they are started more often than expected.
+- 计划操作应处理小批量的记录。
+- 计划操作应在处理完每一批记录后提交其工作；这样，如果操作被时间限制中断，就无需重新开始。
+- 计划操作应当是
+  `幂等的 <https://stackoverflow.com/a/1077421/3332416>`_：它们在比预期更频繁地启动时不会导致副作用。
 
 .. _ip-address-change:
 
-How can I automate tasks when an IP address change occurs?
-----------------------------------------------------------
+当 IP 地址发生更改时，如何自动化任务？
+------------------------------------------
 
-**Odoo.sh notifies project administrators of IP address changes.**
-Additionally, when the IP address of a production instance changes, an HTTP `GET` request is made
-to the path `/_odoo.sh/ip-change` with the new IP address included as a query string parameter
-(`new`), along with the previous IP address as an additional parameter (`old`).
+**Odoo.sh 会通知项目管理员 IP 地址的更改。**
+此外，当生产实例的 IP 地址发生更改时，将向路径 `/_odoo.sh/ip-change` 发送一个 HTTP `GET` 请求，其中包含新 IP 地址作为查询字符串参数（`new`），以及旧 IP 地址作为附加参数（`old`）。
 
-This mechanism allows custom actions to be applied in response to the IP address change
-(e.g., sending an email, contacting a firewall API, configuring database objects, etc.)
+此机制允许在 IP 地址更改时应用自定义操作（例如发送电子邮件、联系防火墙 API、配置数据库对象等）。
 
-For security reasons, the `/_odoo.sh/ip-change` route is accessible only internally by the platform
-itself and returns a `403` response if accessed through any other means.
+出于安全原因，`/_odoo.sh/ip-change` 路由仅能通过平台内部访问，如果通过其他方式访问将返回 `403` 响应。
 
-Here is a pseudo-implementation example:
+以下是一个伪实现示例：
 
 .. code-block:: python
 
@@ -54,7 +47,7 @@ Here is a pseudo-implementation example:
 
         @http.route('/_odoo.sh/ip-change', auth='public')
         def ip_change(self, old=None, new=None):
-            _logger.info("IP address changed from %s to %s", old, new)
-            # Then perform whatever action required for your use case, e.g., update an
-            # ir.config_parameter, send an email, contact an external firewall service's API, ...
+            _logger.info("IP 地址从 %s 更改为 %s", old, new)
+            # 然后根据您的用例执行所需的操作，例如更新 ir.config_parameter，
+            # 发送电子邮件，联系外部防火墙服务的 API，...
             return 'ok'

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-24 10:43+0000\n"
+"POT-Creation-Date: 2024-10-04 03:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,716 +16,711 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../content/administration.rst:8
-#: ../../content/administration/odoo_online.rst:18
-msgid "Database management"
+#: ../../content/administration.rst:3
+#: ../../content/administration/odoo_online.rst:15
+msgid "数据库管理"
 msgstr ""
 
-#: ../../content/administration.rst:10
-msgid "These guides provide instructions on how to install, maintain and upgrade Odoo databases."
+#: ../../content/administration.rst:5
+msgid "这些指南提供了关于如何安装、维护和升级 Odoo 数据库的说明。"
+msgstr ""
+
+#: ../../content/administration.rst:8
+msgid ":doc:`版本历史 <administration/supported_versions>`"
+msgstr ""
+
+#: ../../content/administration.rst:11
+msgid "安装"
 msgstr ""
 
 #: ../../content/administration.rst:13
-msgid ":doc:`History of Versions <administration/supported_versions>`"
+msgid "根据预期的使用场景，有多种方式来安装 Odoo，或者根本不需要安装。"
 msgstr ""
 
-#: ../../content/administration.rst:16
-#: ../../content/administration/on_premise/geo_ip.rst:9
-msgid "Installation"
+#: ../../content/administration.rst:15
+msgid ":doc:`在线版 <administration/odoo_online>` 是最简单的方式，可以将 Odoo 用于生产或进行试用。"
 msgstr ""
 
-#: ../../content/administration.rst:18
-msgid "Depending on the intended use case, there are multiple ways to install Odoo - or not install it at all."
+#: ../../content/administration.rst:17
+msgid ":doc:`打包安装程序 <administration/on_premise/packages>` 适合测试 Odoo 和开发模块。经过额外的部署和维护工作后，也可以用于长期生产。"
+msgstr ""
+
+#: ../../content/administration.rst:19
+msgid ":doc:`源代码安装 <administration/on_premise/source>` 提供了更大的灵活性，例如可以在同一系统上运行多个 Odoo 版本。它适合开发模块，并且可以用作生产部署的基础。"
 msgstr ""
 
 #: ../../content/administration.rst:21
-msgid ":doc:`Online <administration/odoo_online>` is the easiest way to use Odoo in production or to try it."
+msgid "可供开发或部署使用的 `Docker <https://hub.docker.com/_/odoo/>`_ 基础镜像也可用。"
 msgstr ""
 
-#: ../../content/administration.rst:23
-msgid ":doc:`Packaged installers <administration/on_premise/packages>` are suitable for testing Odoo and developing modules. They can be used for long-term production with additional deployment and maintenance work."
+#: ../../content/administration.rst:26
+msgid "版本"
 msgstr ""
 
-#: ../../content/administration.rst:27
-msgid ":doc:`Source install <administration/on_premise/source>` provides greater flexibility, as it allows, for example, running multiple Odoo versions on the same system. It is adequate to develop modules and can be used as a base for production deployment."
+#: ../../content/administration.rst:28
+msgid "Odoo 有两个不同的版本。"
 msgstr ""
 
-#: ../../content/administration.rst:31
-msgid "A `Docker <https://hub.docker.com/_/odoo/>`_ base image is available for development or deployment."
+#: ../../content/administration.rst:30
+msgid "**Odoo Community** 是软件的免费开源版本，遵循 `GNU LGPLv3 <https://github.com/odoo/odoo/blob/master/LICENSE>`_ 许可协议。它是 Odoo Enterprise 构建的核心。"
 msgstr ""
 
-#: ../../content/administration.rst:37
-msgid "Editions"
+#: ../../content/administration.rst:32
+msgid "**Odoo Enterprise** 是软件的共享源代码版本，提供更多功能，包括功能支持、升级和托管服务。`价格 <https://www.odoo.com/pricing-plan>`_ 从一个免费应用开始。"
 msgstr ""
 
-#: ../../content/administration.rst:39
-msgid "There are two different editions."
-msgstr ""
-
-#: ../../content/administration.rst:41
-msgid "**Odoo Community** is the free and open-source version of the software, licensed under the `GNU LGPLv3 <https://github.com/odoo/odoo/blob/master/LICENSE>`_. It is the core upon which Odoo Enterprise is built."
-msgstr ""
-
-#: ../../content/administration.rst:45
-msgid "**Odoo Enterprise** is the shared source version of the software, giving access to more functionalities, including functional support, upgrades, and hosting. `Pricing <https://www.odoo.com/pricing-plan>`_ starts from one app free."
-msgstr ""
-
-#: ../../content/administration.rst:50
-msgid ":doc:`Switch from Community to Enterprise <administration/on_premise/community_to_enterprise>` at any time (except for the source install)."
+#: ../../content/administration.rst:35
+msgid ":doc:`随时从社区版切换到企业版 <administration/on_premise/community_to_enterprise>`（源代码安装除外）。"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:3
-msgid "Hosting"
+msgid "托管"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:8
-msgid "Change hosting solution"
+msgid "更改托管解决方案"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:10
-msgid "The instructions to change the hosting type of a database depend on the current solution used and to which solution the database should be moved."
+msgid "更改数据库托管类型的说明取决于当前使用的解决方案以及数据库需要迁移到的解决方案。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:14
-msgid "Transferring an on-premise database"
+#: ../../content/administration/hosting.rst:13
+msgid "迁移本地数据库"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:17
-#: ../../content/administration/hosting.rst:90
-msgid "To Odoo Online"
+#: ../../content/administration/hosting.rst:16
+#: ../../content/administration/hosting.rst:72
+msgid "到 Odoo 在线"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:19
+#: ../../content/administration/hosting.rst:75
+msgid "Odoo 在线*不*兼容**非标准应用**。"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:20
-#: ../../content/administration/hosting.rst:93
-msgid "Odoo Online is *not* compatible with **non-standard apps**."
+msgid "数据库的当前版本必须是 :doc:`支持的版本 <supported_versions>`。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:21
-msgid "The database's current version must be :doc:`supported <supported_versions>`."
+#: ../../content/administration/hosting.rst:22
+msgid "创建一个 :ref:`数据库的副本 <on-premise/duplicate>`。"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:23
-msgid "Create a :ref:`duplicate of the database <on-premise/duplicate>`."
+msgid "在此副本中，卸载所有**非标准应用**。"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:24
-msgid "In this duplicate, uninstall all **non-standard apps**."
+msgid "使用数据库管理器获取一个*带文件存储的转储*。"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:25
-msgid "Use the database manager to grab a *dump with filestore*."
+msgid "`提交支持工单 <https://www.odoo.com/help>`_，并包含以下内容："
 msgstr ""
 
-#: ../../content/administration/hosting.rst:26
-msgid "`Submit a support ticket <https://www.odoo.com/help>`_ including the following:"
+#: ../../content/administration/hosting.rst:27
+#: ../../content/administration/hosting.rst:80
+msgid "您的**订阅号**，"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:28
-#: ../../content/administration/hosting.rst:98
-msgid "your **subscription number**,"
+msgid "您想要用于数据库的**URL**（例如 `company.odoo.com`），以及"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:29
-msgid "the **URL** you want to use for the database (e.g., `company.odoo.com`), and"
+msgid "**转储文件**作为附件或文件链接（60 MB 以上的文件需要提供链接）。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:30
-msgid "the **dump** as an attachment or as a link to the file (required for 60 MB+ files)."
+#: ../../content/administration/hosting.rst:31
+#: ../../content/administration/hosting.rst:87
+msgid "Odoo 确保数据库兼容后将其上线。如果在过程中出现技术问题，Odoo 可能会与您联系。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:32
-#: ../../content/administration/hosting.rst:105
-msgid "Odoo then makes sure the database is compatible before putting it online. In case of technical issues during the process, Odoo might contact you."
+#: ../../content/administration/hosting.rst:34
+#: ../../content/administration/hosting.rst:90
+msgid "如果有时间限制，请尽快`提交支持工单 <https://www.odoo.com/help>`_以安排转移。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:36
-#: ../../content/administration/hosting.rst:109
-msgid "If you have time constraints, `submit a support ticket <https://www.odoo.com/help>`_ as soon as possible to schedule the transfer."
+#: ../../content/administration/hosting.rst:37
+#: ../../content/administration/hosting.rst:63
+msgid "到 Odoo.sh"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:40
-#: ../../content/administration/hosting.rst:77
-msgid "To Odoo.sh"
+#: ../../content/administration/hosting.rst:39
+#: ../../content/administration/hosting.rst:66
+msgid "按照 Odoo.sh *创建项目*文档中 :ref:`导入您的数据库部分 <odoo_sh_import_your_database>` 的说明进行操作。"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:42
-#: ../../content/administration/hosting.rst:83
-msgid "Follow the instructions found in :ref:`the Import your database section <odoo_sh_import_your_database>` of the Odoo.sh *Create your project* documentation."
+msgid "迁移 Odoo 在线数据库"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:46
-msgid "Transferring an Odoo Online database"
+#: ../../content/administration/hosting.rst:45
+msgid "Odoo 在线的 :ref:`中间版本 <supported_versions>` 不受 Odoo.sh 或本地托管支持。因此，如果要迁移的数据库正在运行中间版本，则必须先升级到下一个 :ref:`主要版本 <supported_versions>`，如果需要，等待其发布。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:49
-msgid "Odoo Online's :ref:`intermediary versions <supported_versions>` are not supported by Odoo.sh or on-premise. Therefore, if the database to transfer is running an intermediary version, it must be upgraded first to the next :ref:`major version <supported_versions>`, waiting for its release if necessary."
+#: ../../content/administration/hosting.rst:48
+msgid "要迁移运行 Odoo 16.3 的在线数据库，首先需要将其升级到 Odoo 17.0。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:55
-msgid "Transferring an online database running on Odoo 16.3 would require first upgrading it to Odoo 17.0."
+#: ../../content/administration/hosting.rst:51
+msgid "单击 `Odoo 在线数据库管理器 <https://www.odoo.com/my/databases/>`_ 上数据库名称旁边的齿轮图标 (:guilabel:`⚙`) 以显示其版本号。"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:54
+msgid "如果与迁移中的数据库关联的 Odoo 订阅仍然有效，请联系客户服务经理或`提交支持工单 <https://www.odoo.com/help>`_以完成订阅转移。"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:57
+#: ../../content/administration/hosting.rst:97
+msgid "到本地"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:59
-msgid "Click the gear icon (:guilabel:`⚙`) next to the database name on the `Odoo Online database manager <https://www.odoo.com/my/databases/>`_ to display its version number."
+#: ../../content/administration/hosting.rst:65
+msgid "登录 `Odoo 在线数据库管理器 <https://www.odoo.com/my/databases/>`_，并单击数据库名称旁边的齿轮图标 (:guilabel:`⚙`) 以 :guilabel:`下载` 备份。如果由于文件过大导致下载失败，请`联系 Odoo 支持 <https://www.odoo.com/help>`_。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:63
-msgid "If there is an active Odoo subscription linked to the database being migrated, reach out to the Customer Service Manager or `submit a support ticket <https://www.odoo.com/help>`_  to complete the subscription transfer."
+#: ../../content/administration/hosting.rst:60
+#: ../../content/administration/hosting.rst:100
+msgid "使用数据库管理器在您的本地服务器上从备份恢复数据库。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:68
-#: ../../content/administration/hosting.rst:118
-msgid "To on-premise"
+#: ../../content/administration/hosting.rst:69
+msgid "迁移 Odoo.sh 数据库"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:70
-#: ../../content/administration/hosting.rst:79
-msgid "Sign in to `the Odoo Online database manager <https://www.odoo.com/my/databases/>`_ and click the gear icon (:guilabel:`⚙`) next to the database name to :guilabel:`Download` a backup. If the download fails due to the file being too large, `contact Odoo support <https://www.odoo.com/help>`_."
+#: ../../content/administration/hosting.rst:77
+msgid "在进行生产构建之前，先在暂存构建中卸载所有**非标准应用**。"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:74
-#: ../../content/administration/hosting.rst:121
-msgid "Restore the database from the database manager on your local server using the backup."
+#: ../../content/administration/hosting.rst:78
+msgid "`创建支持工单 <https://www.odoo.com/help>`_ 并包含以下内容："
 msgstr ""
 
-#: ../../content/administration/hosting.rst:87
-msgid "Transferring an Odoo.sh database"
+#: ../../content/administration/hosting.rst:81
+msgid "您想要用于数据库的**URL**（例如 `company.odoo.com`），"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:95
-msgid "Uninstall all **non-standard apps** in a staging build before doing it in the production build."
+#: ../../content/administration/hosting.rst:82
+msgid "应该迁移的**分支**，"
 msgstr ""
 
-#: ../../content/administration/hosting.rst:96
-msgid "`Create a support ticket <https://www.odoo.com/help>`_ including the following:"
+#: ../../content/administration/hosting.rst:83
+msgid "您希望数据库托管的**区域**（美洲、欧洲或亚洲），"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:84
+msgid "将成为**管理员**的用户，以及"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:85
+msgid "您希望数据库**上线的时间**（以及时区）。"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:91
+msgid "选择**最接近大多数用户的区域**以减少延迟。"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:92
+msgid "未来的**管理员**必须有 Odoo.com 账户。"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:93
+msgid "您希望数据库上线的**日期和时间**有助于安排从 Odoo.sh 服务器到 Odoo 在线服务器的切换。"
+msgstr ""
+
+#: ../../content/administration/hosting.rst:94
+msgid "在迁移期间，数据库将**无法访问**。"
 msgstr ""
 
 #: ../../content/administration/hosting.rst:99
-msgid "the **URL** you want to use for the database (e.g., `company.odoo.com`),"
-msgstr ""
-
-#: ../../content/administration/hosting.rst:100
-msgid "which **branch** should be migrated,"
-msgstr ""
-
-#: ../../content/administration/hosting.rst:101
-msgid "in which **region** you want the database to be hosted (Americas, Europe, or Asia),"
-msgstr ""
-
-#: ../../content/administration/hosting.rst:102
-msgid "which user(s) will be the **administrator(s)**, and"
-msgstr ""
-
-#: ../../content/administration/hosting.rst:103
-msgid "**when** (and in which timezone) you want the database to be up and running."
-msgstr ""
-
-#: ../../content/administration/hosting.rst:111
-msgid "Select the **region** closest to most of your users to reduce latency."
-msgstr ""
-
-#: ../../content/administration/hosting.rst:112
-msgid "Future **administrator(s)** must have an Odoo.com account."
-msgstr ""
-
-#: ../../content/administration/hosting.rst:113
-msgid "The **date and time** you want the database to be up and running are helpful to organize the switch from the Odoo.sh server to the Odoo Online servers."
-msgstr ""
-
-#: ../../content/administration/hosting.rst:115
-msgid "Databases are **not reachable** during their migration."
-msgstr ""
-
-#: ../../content/administration/hosting.rst:120
-msgid "Download a :ref:`backup of your Odoo.sh production database <odoo_sh_branches_backups>`."
+msgid "下载您的 Odoo.sh 生产数据库的 :ref:`备份 <odoo_sh_branches_backups>`。"
 msgstr ""
 
 #: ../../content/administration/mobile.rst:3
-msgid "Odoo mobile apps"
+msgid "Odoo 移动应用"
 msgstr ""
 
 #: ../../content/administration/mobile.rst:5
-msgid "Two kind of Odoo mobile app exist: the progressive web app (PWA) and store apps. Using the PWA is recommended."
+msgid "Odoo 移动应用有两种类型：渐进式 Web 应用（PWA）和商店应用。推荐使用 PWA。"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:9
-msgid "Progressive web app (PWA)"
+#: ../../content/administration/mobile.rst:8
+msgid "渐进式 Web 应用 (PWA)"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:11
-msgid "PWAs are web-based applications designed to function across different devices and platforms, leveraging web browsers to deliver user experiences similar to native apps."
+#: ../../content/administration/mobile.rst:10
+msgid "PWA 是基于 Web 的应用程序，旨在跨不同设备和平台运行，利用 Web 浏览器提供类似于原生应用的用户体验。"
+msgstr ""
+
+#: ../../content/administration/mobile.rst:12
+msgid "Odoo PWA 的功能包括："
 msgstr ""
 
 #: ../../content/administration/mobile.rst:14
-msgid "The Odoo PWA features include:"
+msgid "通过将 PWA 添加到设备的主屏幕快速访问"
+msgstr ""
+
+#: ../../content/administration/mobile.rst:15
+msgid "无缝和无边界的导航体验"
 msgstr ""
 
 #: ../../content/administration/mobile.rst:16
-msgid "Quick access by adding the PWA to a device's home screen"
+msgid "推送通知"
 msgstr ""
 
 #: ../../content/administration/mobile.rst:17
-msgid "Seamless and borderless navigation experience"
-msgstr ""
-
-#: ../../content/administration/mobile.rst:18
-msgid "Push notifications"
+msgid "SSO 认证"
 msgstr ""
 
 #: ../../content/administration/mobile.rst:19
-msgid "SSO authentication"
+msgid "要安装 Odoo PWA，请启动支持 PWA 的浏览器并登录到 Odoo 数据库。安装 PWA 的说明取决于所使用的平台和浏览器。"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:21
-msgid "To install the Odoo PWA, launch a browser supporting PWAs, and sign in to an Odoo database. The instructions to install a PWA depend on the platform and browser used."
-msgstr ""
-
-#: ../../content/administration/mobile.rst:26
+#: ../../content/administration/mobile.rst:23
 msgid "Android"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:28
-msgid "**Chrome**: open Chrome's menu (:guilabel:`⋮`), select :guilabel:`Install app`, and tap :guilabel:`Install`."
+#: ../../content/administration/mobile.rst:25
+msgid "**Chrome**: 打开 Chrome 菜单 (:guilabel:`⋮`)，选择 :guilabel:`安装应用`，然后点击 :guilabel:`安装`。"
+msgstr ""
+
+#: ../../content/administration/mobile.rst:27
+msgid "**Firefox**: 打开 Firefox 菜单 (:guilabel:`⋮`)，选择 :guilabel:`安装`，然后长按 Odoo 图标或点击 :guilabel:`自动添加`。"
+msgstr ""
+
+#: ../../content/administration/mobile.rst:29
+msgid "也可以使用 **Samsung Internet**、**Edge** 和 **Opera** 安装 PWA。"
 msgstr ""
 
 #: ../../content/administration/mobile.rst:31
-msgid "**Firefox**: open Firefox's menu (:guilabel:`⋮`), select :guilabel:`Install`, and either touch and hold the Odoo icon or tap :guilabel:`Add automatically`."
-msgstr ""
-
-#: ../../content/administration/mobile.rst:34
-msgid "The PWA can also be installed with **Samsung Internet**, **Edge**, and **Opera**."
-msgstr ""
-
-#: ../../content/administration/mobile.rst:36
 msgid "iOS"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:38
-msgid "**Safari**: open the **Share** menu by tapping the square with an arrow pointing upwards icon, select :guilabel:`Add to Home Screen`, edit the PWA details if desired, and tap :guilabel:`Add`."
+#: ../../content/administration/mobile.rst:33
+msgid "**Safari**: 点击带有向上箭头的方形图标以打开 **分享** 菜单，选择 :guilabel:`添加到主屏幕`，根据需要编辑 PWA 详细信息，然后点击 :guilabel:`添加`。"
+msgstr ""
+
+#: ../../content/administration/mobile.rst:35
+msgid "在 iOS 16.4 及以上版本中，还可以使用 **Chrome**、**Firefox** 和 **Edge** 安装 PWA。"
+msgstr ""
+
+#: ../../content/administration/mobile.rst:37
+msgid "桌面"
+msgstr ""
+
+#: ../../content/administration/mobile.rst:39
+msgid "**Chrome** 和 **Edge**: 点击地址栏右侧的安装图标，然后点击 :guilabel:`安装`。"
 msgstr ""
 
 #: ../../content/administration/mobile.rst:42
-msgid "On iOS 16.4 and above, the PWA can also be installed with **Chrome**, **Firefox**, and **Edge**."
+msgid "`Google Chrome 帮助：使用渐进式 Web 应用 <https://support.google.com/chrome/answer/9658361>`_"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:45
-msgid "Desktop"
+#: ../../content/administration/mobile.rst:44
+msgid "`MDN Web 文档：安装和卸载 Web 应用 <https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing>`_"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:47
-msgid "**Chrome** and **Edge**: click the installation icon at the right of the address bar and click :guilabel:`Install`."
+#: ../../content/administration/mobile.rst:46
+msgid "`Microsoft 支持：在 Microsoft Edge 中安装、管理或卸载应用 <https://support.microsoft.com/en-us/topic/install-manage-or-uninstall-apps-in-microsoft-edge-0c156575-a94a-45e4-a54f-3a84846f6113>`_"
+msgstr ""
+
+#: ../../content/administration/mobile.rst:49
+msgid "商店应用"
 msgstr ""
 
 #: ../../content/administration/mobile.rst:51
-msgid "`Google Chrome Help: Use progressive web apps <https://support.google.com/chrome/answer/9658361>`_"
+msgid "Odoo 移动应用可在 `Google Play 商店 <https://play.google.com/store/apps/details?id=com.odoo.mobile>`_ 和 `Apple App 商店 <https://apps.apple.com/app/odoo/id1272543640>`_ 下载。"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:53
-msgid "`MDN Web Docs: Installing and uninstalling web apps <https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing>`_"
+#: ../../content/administration/mobile.rst:54
+msgid "iOS 应用无法更新，未来某个时候将被弃用。"
 msgstr ""
 
-#: ../../content/administration/mobile.rst:55
-msgid "`Microsoft Support: Install, manage, or uninstall apps in Microsoft Edge <https://support.microsoft.com/en-us/topic/install-manage-or-uninstall-apps-in-microsoft-edge-0c156575-a94a-45e4-a54f-3a84846f6113>`_"
-msgstr ""
-
-#: ../../content/administration/mobile.rst:58
-msgid "Store apps"
-msgstr ""
-
-#: ../../content/administration/mobile.rst:60
-msgid "The Odoo mobile apps are available for download on the `Google Play Store <https://play.google.com/store/apps/details?id=com.odoo.mobile>`_ and `Apple App Store <https://apps.apple.com/app/odoo/id1272543640>`_."
-msgstr ""
-
-#: ../../content/administration/mobile.rst:65
-msgid "The iOS app cannot be updated and will be deprecated at some point in the future."
-msgstr ""
-
-#: ../../content/administration/mobile.rst:67
-msgid "While the store apps support multi-accounts, they are not compatible with SS0 authentication."
+#: ../../content/administration/mobile.rst:56
+msgid "尽管商店应用支持多账户，它们不兼容 SSO 认证。"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:3
-msgid "Neutralized database"
+msgid "中性化数据库"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:5
-msgid "A neutralized database is a non-production database on which several parameters are deactivated. This enables one to carry out tests without the risk of launching specific automated processes that could impact production data (e.g., sending emails to customers). Live access is removed and turned into a testing environment."
+msgid "中性化数据库是一个非生产数据库，其中一些参数被禁用。这使得可以进行测试，而无需担心触发可能影响生产数据的特定自动化进程（例如，向客户发送电子邮件）。实时访问已被移除，并转变为测试环境。"
+msgstr ""
+
+#: ../../content/administration/neutralized_database.rst:8
+msgid "**任何创建的测试数据库都是中性化数据库：**"
+msgstr ""
+
+#: ../../content/administration/neutralized_database.rst:10
+msgid "测试备份数据库"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:11
-msgid "**Any testing database created is a neutralized database:**"
+msgid "数据库副本"
 msgstr ""
 
-#: ../../content/administration/neutralized_database.rst:13
-msgid "testing backup databases"
-msgstr ""
-
-#: ../../content/administration/neutralized_database.rst:14
-msgid "duplicate databases"
+#: ../../content/administration/neutralized_database.rst:12
+msgid "对于 Odoo.sh：暂存和开发数据库"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:15
-msgid "for Odoo.sh: staging and development databases"
+msgid "在升级时，数据库也可以中性化，因为在切换到新版本之前进行一些测试是至关重要的。"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:18
-msgid "A database can also be neutralized when upgrading, as it is vital to do some tests before switching to a new version."
+msgid "已停用的功能"
+msgstr ""
+
+#: ../../content/administration/neutralized_database.rst:20
+msgid "以下是已停用功能的一个不完整列表："
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:22
-msgid "Deactivated features"
+msgid "所有计划的操作（例如，订阅的自动开票、群发邮件等）"
+msgstr ""
+
+#: ../../content/administration/neutralized_database.rst:23
+msgid "发件电子邮件"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:24
-msgid "Here is a non-exhaustive list of the deactivated features:"
+msgid "银行同步"
+msgstr ""
+
+#: ../../content/administration/neutralized_database.rst:25
+msgid "支付提供商"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:26
-msgid "all planned actions (e.g., automatic invoicing of subscriptions, mass mailing, etc.)"
+msgid "运输方式"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:27
-msgid "outgoing emails"
+msgid ":abbr:`IAP (应用内购买)` 令牌"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:28
-msgid "bank synchronization"
-msgstr ""
-
-#: ../../content/administration/neutralized_database.rst:29
-msgid "payment providers"
-msgstr ""
-
-#: ../../content/administration/neutralized_database.rst:30
-msgid "delivery methods"
+msgid "网站可见性（防止搜索引擎索引您的网站）"
 msgstr ""
 
 #: ../../content/administration/neutralized_database.rst:31
-msgid ":abbr:`IAP (In-App Purchase)` tokens"
-msgstr ""
-
-#: ../../content/administration/neutralized_database.rst:32
-msgid "website visibility (prevent search engines from indexing your site)"
-msgstr ""
-
-#: ../../content/administration/neutralized_database.rst:35
-msgid "**A red banner at the top of the screen is displayed on the neutralized database so that it can be seen immediately.**"
+msgid "**中性化数据库的顶部会显示一条红色横幅，以便立即识别。**"
 msgstr ""
 
 #: ../../content/administration/odoo_accounts.rst:3
-msgid "Odoo.com accounts"
+msgid "Odoo.com 账户"
 msgstr ""
 
 #: ../../content/administration/odoo_accounts.rst:5
-msgid "This documentation is dedicated to edits made to an Odoo.com account. The following processes describe how to delete an Odoo.com account, and how to change the password on an Odoo.com account."
+msgid "本文件专门说明对 Odoo.com 账户进行的编辑操作。以下过程描述了如何删除 Odoo.com 账户以及如何更改 Odoo.com 账户的密码。"
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:9
-msgid "Delete Odoo.com account"
+#: ../../content/administration/odoo_accounts.rst:8
+msgid "删除 Odoo.com 账户"
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:11
-msgid "To delete an Odoo.com account, start by clicking the profile icon in the upper-right corner (represented by the username and icon) to reveal a drop-down menu. From the drop-down menu, select :guilabel:`My Odoo.com account`, which reveals the user portal."
+#: ../../content/administration/odoo_accounts.rst:10
+msgid "要删除 Odoo.com 账户，首先点击右上角的个人资料图标（由用户名和图标表示）以显示下拉菜单。在下拉菜单中，选择 :guilabel:`我的 Odoo.com 账户`，以进入用户门户。"
+msgstr ""
+
+#: ../../content/administration/odoo_accounts.rst:12
+msgid "从用户门户中，可以通过导航到 :menuselection:`我的账户 --> 编辑安全设置 --> 删除账户` 来访问删除选项。也可以通过访问 `https://www.odoo.com/my/home <https://www.odoo.com/my/home>`_ 进行访问。"
 msgstr ""
 
 #: ../../content/administration/odoo_accounts.rst:15
-msgid "From the user portal, the delete option can be accessed by going to :menuselection:`My Account --> Edit Security Settings --> Delete Account`. It can also be accessed by going to `https://www.odoo.com/my/home <https://www.odoo.com/my/home>`_."
+msgid "删除 Odoo 账户是不可逆的。执行此操作时请小心，因为 Odoo.com 账户一旦删除，将**无法**恢复。"
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:20
-msgid "Deleting an Odoo account is irreversible. Be careful performing this action, as the Odoo.com account is **not** retrievable once deleted."
+#: ../../content/administration/odoo_accounts.rst:17
+msgid "点击 :guilabel:`删除账户` 按钮后，会出现一个弹出窗口，要求确认删除账户。"
+msgstr ""
+
+#: ../../content/administration/odoo_accounts.rst:None
+msgid "点击删除账户按钮后，将显示一个确认更改的窗口。"
 msgstr ""
 
 #: ../../content/administration/odoo_accounts.rst:23
-msgid "Upon clicking the :guilabel:`Delete Account` button, a pop-up window appears, requesting confirmation for the account deletion."
+msgid "要确认删除，请输入要删除账户的 :guilabel:`密码` 和 :guilabel:`登录名`。然后点击 :guilabel:`删除账户` 按钮以确认删除。"
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:-1
-msgid "Clicking on the Delete Account button will populate a window verifying the change."
+#: ../../content/administration/odoo_accounts.rst:28
+msgid "更改 Odoo.com 账户密码"
 msgstr ""
 
 #: ../../content/administration/odoo_accounts.rst:30
-msgid "To confirm the deletion, enter the :guilabel:`Password` and the :guilabel:`Login` for the account being deleted. Then, click the :guilabel:`Delete Account` button to confirm the deletion."
+msgid "要更改 Odoo.com 账户密码，请首先从 Odoo.com 登录页面登录到 Odoo.com 用户账户。登录后，进入屏幕右上角，点击个人资料图标旁边的 :guilabel:`▼（向下箭头）` 图标。然后选择 :guilabel:`我的账户`，会显示门户仪表板。"
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:36
-msgid "Odoo.com account password change"
+#: ../../content/administration/odoo_accounts.rst:32
+msgid "要更改 Odoo.com 密码，请点击 :guilabel:`编辑安全设置` 链接，该链接位于 :menuselection:`账户安全` 部分下方。接下来，通过输入当前的 :guilabel:`密码`、:guilabel:`新密码` 并确认新密码来进行必要的更改。最后，点击 :guilabel:`更改密码` 完成密码更改。"
+msgstr ""
+
+#: ../../content/administration/odoo_accounts.rst:35
+msgid "如果客户想更改登录名，请`联系 Odoo 支持 <https://www.odoo.com/help>`_。"
 msgstr ""
 
 #: ../../content/administration/odoo_accounts.rst:38
-msgid "To change an Odoo.com account password, first login into the Odoo.com user account from the Odoo.com login page. After logging-in, go to the upper-right corner of the screen, and click the :guilabel:`▼ (down arrow)` icon next to the profile icon. Then, select :guilabel:`My Account`, and a portal dashboard appears."
+msgid "即使使用相同的电子邮件地址，Odoo.com 用户和门户用户的密码仍然是分开的。"
+msgstr ""
+
+#: ../../content/administration/odoo_accounts.rst:41
+msgid "添加双因素认证"
 msgstr ""
 
 #: ../../content/administration/odoo_accounts.rst:43
-msgid "To change the Odoo.com password, click on the :guilabel:`Edit Security Settings` link, below the :menuselection:`Account Security` section. Next, make the necessary changes by typing in the current :guilabel:`Password`, :guilabel:`New Password`, and verify the new password. Lastly, click on :guilabel:`Change Password` to complete the password change."
+msgid "要添加双因素认证，请从 Odoo.com 登录页面登录到 Odoo.com 用户账户。登录后，进入屏幕右上角，点击个人资料图标旁边的 :guilabel:`▼（向下箭头）` 图标。然后选择 :guilabel:`我的账户`，会显示门户仪表板。"
+msgstr ""
+
+#: ../../content/administration/odoo_accounts.rst:45
+msgid "如果用户希望为 Odoo.com 访问启用双因素认证 (2FA)，请点击 :menuselection:`账户安全` 部分下方的 :guilabel:`编辑安全设置` 链接。"
+msgstr ""
+
+#: ../../content/administration/odoo_accounts.rst:47
+msgid "点击 :guilabel:`启用双因素认证` 以启用 :abbr:`2FA (双因素认证)`。然后，在 :guilabel:`密码` 字段中确认当前密码。接下来，点击 :guilabel:`确认密码`。随后，在 :abbr:`2FA (双因素认证)` 应用（如 Google Authenticator、Authy 等）中，通过扫描 :guilabel:`二维码` 或输入 :guilabel:`验证码` 来激活 :abbr:`2FA (双因素认证)`。"
 msgstr ""
 
 #: ../../content/administration/odoo_accounts.rst:49
-msgid "If a customer would like to change the login, contact Odoo support `here <https://www.odoo.com/help>`_."
+msgid "最后，点击 :guilabel:`启用双因素认证` 以完成设置。"
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:53
-msgid "Passwords for Odoo.com users and portal users remain separate, even if the same email address is used."
+#: ../../content/administration/odoo_accounts.rst:52
+msgid "在 :guilabel:`我的账户` 下，Odoo.com 用户还可以访问以下内容："
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:57
-msgid "Add two-factor authentication"
+#: ../../content/administration/odoo_accounts.rst:54
+msgid ":guilabel:`我的合作伙伴仪表板`"
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:59
-msgid "To add two-factor authentication, login into the Odoo.com user account from the Odoo.com login page. After logging-in, go to the upper-right corner of the screen, and click the :guilabel:`▼ (down arrow)` icon next to the :guilabel:`profile icon`. Then, select :guilabel:`My Account`, and a portal dashboard appears."
+#: ../../content/administration/odoo_accounts.rst:55
+msgid ":guilabel:`我的应用内服务`"
 msgstr ""
 
-#: ../../content/administration/odoo_accounts.rst:64
-msgid "If the user would like to turn on two-factor authentication (2FA) for Odoo.com access, click on the :guilabel:`Edit Security Settings` link below the :menuselection:`Account Security` section."
-msgstr ""
-
-#: ../../content/administration/odoo_accounts.rst:67
-msgid "Click on :guilabel:`Enable two-factor authentication` to turn on :abbr:`2FA (two-factor authentication)`. Then, confirm the current password in the :guilabel:`Password` field. Next, click on :guilabel:`Confirm Password`. Following that, activate :abbr:`2FA (two-factor authentication)` in a :abbr:`2FA (two-factor authentication)` app (Google Authenticator, Authy, etc.), by scanning the :guilabel:`QR code` or entering a :guilabel:`Verification Code`."
-msgstr ""
-
-#: ../../content/administration/odoo_accounts.rst:73
-msgid "Finally, click on :guilabel:`Enable two-factor authentication` to complete the setup."
-msgstr ""
-
-#: ../../content/administration/odoo_accounts.rst:76
-msgid "Under :guilabel:`My Account` Odoo.com users can also access the following:"
-msgstr ""
-
-#: ../../content/administration/odoo_accounts.rst:78
-msgid ":guilabel:`My Partner dashboard`"
-msgstr ""
-
-#: ../../content/administration/odoo_accounts.rst:79
-msgid ":guilabel:`My In-App Services`"
-msgstr ""
-
-#: ../../content/administration/odoo_accounts.rst:80
-msgid ":guilabel:`My Apps Dashboard`"
+#: ../../content/administration/odoo_accounts.rst:56
+msgid ":guilabel:`我的应用仪表板`"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:3
-#: ../../content/administration/supported_versions.rst:29
-#: ../../content/administration/upgrade.rst:14
-#: ../../content/administration/upgrade.rst:109
-#: ../../content/administration/upgrade.rst:337
-msgid "Odoo Online"
+#: ../../content/administration/supported_versions.rst:25
+#: ../../content/administration/upgrade.rst:11
+#: ../../content/administration/upgrade.rst:75
+#: ../../content/administration/upgrade.rst:238
+msgid "Odoo 在线"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:5
-msgid "`Odoo Online <https://www.odoo.com/trial>`_ provides private databases which are fully managed and hosted by Odoo. It can be used for long-term production or to test Odoo thoroughly, including customizations that don't require code."
+msgid "`Odoo 在线 <https://www.odoo.com/trial>`_ 提供由 Odoo 完全管理和托管的私有数据库。它可以用于长期生产或彻底测试 Odoo，包括不需要代码的自定义。"
+msgstr ""
+
+#: ../../content/administration/odoo_online.rst:8
+msgid "Odoo 在线与自定义模块或 Odoo 应用商店不兼容。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:10
-msgid "Odoo Online is incompatible with custom modules or the Odoo App Store."
+msgid "Odoo 在线数据库可以通过任何网络浏览器访问，不需要本地安装。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:12
-msgid "Odoo Online databases are accessed using any web browser and do not require a local installation."
+msgid "要快速试用 Odoo，可使用共享的 `演示 <https://demo.odoo.com>`_ 实例。无需注册，但每个实例仅存在几个小时。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:14
-msgid "To quickly try out Odoo, shared `demo <https://demo.odoo.com>`_ instances are available. No registration is required, but each instance only lives for a few hours."
+#: ../../content/administration/odoo_online.rst:17
+msgid "要管理数据库，请访问 `数据库管理器 <https://www.odoo.com/my/databases>`_ 并以数据库管理员身份登录。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:20
-msgid "To manage a database, go to the `database manager <https://www.odoo.com/my/databases>`_ and sign in as the database administrator."
+#: ../../content/administration/odoo_online.rst:19
+msgid "点击数据库名称可以访问所有主要的数据库管理选项，升级选项除外，该选项可以通过点击数据库名称旁边的 **箭头圈** 图标访问。该图标仅在有可用升级时显示。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:23
-msgid "All the main database management options are available by clicking the database name, except the upgrade option, which can be accessed by clicking the **arrow in a circle** icon next to the database name. It is only displayed if an upgrade is available."
+#: ../../content/administration/odoo_online.rst:None
+msgid "访问数据库管理选项"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:-1
-msgid "Accessing the database management options"
-msgstr ""
-
-#: ../../content/administration/odoo_online.rst:30
+#: ../../content/administration/odoo_online.rst:24
 msgid ":ref:`odoo_online/upgrade`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:31
+#: ../../content/administration/odoo_online.rst:25
 msgid ":ref:`odoo_online/duplicate`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:32
+#: ../../content/administration/odoo_online.rst:26
 msgid ":ref:`odoo_online/rename`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:33
+#: ../../content/administration/odoo_online.rst:27
 msgid ":ref:`odoo_online/download`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:34
+#: ../../content/administration/odoo_online.rst:28
 msgid ":ref:`odoo_online/domains`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:35
+#: ../../content/administration/odoo_online.rst:29
 msgid ":ref:`odoo_online/tags`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:36
+#: ../../content/administration/odoo_online.rst:30
 msgid ":ref:`odoo_online/delete`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:37
+#: ../../content/administration/odoo_online.rst:31
 msgid ":ref:`odoo_online/contact-support`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:38
+#: ../../content/administration/odoo_online.rst:32
 msgid ":ref:`odoo_online/users`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:43
-#: ../../content/administration/odoo_sh/getting_started/branches.rst:293
-#: ../../content/administration/odoo_sh/getting_started/settings.rst:123
-#: ../../content/administration/odoo_sh/getting_started/settings.rst:168
+#: ../../content/administration/odoo_online.rst:37
 #: ../../content/administration/upgrade.rst:3
-msgid "Upgrade"
+msgid "升级"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:45
-msgid "Trigger a database upgrade."
+#: ../../content/administration/odoo_online.rst:39
+msgid "触发数据库升级。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:48
-msgid "For more information about the upgrade process, check out the :ref:`Odoo Online upgrade documentation <upgrade-request-test>`."
+#: ../../content/administration/odoo_online.rst:42
+msgid "欲了解更多关于升级流程的信息，请查阅 :ref:`Odoo 在线升级文档 <upgrade-request-test>`。"
+msgstr ""
+
+#: ../../content/administration/odoo_online.rst:47
+msgid "复制"
+msgstr ""
+
+#: ../../content/administration/odoo_online.rst:49
+msgid "创建数据库的精确副本，可用于测试而不影响日常操作。"
+msgstr ""
+
+#: ../../content/administration/odoo_online.rst:52
+msgid "勾选 :guilabel:`用于测试目的`，默认情况下会在复制的数据库上禁用所有外部操作（邮件、支付、发货订单等）。"
+msgstr ""
+
+#: ../../content/administration/odoo_online.rst:53
+msgid "复制的数据库将在 15 天后自动过期。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:54
-msgid "Duplicate"
+msgid "每个数据库最多可以创建五个副本。在特殊情况下，请联系 `支持 <https://www.odoo.com/help>`_ 以提高限制。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:56
-msgid "Create an exact copy of the database, which can be used to perform testing without compromising daily operations."
+#: ../../content/administration/odoo_online.rst:59
+msgid "重命名"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:60
-msgid "By checking :guilabel:`For testing purposes`, all external actions (emails, payments, delivery orders, etc.) are disabled by default on the duplicated database."
+#: ../../content/administration/odoo_online.rst:61
+msgid "重命名数据库及其 URL。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:62
-msgid "Duplicated databases expire automatically after 15 days."
+#: ../../content/administration/odoo_online.rst:66
+msgid "下载"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:63
-msgid "A maximum of five duplicates can be made per database. Under extraordinary circumstances, contact `support <https://www.odoo.com/help>`_ to raise the limit."
-msgstr ""
-
-#: ../../content/administration/odoo_online.rst:69
-msgid "Rename"
+#: ../../content/administration/odoo_online.rst:68
+msgid "下载包含数据库备份的 ZIP 文件。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:71
-msgid "Rename the database and its URL."
+msgid "根据 `Odoo 云托管 SLA <https://www.odoo.com/cloud-sla>`_，数据库会每日备份。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:76
-msgid "Download"
+msgid "域名"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:78
-msgid "Download a ZIP file containing a backup of the database."
+msgid "使用自定义 :doc:`域名 </applications/websites/website/configuration/domain_names>` 通过另一个 URL 访问数据库。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:81
-msgid "Databases are backed up daily as per the `Odoo Cloud Hosting SLA <https://www.odoo.com/cloud-sla>`_."
+msgid "您可以 :ref:`免费注册域名 <domain-name/register>`。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:87
-msgid "Domain names"
+#: ../../content/administration/odoo_online.rst:86
+msgid "标签"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:89
-msgid "Use a custom :doc:`domain name </applications/websites/website/configuration/domain_names>` to access the database via another URL."
+#: ../../content/administration/odoo_online.rst:88
+msgid "添加标签以便轻松识别和排序数据库。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:93
-msgid "You can :ref:`register a domain name for free <domain-name/register>`."
+#: ../../content/administration/odoo_online.rst:91
+msgid "您可以在搜索栏中搜索标签。"
+msgstr ""
+
+#: ../../content/administration/odoo_online.rst:96
+msgid "删除"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:98
-msgid "Tags"
+msgid "立即删除数据库。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:100
-msgid "Add tags to easily identify and sort your databases."
+#: ../../content/administration/odoo_online.rst:101
+msgid "删除数据库意味着所有数据将被永久删除。删除操作是即时的，适用于所有用户。建议在删除数据库之前创建其备份。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:103
-msgid "You can search for tags in the search bar."
+msgid "仔细阅读警告信息，只有在完全理解删除数据库的后果时才继续操作。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:108
-#: ../../content/administration/odoo_sh/getting_started/branches.rst:550
-msgid "Delete"
+#: ../../content/administration/odoo_online.rst:None
+msgid "删除数据库前显示的警告信息"
+msgstr ""
+
+#: ../../content/administration/odoo_online.rst:109
+msgid "只有管理员可以删除数据库。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:110
-msgid "Delete a database instantly."
+msgid "数据库名称会立即对任何人开放。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:113
-msgid "Deleting a database means that all data is permanently lost. The deletion is instant and applies to all users. It is recommended to create a backup of the database before deleting it."
+#: ../../content/administration/odoo_online.rst:111
+msgid "如果数据库已过期或与订阅相关联，无法删除。在这种情况下，请联系 `Odoo 支持 <https://www.odoo.com/help>`_。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:116
-msgid "Carefully read the warning message and only proceed if the implications of deleting a database are fully understood."
+msgid "联系我们"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:-1
-msgid "The warning message displayed before deleting a database"
+#: ../../content/administration/odoo_online.rst:118
+msgid "访问带有数据库详细信息的 `Odoo.com 支持页面 <https://www.odoo.com/help>`_。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:123
-msgid "Only an administrator can delete a database."
-msgstr ""
-
-#: ../../content/administration/odoo_online.rst:124
-msgid "The database name is immediately made available to anyone."
+msgid "邀请 / 移除用户"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:125
-msgid "Deleting a database if it has expired or is linked to a subscription is impossible. In that case, contact `Odoo Support <https://www.odoo.com/help>`_."
+msgid "要邀请用户，请填写新用户的电子邮件地址并点击 :guilabel:`邀请`。要添加多个用户，请点击 :guilabel:`添加更多用户`。"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:131
-msgid "Contact us"
+#: ../../content/administration/odoo_online.rst:None
+msgid "在数据库上邀请用户"
+msgstr ""
+
+#: ../../content/administration/odoo_online.rst:130
+msgid "要移除用户，请选择他们并点击 :guilabel:`移除`。"
 msgstr ""
 
 #: ../../content/administration/odoo_online.rst:133
-msgid "Access the `Odoo.com support page <https://www.odoo.com/help>`_ with the database's details already pre-filled."
-msgstr ""
-
-#: ../../content/administration/odoo_online.rst:139
-msgid "Invite / remove users"
-msgstr ""
-
-#: ../../content/administration/odoo_online.rst:141
-msgid "To invite users, fill out the new user's email address and click :guilabel:`Invite`. To add multiple users, click :guilabel:`Add more users`."
-msgstr ""
-
-#: ../../content/administration/odoo_online.rst:-1
-msgid "Inviting a user on a database"
-msgstr ""
-
-#: ../../content/administration/odoo_online.rst:147
-msgid "To remove users, select them and click :guilabel:`Remove`."
-msgstr ""
-
-#: ../../content/administration/odoo_online.rst:150
 msgid ":doc:`/applications/general/users`"
 msgstr ""
 
-#: ../../content/administration/odoo_online.rst:151
+#: ../../content/administration/odoo_online.rst:134
 msgid ":doc:`odoo_accounts`"
 msgstr ""
 
 #: ../../content/administration/odoo_sh.rst:5
-#: ../../content/administration/supported_versions.rst:30
-#: ../../content/administration/upgrade.rst:22
-#: ../../content/administration/upgrade.rst:139
-#: ../../content/administration/upgrade.rst:348
+#: ../../content/administration/supported_versions.rst:26
+#: ../../content/administration/upgrade.rst:16
+#: ../../content/administration/upgrade.rst:98
+#: ../../content/administration/upgrade.rst:245
 msgid "Odoo.sh"
 msgstr ""
 
@@ -925,7 +920,7 @@ msgstr ""
 msgid "Finally, *via* the Odoo Shell, you can trigger the piece of code/function/method you want to debug."
 msgstr ""
 
-#: ../../content/administration/odoo_sh/advanced/containers.rst:-1
+#: ../../content/administration/odoo_sh/advanced/containers.rst:None
 msgid "Console screenshot showing ``pdb`` running in an Odoo.sh shell."
 msgstr ""
 
@@ -1458,6 +1453,12 @@ msgstr ""
 msgid "the Odoo.sh dump download button in the :ref:`Builds view <odoosh-gettingstarted-builds>`."
 msgstr ""
 
+#: ../../content/administration/odoo_sh/getting_started/branches.rst:293
+#: ../../content/administration/odoo_sh/getting_started/settings.rst:123
+#: ../../content/administration/odoo_sh/getting_started/settings.rst:168
+msgid "Upgrade"
+msgstr ""
+
 #: ../../content/administration/odoo_sh/getting_started/branches.rst:295
 msgid "Available for production and staging branches for valid projects."
 msgstr ""
@@ -1758,6 +1759,10 @@ msgstr ""
 
 #: ../../content/administration/odoo_sh/getting_started/branches.rst:541
 msgid "Commits all your current changes."
+msgstr ""
+
+#: ../../content/administration/odoo_sh/getting_started/branches.rst:550
+msgid "Delete"
 msgstr ""
 
 #: ../../content/administration/odoo_sh/getting_started/branches.rst:552
@@ -2193,11 +2198,9 @@ msgid "|pic1|  |pic2|"
 msgstr ""
 
 #: ../../content/administration/odoo_sh/getting_started/first_module.rst:40
-#: ../../content/administration/odoo_sh/getting_started/first_module.rst:40
 msgid "pic1"
 msgstr ""
 
-#: ../../content/administration/odoo_sh/getting_started/first_module.rst:43
 #: ../../content/administration/odoo_sh/getting_started/first_module.rst:43
 msgid "pic2"
 msgstr ""
@@ -2884,18 +2887,18 @@ msgstr ""
 #: ../../content/administration/odoo_sh/getting_started/settings.rst:180
 #: ../../content/administration/odoo_sh/getting_started/settings.rst:181
 #: ../../content/administration/odoo_sh/getting_started/settings.rst:186
-#: ../../content/administration/supported_versions.rst:35
-#: ../../content/administration/supported_versions.rst:41
-#: ../../content/administration/supported_versions.rst:47
-#: ../../content/administration/supported_versions.rst:53
-#: ../../content/administration/supported_versions.rst:54
+#: ../../content/administration/supported_versions.rst:31
+#: ../../content/administration/supported_versions.rst:37
+#: ../../content/administration/supported_versions.rst:43
+#: ../../content/administration/supported_versions.rst:49
+#: ../../content/administration/supported_versions.rst:50
+#: ../../content/administration/supported_versions.rst:51
 #: ../../content/administration/supported_versions.rst:55
-#: ../../content/administration/supported_versions.rst:59
-#: ../../content/administration/supported_versions.rst:60
+#: ../../content/administration/supported_versions.rst:56
+#: ../../content/administration/supported_versions.rst:57
 #: ../../content/administration/supported_versions.rst:61
-#: ../../content/administration/supported_versions.rst:65
-#: ../../content/administration/supported_versions.rst:66
-#: ../../content/administration/supported_versions.rst:67
+#: ../../content/administration/supported_versions.rst:62
+#: ../../content/administration/supported_versions.rst:63
 msgid "|green|"
 msgstr ""
 
@@ -3068,152 +3071,150 @@ msgstr ""
 msgid "The documentation will help you go live with your Odoo.sh project in no time."
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:5
-#: ../../content/administration/upgrade.rst:30
-#: ../../content/administration/upgrade.rst:163
-#: ../../content/administration/upgrade.rst:371
-msgid "On-premise"
+#: ../../content/administration/on_premise.rst:3
+#: ../../content/administration/supported_versions.rst:27
+#: ../../content/administration/upgrade.rst:23
+#: ../../content/administration/upgrade.rst:114
+#: ../../content/administration/upgrade.rst:260
+msgid "本地部署"
+msgstr ""
+
+#: ../../content/administration/on_premise.rst:6
+msgid "注册数据库"
 msgstr ""
 
 #: ../../content/administration/on_premise.rst:8
-msgid "Register a database"
+msgid "要注册您的数据库，请在应用程序仪表板中的横幅中输入您的订阅码。如果注册成功，横幅将变为绿色并显示数据库的到期日期。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:10
-msgid "To register your database, enter your subscription code in the banner in the app dashboard. If the registration is successful, the banner will turn green and display the database expiration date."
+#: ../../content/administration/on_premise.rst:11
+msgid "到期日期也会显示在设置页面的底部。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:14
-msgid "The expiration date is also displayed at the bottom of the Settings page."
+#: ../../content/administration/on_premise.rst:16
+msgid "复制数据库"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:19
-msgid "Duplicate a database"
+#: ../../content/administration/on_premise.rst:18
+msgid "通过访问服务器上的数据库管理器 (`<odoo-server>/web/database/manager`) 复制数据库。通常，您需要将生产数据库复制为中性化的测试数据库。可以通过在提示时勾选中性化选项来实现，这会为每个已安装的模块执行所有 :file:`neutralize.sql` 脚本。"
 msgstr ""
 
 #: ../../content/administration/on_premise.rst:21
-msgid "Duplicate a database by accessing the database manager on your server (`<odoo-server>/web/database/manager`). Typically, you want to duplicate your production database into a neutralized testing database. It can be done by checking the neutralize box when prompted, which executes all :file:`neutralize.sql` scripts for every installed module."
+msgid "常见错误消息及解决方案"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:27
-msgid "Common error messages and solutions"
+#: ../../content/administration/on_premise.rst:24
+msgid "注册错误"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:30
-msgid "Registration error"
+#: ../../content/administration/on_premise.rst:26
+msgid "如果出现注册错误，应显示以下消息。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:32
-msgid "In case of a registration error, the following message should be displayed."
+#: ../../content/administration/on_premise.rst:None
+msgid "数据库注册错误消息"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:-1
-msgid "Database registration error message"
+#: ../../content/administration/on_premise.rst:31
+#: ../../content/administration/on_premise.rst:64
+#: ../../content/administration/on_premise.rst:84
+msgid "解决问题的步骤："
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:37
-msgid "To resolve the issue:"
+#: ../../content/administration/on_premise.rst:33
+msgid "通过验证订阅详情是否带有 :guilabel:`进行中` 标签，检查您的 **Odoo 企业版订阅的有效性**，或联系您的客户经理。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:39
-msgid "Check the **validity of your Odoo Enterprise subscription** by verifying if your subscription details have the tag :guilabel:`In Progress` on your `Odoo Account <https://accounts.odoo.com/my/subscription>`_ or contact your Account Manager."
+#: ../../content/administration/on_premise.rst:35
+msgid "确保 **没有其他数据库与该订阅码关联**，因为每个订阅只能链接一个数据库。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:43
-msgid "Ensure that **no other database is linked** to the subscription code, as only one database can be linked per subscription."
+#: ../../content/administration/on_premise.rst:38
+msgid "如果需要测试或开发数据库，可以 :ref:`复制数据库 <on-premise/duplicate>`。"
+msgstr ""
+
+#: ../../content/administration/on_premise.rst:40
+msgid "通过打开您的 `Odoo 合同 <https://accounts.odoo.com/my/subscription>`_，验证 **没有数据库共享相同的 UUID**（全局唯一标识符）。如果两个或多个数据库共享相同的 UUID，其名称将显示。"
+msgstr ""
+
+#: ../../content/administration/on_premise.rst:None
+msgid "数据库 UUID 错误消息"
+msgstr ""
+
+#: ../../content/administration/on_premise.rst:45
+msgid "如果出现这种情况，请手动更改数据库的 UUID 或 `发送支持工单 <https://www.odoo.com/help>`_。"
 msgstr ""
 
 #: ../../content/administration/on_premise.rst:47
-msgid "If a test or a development database is needed, you can :ref:`duplicate a database <on-premise/duplicate>`."
+msgid "由于更新通知必须能够访问 Odoo 的订阅验证服务器，请确保您的 **网络和防火墙设置** 允许 Odoo 服务器向以下地址发出出站连接："
+msgstr ""
+
+#: ../../content/administration/on_premise.rst:49
+msgid "`services.odoo.com` 端口 `443`（或 `80`）"
 msgstr ""
 
 #: ../../content/administration/on_premise.rst:50
-msgid "Verify that **no databases share the same UUID** (Universally Unique Identifier) by opening your `Odoo Contract <https://accounts.odoo.com/my/subscription>`_. If two or more databases share the same UUID, their name will be displayed."
+msgid "对于旧的部署，`services.openerp.com` 端口 `443`（或 `80`）"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:-1
-msgid "Database UUID error message"
+#: ../../content/administration/on_premise.rst:52
+msgid "即使在注册数据库之后，这些端口也必须保持开放，因为更新通知每周运行一次。"
+msgstr ""
+
+#: ../../content/administration/on_premise.rst:55
+msgid "用户过多错误"
 msgstr ""
 
 #: ../../content/administration/on_premise.rst:57
-msgid "If that is the case, manually change the database(s) UUID or `send a support ticket <https://www.odoo.com/help>`_."
+msgid "如果本地数据库中的用户数量超过了您的 Odoo 企业版订阅中预留的用户数量，将显示以下消息。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:60
-msgid "As the update notification must be able to reach Odoo's subscription validation servers, ensure your **network and firewall settings** allow the Odoo server to open outgoing connections towards:"
+#: ../../content/administration/on_premise.rst:None
+msgid "数据库用户过多错误消息"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:64
-msgid "`services.odoo.com` on port `443` (or `80`)"
+#: ../../content/administration/on_premise.rst:62
+msgid "当消息出现时，您有 30 天的时间来采取行动，数据库到期前每天都会更新倒计时。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:65
-msgid "for older deployments, `services.openerp.com` on port `443` (or `80`)"
+#: ../../content/administration/on_premise.rst:66
+msgid "**添加更多用户** 到您的订阅中，点击消息中显示的 :guilabel:`升级您的订阅` 链接，验证增购报价并支付额外用户的费用。"
 msgstr ""
 
 #: ../../content/administration/on_premise.rst:67
-msgid "These ports must be kept open even after registering a database, as the update notification runs once a week."
+msgid ":ref:`停用用户 <users/deactivate>` 并**拒绝**增购报价。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:71
-msgid "Too many users error"
+#: ../../content/administration/on_premise.rst:70
+msgid "如果您使用的是月度订阅计划，数据库将自动更新以反映新增用户。如果您使用的是年度或多年订阅计划，数据库中将出现到期横幅。您可以通过点击横幅生成增购报价以更新订阅，或者 `发送支持工单 <https://www.odoo.com/help>`_ 以解决问题。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:73
-msgid "If you have more users in a local database than provisioned in your Odoo Enterprise subscription, the following message should be displayed."
+#: ../../content/administration/on_premise.rst:72
+msgid "一旦数据库的用户数量正确，过期消息将在几天后自动消失，当下次验证发生时。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:-1
-msgid "Too many users on a database error message"
+#: ../../content/administration/on_premise.rst:75
+msgid "数据库到期错误"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:79
-msgid "When the message appears, you have 30 days to act before the database expires. The countdown is updated every day."
+#: ../../content/administration/on_premise.rst:77
+msgid "如果您的数据库在续订订阅之前到期，将显示以下消息。"
+msgstr ""
+
+#: ../../content/administration/on_premise.rst:None
+msgid "数据库到期错误消息"
 msgstr ""
 
 #: ../../content/administration/on_premise.rst:82
-#: ../../content/administration/on_premise.rst:108
-msgid "To resolve the issue, either:"
-msgstr ""
-
-#: ../../content/administration/on_premise.rst:84
-msgid "**Add more users** to your subscription by clicking the :guilabel:`Upgrade your subscription` link displayed in the message to validate the upsell quotation and pay for the extra users."
+msgid "如果您未能在 30 天倒计时结束前采取行动，将会出现此消息。"
 msgstr ""
 
 #: ../../content/administration/on_premise.rst:86
-msgid ":ref:`Deactivate users <users/deactivate>` and **reject** the upsell quotation."
+msgid "点击消息中显示的 :guilabel:`续订您的订阅` 链接并完成过程。如果您通过银行转账支付，您的订阅将在款项到达时续订，这可能需要几天时间。信用卡支付会立即处理。"
 msgstr ""
 
-#: ../../content/administration/on_premise.rst:89
-msgid "If you are on a monthly subscription plan, the database will automatically update to reflect the added user(s). If you are on a yearly or multi-year plan, an expiration banner will appear in the database. You can create the upsell quotation by clicking the banner to update the subscription or `send a support ticket <https://www.odoo.com/help>`_ to resolve the issue."
-msgstr ""
-
-#: ../../content/administration/on_premise.rst:94
-msgid "Once your database has the correct number of users, the expiration message disappears automatically after a few days, when the next verification occurs."
-msgstr ""
-
-#: ../../content/administration/on_premise.rst:98
-msgid "Database expired error"
-msgstr ""
-
-#: ../../content/administration/on_premise.rst:100
-msgid "If your database expires before you renew your subscription, the following message should be displayed."
-msgstr ""
-
-#: ../../content/administration/on_premise.rst:-1
-msgid "Database expired error message"
-msgstr ""
-
-#: ../../content/administration/on_premise.rst:106
-msgid "This message appears if you fail to act before the end of the 30-day countdown."
-msgstr ""
-
-#: ../../content/administration/on_premise.rst:110
-msgid "Click the :guilabel:`Renew your subscription` link displayed in the message and complete the process. If you pay by wire transfer, your subscription will be renewed when the payment arrives which can take a few days. Credit card payments are processed immediately."
-msgstr ""
-
-#: ../../content/administration/on_premise.rst:113
-msgid "`Send a support ticket <https://www.odoo.com/help>`_."
+#: ../../content/administration/on_premise.rst:87
+msgid "`发送支持工单 <https://www.odoo.com/help>`_。"
 msgstr ""
 
 #: ../../content/administration/on_premise/community_to_enterprise.rst:6
@@ -4202,6 +4203,10 @@ msgstr ""
 msgid "This documentation only applies to On-premise databases."
 msgstr ""
 
+#: ../../content/administration/on_premise/geo_ip.rst:9
+msgid "Installation"
+msgstr ""
+
 #: ../../content/administration/on_premise/geo_ip.rst:11
 msgid "Download both the GeoLite2 City and Country `databases <https://dev.maxmind.com/geoip/geoip2/geolite2/>`_. You should end up with two files called :file:`GeoLite2-City.mmdb` and :file:`GeoLite2-Country.mmdb`."
 msgstr ""
@@ -4905,733 +4910,729 @@ msgstr ""
 msgid "Please refer to our `Docker image documentation <https://hub.docker.com/_/odoo/>`_ for specific update instructions."
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:7
-msgid "Supported versions"
+#: ../../content/administration/supported_versions.rst:5
+msgid "支持的版本"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:9
-msgid "Odoo provides support and bug fixing **for the 3 last major versions** of Odoo."
+#: ../../content/administration/supported_versions.rst:7
+msgid "Odoo 为 **最后三个主要版本** 提供支持和错误修复。"
+msgstr ""
+
+#: ../../content/administration/supported_versions.rst:10
+msgid "Odoo 每两个月会在 :doc:`Odoo 在线 <odoo_online>` 托管上发布称为 **在线版本** 的中间版本。Odoo 在线用户因此可以享受 Odoo 的最新功能。"
 msgstr ""
 
 #: ../../content/administration/supported_versions.rst:12
-msgid "Odoo releases intermediary versions called **Online versions** on the :doc:`Odoo Online <odoo_online>` hosting every two months. Odoo Online users can then benefit from the latest features of Odoo."
+msgid "Odoo 在线数据库的管理员被建议定期 :doc:`升级 <upgrade>` 他们的数据库。"
+msgstr ""
+
+#: ../../content/administration/supported_versions.rst:13
+msgid "在线版本*不*为 Odoo.sh 和本地部署提供。"
+msgstr ""
+
+#: ../../content/administration/supported_versions.rst:14
+msgid "在线版本在下方的列表中标为 *SaaS*。"
 msgstr ""
 
 #: ../../content/administration/supported_versions.rst:16
-msgid "Admins of Odoo Online databases are invited to :doc:`upgrade <upgrade>` them regularly."
-msgstr ""
-
-#: ../../content/administration/supported_versions.rst:17
-msgid "Online versions are *not* released for Odoo.sh and On-Premise installations."
+msgid "以下矩阵显示了每个版本的支持状态。"
 msgstr ""
 
 #: ../../content/administration/supported_versions.rst:18
-msgid "Online versions are listed below as *SaaS*."
+msgid "**主要版本以粗体显示。**"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:20
-msgid "This matrix shows the support status of every version."
+#: ../../content/administration/supported_versions.rst:28
+msgid "发布日期"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:22
-msgid "**Major releases are in bold type.**"
+#: ../../content/administration/supported_versions.rst:29
+msgid "支持结束日期"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:31
-msgid "On-Premise"
-msgstr ""
-
-#: ../../content/administration/supported_versions.rst:32
-msgid "Release date"
-msgstr ""
-
-#: ../../content/administration/supported_versions.rst:33
-msgid "End of support"
-msgstr ""
-
-#: ../../content/administration/supported_versions.rst:34
+#: ../../content/administration/supported_versions.rst:30
 msgid "Odoo saas~17.4"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:36
-#: ../../content/administration/supported_versions.rst:37
-#: ../../content/administration/supported_versions.rst:42
-#: ../../content/administration/supported_versions.rst:43
-#: ../../content/administration/supported_versions.rst:48
-#: ../../content/administration/supported_versions.rst:49
-msgid "N/A"
-msgstr ""
-
+#: ../../content/administration/supported_versions.rst:32
+#: ../../content/administration/supported_versions.rst:33
 #: ../../content/administration/supported_versions.rst:38
-msgid "July 2024"
+#: ../../content/administration/supported_versions.rst:39
+#: ../../content/administration/supported_versions.rst:44
+#: ../../content/administration/supported_versions.rst:45
+msgid "不适用"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:40
+#: ../../content/administration/supported_versions.rst:34
+msgid "2024 年 7 月"
+msgstr ""
+
+#: ../../content/administration/supported_versions.rst:36
 msgid "Odoo saas~17.2"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:44
-msgid "April 2024"
+#: ../../content/administration/supported_versions.rst:40
+msgid "2024 年 4 月"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:46
+#: ../../content/administration/supported_versions.rst:42
 msgid "Odoo saas~17.1"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:50
-msgid "January 2024"
+#: ../../content/administration/supported_versions.rst:46
+msgid "2024 年 1 月"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:52
+#: ../../content/administration/supported_versions.rst:48
 msgid "**Odoo 17.0**"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:56
-#: ../../content/administration/supported_versions.rst:75
-msgid "November 2023"
+#: ../../content/administration/supported_versions.rst:52
+#: ../../content/administration/supported_versions.rst:71
+msgid "2023 年 11 月"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:57
-msgid "October 2026 (planned)"
+#: ../../content/administration/supported_versions.rst:53
+msgid "2026 年 10 月（计划）"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:58
+#: ../../content/administration/supported_versions.rst:54
 msgid "**Odoo 16.0**"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:62
-#: ../../content/administration/supported_versions.rst:81
-msgid "October 2022"
+#: ../../content/administration/supported_versions.rst:58
+#: ../../content/administration/supported_versions.rst:77
+msgid "2022 年 10 月"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:63
-msgid "November 2025 (planned)"
+#: ../../content/administration/supported_versions.rst:59
+msgid "2025 年 11 月（计划）"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:64
+#: ../../content/administration/supported_versions.rst:60
 msgid "**Odoo 15.0**"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:68
-msgid "October 2021"
+#: ../../content/administration/supported_versions.rst:64
+msgid "2021 年 10 月"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:69
-msgid "November 2024 (planned)"
+#: ../../content/administration/supported_versions.rst:65
+msgid "2024 年 11 月（计划）"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:70
+#: ../../content/administration/supported_versions.rst:66
 msgid "**Odoo 14.0**"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:71
-#: ../../content/administration/supported_versions.rst:72
+#: ../../content/administration/supported_versions.rst:67
+#: ../../content/administration/supported_versions.rst:68
+#: ../../content/administration/supported_versions.rst:69
 #: ../../content/administration/supported_versions.rst:73
-#: ../../content/administration/supported_versions.rst:77
-#: ../../content/administration/supported_versions.rst:78
+#: ../../content/administration/supported_versions.rst:74
+#: ../../content/administration/supported_versions.rst:75
 #: ../../content/administration/supported_versions.rst:79
-#: ../../content/administration/supported_versions.rst:83
-#: ../../content/administration/supported_versions.rst:84
-#: ../../content/administration/supported_versions.rst:85
+#: ../../content/administration/supported_versions.rst:80
+#: ../../content/administration/supported_versions.rst:81
 msgid "|red|"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:74
-msgid "October 2020"
+#: ../../content/administration/supported_versions.rst:70
+msgid "2020 年 10 月"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:76
+#: ../../content/administration/supported_versions.rst:72
 msgid "**Odoo 13.0**"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:80
-msgid "October 2019"
+#: ../../content/administration/supported_versions.rst:76
+msgid "2019 年 10 月"
+msgstr ""
+
+#: ../../content/administration/supported_versions.rst:78
+msgid "旧版本"
 msgstr ""
 
 #: ../../content/administration/supported_versions.rst:82
-msgid "Older versions"
+msgid "2019 年之前"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:86
-msgid "Before 2019"
+#: ../../content/administration/supported_versions.rst:83
+msgid "2022 年之前"
+msgstr ""
+
+#: ../../content/administration/supported_versions.rst:85
+msgid "图例"
 msgstr ""
 
 #: ../../content/administration/supported_versions.rst:87
-msgid "Before 2022"
+msgid "|green| 支持的版本"
 msgstr ""
 
 #: ../../content/administration/supported_versions.rst:89
-msgid "Legend"
+msgid "|red| 支持结束"
 msgstr ""
 
 #: ../../content/administration/supported_versions.rst:91
-msgid "|green| Supported version"
+msgid "不适用 从未为该平台发布"
 msgstr ""
 
-#: ../../content/administration/supported_versions.rst:93
-msgid "|red| End-of-support"
-msgstr ""
-
-#: ../../content/administration/supported_versions.rst:95
-msgid "N/A Never released for this platform"
-msgstr ""
-
-#: ../../content/administration/supported_versions.rst:98
-msgid "Even though we don't support older versions, you can always `upgrade from any version <https://upgrade.odoo.com/>`_."
+#: ../../content/administration/supported_versions.rst:94
+msgid "即使我们不再支持旧版本，您仍然可以 `从任何版本升级 <https://upgrade.odoo.com/>`_。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:5
-msgid "An upgrade involves moving a database from an older version to a newer supported version (e.g., from Odoo 15.0 to Odoo 17.0). Regular upgrades are crucial as each version offers new features, bug fixes, and security patches. Using a :doc:`supported version <supported_versions>` is strongly recommended. Each major version is supported for three years."
+msgid "升级涉及将数据库从旧版本迁移到较新的受支持版本（例如从 Odoo 15.0 升级到 Odoo 17.0）。定期升级至关重要，因为每个版本都会提供新功能、错误修复和安全补丁。强烈建议使用 :doc:`支持的版本 <supported_versions>`。每个主要版本的支持期为三年。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:10
-msgid "Depending on the hosting type and Odoo version used, a database upgrade can be **mandatory**."
+#: ../../content/administration/upgrade.rst:7
+msgid "根据托管类型和使用的 Odoo 版本，数据库升级可能是**强制性**的。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:16
-msgid "If a database is on a **major version** (e.g., 15.0, 16.0, 17.0), an upgrade is mandatory every two years."
+#: ../../content/administration/upgrade.rst:13
+msgid "如果数据库是**主要版本**（例如 15.0、16.0、17.0），每两年必须升级一次。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:14
+msgid "如果数据库是**次要版本**（例如 17.1、17.2、17.4），在下一个版本发布后的几周内必须升级。次要版本通常每三个月发布一次。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:18
-msgid "If a database is on a **minor version** (e.g., 17.1, 17.2, 17.4), an upgrade is mandatory a few weeks after the next version is released. Minor versions are usually released every three months."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:24
-msgid "After the initial three years of support, you will have another two years to complete the upgrade. You will be notified when an upgrade is required."
+msgid "在最初的三年支持期结束后，您将有两年的时间来完成升级。系统会在需要升级时通知您。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:0
-msgid "The \"unsupported version\" popup on Odoo.sh."
+msgid "Odoo.sh 上显示的“不支持版本”弹窗。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:32
-msgid "You can stay on the same version indefinitely, even if it is not recommended. Note that the smaller the version gap, the easier the upgrade should be."
+#: ../../content/administration/upgrade.rst:25
+msgid "您可以无限期地停留在同一版本，即使这并不被推荐。请注意，版本间的差距越小，升级的难度就越小。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:37
-msgid "You will receive a notification in your database a few weeks before a mandatory upgrade will be automatically carried out. You are in control of the process as long as the deadline is not reached."
+#: ../../content/administration/upgrade.rst:29
+msgid "在强制升级之前的几周，您将收到数据库中的通知。只要截止日期未到，您可以控制升级流程。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:0
-msgid "The upgrade message prompt on the top right of the database"
+msgid "数据库右上角的升级提示信息"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:34
+msgid "实际上，Odoo 的升级团队会对每个需要升级的数据库进行一次静默测试升级。如果测试成功且持续时间少于 20 分钟，您可以直接从数据库中触发升级。如果测试失败，您可以使用 `数据库管理器 <https://www.odoo.com/my/databases>`_ 进行测试升级。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:36
+msgid "当您被邀请升级时，强烈建议您首先 :ref:`请求升级的测试数据库 <upgrade-request-test>` 并花时间 :ref:`测试 <upgrade-testing>` 它。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:38
+msgid "如果在规定的截止日期之前没有采取任何行动，将自动触发升级到下一个版本。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:40
+msgid "升级不包括："
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:42
+msgid "降级到之前的 Odoo 版本"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:43
+msgid ":doc:`切换版本 <on_premise/community_to_enterprise>`（例如从社区版到企业版）"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:44
-msgid "Concretely, Odoo’s Upgrade Team performs a silent test upgrade of every database that should be upgraded. If the test is successful and lasts less than 20 minutes, you can directly trigger the upgrade from the database. If the test fails, you can test an upgrade using the `database manager <https://www.odoo.com/my/databases>`_."
+msgid ":ref:`更改托管类型 <hosting/change-solution>`（例如从本地部署到 Odoo 在线）"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:49
-msgid "When you are invited to upgrade, it is strongly recommended to :ref:`request an upgraded test database <upgrade-request-test>` first and spend time :ref:`testing <upgrade-testing>` it."
+#: ../../content/administration/upgrade.rst:45
+msgid "从其他 ERP 系统迁移到 Odoo"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:52
-msgid "An automatic upgrade to the next version will be triggered if no action is taken before the specified due date."
+#: ../../content/administration/upgrade.rst:48
+msgid "如果您的数据库包含自定义模块，必须在 Odoo 目标版本中有可用的自定义模块版本后才能进行升级。对于维护自己自定义模块的客户，我们建议在 :ref:`请求升级的测试数据库 <upgrade-request-test>` 的同时 :doc:`升级自定义模块的源代码 </developer/howtos/upgrade_custom_db>` 以并行处理。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:53
+msgid "升级简要流程"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:55
-msgid "An upgrade does not cover:"
+msgid "请求升级的测试数据库（参见 :ref:`获取升级的测试数据库 <upgrade-request-test>`）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:56
+msgid "如果适用，将自定义模块的源代码升级以兼容 Odoo 新版本（参见 :doc:`/developer/howtos/upgrade_custom_db`）。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:57
-msgid "Downgrading to a previous version of Odoo"
+msgid "彻底测试升级后的数据库（参见 :ref:`测试数据库的新版本 <upgrade-testing>`）。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:58
-msgid ":doc:`Switching editions <on_premise/community_to_enterprise>` (e.g., from Community to Enterprise)"
+msgid "在测试期间遇到的任何问题，您可以通过访问 `支持页面并选择“与未来升级相关的问题（我正在测试升级）” <https://www.odoo.com/help?stage=migration>`_ 向 Odoo 报告。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:59
+msgid "一旦所有问题都解决并且您确信升级后的数据库可以无问题地用作您的主要数据库，请计划升级您的生产数据库。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:60
-msgid ":ref:`Changing hosting type <hosting/change-solution>` (e.g., from on-premise to Odoo Online)"
+msgid "请求升级生产数据库，在升级过程中数据库将不可用（参见 :ref:`升级生产数据库 <upgrade-production>`）。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:61
-msgid "Migrating from another ERP to Odoo"
+msgid "在升级过程中遇到的任何问题，您可以通过访问 `支持页面并选择“与升级相关的问题（生产环境）” <https://www.odoo.com/help?stage=post_upgrade>`_ 向 Odoo 报告。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:64
-msgid "If your database contains custom modules, it cannot be upgraded until a version of your custom modules is available for the target version of Odoo. For customers maintaining their own custom modules, we recommend to parallelize the process by :ref:`requesting an upgraded database <upgrade-request-test>` while also :doc:`upgrading the source code of your custom modules </developer/howtos/upgrade_custom_db>`."
+#: ../../content/administration/upgrade.rst:66
+msgid "获取升级的测试数据库"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:73
-msgid "Upgrading in a nutshell"
+#: ../../content/administration/upgrade.rst:68
+msgid "`升级页面 <https://upgrade.odoo.com>`_ 是请求升级数据库的主要平台。不过，根据托管类型，您可以通过命令行（本地部署）、Odoo 在线的 `数据库管理器 <https://www.odoo.com/my/databases>`_ 或您的 `Odoo.sh 项目 <https://www.odoo.sh/project>`_ 进行升级。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:75
-msgid "Request an upgraded test database (see :ref:`obtaining an upgraded test database <upgrade-request-test>`)."
+#: ../../content/administration/upgrade.rst:71
+msgid "升级平台与 Odoo.com 的其他服务遵循相同的 `隐私政策 <https://www.odoo.com/privacy>`_。请访问 `通用数据保护条例页面 <https://www.odoo.com/gdpr>`_ 了解更多 Odoo 如何处理您的数据和隐私。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:77
-msgid "If applicable, upgrade the source code of your custom module to be compatible with the new version of Odoo (see :doc:`/developer/howtos/upgrade_custom_db`)."
+msgid "Odoo 在线数据库可以通过 `数据库管理器 <https://www.odoo.com/my/databases>`_ 手动升级。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:79
-msgid "Thoroughly test the upgraded database (see :ref:`testing the new version of the database <upgrade-testing>`)."
+msgid "数据库管理器显示与用户账户关联的所有数据库。未使用 Odoo 最新版本的数据库名称旁边会显示一个圆圈箭头图标，表示可以升级。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:81
-msgid "Report any issue encountered during the testing to Odoo by going to the `Support page and selecting \"An issue related to my future upgrade (I am testing an upgrade)\" <https://www.odoo.com/help?stage=migration>`_."
+#: ../../content/administration/upgrade.rst:0
+msgid "数据库管理器中显示的升级按钮。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:84
-msgid "Once all issues are resolved and you are confident that the upgraded database can be used as your main database without any issues, plan the upgrade of your production database."
+msgid "点击 **圆圈箭头** 图标以开始升级过程。在弹窗中填写以下信息："
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:86
-msgid "Request the upgrade for the production database, rendering it unavailable for the time it takes to complete the process (see :ref:`upgrading the production database <upgrade-production>`)."
+msgid "您想升级到的 Odoo **版本**，通常是最新版本"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:87
+msgid "将接收升级后数据库链接的 **电子邮件** 地址"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:88
-msgid "Report any issue encountered during the upgrade to Odoo by going to the `Support page and selecting \"An issue related to my upgrade (production)\" <https://www.odoo.com/help?stage=post_upgrade>`_."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:95
-msgid "Obtaining an upgraded test database"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:97
-msgid "The `Upgrade page <https://upgrade.odoo.com>`_ is the main platform for requesting an upgraded database. However, depending on the hosting type, you can upgrade from the command line (on-premise), the Odoo Online `database manager <https://www.odoo.com/my/databases>`_, or your `Odoo.sh project <https://www.odoo.sh/project>`_."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:103
-msgid "The Upgrade platform follows the same `Privacy Policy <https://www.odoo.com/privacy>`_ as the other Odoo.com services. Visit the `General Data Protection Regulation page <https://www.odoo.com/gdpr>`_ to learn more about how Odoo handles your data and privacy."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:111
-msgid "Odoo Online databases can be manually upgraded via the `database manager <https://www.odoo.com/my/databases>`_."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:114
-msgid "The database manager displays all databases associated with the user's account. Databases not on the most recent version of Odoo display an arrow in a circle icon next to their name, indicating that they can be upgraded."
+msgid "**升级目的**，第一次升级请求时默认设置为 :guilabel:`测试`"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:0
-msgid "The database manager with an upgrade button next to the name of a database."
+msgid "“升级数据库”弹窗。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:121
-msgid "Click the **arrow in a circle** icon to start the upgrade process. In the popup, fill in:"
+#: ../../content/administration/upgrade.rst:93
+msgid "在升级完成之前，数据库名称旁边会显示 :guilabel:`升级进行中` 标签。升级成功后，包含升级测试数据库链接的电子邮件会发送到提供的地址。也可以通过在数据库名称前点击下拉箭头从数据库管理器访问数据库。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:0
+msgid "点击菜单箭头显示升级后的测试数据库。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:100
+msgid "Odoo.sh 集成了升级平台，以简化升级流程。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:0
+msgid "Odoo.sh 项目和选项卡视图"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:105
+msgid "最新的生产每日自动备份会发送到升级平台。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:107
+msgid "一旦升级平台完成备份的升级并将其上传到分支，它将进入一个**特殊模式**：每次向该分支推送**提交**时，都会进行**升级备份的还原操作**并**更新所有自定义模块**。这使您能够在升级后的数据库干净副本上测试自定义模块。升级过程的日志文件可以通过访问 :file:`~/logs/upgrade.log` 在您新升级的暂存构建中找到。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:110
+msgid "在安装了自定义模块的数据库中，升级前其源代码必须与 Odoo 目标版本保持一致。如果没有自定义模块，升级过程会在数据库从升级平台传输后立即触发，并且退出升级模式。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:112
+msgid "欲了解更多信息，请查阅 :doc:`/developer/howtos/upgrade_custom_db` 页面。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:116
+msgid "标准升级流程可以通过在数据库所在机器上输入以下命令行来启动："
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:123
-msgid "The **version** of Odoo you want to upgrade to, usually the latest version"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:124
-msgid "The **email** address that should receive the link to the upgraded database"
+msgid "该命令对其运行的环境有以下要求："
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:125
-msgid "The :guilabel:`Purpose` of the upgrade, which is automatically set to :guilabel:`Test` for your first upgrade request"
+msgid "必须由操作系统提供的一些外部命令，通常在任何 Linux 发行版中可以找到（包括 WSL）。如果缺少一个或多个命令，会显示错误。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:0
-msgid "The \"Upgrade your database\" popup."
+#: ../../content/administration/upgrade.rst:126
+msgid "执行该命令的系统用户需要配置为可以访问数据库。请参阅 PostgreSQL 文档中的 `客户端环境 <https://www.postgresql.org/docs/current/libpq-envars.html>`_ 或 `客户端密码文件 <https://www.postgresql.org/docs/current/libpq-pgpass.html>`_ 以满足此要求。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:131
-msgid "The :guilabel:`Upgrade in progress` tag is displayed next to the database name until completion. Once the process succeeds, an email containing a link to the upgraded test database is sent to the address provided. The database can also be accessed from the database manager by clicking the dropdown arrow before the database name."
+#: ../../content/administration/upgrade.rst:127
+msgid "该脚本必须能够同时连接到升级平台的一个或多个服务器，连接使用的端口为 TCP 443 和随机范围内的 TCP 端口（32768 到 60999）。这可能与您的严格防火墙冲突，可能需要在防火墙配置中添加例外。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:0
-msgid "Clicking the menu arrow displays the upgraded test database."
+#: ../../content/administration/upgrade.rst:129
+msgid "可以使用以下命令显示一般帮助和主要命令："
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:135
+msgid "也可以通过 `升级页面 <https://upgrade.odoo.com>`_ 请求升级的测试数据库。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:138
+msgid "在安装了自定义模块的数据库中，升级前其源代码必须与 Odoo 目标版本保持一致。欲了解更多信息，请查阅 :doc:`/developer/howtos/upgrade_custom_db` 页面。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:141
-msgid "Odoo.sh is integrated with the upgrade platform to simplify the upgrade process."
+msgid "出于安全原因，只有提交升级请求的人可以下载它。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:0
-msgid "Odoo.sh project and tabs"
+#: ../../content/administration/upgrade.rst:142
+msgid "出于存储原因，提交给升级服务器的数据库副本不包含文件存储。因此，升级后的数据库不包含生产文件存储。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:143
+msgid "在恢复升级的数据库之前，必须将其文件存储与生产文件存储合并，以便能够在新版本中执行相同条件下的测试。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:144
+msgid "升级后的数据库包含："
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:146
-msgid "The **latest production daily automatic backup** is then sent to the Upgrade platform."
+msgid "一个 `dump.sql` 文件，包含升级后的数据库"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:148
-msgid "Once the upgrade platform is done upgrading the backup and uploading it on the branch, it is put in a **special mode**: each time a **commit is pushed** on the branch, a **restore operation** of the upgraded backup and an **update of all the custom modules** occur. This allows you to test your custom modules on a pristine copy of the upgraded database. The log file of the upgrade process can be found in your newly upgraded staging build by going to :file:`~/logs/upgrade.log`."
+#: ../../content/administration/upgrade.rst:147
+msgid "一个 `filestore` 文件夹，包含从数据库记录中提取到附件的文件（如果有）以及来自 Odoo 目标版本的新标准文件（例如新图片、图标、支付提供商的徽标等）。 这是需要与生产文件存储合并的文件夹，以获得完整的升级文件存储。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:156
-msgid "In databases where custom modules are installed, their source code must be up-to-date with the target version of Odoo before the upgrade can be performed. If there are none, the \"update on commit\" mode is skipped, the upgraded database is built as soon as it is transferred from the upgrade platform, and the upgrade mode is exited."
+#: ../../content/administration/upgrade.rst:151
+msgid "如果您希望多次测试升级，您可以请求多个测试数据库。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:154
+msgid "升级请求完成后，升级报告会附加到成功升级的电子邮件中，且对“管理员/设置”组的用户在 Discuss 应用中可用。该报告提供了新版本引入的重要信息。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:159
+msgid "测试数据库的新版本"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:161
-msgid "Check out the :doc:`/developer/howtos/upgrade_custom_db` page for more information."
+msgid "测试升级后的测试数据库至关重要，以确保升级上线后，您的日常活动不会因视图更改、行为改变或错误消息而受阻。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:165
-msgid "The standard upgrade process can be initiated by entering the following command line on the machine where the database is hosted:"
+#: ../../content/administration/upgrade.rst:164
+msgid "测试数据库是中性化的，某些功能已禁用，以防止它们影响生产数据库："
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:166
+msgid "禁用计划的操作。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:167
+msgid "禁用发件邮件服务器，通过归档现有邮件服务器并添加假邮件服务器实现。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:168
+msgid "支付提供商和配送运营商已重置为测试环境。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:169
+msgid "禁用银行同步。如果您希望测试同步，请联系您的银行同步提供商以获取沙盒凭据。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:171
+msgid "强烈建议尽可能多地测试您的业务流程，以确保它们正常工作，并熟悉新版本。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:173
-msgid "This command has some requirements on the environment it runs in:"
+msgid "基本测试清单"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:175
-msgid "Some external commands that must be provided by the operating system, normally found in any Linux distribution (including WSL). An error will be displayed if one or several of them are missing."
+msgid "测试数据库中停用的视图在生产数据库中是否处于激活状态？"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:176
+msgid "您的常用视图是否仍然显示正确？"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:177
+msgid "您的报告（发票、销售订单等）是否正确生成？"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:178
-msgid "The system user that executes the command needs to be configured with access to the database. Please refer to the PostgreSQL documentation of the `client environment <https://www.postgresql.org/docs/current/libpq-envars.html>`_ or the `client password file <https://www.postgresql.org/docs/current/libpq-pgpass.html>`_ for this requirement."
+msgid "您的网站页面是否正常运行？"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:179
+msgid "您是否能够创建和修改记录？（销售订单、发票、采购、用户、联系人、公司等）"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:180
+msgid "您的邮件模板是否有问题？"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:181
+msgid "保存的翻译是否有问题？"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:182
-msgid "The script needs to be able to reach one or multiple servers of the upgrade platform both on TCP port 443 and to any random TCP port in the range between 32768 and 60999. This can be in conflict with your restrictive firewall and may need an exception added to the firewall configuration."
+msgid "您的搜索过滤器是否仍然存在？"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:183
+msgid "您能否导出您的数据？"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:187
-msgid "The following command can be used to display the general help and the main commands:"
+msgid "检查产品目录中的随机产品，并比较其测试和生产数据以验证所有信息一致（产品类别、销售价格、成本价格、供应商、账户、路线等）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:188
+msgid "购买该产品（采购应用）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:189
+msgid "确认收到该产品（库存应用）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:190
+msgid "检查接收该产品的路线是否与生产数据库中的相同（库存应用）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:191
+msgid "将该产品销售给随机客户（销售应用）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:192
+msgid "打开客户数据库（联系人应用），选择客户（或公司）并检查其数据。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:193
-msgid "An upgraded test database can also be requested via the `Upgrade page <https://upgrade.odoo.com>`_."
+msgid "发货该产品（库存应用）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:194
+msgid "检查发货该产品的路线是否与生产数据库中的相同（库存应用）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:195
+msgid "验证客户发票（发票或会计应用）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:196
+msgid "开具发票并检查其行为是否与生产数据库中的一致。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:197
-msgid "In databases where custom modules are installed, their source code must be up-to-date with the target version of Odoo before the upgrade can be performed. Check out the :doc:`/developer/howtos/upgrade_custom_db` page for more information."
+msgid "检查您的报告结果（会计应用）。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:202
-msgid "For security reasons, only the person who submitted the upgrade request can download it."
+#: ../../content/administration/upgrade.rst:198
+msgid "随机检查您的税务、货币、银行账户和会计年度（会计应用）。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:199
+msgid "在网上商店从产品选择到结账流程进行在线订单，并检查一切是否与生产数据库中的行为一致。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:201
+msgid "此清单**不**是详尽无遗的。根据您对 Odoo 的使用情况，您可以将示例扩展到其他应用程序。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:203
-msgid "For storage reasons, the database's copy is submitted without a filestore to the upgrade server. Therefore, the upgraded database does not contain the production filestore."
+msgid "如果您在测试升级的测试数据库时遇到问题，您可以通过访问 `支持页面并选择“与未来升级相关的问题（我正在测试升级）” <https://www.odoo.com/help?stage=migration>`_ 请求 Odoo 的协助。在任何情况下，测试期间遇到的任何问题都应报告，以便在升级生产数据库之前进行修复。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:205
-msgid "Before restoring the upgraded database, its filestore must be merged with the production filestore to be able to perform tests in the same conditions as it would be in the new version."
+msgid "在测试期间，您可能会遇到与标准视图、功能、字段和模型的显著差异。这些更改无法逐一撤销。但是，如果新版本引入的更改破坏了定制，维护您的自定义模块的人有责任使其与 Odoo 的新版本兼容。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:208
-msgid "The upgraded database contains:"
+msgid "不要忘记测试："
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:210
-msgid "A `dump.sql` file containing the upgraded database"
+msgid "与外部软件的集成（EDI、API 等）"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:211
-msgid "A `filestore` folder containing files extracted from in-database records into attachments (if there are any) and new standard Odoo files from the targeted Odoo version (e.g., new images, icons, payment provider's logos, etc.). This is the folder that should be merged with the production filestore in order to get the full upgraded filestore."
+msgid "不同应用之间的工作流（在线销售与电子商务，从线索转化为销售订单，产品交付等）"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:218
-msgid "You can request multiple test databases if you wish to test an upgrade more than once."
+#: ../../content/administration/upgrade.rst:212
+msgid "数据导出"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:213
+msgid "自动化操作"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:214
+msgid "表单视图中的操作菜单中的服务器操作，以及选择列表视图中的多个记录"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:219
+msgid "升级生产数据库"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:221
-msgid "When an upgrade request is completed, an upgrade report is attached to the successful upgrade email, and it becomes available in the Discuss app for users who are part of the \"Administration / Settings\" group. This report provides important information about the changes introduced by the new version."
+msgid "一旦完成了 :ref:`测试 <upgrade-testing>`，并且您确信升级后的数据库可以无问题地用作您的主要数据库，就可以计划上线日期。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:229
-msgid "Testing the new version of the database"
+#: ../../content/administration/upgrade.rst:223
+msgid "在升级期间，您的生产数据库将不可用。因此，我们建议您在数据库使用最少的时间段进行升级。"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:225
+msgid "由于标准升级脚本和您的数据库会不断发展，我们还建议频繁请求另一个升级的测试数据库，以确保升级过程仍然成功，特别是当升级需要很长时间才能完成时。**在升级生产数据库的前一天完全排练升级过程也是推荐的。**"
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:228
+msgid "未先进行测试就投入生产可能导致："
+msgstr ""
+
+#: ../../content/administration/upgrade.rst:230
+msgid "用户无法适应变化和新功能"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:231
-msgid "It is essential to test the upgraded test database to ensure that you are not stuck in your day-to-day activities by a change in views, behavior, or an error message once the upgrade goes live."
+msgid "业务中断（例如无法验证某个操作）"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:236
-msgid "Test databases are neutralized, and some features are disabled to prevent them from impacting the production database:"
+#: ../../content/administration/upgrade.rst:232
+msgid "客户体验差（例如电子商务网站无法正常工作）"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:239
-msgid "Scheduled actions are disabled."
+#: ../../content/administration/upgrade.rst:234
+msgid "升级生产数据库的过程与升级测试数据库的过程类似，但有几个例外。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:240
-msgid "Outgoing mail servers are disabled by archiving the existing ones and adding a fake one."
+msgid "该过程类似于 :ref:`获取升级的测试数据库 <upgrade-request-test>`，但**升级目的**选项必须设置为 :guilabel:`生产`，而不是 :guilabel:`测试`。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:241
-msgid "Payment providers and delivery carriers are reset to the test environment."
+#: ../../content/administration/upgrade.rst:243
+msgid "一旦请求升级，数据库在升级完成之前将不可用。升级完成后，无法回退到以前的版本。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:242
-msgid "Bank synchronization is disabled. Should you want to test the synchronization, contact your bank synchronization provider to get sandbox credentials."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:245
-msgid "Testing as many of your business flows as possible is strongly recommended to ensure they are working correctly and to get more familiar with the new version."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:248
-msgid "Basic test checklist"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:250
-msgid "Are there views that are deactivated in your test database but active in your production database?"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:252
-msgid "Are your usual views still displayed correctly?"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:253
-msgid "Are your reports (invoice, sales order, etc.) correctly generated?"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:254
-msgid "Are your website pages working correctly?"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:255
-msgid "Are you able to create and modify records? (sales orders, invoices, purchases, users, contacts, companies, etc.)"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:257
-msgid "Are there any issues with your mail templates?"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:258
-msgid "Are there any issues with saved translations?"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:259
-msgid "Are your search filters still present?"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:260
-msgid "Can you export your data?"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:264
-msgid "Checking a random product in your product catalog and comparing its test and production data to verify everything is the same (product category, selling price, cost price, vendor, accounts, routes, etc.)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:267
-msgid "Buying this product (Purchase app)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:268
-msgid "Confirming the reception of this product (Inventory app)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:269
-msgid "Checking if the route to receive this product is the same in your production database (Inventory app)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:271
-msgid "Selling this product (Sales app) to a random customer."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:272
-msgid "Opening your customer database (Contacts app), selecting a customer (or company), and checking its data."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:274
-msgid "Shipping this product (Inventory app)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:275
-msgid "Checking if the route to ship this product is the same as in your production database (Inventory app)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:277
-msgid "Validating a customer invoice (Invoicing or Accounting app)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:278
-msgid "Crediting the invoice (issuing a credit note) and checking if it behaves as in your production database."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:280
-msgid "Checking your reports' results (Accounting app)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:281
-msgid "Randomly checking your taxes, currencies, bank accounts, and fiscal year (Accounting app)."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:282
-msgid "Making an online order (Website apps) from the product selection in your shop until the checkout process and checking if everything behaves as in your production database."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:285
-msgid "This list is **not** exhaustive. Extend the example to your other apps based on your use of Odoo."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:287
-msgid "If you face an issue while testing your upgraded test database, you can request the assistance of Odoo by going to the `Support page and selecting \"An issue related to my future upgrade (I am testing an upgrade)\" <https://www.odoo.com/help?stage=migration>`_. In any case, it is essential to report any problem encountered during the testing to fix it before upgrading your production database."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:293
-msgid "You might encounter significant differences with standard views, features, fields, and models during testing. Those changes cannot be reverted on a case-by-case basis. However, if a change introduced by a new version breaks a customization, it is the responsibility of the maintainer of your custom module to make it compatible with the new version of Odoo."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:299
-msgid "Do not forget to test:"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:301
-msgid "Integrations with external software (EDI, APIs, etc.)"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:302
-msgid "Workflows between different apps (online sales with eCommerce, converting a lead all the way to a sales order, delivery of products, etc.)"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:304
-msgid "Data exports"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:305
-msgid "Automated actions"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:306
-msgid "Server actions in the action menu on form views, as well as by selecting multiple records on list views"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:312
-msgid "Upgrading the production database"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:314
-msgid "Once the :ref:`tests <upgrade-testing>` are completed and you are confident that the upgraded database can be used as your main database without any issues, it is time to plan the go-live day."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:317
-msgid "Your production database will be unavailable during its upgrade. Therefore, we recommend planning the upgrade at a time when the use of the database is minimal."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:320
-msgid "As the standard upgrade scripts and your database are constantly evolving, it is also recommended to frequently request another upgraded test database to ensure that the upgrade process is still successful, especially if it takes a long time to finish. **Fully rehearsing the upgrade process the day before upgrading the production database is also recommended.**"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:326
-msgid "Going into production without first testing may lead to:"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:328
-msgid "Users failing to adjust to the changes and new features"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:329
-msgid "Business interruptions (e.g., no longer having the possibility to validate an action)"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:330
-msgid "Poor customer experience (e.g., an eCommerce website that does not work correctly)"
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:332
-msgid "The process of upgrading a production database is similar to upgrading a test database, but with a few exceptions."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:339
-msgid "The process is similar to :ref:`obtaining an upgraded test database <upgrade-request-test>`, except for the purpose option, which must be set to :guilabel:`Production` instead of :guilabel:`Test`."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:344
-msgid "Once the upgrade is requested, the database will be unavailable until the upgrade is finished. Once the process is completed, it is impossible to revert to the previous version."
-msgstr ""
-
-#: ../../content/administration/upgrade.rst:350
-msgid "The process is similar to :ref:`obtaining an upgraded test database <upgrade-request-test>` on the :guilabel:`Production` branch."
+#: ../../content/administration/upgrade.rst:247
+msgid "该过程类似于在 :guilabel:`生产` 分支上 :ref:`获取升级的测试数据库 <upgrade-request-test>`。"
 msgstr ""
 
 #: ../../content/administration/upgrade.rst:0
-msgid "View from the upgrade tab"
+msgid "升级选项卡视图"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:356
-msgid "The process is **triggered as soon as a new commit is made** on the branch. This allows the upgrade process to be synchronized with the deployment of the custom modules' upgraded source code. If there are no custom modules, the upgrade process is triggered immediately."
+#: ../../content/administration/upgrade.rst:252
+msgid "**在分支上进行新提交后立即触发**升级过程。这允许升级过程与自定义模块升级的源代码部署同步。 如果没有自定义模块，升级过程会立即触发。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:362
-msgid "The database is unavailable throughout the process. If anything goes wrong, the platform automatically reverts the upgrade, as it would be for a regular update. In case of success, a backup of the database before the upgrade is created."
+#: ../../content/administration/upgrade.rst:256
+msgid "在整个过程中数据库不可用。如果出现问题，平台会自动还原升级，就像常规更新一样。如果成功，升级前的数据库备份会被创建。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:366
-msgid "The update of your custom modules must be successful to complete the entire upgrade process. Make sure the status of your staging upgrade is :guilabel:`successful` before trying it in production. More information on how to upgrade your custom modules can be found on :doc:`/developer/howtos/upgrade_custom_db`."
+#: ../../content/administration/upgrade.rst:258
+msgid "自定义模块的更新必须成功，才能完成整个升级过程。请确保暂存升级的状态为 :guilabel:`成功`，然后再尝试在生产中升级。有关如何升级自定义模块的更多信息，请查阅 :doc:`/developer/howtos/upgrade_custom_db`。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:373
-msgid "The command to upgrade a database to production is similar to the one of upgrading a test database except for the argument `test`, which must be replaced by `production`:"
+#: ../../content/administration/upgrade.rst:262
+msgid "升级生产数据库的命令与升级测试数据库的命令类似，但 `test` 参数必须替换为 `production`："
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:380
-msgid "An upgraded production database can also be requested via the `Upgrade page <https://upgrade.odoo.com>`_."
+#: ../../content/administration/upgrade.rst:268
+msgid "也可以通过 `升级页面 <https://upgrade.odoo.com>`_ 请求升级的生产数据库。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:383
-msgid "Once the database is uploaded, any modification to your production database will **not** be present on your upgraded database. This is why we recommend not using it during the upgrade process."
+#: ../../content/administration/upgrade.rst:270
+msgid "一旦数据库上传，任何对生产数据库的修改都**不会**出现在升级的数据库中。因此我们建议在升级过程中不要使用它。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:388
-msgid "When requesting an upgraded database for production purposes, the copy is submitted without a filestore. Therefore, the upgraded database filestore must be merged with the production filestore before deploying the new version."
+#: ../../content/administration/upgrade.rst:273
+msgid "在请求用于生产目的的升级数据库时，提交的副本不包含文件存储。因此，在部署新版本之前，升级后的数据库文件存储必须与生产文件存储合并。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:392
-msgid "In case of an issue with your production database, you can request the assistance of Odoo by going to the `Support page and selecting \"An issue related to my future upgrade (I am testing an upgrade)\" <https://www.odoo.com/help?stage=migration>`_."
+#: ../../content/administration/upgrade.rst:275
+msgid "如果您的生产数据库出现问题，您可以通过访问 `支持页面并选择“与未来升级相关的问题（我正在测试升级）” <https://www.odoo.com/help?stage=migration>`_ 请求 Odoo 的协助。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:399
-msgid "Service-level agreement (SLA)"
+#: ../../content/administration/upgrade.rst:280
+msgid "服务级别协议 (SLA)"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:401
-msgid "With Odoo Enterprise, upgrading a database to the most recent version of Odoo is **free**, including any support required to rectify potential discrepancies in the upgraded database."
+#: ../../content/administration/upgrade.rst:282
+msgid "对于 Odoo 企业版用户，升级数据库到最新版本 Odoo 是**免费的**，包括解决升级数据库中可能存在的问题的支持。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:404
-msgid "Information about the upgrade services included in the Enterprise Licence is available in the :ref:`Odoo Enterprise Subscription Agreement <upgrade>`. However, this section clarifies what upgrade services you can expect."
+#: ../../content/administration/upgrade.rst:284
+msgid "有关企业版许可证中包含的升级服务的信息，请参阅 :ref:`Odoo 企业版订阅协议 <upgrade>`。但是，本节澄清了您可以期望的升级服务。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:411
-msgid "Upgrade services covered by the SLA"
+#: ../../content/administration/upgrade.rst:289
+msgid "SLA 覆盖的升级服务"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:413
-msgid "Databases hosted on Odoo's cloud platforms (Odoo Online and Odoo.sh) or self-hosted (On-Premise) can benefit from upgrade services at all times for:"
+#: ../../content/administration/upgrade.rst:291
+msgid "Odoo 云平台（Odoo 在线和 Odoo.sh）托管的数据库或自托管（本地部署）的数据库始终可以受益于升级服务，适用于："
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:416
-msgid "the upgrade of all **standard applications**;"
+#: ../../content/administration/upgrade.rst:293
+msgid "所有**标准应用程序**的升级；"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:417
-msgid "the upgrade of all **customizations created with the Studio app**, as long as Studio is still installed and the respective subscription is still active; and"
+#: ../../content/administration/upgrade.rst:294
+msgid "所有通过 Studio 应用程序创建的**自定义功能**的升级，只要 Studio 仍然安装且相应的订阅仍然有效；"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:419
-msgid "the upgrade of all **developments and customizations covered by a maintenance of customizations subscription**."
+#: ../../content/administration/upgrade.rst:295
+msgid "所有**维护自定义功能的订阅**所涵盖的开发和自定义的升级。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:422
-msgid "Upgrade services are limited to the technical conversion and adaptation of a database (standard modules and data) to make it compatible with the version targeted by the upgrade."
+#: ../../content/administration/upgrade.rst:297
+msgid "升级服务仅限于数据库（标准模块和数据）的技术转换和调整，以使其与目标升级版本兼容。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:428
-msgid "Upgrade services not covered by the SLA"
+#: ../../content/administration/upgrade.rst:302
+msgid "SLA 不覆盖的升级服务"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:430
-msgid "The following upgrade-related services are **not** included:"
+#: ../../content/administration/upgrade.rst:304
+msgid "以下与升级相关的服务**不**包含在内："
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:432
-msgid "the **cleaning** of pre-existing data and configurations while upgrading;"
+#: ../../content/administration/upgrade.rst:306
+msgid "升级过程中对现有数据和配置的**清理**；"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:433
-msgid "the upgrade of **custom modules created in-house or by third parties**, including Odoo partners;"
+#: ../../content/administration/upgrade.rst:307
+msgid "对**内部或第三方创建的自定义模块**（包括 Odoo 合作伙伴）的升级；"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:434
-msgid "lines of **code added to standard modules**, i.e., customizations created outside the Studio app, code entered manually, and :ref:`automated actions using Python code <studio/automated-actions/action>`; and"
+#: ../../content/administration/upgrade.rst:308
+msgid "**添加到标准模块中的代码**，即在 Studio 应用程序外创建的自定义功能、手动输入的代码以及 :ref:`使用 Python 代码的自动化操作 <studio/automated-actions/action>`；"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:437
-msgid "**training** on using the upgraded version's features and workflows."
+#: ../../content/administration/upgrade.rst:309
+msgid "**培训**如何使用升级版本的新功能和工作流。"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:440
-msgid ":doc:`Odoo.sh documentation <odoo_sh>`"
+#: ../../content/administration/upgrade.rst:312
+msgid ":doc:`Odoo.sh 文档 <odoo_sh>`"
 msgstr ""
 
-#: ../../content/administration/upgrade.rst:441
-msgid ":doc:`Supported Odoo versions <supported_versions>`"
+#: ../../content/administration/upgrade.rst:313
+msgid ":doc:`受支持的 Odoo 版本 <supported_versions>`"
 msgstr ""

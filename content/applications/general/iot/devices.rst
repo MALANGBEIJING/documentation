@@ -3,7 +3,7 @@
 :show-toc:
 
 =======
-Devices
+设备
 =======
 
 .. toctree::
@@ -18,6 +18,6 @@ Devices
    devices/scale
 
 .. seealso::
-   - :doc:`Worldline payment terminal
+   - :doc:`Worldline 支付终端
      <../../sales/point_of_sale/payment_methods/terminals/worldline>`
-   - :doc:`Ingenico payment terminal <../../sales/point_of_sale/payment_methods/terminals/ingenico>`
+   - :doc:`Ingenico 支付终端 <../../sales/point_of_sale/payment_methods/terminals/ingenico>`

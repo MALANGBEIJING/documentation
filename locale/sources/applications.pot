@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-08 08:46+0000\n"
+"POT-Creation-Date: 2024-10-04 03:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../content/applications.rst:9
-msgid "User Docs"
+msgid "用户文档"
 msgstr ""
 
 #: ../../content/applications.rst:11
-msgid "Discover our user guides and configuration tutorials per application."
+msgid "探索我们的用户指南和每个应用程序的配置教程。"
 msgstr ""

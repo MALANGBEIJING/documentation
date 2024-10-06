@@ -191,6 +191,7 @@ extensions = [
 
     # Strange html domain logic used in memento pages
     'html_domain',
+    'sphinx_docxbuilder',
 ]
 
 if odoo_dir_in_path:

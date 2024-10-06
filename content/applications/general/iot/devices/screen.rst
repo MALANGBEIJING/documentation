@@ -1,110 +1,87 @@
 ================
-Connect a screen
+连接屏幕
 ================
 
-In Odoo, an :abbr:`IoT (Internet of Things)` box can be connected to a screen display. After being
-configured, the screen can be used to display a Point of Sale (PoS) order to a client.
+在 Odoo 中，可以将 :abbr:`IoT (物联网)` 盒子连接到显示屏。配置完成后，屏幕可以用于向客户显示销售点 (PoS) 订单。
 
 .. figure:: screen/screen-pos-client-display.png
 
-   An example of a PoS (point of sale) order on a screen display.
+   销售点 (PoS) 订单在屏幕显示上的示例。
 
-Access the customer display by going to the :abbr:`IoT (Internet of Things)` box homepage and
-clicking on the :guilabel:`PoS Display` button. To get to the :abbr:`IoT (Internet of Things)` box
-homepage, navigate to :menuselection:`IoT app --> IoT Boxes` and click on the :abbr:`IoT (Internet
-of Things)` box homepage link.
+通过访问 :abbr:`IoT (物联网)` 盒子主页并点击 :guilabel:`PoS 显示` 按钮进入客户显示屏。要进入 :abbr:`IoT (物联网)` 盒子主页，请导航到 :menuselection:`IoT 应用 --> IoT 盒子` 并点击 :abbr:`IoT (物联网)` 盒子主页链接。
 
-Connection
+连接
 ==========
 
-The way to connect the screen display to the :abbr:`IoT (Internet of Things)` box differs depending
-on the model.
+将显示屏连接到 :abbr:`IoT (物联网)` 盒子的方式取决于型号。
 
 .. tabs::
 
-   .. tab:: IoT Box model 4
+   .. tab:: IoT 盒子型号 4
 
-      Connect up to two screens with micro-HDMI cables on the side of the :abbr:`IoT (Internet of
-      Things)` box. If two screens are connected, they can display distinct content (see
-      :ref:`Screen Usage <iot/usage_screen>`).
+      使用侧面的微型 HDMI 电缆连接最多两个屏幕。如果连接了两个屏幕，它们可以显示不同的内容（请参阅 :ref:`屏幕使用 <iot/usage_screen>`）。
 
-   .. tab:: IoT Box model 3
+   .. tab:: IoT 盒子型号 3
 
-      Connect the screen with an HDMI cable on the side of the :abbr:`IoT (Internet of Things)` box.
+      使用侧面的 HDMI 电缆连接屏幕。
 
 .. seealso::
-   :ref:`See the Raspberry Pi Schema <iot/connect_schema>`.
+   :ref:`参见 Raspberry Pi 连接图 <iot/connect_schema>`。
 
 .. important::
-   Screen(s) should be connected before the :abbr:`IoT (Internet of Things)` box is switched on. If
-   it is already on, connect the screen(s), and then restart the :abbr:`IoT (Internet of Things)`
-   box by unplugging it for ten seconds and plugging it back into its power source.
+   屏幕应在 :abbr:`IoT (物联网)` 盒子开启之前连接。如果盒子已经开启，连接屏幕后需要重新启动 :abbr:`IoT (物联网)` 盒子，方法是断开电源十秒钟，然后重新连接电源。
 
 .. warning::
-   The usage of HDMI/micro-HDMI adapters may cause issues which will result in a blank, black screen
-   on the screen display. Using the specific cable for the display connection is recommended.
+   使用 HDMI/微型 HDMI 适配器可能会导致问题，导致屏幕显示为空白或黑屏。建议使用特定的连接电缆。
 
-If the connection was successful, the screen should display the :guilabel:`POS Client display`
-screen.
+如果连接成功，屏幕将显示 :guilabel:`PoS 客户显示` 屏幕。
 
 .. image:: screen/screen-pos-client-display-no-order.png
    :align: center
-   :alt: The default "POS Client Display" screen that appears when a screen display is successfully
-         connected to an IoT box.
+   :alt: 成功连接到 IoT 盒子时显示的默认 "PoS 客户显示" 屏幕。
 
-The screen should also appear in the list of :guilabel:`Displays` on the :abbr:`IoT (Internet of
-Things)` box homepage. Alternatively, the display can be seen by accessing :menuselection:`IoT app
---> Devices`.
+屏幕还会出现在 :abbr:`IoT (物联网)` 盒子主页的 :guilabel:`显示器` 列表中。或者，可以通过访问 :menuselection:`IoT 应用 --> 设备` 查看显示器。
 
 .. image:: screen/screen-screen-name-example.png
    :align: center
-   :alt: An example of a screen display name shown on the IoT Box Home Page.
+   :alt: IoT 盒子主页上显示的屏幕显示名称示例。
 
 .. note::
-   If no screen is detected, a default display named :guilabel:`Distant Display` will be displayed
-   instead. This indicates that there is no hardware screen connected.
+   如果未检测到屏幕，则会显示一个名为 :guilabel:`远程显示` 的默认显示，这表明没有连接任何硬件屏幕。
 
     .. image:: screen/screen-no-screen.png
        :align: center
-       :alt: The "Distant Display" screen name will be used if no screen is detected.
+       :alt: 如果未检测到屏幕，则使用 "远程显示" 屏幕名称。
 
 .. _iot/usage_screen:
 
-Usage
+使用
 =====
 
-Show Point of Sale orders to customers
+向客户展示销售点订单
 --------------------------------------
 
-To use the screen in the *Point of Sale app*, go to :menuselection:`Point of Sale -->
-Configuration --> Point of Sale`, select a :abbr:`PoS (Point of Sale)`, click :guilabel:`Edit` if
-necessary, and enable the :guilabel:`IoT Box` feature.
+要在 *销售点应用* 中使用屏幕，请导航到 :menuselection:`销售点 --> 配置 --> 销售点`，选择一个 :abbr:`PoS (销售点)`，如有需要，点击 :guilabel:`编辑` 并启用 :guilabel:`IoT 盒子` 功能。
 
-Next, select the screen from the :guilabel:`Customer Display` drop-down menu. Then click
-:guilabel:`Save`, if required.
+接下来，从 :guilabel:`客户显示` 下拉菜单中选择屏幕。然后点击 :guilabel:`保存`，如有需要。
 
 .. image:: screen/screen-pos-screen-config.png
    :align: center
-   :alt: Connect the screen display to the Point of Sale app.
+   :alt: 将屏幕显示连接到销售点应用。
 
-The screen is now available for :abbr:`PoS (Point of Sale)` sessions. A screen icon will appear in
-the menu at the top of the screen to indicate the screen's connection status.
+现在，该屏幕可以在所有 :abbr:`PoS (销售点)` 会话中使用。屏幕顶部菜单上将出现一个图标，显示屏幕的连接状态。
 
 .. image:: screen/screen-pos-icon.png
    :align: center
-   :alt: The "screen" icon on the Point of Sale display shows the connection status with the
-         screen.
+   :alt: 销售点显示上的 "屏幕" 图标显示与屏幕的连接状态。
 
-The screen will automatically show the :abbr:`PoS (Point of Sale)` orders and update when changes
-are made to the order.
+屏幕将自动显示 :abbr:`PoS (销售点)` 订单，并在订单更改时更新。
 
 .. image:: screen/screen-pos-client-display.png
    :align: center
-   :alt: An example of a PoS order on a screen display.
+   :alt: 销售点订单在屏幕显示上的示例。
 
-Display a website on the screen
+在屏幕上显示网站
 -------------------------------
 
-Open the screen form view by accessing :menuselection:`IoT app --> Devices --> Customer Display`.
-This allows the user to choose a particular website URL to display on the screen using the
-:guilabel:`Display URL` field.
+通过访问 :menuselection:`IoT 应用 --> 设备 --> 客户显示` 打开屏幕表单视图。此功能允许用户选择特定的网址并在屏幕上显示，使用 :guilabel:`显示 URL` 字段进行设置。

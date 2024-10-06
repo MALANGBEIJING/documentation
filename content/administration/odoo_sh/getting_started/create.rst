@@ -1,205 +1,172 @@
-
 .. _odoosh-gettingstarted-create:
 
 ===================
-Create your project
+创建您的项目
 ===================
 
-Deploy your platform
+部署您的平台
 ====================
 
-Go to `Odoo.sh <https://www.odoo.sh/>`_ and hit the *Deploy your platform* button.
+前往 `Odoo.sh <https://www.odoo.sh/>`_ 并点击 *Deploy your platform* 按钮。
 
 .. image:: create/deploy.png
    :align: center
 
-Sign in with Github
+使用 Github 登录
 ===================
 
-Sign in with your Github account. If you do not have an account yet, hit the *Create an account*
-link.
+使用您的 Github 帐户登录。如果您还没有帐户，请点击 *Create an account* 链接。
 
 .. image:: create/github-signin.png
    :align: center
 
-Authorize Odoo.sh
+授权 Odoo.sh
 =================
 
-Grant Odoo.sh the required accesses to your account by clicking the *Authorize* button.
+点击 *Authorize* 按钮授予 Odoo.sh 所需的访问权限。
 
 .. image:: create/github-authorize.png
    :align: center
 
-Odoo.sh basically needs:
+Odoo.sh 主要需要以下权限：
 
-* to know your Github login and email,
-* to create a new repository in case you decide to start from scratch,
-* to read your existing repositories, including the ones of your organizations, in case you want to
-  start from an existing repository,
-* to create a webhook to be notified each time you push changes,
-* to commit changes to make your deployment easier, merging branches or adding new `submodules
-  <https://git-scm.com/book/en/v2/Git-Tools-Submodules>`_ for example.
+* 了解您的 Github 登录信息和电子邮件，
+* 创建新的存储库，前提是您选择从头开始创建，
+* 读取您现有的存储库，包括您所在组织的存储库，以便您从现有存储库开始，
+* 创建 webhook 以便在您每次推送更改时收到通知，
+* 提交更改以简化您的部署，例如合并分支或添加新的 `submodules <https://git-scm.com/book/en/v2/Git-Tools-Submodules>`_。
 
-Submit your project
+提交您的项目
 ===================
 
-Choose if you want to start from scratch by creating a new repository, or if you want to use an
-existing repository.
+选择您是否希望通过创建一个新存储库从头开始，或是否希望使用现有存储库。
 
-Then, choose a name or select the repository you want to use.
+然后，选择一个名称或选择您想要使用的存储库。
 
-Choose the Odoo version you want to use. If you plan to import an existing database or an existing
-set of applications, you might need to choose the according version. If you start from scratch, use
-the latest version.
+选择您想要使用的 Odoo 版本。如果您打算导入现有的数据库或现有的应用程序集，您可能需要选择相应的版本。如果您从头开始，建议使用最新版本。
 
-Enter your *subscription code*. This is also called *subscription referral*, *contract number* or
-*activation code*.
+输入您的 *订阅代码*。这也被称为 *订阅推荐*、*合同编号* 或 *激活码*。
 
-It should be the code of your Enterprise subscription that includes Odoo.sh.
+它应该是包含 Odoo.sh 的企业订阅的代码。
 
-Partners can use their partnership codes to start a trial. Should their clients start a project,
-they ought to get an Enterprise subscription including Odoo.sh and use its subscription code. The
-partner will get 50% of the amount back as commission. Contact your sales representative or account
-manager in order to get it.
+合作伙伴可以使用其合作伙伴代码开始试用。若客户想要启动一个项目，他们应获得包括 Odoo.sh 的企业订阅并使用其订阅代码。合作伙伴将获得金额的 50% 作为佣金。请联系您的销售代表或客户经理以获取相关信息。
 
-When submitting the form, if you are notified your subscription is not valid, it either means:
+提交表单后，如果您收到通知提示您的订阅无效，这可能意味着：
 
-* it is not an existing subscription,
-* it is not a partnership subscription,
-* it is an enterprise subscription, but which does not include Odoo.sh,
-* it is neither a partnership subscription or an enterprise subscription (e.g. an online
-  subscription).
+* 它不是现有的订阅，
+* 它不是合作伙伴订阅，
+* 它是企业订阅，但不包括 Odoo.sh，
+* 它既不是合作伙伴订阅也不是企业订阅（例如，在线订阅）。
 
-In case of doubt with your subscription, please contact the `Odoo support
-<https://www.odoo.com/help>`_.
+如果对您的订阅有疑问，请联系 `Odoo 支持 <https://www.odoo.com/help>`_。
 
 .. image:: create/deploy-form.png
    :align: center
 
-You're done !
+完成啦！
 =============
 
-You can start using Odoo.sh. Your first build is about to be created. You will soon be able to
-connect to your first database.
+您可以开始使用 Odoo.sh。您的第一个构建即将创建。您将很快能够连接到您的第一个数据库。
 
 .. image:: create/deploy-done.png
    :align: center
 
 .. _odoo_sh_import_your_database:
 
-Import your database
+导入您的数据库
 ====================
 
-You can import your database in your Odoo.sh project as long as it is in a :doc:`supported version
-</administration/supported_versions>` of Odoo.
+只要您的数据库处于 Odoo 的 :doc:`支持版本 </administration/supported_versions>`，您就可以将其导入到您的 Odoo.sh 项目中。
 
-Push your modules in production
+将您的模块推送到生产环境
 -------------------------------
 
-If you use community or custom modules, add them in a branch in your Github repository.
-Databases hosted on the Odoo.com online platform do not have any custom modules.
-Users of these databases can therefore skip this step.
+如果您使用的是社区或自定义模块，请将它们添加到您的 Github 存储库的一个分支中。
+托管在 Odoo.com 在线平台上的数据库没有任何自定义模块。
+这些数据库的用户可以跳过此步骤。
 
-You can structure your modules as you wish, Odoo.sh will automatically detect the folders containing
-Odoo addons. For instance, you can put all your modules folder in the root directory of your
-repository, or group the modules in folders by categories that you define (accounting, project,
-...).
+您可以根据需要组织您的模块，Odoo.sh 将自动检测包含 Odoo 插件的文件夹。例如，您可以将所有模块文件夹放在存储库的根目录中，或按您定义的类别（例如会计、项目等）将模块分组到文件夹中。
 
-For community modules available in public Git repositories,
-you can also consider to add them using :ref:`Submodules <odoosh-advanced-submodules>`.
+对于可在公共 Git 存储库中找到的社区模块，
+您也可以考虑使用 :ref:`Submodules <odoosh-advanced-submodules>` 添加它们。
 
-Then, either :ref:`make this branch the production branch <odoosh-gettingstarted-branches-stages>`,
-or :ref:`merge it into your production branch <odoosh-gettingstarted-branches-mergingbranches>`.
+然后，您可以 :ref:`将此分支设置为生产分支 <odoosh-gettingstarted-branches-stages>`，
+或 :ref:`将其合并到您的生产分支 <odoosh-gettingstarted-branches-mergingbranches>`。
 
-Download a backup
+下载备份
 -----------------
 
-On-premise databases
+本地部署的数据库
 ~~~~~~~~~~~~~~~~~~~~
 
-Access the URL :file:`/web/database/manager` of your on-premise database and download a backup.
+访问您的本地部署数据库的 URL :file:`/web/database/manager` 并下载备份。
 
 .. Warning::
 
-  If you cannot access the database manager, it may have been disabled by your system administrator.
-  See the :ref:`database manager security documentation <db_manager_security>`.
+  如果您无法访问数据库管理器，则可能已被系统管理员禁用。
+  请参阅 :ref:`数据库管理器安全文档 <db_manager_security>`。
 
-You will need the master password of your database server. If you do not have it, contact your
-system administrator.
+您将需要数据库服务器的主密码。如果没有，请联系您的系统管理员。
 
 .. image:: create/create-import-onpremise-backup.png
    :align: center
 
-Choose a zip including the filestore as the backup format.
+选择包括文件存储的 zip 作为备份格式。
 
 .. image:: create/create-import-onpremise-backup-dialog.png
   :align: center
 
-Odoo Online databases
+Odoo 在线数据库
 ~~~~~~~~~~~~~~~~~~~~~
 
-`Access your databases manager <https://accounts.odoo.com/my/databases/manage>`_ and download a
-backup of your database.
+`访问您的数据库管理器 <https://accounts.odoo.com/my/databases/manage>`_ 并下载数据库备份。
 
 .. image:: create/create-import-online-backup.png
    :align: center
 
 .. Warning::
 
-  Online versions (e.g. *saas-**) are not supported on Odoo.sh.
+  在线版本（例如 *saas-**）不支持在 Odoo.sh 上运行。
 
-Upload the backup
+上传备份
 -----------------
 
-Then, in your Odoo.sh project, in the backups tab of your production branch, import the backup you
-just downloaded.
+然后，在您的 Odoo.sh 项目中，在生产分支的备份选项卡中，导入您刚刚下载的备份。
 
 .. image:: create/create-import-production.png
    :align: center
 
-Once the backup imported, you can access the database using the *Connect* button in the history of
-the branch.
+备份导入后，您可以通过分支历史记录中的 *Connect* 按钮访问数据库。
 
 .. image:: create/create-import-production-done.png
    :align: center
 
-Check your outgoing email servers
+检查您的外发邮件服务器
 ---------------------------------
 
-There is a default mail server provided with Odoo.sh.
-To use it, there must be no enabled outgoing mail server configured in your database in
-:menuselection:`Settings --> Technical --> Outgoing Mail Servers` (:ref:`Developer mode
-<developer-mode>` must be activated).
+Odoo.sh 提供了一个默认的邮件服务器。
+要使用它，您的数据库中 :menuselection:`Settings --> Technical --> Outgoing Mail Servers` 中必须没有启用的外发邮件服务器（必须激活 :ref:`开发者模式 <developer-mode>`）。
 
-After the import of your database, all outgoing email servers are disabled so you use the Odoo.sh
-email server provided by default.
+在导入数据库后，所有外发邮件服务器都被禁用，因此您将使用 Odoo.sh 提供的默认邮件服务器。
 
 .. warning::
-   Port 25 is (and will stay) closed. If you want to connect to an external SMTP server, you should
-   use ports 465 and 587.
+   端口 25 已经关闭并将保持关闭。如果您想连接到外部 SMTP 服务器，应该使用端口 465 和 587。
 
-Check your scheduled actions
+检查您的计划操作
 ----------------------------
 
-All scheduled actions are disabled after the import.
+导入后，所有计划操作都被禁用。
 
-This is to prevent your newly imported database to perform actions that could impact your running
-production, such as sending the mails remaining in the queue, processing mass mailings, or
-third-party services synchronization (Calendars, files hosting, ...).
+这是为了防止新导入的数据库执行可能影响您运行中的生产环境的操作，例如发送队列中的邮件、处理大规模邮件或与第三方服务同步（如日历、文件托管等）。
 
-If you plan to make the imported database your production, enable the scheduled actions you need.
-You can check what is enabled in the database of origin and enable the same actions in the imported
-database. Scheduled actions are located under :menuselection:`Settings --> Technical --> Automation
---> Scheduled Actions`.
+如果您打算将导入的数据库作为生产数据库，请启用所需的计划操作。
+您可以检查源数据库中启用了哪些操作，并在导入的数据库中启用相同的操作。计划操作位于 :menuselection:`Settings --> Technical --> Automation --> Scheduled Actions` 下。
 
-Register your subscription
+注册您的订阅
 --------------------------
 
-Your subscription is unlinked after the import.
+导入后，您的订阅将被解除链接。
 
-The imported database is considered a duplicate by default and the enterprise subscription is
-therefore removed, as you can only have one database linked per subscription.
+导入的数据库默认被视为重复，因此企业订阅将被移除，因为每个订阅只能关联一个数据库。
 
-If you plan to make it your production, unlink your former database from the subscription, and
-register the newly imported database. Read the :doc:`database registration documentation
-<../../on_premise>` for instructions.
+如果您打算将其作为生产数据库，请将原数据库与订阅解除链接，并注册新导入的数据库。请阅读 :doc:`数据库注册文档 <../../on_premise>` 以获取说明。

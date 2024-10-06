@@ -55,6 +55,12 @@ html: $(HTML_BUILD_DIR)/_static/style.css
 	$(SPHINX_BUILD) -c $(CONFIG_DIR) -b html $(SPHINXOPTS) $(SOURCE_DIR) $(HTML_BUILD_DIR)
 	@echo "Build finished."
 
+word:
+	mkdir -p _build/word
+	for file in _build/html/*.html; do \
+		pandoc "$$file" -o "_build/word/$$(basename $${file%.html}.docx)"; \
+	done
+
 # To call *after* `make html`
 # Binary dependencies (Debian): texlive-fonts-recommended texlive-latex-extra
 # texlive-fonts-extra

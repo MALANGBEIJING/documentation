@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-24 10:43+0000\n"
+"POT-Creation-Date: 2024-10-04 03:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,782 +17,781 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../content/applications/essentials.rst:3
-msgid "Odoo essentials"
+msgid "Odoo 基础知识"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:3
-msgid "Activities"
+msgid "活动"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:7
-msgid "*Activities* are follow-up tasks tied to a record in an Odoo database."
+msgid "*活动* 是绑定到 Odoo 数据库中记录的后续任务。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:11
-msgid "The icon used to display activities varies, depending on the :ref:`activity type <activities/types>`:"
+msgid "显示活动的图标会根据 :ref:`活动类型 <activities/types>` 变化："
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:13
+msgid ":icon:`fa-clock-o` :guilabel:`(时钟)` 图标：默认活动图标。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:14
-msgid ":icon:`fa-clock-o` :guilabel:`(clock)` icon: the default activities icon."
+msgid ":icon:`fa-phone` :guilabel:`(电话)` 图标：安排了电话。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:15
-msgid ":icon:`fa-phone` :guilabel:`(phone)` icon: a phone call is scheduled."
+msgid ":icon:`fa-envelope` :guilabel:`(信封)` 图标：安排了电子邮件。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:16
-msgid ":icon:`fa-envelope` :guilabel:`(envelope)` icon: an email is scheduled."
+msgid ":icon:`fa-check` :guilabel:`(勾选)` 图标：安排了“待办”任务。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:17
-msgid ":icon:`fa-check` :guilabel:`(check)` icon: a \"to-do\" is scheduled."
+msgid ":icon:`fa-users` :guilabel:`(人员)` 图标：安排了会议。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:18
-msgid ":icon:`fa-users` :guilabel:`(people)` icon: a meeting is scheduled."
+msgid ":icon:`fa-upload` :guilabel:`(上传)` 图标：安排了文件上传。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:19
-msgid ":icon:`fa-upload` :guilabel:`(upload)` icon: a document is scheduled to be uploaded."
+msgid ":icon:`fa-pencil-square-o` :guilabel:`(请求签名)` 图标：安排了签名请求。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:20
-msgid ":icon:`fa-pencil-square-o` :guilabel:`(request signature)` icon: a signature request is scheduled."
+#: ../../content/applications/essentials/activities.rst:22
+msgid "安排活动"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:23
-msgid "Schedule activities"
+#: ../../content/applications/essentials/activities.rst:24
+msgid "可以在包含 :ref:`聊天 <activities/chatter>` 线程、:ref:`看板视图 <activities/kanban>`、:ref:`列表视图 <activities/list>` 或应用的 :ref:`活动视图 <activities/activity>` 的数据库页面上安排活动。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:25
-msgid "Activities can be scheduled on any page of the database that contains a :ref:`chatter <activities/chatter>` thread, :ref:`Kanban view <activities/kanban>`, :ref:`list view <activities/list>`, or :ref:`activities view <activities/activity>` of an application."
+#: ../../content/applications/essentials/activities.rst:29
+msgid "聊天"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:32
-msgid "Chatter"
+#: ../../content/applications/essentials/activities.rst:31
+msgid "可以从任何记录的聊天中创建活动。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:34
-msgid "Activities can be created from the chatter on any record."
+#: ../../content/applications/essentials/activities.rst:33
+msgid "要安排新活动，点击聊天顶部的 :guilabel:`活动` 按钮。在出现的 :guilabel:`安排活动` 弹出窗口中，:ref:`填写安排活动表单 <activities/form>`。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:36
-msgid "To schedule a new activity, click the :guilabel:`Activities` button, located at the top of the chatter. In the :guilabel:`Schedule Activity` pop-up window that appears, :ref:`fill out the Schedule Activity form <activities/form>`."
+#: ../../content/applications/essentials/activities.rst:None
+msgid "新活动类型表单。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "New activity type form."
+#: ../../content/applications/essentials/activities.rst:42
+msgid "看板视图"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:47
-msgid "Kanban view"
+#: ../../content/applications/essentials/activities.rst:44
+msgid "也可以从 :icon:`oi-view-kanban` :guilabel:`(看板)` 视图创建活动。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:49
-msgid "Activities can also be created from the :icon:`oi-view-kanban` :guilabel:`(Kanban)` view."
+#: ../../content/applications/essentials/activities.rst:46
+msgid "为此，点击位于单个记录底部的 |clock|。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:51
-msgid "To do so, click on the |clock| located at the bottom of an individual record."
+#: ../../content/applications/essentials/activities.rst:48
+msgid "点击 :guilabel:`+ 安排活动`，然后继续 :ref:`填写安排活动表单 <activities/form>`。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:53
-msgid "Click :guilabel:`+ Schedule An Activity`, then proceed to :ref:`fill out the Schedule Activity form <activities/form>`."
+#: ../../content/applications/essentials/activities.rst:None
+msgid "CRM 管道的看板视图和安排活动的选项。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "Kanban view of the CRM pipeline and the option to schedule an activity."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:61
-#: ../../content/applications/essentials/activities.rst:79
-msgid "If a record already has a scheduled activity, the |clock| is replaced by the icon that represents the existing scheduled activity. Click on the activity type's icon to schedule another activity."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:67
-msgid "List view"
-msgstr ""
-
+#: ../../content/applications/essentials/activities.rst:55
 #: ../../content/applications/essentials/activities.rst:69
-msgid "Activities can also be created from a :icon:`oi-view-list` :guilabel:`(list)` view."
+msgid "如果记录已经有安排的活动，则 |clock| 会被现有活动的图标替代。点击活动类型的图标可以安排另一个活动。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:71
-msgid "If the :guilabel:`Activities` column is hidden, reveal it using the :icon:`oi-settings-adjust` :guilabel:`(settings adjust)` icon in the far-right of the top row."
+#: ../../content/applications/essentials/activities.rst:60
+msgid "列表视图"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:74
-msgid "Then, click on the |clock| for the record the activity is being added to, and click :guilabel:`+ Schedule an activity`. Proceed to :ref:`fill out the Schedule Activity form <activities/form>` that appears."
+#: ../../content/applications/essentials/activities.rst:62
+msgid "也可以从 :icon:`oi-view-list` :guilabel:`(列表)` 视图创建活动。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "List view of the CRM pipeline and the option to schedule an activity."
+#: ../../content/applications/essentials/activities.rst:64
+msgid "如果 :guilabel:`活动` 列被隐藏，使用第一行右侧的 :icon:`oi-settings-adjust` :guilabel:`(设置调整)` 图标将其显示出来。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:89
-msgid "Activity view"
+#: ../../content/applications/essentials/activities.rst:66
+msgid "然后，点击要为其添加活动的记录的 |clock|，然后点击 :guilabel:`+ 安排活动`。继续 :ref:`填写安排活动表单 <activities/form>`。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:91
-msgid "Most applications in Odoo have an *Activity* view available. If available, a |clock| is visible in the top-right corner of the main menu bar, amongst the other view option icons."
+#: ../../content/applications/essentials/activities.rst:None
+msgid "CRM 管道的列表视图和安排活动的选项。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:78
+msgid "活动视图"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:80
+msgid "Odoo 中的大多数应用都有 *活动* 视图。如果有，主菜单栏右上角的视图选项图标中会显示一个 |clock|。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:82
+msgid "要打开活动视图，请点击 |clock|。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:None
+msgid "右上菜单中的活动图标。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:88
+msgid "在此视图中，所有可用的活动都列在列中，而水平条目表示所有的单个记录。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:90
+msgid "显示绿色的活动未来到期，显示橙色的活动今天到期，而显示红色的活动已过期。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:92
+msgid "每列中的颜色条代表特定活动类型的记录，并显示一个数字，指示为该类型安排的活动数量。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:94
-msgid "To open the activity view, click the |clock|."
+msgid "如果为记录安排了多种活动类型，则框中会显示一个数字，指示安排的活动总数。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "Top-right menu with the Activities icon called out."
+#: ../../content/applications/essentials/activities.rst:97
+msgid "活动颜色及其与活动到期日的关系在 Odoo 中是始终一致的，无论活动类型或视图。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:100
-msgid "In this view, all the available activities are listed in the columns, while the horizontal entries represent all the individual records."
+#: ../../content/applications/essentials/activities.rst:99
+msgid "要为记录安排活动，悬停在相应字段上。点击出现的 :icon:`fa-plus` :guilabel:`(加号)` 图标，然后 :ref:`填写安排活动表单 <activities/form>`。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:103
-msgid "Activities that appear green have a due date in the future, activities that appear orange are due today, while activities appearing red are overdue."
+#: ../../content/applications/essentials/activities.rst:None
+msgid "CRM 管道的活动视图和安排活动的选项。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:106
-msgid "Color bars in each column represent records for specific activity types, and display a number indicating how many activities are scheduled for that type."
+#: ../../content/applications/essentials/activities.rst:108
+msgid "安排活动表单"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:109
-msgid "If multiple activity types are scheduled for a record, a number appears in the box, indicating the total number of scheduled activities."
+#: ../../content/applications/essentials/activities.rst:110
+msgid "可以从许多不同的地方安排活动，例如从记录的 :ref:`聊天 <activities/chatter>` 或应用中的多个视图之一：:ref:`看板视图 <activities/kanban>`、:ref:`列表视图 <activities/list>` 或 :ref:`活动视图 <activities/activity>`。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:113
-msgid "Activity colors, and their relation to an activity's due date, are consistent throughout Odoo, regardless of the activity type, or the view."
+#: ../../content/applications/essentials/activities.rst:112
+#: ../../content/applications/essentials/activities.rst:165
+msgid "在表单中输入以下信息："
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:114
+msgid ":guilabel:`活动类型`: 从下拉菜单中选择活动类型。默认选项有：:guilabel:`电子邮件`、:guilabel:`电话`、:guilabel:`会议` 或 :guilabel:`待办`。根据安装的其他应用，可能会有其他选项。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:115
+msgid ":guilabel:`摘要`: 输入活动的简短标题，例如“讨论提案”。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:116
-msgid "To schedule an activity for a record, hover over the corresponding field. Click the :icon:`fa-plus` :guilabel:`(plus)` icon that appears, and then :ref:`fill out the Schedule Activity form <activities/form>`."
+msgid ":guilabel:`到期日`: 使用日历弹出窗口选择活动的截止日期。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "Activity view of the CRM pipeline and the option to schedule an activity."
+#: ../../content/applications/essentials/activities.rst:117
+msgid ":guilabel:`分配给`: 默认情况下，该字段会填写当前用户。要将活动分配给其他用户，请从下拉菜单中选择。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:127
-msgid "Schedule Activity form"
+#: ../../content/applications/essentials/activities.rst:118
+msgid ":guilabel:`备注`: 在此字段中添加活动的任何其他信息。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:120
+msgid "当 :guilabel:`安排活动` 弹出窗口填写完毕后，点击以下按钮之一："
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:122
+msgid ":guilabel:`打开日历`: 打开用户的日历以添加并安排活动。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:124
+msgid "点击活动的期望日期和时间，将出现一个 :guilabel:`新事件` 弹出窗口。*安排活动* 弹出窗口的摘要会填充 :guilabel:`标题` 字段。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:126
+msgid "在 :guilabel:`新事件` 弹出窗口中输入信息，然后点击 :guilabel:`保存并关闭` 以安排活动。安排后，活动将添加到聊天的 :guilabel:`计划活动` 部分。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:129
-msgid "Activities can be scheduled from many different places, such as from the :ref:`chatter <activities/chatter>` of a record, or from one of multiple views in an application, when available: the :ref:`Kanban view <activities/kanban>`, :ref:`list view <activities/list>`, or :ref:`activity view <activities/activity>`."
+msgid "只有当 :guilabel:`活动类型` 设置为 :guilabel:`电话` 或 :guilabel:`会议` 时，才会出现 :guilabel:`打开日历` 按钮。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:131
+msgid ":guilabel:`安排`: 安排活动，并将活动添加到聊天的 :guilabel:`计划活动` 部分。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:132
+msgid ":guilabel:`安排并标记为完成`: 将活动的详细信息添加到聊天的 :guilabel:`今天` 部分。活动不会安排，并自动标记为已完成。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:133
+msgid ":guilabel:`完成并安排下一个`: 将活动的详细信息添加到聊天的 :guilabel:`今天` 部分。活动不会安排，并自动标记为已完成，同时会弹出新的 :guilabel:`安排活动` 弹出窗口。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:134
-#: ../../content/applications/essentials/activities.rst:210
-msgid "Enter the following information on the form:"
+msgid ":guilabel:`取消`: 放弃在 :guilabel:`安排活动` 弹出窗口中所做的任何更改。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:136
-msgid ":guilabel:`Activity Type`: select the type of activity from the drop-down menu. The default options are: :guilabel:`Email`, :guilabel:`Call`, :guilabel:`Meeting`, or :guilabel:`To-Do`. Depending on what other applications are installed, additional options may be available."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:139
-msgid ":guilabel:`Summary`: enter a short title for the activity, such as `Discuss Proposal`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:140
-msgid ":guilabel:`Due Date`: using the calendar popover, select the activity's deadline."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:141
-msgid ":guilabel:`Assigned to`: by default, the current user populates this field. To assign a different user to the activity, select them from the drop-down menu."
+#: ../../content/applications/essentials/activities.rst:None
+msgid "查看 CRM 线索并安排活动的选项。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:143
-msgid ":guilabel:`Notes`: add any additional information for the activity in this field."
+msgid "所有安排的活动"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:145
-msgid "When the :guilabel:`Schedule Activity` pop-up window is completed, click one of the following buttons:"
+msgid "要查看按应用程序组织的活动列表，请点击右上角的 |clock|。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:148
-msgid ":guilabel:`Open Calendar`: opens the user's calendar to add and schedule the activity."
+#: ../../content/applications/essentials/activities.rst:147
+msgid "如果有安排的活动，|clock| 上的红色气泡会显示活动数量。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:150
-msgid "Click on the desired date and time for the activity, and a :guilabel:`New Event` pop-up window appears. The summary from the *Schedule Activity* pop-up window populates the :guilabel:`Title` field."
+#: ../../content/applications/essentials/activities.rst:149
+msgid "每个应用程序的所有活动会进一步分为子部分，指示活动在应用程序中的完成位置。每个子部分列出了 :guilabel:`逾期`、:guilabel:`今天` 和 :guilabel:`未来` 安排的活动数量。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:152
+msgid "在 *休假* 应用中，安排了一个活动需要在 *所有休假请求* 仪表板中完成，六个活动需要在 *分配* 仪表板中完成。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:154
-msgid "Enter the information in the :guilabel:`New Event` pop-up window, then click :guilabel:`Save & Close` to schedule it. Once scheduled, the activity is added to the chatter under the :guilabel:`Planned Activities` section."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:159
-msgid "The :guilabel:`Open Calendar` button **only** appears if the :guilabel:`Activity Type` is set to either :guilabel:`Call` or :guilabel:`Meeting`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:162
-msgid ":guilabel:`Schedule`: schedules the activity, and adds the activity to the chatter under :guilabel:`Planned Activities`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:164
-msgid ":guilabel:`Schedule & Mark as Done`: adds the details of the activity to the chatter under :guilabel:`Today`. The activity is not scheduled, and is automatically marked as done."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:166
-msgid ":guilabel:`Done & Schedule Next`: adds the details of the activity to the chatter under :guilabel:`Today`. The activity is not scheduled, is automatically marked as done, and a new :guilabel:`Schedule Activity` pop-up window appears."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:169
-msgid ":guilabel:`Cancel`: discards any changes made on the :guilabel:`Schedule Activity` pop-up window."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "View of CRM leads and the option to schedule an activity."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:178
-msgid "All scheduled activities"
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:180
-msgid "To view a consolidated list of activities, organized by application, click the |clock| in the header menu, located in the top-right corner."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:183
-msgid "If any activities are scheduled, the number of activities appear in a red bubble on the |clock|."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:186
-msgid "All activities for each application are further divided into subsections, indicating where in the application the activity is to be completed. Each sub-section lists the number of scheduled activities that are :guilabel:`Late`, due :guilabel:`Today`, and scheduled in the :guilabel:`Future`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:192
-msgid "In the *Time Off* application, one activity is scheduled to be done in the *All Time Off* requests dashboard, and six activities are scheduled to be done in the *Allocations* dashboard."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:195
-msgid "These requests appear in two separate lists in the all activities drop-down menu: one labeled `Time Off` and one labeled `Time Off Allocation`."
+msgid "这些请求出现在所有活动下拉菜单中的两个单独列表中：一个标为 `休假`，另一个标为 `休假分配`。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:0
-msgid "The list of activities that is accessed from the main menu bar. Two entries for the Time\n"
-"Off application are highlighted."
+msgid "从主菜单栏访问的活动列表。高亮显示了休假应用的两个条目。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:204
-msgid "Request a document"
+#: ../../content/applications/essentials/activities.rst:161
+msgid "请求文件"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:206
-msgid "The option to :guilabel:`Request a Document` is available at the bottom of the list of :ref:`all scheduled activities <activities/all>`, the option to :guilabel:`Request a Document` appears. Click :guilabel:`Request a Document`, and a :guilabel:`Request a file` pop-up window appears."
+#: ../../content/applications/essentials/activities.rst:163
+msgid "在 :ref:`所有安排的活动 <activities/all>` 列表的底部可以看到 :guilabel:`请求文件` 选项。点击 :guilabel:`请求文件`，会弹出一个 :guilabel:`请求文件` 窗口。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:167
+msgid ":guilabel:`文件名称`: 输入请求的文件的名称。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:168
+msgid ":guilabel:`请求人`: 从下拉菜单中选择请求文件的用户。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:169
+msgid ":guilabel:`到期时间`: 输入一个数字值，表示文件到期的时间。此字段旁边显示 :guilabel:`天` 字段。点击默认选项 :guilabel:`天`，显示下拉菜单。从列表中选择所需的时间框架选项。选项有 :guilabel:`天`、:guilabel:`周` 或 :guilabel:`月`。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:170
+msgid ":guilabel:`工作区`: 使用下拉菜单，选择文件要上传到的特定 :ref:`工作区 <documents/workspaces>`。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:171
+msgid ":guilabel:`标签`: 从下拉菜单中选择任何所需的标签。显示的可用标签基于为所选 :guilabel:`工作区` 配置的标签。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:172
+msgid ":guilabel:`信息`: 在此字段中输入以澄清文件请求的消息。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:174
+msgid "完成所有字段后，点击 :guilabel:`请求` 发送文件请求。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:None
+msgid "请求文件表单，所有字段都已填写以请求合同。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:183
+msgid "活动类型"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:185
+msgid "要查看当前配置的数据库中的活动类型，请导航到 :menuselection:`设置应用 --> 讨论部分 --> 活动设置 --> 活动类型`。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:None
+msgid "设置应用中讨论部分的活动类型按钮。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:191
+msgid "这样会显示 :guilabel:`活动类型` 页面，在那里可以找到现有的活动类型。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:194
+msgid "各个应用程序有专门为其应用程序提供的 *活动类型* 列表。例如，要查看和编辑 *CRM* 应用的可用活动，请转到 :menuselection:`CRM 应用 --> 配置 --> 活动类型`。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:None
+msgid "已配置和可用的活动类型列表。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:201
+msgid "编辑活动类型"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:203
+msgid "要编辑现有的 :ref:`活动类型 <activities/types>`，点击该活动类型，活动类型表单将加载。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:205
+msgid "对活动类型表单进行任何所需的更改。表单会自动保存，但可以随时手动保存，点击位于页面左上角的 :guilabel:`手动保存` 选项，表示为 :icon:`fa-cloud-upload` :guilabel:`(云上传)` 图标。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:208
+msgid "创建新活动类型"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:210
+msgid "要创建新的 :ref:`活动类型 <activities/types>`，从 :guilabel:`活动类型` 页面点击 :guilabel:`新建`，加载空白的活动类型表单。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:212
-msgid ":guilabel:`Document Name`: enter a name for the document being requested."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:213
-msgid ":guilabel:`Request To`: select the user the document is being requested from using the drop-down menu."
+msgid "在表单顶部为活动类型输入一个 :guilabel:`名称`，然后在表单上输入以下信息。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:215
-msgid ":guilabel:`Due Date In`: enter a numerical value indicating when the document is due. Next to this field, a :guilabel:`Days` field is visible. Click :guilabel:`Days`, the default option, to reveal a drop-down menu. Select the desired time-frame option from the list. The options are :guilabel:`Days`, :guilabel:`Weeks`, or :guilabel:`Months`."
+msgid "活动设置部分"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:217
+msgid ":guilabel:`操作`: 使用下拉菜单，选择与此新活动类型关联的操作。某些操作在安排活动后会触发特定行为，例如："
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:219
-msgid ":guilabel:`Workspace`: using the drop-down menu, select the specific :ref:`Workspace <documents/workspaces>` the document is being uploaded to."
+msgid ":guilabel:`上传文件`: 如果选择，将自动在计划活动的聊天中添加上传文件的链接。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:220
+msgid ":guilabel:`电话` 或 :guilabel:`会议`: 如果选择，用户可以选择打开日历以选择活动的日期和时间。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:221
-msgid ":guilabel:`Tags`: select any desired tags from the drop-down menu. The available tags displayed are based on the tags configured for the selected :guilabel:`Workspace`."
+msgid ":guilabel:`请求签名`: 如果选择，将自动在计划活动的聊天中添加一个打开签名请求弹出窗口的链接。这需要安装 Odoo *签名* 应用。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:223
-msgid ":guilabel:`Message`: enter a message to clarify the document request in this field."
+#: ../../content/applications/essentials/activities.rst:224
+msgid "可用的活动类型取决于数据库中安装的应用程序。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:225
-msgid "When all the fields are completed, click :guilabel:`Request` to send the document request."
+#: ../../content/applications/essentials/activities.rst:226
+msgid ":guilabel:`文件夹`: 选择要保存文件到的特定 :ref:`工作区 <documents/workspaces>` 文件夹。仅当为 :guilabel:`操作` 选择了 :guilabel:`上传文件` 时，才会显示此字段。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "The Request a file form, with all fields filled out to request a contract."
+#: ../../content/applications/essentials/activities.rst:228
+msgid "使用下拉菜单，选择保存文件的 :guilabel:`文件夹`。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:230
+msgid ":guilabel:`默认用户`: 从下拉菜单中选择一个用户，在安排此活动类型时自动将该活动分配给该用户。如果此字段留空，则将活动分配给创建活动的用户。"
+msgstr ""
+
+#: ../../content/applications/essentials/activities.rst:231
+msgid ":guilabel:`默认摘要`: 输入每次创建此活动类型时包含的备注。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:234
-msgid "Activity types"
+msgid "在创建活动时会包含 :guilabel:`默认用户` 和 :guilabel:`默认摘要` 字段中的信息。不过，在安排或保存活动之前可以进行更改。"
 msgstr ""
 
 #: ../../content/applications/essentials/activities.rst:236
-msgid "To view the currently configured types of activities in the database, navigate to :menuselection:`Settings app --> Discuss section --> Activities setting --> Activity Types`."
+msgid ":guilabel:`保留完成`: 勾选此复选框，以使标记为 `完成` 的活动在 :ref:`活动视图 <activities/activity>` 中可见。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "Activity Types button in the Settings application under the Discuss section."
+#: ../../content/applications/essentials/activities.rst:237
+msgid ":guilabel:`默认备注`: 输入要与活动一起显示的任何备注。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:243
-msgid "Doing so reveals the :guilabel:`Activity Types` page, where the existing activity types are found."
+#: ../../content/applications/essentials/activities.rst:240
+msgid "下一个活动部分"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:246
-msgid "Individual applications have a list of *Activity Types* dedicated to that application. For example, to view and edit the activities available for the *CRM* application, go to :menuselection:`CRM app --> Configuration --> Activity Types`."
+#: ../../content/applications/essentials/activities.rst:242
+msgid "可以建议或触发另一个活动。为此，请配置 :guilabel:`下一个活动` 部分。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "The list of activity types already configured and available."
+#: ../../content/applications/essentials/activities.rst:244
+msgid ":guilabel:`链接类型`: 从下拉菜单中选择 :guilabel:`建议下一个活动` 或 :guilabel:`触发下一个活动`。根据选择的选项，将显示 :guilabel:`建议` 或 :guilabel:`触发` 字段。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:255
-msgid "Edit activity types"
+#: ../../content/applications/essentials/activities.rst:247
+msgid "如果为 :guilabel:`操作` 选择了 :guilabel:`上传文件`，则不会显示 :guilabel:`链接类型` 字段。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:257
-msgid "To edit an existing :ref:`activity type <activities/types>`, click on the activity type, and the activity type form loads."
+#: ../../content/applications/essentials/activities.rst:249
+msgid ":guilabel:`建议/触发`: 根据为 :guilabel:`链接类型` 选择的内容，该字段会显示 :guilabel:`建议` 或 :guilabel:`触发`。使用下拉菜单，选择要作为活动类型后续任务推荐或安排的活动。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:260
-msgid "Make any desired changes to the activity type form. The form automatically saves, but it can be saved manually at any time by clicking the :guilabel:`Save Manually` option, represented by a :icon:`fa-cloud-upload` :guilabel:`(cloud upload)` icon, located in the top-left corner of the page."
+#: ../../content/applications/essentials/activities.rst:250
+msgid ":guilabel:`安排`: 配置建议或触发下一个活动的时间。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:265
-msgid "Create new activity types"
+#: ../../content/applications/essentials/activities.rst:252
+msgid "首先，输入一个数字值，指示建议或触发活动的时间。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:267
-msgid "To create a new :ref:`activity type <activities/types>`, click :guilabel:`New` from the :guilabel:`Activity Types` page, and a blank activity type form loads."
+#: ../../content/applications/essentials/activities.rst:254
+msgid "此字段旁边显示 :guilabel:`天` 字段。点击默认选项 :guilabel:`天`，显示下拉菜单。从列表中选择所需的时间框架选项。选项有 :guilabel:`天`、:guilabel:`周` 或 :guilabel:`月`。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:270
-msgid "Enter a :guilabel:`Name` for the activity type at the top of the form, then enter the following information on the form."
+#: ../../content/applications/essentials/activities.rst:256
+msgid "最后，使用下拉菜单，选择活动是 :guilabel:`在上一个活动截止日期后` 还是 :guilabel:`在完成日期后` 安排或触发。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:274
-msgid "Activity Settings section"
+#: ../../content/applications/essentials/activities.rst:None
+msgid "填写了所有字段的新活动表单。"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:276
-msgid ":guilabel:`Action`: using the drop-down menu, select an action associated with this new activity type. Some actions trigger specific behaviors after an activity is scheduled, such as:"
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:279
-msgid ":guilabel:`Upload Document`: if selected, a link to upload a document is automatically added to the planned activity in the chatter."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:281
-msgid ":guilabel:`Call` or :guilabel:`Meeting`: if selected, users have the option to open their calendar to select a date and time for the activity."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:283
-msgid ":guilabel:`Request Signature`: if selected, a link to open a signature request pop-up window is automatically added to the planned activity in the chatter. This requires the Odoo *Sign* application to be installed."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:288
-msgid "Available activity types vary based on the installed applications in the database."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:290
-msgid ":guilabel:`Folder`: select a specific :ref:`workspace <documents/workspaces>` folder to save a document to. This field **only** appears if :guilabel:`Upload Document` is selected for the :guilabel:`Action`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:294
-msgid "Using the drop-down menu, select the :guilabel:`Folder` the document is saved to."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:296
-msgid ":guilabel:`Default User`: select a user from the drop-down menu to automatically assign this activity to the selected user when this activity type is scheduled. If this field is left blank, the activity is assigned to the user who creates the activity."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:299
-msgid ":guilabel:`Default Summary`: enter a note to include whenever this activity type is created."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:302
-msgid "The information in the :guilabel:`Default User` and :guilabel:`Default Summary` fields are included when an activity is created. However, they can be altered before the activity is scheduled or saved."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:306
-msgid ":guilabel:`Keep Done`: tick this checkbox to keep activities that have been marked as `Done` visible in the :ref:`activity view <activities/activity>`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:308
-msgid ":guilabel:`Default Note`: enter any notes to appear with the activity."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:311
-msgid "Next Activity section"
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:313
-msgid "It is possible to have another activity either suggested or triggered. To do so, configure the :guilabel:`Next Activity` section."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:316
-msgid ":guilabel:`Chaining Type`: select either :guilabel:`Suggest Next Activity` or :guilabel:`Trigger Next Activity` from the drop-down menu. Depending on the selected option, either the :guilabel:`Suggest` or :guilabel:`Trigger` field is displayed."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:321
-msgid "The :guilabel:`Chaining Type` field does **not** appear if :guilabel:`Upload Document` is selected for the :guilabel:`Action`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:324
-msgid ":guilabel:`Suggest/Trigger`: depending on what is selected for the :guilabel:`Chaining Type`, this field either displays :guilabel:`Suggest` or :guilabel:`Trigger`. Using the drop-down menu, select the activity to recommend or schedule as a follow-up task to the activity type."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:327
-msgid ":guilabel:`Schedule`: configure when the next activity is suggested or triggered."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:329
-msgid "First, enter a numerical value indicating when the activity is suggested or triggered."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:331
-msgid "Next to this field, a :guilabel:`Days` field is visible. Click :guilabel:`Days`, the default option, to reveal a drop-down menu. Select the desired time-frame option from the list. The options are :guilabel:`Days`, :guilabel:`Weeks`, or :guilabel:`Months`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:335
-msgid "Lastly, using the drop-down menu, select whether the activity is scheduled or triggered either :guilabel:`after previous activity deadline` or :guilabel:`after completion date`."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:-1
-msgid "A new Activity form with all the fields filled out."
-msgstr ""
-
-#: ../../content/applications/essentials/activities.rst:343
+#: ../../content/applications/essentials/activities.rst:263
 msgid ":doc:`../productivity/discuss`"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:344
+#: ../../content/applications/essentials/activities.rst:264
 msgid ":doc:`../productivity/discuss/team_communication`"
 msgstr ""
 
-#: ../../content/applications/essentials/activities.rst:345
+#: ../../content/applications/essentials/activities.rst:265
 msgid ":doc:`../sales/crm/optimize/utilize_activities`"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:5
-msgid "Contacts"
+msgid "联系人"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:7
-msgid "The *Contacts* application comes installed on all Odoo databases. Contacts are created for customers the company does business with through Odoo. A contact is a repository of vital business information, facilitating communication and business transactions."
+msgid "*联系人* 应用程序预安装在所有 Odoo 数据库中。联系人是公司通过 Odoo 与其进行业务往来的客户。联系人是重要业务信息的存储库，促进沟通和业务交易。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:10
+msgid "联系人表单"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:12
-msgid "Contact form"
+msgid "要创建新联系人，导航到 :menuselection:`联系人应用`，然后点击 :guilabel:`创建`。会出现一个新表单，在其中可以添加各种联系信息。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:14
-msgid "To create a new contact, navigate to the :menuselection:`Contacts app`, and click :guilabel:`Create`. A new form appears where various contact information can be added."
+#: ../../content/applications/essentials/contacts.rst:15
+msgid "联系人类型"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:18
-msgid "Contact type"
+#: ../../content/applications/essentials/contacts.rst:17
+msgid "Odoo 允许添加 :guilabel:`个人` 和 :guilabel:`公司` 联系人。根据要添加的联系人类型，选择 :guilabel:`个人` 或 :guilabel:`公司`。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:20
-msgid "Odoo allows for both :guilabel:`Individual` and :guilabel:`Company` contacts. Select either :guilabel:`Individual` or :guilabel:`Company`, depending on the type of contact that is being added."
+msgid "姓名"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:24
-msgid "Name"
+#: ../../content/applications/essentials/contacts.rst:22
+msgid "首先，填写 :guilabel:`个人` 或 :guilabel:`公司` 的姓名。这是数据库中显示姓名的方式。此字段是 **必填项**。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:26
-msgid "First, fill in the name of the :guilabel:`Individual` or :guilabel:`Company`. This is how the name appears throughout the database. This field is **mandatory**."
+#: ../../content/applications/essentials/contacts.rst:25
+msgid ":guilabel:`个人` 联系人可以链接到 :guilabel:`公司` 联系人。选择 :guilabel:`个人` 后，第一个姓名字段下方会出现一个新的 :guilabel:`公司名称...` 字段。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:28
+msgid "地址"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:30
-msgid ":guilabel:`Individual` contacts can have a :guilabel:`Company` contact linked to it. After selecting :guilabel:`Individual`, a new :guilabel:`Company Name...` field appears below the first name field."
+msgid "接下来，输入 :guilabel:`公司` 或 :guilabel:`个人` 的 :guilabel:`地址`。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:35
-msgid "Address"
+#: ../../content/applications/essentials/contacts.rst:33
+msgid "如果选择了 :guilabel:`个人` 选项，则可以从下拉菜单中选择 *地址类型*。此下拉菜单的选项包括：:guilabel:`联系地址`、:guilabel:`发票地址`、:guilabel:`送货地址`、:guilabel:`其他地址` 和 :guilabel:`私人地址`。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:37
-msgid "Next, enter the :guilabel:`Address` of the :guilabel:`Company` or :guilabel:`Individual`."
+#: ../../content/applications/essentials/contacts.rst:36
+msgid "其他字段"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:38
+msgid "初始表单中包含其他详细信息。可用字段如下："
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:40
-msgid "If the :guilabel:`Individual` option is chosen, then the *type of address* can be chosen from a drop-down menu. Options for this drop-down menu include: :guilabel:`Contact`, :guilabel:`Invoice Address`, :guilabel:`Delivery Address`, :guilabel:`Other Address`, and :guilabel:`Private Address`."
+msgid ":guilabel:`增值税号`：增值税号码。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:41
+msgid ":guilabel:`公民身份证号码`：公民或政府身份证号码（仅限 :guilabel:`个人`）。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:42
+msgid ":guilabel:`职位`：列出 :guilabel:`个人` 的职位（仅限 :guilabel:`个人`）。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:43
+msgid ":guilabel:`电话`：列出电话号码（含国家代码）。在保存的表单上悬停在该字段上，点击所需选项可以拨打电话、发送短信或 WhatsApp 消息。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:44
+msgid ":guilabel:`手机`：列出手机号码（含国家代码）。在保存的表单上悬停在该字段上，点击所需选项可以拨打电话、发送短信或 WhatsApp 消息。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:45
+msgid ":guilabel:`电子邮件`：输入电子邮件地址及其域名。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:46
-msgid "Additional fields"
+msgid ":guilabel:`网站`：输入完整的网站地址，以 `http` 或 `https` 开头。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:47
+msgid ":guilabel:`称谓`：选择 :guilabel:`博士`、:guilabel:`女士`、:guilabel:`小姐`、:guilabel:`先生`、:guilabel:`教授` 或直接从该字段创建一个新的称谓。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:48
-msgid "Additional details are included on the initial form. The following fields are available:"
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:50
-msgid ":guilabel:`VAT`: Value Added Tax number."
+msgid ":guilabel:`标签`：通过在字段中输入或点击下拉菜单选择预配置标签。要创建新标签，在字段中输入新标签并从下拉菜单中点击 :guilabel:`创建`。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:51
-msgid ":guilabel:`Citizen Identification`: citizen or government identification number (only available on :guilabel:`Individual`)."
+msgid "联系人和地址选项卡"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:53
-msgid ":guilabel:`Job Position`: list the job position of the :guilabel:`Individual` (only available on :guilabel:`Individual`)."
+msgid "联系人表单底部有几个选项卡。在 :guilabel:`联系人和地址` 选项卡中，可以添加与 :guilabel:`公司` 关联的联系人及相关地址。例如，可以在此列出公司的特定联系人。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:55
-msgid ":guilabel:`Phone`: list phone number (with country code). Make a call, send an SMS, or WhatsApp message by hovering over the field on the saved form, and clicking the desired option."
+msgid "在 :guilabel:`个人` 和 :guilabel:`公司` 联系人中都可以添加多个地址。为此，请点击 :guilabel:`联系人和地址` 选项卡中的 :guilabel:`添加`。这样会显示一个 :guilabel:`创建联系人` 弹出表单，您可以在其中配置其他地址。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:57
-msgid ":guilabel:`Mobile`: list mobile phone number (with country code). Make a call, send an SMS, or WhatsApp message by hovering over the field on the saved form, and clicking on the desired option."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:59
-msgid ":guilabel:`Email`: enter the email address with the domain."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:60
-msgid ":guilabel:`Website`: enter the full website address, starting with `http` or `https`."
+#: ../../content/applications/essentials/contacts.rst:None
+msgid "在联系人表单中添加联系人/地址。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:61
-msgid ":guilabel:`Title`: select :guilabel:`Doctor`, :guilabel:`Madam`, :guilabel:`Miss`, :guilabel:`Mister`, :guilabel:`Professor`, or create a new one directly from this field."
+msgid "在 :guilabel:`创建联系人` 弹出表单中，首先点击顶部的默认 :guilabel:`其他地址` 字段，显示与地址相关的选项下拉菜单。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:63
-msgid ":guilabel:`Tags`: enter preconfigured tags by typing them in the field, or clicking the drop-down menu, and selecting one. To create a new one, type the new tag in the field, and click :guilabel:`Create` from the resulting drop-down menu."
+msgid "选择以下任何选项："
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:65
+msgid ":guilabel:`联系地址`：向现有联系人表单添加另一个联系人。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:66
+msgid ":guilabel:`发票地址`：向现有联系人表单添加特定发票地址。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:67
+msgid ":guilabel:`送货地址`：向现有联系人表单添加特定送货地址。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:68
-msgid "Contacts & Addresses tab"
+msgid ":guilabel:`其他地址`：向现有联系人表单添加备用地址。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:70
-msgid "At the bottom of the contact form are several tabs. On the :guilabel:`Contacts & Addresses` tab, contacts can be added that are associated with a :guilabel:`Company` and related addresses. For example, a specific contact person for the company can be listed here."
+#: ../../content/applications/essentials/contacts.rst:69
+msgid ":guilabel:`私人地址`：向现有联系人表单添加私人地址。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:74
-msgid "Multiple addresses can be added on both :guilabel:`Individual` and :guilabel:`Company` contacts. To do so, click :guilabel:`Add` in the :guilabel:`Contacts & Addresses` tab. Doing so reveals a :guilabel:`Create Contact` pop-up form, in which additional addresses can be configured."
+#: ../../content/applications/essentials/contacts.rst:None
+msgid "在联系人表单中创建新联系人/地址。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:-1
-msgid "Add a contact/address to the contact form."
+#: ../../content/applications/essentials/contacts.rst:75
+msgid "选择一个选项后，输入要用于指定地址类型的相应联系信息。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:82
-msgid "On the :guilabel:`Create Contact` pop-up form, start by clicking the default :guilabel:`Other Address` field at the top to reveal a drop-down menu of address-related options."
+#: ../../content/applications/essentials/contacts.rst:77
+msgid "添加 :guilabel:`联系人姓名`、:guilabel:`地址`、:guilabel:`电子邮件`，以及下方的 :guilabel:`电话` 和/或 :guilabel:`手机` 号码。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:85
-msgid "Select any of the following options:"
+#: ../../content/applications/essentials/contacts.rst:79
+msgid "设置 :guilabel:`职位`，如果选择了 :guilabel:`联系地址` 类型，它会显示出来。这与 :guilabel:`个人` 联系人类似。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:87
-msgid ":guilabel:`Contact`: adds another contact to the existing contact form."
+#: ../../content/applications/essentials/contacts.rst:81
+msgid "要添加备注，点击 :guilabel:`备注` 字段旁的文本框，输入适用于客户或联系人的任何内容。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:83
+msgid "然后，点击 :guilabel:`保存并关闭` 以保存地址并关闭 :guilabel:`创建联系人` 窗口。或者，点击 :guilabel:`保存并新建` 以保存地址并立即输入另一个。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:86
+msgid "销售和采购选项卡"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:88
-msgid ":guilabel:`Invoice Address`: adds a specific invoice address to the existing contact form."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:89
-msgid ":guilabel:`Delivery Address`: adds a specific delivery address to the existing contact form."
+msgid "接下来是 :guilabel:`销售和采购` 选项卡，只有在安装了 *销售*、*采购* 或 *销售点* 应用时才会显示。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:90
-msgid ":guilabel:`Other Address`: adds an alternate address to the existing contact form."
+msgid "可以在 :guilabel:`销售和采购` 选项卡中设置 :guilabel:`税务职位`。从下拉菜单中选择一个 :guilabel:`税务职位`。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:91
-msgid ":guilabel:`Private Address`: adds a private address to the existing contact form."
+#: ../../content/applications/essentials/contacts.rst:93
+msgid "销售部分"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:-1
-msgid "Create a new contact/address on a contact form."
+#: ../../content/applications/essentials/contacts.rst:95
+msgid "在 :guilabel:`销售` 标题下，可以为联系人分配特定的 :guilabel:`销售员`。为此，点击 :guilabel:`销售员` 下拉字段并选择一个。通过输入用户姓名并进行相应选择，可以创建新的 :guilabel:`销售员`。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:97
-msgid "Once an option is selected, enter the corresponding contact information that should be used for the specified address type."
+msgid "还可以根据需要设置某些 :guilabel:`付款条款` 或 :guilabel:`价目表`。点击 :guilabel:`付款条款` 旁边的下拉菜单，将其更改为预选的 :guilabel:`付款条款` 之一，或 :guilabel:`创建` 一个新的条款。选择 :guilabel:`价目表` 下拉菜单，选择合适的 :guilabel:`价目表`。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:100
-msgid "Add the :guilabel:`Contact Name`, :guilabel:`Address`, :guilabel:`Email`, along with the :guilabel:`Phone` and/or :guilabel:`Mobile` numbers below."
+#: ../../content/applications/essentials/contacts.rst:99
+msgid "点击 :guilabel:`送货方式` 字段，选择下拉菜单中的选项。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:103
-msgid "Set the :guilabel:`Job Position`, which appears if the :guilabel:`Contact` address type has been selected. This is similar to the :guilabel:`Individual` contact."
+#: ../../content/applications/essentials/contacts.rst:102
+msgid "销售点部分"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:106
-msgid "To add a note, click on the text field next to :guilabel:`Notes`, and write anything that is applicable to the customer or contact."
+#: ../../content/applications/essentials/contacts.rst:104
+msgid "在 :guilabel:`销售点` 标题下，输入可以用于识别联系人的 :guilabel:`条形码`。使用 :guilabel:`积分` 字段跟踪用户作为 *忠诚度计划* 一部分赢得的积分。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:107
+msgid "采购部分"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:109
-msgid "Then, click :guilabel:`Save & Close` to save the address, and close the :guilabel:`Create Contact` window. Or, click :guilabel:`Save & New` to save the address, and immediately input another one."
+msgid "在此处指定 :guilabel:`付款条款`、:guilabel:`1099 框` 信息和首选的 :guilabel:`付款方式`。还可以在此处设置 :guilabel:`收货提醒`。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:113
-msgid "Sales & Purchase tab"
+#: ../../content/applications/essentials/contacts.rst:112
+msgid "杂项部分"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:115
-msgid "Next, is the :guilabel:`Sales & Purchases` tab, which only appears when the *Sales*, *Purchase*, **or** *Point of Sale* applications are installed."
+#: ../../content/applications/essentials/contacts.rst:114
+msgid "在 :guilabel:`杂项` 标题下，使用 :guilabel:`参考` 字段为此联系人添加任何附加信息。如果此联系人只应在多公司数据库中为一家公司访问，请从 :guilabel:`公司` 字段的下拉列表中选择它。使用 :guilabel:`网站` 下拉菜单限制此联系人仅在一个网站上发布（如果在多个网站的数据库中工作）。选择一个或多个 :guilabel:`网站标签` 以帮助在 `/customers` 网站页面上筛选发布的客户。从下拉菜单中选择此联系人的 :guilabel:`行业`。使用 :guilabel:`SLA 政策` 字段为此联系人分配 *帮助台* SLA 政策。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:118
-msgid "The :guilabel:`Fiscal Position` can be set on the :guilabel:`Sales & Purchases` tab. Select a :guilabel:`Fiscal Position` from the drop-down menu."
+#: ../../content/applications/essentials/contacts.rst:117
+msgid "会计选项卡"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:122
-msgid "Sales section"
+#: ../../content/applications/essentials/contacts.rst:119
+msgid "安装 *会计* 应用时会显示 :guilabel:`会计` 选项卡。在此，用户可以添加任何相关的 :guilabel:`银行账户` 或设置默认的 :guilabel:`会计条目`。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:121
+msgid "在 :guilabel:`杂项` 标题下，使用 :guilabel:`LEI` 字段输入法律实体标识符（如有必要）。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:124
-msgid "Under the :guilabel:`Sales` heading, a specific :guilabel:`Salesperson` can be assigned to a contact. To do that, click the :guilabel:`Salesperson` drop-down field, and select one. Create a new :guilabel:`Salesperson` by typing the user's name, and making the appropriate selection."
+msgid "内部备注选项卡"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:128
-msgid "Certain :guilabel:`Payment Terms`, or a certain :guilabel:`Pricelist`, can also be set, if needed. Click the drop-down menu next to :guilabel:`Payment Terms`, and change it to one of the preselected :guilabel:`Payment Terms`, or :guilabel:`Create` a new one. Select the :guilabel:`Pricelist` drop-down menu to choose the appropriate :guilabel:`Pricelist`."
+#: ../../content/applications/essentials/contacts.rst:126
+msgid "在 :guilabel:`会计` 选项卡之后是 :guilabel:`内部备注` 选项卡，可以像上面提到的联系人表单一样在此表单上留下备注。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:133
-msgid "Click into the :guilabel:`Delivery Method` field to select an option from the drop-down menu."
+#: ../../content/applications/essentials/contacts.rst:129
+msgid "合作伙伴分配选项卡"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:136
-msgid "Point Of Sale section"
+#: ../../content/applications/essentials/contacts.rst:131
+msgid "接下来是 :guilabel:`合作伙伴分配` 选项卡，其中默认包含 :guilabel:`地理定位` 部分和其他合作伙伴选项，包括 :guilabel:`合作伙伴激活` 和 :guilabel:`合作伙伴审查` 配置。这些选项 **仅在** 安装了 *经销商* 模块时才会显示。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:138
-msgid "Under the :guilabel:`Point Of Sale` heading, enter a :guilabel:`Barcode` that can be used to identify the contact. Use the :guilabel:`Loyalty Points` field to track points the user won as part of a *Loyalty Program*."
+#: ../../content/applications/essentials/contacts.rst:134
+msgid "有关在网站上发布合作伙伴的更多信息，请参阅 :doc:`经销商文档 <../sales/crm/track_leads/resellers>`。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:143
-msgid "Purchase section"
+#: ../../content/applications/essentials/contacts.rst:137
+msgid "会员选项卡"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:145
-msgid "Specify :guilabel:`Payment Terms`, :guilabel:`1099 Box` information, and a preferred :guilabel:`Payment Method` here. A :guilabel:`Receipt Reminder` can be set here, as well."
+#: ../../content/applications/essentials/contacts.rst:139
+msgid "最后，联系人表单中有一个 :guilabel:`会员` 选项卡，可以帮助用户管理向特定联系人提供的任何会员资格。请注意，此选项卡 **仅在** 安装了 *会员* 应用时才会显示。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:142
+msgid "激活会员资格"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:144
+msgid "要激活联系人的会员资格，请在联系人表单的 :guilabel:`会员` 选项卡中点击 :guilabel:`购买会员`。在出现的弹出窗口中，从下拉菜单中选择一个 :guilabel:`会员`。然后，配置一个 :guilabel:`会员价格`。填写完两个字段后，点击 :guilabel:`开具会员发票`。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:146
+msgid "或者，要提供免费会员资格，在联系人表单的 :guilabel:`会员` 选项卡中勾选 :guilabel:`免费会员` 复选框。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:149
-msgid "Misc section"
+msgid "有关在网站上发布会员的更多信息，请参阅 :doc:`会员文档 <../sales/members>`。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:151
-msgid "Under the :guilabel:`Misc.` heading, use :guilabel:`Reference` field to add any additional information for this contact. If this contact should only be accessible for one company in a multi-company database, select it from the :guilabel:`Company` field drop-down list. Use the :guilabel:`Website` drop-down menu to restrict the publishing of this contact to one website (if working on a database with multiple websites). Select one or more :guilabel:`Website Tags` to assist in filtering published customers on the `/customers` website page. Select an :guilabel:`Industry` for this contact from the drop-down menu. Use the :guilabel:`SLA Policies` field to assign a *Helpdesk* SLA policy to this contact."
+#: ../../content/applications/essentials/contacts.rst:152
+msgid "智能按钮"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:161
-msgid "Accounting tab"
+#: ../../content/applications/essentials/contacts.rst:154
+msgid "在联系人表单的顶部，有一些额外的可用选项，称为 *智能按钮*。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:163
-msgid "The :guilabel:`Accounting` tab appears when the *Accounting* application is installed. Here, a user can add any related :guilabel:`Bank Accounts`, or set default :guilabel:`Accounting entries`."
+#: ../../content/applications/essentials/contacts.rst:156
+msgid "在此，Odoo 显示与此联系人相关的、在其他应用中创建的各种记录。Odoo 集成了来自每个应用程序的信息，因此有许多智能按钮。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:159
+msgid "例如，有一个 :guilabel:`机会` 智能按钮，可以访问与该客户相关的 *CRM* 应用中的所有机会。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:162
+msgid "如果安装了相应的应用程序，它们的相关智能按钮会自动出现在联系人表单上。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:164
+msgid "用户可以查看任何 :guilabel:`会议`、:guilabel:`销售`、:guilabel:`POS 订单`、:guilabel:`订阅`、项目 :guilabel:`任务`，并且 :guilabel:`更多` 智能按钮通过下拉菜单显示更多选项。用户甚至可以快速访问 :guilabel:`采购`、:guilabel:`帮助台` 任务、交货的 :guilabel:`准时率`、:guilabel:`发票` 信息、:guilabel:`供应商账单` 和与该联系人相关的 :guilabel:`合作伙伴总账`。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:166
-msgid "Under the :guilabel:`Miscellaneous` heading, use the :guilabel:`LEI` field to enter a Legal Entity Identifier, if necessary."
+msgid "交货、文件、忠诚度卡和直接借记也与智能按钮相关联，如果此联系人有任何未完成的记录或文件。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:170
-msgid "Internal Notes tab"
+#: ../../content/applications/essentials/contacts.rst:168
+msgid "如果联系人是合作伙伴，用户可以点击 :guilabel:`前往网站` 智能按钮访问其在 Odoo 构建的网站上的合作伙伴页面。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:172
-msgid "Following the :guilabel:`Accounting` tab is the :guilabel:`Internal Notes` tab, where notes can be left on this contact form, just like on the contact form noted above."
+#: ../../content/applications/essentials/contacts.rst:171
+msgid "归档联系人"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:176
-msgid "Partner Assignment tab"
+#: ../../content/applications/essentials/contacts.rst:173
+msgid "如果用户决定不再激活此联系人，则可以将记录存档。为此，请转到联系人表单顶部的 :icon:`fa-cog` :guilabel:`操作` 菜单，然后点击 :guilabel:`存档`。"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:178
-msgid "Next is the :guilabel:`Partner Assignment` tab, which by default, includes a :guilabel:`Geolocation` section, and other partner options, including :guilabel:`Partner Activation` and :guilabel:`Partner Review` configurations. These are **only** present when the *Resellers* module is installed."
+#: ../../content/applications/essentials/contacts.rst:175
+msgid "然后，在出现的 :guilabel:`确认` 弹出窗口中点击 :guilabel:`确定`。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:177
+msgid "成功存档此联系人后，如顶部横幅所示，它们不会显示在主联系人页面上，但可以通过 :guilabel:`已存档` 筛选器进行搜索。"
+msgstr ""
+
+#: ../../content/applications/essentials/contacts.rst:180
+msgid "如果用户决定再次与联系人合作，则可以 *取消存档*。为此，只需再次点击已存档联系人表单顶部的 :icon:`fa-cog` :guilabel:`操作` 菜单，然后点击 :guilabel:`取消存档`。完成此操作后，:guilabel:`已存档` 横幅将被移除，联系人将被恢复。"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts.rst:183
-msgid "Follow the :doc:`Resellers documentation <../sales/crm/track_leads/resellers>` for more information on publishing partners on the website."
+msgid ":doc:`在 CRM 中添加不同地址 <../sales/sales/send_quotations/different_addresses>`"
 msgstr ""
 
-#: ../../content/applications/essentials/contacts.rst:187
-msgid "Membership tab"
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:189
-msgid "Finally, there is the :guilabel:`Membership` tab on contact forms, which can help users manage any memberships that are being offered to this specific contact. It should be noted that this tab **only** appears when the *Members* application is installed."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:194
-msgid "Activate membership"
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:196
-msgid "To activate a contact's membership, click :guilabel:`Buy Membership` in the :guilabel:`Membership` tab of a contact form. On the pop-up window that appears, select a :guilabel:`Membership` from the drop-down menu. Then, configure a :guilabel:`Member Price`. Click :guilabel:`Invoice Membership` when both fields are filled in."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:201
-msgid "Alternatively, to offer a free membership, tick the :guilabel:`Free Member` checkbox, in the :guilabel:`Membership` tab of a contact form."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:205
-msgid "Follow the :doc:`Members documentation <../sales/members>` for more information on publishing members on the website."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:209
-msgid "Smart buttons"
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:211
-msgid "At the top of the contact form, there are some additional options available, known as *smart buttons*."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:214
-msgid "Here, Odoo displays a variety of records, related to this contact, that were created on other apps. Odoo integrates information from every single app, so there are many smart buttons."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:218
-msgid "For example, there is an :guilabel:`Opportunities` smart button, where all the opportunities related to this customer from the *CRM* app are accessible."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:222
-msgid "If the corresponding applications are installed, their related smart buttons appear automatically on a contact form."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:225
-msgid "A user can see any :guilabel:`Meetings`, :guilabel:`Sales`, :guilabel:`POS Orders`, :guilabel:`Subscriptions`, project :guilabel:`Tasks`, and the :guilabel:`More` smart button reveals additional options, via a drop-down menu. A user can even quickly access :guilabel:`Purchases`, :guilabel:`Helpdesk` tasks, :guilabel:`On-time Rate` for deliveries, :guilabel:`Invoiced` information, :guilabel:`Vendor Bills`, and the :guilabel:`Partner Ledger` connected to this contact."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:231
-msgid "Deliveries, documents, loyalty cards, and direct debits are *also* linked to smart buttons, like this, should there be any outstanding/on-file for this contact."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:234
-msgid "If the contact is a partner, the user can visit their partner page on the Odoo-built website by clicking the :guilabel:`Go to Website` smart button."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:238
-msgid "Archive contacts"
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:240
-msgid "If a user decides they no longer want to have this contact active, the record can be archived. To do that, go to the :icon:`fa-cog` :guilabel:`Action` menu at the top of the contact form, and click :guilabel:`Archive`."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:244
-msgid "Then, click :guilabel:`OK` from the resulting :guilabel:`Confirmation` pop-up window."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:246
-msgid "With this contact successfully archived, as indicated by a banner at the top, they do not show up in the main contacts page, but they can still be searched for with the :guilabel:`Archived` filter."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:250
-msgid "A contact can be *unarchived*, if the user decides to work with them again. To do that, just click the :icon:`fa-cog` :guilabel:`Action` menu again at the top of the archived contact form, and click :guilabel:`Unarchive`. Upon doing so, the :guilabel:`Archived` banner is removed, and the contact is restored."
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:256
-msgid ":doc:`Add different addresses in CRM <../sales/sales/send_quotations/different_addresses>`"
-msgstr ""
-
-#: ../../content/applications/essentials/contacts.rst:257
-msgid "`Odoo's eLearning Contacts tutorial <https://www.odoo.com/slides/slide/contacts-2527?fullscreen=1>`_"
+#: ../../content/applications/essentials/contacts.rst:184
+msgid "`Odoo 的 eLearning 联系人教程 <https://www.odoo.com/slides/slide/contacts-2527?fullscreen=1>`_"
 msgstr ""
 
 #: ../../content/applications/essentials/contacts/merge.rst:3
@@ -815,7 +814,7 @@ msgstr ""
 msgid "Navigate to the :menuselection:`Contacts app`, and select the :icon:`oi-view-list` :guilabel:`(list)` icon. Select two or more duplicate contacts from the list, and tick the checkbox (on the far-left) for the contacts that should be merged. Then, click the :icon:`fa-cog` :guilabel:`Actions` icon, and select :guilabel:`Merge` from the resulting drop-down menu."
 msgstr ""
 
-#: ../../content/applications/essentials/contacts/merge.rst:-1
+#: ../../content/applications/essentials/contacts/merge.rst:None
 msgid "The merge contacts option in the Contacts application."
 msgstr ""
 
@@ -827,7 +826,7 @@ msgstr ""
 msgid "Click the individual contact to open the record for that contact, and view additional information."
 msgstr ""
 
-#: ../../content/applications/essentials/contacts/merge.rst:-1
+#: ../../content/applications/essentials/contacts/merge.rst:None
 msgid "The merge pop-up window in the Contacts application."
 msgstr ""
 
@@ -900,1566 +899,1563 @@ msgid "If :guilabel:`Merge with Manual Check` is selected, complete the merge by
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:3
-msgid "Export and import data"
+msgid "导出和导入数据"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:8
-msgid "In Odoo, it is sometimes necessary to export or import data for running reports, or for data modification. This document covers the export and import of data into and out of Odoo."
+msgid "在 Odoo 中，有时需要导出或导入数据以运行报表或修改数据。本文档涵盖了将数据导入和导出 Odoo 的过程。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:12
-msgid "Sometimes, users run into a 'time out' error, or a record does not process, due to its size. This can occur with large exports, or in cases where the import file is too large. To circumvent this limitation surrounding the size of the records, process exports or imports in smaller batches."
+#: ../../content/applications/essentials/export_import_data.rst:11
+msgid "有时由于数据量过大，用户可能会遇到“超时”错误，或记录无法处理。这种情况可能发生在大型导出或导入文件过大的情况下。为避免记录大小限制，可以将导出或导入分成较小的批次处理。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:19
-msgid "Export data from Odoo"
+#: ../../content/applications/essentials/export_import_data.rst:16
+msgid "从 Odoo 导出数据"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:21
-msgid "When working with a database, it is sometimes necessary to export data in a distinct file. Doing so can aid in reporting on activities, although, Odoo provides a precise and easy reporting tool with each available application."
+#: ../../content/applications/essentials/export_import_data.rst:18
+msgid "在使用数据库时，有时需要将数据导出为单独的文件。这对于报告活动很有帮助，尽管 Odoo 提供了每个应用的精确而简便的报告工具。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:25
-msgid "With Odoo, the values can be exported from any field in any record. To do so, activate the list view (|list|), on the items that need to be exported, then select the records that should be exported. To select a record, tick the checkbox next to the corresponding record. Finally, click on |actions|, then :guilabel:`Export`."
+#: ../../content/applications/essentials/export_import_data.rst:20
+msgid "使用 Odoo，可以从任何记录中的任何字段导出值。为此，激活列表视图（|list|），选择需要导出的项目，然后选择要导出的记录。要选择记录，请勾选相应记录旁边的复选框。最后，点击 |actions|，然后选择 :guilabel:`导出`。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:-1
-msgid "View of the different things to enable/click to export data."
+#: ../../content/applications/essentials/export_import_data.rst:None
+msgid "启用/点击导出数据的不同步骤视图。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:26
+msgid "点击 :guilabel:`导出` 后，会弹出一个 :guilabel:`导出数据` 窗口，其中有多个导出数据的选项："
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:None
+msgid "在 Odoo 中导出数据时需要考虑的选项概览。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:32
+msgid "勾选 :guilabel:`我想更新数据（兼容导入的导出）` 选项时，系统只显示可以导入的字段。这在 :ref:`需要更新现有记录 <essentials/update-data>` 时很有帮助。这类似于一个过滤器。不勾选此框时，会显示更多的字段选项，因为它显示了所有字段，而不仅仅是可以导入的字段。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:33
+msgid "导出时，可以选择两种格式：`.csv` 和 `.xls`。使用 `.csv` 时，项目以逗号分隔，而 `.xls` 文件包含有关所有工作表的信息，包括内容和格式。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:34
-msgid "When clicking on :guilabel:`Export`, an :guilabel:`Export Data` pop-over window appears, with several options for the data to export:"
+msgid "这些是可以导出的项目。使用 :guilabel:`> (右箭头)` 图标显示更多子字段选项。使用 :guilabel:`搜索` 栏查找特定字段。为了更有效地使用 :guilabel:`搜索` 选项，点击所有 :guilabel:`> (右箭头)` 显示所有字段。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:-1
-msgid "Overview of options to consider when exporting data in Odoo.."
+#: ../../content/applications/essentials/export_import_data.rst:35
+msgid ":guilabel:`+ (加号)` 图标按钮用于将字段添加到 :guilabel:`导出的字段` 列表中。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:36
+msgid "选定字段左侧的 :guilabel:`↕️ (上下箭头)` 用于上下移动字段，以更改它们在导出文件中的显示顺序。可以通过拖放 :guilabel:`↕️ (上下箭头)` 图标来实现。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:37
+msgid ":guilabel:`🗑️ (垃圾桶)` 图标用于删除字段。点击 :guilabel:`🗑️ (垃圾桶)` 图标删除字段。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:38
+msgid "对于定期报告，保存导出预设很有帮助。选择所有需要的字段，然后点击模板下拉菜单。在此处点击 :guilabel:`新建模板`，并为刚创建的导出指定唯一名称。点击 :guilabel:`💾 (软盘)` 图标保存配置。下次需要导出相同列表时，从下拉菜单中选择之前保存的相关模板。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:41
-msgid "With the :guilabel:`I want to update data (import-compatable export)` option ticked, the system only shows the fields that can be imported. This is helpful in the case where the :ref:`existing records need to be updated <essentials/update-data>`. This works like a filter. Leaving the box unticked, gives many more field options because it shows all the fields, not just the ones that can be imported."
+msgid "了解字段的外部标识符非常有帮助。例如，导出用户界面中的 :guilabel:`关联公司` 等同于 *parent_id*（外部标识符）。这非常有用，因为只有导出的数据是需要修改并重新导入的数据。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:46
-msgid "When exporting, there is the option to export in two formats: `.csv` and `.xls`. With `.csv`, items are separated by a comma, while `.xls` holds information about all the worksheets in a file, including both content and formatting."
+msgid "将数据导入 Odoo"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:49
-msgid "These are the items that can be exported. Use the :guilabel:`> (right arrow)` icon to display more sub-field options. Use the :guilabel:`Search` bar to find specific fields. To use the :guilabel:`Search` option more efficiently, click on all the :guilabel:`> (right arrows)` to display all fields."
+#: ../../content/applications/essentials/export_import_data.rst:48
+msgid "在实施期间或需要 :ref:`批量更新数据 <essentials/update-data>` 时，将数据导入 Odoo 非常有帮助。以下文档介绍了如何将数据导入 Odoo 数据库。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:53
-msgid "The :guilabel:`+ (plus sign)` icon button is present to add fields to the :guilabel:`Fields to export` list."
+#: ../../content/applications/essentials/export_import_data.rst:51
+msgid "导入操作是永久性的，**无法撤销**。不过，可以使用过滤器（如 `创建时间` 或 `最后修改时间`）来识别通过导入更改或创建的记录。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:55
-msgid "The :guilabel:`↕️ (up-down arrow)` to the left of the selected fields can be used to move the fields up and down, to change the order in which they are displayed in the exported file. Drag-and-drop using the :guilabel:`↕️ (up-down arrow)` icon."
+#: ../../content/applications/essentials/export_import_data.rst:54
+msgid "激活 :ref:`开发者模式 <developer-mode>` 会更改左侧菜单中显示的导入设置。激活后会显示 :menuselection:`高级` 菜单。此高级菜单包括两个选项：:guilabel:`在导入期间跟踪历史` 和 :guilabel:`允许与子字段匹配`。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:58
-msgid "The :guilabel:`🗑️ (trash can)` icon is used to remove fields. Click on the :guilabel:`🗑️ (trash can)` icon to remove the field."
+#: ../../content/applications/essentials/export_import_data.rst:None
+msgid "启用开发者模式时的高级导入选项。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:60
-msgid "For recurring reports, it is helpful to save export presets. Select all the needed fields, and click on the template drop-down menu. Once there, click on :guilabel:`New template`, and give a unique name to the export just created. Click the :guilabel:`💾 (floppy drive)` icon to save the configuration. The next time the same list needs to be exported, select the related template that was previously saved from the drop-down menu."
+msgid "如果模型使用 openchatter，选中 :guilabel:`在导入期间跟踪历史` 选项会在导入期间设置订阅并发送通知，但会导致导入速度较慢。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:62
+msgid "如果选中 :guilabel:`允许与子字段匹配` 选项，则在导入时，所有字段中的子字段都会用于匹配。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:65
+msgid "开始导入"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:67
-msgid "It is helpful to know the field's external identifier. For example, :guilabel:`Related Company` in the export user interface is equal to *parent_id* (external identifier). This is helpful because then, the only data exported is what should be modified and re-imported."
+msgid "可以使用 Excel (`.xlsx`) 或 :abbr:`CSV (逗号分隔值)` (`.csv`) 格式将数据导入到 Odoo 中的任何业务对象中。这包括：联系人、产品、银行对账单、日记账分录和订单。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:74
-msgid "Import data into Odoo"
+#: ../../content/applications/essentials/export_import_data.rst:69
+msgid "打开要导入数据的对象视图，点击 :menuselection:`⚙️ (操作) --> 导入记录`。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:76
-msgid "Importing data into Odoo is extremely helpful during implementation, or in times where data needs to be :ref:`updated in bulk <essentials/update-data>`. The following documentation covers how to import data into an Odoo database."
+#: ../../content/applications/essentials/export_import_data.rst:None
+msgid "操作菜单显示的导入记录选项。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:81
-msgid "Imports are permanent and **cannot** be undone. However, it is possible to use filters (`created on` or `last modified`) to identify records changed or created by the import."
+#: ../../content/applications/essentials/export_import_data.rst:75
+msgid "点击 :guilabel:`导入记录` 后，Odoo 会显示一个单独的页面，其中包含可以下载的模板，并填充公司自己的数据。由于数据映射已经完成，因此可以一键导入这些模板。要下载模板，请点击页面中央的 :guilabel:`客户导入模板`。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:85
-msgid "Activating :ref:`developer mode <developer-mode>` changes the visible import settings in the left menu. Doing so reveals an :menuselection:`Advanced` menu. Included in this advanced menu are two options: :guilabel:`Track history during import` and :guilabel:`Allow matching with subfields`."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:-1
-msgid "Advanced import options when developer mode is activated."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:93
-msgid "If the model uses openchatter, the :guilabel:`Track history during import` option sets up subscriptions and sends notifications during the import, but leads to a slower import."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:96
-msgid "Should the :guilabel:`Allow matching with subfields` option be selected, then all subfields within a field are used to match under the :guilabel:`Odoo Field` while importing."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:100
-msgid "Get started"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:102
-msgid "Data can be imported on any Odoo business object using either Excel (`.xlsx`) or :abbr:`CSV (Comma-separated Values)` (`.csv`) formats. This includes: contacts, products, bank statements, journal entries, and orders."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:106
-msgid "Open the view of the object to which the data should be imported/populated, and click on :menuselection:`⚙️ (Action) --> Import records`."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:-1
-msgid "Action menu revealed with the import records option highlighted."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:113
-msgid "After clicking :guilabel:`Import records`, Odoo reveals a separate page with templates that can be downloaded and populated with the company's own data. Such templates can be imported in one click, since the data mapping is already done. To download a template click :guilabel:`Import Template for Customers` at the center of the page."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:119
-msgid "When importing a :abbr:`CSV (Comma-separated Values)` file, Odoo provides :guilabel:`Formatting` options. These options do **not** appear when importing the proprietary Excel file type (`.xls`, `.xlsx`)."
+#: ../../content/applications/essentials/export_import_data.rst:78
+msgid "当导入 :abbr:`CSV (逗号分隔值)` 文件时，Odoo 会提供 :guilabel:`格式化` 选项。导入专有 Excel 文件类型 (`.xls`, `.xlsx`) 时，不会出现这些选项。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:0
-msgid "Formatting options presented when a CVS file is imported in Odoo."
+msgid "导入 CSV 文件时 Odoo 提供的格式化选项。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:84
+msgid "对 *格式化* 选项进行必要调整，确保 :guilabel:`Odoo 字段` 和 :guilabel:`文件列` 中的所有列均无错误。最后，点击 :guilabel:`导入` 导入数据。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:87
+msgid "调整模板"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:89
+msgid "导入工具中提供了导入最常见数据（联系人、产品、银行对账单等）的模板。可以使用任何电子表格软件（*Microsoft Office*、*OpenOffice*、*Google Drive* 等）打开这些模板。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:91
+msgid "下载模板后，按照以下步骤操作："
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:93
+msgid "添加、删除和排序列以最好地适应数据结构。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:94
+msgid "强烈建议 **不要** 删除 :guilabel:`外部 ID` (ID) 列（在下一节中解释原因）。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:95
+msgid "通过在 :guilabel:`外部 ID` (ID) 列中向下拖动 ID 序列，为每条记录设置唯一 ID。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:None
+msgid "显示鼠标向下拖动 ID 列，使每条记录都有唯一 ID 的动画。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:102
+msgid "当添加新列时，如果其标签不符合 Odoo 中的任何字段，Odoo 可能无法自动映射它。不过，可以在测试导入时手动映射新列。通过下拉菜单查找相应字段。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:None
+msgid "在 Odoo 的初始导入屏幕中展开的下拉菜单。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:108
+msgid "然后，在导入文件中使用该字段的标签，以确保将来导入成功。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:111
+msgid "另一个找到正确导入列名的有用方法是使用应导入的字段导出示例文件。这样，如果没有样本导入模板，名称也会是准确的。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:116
+msgid "从其他应用导入"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:118
+msgid ":guilabel:`外部 ID` (ID) 是每个项目的唯一标识符。可以随意使用来自以前软件的外部 ID 来简化迁移到 Odoo 的过程。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:120
+msgid "在导入时设置 ID 不是强制性的，但在许多情况下很有帮助："
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:122
+msgid ":ref:`更新导入 <essentials/update-data>`：多次导入同一文件而不创建重复项。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:123
+msgid ":ref:`导入关联字段 <export_import_data/relation-fields>`。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:125
+msgid "要重新创建不同记录之间的关系，应使用原始应用中的唯一标识符将其映射到 Odoo 中的 :guilabel:`外部 ID` (ID) 列。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:127
-msgid "Make necessary adjustments to the *Formatting* options, and ensure all columns in the :guilabel:`Odoo field` and :guilabel:`File Column` are free of errors. Finally, click :guilabel:`Import` to import the data."
+msgid "当另一个记录链接到第一个记录时，使用 **XXX/ID** (XXX/外部 ID) 作为原始唯一标识符。该记录也可以通过其名称找到。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:132
-msgid "Adapt a template"
+#: ../../content/applications/essentials/export_import_data.rst:130
+msgid "请注意，如果两个（或更多）记录具有相同的 *外部 ID*，则会发生冲突。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:134
-msgid "Import templates are provided in the import tool of the most common data to import (contacts, products, bank statements, etc.). Open them with any spreadsheet software (*Microsoft Office*, *OpenOffice*, *Google Drive*, etc.)."
+#: ../../content/applications/essentials/export_import_data.rst:133
+msgid "无法映射列的字段"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:138
-msgid "Once the template is downloaded, proceed to follow these steps:"
+#: ../../content/applications/essentials/export_import_data.rst:135
+msgid "Odoo 会根据导入文件的前十行，启发式地尝试为每列找到相应字段的类型。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:140
-msgid "Add, remove, and sort columns to best fit the data structure."
+#: ../../content/applications/essentials/export_import_data.rst:137
+msgid "例如，如果某列仅包含数字，则仅显示具有 *整数* 类型的字段作为选项。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:139
+msgid "虽然这种行为在大多数情况下很有用，但也有可能失败，或者该列可能映射到一个默认情况下未提供的字段。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:141
-msgid "It is strongly advised to **not** remove the :guilabel:`External ID` (ID) column (see why in the next section)."
+msgid "如果发生这种情况，请选中 :guilabel:`显示关联字段的字段（高级）选项`，然后为每一列提供完整的字段列表。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:143
-msgid "Set a unique ID to every record by dragging down the ID sequencing in the :guilabel:`External ID` (ID) column."
+#: ../../content/applications/essentials/export_import_data.rst:None
+msgid "正在为税列匹配字段。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:-1
-msgid "An animation of the mouse dragging down the ID column, so each record has a unique ID."
+#: ../../content/applications/essentials/export_import_data.rst:148
+msgid "更改数据导入格式"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:151
-msgid "When a new column is added, Odoo may not be able to map it automatically, if its label does not fit any field within Odoo. However, new columns can be mapped manually when the import is tested. Search the drop-down menu for the corresponding field."
+msgid "Odoo 可以自动检测某列是否为日期，并尝试从最常用的日期格式集中猜测日期格式。虽然此过程可以处理多种日期格式，但某些日期格式无法识别。这可能会导致日期格式混淆，因为日期格式中的哪部分是日、哪部分是月可能会不清楚，例如 `01-03-2016`。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:-1
-msgid "Drop-down menu expanded in the initial import screen on Odoo."
+#: ../../content/applications/essentials/export_import_data.rst:153
+msgid "当导入 :abbr:`CSV (逗号分隔值)` 文件时，Odoo 提供 :guilabel:`格式化` 选项。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:159
-msgid "Then, use this field's label in the import file to ensure future imports are successful."
+#: ../../content/applications/essentials/export_import_data.rst:155
+msgid "要查看 Odoo 从文件中找到的日期格式，请在文件选择器下点击选项时查看 :guilabel:`日期格式`。如果此格式不正确，请使用 *ISO 8601* 定义的格式更改为首选格式。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:162
-msgid "Another useful way to find out the proper column names to import is to export a sample file using the fields that should be imported. This way, if there is not a sample import template, the names are accurate."
+#: ../../content/applications/essentials/export_import_data.rst:158
+msgid "*ISO 8601* 是一个国际标准，涵盖全球范围内的日期和时间相关数据交换及通信。例如，日期格式应为 `YYYY-MM-DD`。因此，对于 1981 年 7 月 24 日，应该写为 `1981-07-24`。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:170
-msgid "Import from another application"
+#: ../../content/applications/essentials/export_import_data.rst:161
+msgid "导入 Excel 文件（`.xls`、`.xlsx`）时，建议使用 *日期单元格* 存储日期。这可保持区域日期格式的显示，无论 Odoo 中的日期如何格式化。导入 :abbr:`CSV (逗号分隔值)` 文件时，使用 Odoo 的 :guilabel:`格式化` 部分选择要导入的日期格式列。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:172
-msgid "The :guilabel:`External ID` (ID) is a unique identifier for the line item. Feel free to use one from previous software to facilitate the transition to Odoo."
+#: ../../content/applications/essentials/export_import_data.rst:164
+msgid "带货币符号的数字导入"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:175
-msgid "Setting an ID is not mandatory when importing, but it helps in many cases:"
+#: ../../content/applications/essentials/export_import_data.rst:166
+msgid "Odoo 完全支持使用括号表示负数的数字以及附有货币符号的数字。Odoo 还会自动检测使用的千位分隔符/小数分隔符。如果 Odoo 不识别的货币符号被使用，可能无法识别为数字，导入将失败。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:177
-msgid ":ref:`Update imports <essentials/update-data>`: import the same file several times without creating duplicates."
+#: ../../content/applications/essentials/export_import_data.rst:169
+msgid "导入 :abbr:`CSV (逗号分隔值)` 文件时，:guilabel:`格式化` 菜单会出现在左侧栏下。在这些选项中，可以更改 :guilabel:`千位分隔符`。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:179
-msgid ":ref:`Import relation fields <export_import_data/relation-fields>`."
+#: ../../content/applications/essentials/export_import_data.rst:171
+msgid "以下是支持的数字示例（使用“三万二千”作为数字）："
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:181
-msgid "To recreate relationships between different records, the unique identifier from the original application should be used to map it to the :guilabel:`External ID` (ID) column in Odoo."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:184
-msgid "When another record is imported that links to the first one, use **XXX/ID** (XXX/External ID) for the original unique identifier. This record can also be found using its name."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:188
-msgid "It should be noted that conflicts occur if two (or more) records have the same *External ID*."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:191
-msgid "Field missing to map column"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:193
-msgid "Odoo heuristically tries to find the type of field for each column inside the imported file, based on the first ten lines of the files."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:196
-msgid "For example, if there is a column only containing numbers, only the fields with the *integer* type are presented as options."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:199
-msgid "While this behavior might be beneficial in most cases, it is also possible that it could fail, or the column may be mapped to a field that is not proposed by default."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:202
-msgid "If this happens, check the :guilabel:`Show fields of relation fields (advanced) option`, then a complete list of fields becomes available for each column."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:-1
-msgid "Searching for the field to match the tax column."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:210
-msgid "Change data import format"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:213
-msgid "Odoo can automatically detect if a column is a date, and tries to guess the date format from a set of most commonly used date formats. While this process can work for many date formats, some date formats are not recognizable. This can cause confusion, due to day-month inversions; it is difficult to guess which part of a date format is the day, and which part is the month, in a date, such as `01-03-2016`."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:219
-msgid "When importing a :abbr:`CSV (Comma-separated Values)` file, Odoo provides :guilabel:`Formatting` options."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:222
-msgid "To view which date format Odoo has found from the file, check the :guilabel:`Date Format` that is shown when clicking on options under the file selector. If this format is incorrect, change it to the preferred format using *ISO 8601* to define the format."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:227
-msgid "*ISO 8601* is an international standard, covering the worldwide exchange, along with the communication of date and time-related data. For example, the date format should be `YYYY-MM-DD`. So, in the case of July 24th 1981, it should be written as `1981-07-24`."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:232
-msgid "When importing Excel files (`.xls`, `.xlsx`), consider using *date cells* to store dates. This maintains locale date formats for display, regardless of how the date is formatted in Odoo. When importing a :abbr:`CSV (Comma-separated Values)` file, use Odoo's :guilabel:`Formatting` section to select the date format columns to import."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:238
-msgid "Import numbers with currency signs"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:240
-msgid "Odoo fully supports numbers with parenthesis to represent negative signs, as well as numbers with currency signs attached to them. Odoo also automatically detects which thousand/decimal separator is used. If a currency symbol unknown to Odoo is used, it might not be recognized as a number, and the import crashes."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:246
-msgid "When importing a :abbr:`CSV (Comma-separated Values)` file, the :guilabel:`Formatting` menu appears on the left-hand column. Under these options, the :guilabel:`Thousands Separator` can be changed."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:250
-msgid "Examples of supported numbers (using 'thirty-two thousand' as the figure):"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:252
+#: ../../content/applications/essentials/export_import_data.rst:173
 msgid "32.000,00"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:253
+#: ../../content/applications/essentials/export_import_data.rst:174
 msgid "32000,00"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:254
+#: ../../content/applications/essentials/export_import_data.rst:175
 msgid "32,000.00"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:255
+#: ../../content/applications/essentials/export_import_data.rst:176
 msgid "-32000.00"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:256
+#: ../../content/applications/essentials/export_import_data.rst:177
 msgid "(32000.00)"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:257
+#: ../../content/applications/essentials/export_import_data.rst:178
 msgid "$ 32.000,00"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:258
+#: ../../content/applications/essentials/export_import_data.rst:179
 msgid "(32000.00 €)"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:260
-msgid "Example that will not work:"
+#: ../../content/applications/essentials/export_import_data.rst:181
+msgid "不支持的示例："
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:262
+#: ../../content/applications/essentials/export_import_data.rst:183
 msgid "ABC 32.000,00"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:263
+#: ../../content/applications/essentials/export_import_data.rst:184
 msgid "$ (32.000,00)"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:266
-msgid "A :guilabel:`() (parenthesis)` around the number indicates that the number is a negative value. The currency symbol **must** be placed within the parenthesis for Odoo to recognize it as a negative currency value."
+#: ../../content/applications/essentials/export_import_data.rst:187
+msgid "用括号 :guilabel:`() (括号)` 包围的数字表示负值。货币符号 **必须** 放置在括号内，Odoo 才能将其识别为负的货币值。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:190
+msgid "导入预览表显示不正确"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:191
+msgid "默认情况下，导入预览设置为使用逗号作为字段分隔符，双引号作为文本定界符。如果 :abbr:`CSV (逗号分隔值)` 文件不符合这些设置，请修改 :guilabel:`格式化` 选项（在选择 :abbr:`CSV (逗号分隔值)` 文件后显示在 :guilabel:`导入` 文件栏下方）。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:194
+msgid "如果 :abbr:`CSV (逗号分隔值)` 文件使用制表符作为分隔符，Odoo **不会** 检测到分隔符。需要在电子表格应用程序中修改文件格式选项。请参阅以下 :ref:`更改 CSV 文件格式 <export_import_data/change-csv>` 部分。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:199
+msgid "在电子表格应用中更改 CSV 文件格式"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:201
+msgid "在电子表格应用程序中编辑和保存 :abbr:`CSV (逗号分隔值)` 文件时，计算机的区域设置会应用于分隔符和定界符。Odoo 建议使用 *OpenOffice* 或 *LibreOffice*，因为这两个应用程序允许修改所有三个选项（在 *LibreOffice* 应用程序中，转到 :menuselection:`'另存为' 对话框 --> 勾选 '编辑过滤器设置' 复选框 --> 保存`）。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:203
+msgid "Microsoft Excel 可以在保存时修改编码（:menuselection:`'另存为' 对话框 --> '工具' 下拉菜单 --> 编码选项卡`）。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:206
+msgid "数据库 ID 和外部 ID 之间的区别"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:208
+msgid "某些字段定义了与另一个对象的关系。例如，联系人的国家/地区是与 'Country' 对象记录的链接。当导入此类字段时，Odoo 必须重新创建不同记录之间的链接。为帮助导入此类字段，Odoo 提供了三种机制。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:211
+msgid "**每个导入的字段只能使用一种** 机制。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:213
+msgid "例如，要引用联系人的国家/地区，Odoo 提供三种不同的导入字段："
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:215
+msgid ":guilabel:`国家/地区`: 国家/地区的名称或代码"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:216
+msgid ":guilabel:`国家/地区/数据库 ID`: 记录的唯一 Odoo ID，由 PostgreSQL 列中的 ID 定义"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:217
+msgid ":guilabel:`国家/地区/外部 ID`: 此记录在另一个应用程序中引用的 ID（或导入该记录的 `.XML` 文件）"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:219
+msgid "例如，对于比利时国家/地区，可以使用以下三种方式之一进行导入："
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:221
+msgid ":guilabel:`国家/地区`: `比利时`"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:222
+msgid ":guilabel:`国家/地区/数据库 ID`: `21`"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:223
+msgid ":guilabel:`国家/地区/外部 ID`: `base.be`"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:225
+msgid "根据公司的需求，使用这三种方式之一来引用关系中的记录。以下是根据需求使用哪一种方式的示例："
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:227
+msgid "使用 :guilabel:`国家/地区`: 当数据来自手动创建的 :abbr:`CSV (逗号分隔值)` 文件时，这是最简单的方式。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:228
+msgid "使用 :guilabel:`国家/地区/数据库 ID`: 这种方式很少使用。它主要由开发人员使用，其主要优势在于永远不会产生冲突（可能有多个记录具有相同的名称，但它们总是具有唯一的数据库 ID）。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:229
+msgid "使用 :guilabel:`国家/地区/外部 ID`: 当从第三方应用程序导入数据时，使用 *外部 ID*。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:231
+msgid "当使用 *外部 ID* 时，导入的 :abbr:`CSV (逗号分隔值)` 文件中包含定义每个记录的 *外部 ID* 的 :guilabel:`外部 ID` (ID) 列。然后可以使用类似 `字段/外部 ID` 的列来引用该记录。以下两个 :abbr:`CSV (逗号分隔值)` 文件为产品及其类别提供了示例。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:233
+msgid ":download:`类别的 CSV 文件 <export_import_data/External_id_3rd_party_application_product_categories.csv>`"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:235
+msgid ":download:`产品的 CSV 文件 <export_import_data/External_id_3rd_party_application_products.csv>`"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:241
+msgid "导入关系字段"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:243
+msgid "Odoo 对象总是与许多其他对象相关联（例如，产品与产品类别、属性、供应商等关联）。要导入这些关系，首先需要从相关对象的列表菜单中导入其记录。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:245
+msgid "这可以通过使用相关记录的名称或 ID 实现，具体取决于情况。当两个记录具有相同的名称时，预期使用 ID。在这种情况下，在列标题末尾添加 `/ ID`（例如，对于产品属性：`产品属性 / 属性 / ID`）。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:248
+msgid "字段多次匹配的选项"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:250
+msgid "例如，如果有两个产品类别都包含子名称 `可销售`（例如，`杂项产品/可销售` 和 `其他产品/可销售`），则验证会暂停，但数据可能仍会导入。然而，Odoo 建议不要导入这些数据，因为它们都将链接到 *产品类别* 列表中找到的第一个 `可销售` 类别（`杂项产品/可销售`）。Odoo 建议修改其中一个重复值，或修改产品类别层次结构。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:252
+msgid "但是，如果公司不希望更改产品类别的配置，Odoo 建议为该字段 `类别` 使用 *外部 ID*。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:255
+msgid "导入多对多关系字段"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:256
+msgid "标签应以逗号分隔，不带空格。例如，如果需要将客户链接到两个标签：`制造商` 和 `零售商`，那么在 :abbr:`CSV (逗号分隔值)` 文件中的同一列中应编码为 'Manufacturer,Retailer'。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:258
+msgid ":download:`制造商和零售商的 CSV 文件 <export_import_data/m2m_customers_tags.csv>`"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:261
+msgid "导入一对多关系"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:263
+msgid "如果公司希望导入包含多个订单行的销售订单，则必须在 :abbr:`CSV (逗号分隔值)` 文件中为每个订单行保留特定的行。第一个订单行与订单相关信息一起导入到同一行。任何附加的订单行需要额外的行，并且这些行不应包含与订单相关的字段信息。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:265
+msgid "以下是基于演示数据可以导入的某些报价单的 :abbr:`CSV (逗号分隔值)` 文件示例："
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:267
+msgid ":download:`一些报价单的文件 <export_import_data/purchase.order_functional_error_line_cant_adpat.csv>`"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:269
+msgid "以下 :abbr:`CSV (逗号分隔值)` 文件显示了如何导入包含订单行的采购订单："
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:271
-msgid "Import preview table not displayed correctly"
+msgid ":download:`包含订单行的采购订单 <export_import_data/o2m_purchase_order_lines.csv>`"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:273
-msgid "By default, the import preview is set on commas as field separators, and quotation marks as text delimiters. If the :abbr:`CSV (Comma-separated Values)` file does not have these settings, modify the :guilabel:`Formatting` options (displayed under the :guilabel:`Import` :abbr:`CSV (Comma-separated Values)` file bar after selecting the :abbr:`CSV (Comma-separated Values)` file)."
+msgid "以下 :abbr:`CSV (逗号分隔值)` 文件显示了如何导入客户及其相关联系人："
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:279
-msgid "If the :abbr:`CSV (Comma-separated Values)` file has a tabulation as a separator, Odoo does **not** detect the separations. The file format options need to be modified in the spreadsheet application. See the following :ref:`Change CSV file format <export_import_data/change-csv>` section."
+#: ../../content/applications/essentials/export_import_data.rst:275
+msgid ":download:`客户及其相关联系人的文件 <export_import_data/o2m_customers_contacts.csv>`"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:278
+msgid "多次导入记录"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:280
+msgid "如果导入的文件包含 :guilabel:`外部 ID` 或 :guilabel:`数据库 ID` 之一，已经导入的记录将被修改，而不是被创建。这非常有用，因为它允许用户多次导入相同的 :abbr:`CSV (逗号分隔值)` 文件，同时在两次导入之间进行一些更改。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:282
+msgid "Odoo 将负责根据记录是新的还是已有的来创建或修改每条记录。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:284
+msgid "此功能允许公司使用 Odoo 的 *导入/导出工具* 来在电子表格应用程序中修改批量记录。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:287
-msgid "Change CSV file format in spreadsheet application"
+msgid "未为特定字段提供值"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:289
-msgid "When editing and saving :abbr:`CSV (Comma-separated Values)` files in spreadsheet applications, the computer's regional settings are applied for the separator and delimiter. Odoo suggests using *OpenOffice* or *LibreOffice*, as both applications allow modifications of all three options (from *LibreOffice* application, go to :menuselection:`'Save As' dialog box --> Check the box 'Edit filter settings' --> Save`)."
+msgid "如果 CSV 文件中未设置所有字段，Odoo 将为每个未定义字段分配默认值。但是，如果 :abbr:`CSV (逗号分隔值)` 文件中的字段被设置为空值，Odoo 将为该字段设置空值，而不是分配默认值。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:295
-msgid "Microsoft Excel can modify the encoding when saving (:menuselection:`'Save As' dialog box --> 'Tools' drop-down menu --> Encoding tab`)."
+#: ../../content/applications/essentials/export_import_data.rst:292
+msgid "从 SQL 应用导出/导入不同表格到 Odoo"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:299
-msgid "Difference between Database ID and External ID"
+#: ../../content/applications/essentials/export_import_data.rst:294
+msgid "如果需要从不同表格导入数据，则需要重新创建属于不同表格的记录之间的关系。例如，如果公司和员工都被导入，则需要重新创建每个员工与其所属公司的链接。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:301
-msgid "Some fields define a relationship with another object. For example, the country of a contact is a link to a record of the 'Country' object. When such fields are imported, Odoo has to recreate links between the different records. To help import such fields, Odoo provides three mechanisms."
+#: ../../content/applications/essentials/export_import_data.rst:296
+msgid "要管理表格之间的关系，请使用 Odoo 的 `外部 ID` 功能。记录的 `外部 ID` 是该记录在另一个应用程序中的唯一标识符。`外部 ID` 必须在所有对象的所有记录中唯一。最好在 `外部 ID` 前加上应用程序或表格的名称。（例如，'company_1'，'person_1'，而不是 '1'）"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:306
-msgid "**Only one** mechanism should be used per field that is imported."
+#: ../../content/applications/essentials/export_import_data.rst:298
+msgid "例如，假设有一个 SQL 数据库，其中有两个要导入的表：公司和员工。每个员工都属于一个公司，因此必须重新创建员工与其所属公司的链接。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:300
+msgid "使用 :download:`PostgreSQL 数据库示例 <export_import_data/database_import_test.sql>` 测试此示例。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:302
+msgid "首先，导出所有公司的 *外部 ID*。在 PSQL 中，编写以下命令："
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:308
-msgid "For example, to reference the country of a contact, Odoo proposes three different fields to import:"
+msgid "此 SQL 命令创建了以下 :abbr:`CSV (逗号分隔值)` 文件："
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:310
-msgid ":guilabel:`Country`: the name or code of the country"
+#: ../../content/applications/essentials/export_import_data.rst:317
+msgid "要为与公司关联的人员创建 :abbr:`CSV (逗号分隔值)` 文件，请在 PSQL 中使用以下 SQL 命令："
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:311
-msgid ":guilabel:`Country/Database ID`: the unique Odoo ID for a record, defined by the ID PostgreSQL column"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:313
-msgid ":guilabel:`Country/External ID`: the ID of this record referenced in another application (or the `.XML` file that imported it)"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:316
-msgid "For the country of Belgium, for example, use one of these three ways to import:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:318
-msgid ":guilabel:`Country`: `Belgium`"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:319
-msgid ":guilabel:`Country/Database ID`: `21`"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:320
-msgid ":guilabel:`Country/External ID`: `base.be`"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:322
-msgid "According to the company's need, use one of these three ways to reference records in relations. Here is an example when one or the other should be used, according to the need:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:325
-msgid "Use :guilabel:`Country`: this is the easiest way when data comes from :abbr:`CSV (Comma-separated Values)` files that have been created manually."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:327
-msgid "Use :guilabel:`Country/Database ID`: this should rarely be used. It is mostly used by developers as the main advantage is to never have conflicts (there may be several records with the same name, but they always have a unique Database ID)"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:330
-msgid "Use :guilabel:`Country/External ID`: use *External ID* when importing data from a third-party application."
+#: ../../content/applications/essentials/export_import_data.rst:323
+msgid "此命令生成了以下 :abbr:`CSV (逗号分隔值)` 文件："
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:333
-msgid "When *External IDs* are used, import :abbr:`CSV (Comma-separated Values)` files with the :guilabel:`External ID` (ID) column defining the *External ID* of each record that is imported. Then, a reference can be made to that record with columns, like `Field/External ID`. The following two :abbr:`CSV (Comma-separated Values)` files provide an example for products and their categories."
+msgid "在此文件中，Fabien 和 Laurence 为 Bigees 公司（`company_1`）工作，而 Eric 为 Organi 公司工作。员工与公司之间的关系是通过公司的 *外部 ID* 完成的。*外部 ID* 以表名为前缀，以避免员工和公司之间 ID 冲突（例如，`person_1` 和 `company_1` 在原始数据库中共享相同的 ID 1）。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:338
-msgid ":download:`CSV file for categories <export_import_data/External_id_3rd_party_application_product_categories.csv>`"
+#: ../../content/applications/essentials/export_import_data.rst:335
+msgid "生成的这两个文件可以直接导入 Odoo，无需任何修改。在导入这两个 :abbr:`CSV (逗号分隔值)` 文件后，系统中会有四个联系人和三家公司（前两个联系人链接到第一家公司）。请记住，首先导入公司，然后导入员工。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:340
-msgid ":download:`CSV file for Products <export_import_data/External_id_3rd_party_application_products.csv>`"
+msgid "在 Odoo 中更新数据"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:346
-msgid "Import relation fields"
+#: ../../content/applications/essentials/export_import_data.rst:342
+msgid "只要 :ref:`外部 ID <essentials/external-id>` 保持一致，现有数据就可以通过数据导入进行批量更新。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:348
-msgid "An Odoo object is always related to many other objects (e.g. a product is linked to product categories, attributes, vendors, etc.). To import those relations, the records of the related object need to be imported first, from their own list menu."
+#: ../../content/applications/essentials/export_import_data.rst:345
+msgid "准备数据导出"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:347
+msgid "要通过导入更新数据，首先导航到要更新的数据，并选择 |list| 以激活列表视图。在列表的最左侧，勾选要更新的任何记录的复选框。然后，点击 |actions|，并从下拉菜单中选择 :icon:`fa-upload` :guilabel:`导出`。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:349
+msgid "在弹出的 :guilabel:`导出数据` 窗口中，勾选标记为 :guilabel:`我想更新数据（兼容导入的导出）` 的复选框。这样会自动将 *外部 ID* 包含在导出中。此外，它将 :guilabel:`导出字段` 列表限制为 **仅** 包含能够导入的字段。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:352
-msgid "This can be achieved by using either the name of the related record, or its ID, depending on the circumstances. The ID is expected when two records have the same name. In such a case add `/ ID` at the end of the column title (e.g. for product attributes: `Product Attributes / Attribute / ID`)."
+msgid "除非手动添加，否则 :guilabel:`外部 ID` 字段不会出现在 :guilabel:`导出字段` 列表中，但它仍然会包含在导出中。然而，如果勾选了 :guilabel:`我想更新数据（兼容导入的导出）` 复选框，它将包含在导出中。"
+msgstr ""
+
+#: ../../content/applications/essentials/export_import_data.rst:354
+msgid "使用弹出窗口中的 :ref:`选项 <export-data>` 选择要包含在导出中的字段，然后点击 :guilabel:`导出`。"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:357
-msgid "Options for multiple matches on fields"
+msgid "导入更新的数据"
 msgstr ""
 
 #: ../../content/applications/essentials/export_import_data.rst:359
-msgid "If, for example, there are two product categories with the child name `Sellable` (e.g. `Misc. Products/Sellable` & `Other Products/Sellable`), the validation is halted, but the data may still be imported. However, Odoo recommends that the data is not imported because it will all be linked to the first `Sellable` category found in the *Product Category* list (`Misc. Products/Sellable`). Odoo, instead, recommends modifying one of the duplicate's values, or the product category hierarchy."
+msgid "导出后，对数据文件进行必要的更改。准备好文件后，可以按照正常数据导入的过程 :ref:`导入数据 <import-data>`。"
 msgstr ""
 
-#: ../../content/applications/essentials/export_import_data.rst:366
-msgid "However, if the company does not wish to change the configuration of product categories, Odoo recommends making use of the *External ID* for this field, 'Category'."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:370
-msgid "Import many2many relationship fields"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:372
-msgid "The tags should be separated by a comma, without any spacing. For example, if a customer needs to be linked to both tags: `Manufacturer` and `Retailer` then 'Manufacturer,Retailer' needs to be encoded in the same column of the :abbr:`CSV (Comma-separated Values)` file."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:376
-msgid ":download:`CSV file for Manufacturer, Retailer <export_import_data/m2m_customers_tags.csv>`"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:379
-msgid "Import one2many relationships"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:381
-msgid "If a company wants to import a sales order with several order lines, a specific row **must** be reserved in the :abbr:`CSV (Comma-separated Values)` file for each order line. The first order line is imported on the same row as the information relative to order. Any additional lines need an additional row that does not have any information in the fields relative to the order."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:386
-msgid "As an example, here is a :abbr:`CSV (Comma-separated Values)` file of some quotations that can be imported, based on demo data:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:389
-msgid ":download:`File for some Quotations <export_import_data/purchase.order_functional_error_line_cant_adpat.csv>`"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:392
-msgid "The following :abbr:`CSV (Comma-separated Values)` file shows how to import purchase orders with their respective purchase order lines:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:395
-msgid ":download:`Purchase orders with their respective purchase order lines <export_import_data/o2m_purchase_order_lines.csv>`"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:398
-msgid "The following :abbr:`CSV (Comma-separated Values)` file shows how to import customers and their respective contacts:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:401
-msgid ":download:`Customers and their respective contacts <export_import_data/o2m_customers_contacts.csv>`"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:405
-msgid "Import records several times"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:407
-msgid "If an imported file contains one of the columns: :guilabel:`External ID` or :guilabel:`Database ID`, records that have already been imported are modified, instead of being created. This is extremely useful as it allows users to import the same :abbr:`CSV (Comma-separated Values)` file several times, while having made some changes in between two imports."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:412
-msgid "Odoo takes care of creating or modifying each record, depending if it is new or not."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:414
-msgid "This feature allows a company to use the *Import/Export tool* in Odoo to modify a batch of records in a spreadsheet application."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:418
-msgid "Value not provided for a specific field"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:420
-msgid "If all fields are not set in the CSV file, Odoo assigns the default value for every non-defined field. But, if fields are set with empty values in the :abbr:`CSV (Comma-separated Values)` file, Odoo sets the empty value in the field, instead of assigning the default value."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:425
-msgid "Export/import different tables from an SQL application to Odoo"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:427
-msgid "If data needs to be imported from different tables, relations need to be recreated between records belonging to different tables. For instance, if companies and people are imported, the link between each person and the company they work for needs to be recreated."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:431
-msgid "To manage relations between tables, use the `External ID` facilities of Odoo. The `External ID` of a record is the unique identifier of this record in another application. The `External ID` must be unique across all records of all objects. It is a good practice to prefix this `External ID` with the name of the application or table. (like, 'company_1', 'person_1' - instead of '1')"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:436
-msgid "As an example, suppose there is an SQL database with two tables that are to be imported: companies and people. Each person belongs to one company, so the link between a person and the company they work for must be recreated."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:440
-msgid "Test this example, with a :download:`sample of a PostgreSQL database <export_import_data/database_import_test.sql>`."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:443
-msgid "First, export all companies and their *External ID*. In PSQL, write the following command:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:449
-msgid "This SQL command creates the following :abbr:`CSV (Comma-separated Values)` file:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:458
-msgid "To create the :abbr:`CSV (Comma-separated Values)` file for people linked to companies, use the following SQL command in PSQL:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:465
-msgid "It produces the following :abbr:`CSV (Comma-separated Values)` file:"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:475
-msgid "In this file, Fabien and Laurence are working for the Bigees company (`company_1`), and Eric is working for the Organi company. The relation between people and companies is done using the *External ID* of the companies. The *External ID* is prefixed by the name of the table to avoid a conflict of ID between people and companies (`person_1` and `company_1`, who shared the same ID 1 in the original database)."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:481
-msgid "The two files produced are ready to be imported in Odoo without any modifications. After having imported these two :abbr:`CSV (Comma-separated Values)` files, there are four contacts and three companies (the first two contacts are linked to the first company). Keep in mind to first import the companies, and then the people."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:489
-msgid "Update data in Odoo"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:491
-msgid "Existing data can be updated in bulk through a data import, as long as the :ref:`External ID <essentials/external-id>` remains consistent."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:495
-msgid "Prepare data export"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:497
-msgid "To update data through an import, first navigate to the data to be updated, and select the |list| to activate list view. On the far-left side of the list, tick the checkbox for any record to be updated. Then, click |actions|, and select :icon:`fa-upload` :guilabel:`Export` from the drop-down menu."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:502
-msgid "On the resulting :guilabel:`Export Data` pop-up window, tick the checkbox labeled, :guilabel:`I want to update data (import-compatible export)`. This automatically includes the *External ID* in the export. Additionally, it limits the :guilabel:`Fields to export` list to **only** include fields that are able to be imported."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:508
-msgid "The :guilabel:`External ID` field does **not** appear in the :guilabel:`Fields to export` list unless it is manually added, but it is still included in the export. However, if the :guilabel:`I want to update data (import-compatible export)` checkbox is ticked, it is included in the export."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:512
-msgid "Select the required fields to be included in the export using the :ref:`options <export-data>` on the pop-up window, then click :guilabel:`Export`."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:516
-msgid "Import updated data"
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:518
-msgid "After exporting, make any necessary changes to the data file. When the file is ready, it can be :ref:`imported <import-data>` by following the same process as a normal data import."
-msgstr ""
-
-#: ../../content/applications/essentials/export_import_data.rst:522
-msgid "When updating data, it is extremely important that the *External ID* remain consistent, as this is how the system identifies a record. If an ID is altered, or removed, the system may add a duplicate record, instead of updating the existing one."
+#: ../../content/applications/essentials/export_import_data.rst:362
+msgid "在更新数据时，保持 *外部 ID* 一致非常重要，因为这是系统识别记录的方式。如果 ID 被更改或删除，系统可能会添加重复记录，而不是更新现有记录。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:3
-msgid "In-app purchases (IAP)"
+msgid "应用内购买 (IAP)"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:7
-msgid "In-app purchases (IAP) are optional services that enhance Odoo databases. Each service provides its own specific features and functionality. A full list of services is available on the `Odoo IAP Catalog <https://iap.odoo.com/iap/all-in-app-services>`_."
+msgid "应用内购买 (IAP) 是可选服务，可增强 Odoo 数据库的功能。每项服务都提供其特定的功能和特色。完整的服务列表可以在 `Odoo IAP 目录 <https://iap.odoo.com/iap/all-in-app-services>`_ 上查看。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:-1
-msgid "The IAP catalog with various services available on IAP.Odoo.com."
+#: ../../content/applications/essentials/in_app_purchase.rst:None
+msgid "IAP 目录，展示了 IAP.Odoo.com 上提供的各种服务。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:14
+msgid ":guilabel:`SMS` 服务直接从数据库向联系人发送短信，而 :guilabel:`文档数字化` 服务利用光学字符识别 (OCR) 和人工智能 (AI) 数字化扫描或 PDF 供应商账单、费用和简历。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:16
-msgid "The :guilabel:`SMS` service sends text messages to contacts directly from the database, and the :guilabel:`Documents Digitization` service digitizes scanned or PDF vendor bills, expenses, and resumes with optical character recognition (OCR) and artificial intelligence (AI)."
+msgid "|IAP| 服务在使用之前**不需要**进行配置或设置。Odoo 用户只需在应用中点击服务即可激活它。然而，每项服务都需要预付的积分，当积分用完时，用户**必须** :ref:`购买更多 <iap/buying_credits>` 才能继续使用该服务。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:20
-msgid "|IAP| services do **not** need to be configured or set up before use. Odoo users can simply click on the service in the app to activate it. However, each service requires its own prepaid credits, and when they run out, users **must** :ref:`buy more <iap/buying_credits>` in order to keep using it."
+#: ../../content/applications/essentials/in_app_purchase.rst:19
+msgid "拥有有效订阅的 Odoo 企业用户可以免费获得积分，用于测试 IAP 功能，然后再决定是否为数据库购买更多积分。这包括演示/培训数据库、教育数据库和免费单应用数据库。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:25
-msgid "Enterprise Odoo users with a valid subscription get free credits to test IAP features before deciding to purchase more credits for the database. This includes demo/training databases, educational databases, and one-app-free databases."
+#: ../../content/applications/essentials/in_app_purchase.rst:24
+msgid "IAP 服务"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:26
+msgid "|IAP| 服务由 Odoo 及第三方提供，涵盖广泛的用途。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:28
+msgid "Odoo 提供的 |IAP| 服务如下："
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:30
+msgid ":guilabel:`文档数字化`：使用 OCR 和 AI 数字化扫描或 PDF 供应商账单、费用和简历。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:31
+msgid ":guilabel:`合作伙伴自动完成`：自动填充联系人记录中的公司数据。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:32
-msgid "IAP services"
+msgid ":guilabel:`SMS`：直接从数据库向联系人发送 SMS 短信。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:33
+msgid ":guilabel:`线索生成`：根据一组标准生成线索，并将网站访问者转换为优质线索和商机。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:34
-msgid "|IAP| services are provided by Odoo, as well as third-parties, and have a wide range of uses."
+msgid ":guilabel:`邮寄`：通过邮政向全球客户发送发票和跟进报告。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:36
-msgid "The following |IAP| services are offered by Odoo:"
+#: ../../content/applications/essentials/in_app_purchase.rst:35
+msgid ":guilabel:`使用 itsme®️ 进行签名识别`：在 Odoo *签名* 中要求文件签署方使用其身份平台 *itsme®* 提供身份验证（该平台在比利时和荷兰提供）。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:38
-msgid ":guilabel:`Documents Digitization`: digitizes scanned or PDF vendor bills, expenses, and resumes with OCR and AI."
+#: ../../content/applications/essentials/in_app_purchase.rst:37
+msgid "有关所有当前提供的服务（由 Odoo 以外的开发者提供）的更多信息，请访问 `Odoo IAP 目录 <https://iap.odoo.com/iap/all-in-app-services>`_。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:40
-msgid ":guilabel:`Partner Autocomplete`: automatically populates contact records with corporate data."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:41
-msgid ":guilabel:`SMS`: sends SMS text messages to contacts directly from the database."
+msgid "使用 IAP 服务"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:42
-msgid ":guilabel:`Lead Generation`: generates leads based on a set of criteria, and converts web visitors into quality leads and opportunities."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:44
-msgid ":guilabel:`Snailmail`: sends customer invoices and follow-up reports by post, worldwide."
+msgid "|IAP| 服务与 Odoo 自动集成，用户**不需要**配置任何设置。要使用服务，只需在数据库中与其交互即可。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:45
-msgid ":guilabel:`Signer identification with itsme®️`: ask document signatories in Odoo *Sign* to provide their identity using the *itsme®* identity platform, which is available in Belgium and the Netherlands."
+msgid "以下流程展示了如何从联系人的记录中使用 *SMS* |IAP| 服务。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:49
-msgid "For more information on every service currently available (offered from developers other than Odoo), visit the `Odoo IAP Catalog <https://iap.odoo.com/iap/all-in-app-services>`_."
+#: ../../content/applications/essentials/in_app_purchase.rst:47
+msgid "可以通过点击数据库中的 :guilabel:`📱 SMS` 图标来完成此操作。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:None
+msgid "Odoo 数据库中联系人信息表单上的 SMS 图标。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:53
-msgid "Use IAP services"
+msgid "以下步骤展示了在 Odoo 中使用 *SMS* |IAP| 服务的方式："
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:55
-msgid "|IAP| services are automatically integrated with Odoo, and do **not** require users to configure any settings. To use a service, simply interact with it wherever it appears in the database."
+msgid "首先，导航到 :menuselection:`联系人应用`，然后点击在联系人表单的 :guilabel:`电话` 或 :guilabel:`手机` 字段中输入了手机号的联系人。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:57
+msgid "接着，找到出现在 :guilabel:`电话` 或 :guilabel:`手机` 字段右侧的 :guilabel:`📱 SMS` 图标。点击 :guilabel:`📱 SMS` 图标，会弹出一个 :guilabel:`发送 SMS 短信` 窗口。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:59
-msgid "The following flow focuses on the *SMS* |IAP| service being used from a contact's record."
+msgid "在弹出窗口的 :guilabel:`消息` 字段中输入消息内容。然后点击 :guilabel:`发送 SMS` 按钮。Odoo 会通过 SMS 将消息发送给联系人，并在联系人的 *沟通记录* 中记录发送的内容。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:61
-msgid "This can be done by clicking the :guilabel:`📱 SMS` icon within the database."
+msgid "发送 SMS 消息后，*SMS* |IAP| 服务的预付积分会自动从现有积分中扣除。如果没有足够的积分发送消息，Odoo 会提示用户购买更多积分。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:-1
-msgid "The SMS icon on a typical contact information form located within an Odoo database."
+#: ../../content/applications/essentials/in_app_purchase.rst:64
+msgid "有关如何使用各种 |IAP| 服务的更多信息，以及与 Odoo 中 SMS 功能相关的详细说明，请参阅以下文档："
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:66
+msgid ":doc:`线索挖掘 <../sales/crm/acquire_leads/lead_mining>`"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:67
-msgid "One way to utilize the *SMS* |IAP| service with Odoo is showcased in the following steps:"
+msgid ":doc:`通过合作伙伴自动完成丰富您的联系人库 <../sales/crm/optimize/partner_autocomplete>`"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:69
-msgid "First, navigate to the :menuselection:`Contacts application`, and click on a contact with a mobile phone number entered in either the :guilabel:`Phone` or :guilabel:`Mobile` field of the contact form."
+#: ../../content/applications/essentials/in_app_purchase.rst:68
+msgid ":doc:`SMS 营销 <../marketing/sms_marketing>`"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:73
-msgid "Next, find the :guilabel:`📱 SMS` icon that appears to the right of the :guilabel:`Phone` or :guilabel:`Mobile` fields. Click the :guilabel:`📱 SMS` icon, and a :guilabel:`Send SMS Text Message` pop-up window appears."
+msgid "IAP 积分"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:75
+msgid "每次使用 |IAP| 服务时，都会消耗该服务的预付积分。当积分不足以继续使用某项服务时，Odoo 会提示购买更多积分。还可以设置电子邮件提醒，当 :ref:`积分不足 <in_app_purchase/low-credits>` 时收到提醒。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:77
-msgid "Type a message in the :guilabel:`Message` field of the pop-up window. Then, click the :guilabel:`Send SMS` button. Odoo then sends the message, via SMS, to the contact, and logs what was sent in the *chatter* of the contact's form."
+msgid "积分可以从 `Odoo IAP 目录 <https://iap.odoo.com/iap/all-in-app-services>`_ 中以 *套餐* 形式购买，每项服务的定价不同。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:81
-msgid "Upon sending the SMS message, the prepaid credits for the *SMS* |IAP| service are automatically deducted from the existing credits. If there are not enough credits to send the message, Odoo prompts the user to purchase more."
+#: ../../content/applications/essentials/in_app_purchase.rst:80
+msgid "`SMS 服务 <https://iap.odoo.com/iap/in-app-services/1>`_ 提供四种套餐，面额如下："
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:86
-msgid "For more information on how to use various |IAP| services, and for more in-depth instructions related to SMS functionality in Odoo, review the documentation below:"
+#: ../../content/applications/essentials/in_app_purchase.rst:82
+msgid ":guilabel:`入门套餐`：10 积分"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:89
-msgid ":doc:`Lead mining <../sales/crm/acquire_leads/lead_mining>`"
+#: ../../content/applications/essentials/in_app_purchase.rst:83
+msgid ":guilabel:`标准套餐`：100 积分"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:90
-msgid ":doc:`Enrich your contacts base with Partner Autocomplete <../sales/crm/optimize/partner_autocomplete>`"
+#: ../../content/applications/essentials/in_app_purchase.rst:84
+msgid ":guilabel:`高级套餐`：500 积分"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:92
-msgid ":doc:`SMS Marketing <../marketing/sms_marketing>`"
+#: ../../content/applications/essentials/in_app_purchase.rst:85
+msgid ":guilabel:`专家套餐`：1,000 积分"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:97
-msgid "IAP credits"
+#: ../../content/applications/essentials/in_app_purchase.rst:None
+msgid "四种不同的 SMS IAP 服务积分套餐。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:99
-msgid "Every time an |IAP| service is used, the prepaid credits for that service are spent. Odoo prompts the purchase of more credits when there are not enough credits left to continue using a service. Email alerts can also be set up for when :ref:`credits are low <in_app_purchase/low-credits>`."
+#: ../../content/applications/essentials/in_app_purchase.rst:91
+msgid "消耗的积分数量取决于 SMS 的长度和目的地国家。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:103
-msgid "Credits are purchased in *Packs* from the `Odoo IAP Catalog <https://iap.odoo.com/iap/all-in-app-services>`_, and pricing is specific to each service."
+#: ../../content/applications/essentials/in_app_purchase.rst:93
+msgid "有关更多信息，请参阅 :doc:`SMS 定价和常见问题 <../marketing/sms_marketing/pricing_and_faq>` 文档。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:98
+msgid "购买积分"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:100
+msgid "如果积分不足以执行任务，数据库会自动提示购买更多积分。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:102
+msgid "用户可以通过导航到 :menuselection:`设置应用 --> 联系人部分`，并在 :guilabel:`Odoo IAP` 设置下点击 :guilabel:`查看我的服务`，检查每项服务的当前积分余额，并手动购买更多积分。"
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:104
+msgid "这样会显示一个 :guilabel:`IAP 服务` 页面，列出了数据库中的各种 |IAP| 服务。在此页面中，点击某项 |IAP| 服务以打开其 :guilabel:`账户信息` 页面，可以在该页面购买更多积分。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:107
-msgid "The `SMS service <https://iap.odoo.com/iap/in-app-services/1>`_ has four packs available, in denominations of:"
+msgid "手动购买积分"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:110
-msgid ":guilabel:`Starter Pack`: 10 credits"
+#: ../../content/applications/essentials/in_app_purchase.rst:109
+msgid "要在 Odoo 中手动购买积分，请按照以下步骤操作："
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:111
-msgid ":guilabel:`Standard Pack`: 100 credits"
+msgid "首先，转到 :menuselection:`设置应用`，并在 :guilabel:`搜索...` 栏中输入 `IAP`。或者，用户可以向下滚动到 :guilabel:`联系人` 部分。在 :guilabel:`联系人` 部分，点击 :guilabel:`Odoo IAP` 下的 :guilabel:`查看我的服务`。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:112
-msgid ":guilabel:`Advanced Pack`: 500 credits"
+#: ../../content/applications/essentials/in_app_purchase.rst:None
+msgid "设置应用显示了 Odoo IAP 标题和查看我的服务按钮。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:113
-msgid ":guilabel:`Expert Pack`: 1,000 credits"
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:-1
-msgid "Four different packs of credits for the SMS IAP service."
+#: ../../content/applications/essentials/in_app_purchase.rst:117
+msgid "这样会显示一个 :guilabel:`IAP 账户` 页面，列出了数据库中的各种 |IAP| 服务。在此页面中，点击某项 |IAP| 服务以打开其 :guilabel:`账户信息` 页面，可以在该页面购买更多积分。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:119
-msgid "The number of credits consumed depends on the length of the SMS and the country of destination."
+msgid "在 :guilabel:`账户信息` 页面上，点击 :guilabel:`购买积分` 按钮。此操作会在新选项卡中加载一个 :guilabel:`为 (IAP 账户) 购买积分` 页面。在此页面上，点击所需积分套餐旁的 :guilabel:`购买` 按钮。然后，按照提示输入付款详细信息并确认订单。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:121
-msgid "For more information, refer to the :doc:`SMS Pricing and FAQ <../marketing/sms_marketing/pricing_and_faq>` documentation."
+#: ../../content/applications/essentials/in_app_purchase.rst:None
+msgid "IAP.Odoo.com 上的 SMS 服务页面，显示了可购买的四个积分套餐。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:127
-msgid "Buy credits"
+#: ../../content/applications/essentials/in_app_purchase.rst:125
+msgid "交易完成后，积分即可在数据库中使用。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:129
-msgid "If there are not enough credits to perform a task, the database automatically prompts the purchase of more credits."
+#: ../../content/applications/essentials/in_app_purchase.rst:130
+msgid "低积分通知"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:132
-msgid "Users can check the current balance of credits for each service, and manually purchase more credits, by navigating to the :menuselection:`Settings app --> Contacts section`, and beneath the :guilabel:`Odoo IAP` setting, click :guilabel:`View My Services`."
+msgid "可以在积分不足时收到通知，以避免在使用 |IAP| 服务时用完积分。要做到这一点，请按照以下步骤操作："
+msgstr ""
+
+#: ../../content/applications/essentials/in_app_purchase.rst:134
+msgid "转到 :menuselection:`设置应用`，并在 :guilabel:`搜索...` 栏中输入 `IAP`。在 :guilabel:`联系人` 部分，点击 :guilabel:`Odoo IAP` 下的 :guilabel:`查看我的服务`。"
 msgstr ""
 
 #: ../../content/applications/essentials/in_app_purchase.rst:136
-msgid "Doing so reveals an :guilabel:`IAP Service` page, listing the various |IAP| services in the database. From here, click an |IAP| service to open its :guilabel:`Account Information` page, where additional credits can be purchased."
+msgid "在 :guilabel:`IAP 账户` 页面中会以列表视图显示可用的 |IAP| 账户。在此页面中，点击所需的 |IAP| 账户查看该服务的 :guilabel:`账户信息` 页面。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:141
-msgid "Manually buy credits"
+#: ../../content/applications/essentials/in_app_purchase.rst:138
+msgid "在 :guilabel:`账户信息` 页面上，勾选 :guilabel:`警告我` 复选框。此操作会显示表单中的两个字段：:guilabel:`阈值` 和 :guilabel:`警告邮箱`。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:143
-msgid "To manually buy credits in Odoo, follow these steps:"
+#: ../../content/applications/essentials/in_app_purchase.rst:140
+msgid "在 :guilabel:`阈值` 字段中，输入 Odoo 应用于该服务的最低积分阈值。在 :guilabel:`警告邮箱` 字段中，输入接收通知的邮箱地址。"
 msgstr ""
 
-#: ../../content/applications/essentials/in_app_purchase.rst:145
-msgid "First, go to the :menuselection:`Settings application` and type `IAP` in the :guilabel:`Search...` bar. Alternatively users can scroll down to the :guilabel:`Contacts` section. Under the :guilabel:`Contacts` section, where it says :guilabel:`Odoo IAP`, click :guilabel:`View My Services`."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:-1
-msgid "The Settings app showing the Odoo IAP heading and View My Services button."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:154
-msgid "Doing so reveals an :guilabel:`IAP Account` page, listing the various |IAP| services in the database. From here, click an |IAP| service to open its :guilabel:`Account Information` page, where additional credits can be purchased."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:158
-msgid "On the :guilabel:`Account Information` page, click the :guilabel:`Buy Credit` button. Doing so loads a :guilabel:`Buy Credits for (IAP Account)` page in a new tab. From here, click :guilabel:`Buy` on the desired pack of credits. Then, follow the prompts to enter payment details, and confirm the order."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:-1
-msgid "The SMS service page on IAP.Odoo.com with four packs of credits available for purchase."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:167
-msgid "Once the transaction is complete, the credits are available for use in the database."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:172
-msgid "Low-credit notification"
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:174
-msgid "It is possible to be notified when credits are low, in order to avoid running out of credits, while using an |IAP| service. To do that, follow this process:"
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:177
-msgid "Go to the :menuselection:`Settings application`, and type `IAP` in the :guilabel:`Search...` bar. Under the :guilabel:`Contacts` section, where it says :guilabel:`Odoo IAP`, click :guilabel:`View My Services`."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:181
-msgid "The available |IAP| accounts appear in a list view on the :guilabel:`IAP Account` page. From here, click on the desired |IAP| account to view that service's :guilabel:`Account Information` page."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:184
-msgid "On the :guilabel:`Account Information` page, tick the :guilabel:`Warn Me` checkbox. Doing so reveals two fields on the form: :guilabel:`Threshold` and :guilabel:`Warning Email`."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:187
-msgid "In the :guilabel:`Threshold` field, enter an amount of credits Odoo should use as the minimum threshold for this service. In the :guilabel:`Warning Email` field, enter the email address that receives the notification."
-msgstr ""
-
-#: ../../content/applications/essentials/in_app_purchase.rst:191
-msgid "Odoo sends a low-credit alert to the :guilabel:`Warning Email` when the balance of credits falls below the amount listed as the :guilabel:`Threshold`."
+#: ../../content/applications/essentials/in_app_purchase.rst:142
+msgid "当积分余额低于设定的 :guilabel:`阈值` 时，Odoo 会向 :guilabel:`警告邮箱` 发送低积分警告。"
 msgstr ""
 
 #: ../../content/applications/essentials/keyboard_shortcuts.rst:3
-msgid "Keyboard shortcuts"
+msgid "键盘快捷键"
 msgstr ""
 
 #: ../../content/applications/essentials/keyboard_shortcuts.rst:5
-msgid "Users in Odoo can utilize several keyboard shortcuts to navigate through modules, execute actions, and manage data."
+msgid "Odoo 用户可以利用多种键盘快捷键来在模块之间导航、执行操作和管理数据。"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:9
-msgid "Hold :kbd:`Ctrl` to view the keyboard shortcuts assigned to each element on the interface."
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:8
+msgid "按住 :kbd:`Ctrl` 键，可以查看界面上分配给每个元素的键盘快捷键。"
 msgstr ""
 
 #: ../../content/applications/essentials/keyboard_shortcuts.rst:0
-msgid "A selection of keyboard shortcuts in Odoo."
+msgid "Odoo 中的部分键盘快捷键。"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:16
-msgid "Some keyboard shortcuts may not be available on different versions of Odoo or effective depending on browsers, extensions, or other individual settings."
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:15
+msgid "某些键盘快捷键在不同版本的 Odoo 上可能不可用，或由于浏览器、扩展程序或其他个人设置的不同而无效。"
+msgstr ""
+
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:18
+msgid "按操作系统划分的键盘快捷键"
 msgstr ""
 
 #: ../../content/applications/essentials/keyboard_shortcuts.rst:20
-msgid "Keyboard shortcuts by operating system"
+msgid "以下是 Odoo 中一些最常用的键盘快捷键，按操作系统列出。"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:22
-msgid "Below is a list of some of the most commonly used keyboard shortcuts within Odoo, listed by operating system."
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:26
+msgid "描述"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:29
-msgid "Description"
-msgstr ""
-
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:30
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:27
 msgid "Windows / Linux"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:31
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:28
 msgid "macOS"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:32
-msgid "Previous breadcrumb"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:29
+msgid "返回上一个路径"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:33
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:30
 msgid ":kbd:`Alt` + :kbd:`B`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:34
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:31
 msgid ":kbd:`Ctrl` + :kbd:`B`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:35
-msgid "Create new record"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:32
+msgid "创建新记录"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:36
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:33
 msgid ":kbd:`Alt` + :kbd:`C`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:37
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:34
 msgid ":kbd:`Ctrl` + :kbd:`C`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:38
-msgid "Odoo Home Page"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:35
+msgid "返回 Odoo 首页"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:39
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:36
 msgid ":kbd:`Alt` + :kbd:`H`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:40
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:37
 msgid ":kbd:`Ctrl` + :kbd:`H`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:41
-msgid "Discard changes"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:38
+msgid "放弃更改"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:42
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:39
 msgid ":kbd:`Alt` + :kbd:`J`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:43
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:40
 msgid ":kbd:`Ctrl` + :kbd:`J`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:44
-msgid "Save changes"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:41
+msgid "保存更改"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:45
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:42
 msgid ":kbd:`Alt` + :kbd:`S`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:46
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:43
 msgid ":kbd:`Ctrl` + :kbd:`S`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:47
-msgid "Next page"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:44
+msgid "下一页"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:48
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:45
 msgid ":kbd:`Alt` + :kbd:`N`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:49
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:46
 msgid ":kbd:`Ctrl` + :kbd:`N`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:50
-msgid "Previous page"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:47
+msgid "上一页"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:51
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:48
 msgid ":kbd:`Alt` + :kbd:`P`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:52
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:49
 msgid ":kbd:`Ctrl` + :kbd:`P`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:53
-msgid "Search"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:50
+msgid "搜索"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:54
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:51
 msgid ":kbd:`Alt` + :kbd:`Q`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:55
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:52
 msgid ":kbd:`Ctrl` + :kbd:`Q`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:56
-msgid "Select menus"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:53
+msgid "选择菜单"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:57
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:54
 msgid ":kbd:`Alt` + :kbd:`1-9`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:58
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:55
 msgid ":kbd:`Ctrl` + :kbd:`1-9`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:59
-msgid "Create a new To-Do"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:56
+msgid "创建新待办事项"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:60
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:57
 msgid ":kbd:`Alt` + :kbd:`Shift` + :kbd:`T`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:61
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:58
 msgid ":kbd:`Ctrl` + :kbd:`Shift` + :kbd:`T`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:62
-msgid "Search a Knowledge article"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:59
+msgid "搜索知识文章"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:63
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:60
 msgid ":kbd:`Alt` + :kbd:`F`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:64
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:61
 msgid ":kbd:`Ctrl` + :kbd:`F`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:65
-msgid "Share a Knowledge article"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:62
+msgid "分享知识文章"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:66
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:63
 msgid ":kbd:`Alt` + :kbd:`Shift` + :kbd:`S`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:67
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:64
 msgid ":kbd:`Ctrl` + :kbd:`Shift` + :kbd:`S`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:68
-msgid "Open command palette"
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:65
+msgid "打开命令面板"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:69
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:66
 msgid ":kbd:`Ctrl` + :kbd:`K`"
 msgstr ""
 
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:70
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:67
 msgid ":kbd:`Command` + :kbd:`K`"
 msgstr ""
 
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:70
+msgid "打开命令面板后，使用以下快捷键进行搜索："
+msgstr ""
+
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:72
+msgid ":kbd:`/`: 搜索菜单、应用程序和模块。"
+msgstr ""
+
 #: ../../content/applications/essentials/keyboard_shortcuts.rst:73
-msgid "After opening the command palette, search using the following keyboard shortcuts:"
+msgid ":kbd:`@`: 搜索用户。"
+msgstr ""
+
+#: ../../content/applications/essentials/keyboard_shortcuts.rst:74
+msgid ":kbd:`#`: 搜索 **讨论** 频道。"
 msgstr ""
 
 #: ../../content/applications/essentials/keyboard_shortcuts.rst:75
-msgid ":kbd:`/`: search for menus, applications, and modules."
-msgstr ""
-
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:76
-msgid ":kbd:`@`: search for users."
+msgid ":kbd:`?`: 搜索 **知识** 文章。"
 msgstr ""
 
 #: ../../content/applications/essentials/keyboard_shortcuts.rst:77
-msgid ":kbd:`#`: search for **Discuss** channels."
-msgstr ""
-
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:78
-msgid ":kbd:`?`: search for **Knowledge** articles."
-msgstr ""
-
-#: ../../content/applications/essentials/keyboard_shortcuts.rst:80
-msgid "Enter a name (or term) in the search bar, or use the arrow keys to scroll through the available options. Then, click :kbd:`Ctrl` + :kbd:`Enter` to open the selected app, module, or menu in a new tab."
+msgid "在搜索栏中输入名称（或术语），或使用箭头键滚动浏览可用选项。然后，按 :kbd:`Ctrl` + :kbd:`Enter` 在新标签页中打开选定的应用、模块或菜单。"
 msgstr ""
 
 #: ../../content/applications/essentials/keyboard_shortcuts.rst:0
-msgid "The command palette in Odoo, with the menu search option selected."
+msgid "Odoo 中的命令面板，显示选中的菜单搜索选项。"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:3
-msgid "Reporting"
+msgid "报告"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:5
-msgid "You can find several reports under the :guilabel:`Reporting` menu of most apps that let you analyze and visualize the data of your records."
+msgid "在大多数应用的 :guilabel:`报告` 菜单下，您可以找到多个报告，帮助您分析和可视化记录中的数据。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:11
-msgid "Selecting a view"
+#: ../../content/applications/essentials/reporting.rst:10
+msgid "选择视图"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:13
-msgid "Depending on the report, Odoo can display the data in various ways. Sometimes, a unique view fully tailored to the report is available, while several views are available for others. However, two generic views are dedicated to reporting: the graph and pivot views."
+#: ../../content/applications/essentials/reporting.rst:12
+msgid "根据报告的不同，Odoo 可以以多种方式显示数据。某些报告有特定的专属视图，而其他报告则提供了多个视图选择。不过，有两个通用视图专门用于报告：图表视图和数据透视表视图。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:20
-msgid "Graph view"
+#: ../../content/applications/essentials/reporting.rst:17
+msgid "图表视图"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:22
-msgid "The :ref:`graph view <reporting/using-graph>` is used to visualize your records' data, helping you identify patterns and trends. The view is often found under the :guilabel:`Reporting` menu of apps but can be found elsewhere. Click the **graph view button** located at the top right to access it."
+#: ../../content/applications/essentials/reporting.rst:19
+msgid ":ref:`图表视图 <reporting/using-graph>` 用于可视化记录的数据，帮助您识别模式和趋势。该视图通常位于应用的 :guilabel:`报告` 菜单下，但也可以在其他地方找到。点击右上角的 **图表视图按钮** 进入此视图。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:-1
-msgid "Selecting the graph view"
+#: ../../content/applications/essentials/reporting.rst:None
+msgid "选择图表视图"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:33
-msgid "Pivot view"
+#: ../../content/applications/essentials/reporting.rst:27
+msgid "数据透视表视图"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:35
-msgid "The :ref:`pivot view <reporting/using-pivot>` is used to aggregate your records' data and break it down for analysis. The view is often found under the :guilabel:`Reporting` menu of apps but can be found elsewhere. Click the **pivot view button** located at the top right to access it."
+#: ../../content/applications/essentials/reporting.rst:29
+msgid ":ref:`数据透视表视图 <reporting/using-pivot>` 用于汇总记录的数据并进行分析。该视图通常位于应用的 :guilabel:`报告` 菜单下，但也可以在其他地方找到。点击右上角的 **数据透视表视图按钮** 进入此视图。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:-1
-msgid "Selecting the pivot view"
+#: ../../content/applications/essentials/reporting.rst:None
+msgid "选择数据透视表视图"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:45
-msgid "Choosing measures"
+#: ../../content/applications/essentials/reporting.rst:37
+#: ../../content/applications/essentials/reporting.rst:56
+msgid "选择指标"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:39
+msgid "选择视图后，应确保只过滤相关的记录 :doc:`<search>`。接下来，您应选择要衡量的内容。默认情况下，总会选择一个衡量指标。如果您希望编辑它，请点击 :guilabel:`指标` 并选择一个，或者在数据透视表中选择多个指标。"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:42
+msgid "当您选择一个指标时，Odoo 会汇总该字段中已过滤记录的值。只有数值字段 (:ref:`整数 <studio/fields/simple-fields/integer>`、:ref:`小数 <studio/fields/simple-fields/decimal>`、:ref:`货币 <studio/fields/simple-fields/monetary>`) 可以被衡量。此外，:guilabel:`计数` 选项用于统计已过滤记录的总数。"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:44
+msgid "选择要衡量的内容后，您可以根据要分析的维度，定义数据应如何 :ref:`分组 <search/group>`。默认情况下，数据通常按 *日期 > 月份* 分组，用于分析某个指标在几个月内的变化。"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:47
-msgid "After selecting a view, you should ensure only the relevant records are :doc:`filtered <search>`. Next, you should choose what is measured. By default, a measure is always selected. If you wish to edit it, click :guilabel:`Measures` and choose one or, only for pivots, multiple measures."
+msgid "当您过滤一个时间段时，系统会出现与另一个时间段进行对比的选项。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:52
-msgid "When you select a measure, Odoo aggregates the values recorded on that field for the filtered records. Only numerical fields (:ref:`integer <studio/fields/simple-fields/integer>`, :ref:`decimal <studio/fields/simple-fields/decimal>`, :ref:`monetary <studio/fields/simple-fields/monetary>`) can be measured. In addition, the :guilabel:`Count` option is used to count the total number of filtered records."
+#: ../../content/applications/essentials/reporting.rst:0
+msgid "使用比较选项"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:58
-msgid "After choosing what you want to measure, you can define how the data should be :ref:`grouped <search/group>` depending on the dimension you want to analyze. By default, the data is often grouped by *Date > Month*, which is used to analyze the evolution of a measure over the months."
+msgid "在其他指标中，您可以在销售分析报告中添加 :guilabel:`利润率` 和 :guilabel:`计数` 指标。默认情况下，已选择 :guilabel:`未税金额` 指标。"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:0
+msgid "在销售分析报告中选择不同的指标"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:63
-msgid "When you filter a single time period, the option to compare it against another one appears."
+msgid "分组指标"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:65
+msgid "您可以在前面的销售分析报告示例中按 :guilabel:`产品类别` 对指标进行分组。"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:0
-msgid "Using the comparison option"
+msgid "在销售分析报告中添加分组"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:72
-msgid "Select measures"
+#: ../../content/applications/essentials/reporting.rst:73
+msgid "使用数据透视表视图"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:74
-msgid "Among other measures, you could add the :guilabel:`Margin` and :guilabel:`Count` measures to the Sales Analysis report. By default, the :guilabel:`Untaxed Amount` measure is selected."
+#: ../../content/applications/essentials/reporting.rst:75
+msgid "数据分组是数据透视表视图的核心功能，它使您能够深入挖掘数据以获取更深入的见解。您可以使用 :guilabel:`按组` 选项快速在行级别添加分组，如上面的示例所示，您还可以点击行级别和列级别的 :guilabel:`总计` 标题旁边的加号按钮 (:guilabel:`➕`)，然后选择一个 **预配置分组**。要移除一个分组，点击减号按钮 (:guilabel:`➖`)。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:0
-msgid "Selecting different measures on the Sales Analysis report"
+#: ../../content/applications/essentials/reporting.rst:77
+msgid "添加一个分组后，您可以在相反的轴或新创建的子组中添加新的分组。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:81
-msgid "Group measures"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:83
-msgid "You could group the measures by :guilabel:`Product Category` at the level of rows on the previous Sales Analysis report example."
+#: ../../content/applications/essentials/reporting.rst:80
+msgid "您可以在前面的销售分析报告示例中按列级别的 :guilabel:`销售人员` 分组，并按 :guilabel:`订单日期 > 月份` 对 :guilabel:`全部 / 可销售 / 办公家具` 产品类别进行分组。"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:0
-msgid "Adding a group on the Sales Analysis report"
+msgid "在销售分析报告中添加多个分组"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:92
-msgid "Using the pivot view"
+#: ../../content/applications/essentials/reporting.rst:86
+msgid "点击翻转轴按钮 (:guilabel:`⇄`) 切换行和列的分组。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:94
-msgid "Grouping data is quintessential to the pivot view. It enables drilling down the data to gain deeper insights. While you can use the :guilabel:`Group By` option to quickly add a group at the level of rows, as shown in the example above, you can also click the plus button (:guilabel:`➕`) next to the :guilabel:`Total` header at the level of rows *and* columns, and then select one of the **preconfigured groups**. To remove one, click the minus button (:guilabel:`➖`)."
+#: ../../content/applications/essentials/reporting.rst:87
+msgid "点击某个指标的标签，可以按升序 (⏶) 或降序 (⏷) 排序。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:100
-msgid "Once you have added a group, you can add new ones on the opposite axis or the newly created subgroups."
+#: ../../content/applications/essentials/reporting.rst:88
+msgid "点击下载按钮 (:guilabel:`⭳`)，可以下载数据透视表的 `.xlsx` 版本。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:104
-msgid "You could further divide the measures on the previous Sales Analysis report example by the :guilabel:`Salesperson` group at the level of columns and by the :guilabel:`Order Date > Month` group on the :guilabel:`All / Saleable / Office Furniture` product category."
+#: ../../content/applications/essentials/reporting.rst:93
+msgid "使用图表视图"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:95
+msgid "图表视图中提供三种图表：柱状图、折线图和饼图。"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:97
+msgid "**柱状图** 用于展示多个类别的分布或对比，特别适用于处理较大的数据集。"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:99
+msgid "**折线图** 适用于展示时间序列的变化和趋势。"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:101
+msgid "**饼图** 用于展示较少类别的分布或对比，适合形成一个有意义整体的情况。"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:105
+msgid "柱状图"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:0
-msgid "Adding multiple groups on the Sales Analysis report"
+msgid "以柱状图查看销售分析报告"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:112
-msgid "Switch the rows and columns' groups by clicking the flip axis button (:guilabel:`⇄`)."
+#: ../../content/applications/essentials/reporting.rst:110
+msgid "折线图"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:113
-msgid "Click on a measure's label to sort the values by ascending (⏶) or descending (⏷) order."
+#: ../../content/applications/essentials/reporting.rst:0
+msgid "以折线图查看销售分析报告"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:114
-msgid "Download a `.xlsx` version of the pivot by clicking the download button (:guilabel:`⭳`)."
+#: ../../content/applications/essentials/reporting.rst:115
+msgid "饼图"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:119
-msgid "Using the graph view"
+#: ../../content/applications/essentials/reporting.rst:0
+msgid "以饼图查看销售分析报告"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:121
-msgid "Three graphs are available: the bar, line, and pie charts."
+msgid "对于 **柱状图** 和 **折线图**，当您至少有两个分组时，可以使用堆叠选项，这时分组会叠加在一起，而不是并列显示。"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:123
-msgid "**Bar charts** are used to show the distribution or a comparison of several categories. They are especially useful as they can deal with larger data sets."
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:126
-msgid "**Line charts** are useful to show changing time series and trends over time."
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:128
-msgid "**Pie charts** are used to show the distribution or a comparison of a small number of categories when they form a meaningful whole."
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:133
-msgid "Bar chart"
+#: ../../content/applications/essentials/reporting.rst:125
+msgid "堆叠柱状图"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:0
-msgid "Viewing the Sales Analysis report as a bar chart"
+msgid "堆叠柱状图示例"
 msgstr ""
 
-#: ../../content/applications/essentials/reporting.rst:138
-msgid "Line chart"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:0
-msgid "Viewing the Sales Analysis report as a line chart"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:143
-msgid "Pie chart"
+#: ../../content/applications/essentials/reporting.rst:130
+msgid "常规柱状图"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:0
-msgid "Viewing the Sales Analysis report as a pie chart"
+msgid "常规柱状图示例"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:135
+msgid "堆叠折线图"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:0
+msgid "堆叠折线图示例"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:140
+#: ../../content/applications/essentials/reporting.rst:154
+msgid "常规折线图"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:0
+msgid "常规折线图示例"
+msgstr ""
+
+#: ../../content/applications/essentials/reporting.rst:145
+msgid "对于 **折线图**，您可以使用累计选项来累加数值，这对于展示某个时间段内的增长变化尤其有用。"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:149
-msgid "For **bar** and **line** charts, you can use the stacked option when you have at least two groups, which then appear on top of each other instead of next to each other."
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:154
-msgid "Stacked bar chart"
+msgid "累计折线图"
 msgstr ""
 
 #: ../../content/applications/essentials/reporting.rst:0
-msgid "Stacked bar chart example"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:159
-msgid "Regular bar chart"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:0
-msgid "Non-stacked bar chart example"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:164
-msgid "Stacked line chart"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:0
-msgid "Stacked line chart example"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:169
-#: ../../content/applications/essentials/reporting.rst:184
-msgid "Regular line chart"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:0
-msgid "Non-stacked line chart example"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:174
-msgid "For **line** charts, you can use the cumulative option to sum values, which is especially useful to show the change in growth over a time period."
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:179
-msgid "Cumulative line chart"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:0
-msgid "Cumulative line chart example"
-msgstr ""
-
-#: ../../content/applications/essentials/reporting.rst:0
-msgid "Regular line chart example"
+msgid "累计折线图示例"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:3
-msgid "Search, filter, and group records"
+msgid "搜索、过滤和分组记录"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:5
-msgid "Odoo allows for the searching, filtering, and grouping of records in a view to display only the most relevant records. The search bar is located at the top of the view, start typing to :ref:`search for values <search/values>`, or click the :guilabel:`🔽 (down arrow)` icon to access the :ref:`Filter <search/filters>`, :ref:`Group By <search/group>`, and :ref:`Favorites <search/favorites>` drop-down menus."
+msgid "Odoo 允许用户在视图中搜索、过滤和分组记录，以显示最相关的记录。搜索栏位于视图的顶部，开始输入以 :ref:`搜索值 <search/values>`，或点击 :guilabel:`🔽 (向下箭头)` 图标以访问 :ref:`过滤器 <search/filters>`、:ref:`按组 <search/group>` 和 :ref:`收藏夹 <search/favorites>` 下拉菜单。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:14
-msgid "Search for values"
+#: ../../content/applications/essentials/search.rst:10
+msgid "搜索值"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:16
-msgid "Use the search field to quickly look for specific values, and add them as a filter. Type the value to search for, and select the desired option from the drop-down menu to apply the search filter."
+#: ../../content/applications/essentials/search.rst:12
+msgid "使用搜索字段快速查找特定值，并将其作为过滤器添加。输入要搜索的值，并从下拉菜单中选择所需的选项来应用搜索过滤器。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:20
-msgid "Instead of adding a :ref:`custom filter <search/custom-filters>` to select records where *Mitchell Admin* is the salesperson on the *Sales Analysis* report (:menuselection:`Sales app --> Reporting --> Sales`), search for `Mitch`, and click the :guilabel:`⏵ (right arrow)` next to :guilabel:`Search Salesperson for: Mitch`, and select :guilabel:`Mitchell Admin`."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:0
-msgid "Searching for a specific value on the Sales Analysis report"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:30
-msgid "Using the search field is equivalent to using the *contains* operator when adding a :ref:`custom filter <search/custom-filters>`. If a partial value is entered, and the desired field is directly selected (without selecting the :guilabel:`⏵ (right arrow)`), *all* records containing the typed characters for the selected field are included."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:38
-msgid "Filters"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:40
-msgid "Filters are used to select records that meet specific criteria. The default selection of records is specific to each view, but can be modified by selecting one (or several) :ref:`preconfigured filters <search/preconfigured-filters>`, or by adding a :ref:`custom filter <search/custom-filters>`."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:47
-msgid "Preconfigured filters"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:49
-msgid "Modify the default selection of records by clicking the :guilabel:`🔽 (down arrow)` icon from the search bar, and selecting one (or several) *preconfigured filters* from the :guilabel:`Filters` drop-down menu."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:54
-msgid "On the *Sales Analysis* report (:menuselection:`Sales app --> Reporting --> Sales`), only records that are at the *sales order* stage, with an *order date* within the last 365 days, are selected by default."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:58
-msgid "To also include records at the *quotation* stage, select :guilabel:`Quotations` from the :guilabel:`Filters`."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:61
-msgid "Furthermore, to *only* include sales order and quotation records from a specific year, like 2024, for example, first remove the existing `Order Date: Last 365 Days` filter, by clicking the :guilabel:`❌ (remove)` icon, then select :menuselection:`Order Date --> 2024`."
+#: ../../content/applications/essentials/search.rst:15
+msgid "例如，在 *销售分析* 报告 (:menuselection:`销售应用程序 --> 报告 --> 销售`) 中，搜索 `Mitch`，点击 :guilabel:`⏵ (右箭头)` 旁边的 :guilabel:`搜索销售员：Mitch`，然后选择 :guilabel:`Mitchell Admin`，而不是添加 :ref:`自定义过滤器 <search/custom-filters>` 来选择销售员为 *Mitchell Admin* 的记录。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:0
-msgid "Using preconfigured filters on the Sales Analysis report"
+msgid "在销售分析报告中搜索特定值"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:22
+msgid "使用搜索字段相当于使用 *包含* 操作符添加 :ref:`自定义过滤器 <search/custom-filters>`。如果输入了部分值，并且直接选择了所需字段（而不是选择 :guilabel:`⏵ (右箭头)`），则将包含所有选定字段中键入字符的记录。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:27
+msgid "过滤器"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:29
+msgid "过滤器用于选择符合特定条件的记录。默认的记录选择特定于每个视图，但可以通过选择一个或多个 :ref:`预配置过滤器 <search/preconfigured-filters>` 或添加 :ref:`自定义过滤器 <search/custom-filters>` 来修改。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:34
+msgid "预配置过滤器"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:36
+msgid "点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，从 :guilabel:`过滤器` 下拉菜单中选择一个或多个 *预配置过滤器* 来修改记录的默认选择。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:39
+msgid "在 *销售分析* 报告 (:menuselection:`销售应用程序 --> 报告 --> 销售`) 中，默认情况下，仅选择处于 *销售订单* 阶段、且 *订单日期* 在过去 365 天内的记录。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:41
+msgid "若要同时包含处于 *报价* 阶段的记录，选择 :guilabel:`报价` 作为过滤器。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:43
+msgid "此外，若要仅包含来自特定年份（例如 2024 年）的销售订单和报价记录，请先点击 :guilabel:`❌ (删除)` 图标删除现有的 `订单日期：最近 365 天` 过滤器，然后选择 :menuselection:`订单日期 --> 2024`。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:0
+msgid "在销售分析报告中使用预配置过滤器"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:50
+msgid "预配置的 :guilabel:`过滤器` 按组分组，每组由一条水平线分隔。从同一组选择预配置过滤器允许记录匹配应用条件中的任意一个。然而，选择来自不同组的过滤器要求记录匹配所有应用的条件。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:55
+msgid "自定义过滤器"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:57
+msgid "如果 :ref:`预配置过滤器 <search/preconfigured-filters>` 不够具体，可以添加自定义过滤器。为此，请点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，然后选择 :menuselection:`过滤器 --> 添加自定义过滤器`。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:59
+msgid ":guilabel:`添加自定义过滤器` 弹出窗口显示匹配选项、过滤规则以及 :guilabel:`包含已归档` 记录的切换开关。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:None
+msgid "添加自定义过滤器弹出窗口"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:65
+msgid "默认的匹配配置是 :guilabel:`匹配以下任意规则`，表示每个过滤规则独立应用。若要将匹配配置更改为 :guilabel:`匹配以下所有规则`，则必须为自定义过滤器添加至少两个过滤规则。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:67
+msgid ":guilabel:`匹配以下所有 🔽 规则`: **所有** 过滤规则都必须满足。逻辑上，这是 *与* (`&`) 操作。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:68
+msgid ":guilabel:`匹配以下任意 🔽 规则`: **任意** 过滤规则都可以满足。逻辑上，这是 *或* (`|`) 操作。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:70
-msgid "The preconfigured :guilabel:`Filters` are grouped, and each group is separated by a horizontal line. Selecting preconfigured filters from the same group allows records to match *any* of the applied conditions. However, selecting filters from different groups requires records to match *all* of the applied conditions."
+msgid "默认情况下，自定义过滤器中添加一个过滤规则。以下描述了过滤规则的结构："
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:72
+msgid "第一个内联字段是要过滤的 *字段名称*。某些字段具有嵌套在另一个字段中的精细参数。这些字段旁边有 :guilabel:`> (箭头)` 图标，可以选择它以显示嵌套字段。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:73
+msgid "第二个内联字段是用于将字段名称与值进行比较的条件 *操作符*。:ref:`可用的条件操作符 <reference/orm/domains>` 特定于字段的数据类型。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:74
+msgid "第三个内联字段是字段名称的变量 *值*。根据操作符和字段的数据类型，值输入可能会显示为下拉菜单、文本输入框、数字输入框、日期/时间输入框、布尔选择器，或为空。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:76
+msgid "规则过滤条件右侧还提供了三个内联按钮："
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:78
-msgid "Custom filters"
+msgid ":guilabel:`➕ (加号)`: 在现有规则下方添加新规则。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:80
-msgid "If the :ref:`preconfigured filters <search/preconfigured-filters>` are not specific enough, add a custom filter. To do so, click the :guilabel:`🔽 (down arrow)` icon in the search bar, then select :menuselection:`Filters --> Add Custom Filter`."
+#: ../../content/applications/essentials/search.rst:79
+msgid ":guilabel:`(添加分支)`: 在现有规则下方添加新的规则组，并提供 :guilabel:`任意` 和 :guilabel:`所有` 匹配选项，以定义此分支中的每条规则如何应用于过滤器。如果匹配选项设置为与父组相同，则字段将移动并加入父组。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:82
+msgid "如果匹配选项设置为 :guilabel:`匹配以下所有规则`，并添加了一个新分支，并将其匹配选项从 :guilabel:`任意 🔽` 更改为 :guilabel:`所有 🔽`，则新添加的分支将消失，并且其规则组将移到父组。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:84
-msgid "The :guilabel:`Add Custom Filter` pop-up window displays the matching option, filter rule, and a toggle to :guilabel:`Include archived` records."
+msgid ":guilabel:`🗑️ (垃圾桶)`: 删除节点。如果删除分支节点，则该节点的所有子节点也将被删除。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:-1
-msgid "The Add Custom Filter pop-up window."
+#: ../../content/applications/essentials/search.rst:86
+msgid "点击 :guilabel:`新规则` 按钮，可以为自定义过滤器添加新的过滤规则。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:88
+msgid "定义过滤条件后，点击 :guilabel:`添加` 将自定义过滤器添加到视图中。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:91
-msgid "The default matching configuration is to :guilabel:`Match any of the following rules`, indicating that each filter rule is applied independently. To change the matching configuration to :guilabel:`Match all of the following rules`, at least two filter rules must be added to the custom filter."
+msgid "要筛选 *CRM* 应用程序中处于 *已赢得* 阶段且预期收入超过 $1,000 的所有潜在客户和机会，应输入以下内容："
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:93
+msgid ":guilabel:`匹配以下所有 🔽 规则：`"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:95
+msgid ":guilabel:`阶段` :guilabel:`属于` :guilabel:`已赢得`"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:96
-msgid ":guilabel:`Match all 🔽 of the following rules`: **all** of the filter rules must be met. Logically, this is an *AND* (`&`) operation."
+msgid ":guilabel:`预期收入` :guilabel:`>` `1,000`"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:98
-msgid ":guilabel:`Match any 🔽 of the following rules`: **any** of the filter rules can be met. Logically, this is an *OR* (`|`) operation."
+#: ../../content/applications/essentials/search.rst:97
+msgid ":guilabel:`任意 🔽 规则：`"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:101
-msgid "By default, a single filter rule is added to the custom filter. The following describes the structure of a filter rule:"
+#: ../../content/applications/essentials/search.rst:99
+msgid ":guilabel:`类型` :guilabel:`=` :guilabel:`潜在客户`"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:104
-msgid "The first inline field is the *field name* to filter by. Some fields have refined parameters that are nested within another field. These fields have an :guilabel:`> (arrow)` icon beside them, which can be selected to reveal the nested fields."
+#: ../../content/applications/essentials/search.rst:100
+msgid ":guilabel:`类型` :guilabel:`=` :guilabel:`机会`"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:0
+msgid "在 CRM 中添加自定义过滤器以筛选特定记录"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:107
-msgid "The second inline field is the conditional *operator* used to compare the field name to the value. The :ref:`available conditional operators <reference/orm/domains>` are specific to the field's data type."
+msgid "启用 :ref:`开发者模式 <developer-mode>` 以显示每个字段的技术名称和数据类型，并在过滤规则下方显示 :guilabel:`# 代码编辑器` 文本区域，以手动查看和编辑域。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:110
-msgid "The third inline field is the variable *value* of the field name. The value input may appear as a drop-down menu, a text input, a number input, a date/time input, a boolean selector, or it may be blank, depending on the operator used and the field's data type."
+#: ../../content/applications/essentials/search.rst:112
+msgid "分组记录"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:114
-msgid "Three inline buttons are also available to the right of the rule's filter criteria:"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:116
-msgid ":guilabel:`➕ (plus sign)`: adds a new rule below the existing rule."
+msgid "可以根据某个 *预配置组* 将视图中的记录聚集在一起。为此，请点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，然后从 :guilabel:`按组` 下拉菜单中选择一个选项。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:117
-msgid ":guilabel:`(Add branch)`: adds a new group of rules below the existing rule, with the :guilabel:`any` and :guilabel:`all` matching options available to define how each rule within this branch is applied to the filter. If the matching option is set to the same as the parent group, the fields are moved to join the parent group."
+msgid "要在 *销售分析* 报告 (:menuselection:`销售应用程序 --> 报告 --> 销售`) 中按销售员分组记录，请点击 :guilabel:`销售员` 选项。视图将更改为按销售员分组记录，而不会过滤掉任何记录。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:0
+msgid "在销售分析报告中分组记录"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:123
-msgid "If the matching option is set to :guilabel:`Match all 🔽 of the following rules`, and a new branch is added with its matching option changed from :guilabel:`any 🔽 of` to :guilabel:`all 🔽 of`, the newly-added branch disappears, and its group of rules are moved to the parent group."
+msgid "可以使用模型中存在的字段 *自定义分组*。为此，点击 :menuselection:`添加自定义组`，并从下拉菜单中选择一个字段。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:128
-msgid ":guilabel:`🗑️ (garbage can)`: deletes the node. If a branch node is deleted, all children of that node are deleted, as well."
+#: ../../content/applications/essentials/search.rst:126
+msgid "可以同时使用多个组。选择的第一个组是主集群，添加的下一个组进一步划分主组的类别，依此类推。此外，过滤器和组可以结合使用，以进一步优化视图。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:131
-msgid "A new filter rule can be added to the custom filter by clicking the :guilabel:`New Rule` button."
+msgid "对比"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:133
-msgid "Once the filter criteria are defined, click :guilabel:`Add` to add the custom filter to the view."
+#: ../../content/applications/essentials/search.rst:134
+msgid "比较选项和收藏夹"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:136
-msgid "To target all leads and opportunities from the :menuselection:`CRM` app that are in the *Won* stage, and have an expected revenue greater than $1,000, the following should be entered:"
+msgid "某些报告仪表板包含 :guilabel:`比较` 部分，可以在其 :guilabel:`搜索...` 栏的下拉菜单中找到。这包括 *制造* 应用的 :doc:`整体设备效率 <../inventory_and_mrp/manufacturing/reporting/oee>` 报告，以及 *采购* 应用的 :doc:`采购报告 <../inventory_and_mrp/purchase/advanced/analyze>` 等其他报告。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:139
-msgid ":guilabel:`Match all 🔽 (down arrow) of the following rules:`"
+#: ../../content/applications/essentials/search.rst:138
+msgid ":icon:`fa-adjust` :guilabel:`比较` 部分中的选项用于比较两个不同时间段的数据。可以选择两种比较选项：:guilabel:`(时间过滤器): 上一个时间段` 和 :guilabel:`(时间过滤器): 去年同期`。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:141
-msgid ":guilabel:`Stage` :guilabel:`is in` :guilabel:`Won`"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:142
-msgid ":guilabel:`Expected Revenue` :guilabel:`>` `1,000`"
+msgid "对于某些报告，只有在 :guilabel:`过滤器` 列中选择了一个或多个时间段时，:guilabel:`比较` 部分才会出现在 :guilabel:`搜索...` 栏的下拉菜单中。这是因为，如果没有指定时间段，则没有可比较的内容。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:143
-msgid ":guilabel:`any 🔽 (down arrow)` :guilabel:`of:`"
+msgid "此外，一些报告只有在选择了 :icon:`fa-pie-chart` :guilabel:`(饼图)` 或 :icon:`oi-view-pivot` :guilabel:`(数据透视表)` 视图时，才允许使用 :guilabel:`比较` 功能。即使启用了其他视图，也可以选择 :guilabel:`比较` 选项，但这样做不会更改报告中数据的显示方式。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:145
-msgid ":guilabel:`Type` :guilabel:`=` :guilabel:`Lead`"
+#: ../../content/applications/essentials/search.rst:None
+msgid "生产分析报告的搜索栏。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:146
-msgid ":guilabel:`Type` :guilabel:`=` :guilabel:`Opportunity`"
+#: ../../content/applications/essentials/search.rst:149
+msgid "要使用两种比较选项之一查看数据，首先在 :guilabel:`搜索...` 栏的下拉菜单的 :guilabel:`过滤器` 列中选择一个时间段。然后，在 :guilabel:`比较` 部分中，选择 :guilabel:`(时间过滤器): 上一个时间段` 或 :guilabel:`(时间过滤器): 去年同期`。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:0
-msgid "Adding a custom filter to filter specific records in CRM."
+#: ../../content/applications/essentials/search.rst:151
+msgid "启用了其中一个 :guilabel:`比较` 选项后，报告会比较所选时间段的数据与上一时间段或上一年的同一时间单位（月、季度、年）的数据。数据显示的方式取决于所选视图："
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:153
-msgid "Activate :ref:`developer-mode` to reveal each field's technical name and data type, as well as the :guilabel:`# Code editor` text area below the filter rules, to view and edit the domain manually."
+msgid ":icon:`fa-bar-chart` :guilabel:`(柱状图)` 为所选时间段的每个时间单位显示两个并排的柱状图。左侧柱状图代表所选时间段，右侧柱状图代表上一时间段。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:160
-msgid "Group records"
+#: ../../content/applications/essentials/search.rst:154
+msgid ":icon:`fa-line-chart` :guilabel:`(折线图)` 显示两条线，一条代表所选时间段，另一条代表上一时间段。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:162
-msgid "The display of records in a view can be clustered together, according to one of the *preconfigured groups*. To do so, click the :guilabel:`🔽 (down arrow)` icon in the search bar, then select one of the :guilabel:`Group By` options from the drop-down menu."
+#: ../../content/applications/essentials/search.rst:155
+msgid ":icon:`fa-pie-chart` :guilabel:`(饼图)` 显示一个大圆圈和一个内嵌的小圆圈。大圆圈代表所选时间段，小圆圈代表上一时间段。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:167
-msgid "To group the records by salesperson on the *Sales Analysis* report (:menuselection:`Sales app --> Reporting --> Sales`), click the :guilabel:`Salesperson` option from the :guilabel:`Group By` drop-down menu. The view changes to group the records by salesperson, without filtering out any records."
+#: ../../content/applications/essentials/search.rst:156
+msgid ":icon:`oi-view-pivot` :guilabel:`(数据透视表)` 将每一列分成两列。右侧列代表所选时间段，左侧列代表上一时间段。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:159
+msgid "在 *制造* 应用的 :guilabel:`生产分析` 报告中，将 2024 年第二季度的数据与 2023 年第二季度的数据进行比较。在 :guilabel:`搜索...` 栏的 :guilabel:`结束日期` 过滤器部分中选择 :guilabel:`Q2`，然后在 :guilabel:`比较` 部分中选择 :guilabel:`结束日期: 去年同期`。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:161
+msgid "当前年份为 2024 年，因此较大的圆圈显示 2024 年第二季度 (Q2) 的数据。较小的圆圈显示 2023 年第二季度 (Q2) 的数据，即同一时间段，但在 *去年*。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:163
+msgid "如果选择了 :guilabel:`结束日期: 上一个时间段`，则较小的圆圈显示 2024 年第一季度 (Q1) 的数据，即同一时间段，但在 *前一个时间段*。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:0
-msgid "Grouping records on the Sales Analysis report"
+msgid "生产分析报告的比较视图。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:172
+msgid "收藏夹"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:174
+msgid "收藏夹是一种保存特定搜索以供将来使用或作为视图的新默认过滤器的方式。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:176
-msgid "It is possible to *customize groups* by using a field present on the model. To do so, click :menuselection:`Add Custom Group`, and select a field from the drop-down menu."
+msgid "要将当前视图保存为收藏夹，点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，然后选择 :guilabel:`保存当前搜索` 下拉菜单以显示以下选项："
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:178
+msgid "过滤器名称: 收藏搜索的名称。"
+msgstr ""
+
+#: ../../content/applications/essentials/search.rst:179
+msgid ":guilabel:`默认过滤器`: 将收藏搜索设置为视图的默认过滤器。"
 msgstr ""
 
 #: ../../content/applications/essentials/search.rst:180
-msgid "Several groups can be used at the same time. The first group that is selected is the main cluster, the next one that is added further divides the main group's categories, and so on. Furthermore, filters and groups can be used together to refine the view even more."
+msgid ":guilabel:`共享`: 使收藏搜索对所有用户可用。默认情况下，收藏搜索仅对创建它的用户可用。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:187
-msgid "Comparison"
+#: ../../content/applications/essentials/search.rst:182
+msgid "设置完选项后，点击 :guilabel:`保存` 以保存收藏搜索。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:189
-msgid "Certain reporting dashboards include a :guilabel:`Comparison` section in the drop-down menus of their :guilabel:`Search...` bars. This includes the :doc:`Overall Equipment Effectiveness <../inventory_and_mrp/manufacturing/reporting/oee>` report for the *Manufacturing* app, and the :doc:`Purchase <../inventory_and_mrp/purchase/advanced/analyze>` report for the *Purchase* app, among others."
+#: ../../content/applications/essentials/search.rst:None
+msgid "在销售分析报告中保存收藏搜索"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:195
-msgid "The options in the :icon:`fa-adjust` :guilabel:`Comparison` section are used to compare data from two different time periods. There are two comparison options to choose from: :guilabel:`(Time Filter): Previous Period` and :guilabel:`(Time Filter): Previous Year`."
+#: ../../content/applications/essentials/search.rst:188
+msgid "可以通过点击搜索栏中的 :guilabel:`🔽 (向下箭头)` 图标，然后在 :guilabel:`收藏夹` 下拉菜单中选择已保存的过滤器来访问已保存的收藏夹。要删除已保存的收藏夹，请点击收藏搜索旁边的 :guilabel:`🗑️ (垃圾桶)` 图标。"
 msgstr ""
 
-#: ../../content/applications/essentials/search.rst:200
-msgid "For some reports, the :guilabel:`Comparison` section **only** appears in the :guilabel:`Search...` bar drop-down menu if one (or more) time periods have been selected in the :guilabel:`Filters` column. This is because, if no time period is specified, there is nothing to compare."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:205
-msgid "Additionally, some reports only allow use of the :guilabel:`Comparison` feature when the :icon:`fa-pie-chart` :guilabel:`(pie chart)` graph type, or the :icon:`oi-view-pivot` :guilabel:`(pivot)` view, is selected. A :guilabel:`Comparison` option can be selected even if another view is enabled, but doing so does **not** change the way data is displayed on the report."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:-1
-msgid "The Search... bar for the production analysis report."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:215
-msgid "To view data using one of the two comparisons, begin by selecting a time period in the :guilabel:`Filters` column of the :guilabel:`Search...` bar drop-down menu. Then, select either :guilabel:`(Time Filter): Previous Period` or :guilabel:`(Time Filter): Previous Year` in the :guilabel:`Comparison` section."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:220
-msgid "With one of the :guilabel:`Comparison` options enabled, the report compares the data for the selected period, with the data for the same unit of time (month, quarter, year), one period or year prior. The way the data is displayed depends on the selected view:"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:224
-msgid "The :icon:`fa-bar-chart` :guilabel:`(bar chart)` shows two bars, side-by-side, for each unit of time for the selected time period. The left bar represents the selected time period, while the right bar represents the previous time period."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:227
-msgid "The :icon:`fa-line-chart` :guilabel:`(line chart)` is displayed with two lines, one representing the selected time period, and the other representing the previous time period."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:229
-msgid "The :icon:`fa-pie-chart` :guilabel:`(pie chart)` appears as a large circle with a smaller circle inside. The larger circle represents the selected time period, while the smaller circle represents the previous time period."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:232
-msgid "The :icon:`oi-view-pivot` :guilabel:`(pivot table)` is displayed with each column split into two smaller columns. The right column represents the selected time period, while the left column represents the previous time period."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:237
-msgid "In the :guilabel:`Production Analysis` report of the :menuselection:`Manufacturing` app, data for the second quarter of 2024 is compared to data for the second quarter of 2023. :guilabel:`Q2` is selected in the :guilabel:`End Date` filter section of the :guilabel:`Search...` bar drop-down menu. In the :guilabel:`Comparison` section, :guilabel:`End Date: Previous Year` is selected."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:242
-msgid "The current year is 2024, so the larger circle shows data for the second quarter (Q2) of 2024. The smaller circle shows data for the second quarter (Q2) of 2023, which is the same time period, but one *year* prior."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:246
-msgid "If :guilabel:`End Date: Previous Period` is selected instead, the smaller circle shows data for the first quarter (Q1) of 2024, which is the same time period, but one *period* prior."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:0
-msgid "The comparison view of the Production Analysis report."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:256
-msgid "Favorites"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:258
-msgid "Favorites are a way to save a specific search for future use, or as the new default filter for the view."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:261
-msgid "To save the current view as a favorite, click the :guilabel:`🔽 (down arrow)` icon in the search bar, then select the :guilabel:`Save current search` drop-down menu to display the following options:"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:265
-msgid "Filter name: name of the favorited search."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:266
-msgid ":guilabel:`Default filter`: sets the favorited search as the default filter for the view."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:267
-msgid ":guilabel:`Shared`: makes the favorited search available to all users. By default, the favorited search is only available to the user who created it."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:270
-msgid "Once the options are set, click :guilabel:`Save` to save the favorited search."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:-1
-msgid "Saving a favorite search on the Sales Analysis report"
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:276
-msgid "Saved favorites can be accessed by clicking the :guilabel:`🔽 (down arrow)` icon in the search bar, then selecting the saved filter in the :guilabel:`Favorites` drop-down menu. To remove a saved favorite, click the :guilabel:`🗑️ (garbage can)` icon next to the favorited search."
-msgstr ""
-
-#: ../../content/applications/essentials/search.rst:281
-msgid "To view *all* favorited searches, first activate :ref:`developer-mode`, and navigate to :menuselection:`Settings app --> Technical --> User Interface: User-defined Filters`. From here, all favorited searches can be viewed, edited, archived, or deleted."
+#: ../../content/applications/essentials/search.rst:191
+msgid "若要查看 *所有* 收藏搜索，请先启用 :ref:`开发者模式 <developer-mode>`，然后导航到 :menuselection:`设置应用 --> 技术 --> 用户界面: 用户定义的过滤器`。在这里，可以查看、编辑、归档或删除所有收藏搜索。"
 msgstr ""

@@ -1,116 +1,92 @@
-
 .. _odoosh-gettingstarted-builds:
 
 ======
-Builds
+构建
 ======
 
-Overview
+概述
 ========
 
-In Odoo.sh, a build is considered as a database loaded by an Odoo server
-(`odoo/odoo <https://github.com/odoo/odoo>`_ & `odoo/enterprise
-<https://github.com/odoo/enterprise>`_) running on a specific revision of your project repository in
-a containerized environment. Its purpose is to test the well-behavior of the server, the database
-and the features with this revision.
+在 Odoo.sh 中，构建被认为是一个由 Odoo 服务器加载的数据库
+(`odoo/odoo <https://github.com/odoo/odoo>`_ 和 `odoo/enterprise
+<https://github.com/odoo/enterprise>`_)，它运行在您的项目存储库的特定修订版本上，并在容器化环境中运行。其目的是测试该修订版本下服务器、数据库和功能的良好运行。
 
 .. image:: builds/interface-builds.png
    :align: center
 
-In this view, a row represents a branch, and a cell of a row represents a build of this branch.
+在此视图中，一行代表一个分支，一行的单元格代表该分支的一个构建。
 
-Most of the time, builds are created following pushes on your Github repository branches.
-They can be created as well when you do other operations,
-such as importing a database on Odoo.sh or asking a rebuild for a branch in your project.
+大多数情况下，构建是根据您在 Github 存储库分支上的推送而创建的。
+它们也可以在您进行其他操作时创建，
+例如在 Odoo.sh 上导入数据库或在项目中的分支上请求重建时。
 
-A build is considered successful if no errors or warnings come up during its creation.
-A successful build is highlighted in green.
+如果在创建过程中没有出现错误或警告，构建被认为是成功的。
+成功的构建会以绿色突出显示。
 
-A build is considered failed if errors come up during its creation.
-A failed build is highlighted in red.
+如果在创建过程中出现错误，构建被认为是失败的。
+失败的构建会以红色突出显示。
 
-If warnings come up during the creation, but there are no errors, the build is considered almost
-successful. It is highlighted in yellow to notify the developer warnings were raised.
+如果在创建过程中出现警告，但没有错误，则构建被认为是几乎成功的。它会以黄色突出显示，以提醒开发者有警告。
 
-Builds do not always create a database from scratch. For instance, when pushing a change on the
-production branch, the build created just starts the server with your new revision and tries to load
-the current production database on it. If no errors come up, the build is considered successful, and
-otherwise failed.
+构建并不总是从头开始创建数据库。例如，当在生产分支上推送更改时，创建的构建只会启动服务器并尝试在其上加载当前的生产数据库。如果没有出现错误，构建被认为是成功的，否则被认为失败。
 
-Stages
+阶段
 ======
 
-Production
+生产
 ----------
 
-The first build of a production branch creates a database from scratch.
-If this build is successful, this database is considered as the production database of your project.
+生产分支的第一个构建会从头开始创建一个数据库。
+如果此构建成功，则该数据库将被视为项目的生产数据库。
 
-From then, pushes on the production branch will create new builds that attempt to load the database
-using a server running with the new revision.
+从那时起，在生产分支上的推送会创建新的构建，这些构建会尝试使用运行新修订版的服务器加载数据库。
 
-If the build is successful, or has warnings but no errors, the production database will now run with
-this build, along with the revision associated to this build.
+如果构建成功，或者有警告但没有错误，生产数据库将使用该构建运行，以及与该构建关联的修订版。
 
-If the build fails to load or update the database, then the previous successful build is re-used to
-load the database, and therefore the database will run using a server running with the previous
-successful revision.
+如果构建无法加载或更新数据库，则会重新使用上一个成功的构建来加载数据库，因此数据库将运行使用之前成功修订版的服务器。
 
-The build used to run the production database is always the first of the builds list. If a build
-fails, it is put after the build currently running the production database.
+用于运行生产数据库的构建始终是构建列表中的第一个。如果构建失败，它会放在当前运行生产数据库的构建之后。
 
-Staging
+暂存
 -------
 
-Staging builds duplicate the production database,
-and try to load this duplicate with the revisions of the staging branches.
+暂存构建会复制生产数据库，
+并尝试使用暂存分支的修订版加载此副本。
 
-Each time you push a new revision on a staging branch, the build created uses a new copy of the
-production database. The databases are not re-used between builds of the same branch. This ensures:
+每次在暂存分支上推送新修订时，创建的构建会使用生产数据库的新副本。这些数据库不会在同一分支的构建之间重复使用。这确保了：
 
-* staging builds use databases that are close to what the production looks like, so you do not make
-  your tests with outdated data,
+* 暂存构建使用的数据库与生产数据库非常接近，因此您不会使用过时的数据进行测试，
 
-* you can play around as much as you want in the same staging database, and you can then ask for a
-  rebuild when you want to restart with a new copy of the production.
+* 您可以在同一个暂存数据库中自由操作，并且您可以在需要时请求重建以使用生产的新副本重新开始。
 
-Nevertheless, this means that if you make configuration changes in staging databases and do not
-apply them in the production, they will not be passed on the next build of the same staging branch.
+然而，这意味着如果您在暂存数据库中进行了配置更改而没有在生产中应用它们，它们将不会在同一暂存分支的下一次构建中传递。
 
-Development
+开发
 -----------
 
-Development builds create new databases, load the demo data and run the unit tests.
+开发构建会创建新数据库，加载演示数据并运行单元测试。
 
-A build will be considered failed and highlighted in red if tests fail during the installation,
-as they are meant to raise errors if something wrong occurs.
+如果在安装过程中测试失败，构建将被视为失败并以红色突出显示，
+因为它们的目的是在出现问题时引发错误。
 
-If all tests pass, and there is no error, the build will be considered successful.
+如果所有测试都通过，并且没有错误，则构建将被视为成功。
 
-According to the list of modules to install and test, a development build can take up to 1 hour to
-be ready. This is due to the large number of tests set in the default Odoo modules suite.
+根据要安装和测试的模块列表，开发构建可能需要长达 1 小时才能准备好。这是由于默认的 Odoo 模块套件中设置的大量测试。
 
-Features
+功能
 ========
 
-The production branch will always appear first, and then the other branches are ordered by last
-build created. You can filter out the branches.
+生产分支始终排在第一位，然后其他分支按最后一次创建的构建顺序排列。您可以筛选分支。
 
 .. image:: builds/interface-builds-branches.png
    :align: center
 
-For each branch, you can access the last build's database using the *Connect* link and jump to the
-branch code using the *Github* link. For other branches than the production, you can create a new
-build which will use the latest revision of the branch using the link *rebuild*. This last link is
-not available when there is already a build in progress for the branch.
+对于每个分支，您可以使用 *Connect* 链接访问最后一次构建的数据库，并使用 *Github* 链接跳转到分支代码。对于生产以外的其他分支，您可以通过 *rebuild* 链接创建一个使用该分支最新修订版的新构建。如果该分支已经有一个构建正在进行，则该链接不可用。
 
 .. image:: builds/interface-builds-build.png
    :align: center
 
-For each build, you can access the revision changes using the button with the Github icon. You can
-access the build's database as the administrator using the *Connect* button. Also, you can access
-the database with another user using the *Connect as* button, in the dropdown menu of the *Connect*
-button.
+对于每个构建，您可以使用带有 Github 图标的按钮访问修订更改。您可以使用 *Connect* 按钮以管理员身份访问构建的数据库。您还可以在 *Connect* 按钮的下拉菜单中使用 *Connect as* 按钮以其他用户身份访问数据库。
 
 .. _odoosh-gettingstarted-builds-download-dump:
 
@@ -119,6 +95,4 @@ button.
 
 .. _odoosh-gettingstarted-builds-dropdown-menu:
 
-In the dropdown menu of the build, you can access the same features than in :ref:`the branches view
-<odoosh-gettingstarted-branches-tabs>`: *Logs*, *Web Shell*, *Editor*, *Outgoing e-mails*. You also
-have the possibility to *Download a dump* of the build's database.
+在构建的下拉菜单中，您可以访问与 :ref:`分支视图相同的功能 <odoosh-gettingstarted-branches-tabs>`：*Logs*、*Web Shell*、*Editor*、*Outgoing e-mails*。您还可以选择 *Download a dump* 下载构建数据库的转储。

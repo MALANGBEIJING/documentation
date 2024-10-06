@@ -1,169 +1,122 @@
 =============
-Portal access
+门户访问
 =============
 
 .. _portal/main:
 
-Portal access is given to users who need the ability to view certain documents or information within
-an Odoo database.
+门户访问授予需要查看 Odoo 数据库中某些文档或信息的用户。
 
-Some common use cases for providing portal access include allowing customers to read/view any or all
-of the following in Odoo:
+提供门户访问的一些常见用例包括允许客户在 Odoo 中阅读/查看以下任何或全部内容：
 
-- leads/opportunities
-- quotations/sales orders
-- purchase orders
-- invoices & bills
-- projects
-- tasks
-- timesheets
-- tickets
-- signatures
-- subscriptions
+- 潜在客户/机会
+- 报价单/销售订单
+- 采购订单
+- 发票和账单
+- 项目
+- 任务
+- 工时表
+- 工单
+- 签名
+- 订阅
 
 .. note::
-   Portal users only have read/view access, and will not be able to edit any documents in the
-   database.
+   门户用户只有读取/查看权限，无法编辑数据库中的任何文档。
 
-Provide portal access to customers
-==================================
+为客户提供门户访问权限
+=============================
 
-From the main Odoo dashboard, select the :guilabel:`Contacts` application. If the contact is not yet
-created in the database, click on the :guilabel:`Create` button, enter the details of the contact,
-and then click :guilabel:`Save`. Otherwise, choose an existing contact, and then click on the
-:guilabel:`Action` drop-down menu located at the top-center of the interface.
+从 Odoo 主仪表盘中，选择 :guilabel:`联系人` 应用。如果该联系人尚未在数据库中创建，点击 :guilabel:`创建` 按钮，输入联系人的详细信息，然后点击 :guilabel:`保存`。否则，选择现有联系人，然后点击界面顶部中间的 :guilabel:`操作` 下拉菜单。
 
 .. image:: portal/grant-portal-access.png
    :align: center
-   :alt: Use the Contacts application to give portal access to users.
+   :alt: 使用联系人应用程序为用户提供门户访问权限。
 
-Then select :guilabel:`Grant portal access`. A pop-up window appears, listing three fields:
+然后选择 :guilabel:`授予门户访问权限`。将出现一个弹出窗口，列出三个字段：
 
-- :guilabel:`Contact`: the recorded name of the contact in the Odoo database
-- :guilabel:`Email`: the contact's email address that they will use to log into the portal
-- :guilabel:`In Portal`: whether or not the user has portal access
+- :guilabel:`联系人`：Odoo 数据库中记录的联系人姓名
+- :guilabel:`电子邮件`：联系人用于登录门户的电子邮件地址
+- :guilabel:`在门户中`：用户是否拥有门户访问权限
 
-To grant portal access, first enter the contact's :guilabel:`Email` they will use to log into the
-portal. Then, check the box under the :guilabel:`In Portal` column. Optionally, add text to the
-invitation message the contact will receive. Then click :guilabel:`Apply` to finish.
+要授予门户访问权限，首先输入联系人用于登录门户的 :guilabel:`电子邮件`。然后，勾选 :guilabel:`在门户中` 列下的框。可以选择在邀请消息中添加文本，该消息将发送给联系人。然后点击 :guilabel:`应用` 完成操作。
 
 .. image:: portal/add-contact-to-portal.png
    :align: center
-   :alt: An email address and corresponding checkbox for the contact need to be filled in before
-         sending a portal invitation.
+   :alt: 在发送门户邀请之前，需要填写联系人的电子邮件地址并勾选对应的复选框。
 
-An email will be sent to the specified email address, indicating that the contact is now a portal
-user for that Odoo database.
+一封电子邮件将发送到指定的电子邮件地址，告知联系人现在是该 Odoo 数据库的门户用户。
 
 .. tip::
-   To grant portal access to multiple users at once, navigate to a company contact, then click
-   :menuselection:`Action --> Grant portal access` to view a list of all of the company's related
-   contacts. Check the box under the :guilabel:`In Portal` column for all the contacts that need
-   portal access, then click :guilabel:`Apply`.
+   要一次为多个用户授予门户访问权限，请导航到公司联系人，然后点击 :menuselection:`操作 --> 授予门户访问权限`，以查看公司相关联系人的列表。勾选所有需要门户访问权限的联系人对应的 :guilabel:`在门户中` 列下的复选框，然后点击 :guilabel:`应用`。
 
 .. note::
-   At any time, portal access can be revoked by navigating to the contact, clicking
-   :menuselection:`Action --> Grant portal access`, and then unselecting the checkbox under the
-   :guilabel:`In Portal` column and clicking :guilabel:`Apply`.
+   随时可以通过导航到联系人，点击 :menuselection:`操作 --> 授予门户访问权限`，然后取消勾选 :guilabel:`在门户中` 列下的复选框并点击 :guilabel:`应用` 来撤销门户访问权限。
 
 .. _portal/login:
 
-Change portal username
+更改门户用户名
 ======================
 
-There may be times when a portal user wants to change their user login. This can be done by any user
-in the database with administrator access rights. The following process outlines the necessary steps
-to change the portal user login.
+有时门户用户可能希望更改其登录用户名。数据库中具有管理员访问权限的任何用户都可以执行此操作。以下过程概述了更改门户用户登录名的必要步骤。
 
 .. seealso::
-   :doc:`See the documentation on setting access rights
-   </applications/general/users/access_rights>`.
+   :doc:`查看有关设置访问权限的文档
+   </applications/general/users/access_rights>`。
 
-First, navigate to :menuselection:`Settings app --> Users`. Then, under :guilabel:`Filters`, select
-:guilabel:`Portal Users`, or select :guilabel:`Add Custom Filter` and set the following
-configuration :guilabel:`Groups` > :guilabel:`contains` > `portal`. After making this selection,
-search for (and open) the portal user that needs to be edited.
+首先，导航到 :menuselection:`设置应用程序 --> 用户`。然后，在 :guilabel:`筛选器` 下，选择 :guilabel:`门户用户`，或选择 :guilabel:`添加自定义筛选器` 并设置以下配置 :guilabel:`组` > :guilabel:`包含` > `portal`。选择后，搜索并打开需要编辑的门户用户。
 
-Next, click :guilabel:`Edit` (if necessary), click into the :guilabel:`Email Address` field, and
-proceed to make any necessary changes to this field. The :guilabel:`Email Address` field is used to
-log into the Odoo portal.
+接下来，点击 :guilabel:`编辑`（如果需要），点击 :guilabel:`电子邮件地址` 字段，并继续对该字段进行必要的更改。:guilabel:`电子邮件地址` 字段用于登录 Odoo 门户。
 
 .. note::
-   Changing the :guilabel:`Email Address` (or login) only changes the *username* on the customer's
-   portal login.
+   更改 :guilabel:`电子邮件地址`（或登录名）只会更改客户门户登录的*用户名*。
 
-   In order to change the contact email, this change needs to take place on the contact template in
-   the *Contacts* app. Alternatively, the customer can change their email directly from the portal,
-   but the login **cannot** be changed. :ref:`See change customer info <portal/custinfo>`.
+   若要更改联系人的电子邮件地址，需在 *联系人* 应用中进行此更改。或者，客户可以直接从门户更改其电子邮件地址，但无法更改登录名。:ref:`查看更改客户信息 <portal/custinfo>`。
 
-Customer portal changes
+客户门户更改
 =======================
 
-There may be times when the customer would like to make changes to their contact information,
-password/security, or payment information attached to the portal account. This can be performed by
-the customer from their portal. The following process is how a customer can change their contact
-information.
+有时，客户可能希望更改与其门户账户关联的联系信息、密码/安全设置或付款信息。客户可以在其门户中进行这些操作。以下是客户更改其联系信息的流程。
 
 .. _portal/custinfo:
 
-Change customer info
+更改客户信息
 --------------------
 
-First enter the username and password (login) into the database login page to access the portal user
-account. A portal dashboard will appear upon successfully logging in. Portal documents from the
-various installed Odoo applications will appear with the number count of each.
+首先在数据库登录页面输入用户名和密码（登录）以访问门户用户账户。成功登录后，将显示门户仪表盘。安装的各种 Odoo 应用的门户文档将以数量形式显示。
 
 .. seealso::
-   :ref:`Portal access documentation <portal/main>`.
+   :ref:`查看门户访问文档 <portal/main>`。
 
-Next, navigate to the upper-right corner of the portal, and click the :guilabel:`Edit` button, next
-to the :guilabel:`Details` section. Then, change the pertinent information, and click
-:guilabel:`Confirm`.
+接下来，导航到门户右上角，点击 :guilabel:`编辑` 按钮，位于 :guilabel:`详细信息` 部分旁边。然后，修改相关信息，点击 :guilabel:`确认`。
 
-Change password
+更改密码
 ---------------
 
-First enter the username and password (login) into the database login page to access the portal user
-account. A portal dashboard will appear upon successfully logging in.
+首先在数据库登录页面输入用户名和密码（登录）以访问门户用户账户。成功登录后，将显示门户仪表盘。
 
-If the customer would like to change their password for portal access, click on the :guilabel:`Edit
-Security Settings` link, below the :guilabel:`Account Security` section. Then, make the necessary
-changes, by typing in the current :guilabel:`Password`, :guilabel:`New Password`, and verify the new
-password. Lastly, click on :guilabel:`Change Password` to complete the password change.
+如果客户希望更改其门户访问密码，点击 :guilabel:`编辑安全设置` 链接，位于 :guilabel:`账户安全` 部分下方。然后，通过输入当前 :guilabel:`密码`、:guilabel:`新密码` 并验证新密码，进行必要的更改。最后，点击 :guilabel:`更改密码` 以完成密码更改。
 
 .. note::
-   If a customer would like to change the login, as documented above, contact the Odoo database
-   point-of-contact. :ref:`See above documentation on changing the portal username <portal/login>`.
+   如果客户希望更改登录名，如上文所述，请联系 Odoo 数据库的联系人。:ref:`查看更改门户用户名的文档 <portal/login>`。
 
 .. note::
-   Passwords for portal users and Odoo.com users remain separate, even if the same email address is
-   used.
+   门户用户和 Odoo.com 用户的密码是独立的，即使使用相同的电子邮件地址。
 
-Add two-factor authentication
+添加双因素认证
 -----------------------------
 
-First enter the username and password (login) into the database login page to access the portal user
-account. A portal dashboard will appear upon successfully logging in.
+首先在数据库登录页面输入用户名和密码（登录）以访问门户用户账户。成功登录后，将显示门户仪表盘。
 
-If the customer would like to turn on two-factor authentication (2FA) for portal access, click on
-the :guilabel:`Edit Security Settings` link, below the :guilabel:`Account Security` section.
+如果客户希望为门户访问开启双因素认证（2FA），点击 :guilabel:`编辑安全设置` 链接，位于 :guilabel:`账户安全` 部分下方。
 
-Click on :guilabel:`Enable two-factor authentication` to turn on :abbr:`2FA (two-factor
-authentication)`. Confirm the current portal password in the :guilabel:`Password` field. Then, click
-on :guilabel:`Confirm Password`. Next, activate :abbr:`2FA (two-factor authentication)` in a
-:abbr:`2FA (two-factor authentication)` app (Google Authenticator, Authy, etc.), by scanning the
-:guilabel:`QR code` or entering a :guilabel:`Verification Code`.
+点击 :guilabel:`启用双因素认证` 以开启 :abbr:`2FA (双因素认证)`。在 :guilabel:`密码` 字段中确认当前门户密码。然后，点击 :guilabel:`确认密码`。接下来，在 :abbr:`2FA (双因素认证)` 应用程序中（如 Google Authenticator、Authy 等）激活 :abbr:`2FA (双因素认证)`，通过扫描 :guilabel:`二维码` 或输入 :guilabel:`验证码`。
 
-Finally, click :guilabel:`Enable two-factor authentication` to complete the setup.
+最后，点击 :guilabel:`启用双因素认证` 以完成设置。
 
 .. _users-portal-payment-methods:
 
-Change payment info
+更改付款信息
 -------------------
 
-First enter the username and password (login) into the database login page to access the portal user
-account. A portal dashboard will appear upon successfully logging in.
+首先在数据库登录页面输入用户名和密码（登录）以访问门户用户账户。成功登录后，将显示门户仪表盘。
 
-If the customer would like to manage payment options, navigate to the :guilabel:`Manage payment
-methods` in the menu on the right. Then, add the new payment information, and select :guilabel:`Add
-new card`.
+如果客户希望管理付款选项，导航到右侧菜单中的 :guilabel:`管理付款方式`。然后，添加新的付款信息，并选择 :guilabel:`添加新卡`。
