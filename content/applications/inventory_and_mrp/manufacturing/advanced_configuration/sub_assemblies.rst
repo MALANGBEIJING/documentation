@@ -1,75 +1,53 @@
 =============================
-Manage semi-finished products
+管理半成品
 =============================
 
-A *semi-finished product*, also known as a *subassembly*, is a manufactured product that is used as
-a component in another product's bill of materials (BoM). Semi-finished products are used to
-simplify complex :abbr:`BoMs (Bills of Materials)` or to more accurately represent a manufacturing
-flow. A :abbr:`BoM (Bill of Materials)` that contains semi-finished products is referred to as a
-*multilevel BoM*, where the main *top-level product* and its subassemblies are distinguished.
+*半成品*，也称为*子装配件*，是一种用于其他产品物料清单（BoM）中的组件的制造产品。半成品用于简化复杂的物料清单（BoMs）或更准确地表示制造流程。包含半成品的物料清单称为*多级物料清单*，其中区分了主要的*顶级产品*及其子装配件。
 
-Configure semi-finished products
+配置半成品
 ================================
 
-To set up a multilevel :abbr:`BoM (Bill of Materials)`, the top-level product and semi-finished
-products must be configured. Therefore, the first step is to create the semi-finished products and
-their :abbr:`BoMs (Bills of Materials)`.
+要设置多级物料清单（BoM），必须配置顶级产品和半成品。因此，第一步是创建半成品及其物料清单（BoMs）。
 
 .. seealso::
    :doc:`../basic_setup/bill_configuration`
 
 .. image:: sub_assemblies/semifinished-product-bom.png
    :align: center
-   :alt: A bill of materials for a semi-finished product.
+   :alt: 一个半成品的物料清单。
 
-Create the top-level bill of materials (BoM)
+创建顶级物料清单 (BoM)
 ============================================
 
-After the semi-finished products are fully configured, navigate to :menuselection:`Manufacturing
---> Products --> Products`. Then, :guilabel:`Create` the top-level product. Configure the product's
-specifications as desired, and be sure to :guilabel:`Save`.
+在半成品完全配置后，导航到 :menuselection:`制造 --> 产品 --> 产品`。然后，点击 :guilabel:`创建` 来创建顶级产品。根据需求配置产品规格，并确保点击 :guilabel:`保存`。
 
-Once the top-level product is configured, click the :guilabel:`Bill of Materials` smart button on
-the product form, then click :guilabel:`Create` to make a :abbr:`BoM (Bill of Materials)` for the
-top-level product. Then, simply add the semi-finished products to this :abbr:`BoM (Bill of
-Materials)`, along with any other necessary components.
+一旦顶级产品配置完成，点击产品表单上的 :guilabel:`物料清单` 智能按钮，然后点击 :guilabel:`创建` 为顶级产品创建物料清单 (BoM)。接着，只需将半成品添加到此物料清单中，并加入任何其他必要的组件。
 
 .. image:: sub_assemblies/custom-computer-bom.png
    :align: center
-   :alt: A bill of materials for a top-level product, containing a subassembly component.
+   :alt: 包含子装配件组件的顶级产品物料清单。
 
-Manage production planning
+管理生产计划
 ==========================
 
-There are several methods to manage manufacturing order automation for products with multilevel
-:abbr:`BoMs (Bills of Materials)`.
+有几种方法可以管理具有多级物料清单 (BoMs) 产品的生产订单自动化。
 
 .. note::
-    Semi-finished products are specifically used to manage manufacturable products with multilevel
-    BoMs. If a BoM is being created simply to organize components or bundle sellable products,
-    using :doc:`Kits <kit_shipping>` is the more appropriate option.
+    半成品专门用于管理具有多级物料清单的可制造产品。如果创建 BoM 只是为了组织组件或捆绑销售产品，使用 :doc:`Kits <kit_shipping>` 是更合适的选项。
 
-To automatically trigger manufacturing orders for semi-finished products after confirming a
-manufacturing order for the main product, there are two options:
+在确认顶级产品的生产订单后，有两种方法可以自动触发半成品的生产订单：
 
-- **Option 1 (recommended):** Create *Reordering Rules* for the semi-finished products and set both
-  the minimum and maximum desired stock quantities to `0`.
+- **选项1（推荐）：** 为半成品创建*补货规则*，并将最小和最大期望库存数量都设置为 `0`。
 
 .. seealso::
    :doc:`../../purchase/products/reordering`
 
-- **Option 2:** Activate the :guilabel:`Replenish on Order (MTO)` and :guilabel:`Manufacture`
-  routes under the :guilabel:`Inventory` tab of the semi-finished product's product form.
+- **选项2：** 在半成品的产品表单的 :guilabel:`库存` 标签下，激活 :guilabel:`按订单补货 (MTO)` 和 :guilabel:`制造` 路线。
 
-Option 1 is more flexible than Option 2 and is therefore recommended. Reordering rules do not
-directly link demand to replenishment, and therefore allow stocks to be unreserved and redirected
-to other orders, if necessary. The Replenish on Order (MTO) route creates a unique link between the
-semi-finished and top-level products, exclusively reserving quantities for the confirmed top-level
-manufacturing order.
+选项1比选项2更灵活，因此推荐使用补货规则。补货规则不会直接将需求与补货链接，因此在必要时允许库存取消保留并重定向到其他订单。按订单补货 (MTO) 路线在半成品和顶级产品之间创建了唯一的链接，专门为已确认的顶级产品生产订单保留数量。
 
-Regardless of the method chosen, semi-finished products must be fully manufactured before
-manufacturing can begin on the top-level product.
+无论选择哪种方法，必须在开始制造顶级产品之前完全制造半成品。
 
 .. image:: sub_assemblies/semifinished-on-mo.png
    :align: center
-   :alt: A manufacturing order for a top-level product.
+   :alt: 一个顶级产品的生产订单。

@@ -1,113 +1,75 @@
 ========
-Use kits
+使用套件
 ========
 
-In Odoo, a *kit* is a type of bill of materials (BoM) that can be manufactured and sold. Kits are
-sets of unassembled components sold to customers. They may be sold as standalone products, but are
-also useful tools for managing more complex bills of materials (BoMs).
+在 Odoo 中，*套件* 是一种可以生产和销售的物料清单（BoM）类型。套件是销售给客户的一组未组装的组件。它们可以作为独立产品销售，同时也是管理更复杂的物料清单（BoM）的有用工具。
 
 .. note::
-   To use, manufacture, and sell kits, both the :guilabel:`Manufacturing` and :guilabel:`Inventory`
-   apps need to be installed.
+   要使用、生产和销售套件，必须安装 :guilabel:`制造` 和 :guilabel:`库存` 应用。
 
-Create the kit as a product
-===========================
-
-To use a kit as a sellable product, or simply as a component organization tool, the kit should first
-be created as a product.
-
-To create a kit product, go to :menuselection:`Inventory app --> Products --> Products`, and click
-:guilabel:`Create`.
-
-Then, assign a name to the new kit product. Next, under the :guilabel:`General Information` tab, set
-the :guilabel:`Product Type` to :guilabel:`Consumable`. Kit products work best as consumables,
-because the stock on-hand for kits is typically not tracked.
-
-.. note::
-   Although kits should almost always be set to :guilabel:`Consumable`, companies using
-   **Anglo-Saxon** accounting might need to create kits as a :guilabel:`Storable Product`. This is
-   because when processing invoices for kits, the Cost of Goods Sold (COGS) will be posted in
-   accounting journals.
-
-Unlike storable products, the :guilabel:`Routes` designation under the :guilabel:`Inventory` tab
-does not matter for kits, since Odoo uses the routes of the kit's individual components for
-replenishment purposes. All other parameters for the kit product may be modified according to
-preference. Once ready, click :guilabel:`Save` to save the new product.
-
-The kit's components must also be configured as products via :menuselection:`Inventory app -->
-Products --> Products`. These components require no specific configuration.
-
-Set up the kit BoM
+将套件创建为产品
 ==================
 
-After fully configuring the kit product and its components, a new :abbr:`BoM (bill of materials)`
-can be created for the kit product.
+要将套件作为可销售产品或作为组件组织工具使用，首先需要将套件创建为产品。
 
-To do so, go to :menuselection:`Manufacturing app --> Products --> Bills of Materials`, and click
-:guilabel:`Create`. Next to the :guilabel:`Product` field, click the drop-down menu to reveal a list
-of products, and select the previously configured kit product.
+要创建套件产品，进入 :menuselection:`库存应用 --> 产品 --> 产品`，然后点击 :guilabel:`创建`。
 
-Then, for the :guilabel:`BoM Type` field, select the :guilabel:`Kit` option. Finally, under the
-:guilabel:`Components` tab, click :guilabel:`Add a line`, and add each desired component, and
-specify their quantities under the :guilabel:`Quantity` column.
+接着，为新的套件产品命名。在 :guilabel:`常规信息` 标签下，将 :guilabel:`产品类型` 设置为 :guilabel:`消耗品`。套件产品通常设置为消耗品，因为套件的现有库存通常不被跟踪。
 
-Once ready, click :guilabel:`Save` to save the newly-created :abbr:`BoM (bill of materials)`.
+.. note::
+   虽然套件通常应设置为 :guilabel:`消耗品`，但使用 **盎格鲁-撒克逊** 会计的公司可能需要将套件创建为 :guilabel:`可存储产品`。这是因为在处理套件的发票时，销售成本 (COGS) 将被记录在会计日记帐中。
+
+与可存储产品不同，套件的 :guilabel:`库存` 标签下的 :guilabel:`路线` 指定对于套件无关紧要，因为 Odoo 使用套件中各个组件的路线来补充库存。套件产品的所有其他参数可以根据偏好进行修改。准备就绪后，点击 :guilabel:`保存` 以保存新产品。
+
+套件的组件也必须通过 :menuselection:`库存应用 --> 产品 --> 产品` 配置为产品。这些组件不需要特定的配置。
+
+设置套件物料清单 (BoM)
+=========================
+
+在完全配置好套件产品及其组件后，可以为套件产品创建新的物料清单 (BoM)。
+
+要创建物料清单，进入 :menuselection:`制造应用 --> 产品 --> 物料清单`，然后点击 :guilabel:`创建`。在 :guilabel:`产品` 字段旁边，点击下拉菜单以显示产品列表，选择之前配置的套件产品。
+
+接着，在 :guilabel:`物料清单类型` 字段，选择 :guilabel:`套件` 选项。最后，在 :guilabel:`组件` 标签下，点击 :guilabel:`添加行`，添加所需的组件，并在 :guilabel:`数量` 列中指定其数量。
+
+准备就绪后，点击 :guilabel:`保存` 以保存新创建的物料清单 (BoM)。
 
 .. image:: kit_shipping/bom-kit-selection.png
    :align: center
-   :alt: Kit selection on the bill of materials.
+   :alt: 物料清单中的套件选择。
 
-If the kit is solely being used as a sellable product, then only components need to be added under
-the :guilabel:`Components` tab, and configuring manufacturing operations is not necessary.
+如果套件仅作为可销售产品使用，则只需要在 :guilabel:`组件` 标签下添加组件，且不需要配置生产操作。
 
 .. note::
-   When a kit is sold as a product, it appears as a single line item on the quotation and sales
-   order. However, on delivery orders, each component of the kit is listed.
+   当套件作为产品销售时，它会作为报价单和销售订单中的单行项目出现。然而，在交货订单中，套件的每个组件都会被列出。
 
-Use kits to manage complex BoMs
-===============================
+使用套件管理复杂的物料清单 (BoMs)
+====================================
 
-Kits are also used to manage multi-level :abbr:`BoMs (bills of materials)`. These are products that
-contain **other** :abbr:`BoM (bill of materials)` products as components, and therefore require
-*nested* :abbr:`BoMs (bills of materials)`. Incorporating pre-configured kits into multi-level
-:abbr:`BoMs (bills of materials)` allows for cleaner organization of bundled products.
+套件还可以用于管理多级物料清单 (BoMs)。这些产品包含 **其他** 物料清单 (BoM) 作为组件，因此需要 *嵌套* 物料清单 (BoMs)。将预配置的套件纳入多级物料清单 (BoMs) 可以更好地组织捆绑产品。
 
-To configure this type of :abbr:`BoM (bill of materials)` with a kit as a component, go to
-:menuselection:`Manufacturing app --> Products --> Bills of Materials`, and click
-:guilabel:`Create`.
+要配置此类型的物料清单 (BoM) 并将套件作为组件，进入 :menuselection:`制造应用 --> 产品 --> 物料清单`，然后点击 :guilabel:`创建`。
 
-Next to the :guilabel:`Product` field, click the drop-down menu to reveal a list of products, and
-select the desired :abbr:`BoM (bill of materials)` product. Then, for the :guilabel:`BoM Type`
-field, select the :guilabel:`Manufacture this product` option.
+在 :guilabel:`产品` 字段旁边，点击下拉菜单以显示产品列表，选择所需的物料清单产品。接着，在 :guilabel:`物料清单类型` 字段，选择 :guilabel:`生产该产品` 选项。
 
-Under the :guilabel:`Components` tab, click :guilabel:`Add a line`, and select a kit as the
-component. Adding the kit as a component eliminates the need to add the kit's components
-individually. Any :guilabel:`BoM Type` can be used for the higher-level product's :abbr:`BoM (bill
-of materials)`.
+在 :guilabel:`组件` 标签下，点击 :guilabel:`添加行`，选择套件作为组件。将套件作为组件可以避免逐个添加套件中的组件。任意物料清单类型 (BoM) 均可用于高层产品的物料清单 (BoM)。
 
-Once ready, click :guilabel:`Save` to save changes.
+准备就绪后，点击 :guilabel:`保存` 以保存更改。
 
 .. image:: kit_shipping/multilevel-bom-kit.png
    :align: center
-   :alt: Kit as a component in a multilevel bill of materials.
+   :alt: 多级物料清单中的组件套件。
 
-Structure & cost
-----------------
+结构 & 成本
+------------
 
-To access a comprehensive overview of the multi-level :abbr:`BoM's (bill of material's)` components,
-click on the :guilabel:`Structure & Cost` smart button. Sublevel :abbr:`BoMs (bills of materials)`
-can be expanded and viewed from this report.
+要查看多级物料清单 (BoM) 组件的完整概览，点击 :guilabel:`结构 & 成本` 智能按钮。子级物料清单 (BoMs) 可以在该报告中展开并查看。
 
 .. image:: kit_shipping/structure-and-cost-kit.png
    :align: center
-   :alt: Expanded kit in the Structure and Cost report.
+   :alt: 在结构和成本报告中展开的套件。
 
-When creating a manufacturing order for a product with a multi-level :abbr:`BoM (bill of
-materials)`, the kit product automatically expands to show all components. Any operations in the
-kit's :abbr:`BoM (bill of materials)` are also added to the list of work orders on the
-manufacturing order.
+为具有多级物料清单 (BoM) 的产品创建生产订单时，套件产品会自动展开以显示所有组件。套件物料清单 (BoM) 中的任何操作也会添加到生产订单的工作订单列表中。
 
 .. tip::
-   Kits are primarily used to bundle components together for organization or sale. To manage
-   multi-level products that require manufactured sub-components, refer to :doc:`this documentation
-   <sub_assemblies>` on sub-assemblies.
+   套件主要用于将组件捆绑在一起以便组织或销售。要管理需要生产子组件的多级产品，请参考 :doc:`此文档 <sub_assemblies>` 了解子装配的相关内容。

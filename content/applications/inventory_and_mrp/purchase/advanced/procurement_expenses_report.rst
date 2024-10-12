@@ -1,128 +1,92 @@
 ===========================
-Procurement expenses report
+采购费用报告
 ===========================
 
-.. |RFQ| replace:: :abbr:`RfQ (Request for Quotation)`
-.. |RFQs| replace:: :abbr:`RfQs (Requests for Quotation)`
-.. |POs| replace:: :abbr:`POs (Purchase Orders)`
-.. |PO| replace:: :abbr:`PO (Purchase Order)`
-.. |caret| replace:: :icon:`fa-caret-down` :guilabel:`(down)` icon
-.. |per| replace:: procurement expenses report
+.. |RFQ| replace:: :abbr:`RFQ (报价请求)`
+.. |RFQs| replace:: :abbr:`RFQs (报价请求)`
+.. |POs| replace:: :abbr:`POs (采购订单)`
+.. |PO| replace:: :abbr:`PO (采购订单)`
+.. |caret| replace:: :icon:`fa-caret-down` :guilabel:`(向下)` 图标
+.. |per| replace:: 采购费用报告
 
-With the *Purchase* application, users can monitor procurement expenses over time. This report helps
-companies track and analyze spending, identify cost-saving opportunities, and ensure efficient
-budget management.
+通过 *采购* 应用，用户可以监控一段时间内的采购费用。此报告帮助公司跟踪和分析支出，识别节约成本的机会，并确保高效的预算管理。
 
-Create procurement expenses report
-==================================
+创建采购费用报告
+===================
 
-To create a |per|, first navigate to :menuselection:`Purchase app --> Reporting --> Purchase` to
-open the :guilabel:`Purchase Analysis` dashboard.
+要创建 |per|，首先导航到 :menuselection:`采购应用 --> 报告 --> 采购` 以打开 :guilabel:`采购分析` 仪表板。
 
-By default, the dashboard displays a line chart overview of the :guilabel:`Untaxed Total` of
-:guilabel:`Purchase Orders` (POs) with a :guilabel:`Confirmation Date` for the current month, or of
-Requests for Quotation (RFQs) with a status of *Draft*, *Sent*, or *Cancelled*.
+默认情况下，仪表板显示带有 :guilabel:`确认日期` 的 :guilabel:`采购订单` (POs) 的 :guilabel:`不含税总计` 的折线图概览，或者显示状态为 *草稿*、*已发送* 或 *已取消* 的报价请求 (RFQs)。
 
-Add filters and groups
-----------------------
+添加筛选器和分组
+------------------
 
-On the top-right, click the :icon:`oi-view-pivot` :guilabel:`(pivot)` icon to switch to pivot view.
+在右上角，点击 :icon:`oi-view-pivot` :guilabel:`(数据透视表)` 图标切换到数据透视表视图。
 
 .. tip::
-   While the |per| can also be :ref:`viewed <purchase/view-results>` as a :icon:`fa-bar-chart`
-   :guilabel:`(bar chart)`, :icon:`fa-line-chart` :guilabel:`(line chart)`, or :icon:`fa-pie-chart`
-   :guilabel:`(pie chart)`, the pivot view provides the most detailed view of the data, and is the
-   recommended starting point.
+   虽然 |per| 也可以以 :ref:`图表视图 <purchase/view-results>` 查看，如 :icon:`fa-bar-chart` :guilabel:`(柱状图)`、:icon:`fa-line-chart` :guilabel:`(折线图)` 或 :icon:`fa-pie-chart` :guilabel:`(饼图)`，但数据透视表视图提供了最详细的数据视图，是推荐的起点。
 
-Remove any default filters from the :guilabel:`Search...` bar. Then, click the |caret| to open the
-drop-down menu that contains the :guilabel:`Filters`, :guilabel:`Group By`, and
-:guilabel:`Favorites` columns.
+删除 :guilabel:`搜索...` 栏中的任何默认筛选器。然后，点击 |caret| 打开包含 :guilabel:`筛选器`、:guilabel:`分组依据` 和 :guilabel:`收藏` 列的下拉菜单。
 
 .. note::
-   Unless otherwise specified, the report displays data from both |RFQs| and |POs|. This can be
-   changed by selecting either :guilabel:`Requests for Quotation` or :guilabel:`Purchase Orders`
-   under the :guilabel:`Filters` column.
+   除非另有说明，报告显示的数据包括 |RFQs| 和 |POs|。可以通过在 :guilabel:`筛选器` 列中选择 :guilabel:`报价请求` 或 :guilabel:`采购订单` 来更改此设置。
 
-Under the :guilabel:`Filters` column, select a time frame to use for comparison. The report can be
-filtered by either :guilabel:`Order Date` or :guilabel:`Confirmation Date`. Choose one from the
-list, and click the |caret| to specify the date range, either by month, quarter, or year.
+在 :guilabel:`筛选器` 列下，选择用于比较的时间范围。报告可以按 :guilabel:`订单日期` 或 :guilabel:`确认日期` 进行筛选。从列表中选择一个，然后点击 |caret| 以按月份、季度或年份指定日期范围。
 
-Next, under the :guilabel:`Group by` column, select :guilabel:`Vendor`. Then, select
-:guilabel:`Product Category`, which is also located in the :guilabel:`Group By` column.
+接下来，在 :guilabel:`分组依据` 列下，选择 :guilabel:`供应商`。然后，选择 :guilabel:`产品类别`，该选项也位于 :guilabel:`分组依据` 列中。
 
 .. note::
-   The selections under the :guilabel:`Group By` heading can be altered, depending on the needs of
-   the individual company. For example, selecting :guilabel:`Product`, instead of :guilabel:`Product
-   Category`, provides a more in depth look at the performance of specific items, in place of an
-   entire category.
+   :guilabel:`分组依据` 标题下的选择可以根据公司的需求进行更改。例如，选择 :guilabel:`产品` 而不是 :guilabel:`产品类别`，可以更深入地查看特定产品的表现，而不是整个类别。
 
-Next, make a selection under the :guilabel:`Comparison` heading that appears. These options are only
-available after the date range is selected under the :guilabel:`Filters` column, and vary based on
-that range. :guilabel:`Previous Period` adds a comparison to the previous period, such as the last
-month or quarter. :guilabel:`Previous Year` compares the same time period from the previous year.
+接下来，在出现的 :guilabel:`比较` 标题下进行选择。只有在 :guilabel:`筛选器` 列中选择日期范围后，这些选项才可用，并且根据所选的时间范围而有所不同。:guilabel:`上一期间` 将添加与上一期间（例如上个月或上一季度）的比较。:guilabel:`上一年` 将与前一年的同一时间段进行比较。
 
 .. note::
-   While multiple time-based filters can be added at once, only one comparison can be selected at a
-   time.
+   虽然可以一次添加多个基于时间的筛选器，但一次只能选择一个比较选项。
 
 .. figure:: procurement_expenses_report/filters-groups.png
    :align: center
-   :alt: The drop-down menu of filters, group by and comparison options for the procurement expenses
-         report.
+   :alt: 采购费用报告的筛选器、分组依据和比较选项的下拉菜单。
 
-   The filter for Q2, comparison for **Previous Period**, and group-by for **Vendor** and **Product
-   Category** were selected.
+   选择了 Q2 的筛选器、**上一期间** 的比较和 **供应商** 与 **产品类别** 的分组依据。
 
-Add measures
+添加度量标准
 ------------
 
-After selecting the :guilabel:`Filters`, :guilabel:`Group by`, and :guilabel:`Comparison` settings,
-click out of the drop-down menu.
+选择了 :guilabel:`筛选器`、:guilabel:`分组依据` 和 :guilabel:`比较` 设置后，点击菜单外关闭下拉菜单。
 
-By default, the report displays data with the following measures: :guilabel:`Order`,
-:guilabel:`Total`, :guilabel:`Untaxed Total`, and :guilabel:`Count`. Click :guilabel:`Measures` at
-the top-left to open the drop-down list of available measures.
+默认情况下，报告显示包含以下度量标准的数据：:guilabel:`订单`、:guilabel:`总计`、:guilabel:`不含税总计` 和 :guilabel:`数量`。点击左上角的 :guilabel:`度量标准` 以打开可用度量标准的下拉列表。
 
-Click the following specific measures to include additional columns for the procurement expenses
-report:
+点击以下特定度量标准以为采购费用报告添加额外的列：
 
-- :guilabel:`Total` and :guilabel:`Untaxed Total`: can include one or both measures. These are
-  included for overall spending analysis.
-- :guilabel:`Average Cost`: included to evaluate cost efficiency.
-- :guilabel:`Days to Confirm` and :guilabel:`Days to Receive`: used to assess supplier performance.
-- :guilabel:`Qty Ordered` and :guilabel:`Qty Received`: used to understand order efficiency.
-- :guilabel:`Qty Billed` and :guilabel:`Qty to be Billed`: used to track order accuracy.
+- :guilabel:`总计` 和 :guilabel:`不含税总计`：可以包含一个或两个度量标准。这些用于总体支出分析。
+- :guilabel:`平均成本`：用于评估成本效率。
+- :guilabel:`确认天数` 和 :guilabel:`接收天数`：用于评估供应商的表现。
+- :guilabel:`订购数量` 和 :guilabel:`接收数量`：用于了解订单效率。
+- :guilabel:`已开票数量` 和 :guilabel:`待开票数量`：用于跟踪订单的准确性。
 
 .. tip::
-   Additional measures can be included in the report, if desired, to provide additional insights.
-   For example, :guilabel:`Gross Weight` and :guilabel:`Volume` may be included for further
-   logistics and management analysis.
+   如果需要，可以在报告中包含其他度量标准，以提供更多的洞察。例如，可以包含 :guilabel:`总重量` 和 :guilabel:`体积` 以进一步进行物流和管理分析。
 
-After selecting all necessary measures, click out of the drop-down menu.
+选择所有必要的度量标准后，点击菜单外关闭下拉菜单。
 
 .. _purchase/view-results:
 
-View results
-============
+查看结果
+========
 
-After all of the filters and measures have been selected, the report generates in the selected view.
+选择了所有筛选器和度量标准后，报告会以所选视图生成。
 
 .. image:: procurement_expenses_report/sample-per-report.png
    :align: center
-   :alt: A sample version of the procurement expenses report.
+   :alt: 采购费用报告的示例版本。
 
-Click :guilabel:`Insert in Spreadsheet` to add the pivot view into an editable spreadsheet format
-within the *Documents* app.
+点击 :guilabel:`插入到电子表格`，将数据透视表视图添加到 *文件* 应用中的可编辑电子表格格式。
 
 .. important::
-   The :guilabel:`Insert in Spreadsheet` option is **only** available if the *Documents Spreadsheet*
-   module is installed.
+   只有在安装了 *Documents Spreadsheet* 模块时，才会显示 :guilabel:`插入到电子表格` 选项。
 
 .. note::
-   The |per| is also available in graph view. Click the :icon:`fa-area-chart` :guilabel:`(area
-   chart)` icon to change to graph view. Click the corresponding icon at the top of the report to
-   switch to a :icon:`fa-bar-chart` :guilabel:`(bar chart)`, :icon:`fa-line-chart` :guilabel:`(line
-   chart)`, or :icon:`fa-pie-chart` :guilabel:`(pie chart)`.
+   |per| 也可以以图表视图显示。点击 :icon:`fa-area-chart` :guilabel:`(面积图)` 图标切换到图表视图。点击报告顶部的相应图标可以切换到 :icon:`fa-bar-chart` :guilabel:`(柱状图)`、:icon:`fa-line-chart` :guilabel:`(折线图)` 或 :icon:`fa-pie-chart` :guilabel:`(饼图)`。
 
 .. seealso::
-   To save this report as a *favorite*, see :ref:`search/favorites`.
+   要将此报告保存为 *收藏*，请参阅 :ref:`搜索/收藏`。

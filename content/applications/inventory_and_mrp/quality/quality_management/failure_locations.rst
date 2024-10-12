@@ -1,108 +1,69 @@
 =================
-Failure locations
+故障位置
 =================
 
-.. |QCP| replace:: :abbr:`QCP (Quality Control Point)`
-.. |QCPs| replace:: :abbr:`QCP (Quality Control Points)`
+.. |QCP| replace:: :abbr:`QCP (质量控制点)`
+.. |QCPs| replace:: :abbr:`QCP (质量控制点)`
 
-In Odoo, *quality control points* (QCPs) are used to create *quality checks*, which prompt employees
-to confirm the quality of products, when they are included in certain operations. By setting one or
-more *failure locations* on a |QCP|, products that fail the quality checks it creates can be sent to
-one of the specified locations.
+在 Odoo 中，*质量控制点* (QCP) 用于创建 *质量检查*，当产品包含在某些操作中时，这些检查会提示员工确认产品的质量。通过在 |QCP| 上设置一个或多个 *故障位置*，未通过质量检查的产品可以被发送到指定的位置。
 
 .. important::
-   The *Failure Location* feature was added in version 17.0 of Odoo, and does **not** appear in any
-   previous version. To upgrade an Odoo database to a more recent version, see the documentation on
-   :doc:`database upgrades <../../../../administration/upgrade>`.
+   *故障位置* 功能在 Odoo 17.0 版本中新增，并 **不** 出现在之前的任何版本中。要将 Odoo 数据库升级到更高版本，请参阅 :doc:`数据库升级 <../../../../administration/upgrade>` 文档。
 
-Configuration
-=============
+配置
+=====
 
-To use failure locations, the *Storage Locations* setting **must** be enabled in the settings of the
-*Inventory* app. This setting allows for the creation of sub-locations within a warehouse, including
-failure locations.
+要使用故障位置，必须在 *库存* 应用的设置中启用 *存储位置* 设置。此设置允许在仓库内创建子位置，包括故障位置。
 
-To enable the *Storage Locations* setting, navigate to :menuselection:`Inventory app -->
-Configuration --> Settings`, and tick the checkbox next to :guilabel:`Storage Locations`, under the
-:guilabel:`Warehouses` heading. Then, click :guilabel:`Save`.
+要启用 *存储位置* 设置，请导航到 :menuselection:`库存应用 --> 配置 --> 设置`，并在 :guilabel:`仓库` 标题下勾选 :guilabel:`存储位置` 旁的复选框。然后，点击 :guilabel:`保存`。
 
 .. image:: failure_locations/storage-locations-setting.png
    :align: center
-   :alt: The Storage Locations setting on the Inventory app settings page.
+   :alt: 库存应用设置页面上的存储位置设置。
 
 .. important::
-   Failure locations are most effective when used for products configured as *storable products*.
-   This is because inventory counts are only tracked for storable products, versus *consumable*
-   products, for which exact counts are not tracked.
+   故障位置在用于配置为 *可存储产品* 时最为有效。因为库存数量只会跟踪可存储产品，而 *可消耗产品* 的精确数量则不会被跟踪。
 
-   Quality checks can still be created for consumable products, and those products can be sent to a
-   failure location if they fail a check. However, Odoo does not track the exact quantity of a
-   consumable product stored at a failure location.
+   仍然可以为可消耗产品创建质量检查，并且如果这些产品未通过检查，它们可以被发送到故障位置。然而，Odoo 不会跟踪存储在故障位置的可消耗产品的精确数量。
 
-   To configure a product as storable, navigate to :menuselection:`Inventory app --> Products -->
-   Products`, and select a product. In the :guilabel:`Product Type` field on the :guilabel:`General
-   Information` tab, make sure that :guilabel:`Storable Product` is selected from the drop-down
-   menu.
+   要将产品配置为可存储产品，请导航到 :menuselection:`库存应用 --> 产品 --> 产品`，并选择一个产品。在 :guilabel:`产品类型` 字段中，确保在 :guilabel:`常规信息` 标签页的下拉菜单中选择了 :guilabel:`可存储产品`。
 
-Add failure location to QCP
-===========================
+将故障位置添加到QCP
+========================
 
-To add a failure location to a |QCP|, navigate to :menuselection:`Quality app --> Quality Control
---> Control Points`. Select an existing |QCP| from the list, or create a new one by clicking
-:guilabel:`New`.
+要将故障位置添加到 |QCP|，导航到 :menuselection:`质量应用 --> 质量控制 --> 控制点`。从列表中选择一个现有的 |QCP|，或通过点击 :guilabel:`新建` 来创建一个新的。
 
 .. note::
-   The following instructions only detail the configuration settings necessary for adding a failure
-   location to a |QCP|. For a full overview of |QCPs| and all of the options available when
-   configuring them, see the documentation on :doc:`quality control points
-   <quality_control_points>`.
+   以下说明仅详细介绍了向 |QCP| 添加故障位置所需的配置设置。有关 |QCPs| 及其配置时可用的所有选项的完整概述，请参阅 :doc:`质量控制点 <quality_control_points>` 的文档。
 
-In the :guilabel:`Control Per` field on the |QCP| form, select the :guilabel:`Quantity` option.
-Doing so causes a :guilabel:`Failure Locations` field to appear on the form. This field is only
-available when the :guilabel:`Quantity` option is selected.
+在 |QCP| 表单的 :guilabel:`控制方式` 字段中，选择 :guilabel:`数量` 选项。这样会在表单上显示一个 :guilabel:`故障位置` 字段。此字段仅在选择 :guilabel:`数量` 选项时可用。
 
-In the :guilabel:`Failure Locations` field, select one or more locations from the drop-down menu. To
-create a new location, type the desired location name into the field, and then select
-:guilabel:`Create "[name]"` from the drop-down menu.
+在 :guilabel:`故障位置` 字段中，从下拉菜单中选择一个或多个位置。要创建新位置，请在字段中输入所需的位置名称，然后从下拉菜单中选择 :guilabel:`创建 "[name]"`。
 
 .. image:: failure_locations/qcp-form.png
    :align: center
-   :alt: A QCP form in the Quality app, configured with a failure location.
+   :alt: 在质量应用中配置有故障位置的 QCP 表单。
 
-Send products to failure location
-=================================
+将产品发送到故障位置
+==========================
 
-Once a |QCP| has been configured with one or more failure locations, products that fail a check
-created by the |QCP| can be routed to one of the locations.
+一旦 |QCP| 配置了一个或多个故障位置，由 |QCP| 创建的质量检查中未通过检查的产品可以被发送到其中一个位置。
 
-To do so, open an order that requires a quality check created by a |QCP| configured with a failure
-location. For example, navigate to :menuselection:`Inventory app --> Operations --> Receipts`, and
-select a receipt.
+为此，打开一个需要质量检查的订单，该检查由配置了故障位置的 |QCP| 创建。例如，导航到 :menuselection:`库存应用 --> 操作 --> 收货`，并选择一个收货单。
 
-At the top of the selected order, click the :guilabel:`Quality Checks` button to open a pop-up
-window, from which the quality check can be processed. At the bottom of the pop-up window, click the
-:guilabel:`Fail` button to fail the quality check, which opens a second pop-up window, titled
-:guilabel:`Quality Check Failed for [Product]`.
+在所选订单的顶部，点击 :guilabel:`质量检查` 按钮，打开一个弹出窗口，从中可以处理质量检查。在弹出窗口的底部，点击 :guilabel:`失败` 按钮，未通过质量检查，这会打开一个标题为 :guilabel:`[产品] 的质量检查失败` 的第二个弹出窗口。
 
-In the :guilabel:`Quantity Failed` field, enter the quantity of the product that failed to pass the
-quality check. In the :guilabel:`Failure Location` field, select a location to which the failed
-quantity should be sent. Then, click :guilabel:`Confirm` at the bottom of the pop-up window to close
-it.
+在 :guilabel:`失败数量` 字段中，输入未通过质量检查的产品数量。在 :guilabel:`故障位置` 字段中，选择产品应发送到的故障位置。然后，点击弹出窗口底部的 :guilabel:`确认` 按钮关闭窗口。
 
 .. image:: failure_locations/failed-pop-up.png
    :align: center
-   :alt: The pop-up window that appears after a quality check fails.
+   :alt: 质量检查失败后出现的弹出窗口。
 
-Finally, on the order, click the :guilabel:`Validate` button at the top of the page. Doing so
-confirms the products that failed the quality check were sent to the failure location, while
-products that passed it were sent to their normal storage locations.
+最后，在订单页面上点击顶部的 :guilabel:`验证` 按钮。这样可以确认未通过质量检查的产品被发送到故障位置，而通过检查的产品则被发送到它们的正常存储位置。
 
-View failure location inventory
-===============================
+查看故障位置的库存
+=======================
 
-To view the product quantities stored in a failure location, navigate to :menuselection:`Inventory
-app --> Configuration --> Locations`. Select a failure location from the list. Then, click the
-:guilabel:`Current Stock` smart button on the location's page.
+要查看存储在故障位置的产品数量，导航到 :menuselection:`库存应用 --> 配置 --> 位置`。从列表中选择一个故障位置。然后，点击该位置页面上的 :guilabel:`当前库存` 智能按钮。
 
-A failure location's page lists all of the products stored within the location, along with the
-quantity of each.
+故障位置页面会列出存储在该位置的所有产品及其数量。

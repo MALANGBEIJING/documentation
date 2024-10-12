@@ -1,187 +1,139 @@
 ======================
-Requests for quotation
+询价单请求
 ======================
 
 .. _purchase/manage_deals/rfq:
 
-.. |PO| replace:: :abbr:`PO (Purchase Order)`
-.. |POs| replace:: :abbr:`POs (Purchase Orders)`
-.. |RFQ| replace:: :abbr:`RFQ (Request for Quotation)`
-.. |RFQs| replace:: :abbr:`RFQs (Requests for Quotation)`
+.. |PO| replace:: :abbr:`PO (采购订单)`
+.. |POs| replace:: :abbr:`POs (采购订单)`
+.. |RFQ| replace:: :abbr:`RFQ (询价单)`
+.. |RFQs| replace:: :abbr:`RFQs (询价单)`
 
-Odoo's requests for quotation (RFQs) feature in the **Purchase** app standardizes ordering products
-from multiple vendors with varying prices and delivery times.
+Odoo 的询价单请求 (RFQs) 功能位于**采购**应用中，标准化了从多个供应商处以不同价格和交货时间订购产品的流程。
 
-|RFQs| are documents companies send to vendors requesting product pricing. In Odoo, once the vendor
-approves the |RFQ|, the purchase order (PO) is confirmed to align on lead times and pricing.
+|RFQs| 是公司发送给供应商的文件，用于请求产品的价格信息。在 Odoo 中，一旦供应商批准了 |RFQ|，采购订单 (PO) 将被确认，以对齐交货时间和价格。
 
-Configuration
+配置
 =============
 
-Product
+产品
 -------
 
-To auto-populate product information and prices on an |RFQ|, configure products by going to
-:menuselection:`Purchase app --> Products --> Products`. Select an existing product, or create a
-new one by selecting :guilabel:`New`. Doing so opens the product form, where various sales and
-purchasing data can be configured.
+要在 |RFQ| 上自动填充产品信息和价格，请通过导航到 :menuselection:`采购应用 --> 产品 --> 产品` 配置产品。选择一个现有产品，或通过点击 :guilabel:`新建` 创建一个新产品。这将打开产品表单，可以在其中配置各种销售和采购数据。
 
-To configure purchasable products, tick the :guilabel:`Can be purchased` checkbox, under the product
-name. Then, go to the :guilabel:`Inventory` tab, and enable the :guilabel:`Buy` route.
+要配置可采购的产品，请勾选产品名称下的 :guilabel:`可采购` 复选框。然后，转到 :guilabel:`库存` 选项卡，并启用 :guilabel:`采购` 路线。
 
 .. image:: rfq/product-vendor-pricelist-config.png
    :align: center
-   :alt: Required configuration for purchasable products.
+   :alt: 可采购产品所需的配置。
 
-Vendor pricelist
+供应商价格表
 ----------------
 
-In the :guilabel:`Purchase` tab of the product form, input the vendor and their price, to have this
-information auto-populate on an |RFQ| each time the product is listed.
+在产品表单的 :guilabel:`采购` 选项卡中，输入供应商及其价格，以便每次列出该产品时此信息都能自动填充到 |RFQ| 中。
 
-Default columns include :guilabel:`Quantity`, :guilabel:`Price`, and :guilabel:`Delivery Lead Time`,
-but other columns like, :guilabel:`Product Variant` or :guilabel:`Discounts`, can also be enabled.
+默认列包括 :guilabel:`数量`、:guilabel:`价格` 和 :guilabel:`交货时间`，但其他列如 :guilabel:`产品变体` 或 :guilabel:`折扣` 也可以启用。
 
-To enable or disable columns, click the :icon:`oi-settings-adjust` :guilabel:`(additional options)`
-icon on the right side of the header row to reveal a drop-down menu of additional columns that can
-be added (or removed) from the :guilabel:`Purchase` tab.
+要启用或禁用列，请点击标题行右侧的 :icon:`oi-settings-adjust` :guilabel:`(更多选项)` 图标，以显示可添加（或删除）列的下拉菜单。
 
 .. note::
-   Alternatively, prices and delivery lead times for existing products can be added in bulk by
-   going to :menuselection:`Purchase app --> Configuration --> Vendor Pricelists`. Click
-   :guilabel:`New` in the top-left corner. In the :guilabel:`Vendor` section of the pricelist form
-   that appears, add the product information as it pertains to the vendor.
+   另外，还可以通过导航到 :menuselection:`采购应用 --> 配置 --> 供应商价格表`，批量添加现有产品的价格和交货时间。点击左上角的 :guilabel:`新建`。在价格表表单的 :guilabel:`供应商` 部分，添加与供应商相关的产品信息。
 
-Order products
+订购产品
 ==============
 
-With products and prices configured, follow these steps to create and send |RFQs| to make purchases
-for the company.
+配置好产品和价格后，按照以下步骤创建并发送 |RFQs| 以进行公司采购。
 
-|RFQ| dashboard
+|RFQ| 仪表板
 ---------------
 
-To get started, navigate to :menuselection:`Purchase app --> Orders --> Requests for Quotation`.
+首先，导航到 :menuselection:`采购应用 --> 订单 --> 询价单请求`。
 
-The :guilabel:`Requests for Quotation` dashboard displays an overview of the company's |RFQs|,
-|POs|, and their status. The top of the screen breaks down all |RFQs| in the company, as well as
-individual ones (where the user is the buyer) with a summary of their status.
+:guilabel:`询价单请求` 仪表板显示了公司的 |RFQs|、|POs| 及其状态的概览。屏幕顶部按状态总结了公司的所有 |RFQs| 以及个人（作为买家）的 |RFQs|。
 
-The top-right corner also provides a quick report of the company's recent purchases by total value,
-lead times, and number of |RFQs| sent.
+屏幕右上角还提供了公司的近期采购总金额、交货时间和发送的 |RFQs| 数量的快速报告。
 
-Additionally, the dashboard includes buttons for:
+此外，仪表板还包括以下按钮：
 
-- :guilabel:`To Send`: orders in the |RFQ| stage that have not been sent to the vendor.
-- :guilabel:`Waiting`: |RFQs| that have been sent by email, and are waiting on vendor confirmation.
-- :guilabel:`Late`: |RFQs| or |POs| where the :guilabel:`Order Deadline` has passed.
+- :guilabel:`待发送`: 处于 |RFQ| 阶段且尚未发送给供应商的订单。
+- :guilabel:`等待中`: 已通过电子邮件发送的 |RFQs|，正在等待供应商确认。
+- :guilabel:`逾期`: |RFQs| 或 |POs| 的 :guilabel:`订单截止日期` 已过。
 
 .. image:: rfq/rfq-dashboard.png
    :align: center
-   :alt: RFQ dashboard with orders and order statuses.
+   :alt: 包含订单和订单状态的询价单仪表板。
 
-In addition to various view options, the :guilabel:`Requests for Quotation` dashboard provides
-:guilabel:`Filters` and :guilabel:`Group By` options, accessible via the search bar drop-down menu.
+除了各种视图选项外，:guilabel:`询价单请求` 仪表板还提供了可通过搜索栏下拉菜单访问的 :guilabel:`过滤器` 和 :guilabel:`分组依据` 选项。
 
 .. seealso::
    :doc:`../../../essentials/search`
 
-Create new |RFQ|
+创建新 |RFQ|
 ----------------
 
-To create a new |RFQ|, click the :guilabel:`New` button on the top-left corner of the
-:guilabel:`Requests for Quotation` dashboard to reveal a new |PO| form.
+要创建新的 |RFQ|，请点击 :guilabel:`新建` 按钮，位于 :guilabel:`询价单请求` 仪表板的左上角，以显示新的 |PO| 表单。
 
-Start by assigning a :guilabel:`Vendor`.
+首先，指定一个 :guilabel:`供应商`。
 
-The :guilabel:`Vendor Reference` field points to the sales and delivery order numbers sent by the
-vendor. This comes in handy once products are received, and the |PO| needs to be matched to the
-delivery order.
+:guilabel:`供应商参考` 字段指向供应商发送的销售和交货订单编号。当收到产品并需要将采购订单与交货订单匹配时，这非常方便。
 
-The :guilabel:`Blanket Order` field refers to long-term purchase agreements on recurring orders with
-set pricing. To view and configure blanket orders, head to :menuselection:`Purchase app --> Orders
---> Purchase agreements`.
+:guilabel:`长期订单` 字段是指以固定价格订购的长期采购协议。要查看和配置长期订单，请前往 :menuselection:`采购应用 --> 订单 --> 采购协议`。
 
-The :guilabel:`Currency` can be changed, if purchasing products from a vendor in another country.
+如果从其他国家的供应商处采购产品，可以更改 :guilabel:`货币`。
 
-Next, configure an :guilabel:`Order Deadline`, which is the date by which the vendor must confirm
-their agreement to supply the products.
+接下来，配置 :guilabel:`订单截止日期`，即供应商必须确认其同意供应产品的日期。
 
 .. note::
-   After the :guilabel:`Order Deadline` is exceeded, the |RFQ| is marked as late, but the products
-   can still be ordered.
+   在 :guilabel:`订单截止日期` 过期后，|RFQ| 会被标记为逾期，但产品仍然可以订购。
 
-:guilabel:`Expected Arrival` is automatically calculated based on the :guilabel:`Order Deadline`
-and vendor lead time. Tick the checkbox for :guilabel:`Ask confirmation` to ask for signage at
-delivery.
+:guilabel:`预计到货` 是基于 :guilabel:`订单截止日期` 和供应商交货时间自动计算的。勾选 :guilabel:`请求确认` 复选框，以要求在交货时签字确认。
 
-With the :doc:`Storage Locations feature
-<../../inventory/warehouses_storage/inventory_management/use_locations>` activated,
-the :guilabel:`Deliver to` field appears, with options for the order shipment.
+如果启用了 :doc:`使用存储位置功能
+<../../inventory/warehouses_storage/inventory_management/use_locations>`，
+则会显示 :guilabel:`交货到` 字段，提供订单发货选项。
 
-Select the receiving warehouse address here, or select :guilabel:`Dropship` to indicate that this
-order is to be shipped directly to the end customer. When :guilabel:`Dropship` is selected, the
-:guilabel:`Dropship address` field is enabled. Contact names auto-populate here from the
-**Contacts** app.
+在这里选择收货仓库地址，或选择 :guilabel:`直运`，表示此订单将直接送到最终客户处。选择 :guilabel:`直运` 后，将启用 :guilabel:`直运地址` 字段。联系人信息会从**联系人**应用自动填充到这里。
 
-Products tab
+产品选项卡
 ~~~~~~~~~~~~
 
-In the :guilabel:`Products` tab, add the products to be ordered. Click :guilabel:`Add a product`,
-and type in the product name, or select the item from the drop-down menu.
+在 :guilabel:`产品` 选项卡中，添加要订购的产品。点击 :guilabel:`添加产品`，输入产品名称，或从下拉菜单中选择该产品。
 
-To create a new product and add it, type the new product name in the :guilabel:`Product` column,
-select :guilabel:`Create [product name]` from the resulting drop-down menu, and manually add the
-unit price. Or, select :guilabel:`Create and edit...` to be taken to the product form for that new
-item.
+要创建新产品并添加，输入新产品名称，然后从下拉菜单中选择 :guilabel:`创建 [产品名称]`，并手动添加单价。或者，选择 :guilabel:`创建并编辑...`，以便进入该新产品的产品表单。
 
-:guilabel:`Catalog` can also be selected to navigate to a product menu from the chosen vendor. From
-here, products can be added to the cart.
+还可以选择 :guilabel:`目录` 以导航到所选供应商的产品菜单。从这里可以将产品添加到购物车。
 
 .. note::
-   To make adjustments to products and prices, access the product form by clicking the
-   :icon:`oi-arrow-right` :guilabel:`(right arrow)` icon that becomes available upon hovering over
-   the :guilabel:`Product` name.
+   要对产品和价格进行调整，请通过点击悬停在 :guilabel:`产品` 名称上的 :icon:`oi-arrow-right` :guilabel:`(右箭头)` 图标访问产品表单。
 
-Send |RFQ|
+发送 |RFQ|
 ----------
 
-Clicking :guilabel:`Send by Email` reveals a :guilabel:`Compose Email` pop-up window, with a
-:guilabel:`Purchase: Request for Quotation` template loaded, ready to send to the vendor's email
-address (configured in the **Contacts** app).
+点击 :guilabel:`通过电子邮件发送` 会显示一个 :guilabel:`撰写邮件` 弹出窗口，加载了 :guilabel:`采购: 询价单请求` 模板，准备发送到供应商的电子邮件地址（在**联系人**应用中配置）。
 
-After crafting the desired message, click :guilabel:`Send`. Once sent, the |RFQ| moves to the
-:guilabel:`RFQ Sent` stage.
+撰写好所需的消息后，点击 :guilabel:`发送`。发送后，|RFQ| 进入 :guilabel:`询价单已发送` 阶段。
 
-Clicking :guilabel:`Print RFQ` downloads a PDF of the |RFQ|.
+点击 :guilabel:`打印询价单` 会下载 |RFQ| 的 PDF 文件。
 
-Confirm order
+确认订单
 -------------
 
-Clicking :guilabel:`Confirm Order` directly transforms the |RFQ| into an active |PO|.
+点击 :guilabel:`确认订单` 可以将 |RFQ| 直接转换为有效的 |PO|。
 
 .. tip::
-   Odoo tracks communications on each order through the chatter of the |PO| form. This shows the
-   emails sent between the user and the contact, as well as any internal notes and activities.
-   Messages, notes, and activities can also be logged on the chatter.
+   Odoo 通过采购订单 (PO) 表单的消息功能跟踪每个订单的通信。这显示了用户与联系人之间发送的电子邮件，以及任何内部备注和活动。也可以在消息功能中记录消息、备注和活动。
 
-Once an |RFQ| is confirmed, it creates a |PO|.
+一旦确认了 |RFQ|，它将创建一个 |PO|。
 
-On the new |PO|, the :guilabel:`Order Deadline` field changes to :guilabel:`Confirmation Date`,
-which displays the date and time the user confirmed the order.
+在新的 |PO| 上，:guilabel:`订单截止日期` 字段更改为 :guilabel:`确认日期`，显示用户确认订单的日期和时间。
 
-Depending on the user's chosen configuration in the **Purchase** app settings, a *vendor bill* is
-created once products have been ordered or received. For more information, refer to the
-documentation on :doc:`managing vendor bills <manage>`.
+根据用户在**采购**应用设置中选择的配置，一旦产品已订购或收到，将创建*供应商账单*。有关详细信息，请参阅 :doc:`管理供应商账单 <manage>`。
 
 .. note::
-   After an order is placed, clicking :guilabel:`Receive Products` records the reception of new
-   products into the database.
+   下订单后，点击 :guilabel:`接收产品` 可记录新产品的接收情况，并将其录入数据库。
 
 .. note::
-   With the **Inventory** app installed, confirming a |PO| automatically creates a receipt document,
-   with the product information and expected arrival dates automatically populated.
+   安装了**库存**应用后，确认 |PO| 将自动创建一份收货单，产品信息和预计到货日期将自动填充。
 
 .. seealso::
    :doc:`manage`
-

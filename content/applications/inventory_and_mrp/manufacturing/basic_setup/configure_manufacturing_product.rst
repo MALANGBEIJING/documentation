@@ -1,99 +1,72 @@
-===================================
-Manufacturing product configuration
-===================================
-
-.. _manufacturing/management/configure-manufacturing-product:
-.. |BOM| replace:: :abbr:`BoM (Bill of Materials)`
-
-In order to manufacture a product in Odoo *Manufacturing*, the product must be properly configured.
-Doing so consists of enabling the *Manufacturing* route and configuring a bill of materials (BoM)
-for the product. Once these steps are completed, the product is selectable when creating a new
-manufacturing order.
-
-Activate the Manufacture route
+==============================
+制造产品配置
 ==============================
 
-The Manufacture route is activated for each product on its own product page. To do so, begin by
-navigating to :menuselection:`Manufacturing --> Products --> Products`. Then, select an existing
-product, or create a new one by clicking :guilabel:`New`.
+.. _manufacturing/management/configure-manufacturing-product:
+.. |BOM| 替换:: :abbr:`BOM (材料清单)`
 
-On the product page, select the :guilabel:`Inventory` tab, then enable the :guilabel:`Manufacture`
-checkbox in the :guilabel:`Routes` section. This tells Odoo the product can be manufactured.
+要在Odoo *制造* 模块中制造产品，必须正确配置产品。这包括启用*制造*路线并为产品配置材料清单（BOM）。一旦这些步骤完成，产品就可以在创建新的制造订单时进行选择。
+
+激活制造路线
+=================
+
+制造路线需要在每个产品的产品页面上激活。要执行此操作，首先导航到：菜单选择 `制造 --> 产品 --> 产品`。然后，选择一个现有产品，或通过点击 :guilabel:`新建` 来创建一个新产品。
+
+在产品页面上，选择 :guilabel:`库存` 选项卡，然后在 :guilabel:`路线` 部分中启用 :guilabel:`制造` 复选框。这告知Odoo该产品可以被制造。
 
 .. image:: configure_manufacturing_product/manufacturing-route.png
    :align: center
-   :alt: The Manufacturing route on the Inventory tab of a product page.
+   :alt: 产品页面库存选项卡中的制造路线。
 
 .. _manufacturing/basic_setup/lot-serial-tracking:
 
-Lot/serial number tracking
---------------------------
+批次/序列号跟踪
+----------------
 
-The assignment of lots or serial numbers to newly manufactured products is optional. To optionally
-:doc:`assign lots or serial numbers <../../inventory/product_management/product_tracking/create_sn>`
-to newly manufactured products, go to the :guilabel:`Traceability` section in the
-:guilabel:`Inventory` tab. In the :guilabel:`Tracking` field, select :guilabel:`By Unique Serial
-Number` or :guilabel:`By Lots`.
+为新制造的产品分配批次号或序列号是可选的。要选择性地 :doc:`为新制造的产品分配批次号或序列号 <../../inventory/product_management/product_tracking/create_sn>`，请转到 :guilabel:`库存` 选项卡中的 :guilabel:`追溯` 部分。在 :guilabel:`追踪` 字段中，选择 :guilabel:`按唯一序列号` 或 :guilabel:`按批次`。
 
-Doing so enables the *Lot/Serial Number* field on a manufacturing order, or the *Register
-Production* instruction on a work order card in the *Shop Floor* app.
+这样做会在制造订单中启用*批次/序列号*字段，或者在*车间管理*应用的工作订单卡片上启用*登记生产*指令。
 
 .. figure:: configure_manufacturing_product/lot-number-field.png
    :align: center
-   :alt: "Lot/Serial Number" field on the MO.
+   :alt: 制造订单中的“批次/序列号”字段。
 
-   **Lot/Serial Number** field on the MO.
+   **制造订单**中的**批次/序列号**字段。
 
 .. figure:: configure_manufacturing_product/register-production.png
    :align: center
-   :alt: **Register Production** option to generate lot/serial number on a work order card.
+   :alt: 工作订单卡片上的**登记生产**选项，用于生成批次/序列号。
 
-   **Register Production** option to generate lot/serial number on a work order card.
+   **工作订单卡片**上的**登记生产**选项，用于生成批次/序列号。
 
-Configure a bill of materials (BoM)
-===================================
+配置材料清单（BOM）
+==================
 
-Next, a |BOM| must be configured for the product so Odoo knows how it is manufactured. A |BOM| is a
-list of the components and operations required to manufacture a product.
+接下来，必须为产品配置一个 |BOM|，以便Odoo知道如何制造该产品。|BOM| 是生产产品所需的组件和操作的列表。
 
-To create a |BOM| for a specific product, navigate to :menuselection:`Manufacturing --> Products -->
-Products`, then select the product. On the product page, click the :guilabel:`Bill of Materials`
-smart button at the top of the page, then select :guilabel:`New` to configure a new |BOM|.
+要为特定产品创建一个 |BOM|，请导航到：菜单选择 `制造 --> 产品 --> 产品`，然后选择产品。在产品页面上，点击页面顶部的 :guilabel:`材料清单` 智能按钮，然后选择 :guilabel:`新建` 来配置新的 |BOM|。
 
 .. image:: configure_manufacturing_product/bom-smart-button.png
    :align: center
-   :alt: The Bill of Materials smart button on a product page.
+   :alt: 产品页面上的材料清单智能按钮。
 
-On the |BOM|, the :guilabel:`Product` field auto-populates with the product. In the
-:guilabel:`Quantity` field, specify the number of units that the BoM produces.
+在 |BOM| 中，:guilabel:`产品` 字段会自动填充产品名称。在 :guilabel:`数量` 字段中，指定该材料清单可以生产的单位数量。
 
-Add a component to the |BOM| by selecting the :guilabel:`Components` tab and clicking :guilabel:`Add
-a line`. Select a component from the :guilabel:`Component` drop-down menu, then enter the quantity
-in the :guilabel:`Quantity` field. Continue adding components on new lines until all components have
-been added.
+通过选择 :guilabel:`组件` 选项卡并点击 :guilabel:`添加一行` 来添加组件。从 :guilabel:`组件` 下拉菜单中选择一个组件，然后在 :guilabel:`数量` 字段中输入数量。继续在新行上添加组件，直到所有组件都已添加。
 
 .. image:: configure_manufacturing_product/components-tab.png
    :align: center
-   :alt: The Components tab on a bill of materials.
+   :alt: 材料清单的组件选项卡。
 
-Next, select the :guilabel:`Operations` tab. Click :guilabel:`Add a line` and a :guilabel:`Create
-Operations` pop-up window appears. In the :guilabel:`Operation` field, specify the name of the
-operation being added (e.g. Assemble, Cut, etc.). Select the work center where the operation will be
-carried out from the :guilabel:`Work Center` drop-down menu. Finally, click :guilabel:`Save & Close`
-to finish adding operations, or :guilabel:`Save & New` to add more.
+接下来，选择 :guilabel:`操作` 选项卡。点击 :guilabel:`添加一行`，将弹出一个 :guilabel:`创建操作` 弹出窗口。在 :guilabel:`操作` 字段中，指定要添加的操作名称（例如，装配、切割等）。从 :guilabel:`工作中心` 下拉菜单中选择执行操作的工作中心。最后，点击 :guilabel:`保存并关闭` 完成操作添加，或者点击 :guilabel:`保存并新建` 继续添加更多操作。
 
-.. important::
-   The :guilabel:`Operations` tab only appears if the :guilabel:`Work Orders` setting is enabled. To
-   do so, navigate to :menuselection:`Manufacturing --> Configuration --> Settings`, then enable the
-   :guilabel:`Work Orders` checkbox.
+.. 重要::
+   只有在启用了 :guilabel:`工作订单` 设置的情况下，:guilabel:`操作` 选项卡才会显示。要启用此功能，请导航到：菜单选择 `制造 --> 配置 --> 设置`，然后勾选 :guilabel:`工作订单` 复选框。
 
 .. image:: configure_manufacturing_product/operations-tab.png
    :align: center
-   :alt: The Operations tab on a bill of materials.
+   :alt: 材料清单的操作选项卡。
 
-.. admonition:: Learn more
+.. admonition:: 了解更多
 
-   The section above provides instructions for creating a basic |BOM| that allows a product to be
-   manufactured in Odoo. However, it is by no means an exhaustive summary of all the options
-   available when configuring a |BOM|. For more information about bills of materials, see the
-   documentation on how to :doc:`create a bill of materials <bill_configuration>`.
+   上述部分提供了如何创建一个基本的 |BOM| 以在Odoo中制造产品的指示。然而，这并不是配置 |BOM| 时可用所有选项的详尽摘要。有关材料清单的更多信息，请参阅如何 :doc:`创建材料清单 <bill_configuration>` 的文档。

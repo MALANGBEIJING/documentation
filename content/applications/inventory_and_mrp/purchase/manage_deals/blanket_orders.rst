@@ -1,184 +1,119 @@
 ==============
-Blanket orders
+长期订单
 ==============
 
 .. _purchase/manage_deals/blanket-orders:
 
-.. |SO| replace:: :abbr:`SO (Sales Order)`
-.. |PO| replace:: :abbr:`PO (Purchase Order)`
-.. |UoM| replace:: :abbr:`UoM (Unit of Measure)`
-.. |RfQ| replace:: :abbr:`RfQ (Request for Quotation)`
-.. |RfQs| replace:: :abbr:`RfQs (Requests for Quotation)`
+.. |SO| replace:: :abbr:`SO (销售订单)`
+.. |PO| replace:: :abbr:`PO (采购订单)`
+.. |UoM| replace:: :abbr:`UoM (计量单位)`
+.. |RfQ| replace:: :abbr:`RfQ (报价请求)`
+.. |RfQs| replace:: :abbr:`RfQs (报价请求)`
 
-Blanket orders are long-term purchase agreements between a company and a vendor to deliver products
-on a recurring basis with predetermined pricing.
+长期订单是公司与供应商之间的长期采购协议，规定在不同时间内按预定价格定期交付产品。
 
-Blanket orders are helpful when products are consistently purchased from the same vendor, but in
-different quantities, and at different times.
+长期订单在产品从同一供应商处定期采购但数量和时间不同的情况下非常有用。
 
-By simplifying the ordering process, blanket orders not only save time, they also save money, since
-they can be advantageous when negotiating bulk pricing with vendors.
+通过简化订购流程，长期订单不仅节省时间，还能通过与供应商谈判批量定价来节省成本。
 
-Create a new blanket order
-==========================
+创建新的长期订单
+=================
 
-To create blanket orders, enable the *Purchase Agreements* feature from the *Purchase* app settings.
-Navigate to :menuselection:`Purchase app --> Configuration --> Settings`, and under the
-:guilabel:`Orders` section, click the checkbox for :guilabel:`Purchase Agreements`. Then click
-:guilabel:`Save` to implement the changes.
+要创建长期订单，首先在 *采购* 应用设置中启用 *采购协议* 功能。导航到 :menuselection:`采购应用 --> 配置 --> 设置`，在 :guilabel:`订单` 部分下，勾选 :guilabel:`采购协议` 选项。然后点击 :guilabel:`保存` 以应用更改。
 
 .. note::
-   In addition to creating blanket orders, the *Purchase Agreements* setting also allows users to
-   create alternative requests for quotation (RfQs).
+   除了创建长期订单，*采购协议* 设置还允许用户创建替代的报价请求 (RfQs)。
 
 .. image:: blanket_orders/blanket-orders-enabled-setting.png
    :align: center
-   :alt: Purchase Agreements enabled in the Purchase app settings.
+   :alt: 在采购应用设置中启用采购协议。
 
-To create a blanket order, go to :menuselection:`Purchase app --> Orders --> Blanket Orders`, and
-click :guilabel:`New`. This opens a new blanket order form.
+要创建长期订单，请前往 :menuselection:`采购应用 --> 订单 --> 长期订单`，然后点击 :guilabel:`新建`。这将打开一个新的长期订单表单。
 
-Configure the following fields in the new blanket order form to establish predetermined rules for
-the recurring long-term agreement:
+在新的长期订单表单中配置以下字段，以为长期协议建立预定规则：
 
-- :guilabel:`Purchase Representative`: the user assigned to this specific blanket order. By default,
-  this is the user who created the agreement; the user can be changed directly from the drop-down
-  menu next to this field.
-- :guilabel:`Agreement Type`: the type of purchase agreement this blanket order is classified as. In
-  Odoo, blanket orders are the only official purchase agreement.
-- :guilabel:`Vendor`: the supplier to whom this agreement is tied, either once or on a recurring
-  basis. The vendor can be selected directly from the drop-down menu next to this field.
-- :guilabel:`Currency`: the agreed-upon currency to be used for this exchange. If multiple
-  currencies have been activated in the database, the currency can be changed from the drop-down
-  menu next to this field.
-- :guilabel:`Agreement Deadline`: the date that this purchase agreement will be set to expire on. If
-  this blanket order should not expire, leave this field blank.
-- :guilabel:`Ordering Date`: the date that this blanket order should be placed on if a new quotation
-  is created directly from the blanket order form. If a new quotation is created, this value
-  automatically populates the *Order Deadline* field on the |RfQ|.
-- :guilabel:`Delivery Date`: the expected delivery date that the products included in an |RfQ| are
-  expected, if created directly from a blanket order form. If a new quotation is created, this value
-  automatically populates the *Expected Arrival* field on the |RfQ|.
-- :guilabel:`Source Document`: the source purchase order (PO) that this blanket order is tied to. If
-  this blanket order should not be tied to any existing |PO|, leave this field blank.
-- :guilabel:`Company`: the company assigned to this specific blanket order. By default, this is the
-  company that the user creating the blanket order is listed under. If the database is not a
-  multi-company database, this field **cannot** be changed, and defaults to the only company listed
-  in the database.
+- :guilabel:`采购代表`：分配给此长期订单的用户。默认情况下，这是创建该协议的用户；可以通过下拉菜单更改此字段旁的用户。
+- :guilabel:`协议类型`：此长期订单分类的采购协议类型。在 Odoo 中，长期订单是唯一的官方采购协议。
+- :guilabel:`供应商`：与此协议相关的供应商，无论是一次性还是定期的。可以从此字段旁的下拉菜单中直接选择供应商。
+- :guilabel:`货币`：双方商定用于此交易的货币。如果数据库中启用了多种货币，可以从下拉菜单中更改货币。
+- :guilabel:`协议截止日期`：此采购协议的到期日期。如果此长期订单不应过期，则将此字段留空。
+- :guilabel:`订购日期`：如果直接从长期订单表单创建新的报价请求，此长期订单应放置的日期。如果创建了新的报价请求，此值会自动填充在 |RfQ| 的 *订单截止日期* 字段中。
+- :guilabel:`交货日期`：如果直接从长期订单表单创建 |RfQ|，则期望的产品交货日期。如果创建了新的报价请求，此值会自动填充在 |RfQ| 的 *预计到货日期* 字段中。
+- :guilabel:`源单据`：与此长期订单相关联的采购订单 (PO)。如果此长期订单不应与任何现有的 |PO| 关联，则将此字段留空。
+- :guilabel:`公司`：分配给此长期订单的公司。默认情况下，这是创建该长期订单的用户所属的公司。如果数据库不是多公司数据库，则此字段 **无法** 更改，并默认显示在数据库中列出的唯一公司。
 
 .. image:: blanket_orders/blanket-orders-new-agreement.png
    :align: center
-   :alt: New blanket order purchase agreement with added products.
+   :alt: 添加产品的新长期订单采购协议。
 
-Once all relevant fields have been filled out, click :guilabel:`Add a line` to add products under
-the :guilabel:`Product` column. Then, in the :guilabel:`Quantity` column, change the quantity of
-each product, and set a price in the :guilabel:`Unit Price` column.
+填写所有相关字段后，点击 :guilabel:`添加行` 在 :guilabel:`产品` 列下添加产品。然后，在 :guilabel:`数量` 列中更改每个产品的数量，并在 :guilabel:`单价` 列中设置价格。
 
 .. important::
-   When adding products to a new blanket order, the pre-existing prices of products are not
-   automatically added to the product lines. Instead, the prices **must** be manually assigned, by
-   changing the value in the :guilabel:`Unit Price` column to an agreed-upon price with the listed
-   vendor. Otherwise, the price will remain `0`.
+   在新的长期订单中添加产品时，产品的预设价格不会自动添加到产品行中。相反，**必须** 手动分配价格，方法是将 :guilabel:`单价` 列中的值更改为与列出的供应商商定的价格。否则，价格将保持为 `0`。
 
-To view and change the default purchase agreement settings for blanket orders directly from the
-blanket order form, click the :guilabel:`➡️ (right arrow)` icon that becomes visible when hovering
-over the :guilabel:`Agreement Type` field, where :guilabel:`Blanket Order` is listed. This navigates
-to the blanket order settings.
+要从长期订单表单中直接查看和更改长期订单的默认采购协议设置，点击在悬停于 :guilabel:`协议类型` 字段（列出 :guilabel:`长期订单`）时出现的 :guilabel:`➡️ (右箭头)` 图标。这将导航到长期订单设置。
 
 .. image:: blanket_orders/blanket-orders-internal-link-arrow.png
    :align: center
-   :alt: Internal link arrow next to Agreement Type field on blanket order form.
+   :alt: 长期订单表单上协议类型字段旁的内部链接箭头。
 
-From here, the settings for blanket orders can be edited. Under the :guilabel:`Agreement Type`
-section, the name of the :guilabel:`Agreement Type` can be changed, and the :guilabel:`Agreement
-Selection Type` can be changed, as well. There are two options that can be activated for the type of
-selection:
+在这里，可以编辑长期订单的设置。在 :guilabel:`协议类型` 部分下，可以更改 :guilabel:`协议类型` 的名称，并且可以更改 :guilabel:`协议选择类型`。有两个选项可以为选择类型激活：
 
-- :guilabel:`Select only one RfQ (exclusive)`: when a purchase order is confirmed, the remaining
-  purchase orders are canceled.
-- :guilabel:`Select multiple RfQ (non-exclusive)`: when a purchase order is confirmed, remaining
-  purchase orders are **not** canceled. Instead, multiple purchase orders are allowed.
+- :guilabel:`仅选择一个报价请求（独占）`：当确认了一个采购订单时，剩余的采购订单将被取消。
+- :guilabel:`选择多个报价请求（非独占）`：当确认了一个采购订单时，剩余的采购订单不会被取消。相反，允许多个采购订单。
 
-Under the :guilabel:`Data For New Quotations` section, the :guilabel:`Lines` and
-:guilabel:`Quantities` fields can be edited. Doing so sets how new quotations should be populated
-when using this purchase agreement.
+在 :guilabel:`新报价请求数据` 部分下，可以编辑 :guilabel:`产品行` 和 :guilabel:`数量` 字段。这样可以设置在使用此采购协议时如何填充新的报价请求。
 
 .. image:: blanket_orders/blanket-orders-edit-agreement-type.png
    :align: center
-   :alt: Purchase Agreement type edit screen for blanket orders.
+   :alt: 编辑长期订单采购协议类型的屏幕。
 
-There are two options that can be activated for :guilabel:`Lines`:
+可以为 :guilabel:`产品行` 激活两个选项：
 
-- :guilabel:`Use lines of agreement`: when creating a new quotation, the product lines pre-populate
-  with the same products listed on the blanket order, if said blanket order is chosen for the new
-  quotation.
-- :guilabel:`Do not create RfQ lines automatically`: when creating a new quotation, **and**
-  selecting an existing blanket order, the settings carry over to the new quotation, but the product
-  lines do **not** populate.
+- :guilabel:`使用协议的产品行`：创建新的报价请求时，产品行将预填充与长期订单中列出的相同产品。
+- :guilabel:`不自动创建报价请求产品行`：创建新的报价请求时，**并且** 选择了现有的长期订单，设置将应用到新的报价请求，但产品行不会填充。
 
-And, there are two options that can be activated for :guilabel:`Quantities`:
+同样，:guilabel:`数量` 也可以激活两个选项：
 
-- :guilabel:`Use quantities of agreement`: when creating a new quotation, the product quantities
-  listed on the blanket order pre-populate on the product lines, if said blanket order is chosen for
-  the new quotation.
-- :guilabel:`Set quantities manually`: when creating a new quotation, **and** selecting an existing
-  blanket order, the product lines pre-populate, but all quantities are set to `0`. The quantities
-  **must** be manually set by the user.
+- :guilabel:`使用协议的数量`：创建新的报价请求时，长期订单中列出的产品数量将预填充在产品行中。
+- :guilabel:`手动设置数量`：创建新的报价请求时，**并且** 选择了现有的长期订单，产品行将预填充，但所有数量设置为 `0`。用户必须手动设置数量。
 
-Once any desired changes have been made, click :guilabel:`New` (via the breadcrumbs, at the top of
-the page) to navigate back to the blanket order form. Then, click :guilabel:`Confirm` to save this
-new purchase agreement.
+完成所需更改后，点击页面顶部的面包屑导航中的 :guilabel:`新建` 返回到长期订单表单。然后，点击 :guilabel:`确认` 以保存此新采购协议。
 
-Once confirmed, the blanket order's stage (in the upper-right corner) changes from :guilabel:`Draft`
-to :guilabel:`Ongoing`, meaning this agreement can be selected and used when creating new |RfQs|.
+确认后，长期订单的状态（位于右上角）从 :guilabel:`草稿` 变为 :guilabel:`进行中`，表示在创建新 |RfQs| 时可以选择并使用此协议。
 
 .. tip::
-   After creating and confirming a blanket order, products, quantities, and prices can still be
-   edited, added, and removed from the purchase agreement.
+   创建并确认长期订单后，仍然可以编辑、添加和删除产品、数量和价格。
 
-Create a new |RfQ| from the blanket order
-=========================================
+从长期订单创建新的 |RfQ|
+===========================
 
-After confirming a blanket order, new quotations can be created directly from the blanket order
-form. |RfQs| using this form are pre-populated with information based on the rules set in the form.
-Additionally, new quotations are automatically linked to this blanket order form, via the
-:guilabel:`RFQs/Orders` smart button at the top-right of the form.
+确认长期订单后，可以直接从长期订单表单创建新的报价请求。使用此表单的 |RfQs| 会根据表单中设置的规则预填充信息。此外，新的报价请求会自动链接到此长期订单表单，通过表单右上角的 :guilabel:`RFQs/订单` 智能按钮进行查看。
 
-To create a new quotation from the blanket order form, click the :guilabel:`New Quotation` button.
-This opens a new |RfQ|, that is pre-populated with the correct information, depending on the
-settings configured on the blanket order form.
+要从长期订单表单创建新的报价请求，点击 :guilabel:`新报价请求` 按钮。这将打开一个新的 |RfQ|，该 |RfQ| 根据长期订单表单上配置的设置预填充正确的信息。
 
-From the new |RfQ| form, click :guilabel:`Send by Email` to compose and send an email to the listed
-vendor. Click :guilabel:`Print RFQ` to generate a printable PDF of the quotation; or, once ready,
-click :guilabel:`Confirm Order` to confirm the |PO|.
+在新的 |RfQ| 表单中，点击 :guilabel:`通过电子邮件发送` 撰写并发送电子邮件给列出的供应商。点击 :guilabel:`打印 RFQ` 生成可打印的报价请求 PDF；或在准备好后，点击 :guilabel:`确认订单` 以确认 |PO|。
 
 .. image:: blanket_orders/blanket-orders-new-quotation.png
    :align: center
-   :alt: New quotation with copied products and rules from blanket order.
+   :alt: 使用长期订单复制的产品和规则生成的新报价请求。
 
-Once the |PO| has been confirmed, click back to the blanket order form (via the breadcrumbs, at the
-top of the page). From the blanket order form, there is now one |RfQ| listed in the
-:guilabel:`RFQs/Orders` smart button at the top-right of the form. Click the :guilabel:`RFQs/Orders`
-smart button to see the |PO| that was just created.
+确认 |PO| 后，点击返回长期订单表单（通过页面顶部的面包屑导航）。在长期订单表单中，右上角的 :guilabel:`RFQs/订单` 智能按钮现在列出了一个 |RfQ|。点击 :guilabel:`RFQs/订单` 智能按钮查看刚刚创建的 |PO|。
 
 .. image:: blanket_orders/blanket-orders-rfq-smart-button.png
    :align: center
-   :alt: RFQs and Orders smart button from blanket order form.
+   :alt: 长期订单表单上的 RFQs 和订单智能按钮。
 
-Replenishment
-=============
+补货
+=====
 
-Once a blanket order is confirmed, a new vendor line is added under the :guilabel:`Purchase` tab of
-the products included in the order.
+一旦确认长期订单，供应商信息行将被添加到订单中包含的产品的 :guilabel:`采购` 标签下。
 
-This makes blanket orders useful with :doc:`automated replenishment
-<../../purchase/products/reordering>`, because information about the :guilabel:`Vendor`,
-:guilabel:`Price`, and the :guilabel:`Agreement` are referenced on the vendor line. This information
-dictates when, where, and at what price the product should be replenished.
+这使得长期订单在 :doc:`自动补货 <../../purchase/products/reordering>` 中非常有用，因为供应商、价格和协议信息在供应商信息行中被引用。这些信息决定了何时、何地以及以什么价格进行产品的补货。
 
 .. image:: blanket_orders/blanket-orders-product-form.png
    :align: center
-   :alt: Product form with replenishment agreement linked to blanket order.
+   :alt: 关联到长期订单的补货协议的产品表单。
 
 .. seealso::
    :doc:`calls_for_tenders`

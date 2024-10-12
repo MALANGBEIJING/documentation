@@ -1,155 +1,94 @@
 ==============
-Quality checks
+质量检查
 ==============
 
 .. _quality/quality_management/quality-checks:
-.. |MO| replace:: :abbr:`MO (Manufacturing Order)`
-.. |QCP| replace:: :abbr:`QCP (Quality Control Point)`
+.. |MO| replace:: :abbr:`MO (生产订单)`
+.. |QCP| replace:: :abbr:`QCP (质量控制点)`
 
-Quality checks are manual inspections conducted by employees, and are used to ensure the quality of
-products. In Odoo, a quality check can be conducted for a single product, or multiple products
-within the same inventory operation or manufacturing order.
+质量检查是由员工进行的人工检查，旨在确保产品质量。在 Odoo 中，可以为单个产品或同一库存操作或生产订单中的多个产品进行质量检查。
 
-Using a Quality Control Point (QCP), it is possible to create quality checks automatically at
-regular intervals. When quality checks are created by a |QCP|, they appear on a manufacturing or
-inventory order, where the employee processing the order will be prompted to complete them. For a
-full explanation of how to create and configure a |QCP|, see the documentation on :ref:`quality
-control points <quality/quality_management/quality-control-points>`.
+使用质量控制点 (QCP)，可以定期自动创建质量检查。当质量检查由 |QCP| 创建时，它们会显示在生产订单或库存订单中，处理订单的员工会被提示完成检查。有关如何创建和配置 |QCP| 的完整说明，请参阅 :ref:`质量控制点 <quality/quality_management/quality-control-points>` 的文档。
 
-While quality checks are most commonly created automatically by a |QCP|, it is also possible to
-manually create a single quality check. Creating a check manually is useful when an employee wants
-to schedule a quality check that will only occur once, or register a quality check that they conduct
-unprompted.
+虽然质量检查通常由 |QCP| 自动创建，但也可以手动创建单个质量检查。当员工想安排仅发生一次的质量检查，或在未提示的情况下记录他们进行的质量检查时，手动创建检查非常有用。
 
-Manual quality check
+手动创建质量检查
 ====================
 
-To manually create a single quality check, navigate to :menuselection:`Quality --> Quality Control
---> Quality Checks`, and click :guilabel:`New`. On the quality check form, begin by selecting an
-option from the :guilabel:`Control per` drop-down menu:
+要手动创建单个质量检查，导航到 :menuselection:`质量 --> 质量控制 --> 质量检查`，然后点击 :guilabel:`新建`。在质量检查表单中，首先从 :guilabel:`控制方式` 下拉菜单中选择一个选项：
 
-- :guilabel:`Operation` requests a check for an entire operation (ex. delivery order) and all
-  products within it.
-- :guilabel:`Product` requests a check for every unit of a product that is part of an operation (ex.
-  every unit of a product within a delivery order).
-- :guilabel:`Quantity` requests a check for every quantity of a product that is part of an operation
-  (ex. one check for five units of a product within a delivery order). Selecting
-  :guilabel:`Quantity` also causes a :guilabel:`Lot/Serial` drop-down field to appear, from which
-  can be selected a specific lot or serial number that the quality check should be conducted for.
+- :guilabel:`操作` 请求对整个操作进行检查（例如，发货单）及其所有产品。
+- :guilabel:`产品` 请求对操作中的每个产品单位进行检查（例如，发货单中的每个产品单位）。
+- :guilabel:`数量` 请求对操作中的每个产品数量进行检查（例如，发货单中的五个产品单位进行一次检查）。选择 :guilabel:`数量` 还会使表单出现一个 :guilabel:`批次/序列号` 下拉字段，从中可以选择应进行质量检查的特定批次或序列号。
 
-Next, select an inventory operation from the :guilabel:`Picking` drop-down menu or a manufacturing
-order from the :guilabel:`Production Order` drop-down menu. This is necessary because Odoo needs to
-know for which operation the quality check is being conducted.
+接下来，从 :guilabel:`拣货` 下拉菜单中选择一个库存操作，或从 :guilabel:`生产订单` 下拉菜单中选择一个生产订单。这是必要的，因为 Odoo 需要知道质量检查是针对哪个操作进行的。
 
-If the quality check should be assigned to a specific |QCP|, select it from the :guilabel:`Control
-Point` drop-down menu. This is useful if the quality check is being created manually, but should
-still be recognized as belonging to a specific |QCP|.
+如果质量检查应分配给特定的 |QCP|，请从 :guilabel:`控制点` 下拉菜单中选择它。如果质量检查是手动创建的，但仍应被识别为属于特定 |QCP|，此功能非常有用。
 
-Select a quality check type from the :guilabel:`Type` drop-down field:
+从 :guilabel:`类型` 下拉字段中选择质量检查类型：
 
-- :guilabel:`Instructions` provides specific instructions for how to conduct the quality check.
-- :guilabel:`Take a Picture` requires a picture to be attached to the check before the check can be
-  completed.
-- :guilabel:`Pass - Fail` is used when the product being checked must meet a certain criteria to
-  pass the check.
-- Selecting :guilabel:`Measure` causes a :guilabel:`Measure` input field to appear, in which a
-  measurement must be entered before the check can be completed.
-- Selecting :guilabel:`Worksheet` causes a :guilabel:`Quality Template` drop-down field to appear.
-  Use it to select a quality worksheet that must be filled out to complete the check.
+- :guilabel:`说明` 提供有关如何进行质量检查的具体说明。
+- :guilabel:`拍照` 要求在完成检查之前附加一张图片。
+- :guilabel:`通过-失败` 用于检查产品是否符合通过检查的某些标准。
+- 选择 :guilabel:`测量` 会显示一个 :guilabel:`测量` 输入字段，必须在完成检查前输入测量值。
+- 选择 :guilabel:`工作表` 会显示一个 :guilabel:`质量模板` 下拉字段。使用它来选择必须填写的质量工作表以完成检查。
 
-In the :guilabel:`Team` field, select the quality team that is responsible for the quality check. In
-the :guilabel:`Company` field, select the company that owns the product being inspected.
+在 :guilabel:`团队` 字段中，选择负责质量检查的质量团队。在 :guilabel:`公司` 字段中，选择拥有所检查产品的公司。
 
-On the :guilabel:`Notes` tab at the bottom of the form, enter any relevant instructions in the
-:guilabel:`Instructions` text entry box (ex. 'Attach a picture of the product'). In the
-:guilabel:`Notes` text entry box, enter any relevant information about the quality check (who
-created it, why it was created, etc.).
+在表单底部的 :guilabel:`说明` 标签页中，在 :guilabel:`说明` 文本框中输入任何相关的说明（例如“附上一张产品的照片”）。在 :guilabel:`备注` 文本框中，输入有关质量检查的任何相关信息（谁创建了它，为什么创建等）。
 
-Finally, if the check is being processed immediately, click the :guilabel:`Pass` button at the top
-left of the screen if the check passes, or the :guilabel:`Fail` button if the check fails.
+最后，如果检查正在立即处理，请点击屏幕左上角的 :guilabel:`通过` 按钮（如果检查通过），或点击 :guilabel:`失败` 按钮（如果检查未通过）。
 
 .. image:: quality_checks/quality-check-form.png
    :align: center
-   :alt: A quality check form filled out for a Pass - Fail check.
+   :alt: 为通过-失败检查填写的质量检查表单。
 
-Process quality check
-=====================
+处理质量检查
+===============
 
-Quality checks can be processed directly on the quality check's page, or from a manufacturing or
-inventory order for which a check is required. Alternatively, if a quality check is created for a
-specific work order operation, the check is processed in the *Shop Floor* module.
+可以直接在质量检查页面上处理质量检查，或从需要检查的生产或库存订单中处理检查。或者，如果为特定的工单操作创建了质量检查，则在 *车间* 模块中处理检查。
 
 .. note::
-   It is not possible to manually create a single quality check that is assigned to a specific work
-   order operation. Quality checks for work order operations can only be created by a |QCP|. See the
-   documentation on :ref:`Quality Control Points
-   <quality/quality_management/quality-control-points>` for information about how to configure a
-   |QCP| that will create quality checks for a specific work order operation.
+   不能手动创建分配给特定工单操作的单个质量检查。工单操作的质量检查只能由 |QCP| 创建。有关如何配置将为特定工单操作创建质量检查的 |QCP| 的信息，请参阅 :ref:`质量控制点 <quality/quality_management/quality-control-points>` 文档。
 
-Quality check page
-------------------
+质量检查页面
+----------------
 
-To process a quality check from the check's page, begin by navigating to :menuselection:`Quality -->
-Quality Control --> Quality Checks`, then select the check to process. Follow the instructions for
-how to complete the check, listed in the :guilabel:`Instructions` field of the :guilabel:`Notes` tab
-at the bottom of the page.
+要从检查页面处理质量检查，首先导航到 :menuselection:`质量 --> 质量控制 --> 质量检查`，然后选择要处理的检查。按照页面底部 :guilabel:`说明` 字段中的说明完成检查。
 
-If the quality check passes, click the :guilabel:`Pass` button at the top of the page. If the check
-fails, click the :guilabel:`Fail` button, instead.
+如果质量检查通过，请点击页面顶部的 :guilabel:`通过` 按钮。如果检查未通过，请点击 :guilabel:`失败` 按钮。
 
-Quality check on order
-----------------------
+订单上的质量检查
+-------------------
 
-To process a quality check on an order, select a manufacturing or inventory order (receipt,
-delivery, return, etc.), for which a check is required. Manufacturing orders can be selected by
-navigating to :menuselection:`Manufacturing --> Operations --> Manufacturing Orders`, and clicking
-on an order. Inventory orders can be selected by navigating to :menuselection:`Inventory`, clicking
-the :guilabel:`# To Process` button on an operation card, and selecting an order.
+要在订单上处理质量检查，选择一个需要检查的生产或库存订单（收货、发货、退货等）。可以通过导航到 :menuselection:`生产 --> 操作 --> 生产订单` 并点击某个订单来选择生产订单。可以通过导航到 :menuselection:`库存`，点击操作卡上的 :guilabel:`# 待处理` 按钮，并选择一个订单来选择库存订单。
 
-On the selected inventory or manufacturing order, a purple :guilabel:`Quality Checks` button appears
-at the top of the order. Click the button to open the :guilabel:`Quality Check` pop-up window, which
-shows all of the quality checks required for that order.
+在所选的库存或生产订单页面顶部，会出现一个紫色的 :guilabel:`质量检查` 按钮。点击该按钮以打开 :guilabel:`质量检查` 弹出窗口，显示该订单所需的所有质量检查。
 
-Follow the instructions that appear on the :guilabel:`Quality Check` pop-up window. If a Pass - Fail
-check is being processed, complete the check by clicking :guilabel:`Pass` or :guilabel:`Fail` at the
-bottom of the pop-up window. For all other quality check types, a :guilabel:`Validate` button
-appears instead. Click it to complete the check.
+按照 :guilabel:`质量检查` 弹出窗口中显示的说明进行操作。如果正在处理 *通过-失败* 检查，请点击弹出窗口底部的 :guilabel:`通过` 或 :guilabel:`失败` 按钮以完成检查。对于所有其他质量检查类型，会显示一个 :guilabel:`验证` 按钮。点击它以完成检查。
 
 .. image:: quality_checks/quality-check-pop-up.png
    :align: center
-   :alt: The "Quality Check" pop-up window on a manufacturing order.
+   :alt: 在生产订单上的“质量检查”弹出窗口。
 
-Quality check on work order
----------------------------
+工单上的质量检查
+-------------------
 
-To process a quality check for a work order, begin by navigating to :menuselection:`Manufacturing
---> Operations --> Manufacturing Orders`. Select an |MO| that includes a work order for which a
-quality check is required.
+要处理工单的质量检查，首先导航到 :menuselection:`生产 --> 操作 --> 生产订单`。选择一个包含需要质量检查的工单的 |MO|。
 
-On the |MO|, select the :guilabel:`Work Orders` tab, and then click the :guilabel:`Open Work Order
-(external link icon)` button on the line of the work order to be processed. On the resulting
-:guilabel:`Work Orders` pop-up window, click the :guilabel:`Open Shop Floor` button to open the
-*Shop Floor* module.
+在 |MO| 上，选择 :guilabel:`工单` 标签，然后点击待处理工单行上的 :guilabel:`打开工单 (外部链接图标)` 按钮。在随后的 :guilabel:`工单` 弹出窗口中，点击 :guilabel:`打开车间` 按钮以打开 *车间* 模块。
 
 .. seealso::
-   For a full guide to the Shop Floor module, see the :doc:`Shop Floor overview
-   <../../manufacturing/shop_floor/shop_floor_overview>` documentation.
+   有关车间模块的完整指南，请参阅 :doc:`车间概览 <../../manufacturing/shop_floor/shop_floor_overview>` 文档。
 
-When accessed from a specific work order, the *Shop Floor* module opens to the page for the work
-center where the order is configured to be processed, and isolates the work order's card so that no
-other cards are shown.
+从特定工单访问时，*车间* 模块会打开该工单配置为处理的工作中心页面，并仅显示该工单的卡片，不显示其他卡片。
 
-Process the work order's steps until the quality check step is reached. Click on the step to open a
-pop-up window that details how the check should be completed. After following the instructions,
-click :guilabel:`Validate` to complete the check. Alternatively, if a *Pass - Fail* check is being
-processed, click either the :guilabel:`Pass` or :guilabel:`Fail` button.
+处理工单的步骤，直到到达质量检查步骤。点击该步骤以打开弹出窗口，详细说明如何完成检查。按照说明操作后，点击 :guilabel:`验证` 以完成检查。或者，如果正在处理 *通过-失败* 检查，请点击 :guilabel:`通过` 或 :guilabel:`失败` 按钮。
 
-It is also possible to complete a quality check by clicking the checkbox on the right side of the
-step. Doing so automatically marks the check as *Passed*.
+也可以通过点击步骤右侧的复选框来完成质量检查。这样会自动将检查标记为 *通过*。
 
 .. note::
-   The specific steps for processing a quality check depend upon the type of check being conducted.
-   For information about processing each type of quality check, see the associated documentation:
+   处理质量检查的具体步骤取决于正在进行的检查类型。有关处理每种类型的质量检查的信息，请参阅相关文档：
 
    - :doc:`../quality_check_types/instructions_check`
    - :doc:`../quality_check_types/pass_fail_check`

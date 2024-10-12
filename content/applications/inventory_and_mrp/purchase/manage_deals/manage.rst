@@ -1,240 +1,181 @@
 ===================
-Manage vendor bills
+管理供应商账单
 ===================
 
 .. _inventory/purchase/manage_deals/manage:
 
-.. |PO| replace:: :abbr:`PO (Purchase Order)`
-.. |POs| replace:: :abbr:`POs (Purchase Orders)`
-.. |RfQ| replace:: :abbr:`RfQ (Request for Quotation)`
-.. |RfQs| replace:: :abbr:`RfQs (Requests for Quotation)`
+.. |PO| replace:: :abbr:`PO (采购订单)`
+.. |POs| replace:: :abbr:`POs (采购订单)`
+.. |RfQ| replace:: :abbr:`RfQ (询价单)`
+.. |RfQs| replace:: :abbr:`RfQs (询价单)`
 
-A *vendor bill* is an invoice received for products and/or services purchased by a company from a
-vendor. Vendor bills record payables as they arrive from vendors, and can include amounts owed for
-the goods and/or services purchased, sales taxes, freight and delivery charges, and more.
+*供应商账单* 是公司从供应商处购买的产品和/或服务的发票。供应商账单记录了来自供应商的应付款项，可以包括购买商品和/或服务的金额、销售税、运费和送货费用等。
 
-In Odoo, a vendor bill can be created at different points in the purchasing process, depending on
-the *bill control* policy chosen in the *Purchase* app's settings.
+在Odoo中，根据*采购*应用设置中选择的*账单控制*政策，可以在采购过程的不同阶段创建供应商账单。
 
-Bill control policies
+账单控制政策
 =====================
 
-To configure the default bill control policy, navigate to :menuselection:`Purchase app -->
-Configuration --> Settings`, and scroll to the :guilabel:`Invoicing` section.
+要配置默认的账单控制政策，请导航到 :menuselection:`采购应用 --> 配置 --> 设置`，然后滚动到 :guilabel:`发票` 部分。
 
-The :guilabel:`Bill Control` feature lists two policy options: :guilabel:`Ordered quantities` and
-:guilabel:`Received quantities`.
+:guilabel:`账单控制` 功能列出了两个政策选项：:guilabel:`订购数量` 和 :guilabel:`接收数量`。
 
-The policy selected acts as the default for any new product created. Each policy acts as follows:
+选择的政策将作为创建任何新产品的默认值。每个政策的作用如下：
 
-- :guilabel:`Ordered quantities`: creates a vendor bill as soon as a purchase order is confirmed.
-  The products and quantities in the purchase order are used to generate a draft bill.
-- :guilabel:`Received quantities`: a bill is only created **after** all (or part) of the total order
-  has been received. The products and quantities received are used to generate a draft bill.
+- :guilabel:`订购数量`: 一旦确认采购订单，便创建供应商账单。采购订单中的产品和数量用于生成草稿账单。
+- :guilabel:`接收数量`: 只有在收到所有（或部分）订单后，才创建账单。接收到的产品和数量用于生成草稿账单。
 
 .. image:: manage/manage-configuration-settings.png
    :align: center
-   :alt: Bill control policies in purchase app settings.
+   :alt: 采购应用设置中的账单控制政策。
 
-Once a policy is selected, click :guilabel:`Save` to save the changes.
+选择政策后，点击 :guilabel:`保存` 以保存更改。
 
 .. tip::
-   If a product needs a different control policy than the one set in the *Purchase* app settings,
-   that product's control policy can be overridden by going to the :guilabel:`Purchase` tab on a
-   product form, and selecting the desired policy in the :guilabel:`Control Policy` field.
+   如果某个产品需要与*采购*应用设置中不同的控制政策，可以通过进入产品表单的 :guilabel:`采购` 标签，并在 :guilabel:`控制政策` 字段中选择所需政策来覆盖该产品的控制政策。
 
    .. image:: manage/manage-product-form.png
       :align: center
-      :alt: Control policy field on product form.
+      :alt: 产品表单上的控制政策字段。
 
-3-way matching
+三方匹配
 --------------
 
-The *3-way matching* policy ensures vendor bills are only paid once all (or some) products in a
-purchase order (PO) have been received.
+*三方匹配*政策确保只有在收到采购订单 (PO) 中的所有（或部分）产品后，供应商账单才会支付。
 
-To activate 3-way matching, navigate to :menuselection:`Purchase app --> Configuration -->
-Settings`, and scroll to the :guilabel:`Invoicing` section.
+要激活三方匹配，请导航到 :menuselection:`采购应用 --> 配置 --> 设置`，然后滚动到 :guilabel:`发票` 部分。
 
-Tick the checkbox next to :guilabel:`3-way matching`, and click :guilabel:`Save`.
+勾选 :guilabel:`三方匹配` 复选框，然后点击 :guilabel:`保存`。
 
 .. important::
-   The :guilabel:`3-way matching` feature is **only** intended to work with the :guilabel:`Bill
-   Control` policy set to :guilabel:`Received quantities`.
+   :guilabel:`三方匹配` 功能**仅**适用于设置为 :guilabel:`接收数量` 的账单控制政策。
 
-Create and manage vendor bills on receipts
+在收货单上创建和管理供应商账单
 ==========================================
 
-When products are received into a company's warehouse, receipts are created. Once the company
-processes the received quantities, they can choose to create a vendor bill directly from the
-warehouse receipt form.
+当产品被接收到公司的仓库时，会生成收货单。一旦公司处理了接收到的数量，他们可以选择直接从仓库收货单表单中创建供应商账单。
 
-Depending on the bill control policy chosen in the settings, vendor bill creation is completed at
-different steps of the procurement process.
+根据设置中选择的账单控制政策，供应商账单的创建在采购过程中会在不同的步骤完成。
 
-Ordered quantities
+订购数量
 ------------------
 
-To create and manage vendor bills for receipts with the *Bill Control* policy set to *Ordered
-Quantities*, first navigate to the :menuselection:`Purchase app`, and click :guilabel:`New` from the
-:guilabel:`Requests for Quotation` dashboard.
+要为收货单创建和管理*账单控制*政策设置为*订购数量*的供应商账单，首先导航到 :menuselection:`采购应用`，然后点击 :guilabel:`新建`，从 :guilabel:`询价单` 仪表板中打开一个新的 :guilabel:`询价单` 表单。
 
-Doing so opens a new :guilabel:`Request for Quotation` (RfQ) form. On the blank |RfQ| form, add a
-:guilabel:`Vendor`, and click :guilabel:`Add a line` under the :guilabel:`Product` tab to add
-products to the order.
+在空白的 |RfQ| 表单中，添加一个 :guilabel:`供应商`，然后在 :guilabel:`产品` 选项卡下点击 :guilabel:`添加一行` 以向订单中添加产品。
 
-On the product line, select a product from the drop-down menu in the :guilabel:`Product` field, and
-enter the quantity to order in the :guilabel:`Quantity` field.
+在产品行中，从 :guilabel:`产品` 字段的下拉菜单中选择一个产品，并在 :guilabel:`数量` 字段中输入订购数量。
 
-Once ready, click :guilabel:`Confirm Order` to confirm the |RfQ| into a |PO|.
+准备就绪后，点击 :guilabel:`确认订单` 将询价单确认为采购订单 (PO)。
 
-Then, click :guilabel:`Create Bill` to create a vendor bill. This opens a :guilabel:`Vendor Bill`
-form in the :guilabel:`Draft` state. From here, add a billing date in the :guilabel:`Bill Date`
-field.
+然后，点击 :guilabel:`创建账单` 创建供应商账单。这将打开一个处于 :guilabel:`草稿` 状态的 :guilabel:`供应商账单` 表单。在这里，在 :guilabel:`账单日期` 字段中添加账单日期。
 
-Once ready, confirm the bill by clicking :guilabel:`Confirm` on the :guilabel:`Vendor Bill` page.
+准备就绪后，通过点击 :guilabel:`确认` 来确认账单。
 
 .. tip::
-   Since the bill control policy is set to *Ordered quantities*, the draft bill can be confirmed as
-   soon as it is created, before any products have been received.
+   由于账单控制政策设置为*订购数量*，草稿账单可以在创建后立即确认，而无需等待接收到产品。
 
-Once a payment has been received, click :guilabel:`Register Payment` at the top of the bill to
-record it.
+一旦收到付款，点击账单顶部的 :guilabel:`登记付款` 来记录付款。
 
-Doing so causes a :guilabel:`Register Payment` pop-up window to appear, wherein a payment
-:guilabel:`Journal` can be chosen, and a :guilabel:`Payment Method` selected.
+这样会弹出一个 :guilabel:`登记付款` 弹出窗口，在此窗口中可以选择付款的 :guilabel:`日记账`，并选择 :guilabel:`付款方式`。
 
-Additionally, the bill :guilabel:`Amount`, :guilabel:`Payment Date`, and :guilabel:`Memo`
-(:dfn:`Reference Number`) can be edited from this pop-up window, if necessary.
+此外，账单的 :guilabel:`金额`，:guilabel:`付款日期`，以及 :guilabel:`备注`（即 :dfn:`参考编号`）也可以在此弹出窗口中进行编辑。
 
-Once ready, click :guilabel:`Create Payment` to finish creating the :guilabel:`Vendor Bill`. Doing
-so displays a green :guilabel:`Paid` banner on the |RfQ| form.
+准备就绪后，点击 :guilabel:`创建付款` 以完成 :guilabel:`供应商账单` 的创建。这样会在询价单表单上显示一个绿色的 :guilabel:`已支付` 横幅。
 
 .. image:: manage/manage-draft-vendor-bill.png
    :align: center
-   :alt: Vendor bill form for ordered quantities control policy.
+   :alt: 适用于订购数量控制政策的供应商账单表单。
 
-Received quantities
+接收数量
 -------------------
 
-To create and manage vendor bills for receipts with the bill control policy set to *Received
-quantities*, first navigate to the :menuselection:`Purchase` app, and click :guilabel:`New`.
+要为收货单创建和管理*账单控制*政策设置为*接收数量*的供应商账单，首先导航到 :menuselection:`采购应用`，然后点击 :guilabel:`新建`。
 
-Doing so opens a new |RfQ| form. On the blank |RfQ| form, add a :guilabel:`Vendor`, and click
-:guilabel:`Add a line` under the :guilabel:`Product` tab to add products to the order.
+这样会打开一个新的 |RfQ| 表单。在空白的 |RfQ| 表单中，添加一个 :guilabel:`供应商`，然后在 :guilabel:`产品` 选项卡下点击 :guilabel:`添加一行` 以向订单中添加产品。
 
-On the product line, select a product from the drop-down menu in the :guilabel:`Product` field, and
-enter the quantity to order in the :guilabel:`Quantity` field.
+在产品行中，从 :guilabel:`产品` 字段的下拉菜单中选择一个产品，并在 :guilabel:`数量` 字段中输入订购数量。
 
-Once ready, click :guilabel:`Confirm Order` to confirm the |RfQ| into a |PO|.
+准备就绪后，点击 :guilabel:`确认订单` 将询价单确认为采购订单 (PO)。
 
 .. important::
-   When using the *Received quantities* control policy, clicking :guilabel:`Create Bill` before any
-   products are received causes an :guilabel:`Invalid Operation` pop-up window to appear.
+   当使用*接收数量*控制政策时，如果在接收到任何产品之前点击 :guilabel:`创建账单`，则会出现 :guilabel:`操作无效` 弹出窗口。
 
-   Odoo requires at least partial quantities of the items included in the |PO| to be received in
-   order to create a vendor bill.
+   Odoo要求至少接收到部分采购订单中的物品，才能创建供应商账单。
 
    .. image:: manage/manage-user-error-popup.png
       :align: center
-      :alt: User error pop-up for received quantities control policy.
+      :alt: 适用于接收数量控制政策的用户错误弹出窗口。
 
-On the |PO|, click the :guilabel:`Receipt` smart button to view the warehouse receipt form.
+在 |PO| 中，点击 :guilabel:`收货` 智能按钮查看仓库收货表单。
 
-From here, click :guilabel:`Validate` to register the :guilabel:`Done` (received) quantities.
+在此处，点击 :guilabel:`验证` 以登记 :guilabel:`完成` (已接收) 的数量。
 
-Then, navigate back to the |PO|, via the breadcrumb, and click :guilabel:`Create Bill`.
+然后，通过面包屑导航返回到 |PO|，并点击 :guilabel:`创建账单`。
 
-This opens a :guilabel:`Vendor Bill` form in the :guilabel:`Draft` state. From here, add a billing
-date in the :guilabel:`Bill Date` field. Once ready, confirm the bill by clicking
-:guilabel:`Confirm` at the top of the draft.
+这将打开一个处于 :guilabel:`草稿` 状态的 :guilabel:`供应商账单` 表单。在这里，在 :guilabel:`账单日期` 字段中添加账单日期。准备就绪后，点击草稿顶部的 :guilabel:`确认` 来确认账单。
 
-Once a payment has been received, click :guilabel:`Register Payment` at the top of the bill to
-record it.
+一旦收到付款，点击账单顶部的 :guilabel:`登记付款` 来记录付款。
 
-Doing so causes a :guilabel:`Register Payment` pop-up window to appear, wherein a payment
-:guilabel:`Journal` can be chosen, and a :guilabel:`Payment Method` selected.
+这样会弹出一个 :guilabel:`登记付款` 弹出窗口，在此窗口中可以选择付款的 :guilabel:`日记账`，并选择 :guilabel:`付款方式`。
 
-Additionally, the bill :guilabel:`Amount`, :guilabel:`Payment Date`, and :guilabel:`Memo`
-(:dfn:`Reference Number`) can be edited from this pop-up window, if necessary.
+此外，账单的 :guilabel:`金额`，:guilabel:`付款日期`，以及 :guilabel:`备注`（即 :dfn:`参考编号`）也可以在此弹出窗口中进行编辑。
 
-Once ready, click :guilabel:`Create Payment` to finish creating the :guilabel:`Vendor Bill`. Doing
-so displays a green :guilabel:`Paid` banner on the |RfQ| form.
+准备就绪后，点击 :guilabel:`创建付款` 以完成 :guilabel:`供应商账单` 的创建。这样会在询价单表单上显示一个绿色的 :guilabel:`已支付` 横幅。
 
-Manage vendor bills in Accounting
+在会计中管理供应商账单
 =================================
 
-Vendor bills can also be created directly from the *Accounting* app, without having to create a
-purchase order first.
+供应商账单也可以直接从*会计*应用中创建，而不必先创建采购订单。
 
-Navigate to :menuselection:`Accounting app --> Vendors --> Bills`, and click :guilabel:`New`. Doing
-so reveals a blank :guilabel:`Vendor Bill` form.
+导航到 :menuselection:`会计应用 --> 供应商 --> 账单`，然后点击 :guilabel:`新建`。这样会显示一个空白的 :guilabel:`供应商账单` 表单。
 
-Add a vendor in the :guilabel:`Vendor` field. Then, in the :guilabel:`Invoice Lines` tab, click
-:guilabel:`Add a line` to add products.
+在 :guilabel:`供应商` 字段中添加一个供应商。然后，在 :guilabel:`发票明细` 选项卡中，点击 :guilabel:`添加一行` 以添加产品。
 
-Select a product from the drop-down menu in the :guilabel:`Product` field, and enter the quantity to
-order in the :guilabel:`Quantity` field.
+从 :guilabel:`产品` 字段的下拉菜单中选择一个产品，并在 :guilabel:`数量` 字段中输入订购数量。
 
-Select a :guilabel:`Bill Date`, and configure any other necessary information. Finally, click
-:guilabel:`Confirm` to confirm the bill.
+选择一个 :guilabel:`账单日期`，并配置其他必要的信息。最后，点击 :guilabel:`确认` 来确认账单。
 
-Once confirmed, click the :guilabel:`Journal Items` tab to view the :guilabel:`Account` journals.
-These journals are populated based on the configuration on the corresponding :guilabel:`Vendor` and
-:guilabel:`Product` forms.
+确认后，点击 :guilabel:`日记账条目` 选项卡查看 :guilabel:`账户` 日记账。这些日记账是根据相应的 :guilabel:`供应商` 和 :guilabel:`产品` 表单上的配置自动填充的。
 
-If necessary, click :guilabel:`Credit Note` to add a credit note to the bill. Additionally, a
-:guilabel:`Bill Reference` number can be added.
+如果需要，可以点击 :guilabel:`贷记通知` 向账单添加贷记通知。此外，还可以添加一个 :guilabel:`账单参考` 编号。
 
-Once ready, click :guilabel:`Register Payment`, followed by :guilabel:`Create Payment`, to complete
-the :guilabel:`Vendor Bill`.
+准备就绪后，点击 :guilabel:`登记付款`，然后点击 :guilabel:`创建付款` 来完成 :guilabel:`供应商账单`。
 
 .. tip::
-   To link a draft bill to an existing purchase order, click the drop-down menu next to
-   :guilabel:`Auto-Complete` *before* clicking :guilabel:`Confirm`, and select a |PO| from the menu.
+   要将草稿账单链接到现有采购订单，请在点击 :guilabel:`确认` 之前，点击 :guilabel:`自动填充` 下拉菜单，并从菜单中选择一个 |PO|。
 
-   The bill auto-populates with the information from the chosen |PO|.
+   该账单将根据所选 |PO| 的信息自动填充。
 
    .. image:: manage/manage-auto-complete.png
       :align: center
-      :alt: Auto-complete drop-down list on draft vendor bill.
+      :alt: 草稿供应商账单上的自动填充下拉列表。
 
-Batch billing
+批量开具账单
 =============
 
-Vendor bills can be processed and managed in batches in the *Accounting* app.
+供应商账单可以在*会计*应用中批量处理和管理。
 
-Navigate to :menuselection:`Accounting app --> Vendors --> Bills`. Then, click the
-:guilabel:`checkbox` in the top-left corner, beside the :guilabel:`Number` column, under the
-:guilabel:`New` button.
+导航到 :menuselection:`会计应用 --> 供应商 --> 账单`。然后，在 :guilabel:`新建` 按钮下方的 :guilabel:`编号` 列旁边点击 :guilabel:`复选框`。
 
-This selects all existing vendor bills with a :guilabel:`Status` of :guilabel:`Posted` or
-:guilabel:`Draft`.
+这样会选择所有状态为 :guilabel:`已发布` 或 :guilabel:`草稿` 的现有供应商账单。
 
-Click the :icon:`fa-print` :guilabel:`Print` button to print the selected invoices or bills.
+点击 :icon:`fa-print` :guilabel:`打印` 按钮以打印选定的发票或账单。
 
-Click :guilabel:`Register Payment` to create and process payments for multiple vendor bills at once.
+点击 :guilabel:`登记付款` 以同时为多个供应商账单创建和处理付款。
 
 .. note::
-   Only payments with their :guilabel:`Status` listed as :guilabel:`Posted` can be billed in
-   batches. Payments in the :guilabel:`Draft` stage **must** be posted before they can be included
-   in a batch billing.
+   只有其 :guilabel:`状态` 列表为 :guilabel:`已发布` 的付款才能批量开账单。**草稿**阶段的付款必须**发布**后才能包含在批量开账单中。
 
-Clicking :guilabel:`Register Payment` opens a :guilabel:`Register Payment` pop-up window. From the
-pop-up window, select the :guilabel:`Journal` the bills should post to, choose a :guilabel:`Payment
-Date`, and select a :guilabel:`Payment Method`.
+点击 :guilabel:`登记付款` 会弹出一个 :guilabel:`登记付款` 弹出窗口。在弹出窗口中选择账单应发布的 :guilabel:`日记账`，选择 :guilabel:`付款日期`，并选择 :guilabel:`付款方式`。
 
-There is also the option to :guilabel:`Group Payments` together from this pop-up window, as well. If
-this checkbox is ticked, only one payment is created, instead of one per bill. This option only
-appears if the *Batch Payments* feature is enabled in the settings of the
-:menuselection:`Accounting` app.
+还有一个选项可以在此弹出窗口中 :guilabel:`合并付款`。如果勾选此复选框，则只创建一个付款，而不是每个账单一个。如果*批量付款*功能已在会计应用的设置中启用，则此选项才会出现。
 
-Once ready, click the :guilabel:`Create Payment` button. This creates a list of journal entries on a
-separate page. The journal entries on this list are all tied to their corresponding vendor bills.
+准备就绪后，点击 :guilabel:`创建付款` 按钮。这会在单独的页面上创建一份日记账条目列表。此列表中的日记账条目都与其对应的供应商账单相关联。
 
 .. image:: manage/manage-batch-billing.png
    :align: center
-   :alt: Batch billing register payment pop-up window.
+   :alt: 批量账单登记付款弹出窗口。
 
 .. seealso::
    :doc:`control_bills`

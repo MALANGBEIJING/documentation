@@ -1,5 +1,5 @@
 =========================
-Engineering change orders
+工程变更订单 (ECO)
 =========================
 
 .. |BOM| replace:: :abbr:`BoM (Bill of Materials)`
@@ -9,371 +9,258 @@ Engineering change orders
 
 .. _plm/eco:
 
-Utilize *engineering change orders* (*ECOs*) to track, implement, and revert change versions made to
-products, and :doc:`bills of materials <../../manufacturing/basic_setup/bill_configuration>`.
+使用*工程变更订单* (*ECOs*) 来跟踪、实施和还原产品及 :doc:`物料清单 <../../manufacturing/basic_setup/bill_configuration>` (|BOMs|) 的更改版本。
 
-Engineering change orders can be created:
+工程变更订单可以通过以下方式创建：
 
-#. :ref:`directly in the ECO type <plm/eco/create-eco>`.
-#. by an operator in the :ref:`tablet view <plm/eco/tablet-view>` of an operation.
-#. automatically from feedback submitted to the :ref:`ECO type's email alias <plm/eco/eco-type>`.
+#. :ref:`直接在 ECO 类型 <plm/eco/create-eco>` 中创建。
+#. 由操作员在 :ref:`操作的平板视图 <plm/eco/tablet-view>` 中创建。
+#. 从反馈自动生成，提交至 :ref:`ECO 类型的电子邮件别名 <plm/eco/eco-type>`。
 
 .. _plm/eco/create-eco:
 
-Create ECO
+创建 ECO
 ==========
 
-To create a new |ECO|, begin by navigating to the *PLM* app. Then, select the |ECO| type card that
-will be used to track the progress of the change. On the :guilabel:`Engineering Change Orders` page,
-click the :guilabel:`New` button in the top-left corner.
+要创建新的 |ECO|，请导航到 *PLM* 应用，然后选择将用于跟踪更改进度的 |ECO| 类型卡片。在 :guilabel:`工程变更订单` 页面，点击左上角的 :guilabel:`新建` 按钮。
 
 .. note::
-   Learn how to create new :ref:`ECO types <plm/eco/eco-type>` to categorize and organize change
-   orders. Doing so ensures employees only view the |ECOs| related to their responsibilities,
-   whether it involves new product introductions, targeted product line updates, or regulatory
-   compliance fulfillment.
+   了解如何创建新的 :ref:`ECO 类型 <plm/eco/eco-type>` 来分类和组织变更订单。这样可确保员工仅查看与其职责相关的 |ECOs|，无论是新产品引入、针对特定产品线的更新，还是法规遵从性。
 
-On the |ECO| form, fill in the following fields accordingly:
+在 |ECO| 表单中，填写以下字段：
 
-- :guilabel:`Description` is a brief summary of the improvement.
-- :guilabel:`Type`: specifies the |ECO| type project for organizing the |ECOs|.
-- :guilabel:`Apply on` determines if the |ECO| changes the :guilabel:`Bill of Materials` or the
-  :guilabel:`Product Only`.
-- :guilabel:`Product` indicates the product being improved.
-- :guilabel:`Bill of Materials` specifies the changed |BOM|. It auto-populates if the product in
-  :guilabel:`Product` field has an existing |BOM|. If multiple |BOMs| exist, select the intended
-  radio options from the drop-down menu.
-- :guilabel:`Company` field is used in multi-company databases. Specify if the change applies to
-  products in a specific company, or leave blank if the change applies to all companies.
-- :guilabel:`Responsible` represents the assignee in charge of this |ECO|. (Optional)
-- :guilabel:`Effective` specifies when the |ECO| becomes live. Choosing :guilabel:`As soon as
-  possible` means the |ECO| applies to the production |BOM| as soon as an authorized user
-  :ref:`applies the changes <plm/eco/apply-changes>`.
+- :guilabel:`描述` 是改进的简要摘要。
+- :guilabel:`类型`：用于指定 |ECO| 类型项目，以组织 |ECOs|。
+- :guilabel:`适用于` 确定 |ECO| 是更改 :guilabel:`物料清单` 还是 :guilabel:`仅更改产品`。
+- :guilabel:`产品` 指示正在改进的产品。
+- :guilabel:`物料清单` 指定更改的 |BOM|。如果 :guilabel:`产品` 字段中的产品已有现有 |BOM|，则该字段会自动填充。如果有多个 |BOM|，从下拉菜单中选择适当的选项。
+- :guilabel:`公司` 字段在多公司数据库中使用。指定更改是否适用于特定公司的产品，或留空表示适用于所有公司。
+- :guilabel:`负责人` 表示负责此 |ECO| 的指派人员。（可选）
+- :guilabel:`生效` 指定 |ECO| 何时生效。选择 :guilabel:`尽快` 表示当授权用户 :ref:`应用更改 <plm/eco/apply-changes>` 后，|ECO| 会立即适用于生产 |BOM|。
 
-  On the other hand, choosing :guilabel:`At Date`, and setting a specific date, leaves a date that
-  makes it easier to track the version history of the |BOM|, and the specific date |BOMs|, used for
-  production.
-- :guilabel:`Tags` are assigned to |ECOs| for prioritization and organization. Create a new tag by
-  typing the name in the field and selecting :guilabel:`Create` from the drop-down menu. (Optional)
+  另一方面，选择 :guilabel:`指定日期` 并设置特定日期，可以更容易跟踪 |BOM| 的版本历史记录，以及生产中使用的特定 |BOM| 日期。
+- :guilabel:`标签` 用于分配 |ECOs| 的优先级和组织。通过在字段中输入名称并从下拉菜单中选择 :guilabel:`创建`，可以创建新的标签。（可选）
 
-After filling out the |ECO| form, click the :guilabel:`Start Revision` button to begin implementing
-the changes.
+填写完 |ECO| 表单后，点击 :guilabel:`开始修订` 按钮以开始实施更改。
 
-By pressing :guilabel:`Start Revision`, three actions occur:
+按下 :guilabel:`开始修订` 后，会发生以下三件事：
 
-#. The :guilabel:`Documents` smart button appears, storing relevant files of the |BOM|.
-#. A copy of the production |BOM| is stored in the newly-appeared :guilabel:`Revision` smart button
-   of the |ECO|. The next available version number (e.g., `V2`, `V3`, ...) is also assigned to keep
-   track of all |BOM| versions.
-#. The stages of the |ECO| :guilabel:`Type` are displayed in the top-right corner of the |ECO|.
+#. :guilabel:`文档` 智能按钮出现，用于存储相关的 |BOM| 文件。
+#. 生产 |BOM| 的副本会存储在新出现的 |ECO| 的 :guilabel:`修订` 智能按钮中。系统还会分配下一个可用的版本号（例如，`V2`, `V3`, ...），以便跟踪所有 |BOM| 版本。
+#. |ECO| 类型的阶段会显示在 |ECO| 的右上角。
 
 .. note::
-   The :guilabel:`Revision` smart button is available **only** when the :guilabel:`Bill of
-   Materials` radio button is selected in the :guilabel:`Apply on` field, and the :guilabel:`Start
-   Revision` button has been pressed.
+   当 :guilabel:`适用于物料清单` 被选中并且按下 :guilabel:`开始修订` 按钮时，:guilabel:`修订` 智能按钮才会可用。
 
 .. image:: engineering_change_orders/eco-form.png
    :align: center
-   :alt: ECO with overview of stages in the top-right corner, and *Revision* smart button.
+   :alt: 包含右上角阶段概述的 ECO，以及 *修订* 智能按钮。
 
-Change components
+更改组件
 =================
 
-To modify the components in a |BOM|, click the :guilabel:`Revision` smart button on an |ECO| to
-access the new version of the |BOM|. Odoo distinguishes the non-production version of the |BOM| from
-the current version, by flagging the test |BOM| with a large :guilabel:`Archived` tag.
+要修改 |BOM| 中的组件，请点击 |ECO| 中的 :guilabel:`修订` 按钮，进入 |BOM| 的新版本。Odoo 会将非生产版本的 |BOM| 标记为 :guilabel:`归档` 标签，以便与当前版本区分开来。
 
 .. example::
-   After clicking the :guilabel:`Start Revision` button for an |ECO| for the product, `[D_0045
-   Stool]`, make changes to the product's |BOM| by clicking the :guilabel:`Revision` smart button.
-   Doing so opens the archived |BOM|, marked with a large red :guilabel:`Archived` flag.
+   点击产品 `[D_0045 凳子]` 的 |ECO| 的 :guilabel:`开始修订` 按钮后，可以通过点击 :guilabel:`修订` 智能按钮更改产品的 |BOM|。这样将打开标有红色 :guilabel:`归档` 标签的归档 |BOM|。
 
    .. image:: engineering_change_orders/archived-bom.png
       :align: center
-      :alt: Show the archived Bill of Materials.
+      :alt: 显示已归档的物料清单。
 
-On the new |BOM|, in the :guilabel:`Components` tab, proceed to modify the components list, by
-changing the :guilabel:`Quantity` of existing components, adding new components using the
-:guilabel:`Add a line` button, and removing components with the :guilabel:`🗑️ (trash)` icon.
+在新的 |BOM| 中，在 :guilabel:`组件` 选项卡中，继续修改组件列表，变更现有组件的 :guilabel:`数量`，使用 :guilabel:`添加行` 按钮添加新组件，并使用 :guilabel:`🗑️ (删除)` 图标移除组件。
 
 .. _plm/eco/example-keyboard:
 
 .. example::
-   In version two of the |BOM| for a keyboard, the component quantities are reduced, and an
-   additional component, `Stabilizers`, is added.
+   在键盘 |BOM| 的第二个版本中，减少了组件数量，并添加了新组件 `稳定器`。
 
    .. image:: engineering_change_orders/version-2-bom.png
       :align: center
-      :alt: Make changes to components by going to the new BoM with the *Revision* smart button.
+      :alt: 通过 *修订* 智能按钮进入新 BoM 并更改组件。
 
-Compare changes
+比较更改
 ---------------
 
-Once the changes are complete, navigate back to the |ECO|, by clicking `ECO00X` in the breadcrumbs
-located in the top-left corner. On the |ECO| form, a new :guilabel:`BoM Changes` tab displays the
-differences between the current |BOM| and the new version.
+完成更改后，导航回 |ECO|，通过点击左上角的面包屑 `ECO00X` 返回。在 |ECO| 表单中，新的 :guilabel:`BOM 更改` 选项卡会显示当前 |BOM| 与新版本之间的差异。
 
-Blue text indicates new components added to the revised |BOM| that are not in the production |BOM|.
-Black text represents updates shared by both |BOMs|, while red text indicates components removed in
-the revised |BOM|.
+蓝色文本表示添加到修订版 |BOM| 的新组件，这些组件在生产 |BOM| 中没有。黑色文本表示两个 |BOM| 共享的更新，而红色文本表示修订版 |BOM| 中删除的组件。
 
-Changes and tests are encapsulated in the revised |BOM|, and do **not** affect the |BOM| currently
-used in production. That is, until the :ref:`changes are applied <plm/eco/apply-changes>`.
+更改和测试都封装在修订版 |BOM| 中，并且不会影响当前用于生产的 |BOM|。也就是说，直到 :ref:`应用更改 <plm/eco/apply-changes>` 后，才会影响。
 
 .. example::
-   View the summary of the differences between the current and revised keyboard |BOMs| in the
-   :guilabel:`BoM Changes` tab of the |ECO|.
+   在 |ECO| 的 :guilabel:`BOM 更改` 选项卡中查看当前与修订版键盘 |BOM| 之间的差异摘要。
 
    .. image:: engineering_change_orders/bom-changes.png
       :align: center
-      :alt: View summary of component changes in the *BoM Changes* tab.
+      :alt: 在 *BOM 更改* 选项卡中查看组件更改的摘要。
 
-Change operations
+更改操作
 =================
 
-To modify the operations in a |BOM|, click the :guilabel:`Revision` smart button on an |ECO| to
-access the archived, new version of the |BOM|.
+要修改 |BOM| 中的操作，请点击 |ECO| 中的 :guilabel:`修订` 按钮，进入存档的 |BOM| 新版本。
 
-In the new |BOM| version, switch to the :guilabel:`Operations` tab to view and edit |BOM|
-operations. To make changes, select each operation, which opens the corresponding :guilabel:`Open:
-Operations` pop-up window.
+在新的 |BOM| 版本中，切换到 :guilabel:`操作` 选项卡以查看和编辑 |BOM| 操作。要进行更改，请选择每个操作，这会打开相应的 :guilabel:`打开：操作` 弹出窗口。
 
 .. note::
-   The :guilabel:`Operations` tab is *not* available by default. To enable it, navigate to
-   :menuselection:`Manufacturing app --> Configuration --> Settings`, and check the :guilabel:`Work
-   Orders` box.
+   :guilabel:`操作` 选项卡默认不可用。要启用它，请导航至 :menuselection:`制造应用 --> 配置 --> 设置`，并勾选 :guilabel:`工作单` 复选框。
 
-Make changes to any of the fields in the :guilabel:`Open: Operations` pop-up window, then click
-:guilabel:`Save` once completed.
+对 :guilabel:`打开：操作` 弹出窗口中的任何字段进行更改，完成后点击 :guilabel:`保存`。
 
-Create new operations by clicking the :guilabel:`Add a line` button, and remove new operations by
-clicking the :guilabel:`Archive Operation` button.
+通过点击 :guilabel:`添加行` 按钮创建新操作，并通过点击 :guilabel:`归档操作` 按钮删除新操作。
 
-Compare changes
+比较更改
 ---------------
 
-Once the changes are complete, navigate back to the |ECO|, by clicking `ECO00X` in the breadcrumbs
-located in the top-left corner.
+完成更改后，导航回 |ECO|，通过点击左上角的面包屑 `ECO00X` 返回。
 
-On the |ECO| form, a new :guilabel:`Operation Changes` tab displays the differences between the
-current production |BOM| and the new version.
+在 |ECO| 表单中，新的 :guilabel:`操作更改` 选项卡显示当前生产 |BOM| 与新版本之间的差异。
 
-Blue text indicates new operations added to the revised |BOM| that do not yet exist in the
-production |BOM|. Black text represents updates shared by both |BOMs|, while red text indicates
-operations removed in the revised |BOM|.
 
-Modifications to the |BOM| in an |ECO| will **not** affect the |BOM| used in production. That is,
-until the :ref:`changes are applied <plm/eco/apply-changes>`.
+蓝色文本表示在修订版 |BOM| 中添加的新操作，这些操作在生产 |BOM| 中尚不存在。黑色文本代表两个 |BOM| 共享的更新，而红色文本表示在修订版 |BOM| 中删除的操作。
 
-In the :guilabel:`Operation Changes` tab, each row of details, beneath the columns in the table,
-reflect the following information:
+在 |ECO| 中对 |BOM| 的修改**不会**影响用于生产的 |BOM|。也就是说，直到 :ref:`更改被应用 <plm/eco/apply-changes>` 之后，才会生效。
 
-- :guilabel:`Operation`: Name of the operation that was modified.
-- :guilabel:`Step`: specifies the quality control point, visible when the operation includes
-  detailed instructions.
+在 :guilabel:`操作更改` 选项卡中，表格下方的每一行详细信息反映了以下信息：
+
+- :guilabel:`操作`: 被修改的操作名称。
+- :guilabel:`步骤`: 指定操作中的质量控制点，当操作包括详细说明时可见。
 
 .. note::
-   To check for instructions, click the operation line item in the :guilabel:`Operations` tab of a
-   |BOM|. Then, in the :guilabel:`Open: Operations` pop-up window, look for the
-   :guilabel:`Instructions` smart button displayed at the top.
+   若要检查说明，点击 |BOM| 的 :guilabel:`操作` 选项卡中的操作条目。然后，在 :guilabel:`打开操作` 弹出窗口中查找显示在顶部的 :guilabel:`说明` 智能按钮。
 
 .. example::
-   The `Assembly` :guilabel:`Operation` includes `10` detailed :guilabel:`Instructions` to complete
-   it.
+   `装配` :guilabel:`操作` 包括完成操作所需的 `10` 个详细 :guilabel:`说明`。
 
    .. image:: engineering_change_orders/instructions-smart-button.png
       :align: center
-      :alt: Show *Instructions* smart button to check whether an operation has additional
-            instructions.
+      :alt: 显示 *说明* 智能按钮，以检查操作是否有附加说明。
 
-- :guilabel:`Step Type` details the type of quality control for further instructions in the
-  operation.
-- :guilabel:`Type` corresponds with the colored text to specify how the revised |BOM| differs from
-  the production |BOM|. Operation change types can be :guilabel:`Add`, :guilabel:`Remove`, or
-  :guilabel:`Update`.
-- :guilabel:`Work Center` specifies the work center at which the operation is performed.
-- :guilabel:`Manual Duration Change` refers to the change in the :guilabel:`Default Duration` field
-  in the :guilabel:`Open: Operations` pop-up window, which specifies the expected time for
-  completing the operation.
+- :guilabel:`步骤类型`: 详细说明操作中的质量控制类型。
+- :guilabel:`类型`: 对应于彩色文本，指定修订版 |BOM| 与生产 |BOM| 之间的差异。操作更改类型可以是 :guilabel:`添加`、:guilabel:`删除` 或 :guilabel:`更新`。
+- :guilabel:`工作中心`: 指定执行操作的工作中心。
+- :guilabel:`手动时长变更`: 指的是 :guilabel:`默认时长` 字段中的更改，指定完成操作的预期时间。
 
 .. example::
-   The :guilabel:`Operation Changes` tab compares the production |BOM| with the revised |BOM| in the
-   |ECO|.
+   :guilabel:`操作更改` 选项卡比较了生产 |BOM| 与修订版 |BOM| 中的操作。
 
-   In the revised |BOM|, a new `Assembly` :guilabel:`Operation` at the :guilabel:`Work Center`
-   `Assembly Line 1` is added. In addition, the expected duration of the operation is `20.00`
-   minutes, as specified by the :guilabel:`Manual Duration Change`.
+   在修订版 |BOM| 中，添加了一个新的 `装配` :guilabel:`操作`，该操作在 :guilabel:`工作中心` `装配线 1` 处执行。此外，操作的预期时长为 `20.00` 分钟，由 :guilabel:`手动时长变更` 指定。
 
-   To supplement the `Assembly` operation, two quality control point instructions are added:
+   为了补充 `装配` 操作，添加了两个质量控制点说明：
 
-   #. The first is the :guilabel:`Step` `QCP00039`, a :guilabel:`Step Type` to :guilabel:`Register
-      Production` of components.
-   #. The second :guilabel:`Step` is `QCP00034`, an `Instructions` :guilabel:`Step Type` that
-      provides additional assembly details.
+   1. 第一个是 :guilabel:`步骤` `QCP00039`，其 :guilabel:`步骤类型` 为 :guilabel:`登记组件生产`。
+   2. 第二个 :guilabel:`步骤` 是 `QCP00034`，其 `说明` :guilabel:`步骤类型` 提供了额外的装配细节。
 
-   .. image:: engineering_change_orders/operation-changes.png
+.. image:: engineering_change_orders/operation-changes.png
       :align: center
-      :alt: Show *Operation Changes* tab in an |ECO|.
+      :alt: 显示 |ECO| 中 *操作更改* 选项卡。
 
 .. _plm/eco/apply-changes:
 
-Apply changes
+应用更改
 =============
 
-After verifying the changes, move the |ECO| to a :ref:`verification stage <plm/eco/stage-config>`,
-which are stages that require approval before the revised changes can be applied to the production
-|BOM|.
+在验证更改后，将 |ECO| 移动到 :ref:`验证阶段 <plm/eco/stage-config>`，这是要求批准的阶段，修订的更改在被批准之前无法应用到生产 |BOM|。
 
-Once the approvers accept the changes, the :guilabel:`Apply Changes` button becomes available. Click
-this button, and the |ECO| is automatically moved to a closing stage. The changes are applied, which
-archives the original production |BOM|, and the revised |BOM| becomes the new production |BOM|.
+一旦批准者接受更改，:guilabel:`应用更改` 按钮就会变得可用。单击此按钮后，|ECO| 将自动移动到结束阶段，更改会被应用，原始的生产 |BOM| 会被存档，而修订版 |BOM| 将成为新的生产 |BOM|。
 
-Verify changes
+验证更改
 --------------
 
-To ensure the changes are live, from the |ECO| where the :guilabel:`Apply Changes` button was just
-pressed, return to the revised |BOM| by clicking the :guilabel:`Revision` smart button.
+要确保更改已生效，从刚刚按下 :guilabel:`应用更改` 按钮的 |ECO| 中，点击 :guilabel:`修订` 智能按钮返回修订版 |BOM|。
 
-On the revised |BOM|, the large red :guilabel:`Archived` flag is removed.
+在修订版 |BOM| 上，显示的红色大 :guilabel:`已存档` 标记将被移除。
 
-To further verify the changes, check the production |BOM| by going to :menuselection:`Manufacturing
-app --> Products --> Products` and select the product.
+要进一步验证更改，请检查生产 |BOM|，路径为：:menuselection:`制造应用 --> 产品 --> 产品`，然后选择产品。
 
-Then, on the product form, click the :guilabel:`Bill of Materials` smart button, and select the
-|BOM| from the list. In the :guilabel:`Miscellaneous` tab of the |BOM|, the :guilabel:`Version`
-field is updated to match the version number shown on the :guilabel:`Revision` smart button of the
-latest |ECO|.
+接着，在产品表单中，点击 :guilabel:`物料清单` 智能按钮，从列表中选择 |BOM|。在 |BOM| 的 :guilabel:`杂项` 选项卡中，:guilabel:`版本` 字段将更新，以匹配最新 |ECO| 的 :guilabel:`修订` 智能按钮中显示的版本号。
 
 .. example::
-   After applying the changes of the |ECO| for the :ref:`keyboard <plm/eco/example-keyboard>`, view
-   the version of the current keyboard |BOM| in the :guilabel:`Miscellaneous` tab. Here, the
-   :guilabel:`Version` number has been updated to `2`, matching the `V2` that appears in the
-   :guilabel:`Revision` smart button of the |ECO|.
+   在应用了针对 :ref:`键盘 <plm/eco/example-keyboard>` 的 |ECO| 更改后，可在 :guilabel:`杂项` 选项卡中查看当前键盘 |BOM| 的版本。在此处，:guilabel:`版本` 号已更新为 `2`，与 |ECO| 中 :guilabel:`修订` 智能按钮中显示的 `V2` 一致。
 
    .. image:: engineering_change_orders/bom-version.png
       :align: center
-      :alt: View current *BOM* version in the Miscellaneous tab.
+      :alt: 在 *杂项* 选项卡中查看当前 *BOM* 版本。
 
 .. _plm/eco/tablet-view:
 
-Create ECO from tablet view
+从平板视图创建 |ECO|
 ===========================
 
-Operators can directly suggest clearer operation instructions, while performing manufacturing orders
-(MOs) in the *Manufacturing* app.
+操作员在执行制造订单 (MO) 时，可以直接建议更清晰的操作说明，操作路径为 *制造应用*。
 
-To create |ECOs| in this manner, begin by navigating to :menuselection:`Manufacturing app -->
-Operations --> Manufacturing Orders`. Then, select the desired :abbr:`MO (Manufacturing Order)` and
-switch to the :guilabel:`Work Orders` tab. Then, click the :guilabel:`📱 (mobile phone)` icon for
-the desired work order to open the *tablet view* of the operation.
+要以这种方式创建 |ECO|，首先导航到 :menuselection:`制造应用 --> 操作 --> 制造订单`。然后选择所需的 :abbr:`MO (制造订单)`，切换到 :guilabel:`工单` 选项卡。接着，点击所需工单的 :guilabel:`📱 (手机)` 图标以打开操作的*平板视图*。
 
 .. important::
-   The :guilabel:`📱 (mobile phone)` icon is **only** available for :abbr:`MOs (Manufacturing
-   Orders)` with a :guilabel:`Confirmed` or :guilabel:`In Progress` status.
+   只有当 :abbr:`MO (制造订单)` 处于 :guilabel:`已确认` 或 :guilabel:`进行中` 状态时，才会显示 :guilabel:`📱 (手机)` 图标。
 
 .. image:: engineering_change_orders/tablet-icon.png
-   :align: center
-   :alt: Find the tablet icon for each operation, second from the far right.
+      :align: center
+      :alt: 查找每个操作的平板图标，位于从右数第二个位置。
 
-Next, add an instructional step, by clicking the :guilabel:`☰ (three horizontal lines)` icon in the
-tablet view of an operation. Doing so opens the :guilabel:`Menu` of action items for a :abbr:`MO
-(Manufacturing Order)`. Then, click the :guilabel:`Add a step` button.
+接着，通过点击操作平板视图中的 :guilabel:`☰ (三条横线)` 图标来添加说明步骤。这样会打开 :abbr:`MO (制造订单)` 的 :guilabel:`菜单`。然后点击 :guilabel:`添加步骤` 按钮。
 
 .. image:: engineering_change_orders/additional-options-menu.png
-   :align: center
-   :alt: Open the *Add a Step* pop-up by clicking the three horizontal lines icon in tablet view.
+      :align: center
+      :alt: 点击平板视图中的三条横线图标打开 *添加步骤* 弹出窗口。
 
-Clicking the button reveals an :guilabel:`Add a step` pop-up window, where the proposed changes are
-submitted.
+点击按钮会显示 :guilabel:`添加步骤` 弹出窗口，提交拟议的更改。
 
-In the :guilabel:`Title` field, enter a short step description. Next, in the :guilabel:`Instruction`
-text field, type the instructions of the step in greater detail. Optionally, add an image to the
-:guilabel:`Document` field. Once completed, finish by clicking the :guilabel:`Propose Change`
-button.
+在 :guilabel:`标题` 字段中输入简短的步骤描述。接着，在 :guilabel:`说明` 文本字段中详细填写步骤说明。可选地，可以在 :guilabel:`文档` 字段中添加图片。完成后，点击 :guilabel:`提出更改` 按钮。
 
 .. example::
-   To propose an additional check for broken components, enter the details in the :guilabel:`Add a
-   Step` pop-up window. Doing so creates an instructional quality control point that will be
-   reviewed in the following section.
+   若要提出额外的破损组件检查请求，请在 :guilabel:`添加步骤` 弹出窗口中输入详细信息。这将创建一个指令性质量控制点，并将在下一节中进行审查。
 
    .. image:: engineering_change_orders/add-a-step.png
       :align: center
-      :alt: Fill out the *Add a Step* form to suggest an additional quality control point.
+      :alt: 填写 *添加步骤* 表单以建议附加的质量控制点。
 
-Based on the inputs from the :guilabel:`Add a Step` pop-up window, an |ECO| is created with the
-following information:
+基于 :guilabel:`添加步骤` 弹出窗口中的输入，系统会创建一个 |ECO|，其中包含以下信息：
 
-#. :guilabel:`Description` is the name of the operation, followed by the :abbr:`MO (Manufacturing
-   Order)` number for reference.
-#. The |ECO| :guilabel:`Type` is automatically assigned to `BOM Changes`.
-#. :guilabel:`Product` and :guilabel:`Bill of Materials` fields are automatically populated, based
-   on the |BOM| used in the :abbr:`MO (Manufacturing Order)`.
-#. :guilabel:`Responsible` is the operator who submitted the feedback.
-
-View ECO
+#. :guilabel:`描述` 是操作名称，后跟参考编号的 :abbr:`MO (制造订单)`。
+#. |ECO| :guilabel:`类型` 自动分配为 `BOM 更改`。
+#. :guilabel:`产品` 和 :guilabel:`物料清单` 字段会自动填充，基于 :abbr:`MO (制造订单)` 中使用的 |BOM|。
+#. :guilabel:`负责人` 是提交反馈的操作员。
+查看 ECO
 --------
 
-To review the proposed changes, navigate to the :menuselection:`PLM app --> Overview`. In the `BOM
-Updates` |ECO| type card, the :guilabel:`X Engineering Changes` button represents the amount of
-operational changes created from the tablet view.
+要查看拟议的更改，请导航到 :menuselection:`PLM app --> 概览`。在 `BOM 更新` |ECO| 类型卡片中，:guilabel:`X 工程更改` 按钮代表从平板视图创建的操作更改数量。
 
-Click on the :guilabel:`X Engineering Changes` button to open the kanban view of the |ECO| type. To
-view the suggestion, select an |ECO| in the `New` stage.
+点击 :guilabel:`X 工程更改` 按钮打开 |ECO| 类型的看板视图。要查看建议，选择 `新` 阶段中的 |ECO|。
 
-On the |ECO|, view a summary of the proposed changes in the :guilabel:`Operation Changes` tab. Click
-the :guilabel:`Revision` smart button to navigate to the revised |BOM| and look into the proposed
-changes in greater detail.
+在 |ECO| 上，在 :guilabel:`操作更改` 选项卡中查看拟议更改的摘要。点击 :guilabel:`修订` 智能按钮，导航至修订的 |BOM| 并详细查看拟议的更改。
 
 .. example::
-   An operator suggested another check for broken components by adding a step from the tablet view,
-   while performing the `Assemble switches` operation for the :abbr:`MO (Manufacturing Order)`
-   `WH/MO/00010` for the product, `Keyboard`.
+   一名操作员在执行产品 `键盘` 的 :abbr:`MO (制造订单)` `WH/MO/00010` 的 `组装开关` 操作时，通过平板视图添加了一个检查损坏组件的步骤。
 
-   Then, this created |ECO| can be viewed by navigating to the `BOM Changes` ECO type found in
-   :menuselection:`PLM app --> Overview`. By default, |ECOs| created from tablet view are set to
-   spawn in the `New` stage.
+   然后，这个创建的 |ECO| 可以通过导航至 :menuselection:`PLM app --> 概览` 中的 `BOM 更改` |ECO| 类型找到。默认情况下，从平板视图创建的 |ECO| 设置为显示在 `新` 阶段中。
 
-   The :guilabel:`Responsible` field is assigned to the operator who made the suggestion, allowing
-   the employee revising the |BOM| to seek further clarification from the person who proposed the
-   changes.
+   :guilabel:`负责人` 字段分配给提出建议的操作员，使修改 |BOM| 的员工可以向提出更改建议的人寻求进一步的澄清。
 
    .. image:: engineering_change_orders/view-bom-change.png
       :align: center
-      :alt: Find the new ECO in the "BOM Changes" ECO type, in the *New* stage.
+      :alt: 在 *新* 阶段的 "BOM 更改" 类型中找到新的 ECO。
 
-On the revised |BOM|, switch to the :guilabel:`Operations` tab, and select the :guilabel:`☰ (three
-horizontal lines)` icon. Doing so opens a list of :guilabel:`Steps` to perform the operation, with
-the newest instruction titled `New Step Suggestion:`, followed by the user-entered title. Click the
-line item to view the suggested changes.
+在修订的 |BOM| 上，切换到 :guilabel:`操作` 选项卡，然后选择 :guilabel:`☰ (三横)` 图标。这样做会打开一个操作步骤列表，最新的说明标题为 `新步骤建议：`，后跟用户输入的标题。点击该行以查看建议的更改。
 
 .. image:: engineering_change_orders/show-instructions.png
-   :align: center
-   :alt: "Show Instructions" icon in the *Operations* tab of a BoM.
+      :align: center
+      :alt: 在 *BOM* 的操作选项卡中查看 "显示说明" 图标。
 
-On the :ref:`quality control point <quality/quality_management/quality-control-points>` form, ensure
-the following form fields are accurately filled out to give detailed instructions for operators:
+在 :ref:`质量控制点 <quality/quality_management/quality-control-points>` 表单中，确保以下表单字段准确填写，以为操作员提供详细的操作说明：
 
-- :guilabel:`Title`: rename to give a concise description of the new instruction.
-- :guilabel:`Control per`: using the drop-down menu, determine whether this instruction applies
-  broadly for the :guilabel:`Product`, specifically for this :guilabel:`Operation` *only*, or a
-  particular :guilabel:`Quantity` of the product.
-- :guilabel:`Type`: categorizes the control point type. From the drop-down menu, select
-  :guilabel:`Instructions` to detail an instruction for the worker. To receive input from the
-  workers, select the :guilabel:`Take a Picture`, :guilabel:`Register Consumed Materials`,
-  :guilabel:`Print Label`, or other :ref:`quality check options
-  <quality/quality_management/quality-control-points>`.
+- :guilabel:`标题`：重命名以给出简明的说明描述。
+- :guilabel:`控制方式`：使用下拉菜单，确定该说明是否适用于 :guilabel:`产品`，是否仅适用于该 :guilabel:`操作`，或适用于特定数量的产品。
+- :guilabel:`类型`：对控制点类型进行分类。从下拉菜单中选择 :guilabel:`说明`，为工人提供说明。要接收工人的反馈，请选择 :guilabel:`拍照`、:guilabel:`登记已用材料`、:guilabel:`打印标签`，或其他 :ref:`质量检查选项 <quality/quality_management/quality-control-points>`。
 
 .. seealso::
-   :ref:`Configure quality control points <quality/quality_management/quality-control-points>`
+   :ref:`配置质量控制点 <quality/quality_management/quality-control-points>`
 
-Once the quality control point is configured, return to the :guilabel:`Steps` list using the
-breadcrumbs. Finally, drag the last quality control line item to its intended order of instructions.
+质量控制点配置完成后，使用面包屑导航返回 :guilabel:`步骤` 列表。最后，拖动最后一个质量控制行项至其预期的操作说明顺序。
 
 .. example::
-   Drag and reorder the `Check for broken switches` instruction, by clicking and dragging its "6
-   dots" icon to move it from the bottom to the second position.
+   拖动并重新排列 `检查损坏的开关` 说明，点击并拖动其左侧的 "6 点" 图标，将其从底部移动到第二位。
 
    .. image:: engineering_change_orders/reorder.png
       :align: center
-      :alt: Drag and reorder instructions by selecting the "6 dots" icon on the far left.
-
+      :alt: 通过选择左侧的 "6 点" 图标拖动并重新排列说明顺序。

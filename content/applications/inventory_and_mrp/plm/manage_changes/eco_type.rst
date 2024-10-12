@@ -1,143 +1,44 @@
-.. _plm/eco/eco-type:
-
-.. |BOM| replace:: :abbr:`BoM (Bill of Materials)`
-.. |BOMs| replace:: :abbr:`BoMs (Bills of Materials)`
-.. |ECO| replace:: :abbr:`ECO (Engineering Change Order)`
-.. |ECOs| replace:: :abbr:`ECOs (Engineering Change Orders)`
-
 ========
-ECO type
+ECO 类型
 ========
 
-An *ECO type* is assigned to *engineering change orders* (ECOs) to organize and track changes to
-products and bills of materials (BoMs). Each |ECO| type separates |ECOs| into a project in Gantt
-view, ensuring collaborators and stakeholders **only** view and assist with relevant |BOM|
-improvements.
+*ECO 类型* 分配给 *工程变更订单* (ECO) 以组织和跟踪产品及物料清单 (BoMs) 的变更。每个 |ECO| 类型将 |ECOs| 分离成甘特图视图中的项目，确保协作者和利益相关者**只**查看并协助与相关 |BOM| 改进相关的内容。
 
-For example, an electronic chip manufacturer might use 'New Product Introduction', 'Product
-Improvement', 'Component Change', and 'Firmware Update' |ECO| types. Then, designers and engineers
-can focus on |ECOs| in the 'New Product Introduction' and 'Product Improvement' projects, avoiding
-unrelated supplier change or firmware update |ECOs|.
+例如，一家电子芯片制造商可能会使用“新产品引入”、“产品改进”、“组件更改”和“固件更新” |ECO| 类型。这样，设计师和工程师可以专注于“新产品引入”和“产品改进”项目中的 |ECOs|，避免不相关的供应商更改或固件更新 |ECOs|。
 
-Create ECO type
+创建 ECO 类型
 ===============
 
-To access and manage ECO types, navigate to :menuselection:`PLM app --> Configuration --> ECO
-Types`.
+要访问和管理 ECO 类型，请导航到 :menuselection:`PLM 应用 --> 配置 --> ECO 类型`。
 
-Create a new ECO type by clicking :guilabel:`New`. On the new :guilabel:`ECO Types` form, fill in
-the following information:
+点击 :guilabel:`新建` 创建一个新的 ECO 类型。在新的 :guilabel:`ECO 类型` 表单中，填写以下信息：
 
-- :guilabel:`Name`: the name of the |ECO| type, which will organize all of the |ECOs| of this *type*
-  in a project.
-- :guilabel:`Email Alias`: if this optional field is filled, emails submitted to this email address
-  automatically generate |ECOs| in the left-most stage of this |ECO| type.
+- :guilabel:`名称`: ECO 类型的名称，它将组织此类型的所有 ECO 项目。
+- :guilabel:`邮件别名`: 如果填写此可选字段，发送到此邮件地址的邮件会自动在该 ECO 类型的最左侧阶段生成 ECOs。
 
-.. example::
-   The `Formulation change` |ECO| type is used to organize and track related |ECOs| in a single
-   project. Configuring the :guilabel:`Email Alias` field generates |ECOs| in the `Formulation
-   change` project sent to the email address, `pawlish-change@pawlished-glam.odoo.com`.
-
-   .. image:: eco_type/create-eco-type.png
-      :align: center
-      :alt: Example of an ECO type.
-
-Edit ECO type
+编辑 ECO 类型
 =============
 
-Modify existing |ECO| type names and email aliases by navigating to the :menuselection:`PLM app -->
-Configuration --> ECO Types` page. There, click on the desired |ECO| type from the list.
+通过导航到 :menuselection:`PLM 应用 --> 配置 --> ECO 类型` 页面，可以修改现有的 ECO 类型名称和邮件别名。在列表中点击所需的 ECO 类型即可。
 
-On the form for each |ECO| type, proceed to edit the :guilabel:`Name` and :guilabel:`Email Alias`
-fields.
-
-.. _plm/eco/stage-config:
-
-Stages
+阶段
 ======
 
-Within an |ECO| type project, *stages* are like milestones and are used to identify the progress of
-the |ECO| before the changes are ready to be applied. (e.g. 'Feedback', 'In Progress', 'Approved',
-'Complete')
+在 ECO 类型项目中，*阶段* 就像里程碑，用于标识 ECO 在变更准备应用之前的进展阶段（例如“反馈”、“进行中”、“已批准”、“完成”）。此外，可以为每个阶段添加所需的批准者，确保在批准者审查并批准 ECO 之前，生产 |BOM| 的变更不会继续。
 
-Additionally, required approvers can be added to each stage, ensuring that changes to the production
-|BOM| cannot proceed until the approver reviews and approves the |ECO|. Doing so prevents errors on
-the production |BOM| by enforcing at least one review of suggested changes before they're applied on
-a production |BOM|.
+最佳实践是至少应有一个*验证*阶段，即一个有批准者的阶段，以及一个*关闭*阶段，存储已取消或已批准用于下一个生产 |BOM| 的 ECOs。
 
-For best practice, there should be at least one *verification* stage, which is a stage with a
-required approver, and one *closing* stage, which stores |ECOs| that have been either canceled or
-approved for use as the next production |BOM|.
-
-Create stage
+创建阶段
 ------------
 
-To add a stage, go to the :menuselection:`PLM` app and select the intended project for an |ECO| type
-from the :guilabel:`PLM Overview` dashboard.
+要添加阶段，请转到 :menuselection:`PLM 应用` 并从 :guilabel:`PLM 概览` 仪表板中选择目标 ECO 类型的项目。在 ECO 类型的“工程变更订单”项目管道中，点击 :guilabel:`+ 阶段` 按钮，填写阶段名称，然后点击 :guilabel:`添加` 完成。
 
-Then, on the :guilabel:`Engineering Change Orders` project pipeline for the |ECO| type, click the
-:guilabel:`+ Stage` button. Doing so reveals a text box to fill in the name of the stage. After
-filling it in, click the :guilabel:`Add` button to finish adding the stage.
-
-.. example::
-   A new `Assigned` stage separates assigned |ECOs| from the unassigned ones in the `New` stage.
-   Adding another stage helps the product manager track unassigned tasks.
-
-   .. image:: eco_type/create-stage.png
-      :align: center
-      :alt: Create a new stage in a project for an ECO type.
-
-Verification stage
+验证阶段
 ------------------
 
-Click an ECO type from :menuselection:`PLM app --> Overview` to open a kanban view of |ECOs| of this
-type.
+要配置验证阶段，在 :menuselection:`PLM 应用 --> 概览` 中点击 ECO 类型，打开此类型的 ECOs 看板视图。然后，悬停在目标阶段上，选择 :guilabel:`⚙️（齿轮）` 图标，并点击 :guilabel:`编辑`。在弹出的编辑阶段窗口中，勾选 :guilabel:`允许应用更改` 选项，并在 :guilabel:`批准者` 部分添加一位审批人。
 
-To configure a verification stage, hover over the intended stage, and select the :guilabel:`⚙️
-(gear)` icon. Then, click :guilabel:`Edit` to open a pop-up window.
-
-Configure the verification stage in the edit stage pop-up window, by checking the box for
-:guilabel:`Allow to apply changes`.
-
-Then, add an approver in the :guilabel:`Approvers` section, by clicking :guilabel:`Add a line`, and
-specifying the :guilabel:`Role` of the reviewer, their :guilabel:`User`, and :guilabel:`Approval
-Type`.
-
-Make sure at least one approver is configured with the :guilabel:`Approval Type`: :guilabel:`Is
-required to approve`.
-
-The approver listed is automatically notified when |ECOs| are dropped in the stage specified in the
-pop-up window. Once finished, click :guilabel:`Save & Close`.
-
-.. example::
-   In the |ECO| type `New Product Introduction`, the verification stage `Validated` is configured by
-   clicking the :guilabel:`⚙️ (gear)` icon, and selecting :guilabel:`Edit`. Doing so opens the
-   :guilabel:`Edit: Validated` pop-up window.
-
-   By adding the `Engineering manager` as an approver, only |ECOs| approved by this user can proceed
-   to the next stage, and have the changes applied on the production |BOM|.
-
-   Additionally, check the :guilabel:`Allow to apply changes` option to ensure proper behavior.
-
-   .. image:: eco_type/verification-stage.png
-      :align: center
-      :alt: Show "Allow to apply changes" option is checked.
-
-Closing stage
+关闭阶段
 -------------
 
-Configure a closing stage by opening the :guilabel:`Edit: [stage]` pop-up window. To do so, hover
-over the intended stage and click the :guilabel:`⚙️ (gear)` icon that appears in the top-right
-corner. Then, click :guilabel:`Edit` from the drop-down menu.
-
-On the :guilabel:`Edit: [stage]` pop-up window, select the check boxes for :guilabel:`Folded in
-kanban view`, :guilabel:`Allow to apply changes` and :guilabel:`Final Stage`.
-
-.. example::
-   The closing stage, `Effective` is configured by checking the :guilabel:`Folded in kanban view`,
-   :guilabel:`Allow to apply changes`, and :guilabel:`Final Stage` options
-
-.. image:: eco_type/closing-stage.png
-   :align: center
-   :alt: Show configurations of the closing stage.
-
+要配置关闭阶段，请打开 :guilabel:`编辑: [阶段]` 弹窗，勾选 :guilabel:`看板视图中折叠`、:guilabel:`允许应用更改` 和 :guilabel:`最终阶段` 复选框。

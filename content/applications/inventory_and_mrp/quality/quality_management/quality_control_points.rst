@@ -1,132 +1,79 @@
 ======================
-Quality control points
+质量控制点
 ======================
 
 .. _quality/quality_management/quality-control-points:
-.. |MO| replace:: :abbr:`MO (Manufacturing Order)`
-.. |MOs| replace:: :abbr:`MOs (Manufacturing Orders)`
-.. |QCP| replace:: :abbr:`QCP (Quality Control Point)`
-.. |QCPs| replace:: :abbr:`QCPs (Quality Control Points)`
+.. |MO| replace:: :abbr:`MO (生产订单)`
+.. |MOs| replace:: :abbr:`MOs (生产订单)`
+.. |QCP| replace:: :abbr:`QCP (质量控制点)`
+.. |QCPs| replace:: :abbr:`QCPs (质量控制点)`
 
-In Odoo, *quality control points* (QCPs), are used to automatically create :doc:`quality checks
-<quality_checks>` at predetermined intervals. |QCPs| can be configured to create quality checks for
-specific operations (manufacturing, delivery, etc.), as well as specific products within those
-operations.
+在 Odoo 中，*质量控制点* (QCP) 用于在预定的间隔内自动创建 :doc:`质量检查 <quality_checks>`。|QCPs| 可以配置为为特定操作（生产、发货等）以及这些操作中的特定产品创建质量检查。
 
-Using |QCPs| allows quality teams to ensure products are being regularly inspected for defects and
-other issues.
+使用 |QCPs| 允许质量团队确保产品定期接受缺陷和其他问题的检查。
 
-Configure quality control points
-================================
+配置质量控制点
+================
 
-To create a new |QCP|, navigate to :menuselection:`Quality --> Quality Control --> Control Points`,
-and then click :guilabel:`New`.
+要创建新的 |QCP|，请导航到 :menuselection:`质量 --> 质量控制 --> 控制点`，然后点击 :guilabel:`新建`。
 
-Begin filling out the new |QCP| by entering a unique :guilabel:`Title` that makes the |QCP| easily
-identifiable.
+开始填写新的 |QCP| 时，首先输入一个唯一的 :guilabel:`标题`，以使 |QCP| 易于识别。
 
-In the :guilabel:`Products` field, select one or more products the |QCP| should apply to. If the
-|QCP| should apply to an entire product category, select it in the :guilabel:`Product Categories`
-field.
+在 :guilabel:`产品` 字段中，选择一个或多个 |QCP| 应适用的产品。如果 |QCP| 应适用于整个产品类别，请在 :guilabel:`产品类别` 字段中选择它。
 
-In the :guilabel:`Operations` field, select the operation(s) that should trigger the |QCP|. For
-example, selecting the :guilabel:`Manufacturing` option in the :guilabel:`Operations` field causes a
-quality check to be created for new manufacturing orders (MOs).
+在 :guilabel:`操作` 字段中，选择应触发 |QCP| 的操作。例如，在 :guilabel:`操作` 字段中选择 :guilabel:`生产` 选项会为新的生产订单 (MOs) 创建质量检查。
 
 .. note::
-   When creating a new |QCP|, at least one operation must be listed in the :guilabel:`Operations`
-   field. However, the :guilabel:`Products` and :guilabel:`Product Categories` fields can be left
-   blank. If they are left blank, the |QCP| generates quality checks for every instance of the
-   specified operation(s).
+   创建新的 |QCP| 时，至少需要在 :guilabel:`操作` 字段中列出一个操作。然而，:guilabel:`产品` 和 :guilabel:`产品类别` 字段可以留空。如果它们留空，|QCP| 将为指定操作的每个实例生成质量检查。
 
-If the :guilabel:`Manufacturing` operation is selected in the :guilabel:`Operations` field, a new
-field appears below it, titled :guilabel:`Work Order Operation`. From this field, select a specific
-work order to generate quality checks for that operation, rather than the manufacturing operation in
-general.
+如果在 :guilabel:`操作` 字段中选择了 :guilabel:`生产` 操作，则会在其下方出现一个新的字段，标题为 :guilabel:`工单操作`。从此字段中选择一个特定的工单，以为该操作生成质量检查，而不是为整个生产操作生成检查。
 
-For example, a |QCP| could be configured to create quality checks for the `Assembly` work order of
-the `Coffee Table` product. Then, if a new |MO| is confirmed for a `Coffee Table`, the |QCP| creates
-a quality check specifically for the `Assembly` operation.
+例如，可以配置一个 |QCP| 为 `咖啡桌` 产品的 `组装` 工单创建质量检查。那么，如果为 `咖啡桌` 确认了新的 |MO|，|QCP| 将专门为 `组装` 操作创建质量检查。
 
-The :guilabel:`Control Per` field is set to one of three options that determine *when* a new quality
-check is created:
+:guilabel:`控制方式` 字段设置为三种选项之一，以确定何时创建新的质量检查：
 
-- :guilabel:`Operation`: one check is requested for the specified operation, as a whole.
-- :guilabel:`Product`: one check is requested for each *unique* product included in the specified
-  operation. For example, a delivery operation for one table and four chairs would generate two
-  checks, since two *unique* products are included in the operation.
-- :guilabel:`Quantity`: a check is requested for a certain percentage of items within the specified
-  operation. This percentage is set by enabling the :guilabel:`Partial Transfer Test` checkbox, and
-  then entering a numerical value in the :guilabel:`Percentage` field that appears below. If the
-  checkbox is not enabled, one quality check is created for the full quantity.
+- :guilabel:`操作`：对指定的整个操作请求一次检查。
+- :guilabel:`产品`：对指定操作中包含的每个 *唯一* 产品请求一次检查。例如，一个包含一张桌子和四把椅子的发货操作会生成两个检查，因为操作中包含了两个 *唯一* 产品。
+- :guilabel:`数量`：请求对指定操作中的某个百分比的产品进行检查。通过启用 :guilabel:`部分转移测试` 复选框并在其下方的 :guilabel:`百分比` 字段中输入一个数值来设置此百分比。如果未启用复选框，则为全部数量创建一次质量检查。
 
-The :guilabel:`Control Frequency` field is set to one of three options that determine *how often* a
-new quality check is created:
+:guilabel:`控制频率` 字段设置为三种选项之一，以确定多长时间创建一次质量检查：
 
-- :guilabel:`All`: a quality check is requested every time the conditions of the |QCP| are met.
-- :guilabel:`Randomly`: a quality check is randomly requested for a certain percentage of
-  operations, which can be specified in the :guilabel:`Every #% of Transfers` field that appears
-  below.
-- :guilabel:`Periodically`: a quality check is requested once every set period of time, which is
-  specified by entering a numerical value in the field below, and choosing either :guilabel:`Days`,
-  :guilabel:`Weeks`, or :guilabel:`Months` as the desired time interval.
+- :guilabel:`全部`：每次满足 |QCP| 条件时都会请求一次质量检查。
+- :guilabel:`随机`：随机请求对某个百分比的操作进行质量检查，可以在其下方的 :guilabel:`每 #% 次转移` 字段中指定该百分比。
+- :guilabel:`定期`：每隔一段时间请求一次质量检查，通过在下方的字段中输入数值，并选择 :guilabel:`天`、:guilabel:`周` 或 :guilabel:`月` 作为所需的时间间隔来指定该周期。
 
-In the :guilabel:`Type` field, specify the type of quality check that should be performed. The
-method for processing quality checks created by the |QCP| depends upon the type of quality check
-selected:
+在 :guilabel:`类型` 字段中，指定应执行的质量检查类型。|QCP| 创建的质量检查的处理方法取决于所选择的质量检查类型：
 
-- :guilabel:`Instructions` checks provide specific instructions for how to complete the quality
-  check.
-- :guilabel:`Take a Picture` checks require a picture of the product be uploaded for later review by
-  the assigned quality team.
-- :guilabel:`Register Production` checks prompt manufacturing employees to confirm the quantity of
-  the product that was produced during the manufacturing operation.
-- :guilabel:`Pass - Fail` checks specify a criterion that products must meet for the check to pass.
-- :guilabel:`Measure` checks prompt employees to record a measurement of the product that must be
-  within a tolerance of a norm value for the check to pass.
-- :guilabel:`Worksheet` checks provide an interactive worksheet that must be filled out by the
-  employee processing the check.
+- :guilabel:`说明` 检查提供有关如何完成质量检查的具体说明。
+- :guilabel:`拍照` 检查要求上传产品的照片，以供分配的质量团队稍后审核。
+- :guilabel:`登记生产` 检查提示生产员工确认在生产操作期间生产的产品数量。
+- :guilabel:`通过-失败` 检查指定产品必须满足的标准才能通过检查。
+- :guilabel:`测量` 检查提示员工记录产品的测量值，该值必须在标准值的公差范围内才能通过检查。
+- :guilabel:`工作表` 检查提供一个交互式工作表，处理检查的员工必须填写该工作表。
 
 .. important::
-   An *Instructions* check is the same as a step on a work order for an MO.
+   *说明* 检查与生产订单 (MO) 的工单步骤相同。
 
-   When a step is added to a work order, Odoo stores it in the Quality app as a |QCP|. It is
-   possible to manually create a |QCP| with the *Instructions* check type, and even assign it to an
-   operation other than manufacturing, like receipts.
+   添加步骤到工单时，Odoo 会将其存储在质量应用中作为一个 |QCP|。可以手动创建一个具有 *说明* 检查类型的 |QCP|，甚至将其分配给生产以外的操作（如收货）。
 
-   However, when creating a control point specifically for quality control purposes, using a
-   different check type is probably more effective.
+   然而，专门为质量控制目的创建控制点时，使用不同的检查类型可能更有效。
 
-In the :guilabel:`Team` field, specify the quality team that is responsible for managing the |QCP|,
-and the quality checks it creates. If a specific quality team member is responsible for the |QCP|,
-select them in the :guilabel:`Responsible` field.
+在 :guilabel:`团队` 字段中，指定负责管理 |QCP| 及其创建的质量检查的质量团队。如果某个特定质量团队成员负责此 |QCP|，请在 :guilabel:`负责人` 字段中选择他们。
 
-The :guilabel:`Step Document` field has two options that specify the location of an instructional
-document detailing how to complete the quality checks created by the |QCP|.
+:guilabel:`步骤文档` 字段有两个选项，指定详细说明如何完成 |QCP| 创建的质量检查的说明文件的位置。
 
-Select :guilabel:`Specific Page of Operation Worksheet` if the document is included with the
-instructional worksheet for the work order, then enter the page number in the :guilabel:`Worksheet
-Page` field that appears below.
+选择 :guilabel:`操作工作表的特定页面`，如果文档包含在工单的说明工作表中，则在其下方的 :guilabel:`工作表页面` 字段中输入页码。
 
-Select :guilabel:`Custom` if the document should be included in the :guilabel:`Instructions` tab at
-the bottom of the |QCP|.
+选择 :guilabel:`自定义`，如果文档应包含在 |QCP| 表单底部的 :guilabel:`说明` 标签页中。
 
-In the :guilabel:`Instructions` tab at the bottom of the form, enter instructions for how to
-complete the quality checks created by the |QCP|.
+在表单底部的 :guilabel:`说明` 标签页中，输入完成 |QCP| 创建的质量检查的说明。
 
-If the :guilabel:`Custom` option was selected in the :guilabel:`Step Document` field above, a
-document can be attached in this tab. To do so, either select the :guilabel:`Upload your file`
-button to open the device's file manager, and then select a file, or add a link to a Google Slides
-document in the :guilabel:`Google Slide Link` field.
+如果上面的 :guilabel:`步骤文档` 字段中选择了 :guilabel:`自定义` 选项，可以在此标签中附加文档。为此，选择 :guilabel:`上传文件` 按钮以打开设备的文件管理器，然后选择文件，或在 :guilabel:`Google Slide 链接` 字段中添加 Google 幻灯片文档的链接。
 
-In the :guilabel:`Message If Failure` tab, include instructions for what to do if the quality check
-fails. For example, instruct the employee processing the quality check to create a :doc:`quality
-alert <quality_alerts>`.
+在 :guilabel:`失败消息` 标签中，包含质量检查失败时应采取的操作说明。例如，指示处理质量检查的员工创建一个 :doc:`质量警报 <quality_alerts>`。
 
-The :guilabel:`Notes` tab is used to provide additional information about the |QCP|, like the reason
-it was created. The information entered in this tab is **not** shown to employees processing the
-quality checks created by the |QCP|.
+:guilabel:`备注` 标签用于提供有关 |QCP| 的其他信息，例如创建它的原因。此标签中输入的信息不会显示给处理 |QCP| 创建的质量检查的员工。
 
 .. image:: quality_control_points/qcp-form.png
    :align: center
-   :alt: A QCP configured to create Pass - Fail checks for a work order operation.
+   :alt: 配置为为工单操作创建通过-失败检查的 QCP。

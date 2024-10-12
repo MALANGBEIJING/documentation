@@ -1,185 +1,117 @@
 ============================
-Take a Picture quality check
+拍照质量检查
 ============================
 
-.. |MO| replace:: :abbr:`MO (Manufacturing Order)`
-.. |QCP| replace:: :abbr:`QCP (Quality Control Point)`
-.. |QCPs| replace:: :abbr:`QCP (Quality Control Points)`
+.. |MO| replace:: :abbr:`MO (生产订单)`
+.. |QCP| replace:: :abbr:`QCP (质量控制点)`
+.. |QCPs| replace:: :abbr:`QCP (质量控制点)`
 
-In Odoo *Quality*, a *Take a Picture* check is one of the quality check types that can be selected
-when creating a new quality check or quality control point (QCP). *Take a Picture* checks require a
-picture to be attached to the check, which can then be reviewed by a quality team.
+在 Odoo 的 *质量* 模块中，*拍照* 检查是创建新质量检查或质量控制点 (QCP) 时可以选择的质量检查类型之一。*拍照* 检查要求在检查中附上一张图片，质量团队可以审核这张图片。
 
-Create a Take a Picture quality check
-=====================================
+创建拍照质量检查
+=================
 
-There are two distinct ways that *Take a Picture* quality checks can be created. A single check can
-be manually created. Alternatively, a |QCP| can be configured that automatically creates checks at a
-predetermined interval.
+有两种创建 *拍照* 质量检查的方式。可以手动创建单个检查，或者配置一个 |QCP|，它会在预定的时间间隔自动创建检查。
 
-This documentation only details the configuration options that are unique to *Take a Picture*
-quality checks and |QCPs|. For a full overview of all the configuration options available when
-creating a single check or a |QCP|, see the documentation on :ref:`quality checks
-<quality/quality_management/quality-checks>` and :ref:`quality control points
-<quality/quality_management/quality-control-points>`.
+本文件仅详细说明与 *拍照* 质量检查和 |QCPs| 相关的独特配置选项。有关创建单个检查或 |QCP| 时所有可用配置选项的完整概述，请参阅 :ref:`质量检查 <quality/quality_management/quality-checks>` 和 :ref:`质量控制点 <quality/quality_management/quality-control-points>` 的文档。
 
-Quality check
--------------
+质量检查
+---------
 
-To create a single *Take a Picture* quality check, navigate to :menuselection:`Quality --> Quality
-Control --> Quality Checks`, and click :guilabel:`New`. Fill out the new quality check form as
-follows:
+要创建单个 *拍照* 质量检查，导航到 :menuselection:`质量 --> 质量控制 --> 质量检查`，并点击 :guilabel:`新建`。按如下步骤填写新的质量检查表单：
 
-- In the :guilabel:`Type` drop-down field, select the :guilabel:`Take a Picture` quality check type.
-- In the :guilabel:`Team` drop-down field, select the quality team responsible for managing the
-  check.
-- In the :guilabel:`Instructions` text field of the :guilabel:`Notes` tab, enter instructions for
-  how the picture should be taken.
+- 在 :guilabel:`类型` 下拉字段中，选择 :guilabel:`拍照` 质量检查类型。
+- 在 :guilabel:`团队` 下拉字段中，选择负责管理检查的质量团队。
+- 在 :guilabel:`说明` 标签页的 :guilabel:`说明` 文本字段中，输入拍照的说明。
 
 .. image:: picture_check/picture-check-form.png
    :align: center
-   :alt: A quality check form configured for a Take a Picture quality check.
+   :alt: 配置为拍照质量检查的质量检查表单。
 
-Quality control point
----------------------
+质量控制点
+----------
 
-To create a |QCP| that generates *Take a Picture* quality checks automatically, navigate to
-:menuselection:`Quality --> Quality Control --> Control Points`, and click :guilabel:`New`. Fill out
-the new |QCP| form as follows:
+要创建一个自动生成 *拍照* 质量检查的 |QCP|，导航到 :menuselection:`质量 --> 质量控制 --> 控制点`，并点击 :guilabel:`新建`。按如下步骤填写新的 |QCP| 表单：
 
-- In the :guilabel:`Type` drop-down field, select the :guilabel:`Take a Picture` quality check type.
-- If the *Maintenance* app is installed, a :guilabel:`Device` field appears after selecting the
-  *Take a Picture* check type. Use this field to specify a device that should be used to take
-  quality check pictures. For information about managing devices in the *Maintenance* app, see the
-  documentation on :ref:`adding new equipment <maintenance/equipment_management/add_new_equipment>`.
-- In the :guilabel:`Team` drop-down field, select the quality team responsible for managing the
-  checks created by the |QCP|.
-- In the :guilabel:`Instructions` text field, enter instructions for how the picture should be
-  taken.
+- 在 :guilabel:`类型` 下拉字段中，选择 :guilabel:`拍照` 质量检查类型。
+- 如果安装了 *维护* 应用，在选择 *拍照* 检查类型后会出现 :guilabel:`设备` 字段。使用此字段指定应使用的设备来拍摄质量检查图片。有关管理 *维护* 应用中设备的信息，请参阅 :ref:`添加新设备 <maintenance/equipment_management/add_new_equipment>` 文档。
+- 在 :guilabel:`团队` 下拉字段中，选择负责管理由 |QCP| 创建的检查的质量团队。
+- 在 :guilabel:`说明` 文本字段中，输入如何拍摄图片的说明。
 
 .. image:: picture_check/picture-qcp-form.png
    :align: center
-   :alt: A Quality Control Point (QCP) form configured to create a Take a Picture quality check.
+   :alt: 配置为创建拍照质量检查的质量控制点 (QCP) 表单。
 
-Process a Take a Picture quality check
-======================================
+处理拍照质量检查
+=================
 
-Once created, there are multiple ways that *Take a Picture* quality checks can be processed. If a
-quality check is assigned to a specific inventory, manufacturing, or work order, the check can be
-processed on the order itself. Alternatively, a check can be processed from the check's page.
+创建后，可以通过多种方式处理 *拍照* 质量检查。如果质量检查分配给特定的库存、生产或工单，则可以在相应订单上处理检查。或者，也可以从检查的页面处理检查。
 
-From the check's page
----------------------
+从检查页面处理
+-----------------
 
-To process a *Take a Picture* quality check from the check's page, begin by navigating to
-:menuselection:`Quality --> Quality Control --> Quality Checks`, and then select a quality check.
-Follow the :guilabel:`Instructions` for how to take the picture.
+要从检查页面处理 *拍照* 质量检查，首先导航到 :menuselection:`质量 --> 质量控制 --> 质量检查`，然后选择一个质量检查。按照 :guilabel:`说明` 进行拍照。
 
-After taking the picture, make sure it is stored on the device being used to process the quality
-check (computer, tablet, etc.). Then, click the :guilabel:`✏️ (pencil)` button in the
-:guilabel:`Picture` section to open the device's file manager. In the file manager, navigate to the
-picture, select it, and click :guilabel:`Open` to attach it.
+拍照后，确保图片存储在用于处理质量检查的设备上（计算机、平板电脑等）。然后，点击 :guilabel:`✏️ (铅笔)` 按钮，在 :guilabel:`图片` 部分中打开设备的文件管理器。在文件管理器中，找到图片，选择它，然后点击 :guilabel:`打开` 以附加图片。
 
 .. image:: picture_check/picture-edit-button.png
    :align: center
-   :alt: The edit button (pencil) on a Take a Picture quality check.
+   :alt: 在拍照质量检查中的编辑按钮（铅笔）。
 
-On an order
------------
+在订单上处理
+--------------
 
-To process a *Take a Picture* quality check on an order, select a manufacturing order or inventory
-order (receipt, delivery, return, etc.), for which a check is required. Manufacturing orders can be
-selected by navigating to :menuselection:`Manufacturing --> Operations --> Manufacturing Orders`,
-and clicking on an order. Inventory orders can be selected by navigating to
-:menuselection:`Inventory`, clicking the :guilabel:`# To Process` button on an operation card, and
-selecting an order.
+要在订单上处理 *拍照* 质量检查，选择一个需要检查的生产订单或库存订单（收货、发货、退货等）。可以通过导航到 :menuselection:`生产 --> 操作 --> 生产订单` 并点击某个订单来选择生产订单。可以通过导航到 :menuselection:`库存`，点击操作卡上的 :guilabel:`# 待处理` 按钮，并选择一个订单来选择库存订单。
 
-On the selected manufacturing or inventory order, a purple :guilabel:`Quality Checks` button appears
-at the top of the page. Click the button to open the :guilabel:`Quality Check` pop-up window, which
-shows all of the quality checks required for that order.
+在所选的生产或库存订单页面顶部，会出现一个紫色的 :guilabel:`质量检查` 按钮。点击该按钮以打开 :guilabel:`质量检查` 弹出窗口，显示该订单所需的所有质量检查。
 
-Follow the instructions detailing how to take the picture, which are shown on the :guilabel:`Quality
-Check` pop-up window. After taking the picture, make sure it is stored on the device being used to
-process the quality check (computer, tablet, etc.).
+按照 :guilabel:`质量检查` 弹出窗口中显示的拍照说明进行拍照。拍照后，确保图片存储在用于处理质量检查的设备上（计算机、平板电脑等）。
 
-Then, click the :guilabel:`Take a Picture` button in the :guilabel:`Picture` section to open the
-device's file manager. In the file manager, navigate to the picture, select it, and click
-:guilabel:`Open` to attach it. Finally, click :guilabel:`Validate` on the :guilabel:`Quality Check`
-pop-up window to complete the quality check.
+然后，点击 :guilabel:`拍照` 按钮，在 :guilabel:`图片` 部分中打开设备的文件管理器。在文件管理器中，找到图片，选择它，然后点击 :guilabel:`打开` 以附加图片。最后，在 :guilabel:`质量检查` 弹出窗口中点击 :guilabel:`验证` 以完成质量检查。
 
 .. image:: picture_check/picture-check-pop-up.png
    :align: center
-   :alt: A Take a Picture quality check pop-up window on a manufacturing or inventory order.
+   :alt: 在生产或库存订单上的拍照质量检查弹出窗口。
 
-If a quality alert must be created, click the :guilabel:`Quality Alert` button that appears at the
-top of the manufacturing or inventory order after the check is validated. Clicking
-:guilabel:`Quality Alert` opens a quality alert form on a new page. For a complete guide on how to
-fill out quality alert forms, view the documentation on :ref:`quality alerts
-<quality/quality_management/quality-alerts>`.
+如果需要创建质量警报，请点击质量检查验证后出现在生产或库存订单顶部的 :guilabel:`质量警报` 按钮。点击 :guilabel:`质量警报` 会在新页面上打开质量警报表单。有关如何填写质量警报表单的完整指南，请参阅 :ref:`质量警报 <quality/quality_management/quality-alerts>`。
 
-On a work order
----------------
+在工单上处理
+--------------
 
-When configuring a |QCP| that is triggered during manufacturing, a specific work order can also be
-specified in the :guilabel:`Work Order Operation` field on the |QCP| form. If a work order is
-specified, a *Take a Picture* quality check is created for that specific work order, rather than the
-manufacturing order as a whole.
+在配置由生产订单触发的 |QCP| 时，还可以在 |QCP| 表单的 :guilabel:`工单操作` 字段中指定特定工单。如果指定了工单，则为该特定工单创建 *拍照* 质量检查，而不是针对整个生产订单。
 
-*Take a Picture* quality checks configured for work orders **must** be completed from the *Shop
-Floor* module. To do so, begin by navigating to :menuselection:`Manufacturing --> Operations -->
-Manufacturing Orders`. Then, select an |MO| that includes a work order for which a *Take a Picture*
-quality check is required.
+配置为工单的 *拍照* 质量检查 **必须** 在 *车间* 模块中完成。为此，首先导航到 :menuselection:`生产 --> 操作 --> 生产订单`。然后选择一个包含需要进行 *拍照* 质量检查的工单的 |MO|。
 
-On the |MO|, select the :guilabel:`Work Orders` tab, and then click the :guilabel:`Open Work Order
-(external link icon)` button on the line of the work order to be processed. On the resulting
-:guilabel:`Work Orders` pop-up window, click the :guilabel:`Open Shop Floor` button to open the
-*Shop Floor* module.
+在 |MO| 上，选择 :guilabel:`工单` 标签，然后点击待处理工单行上的 :guilabel:`打开工单 (外部链接图标)` 按钮。在随后的 :guilabel:`工单` 弹出窗口中，点击 :guilabel:`打开车间` 按钮以打开 *车间* 模块。
 
-When accessed from a specific work order, the *Shop Floor* module opens to the page for the work
-center where the order is configured to be processed, and isolates the work order's card, so no
-other cards are shown.
+从特定工单访问时，*车间* 模块会打开该工单配置为处理的工作中心页面，并仅显示该工单的卡片，不显示其他卡片。
 
-Process the work order's steps until the *Take a Picture* quality check step is reached. Click on
-the step to open a pop-up window that includes instructions for how the picture should be taken.
-After taking the picture, make sure it is stored on the device being used to process the quality
-check (computer, tablet, etc.).
+处理工单的步骤，直到到达 *拍照* 质量检查步骤。点击该步骤以打开弹出窗口，包含如何拍照的说明。拍照后，确保图片存储在用于处理质量检查的设备上（计算机、平板电脑等）。
 
-Then, click the :guilabel:`Take a Picture` button on the pop-up window to open the device's file
-manager. In the file manager, navigate to the picture, select it, and click :guilabel:`Open` to
-attach it.
+然后，点击弹出窗口中的 :guilabel:`拍照` 按钮，打开设备的文件管理器。在文件管理器中，找到图片，选择它，然后点击 :guilabel:`打开` 以附加图片。
 
-Finally, click :guilabel:`Validate` at the bottom of the pop-up window to complete the quality
-check. The pop-up window then moves on to the next step of the work order.
+最后，点击弹出窗口底部的 :guilabel:`验证` 按钮以完成质量检查。弹出窗口将移动到工单的下一步。
 
 .. image:: picture_check/picture-check-shop-floor.png
    :align: center
-   :alt: A Take a Picture check in the Shop Floor module.
+   :alt: 在车间模块中的拍照检查。
 
-If a quality alert must be created, exit the pop-up window by clicking the :guilabel:`X (close)`
-button in the top-right corner.
+如果需要创建质量警报，点击右上角的 :guilabel:`X (关闭)` 按钮退出弹出窗口。
 
-Then, click the :guilabel:`⋮ (three vertical dots)` button on the bottom-right corner of the work
-order card to open the :guilabel:`What do you want to do?` pop-up window.
+然后，点击工单卡片右下角的 :guilabel:`⋮ (三个垂直点)` 按钮以打开 :guilabel:`您想做什么?` 弹出窗口。
 
-On the :guilabel:`What do you want to do?` pop-up window, select the :guilabel:`Create a Quality
-Alert` button. Doing so opens a blank quality alert form in a new :guilabel:`Quality Alerts` pop-up
-window.
+在 :guilabel:`您想做什么?` 弹出窗口中，选择 :guilabel:`创建质量警报` 按钮。这样会在新的 :guilabel:`质量警报` 弹出窗口中打开一个空白的质量警报表单。
 
 .. seealso::
-   For a complete guide on how to fill out quality alert forms, view the documentation on
-   :doc:`quality alerts <../quality_management/quality_alerts>`.
+   有关如何填写质量警报表单的完整指南，请参阅 :doc:`质量警报 <../quality_management/quality_alerts>` 文档。
 
-Review picture attached to quality check
-========================================
+审核附加到质量检查的图片
+===========================
 
-After a picture has been attached to a check, it can then be reviewed by quality team members or
-other users. To do so, navigate to :menuselection:`Quality --> Quality Control --> Quality Checks`,
-and select a quality check to review.
+图片附加到检查后，质量团队成员或其他用户可以审核图片。为此，请导航到 :menuselection:`质量 --> 质量控制 --> 质量检查`，并选择要审核的质量检查。
 
-The attached picture appears in the :guilabel:`Picture` section of the quality check form. After
-reviewing the picture, click the :guilabel:`Pass` button if the check passes, or the
-:guilabel:`Fail` button if the check fails.
+附加的图片显示在质量检查表单的 :guilabel:`图片` 部分。审核图片后，如果检查通过，点击 :guilabel:`通过` 按钮；如果检查失败，点击 :guilabel:`失败` 按钮。
 
 .. image:: picture_check/review-picture-check.png
    :align: center
-   :alt: A Take a Picture check with a picture attached.
+   :alt: 附加了图片的拍照检查。

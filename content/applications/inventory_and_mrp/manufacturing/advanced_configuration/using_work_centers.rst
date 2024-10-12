@@ -1,136 +1,100 @@
 =====================================
-Manage work orders using work centers
+使用工作中心管理工单
 =====================================
 
-Odoo Manufacturing allows for work orders to be carried out at specific work centers. When a
-manufacturing order is created for a product, any work orders listed in the :guilabel:`Operations`
-tab of the product bill of materials (BoM) will be automatically created as well and assigned to the
-specified work center. Work orders can be managed in the :guilabel:`Manufacturing` module by
-selecting :menuselection:`Operations --> Work Orders`.
+Odoo制造模块允许在特定的工作中心进行工单操作。当为产品创建生产订单时，产品物料清单（BoM）中的任何工单都会自动生成并分配到指定的工作中心。可以通过选择 :menuselection:`操作 --> 工单` 在 :guilabel:`制造` 模块中管理工单。
 
-In order to use work centers, the :guilabel:`Work Orders` feature must first be enabled. To do so,
-go to the :guilabel:`Manufacturing` module, select :menuselection:`Configuration --> Settings`, and
-activate the checkbox next to :guilabel:`Work Orders`. Work centers can then be created and managed
-by selecting :menuselection:`Configuration --> Work Centers`.
+要使用工作中心，必须首先启用 :guilabel:`工单` 功能。为此，进入 :guilabel:`制造` 模块，选择 :menuselection:`配置 --> 设置`，并在 :guilabel:`工单` 旁边的复选框中打勾以激活该功能。然后可以通过选择 :menuselection:`配置 --> 工作中心` 来创建和管理工作中心。
 
-Create a work center
+创建工作中心
 ====================
 
-Within the :guilabel:`Manufacturing` module, select :menuselection:`Configuration --> Work Centers
---> Create`. The work center form can then be filled out as follows:
+在 :guilabel:`制造` 模块中，选择 :menuselection:`配置 --> 工作中心 --> 创建`。然后按照以下步骤填写工作中心表单：
 
-- :guilabel:`Work Center Name`: give the work center a concise name that describes the type of
-  operations it will be used for
-- :guilabel:`Alternative Workcenters`: specify an alternative work center for operations to be
-  carried out at if the main work center is not available
-- :guilabel:`Code`: assign the work center a reference code
-- :guilabel:`Working Hours`: define the number of hours that the work center can be in use each week
-- :guilabel:`Company`: select the company that the work center belongs to
+- :guilabel:`工作中心名称`：为工作中心提供一个简明的名称，描述其将用于的操作类型
+- :guilabel:`替代工作中心`：指定一个替代工作中心，以便在主工作中心不可用时在该中心执行操作
+- :guilabel:`代码`：为工作中心分配一个参考代码
+- :guilabel:`工作时间`：定义工作中心每周可以使用的小时数
+- :guilabel:`公司`：选择工作中心所属的公司
 
 .. image:: using_work_centers/work-center-form.png
    :align: center
-   :alt: An example of a fully configured work center form.
+   :alt: 一个完全配置的工作中心表单示例。
 
-.. _manufacturing/management/using_work_centers/wc-setup:
-
-Set standards for work center productivity
+设置工作中心生产力标准
 ------------------------------------------
 
-The :guilabel:`General Information` tab on the work center form allows for productivity goals to be
-assigned to a work center:
+工作中心表单上的 :guilabel:`一般信息` 标签允许为工作中心分配生产力目标：
 
-- :guilabel:`Time Efficiency`: used to calculate the expected duration of a work order at the work
-  center; for example, if a work order normally takes one hour and the efficiency is set to 200%,
-  the work order will take 30 minutes
-- :guilabel:`Capacity`: the number of operations that can be performed at the work center
-  simultaneously
-- :guilabel:`OEE Target`: the target for efficiency at the work center
-- :guilabel:`Time before prod.`: setup time required before work can commence
-- :guilabel:`Time after prod.`: breakdown or cleanup time required after work is finished
-- :guilabel:`Cost per hour`: the cost of operating the work center for one hour
-- :guilabel:`Analytic Account`: the account where the cost of the work center should be recorded
+- :guilabel:`时间效率`：用于计算在工作中心完成工单的预期时间；例如，如果工单通常需要一个小时，而效率设置为200%，工单将需要30分钟
+- :guilabel:`容量`：工作中心可以同时执行的操作数量
+- :guilabel:`OEE目标`：工作中心的目标效率
+- :guilabel:`生产前时间`：在开始工作之前所需的设置时间
+- :guilabel:`生产后时间`：完成工作后所需的整理或清理时间
+- :guilabel:`每小时成本`：操作工作中心一小时的成本
+- :guilabel:`分析账户`：记录工作中心成本的账户
 
 .. image:: using_work_centers/work-center-general-information.png
    :align: center
-   :alt: The general information tab of the work center form.
+   :alt: 工作中心表单中的一般信息标签。
 
-Assign equipment to a work center
+分配设备到工作中心
 ---------------------------------
 
-Using the :guilabel:`Equipment` tab, it is possible for specific pieces of equipment to be assigned
-to a work center. The following information will be displayed for each piece of equipment added:
+使用 :guilabel:`设备` 标签，可以为工作中心分配特定设备。每个添加的设备将显示以下信息：
 
-- :guilabel:`Equipment Name`: the name of the piece of equipment
-- :guilabel:`Technician`: the technician responsible for servicing the equipment
-- :guilabel:`Equipment Category`: the category the equipment belongs to
-- :guilabel:`MTBF`: mean time between failures; the average time that the piece of equipment will
-  operate before failing
-- :guilabel:`MTTR`: mean time to recovery; the average time it takes for the equipment to become
-  fully operational again
-- :guilabel:`Est. Next Failure`: an estimate of when the next equipment failure will occur
+- :guilabel:`设备名称`：设备名称
+- :guilabel:`技术员`：负责维护设备的技术员
+- :guilabel:`设备类别`：设备所属的类别
+- :guilabel:`MTBF`：平均故障间隔时间；设备在出现故障前可以正常运行的平均时间
+- :guilabel:`MTTR`：平均恢复时间；设备恢复正常运行所需的平均时间
+- :guilabel:`预计下次故障时间`：预计设备下次故障的时间
 
 .. image:: using_work_centers/work-center-equipment.png
    :align: center
-   :alt: The equipment tab of the work center form.
+   :alt: 工作中心表单的设备标签。
 
 .. note::
-    :guilabel:`MTBF`, :guilabel:`MTTR`, and :guilabel:`Est. Next Failure` are all calculated
-    automatically based on past failure data, if any exists.
+    :guilabel:`MTBF`、:guilabel:`MTTR` 和 :guilabel:`预计下次故障时间` 都是基于过去的故障数据自动计算的（如果有的话）。
 
-.. _workcenter_iot:
-
-Integrate IoT devices
+集成物联网设备
 ---------------------
 
-The :guilabel:`IoT Triggers` tab enables the integration of :abbr:`IoT (Internet of Things)` devices
-with a work center:
+:guilabel:`物联网触发器` 标签允许将 :abbr:`IoT (物联网)` 设备与工作中心集成：
 
-- :guilabel:`Device`: specifies the IoT device to be triggered
-- :guilabel:`Key`: the security key for the device
-- :guilabel:`Action`: the IoT device action triggered
+- :guilabel:`设备`：指定要触发的物联网设备
+- :guilabel:`密钥`：设备的安全密钥
+- :guilabel:`操作`：触发的物联网设备操作
 
 .. image:: using_work_centers/work-center-iot.png
    :align: center
-   :alt: The IoT Triggers tab of the work center form.
+   :alt: 工作中心表单的物联网触发器标签。
 
-Use case: configure an alternative work center
+使用案例：配置替代工作中心
 ==============================================
 
-When a work center is at capacity, it cannot accept any new work orders. Instead of waiting for the
-work center to become available, it is possible to specify an alternative work center where surplus
-work orders should be carried out.
+当一个工作中心达到容量时，它不能接受任何新的工单。此时，可以指定一个替代工作中心来执行多余的工单，而不是等待主工作中心可用。
 
-Begin by creating a new work center. Configure the :guilabel:`Equipment` tab so that it has all of
-the same equipment as the main work center. This will ensure that the same tasks can be carried out
-at both work centers. Navigate to the main work center and include the new work center in the
-:guilabel:`Alternative Workcenters` selection field.
+首先创建一个新的工作中心。配置 :guilabel:`设备` 标签，使其拥有与主工作中心相同的设备。这样可以确保在两个工作中心执行相同的任务。然后，导航到主工作中心，并在 :guilabel:`替代工作中心` 选择字段中包括新的工作中心。
 
-Now, create a new manufacturing order that uses the main work center for one of its operations. The
-main work center will automatically be selected for the operation in the :guilabel:`Work Orders`
-tab. After confirming the manufacturing order, click the :guilabel:`Plan` button that appears at the
-top left of the form.
+现在，创建一个使用主工作中心的生产订单。主工作中心会自动在 :guilabel:`工单` 标签中为操作选择。确认生产订单后，点击表单左上角的 :guilabel:`计划` 按钮。
 
 .. image:: using_work_centers/manufacturing-order-plan-button.png
    :align: center
-   :alt: Click the plan button to automatically select an available work center.
+   :alt: 点击计划按钮以自动选择可用的工作中心。
 
-If the main work center is at capacity, the work center selected for the operation will be
-automatically changed to the alternative work center.
+如果主工作中心已满，操作的工作中心将自动更改为替代工作中心。
 
 .. image:: using_work_centers/automatic-work-center-selection.png
    :align: center
-   :alt: The alternative work center is automatically selected.
+   :alt: 自动选择替代工作中心。
 
-Monitor work center performance
+监控工作中心的性能
 ===============================
 
-Performance for an individual work center can be viewed by selecting
-:menuselection:`Configuration --> Work Centers`, and clicking on a work center. A variety of metrics
-showing work center performance can be viewed at the top right of the form:
+可以通过选择 :menuselection:`配置 --> 工作中心`，然后点击一个工作中心，来查看单个工作中心的性能。在表单右上角可以查看一系列显示工作中心性能的指标：
 
-- :guilabel:`OEE`: overall effective efficiency, the percentage of time that the work center has
-  been fully productive
-- :guilabel:`Lost`: the amount of time lost due to work stoppages
-- :guilabel:`Load`: the amount of time it will take to complete the current workload
-- :guilabel:`Performance`: the real duration of work time, shown as a percentage of the expected
-  duration
+- :guilabel:`OEE`：总体有效效率，即工作中心全负荷生产的时间百分比
+- :guilabel:`损失时间`：由于工作停止而损失的时间
+- :guilabel:`负载`：完成当前工作量所需的时间
+- :guilabel:`性能`：实际工作时间的百分比，显示为预期时间的百分比

@@ -1,146 +1,93 @@
 ========================
-Purchase Analysis report
+采购分析报告
 ========================
 
-.. |PO| replace:: :abbr:`PO (purchase order)`
-.. |POs| replace:: :abbr:`POs (purchase orders)`
+.. |PO| replace:: :abbr:`PO (采购订单)`
+.. |POs| replace:: :abbr:`POs (采购订单)`
 
-The *Purchase Analysis* report provides statistics about products purchased using Odoo's
-**Purchase** app. This data is useful for gaining a deeper understanding of key metrics related to
-purchase orders (POs), including the quantity of products ordered and received, the amount of time
-it takes to receive purchased products, and more.
+*采购分析* 报告提供了有关使用 Odoo 的 **采购** 应用购买的产品的统计数据。这些数据有助于深入了解与采购订单 (PO) 相关的关键指标，包括订购和收到的产品数量、收到采购产品所需的时间等。
 
-To open the Purchase Analysis report, navigate to :menuselection:`Purchase app --> Reporting -->
-Purchase`.
+要打开采购分析报告，请导航到 :menuselection:`采购应用 --> 报告 --> 采购`。
 
 .. important::
-   The :guilabel:`Purchase Analysis` report is one of many reports available across the Odoo app
-   suite. This documentation only covers the measures specific to the :guilabel:`Purchase Analysis`
-   report, along with a few use case examples.
+   :guilabel:`采购分析` 报告是 Odoo 应用套件中众多可用报告之一。本文件仅涵盖 :guilabel:`采购分析` 报告中特定的度量标准以及一些用例示例。
 
-   For a full overview of the basic features available in most Odoo reports, see the documentation
-   on :doc:`reporting essentials <../../../essentials/reporting>`.
+   有关 Odoo 大多数报告中可用的基本功能的完整概述，请参阅 :doc:`报告基础 <../../../essentials/reporting>` 文档。
 
-Measures
+度量标准
 ========
 
-*Measures* refer to the various datasets that can be displayed on the :guilabel:`Purchase Analysis`
-report, with each dataset representing a key statistic about |POs| or products. To choose a measure,
-click the :guilabel:`Measures` :icon:`fa-caret-down` button, and select one of the options from the
-drop-down menu:
+*度量标准* 是指可以在 :guilabel:`采购分析` 报告中显示的各种数据集，每个数据集代表与 |POs| 或产品相关的关键统计数据。要选择度量标准，请点击 :guilabel:`度量标准` :icon:`fa-caret-down` 按钮，并从下拉菜单中选择一个选项：
 
-- :guilabel:`# of Lines`: The number of |PO| order lines, across all |POs|.
-- :guilabel:`Average Cost`: The average cost of |POs|.
-- :guilabel:`Days to Confirm`: The number of days it takes to confirm a |PO|.
-- :guilabel:`Days to Receive`: The number of days it takes to receive the products in a |PO|.
-- :guilabel:`Gross Weight`: The total weight of purchased products.
-- :guilabel:`Qty Billed`: The quantity of a product (or products) for which the vendor has already
-  been billed.
-- :guilabel:`Qty Ordered`: The quantity of a product (or products) ordered.
-- :guilabel:`Qty Received`: The quantity of an ordered product (or products) received.
-- :guilabel:`Qty to be Billed`: The quantity of an ordered product (or products) for which the
-  vendor has yet to be billed.
-- :guilabel:`Total`: The total amount spent, including tax.
-- :guilabel:`Untaxed Total`: The total amount spent, excluding tax. This measure is selected by
-  default.
-- :guilabel:`Volume`: The total volume of ordered products, for products which are measured by
-  volume.
-- :guilabel:`Count`: The total count of |POs|.
+- :guilabel:`行数`：所有 |POs| 的订单行数。
+- :guilabel:`平均成本`：|POs| 的平均成本。
+- :guilabel:`确认天数`：确认 |PO| 所需的天数。
+- :guilabel:`接收天数`：收到 |PO| 中产品所需的天数。
+- :guilabel:`总重量`：采购产品的总重量。
+- :guilabel:`已开票数量`：供应商已开票的产品数量。
+- :guilabel:`订购数量`：订购的产品数量。
+- :guilabel:`接收数量`：收到的订购产品数量。
+- :guilabel:`待开票数量`：供应商尚未开票的订购产品数量。
+- :guilabel:`总计`：包括税金在内的总支出金额。
+- :guilabel:`不含税总计`：不包括税金的总支出金额。此度量标准为默认选择。
+- :guilabel:`体积`：按体积测量的订购产品的总体积。
+- :guilabel:`数量`：|POs| 的总数量。
 
 .. tip::
-   Only one measure can be selected at a time when one of the :icon:`fa-area-chart`
-   :guilabel:`(graph view)` options is enabled. However, multiple measures, and varying group-by
-   criteria (on the x and y axes), can be selected when using the :icon:`oi-view-pivot`
-   :guilabel:`(pivot table)`.
+   当启用 :icon:`fa-area-chart` :guilabel:`(图表视图)` 选项时，一次只能选择一个度量标准。然而，使用 :icon:`oi-view-pivot` :guilabel:`(数据透视表)` 时，可以选择多个度量标准，并选择不同的分组标准（在 x 轴和 y 轴上）。
 
 .. _purchase/purchase-analysis-example:
 
-Use case: determine days to receive products from each vendor
-=============================================================
+用例：确定每个供应商的接收天数
+===================================
 
-One possible use case for the :guilabel:`Purchase Analysis` report is determining how long each
-vendor takes to deliver purchased items. This allows companies to make better informed decisions
-about which vendors they want to purchase from.
+*采购分析* 报告的一个可能用例是确定每个供应商交付购买商品所需的时间。这使得公司可以更好地决定向哪些供应商购买。
 
 .. example::
-   A local bike shop, *Bike Haus*, sells high-quality unicycles, bicycles, tricycles, and all the
-   accessories needed to ride and maintain them. They purchase their inventory from a few different
-   vendors, and then sell those products on to customers through their storefront.
+   一家本地自行车商店 *Bike Haus* 销售高质量的独轮车、自行车、三轮车以及所有骑行和维护所需的配件。他们从几家不同的供应商采购库存，然后通过店面将这些产品销售给客户。
 
-   Recently, Bike Haus has decided to have their purchasing manager, David, look into how long it
-   has taken each of their vendors to deliver the items they've purchased during the current year,
-   2024.
+   最近，Bike Haus 决定让他们的采购经理大卫调查他们的每个供应商在 2024 年交付所购买商品所需的时间。
 
-   David starts by navigating to :menuselection:`Purchase app --> Reporting --> Purchase`, and
-   selecting the :icon:`fa-bar-chart` (bar chart) graph type at the top of the report.
+   大卫首先导航到 :menuselection:`采购应用 --> 报告 --> 采购`，并在报告顶部选择 :icon:`fa-bar-chart` (柱状图) 图表类型。
 
-   Next, he clicks the :icon:`fa-caret-down` :guilabel:`(toggle)` button on the right of the search
-   bar to open its drop-down menu. In the :guilabel:`Confirmation Date` filter section, he makes
-   sure that **only** the :guilabel:`2024` filter is enabled. Then, he selects the
-   :guilabel:`Vendor` option in the :guilabel:`Group By` section, before clicking away from the
-   drop-down menu to close it.
+   接下来，他点击搜索栏右侧的 :icon:`fa-caret-down` :guilabel:`(切换)` 按钮以打开其下拉菜单。在 :guilabel:`确认日期` 筛选器部分，他确保只启用了 :guilabel:`2024` 筛选器。然后，他在 :guilabel:`分组依据` 部分选择 :guilabel:`供应商` 选项，并点击菜单外关闭下拉菜单。
 
-   Finally, David clicks on the :guilabel:`Measures` :icon:`fa-caret-down` drop-down menu, and
-   selects the :guilabel:`Days to Receive` option.
+   最后，大卫点击 :guilabel:`度量标准` :icon:`fa-caret-down` 下拉菜单，并选择 :guilabel:`接收天数` 选项。
 
-   With all of these options enabled, the :guilabel:`Purchase Analysis` report shows a bar chart,
-   with one bar for each vendor, representing the average number of days it takes to receive
-   products purchased from the vendor.
+   启用所有这些选项后，:guilabel:`采购分析` 报告显示一个柱状图，每个供应商对应一根柱子，代表从该供应商收到采购产品的平均天数。
 
-   Using this data, David can see that it takes Bike Friends over 4.5 days, on average, to deliver
-   purchased products. This is more than four times the amount of time it takes any other vendor.
+   使用这些数据，大卫可以看到，从 Bike Friends 采购的产品平均需要超过 4.5 天交付。这是其他供应商所需时间的四倍多。
 
-   Based on these findings, David makes the decision to reduce the quantity of products purchased
-   from Bike Friends.
+   基于这些发现，大卫决定减少从 Bike Friends 采购的产品数量。
 
    .. image:: analyze/dtr.png
       :align: center
-      :alt: The Purchase report, showing the average days to receive products from vendors.
+      :alt: 采购报告，显示从供应商接收产品的平均天数。
 
-Use case: compare vendor POs for two time periods
-=================================================
+用例：比较两个时间段的供应商PO
+===================================
 
-Another use for the :guilabel:`Purchase Analysis` report is to compare key statistics about |POs|
-for two different time periods, for a specific vendor. By doing so, it is easy to understand how
-purchases from the vendor have increased or decreased.
+*采购分析* 报告的另一个用途是比较特定供应商在两个不同时间段的采购订单 (PO) 关键统计数据。通过这样做，可以轻松了解从该供应商的采购是增加了还是减少了。
 
 .. example::
-   Following the :ref:`previous example <purchase/purchase-analysis-example>`, it has been one month
-   since Bike Haus decided to reduce the quantity of products purchased from Bike Friends, one of
-   their retailers. Bike Haus' purchasing manager, David, wants to understand the impact this
-   decision has had on the amount of money they have spent on Bike Friends products.
+   根据 :ref:`前面的示例 <purchase/purchase-analysis-example>`，自从 Bike Haus 决定减少从其供应商 Bike Friends 采购的产品数量以来，已经过去了一个月。Bike Haus 的采购经理大卫希望了解这一决定对他们在 Bike Friends 产品上的支出影响。
 
-   David starts by navigating to :menuselection:`Purchase app --> Reporting --> Purchase`. Then, he
-   selects the :icon:`oi-view-pivot` :guilabel:`(pivot table)` option at the top of the screen.
+   大卫首先导航到 :menuselection:`采购应用 --> 报告 --> 采购`。然后，他选择屏幕顶部的 :icon:`oi-view-pivot` :guilabel:`(数据透视表)` 选项。
 
-   In the search bar, he types `Bike Friends`, and clicks :guilabel:`Enter`, so the report only
-   shows data for purchases from Bike Friends.
+   在搜索栏中，他输入 `Bike Friends` 并点击 :guilabel:`回车`，这样报告只显示从 Bike Friends 的采购数据。
 
-   Then, David clicks the :icon:`fa-caret-down` :guilabel:`(toggle)` button on the right of the
-   search bar to open its drop-down menu. In the :guilabel:`Confirmation Date` field, he leaves the
-   :guilabel:`June` and :guilabel:`2024` filters enabled. He also selects :guilabel:`Confirmation
-   Date: Previous Period` in the :guilabel:`Comparison` section, before clicking away from the
-   drop-down menu to close it.
+   然后，大卫点击搜索栏右侧的 :icon:`fa-caret-down` :guilabel:`(切换)` 按钮以打开其下拉菜单。在 :guilabel:`确认日期` 字段中，他保持启用了 :guilabel:`2024年6月` 筛选器，并选择 :guilabel:`确认日期：上一期间` 选项。然后，点击菜单外关闭下拉菜单。
 
-   Next, David clicks on the :guilabel:`Measures` :icon:`fa-caret-down` drop-down menu. He leaves
-   the :guilabel:`Total` and :guilabel:`Untaxed Total` datasets enabled, and disables the
-   :guilabel:`Order` and :guilabel:`Count` datasets.
+   接下来，大卫点击 :guilabel:`度量标准` :icon:`fa-caret-down` 下拉菜单。他保留 :guilabel:`总计` 和 :guilabel:`不含税总计` 数据集，并禁用 :guilabel:`订单` 和 :guilabel:`数量` 数据集。
 
-   Finally, David clicks the :icon:`fa-minus-square-o` :guilabel:`Total` button above the rows on
-   the pivot table, and selects the :guilabel:`Product` option.
+   最后，大卫点击数据透视表行上方的 :guilabel:`fa-minus-square-o` :guilabel:`总计` 按钮，并选择 :guilabel:`产品` 选项。
 
-   With all of these options configured, the :guilabel:`Purchase Analysis` report shows a pivot
-   table comparing purchase data for the current month, June, with the previous month, May.
+   配置好所有这些选项后，:guilabel:`采购分析` 报告显示了一个数据透视表，比较了当月 6 月与上个月 5 月的采购数据。
 
-   The pivot table is broken down into two main columns: one for the untaxed total spent, and one
-   for the taxed total spent. These columns are further broken down into three smaller columns: the
-   amount spent in May, the amount spent in June, and the variation between the two months,
-   represented as a percentage.
+   数据透视表分为两列：一列显示不含税总支出，另一列显示含税总支出。这些列进一步细分为三列：5 月的支出金额、6 月的支出金额以及两个月之间的变化，以百分比表示。
 
-   On the left side of the pivot table, one row is shown for each product purchased from Bike
-   Friends during June. Using this report, David is able to see that Bike Haus has spent much less
-   money on products purchased from Bike Friends, compared to the previous month.
+   在数据透视表的左侧，显示了 6 月期间从 Bike Friends 采购的每种产品的行。通过此报告，大卫能够看到，与上个月相比，Bike Haus 在从 Bike Friends 采购的产品上花费的金额少了很多。
 
    .. image:: analyze/comparison.png
       :align: center
-      :alt: The Purchase report, comparing the amount spent at a vendor.
+      :alt: 采购报告，比较在供应商处的支出金额。

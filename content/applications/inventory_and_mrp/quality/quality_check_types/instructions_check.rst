@@ -1,98 +1,61 @@
 ==========================
-Instructions quality check
+说明质量检查
 ==========================
 
-.. |MO| replace:: :abbr:`MO (Manufacturing Order)`
-.. |QCP| replace:: :abbr:`QCP (Quality Control Point)`
+.. |MO| replace:: :abbr:`MO (生产订单)`
+.. |QCP| replace:: :abbr:`QCP (质量控制点)`
 
-In Odoo *Quality*, an *Instructions* check is one of the quality check types that can be selected
-when creating a new quality check or quality control point (QCP). *Instructions* checks consist of a
-text entry field that allows the creator to provide instructions for how to complete the check.
+在 Odoo 的 *质量* 模块中，*说明* 检查是创建新质量检查或质量控制点 (QCP) 时可以选择的一种质量检查类型。*说明* 检查包括一个文本输入字段，允许创建者提供完成检查的说明。
 
-For a full overview of how to configure a quality check or a |QCP|, see the documentation on
-:ref:`quality checks <quality/quality_management/quality-checks>` and :ref:`quality control points
-<quality/quality_management/quality-control-points>`.
+有关如何配置质量检查或 |QCP| 的完整概述，请参阅 :ref:`质量检查 <quality/quality_management/quality-checks>` 和 :ref:`质量控制点 <quality/quality_management/quality-control-points>` 的文档。
 
-Process an Instructions quality check
-=====================================
+处理说明质量检查
+==================
 
-There are multiple ways that *Instructions* quality checks can be processed. If a quality check is
-assigned to a specific manufacturing, inventory, or work order, the check can be processed on the
-order itself. Alternatively, a check can be processed from the check's page.
+可以通过多种方式处理 *说明* 质量检查。如果质量检查分配给特定的生产、库存或工单，则可以在相应订单上处理检查。或者，也可以从检查的页面处理检查。
 
-Process from the quality check's page
--------------------------------------
+从质量检查页面处理
+---------------------
 
-To process an *Instructions* quality check from the check's page, begin by navigating to
-:menuselection:`Quality --> Quality Control --> Quality Checks`, and select a quality check. Follow
-the :guilabel:`Instructions` for how to complete the check.
+要从检查页面处理 *说明* 质量检查，首先导航到 :menuselection:`质量 --> 质量控制 --> 质量检查`，并选择一个质量检查。按照 :guilabel:`说明` 完成检查。
 
-If the product passes the check, click the :guilabel:`Pass` button above the quality check form. If
-the product does not pass the check, click the :guilabel:`Fail` button, instead.
+如果产品通过检查，点击质量检查表单上方的 :guilabel:`通过` 按钮。如果产品未通过检查，请点击 :guilabel:`失败` 按钮。
 
-Process quality check on an order
----------------------------------
+在订单上处理质量检查
+-----------------------
 
-To process an *Instructions* quality check on an order, select a manufacturing order or inventory
-order (receipt, delivery, return, etc.) for which a check is required. Manufacturing orders can be
-selected by navigating to :menuselection:`Manufacturing --> Operations --> Manufacturing Orders`,
-and clicking on an order. Inventory orders can be selected by navigating to
-:menuselection:`Inventory`, clicking the :guilabel:`# To Process` button on an operation card, and
-selecting an order.
+要在订单上处理 *说明* 质量检查，选择一个需要进行检查的生产订单或库存订单（收货、发货、退货等）。可以通过导航到 :menuselection:`生产 --> 操作 --> 生产订单` 并点击某个订单来选择生产订单。可以通过导航到 :menuselection:`库存`，点击操作卡上的 :guilabel:`# 待处理` 按钮，并选择一个订单来选择库存订单。
 
-On the selected manufacturing or inventory order, a purple :guilabel:`Quality Checks` button appears
-above the order. Click the button to open the :guilabel:`Quality Check` pop-up window, from which
-any quality checks created for the order can be processed.
+在所选的生产或库存订单上，订单上方会出现一个紫色的 :guilabel:`质量检查` 按钮。点击该按钮以打开 :guilabel:`质量检查` 弹出窗口，可以处理为该订单创建的任何质量检查。
 
 .. image:: instructions_check/quality-check-pop-up.png
    :align: center
-   :alt: The Quality Check pop-up window on a manufacturing or inventory order.
+   :alt: 在生产或库存订单上的质量检查弹出窗口。
 
-To complete an *Instructions* quality check, follow the instructions detailed in the
-:guilabel:`Quality Check` pop-up window. Finally, click :guilabel:`Validate` to confirm that the
-check has been completed.
+要完成 *说明* 质量检查，请按照 :guilabel:`质量检查` 弹出窗口中的说明操作。最后，点击 :guilabel:`验证` 确认检查已完成。
 
-If an issue or defect is found during the quality check, a quality alert may need to be created to
-notify a quality team. To do so, click the :guilabel:`Quality Alert` button that appears at the top
-of the manufacturing or inventory order after the check is validated.
+如果在质量检查期间发现问题或缺陷，可能需要创建质量警报以通知质量团队。为此，请在检查验证后点击生产或库存订单顶部出现的 :guilabel:`质量警报` 按钮。
 
-Clicking :guilabel:`Quality Alert` opens a quality alert form on a new page. For a complete guide on
-how to fill out quality alert forms, view the documentation on :ref:`quality alerts
-<quality/quality_management/quality-alerts>`.
+点击 :guilabel:`质量警报` 会在新页面上打开质量警报表单。有关如何填写质量警报表单的完整指南，请查看 :ref:`质量警报 <quality/quality_management/quality-alerts>` 的文档。
 
-Process work order quality check
---------------------------------
+处理工单质量检查
+------------------
 
-When configuring a |QCP| that is triggered by a manufacturing order, a specific work order can also
-be specified in the :guilabel:`Work Order Operation` field on the |QCP| form. If a work order is
-specified, an *Instructions* quality check is created for that specific work order, rather than the
-|MO| as a whole.
+在配置由生产订单触发的 |QCP| 时，还可以在 |QCP| 表单的 :guilabel:`工单操作` 字段中指定特定工单。如果指定了工单，则为该特定工单创建 *说明* 质量检查，而不是针对整个 |MO|。
 
-Quality checks configured for work orders **must** be completed from the *Shop Floor* module. To do
-so, begin by navigating to :menuselection:`Manufacturing --> Operations --> Manufacturing Orders`.
-Select an |MO| that includes a work order for which an *Instructions* quality check is required.
+配置为工单的质量检查 **必须** 在 *车间* 模块中完成。为此，首先导航到 :menuselection:`生产 --> 操作 --> 生产订单`。选择一个包含需要进行 *说明* 质量检查的工单的 |MO|。
 
-On the |MO|, select the :guilabel:`Work Orders` tab, and click the :guilabel:`Open Work Order
-(square with arrow coming out of it)` button on the line of the work order to be processed. On the
-resulting :guilabel:`Work Orders` pop-up window, click the :guilabel:`Open Shop Floor` button to
-open the *Shop Floor* module.
+在 |MO| 上，选择 :guilabel:`工单` 标签，然后点击待处理工单行上的 :guilabel:`打开工单 (带有箭头的方块)` 按钮。在随后的 :guilabel:`工单` 弹出窗口中，点击 :guilabel:`打开车间` 按钮以打开 *车间* 模块。
 
-When accessed from a specific work order, the *Shop Floor* module opens to the page for the work
-center where the order is configured to be processed, and isolates the work order's card so that no
-other cards are shown.
+从特定工单访问时，*车间* 模块会打开该工单配置为处理的工作中心页面，并仅显示该工单的卡片，不显示其他卡片。
 
-Begin processing the work order's steps until the *Instructions* quality check step is reached.
-Click on the step to open a pop-up window that details how to complete the quality check. Once
-completed, click the :guilabel:`Next` button to complete the check, and move on to the next step.
+开始处理工单的步骤，直到到达 *说明* 质量检查步骤。点击该步骤以打开弹出窗口，详细说明如何完成质量检查。完成后，点击 :guilabel:`下一步` 按钮完成检查并继续下一步。
 
 .. image:: instructions_check/instructions-check-shop-floor.png
    :align: center
-   :alt: An Instruction check as it appears in the Shop Floor module.
+   :alt: 在车间模块中显示的说明检查。
 
-Alternatively, an *Instructions* quality check can be completed by clicking the checkbox that
-appears on the right side of the step's line on the work order card. When using this method, the
-quality check automatically passes, without a pop-up window appearing.
+或者，可以通过点击工单卡片上步骤行右侧出现的复选框来完成 *说明* 质量检查。使用此方法时，质量检查会自动通过，不会出现弹出窗口。
 
 .. note::
-   For a full guide to the *Shop Floor* module, see the :ref:`Shop Floor overview
-   <manufacturing/shop_floor/shop_floor_overview>` documentation.
+   有关 *车间* 模块的完整指南，请参阅 :ref:`车间概览 <manufacturing/shop_floor/shop_floor_overview>` 文档。

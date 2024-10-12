@@ -1,259 +1,189 @@
 =================
-Bill of materials
+物料清单
 =================
 
-.. |BOM| replace:: :abbr:`BoM (Bill of Materials)`
-.. |BOMs| replace:: :abbr:`BoMs (Bills of Materials)`
-.. |MO| replace:: :abbr:`MO (Manufacturing Order)`
+.. |BOM| replace:: :abbr:`BoM (物料清单)`
+.. |BOMs| replace:: :abbr:`BoMs (物料清单)`
+.. |MO| replace:: :abbr:`MO (制造订单)`
 
-A *bill of materials* (or *BoM* for short) documents specific components, along with their
-respective quantities, that are needed to produce or repair a product. In Odoo, |BoMs| as blueprints
-for manufactured goods and kits, and often include production operations and step-by-step
-guidelines, as well.
+物料清单（简称 *BoM*）记录了生产或维修产品所需的具体组件及其相应的数量。在Odoo中，|BOMs| 是制造商品和工具包的蓝图，通常还包括生产操作和逐步的指导说明。
 
-BoM setup
+BoM 设置
 =========
 
-To create a |BOM|, go to :menuselection:`Manufacturing app --> Products --> Bills of Materials` and
-click :guilabel:`New`.
+要创建一个 |BOM|，请进入 :menuselection:`制造应用 --> 产品 --> 物料清单`，然后点击 :guilabel:`新建`。
 
-Next, set the :guilabel:`BoM Type` to :guilabel:`Manufacture this Product`.
+接下来，将 :guilabel:`BoM 类型` 设置为 :guilabel:`制造此产品`。
 
-Then, specify :ref:`required components <manufacturing/basic_setup/setup-components>` and, if
-necessary, define any :ref:`manufacturing operations <manufacturing/basic_setup/setup-operations>`.
+然后，指定所需的 :ref:`组件 <manufacturing/basic_setup/setup-components>`，如果需要，还可以定义 :ref:`制造操作 <manufacturing/basic_setup/setup-operations>`。
 
-.. tip::
-   Individual |BOMs| can also be quickly accessed or created by clicking the :guilabel:`Bill of
-   Materials` smart button on any product form, as accessible through the *Sales*, *Inventory*, and
-   *Manufacturing* apps, as well as through any internal links where a product is referenced (such
-   as in a field or a line item).
+.. 提示::
+   通过点击任何产品表单上的 :guilabel:`物料清单` 智能按钮，也可以快速访问或创建单独的 |BOMs|，这些表单可通过*销售*、*库存*和*制造*应用访问，也可通过引用产品的任何内部链接（如字段或项目行）访问。
 
 .. figure:: bill_configuration/bom-example.png
    :align: center
-   :alt: Show BoM for a product, with components listed.
+   :alt: 显示产品的物料清单，列出组件。
 
-   BoM for `Drawer`, displaying the **Components** tab.
+   `抽屉` 的 BoM，显示 **组件** 标签。
 
-.. seealso::
+.. 参见::
    - :doc:`../advanced_configuration/kit_shipping`
    - :doc:`../subcontracting/subcontracting_basic`
 
 .. _manufacturing/basic_setup/setup-components:
 
-Components
+组件
 ----------
 
-In the :guilabel:`Components` tab of a |BOM|, specify components used to manufacture the product by
-clicking :guilabel:`Add a line`. From the :guilabel:`Components` drop-down menu, select from
-existing products or create a new product by typing the name and selecting either the
-:guilabel:`Create " "` option to quickly add the line item, or the :guilabel:`Create and edit...`
-option to add the component and continue to its configuration form.
+在 |BOM| 的 :guilabel:`组件` 标签中，通过点击 :guilabel:`添加一行` 来指定用于生产产品的组件。从 :guilabel:`组件` 下拉菜单中选择现有产品，或通过输入名称并选择 :guilabel:`创建 " "` 选项快速添加项目，或选择 :guilabel:`创建并编辑...` 选项添加组件并继续配置表单。
 
 .. image:: bill_configuration/component.png
    :align: center
-   :alt: Add a component by selecting it from the drop-down menu.
+   :alt: 通过从下拉菜单中选择添加组件。
 
-Optionally, access additional fields by clicking the :icon:`oi-settings-adjust` :guilabel:`(settings
-adjust)` icon to the far-right of the :guilabel:`Components` tab. Tick the checkboxes for the
-following features to enable these columns:
+可选地，通过点击 :icon:`oi-settings-adjust` :guilabel:`(设置调整)` 图标访问额外的字段，启用以下功能的复选框以显示这些列：
 
-- :guilabel:`Apply on Variants`: specify which :doc:`product variant
-  <../advanced_configuration/product_variants>` each component is used in. When the field is left
-  blank, the component is used in all product variants.
+- :guilabel:`应用于变体`：指定每个组件适用于哪个 :doc:`产品变体 <../advanced_configuration/product_variants>`。如果此字段留空，则组件用于所有产品变体。
 
 .. _manufacturing/basic_setup/consumed-in-operation:
 
-- :guilabel:`Consumed in Operation`: specify the operation using the component. Useful for
-  determining :ref:`manufacturing readiness <manufacturing/basic_setup/manufacturing-readiness>`.
-- :guilabel:`Manual Consumption`: tick the checkbox to force operators to check the
-  :guilabel:`Consumed` checkbox on a manufacturing order (MO).
+- :guilabel:`在操作中消耗`：指定使用组件的操作。用于确定 :ref:`制造准备 <manufacturing/basic_setup/manufacturing-readiness>`。
+- :guilabel:`手动消耗`：选中复选框以强制操作员在制造订单 (MO) 上勾选 :guilabel:`已消耗` 复选框。
 
   .. image:: bill_configuration/consumed-field.png
      :align: center
-     :alt: Show a manufacturing order, highlighting the *Consumed* field.
+     :alt: 显示制造订单，突出显示*已消耗*字段。
 
-  Not doing so triggers the :guilabel:`Consumption Warning` error message, where the consumed
-  component quantity must be manually inputted. Otherwise, the operation cannot be completed.
+  不这样做将触发 :guilabel:`消耗警告` 错误消息，必须手动输入消耗的组件数量。否则，操作无法完成。
 
   .. image:: bill_configuration/consumption-warning.png
      :align: center
-     :alt: Show the consumption warning error message.
+     :alt: 显示消耗警告错误消息。
 
 .. _manufacturing/basic_setup/setup-operations:
 
-Operations
+操作
 ----------
 
-Add an *operation* to a |BOM| to specify instructions for production and register time spent on an
-operation. To use this feature, first enable the *Work Orders* feature by going to
-:menuselection:`Manufacturing app --> Configuration --> Settings`. In the :guilabel:`Operations`
-section, tick the :guilabel:`Work Orders` checkbox to enable the feature.
+在 |BOM| 中添加 *操作* 以指定生产说明并登记操作所花费的时间。要使用此功能，首先通过进入 :menuselection:`制造应用 --> 配置 --> 设置` 启用*工单*功能。在 :guilabel:`操作` 部分，勾选 :guilabel:`工单` 复选框以启用此功能。
 
-.. seealso::
+.. 参见::
    :doc:`../advanced_configuration/work_order_dependencies`
 
 .. image:: bill_configuration/enable-work-orders.png
    :align: center
-   :alt: "Work Orders" feature in the Settings page.
+   :alt: 设置页面中的"工单"功能。
 
-Next, navigate to the |BOM| by going to :menuselection:`Manufacturing app --> Products --> Bill of
-Materials` and selecting the desired |BOM|. To add a new operation, go to the :guilabel:`Operations`
-tab, and click :guilabel:`Add a line`.
+接下来，进入 |BOM|，导航到 :menuselection:`制造应用 --> 产品 --> 物料清单` 并选择所需的 |BOM|。要添加新操作，转到 :guilabel:`操作` 标签，然后点击 :guilabel:`添加一行`。
 
-Doing so opens the :guilabel:`Create Operations` pop-up window, where the various fields of the
-operation are configured:
+这将打开 :guilabel:`创建操作` 弹出窗口，在该窗口中可以配置操作的各个字段：
 
-- :guilabel:`Operation`: name of the operation.
-- :guilabel:`Work Center`: select existing locations to perform the operation, or create a new work
-  center by typing the name and selecting the :guilabel:`Create " "` option.
-- :guilabel:`Apply on Variants`: specify if this operation is only available for certain product
-  variants. If the operation applies to all product variants, leave this field blank.
+- :guilabel:`操作`：操作的名称。
+- :guilabel:`工作中心`：选择执行操作的现有位置，或输入名称并选择 :guilabel:`创建 " "` 选项创建新的工作中心。
+- :guilabel:`应用于变体`：指定此操作是否仅适用于某些产品变体。如果此操作适用于所有产品变体，则将此字段留空。
 
-  .. seealso::
-     :doc:`Configuring BoMs for product variants <../advanced_configuration/product_variants>`
+  .. 参见::
+     :doc:`配置BoM产品变体 <../advanced_configuration/product_variants>`
 
-- :guilabel:`Duration Computation`: choose how time spent on the operation is tracked. Opt for
-  :guilabel:`Compute based on tracked time` to use the operation's time tracker or :guilabel:`Set
-  duration manually` if operators can record and modify time themselves.
+- :guilabel:`持续时间计算`：选择如何跟踪操作花费的时间。选择 :guilabel:`基于跟踪的时间计算` 使用操作的时间跟踪器，或选择 :guilabel:`手动设置持续时间`，如果操作员可以自行记录和修改时间。
 
-  Choosing the :guilabel:`Compute based on tracked time` option enables the :guilabel:`Based on last
-  __ work orders` option, which automatically estimates the time to complete this operation based on
-  the last few operations. Choosing :guilabel:`Set duration manually` enables the :guilabel:`Default
-  Duration` field instead.
-- :guilabel:`Default Duration`: estimated amount of time to complete the operation; used for
-  `planning manufacturing orders <https://www.youtube.com/watch?v=TK55jIq00pc>`_ and determining
-  `work center availability <https://www.youtube.com/watch?v=3YwFlD97Bio>`_.
-- :guilabel:`Company`: specify the company the |BOM| is available in.
+  选择 :guilabel:`基于跟踪的时间计算` 选项将启用 :guilabel:`基于最近__工单` 选项，该选项会根据最近几次操作自动估算完成此操作的时间。选择 :guilabel:`手动设置持续时间` 则启用 :guilabel:`默认持续时间` 字段。
+- :guilabel:`默认持续时间`：完成操作的估计时间；用于 `计划制造订单 <https://www.youtube.com/watch?v=TK55jIq00pc>`_ 和确定 `工作中心可用性 <https://www.youtube.com/watch?v=3YwFlD97Bio>`_。
+- :guilabel:`公司`：指定该 |BOM| 可用的公司。
 
-Include operation details in the :guilabel:`Work Sheet` tab. Choose :guilabel:`PDF` to attach a file
-or :guilabel:`Google Slide` with *public* access to share a link. Select :guilabel:`Text` to type
-instructions in the :guilabel:`Description` text field.
+在 :guilabel:`工作表` 标签中包含操作详细信息。选择 :guilabel:`PDF` 以附加文件或 :guilabel:`Google Slide`，并将其设置为*公开*访问以共享链接。选择 :guilabel:`文本` 在 :guilabel:`描述` 文本框中键入说明。
 
-.. tip::
-   Type `/` for a list of formatting options and features, including ChatGPT.
+.. 提示::
+   输入 `/` 以获取格式选项和功能列表，包括ChatGPT。
 
    .. image:: bill_configuration/description.png
       :align: center
-      :alt: Show ChatGPT feature to generate instructions for a work order.
+      :alt: 显示ChatGPT功能生成工单说明。
 
 .. image:: bill_configuration/create-operations.png
    :align: center
-   :alt: Fill out the Create Operations pop-up window.
+   :alt: 填写创建操作弹出窗口。
 
-Finally, click :guilabel:`Save \& Close` to close the pop-up window. To add more operations, click
-:guilabel:`Save & New` and repeat the same steps above to configure another operation.
+最后，点击 :guilabel:`保存并关闭` 以关闭弹出窗口。要添加更多操作，请点击 :guilabel:`保存并新建`，然后重复上述步骤配置另一个操作。
 
-.. note::
-   Each operation is unique, as it is always exclusively linked to one |BOM|.
+.. 注意::
+   每个操作都是唯一的，因为它始终只与一个 |BOM| 关联。
 
-.. tip::
-   After creating an operation, click the :guilabel:`Copy Existing Operations` button to choose an
-   operation to duplicate.
+.. 提示::
+   创建操作后，点击 :guilabel:`复制现有操作` 按钮选择要复制的操作。
 
    .. image:: bill_configuration/copy-existing-operations.png
       :align: center
-      :alt: Show Operation tab, highlighting the "Copy Existing Operations" field.
+      :alt: 显示操作标签，突出显示"复制现有操作"字段。
+指示
+~~~~~
 
-Instructions
-~~~~~~~~~~~~
+.. 重要::
+   要为操作添加详细的指示，必须安装 *质量* 应用。
 
-.. important::
-   To add detailed instructions to operations, the *Quality* app must be installed.
-
-Add specific instructions to an existing operation by clicking the operation's :icon:`fa-list-ul`
-:guilabel:`(list)` icon in the :guilabel:`Instructions` column. The number in the
-:guilabel:`Instructions` column shows the number of existing detailed instructions there are for the
-operation.
+通过点击操作的 :icon:`fa-list-ul` :guilabel:`(列表)` 图标，在 :guilabel:`指示` 列中为现有操作添加具体指示。指示列中的数字显示了该操作已存在的详细指示数量。
 
 .. image:: bill_configuration/add-instructions.png
    :align: center
-   :alt: Show the Instructions column, and list icon.
+   :alt: 显示指示列和列表图标。
 
-On the :guilabel:`Steps` dashboard, click :guilabel:`New` to open a blank quality control point form
-where the new manufacturing step can be created. Here, give the specific instruction a
-:guilabel:`Title` and set the :guilabel:`Type` to :guilabel:`Instructions`. In the
-:guilabel:`Instructions` tab of the form, write out the directions for the step in the operation.
+在 :guilabel:`步骤` 仪表板上，点击 :guilabel:`新建` 打开一个空白的质量控制点表单，用于创建新的生产步骤。在这里，为该特定指示命名一个 :guilabel:`标题`，并将 :guilabel:`类型` 设置为 :guilabel:`指示`。在表单的 :guilabel:`指示` 选项卡中，填写该操作步骤的具体指示。
 
-.. note::
-   Further customizations can be made here on this form, beyond ordinary instructions, to also
-   include specific types of quality control points that carry specific (or complex) conditions. For
-   more details about quality control points refer the :doc:`Instruction check
-   <../../quality/quality_check_types/instructions_check>` documentation.
+.. 注意::
+   可以在此表单中进行进一步的自定义，除了普通的指示，还可以包括特定类型的质量控制点，这些控制点带有具体或复杂的条件。有关质量控制点的更多详细信息，请参阅 :doc:`指示检查
+   <../../quality/quality_check_types/instructions_check>` 文档。
 
 .. image:: bill_configuration/steps.png
    :align: center
-   :alt: Show the page to add a quality check.
+   :alt: 显示添加质量检查的页面。
 
-Miscellaneous
--------------
+杂项
+-----
 
-The :guilabel:`Miscellaneous` tab contains more |BoM| configurations to customize procurement,
-calculate costs, and define how components are consumed.
+:guilabel:`杂项` 选项卡包含更多 |BOM| 配置，用于自定义采购、计算成本并定义如何消耗组件。
 
 .. _manufacturing/basic_setup/manufacturing-readiness:
 
-- :guilabel:`Manufacturing Readiness`: choosing :guilabel:`When components for the 1st operation are
-  available` shows the :guilabel:`Component Status` as a **green** :guilabel:`Not Available`, when
-  only the components that are consumed in the first operation are in stock. This indicates that
-  although not all components are available, operators can at least begin with the first operation.
-  Choosing :guilabel:`When all components are available` displays a **red** :guilabel:`Not
-  Available` component status unless all components are in available.
+- :guilabel:`制造准备`：选择 :guilabel:`当第一步操作的组件可用时`，当仅有第一步操作所需的组件有库存时，显示组件状态为 **绿色** :guilabel:`不可用`。这表明尽管不是所有组件都可用，但操作员至少可以开始第一步操作。选择 :guilabel:`当所有组件可用时`，除非所有组件可用，否则显示 **红色** :guilabel:`不可用` 状态。
 
-  .. tip::
-     Specify which operation consumes each component on the |BoM| in the :ref:`Manual Consumption
-     field <manufacturing/basic_setup/consumed-in-operation>`.
+  .. 提示::
+     在 |BOM| 中，指定哪个操作消耗每个组件，详见 :ref:`手动消耗字段 <manufacturing/basic_setup/consumed-in-operation>`。
 
   .. image:: bill_configuration/component-status.png
      :align: center
-     :alt: Show the *Component Status* field on the manufacturing order dashboard.
+     :alt: 显示制造订单仪表板上的 *组件状态* 字段。
 
-- :guilabel:`Version`: displays the current |BoM| version, visible with the Odoo *PLM* app installed
-  for managing |BoM| changes.
-- :guilabel:`Flexible Consumption`: specifies if components used can deviate from the quantity
-  defined on the |BoM|. Choose :guilabel:`Blocked` if operators **must** adhere strictly to the
-  |BoM| quantity. Otherwise, choose :guilabel:`Allowed` or :guilabel:`Allowed with Warning`.
-- :guilabel:`Routing`: select the preferred warehouse's manufacturing operation type for products
-  produced in multiple warehouses. If left blank, this warehouse's `Manufacturing` operation type is
-  used by default.
-- :guilabel:`Analytic Distribution`: select pre-created :doc:`analytic distribution models
-  <../../../finance/accounting/reporting/analytic_accounting>` from the list to automatically record
-  the cost of manufacturing products in the chosen journal.
-- :guilabel:`Manuf Lead Time`: define the number of days needed to complete a |MO| from the date of
-  confirmation.
-- :guilabel:`Days to prepare Manufacturing Order`: number of days needed to replenish components, or
-  manufacture sub-assemblies of the product.
+- :guilabel:`版本`：显示当前 |BOM| 版本，该功能在安装了 Odoo *PLM* 应用后可用于管理 |BOM| 变更。
+- :guilabel:`灵活消耗`：指定使用的组件是否可以偏离 |BOM| 上定义的数量。选择 :guilabel:`阻止` 如果操作员 **必须** 严格遵守 |BOM| 的数量。否则，选择 :guilabel:`允许` 或 :guilabel:`允许并警告`。
+- :guilabel:`路线`：选择用于在多个仓库中生产的产品的首选仓库的制造操作类型。如果留空，将默认使用该仓库的 `制造` 操作类型。
+- :guilabel:`分析分配`：从列表中选择预创建的 :doc:`分析分配模型 <../../../finance/accounting/reporting/analytic_accounting>`，以自动记录产品制造成本到所选账簿。
+- :guilabel:`制造交期`：定义从确认之日起完成 |MO| 所需的天数。
+- :guilabel:`准备制造订单所需的天数`：补充组件或制造子组件所需的天数。
 
-.. seealso::
-   - :doc:`Analytic distribution <../../../finance/accounting/reporting/analytic_accounting>`
-   - :doc:`Lead times
-     <../../inventory/warehouses_storage/replenishment/lead_times>`
+.. 参见::
+   - :doc:`分析分配 <../../../finance/accounting/reporting/analytic_accounting>`
+   - :doc:`交期 <../../inventory/warehouses_storage/replenishment/lead_times>`
 
 .. image:: bill_configuration/misc-tab.png
    :align: center
-   :alt: Show the *Miscellaneous* tab of the BoM.
+   :alt: 显示BoM的 *杂项* 选项卡。
 
-Add by-products to BoMs
-=======================
+为 BoMs 添加副产品
+=================
 
-A *by-product* is a residual product that is created during production in addition to the main
-product of a |BOM|. Unlike the primary product, there can be more than one by-product on a |BOM|.
+*副产品* 是在生产过程中与主产品一起生成的剩余产品。与主产品不同，|BOM| 中可以包含多个副产品。
 
-To add by-products to a |BOM|, first enable the *By-Products* feature in
-:menuselection:`Manufacturing app --> Configuration --> Settings`. In the :guilabel:`Operations`
-section, tick the checkbox for :guilabel:`By-Products` to enable the feature.
+要在 |BOM| 中添加副产品，首先在 :menuselection:`制造应用 --> 配置 --> 设置` 中启用 *副产品* 功能。在 :guilabel:`操作` 部分，勾选 :guilabel:`副产品` 复选框以启用此功能。
 
 .. image:: bill_configuration/by-products.png
    :align: center
-   :alt: "By Products" feature in the settings page.
+   :alt: 设置页面中的"副产品"功能。
 
-Once the feature is enabled, add by-products to a |BOM| by clicking the :guilabel:`By-products` tab.
-Click :guilabel:`Add a line`, and fill in the :guilabel:`By-product`, :guilabel:`Quantity`, and
-:guilabel:`Unit of Measure`. Optionally, specify a :guilabel:`Produced in Operation` for the
-by-product.
+启用此功能后，通过点击 :guilabel:`副产品` 选项卡，在 |BOM| 中添加副产品。点击 :guilabel:`添加一行`，填写 :guilabel:`副产品`、:guilabel:`数量` 和 :guilabel:`单位`。可选地，为副产品指定一个 :guilabel:`生产操作`。
 
-.. example::
-   The by-product, `Mush`, is created in the `Grind grapes` operation when producing `Red Wine`.
+.. 例子::
+   在生产 `红酒` 时，在 `磨碎葡萄` 操作中会生成副产品 `葡萄泥`。
 
    .. image:: bill_configuration/add-by-product.png
       :align: center
-      :alt: Show sample by-product in the BoM.
+      :alt: 显示BoM中的副产品示例。

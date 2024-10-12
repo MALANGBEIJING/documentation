@@ -1,94 +1,64 @@
 ==========================
-Configure reordering rules
+配置补货规则
 ==========================
 
-For certain products, it is necessary to ensure that there is always a minimum amount available on
-hand at any given time. By adding a reordering rule to a product, it is possible to automate the
-reordering process so that a purchase order is automatically created whenever the amount on hand
-falls below a set threshold.
+对于某些产品，需要确保任何时候都存在最低数量的库存。通过为产品添加补货规则，可以自动化补货流程，以便当库存数量低于设定的阈值时，自动创建采购订单。
 
 .. important::
-   The *Inventory* module must be installed to use reordering rules.
+   必须安装 *库存* 模块才能使用补货规则。
 
-Configure products for reordering
+为产品配置补货规则
 =================================
 
-Products must be configured in a specific way before a reordering rule can be added to them.
+在为产品添加补货规则之前，必须以特定方式配置产品。
 
-Starting from the :menuselection:`Inventory`, :menuselection:`Manufacturing`,
-:menuselection:`Purchase`, or :menuselection:`Sales` module, navigate to :menuselection:`Products
---> Products` and then click :guilabel:`Create` to make a new product. Alternatively, find a product
-that already exists in the database and click into it's product form.
+从 :menuselection:`库存`、:menuselection:`制造`、:menuselection:`采购` 或 :menuselection:`销售` 模块，导航到 :menuselection:`产品 --> 产品`，然后点击 :guilabel:`创建` 以创建新产品。或者，找到数据库中已存在的产品并点击进入其产品表单。
 
-Next, on the product form, enable reordering by checking the :guilabel:`Can be Purchased` option
-underneathe the :guilabel:`Product Name` field. Finally, set the :guilabel:`Product Type` to
-`Storable Product` under the :guilabel:`General Information` tab.
+接下来，在产品表单中，通过勾选 :guilabel:`可采购` 选项启用补货，然后在 :guilabel:`产品名称` 字段下方，最后，在 :guilabel:`常规信息` 选项卡中将 :guilabel:`产品类型` 设置为 `可存储产品`。
 
 .. image:: reordering/product-configured-for-reordering.png
    :align: center
-   :alt: Configure a product for reordering in Odoo.
+   :alt: 在 Odoo 中配置产品以进行补货。
 
-Add a reordering rule to a product
+为产品添加补货规则
 ==================================
 
-After properly configuring a product, a reordering rule can be added to it by selecting the now
-visible :guilabel:`Reordering Rules` tab at the top of that product's form, and then clicking
-:guilabel:`Create` on the :guilabel:`Reordering Rules` dashboard.
+正确配置产品后，可以通过选择产品表单顶部现在可见的 :guilabel:`补货规则` 选项卡，然后点击 :guilabel:`创建` 进入 :guilabel:`补货规则` 仪表板，从而为其添加补货规则。
 
 .. image:: reordering/reordering-rules-tab.png
    :align: center
-   :alt: Access reordering rules for a product from the product page in Odoo.
+   :alt: 从 Odoo 的产品页面访问补货规则。
 
-Once created, the reordering rule can be configured to generate purchase orders automatically by
-defining the following fields:
+创建补货规则后，可以通过定义以下字段将其配置为自动生成采购订单：
 
-- :guilabel:`Location` specifies where the ordered quantities should be stored once they are
-  received and entered into stock.
-- :guilabel:`Min Quantity` sets the lower threshold for the reordering rule while :guilabel:`Max
-  Quantity` sets the upper threshold. If the stock on hand falls below the minimum quantity, a new
-  purchase order will be created to replenish it up to the maximum quantity.
+- :guilabel:`存储位置` 指定收到货物并入库后存储的地点。
+- :guilabel:`最小数量` 设置补货规则的下限，而 :guilabel:`最大数量` 设置上限。如果手头库存低于最小数量，将创建新的采购订单以补充到最大数量。
 
    .. example::
-      If :guilabel:`Min Quantity` is set to `5` and :guilabel:`Max Quantity` is set to `25` and the
-      stock on hand falls to four, a purchase order will be created for 21 units of the product.
+      如果 :guilabel:`最小数量` 设置为 `5`，而 :guilabel:`最大数量` 设置为 `25`，并且手头库存降至 4，将为 21 单位的产品创建采购订单。
 
-- :guilabel:`Multiple Quantity` can be configured so that products are only ordered in batches of a
-  certain quantity. Depending on the number entered, this can result in the creation of a purchase
-  order that would put the resulting stock on hand above what is specified in the :guilabel:`Max
-  Quantity` field.
+- :guilabel:`批量数量` 可以配置为仅按特定数量批量订购产品。根据输入的数字，可能会创建超出 :guilabel:`最大数量` 字段指定库存量的采购订单。
 
    .. example::
-      If :guilabel:`Max Quantity` is set to `100` but :guilabel:`Multiple Quantity` is set to order
-      the product in batches of `200`, a purchase order will be created for 200 units of the
-      product.
+      如果 :guilabel:`最大数量` 设置为 `100`，但 :guilabel:`批量数量` 设置为 `200`，将创建 200 单位产品的采购订单。
 
-- :guilabel:`UoM` specifies the unit of measurement by which the quantity will be ordered. For
-  discrete products, this should be set to `Units`. However, it can also be set to units of
-  measurement like `Volume` or `Weight` for non-discrete products like water or bricks.
+- :guilabel:`计量单位` 指定订购数量的计量单位。对于离散产品，应设置为 `单位`。但是，对于非离散产品如水或砖块，也可以设置为 `体积` 或 `重量`。
 
 .. image:: reordering/reordering-rule-configuration.png
    :align: center
-   :alt: Configure the reordering rule in Odoo.
+   :alt: 在 Odoo 中配置补货规则。
 
-Manually trigger reordering rules using the scheduler
+使用调度器手动触发补货规则
 =====================================================
 
-Reordering rules will be automatically triggered by the scheduler, which runs once a day by
-default. To trigger reordering rules manually, navigate to :menuselection:`Inventory --> Operations
---> Run Scheduler`. On the pop-up window, confirm the manual action by clicking :guilabel:`Run
-Scheduler`.
+补货规则将由调度器自动触发，默认情况下调度器每天运行一次。要手动触发补货规则，请导航到 :menuselection:`库存 --> 操作 --> 运行调度器`。在弹出窗口中，点击 :guilabel:`运行调度器` 确认手动操作。
 
 .. note::
-   Manually triggering reordering rules will also trigger any other scheduled actions.
+   手动触发补货规则还将触发任何其他计划的操作。
 
-Manage reordering rules
+管理补货规则
 =======================
 
-To manage the reordering rules for a single product, navigate to that product page's form and select
-the :guilabel:`Reordering Rules` tab at the top of the form.
+要管理单个产品的补货规则，导航到该产品页面的表单并选择表单顶部的 :guilabel:`补货规则` 选项卡。
 
-To manage all reordering rules for every product, go to :menuselection:`Inventory --> Configuration
---> Reordering Rules`. From this dashboard, typical bulk actions in Odoo can be performed such as
-exporting data or archiving rules that are no longer needed. As well, the :guilabel:`Filters`,
-:guilabel:`Group By` or triple-dotted menu on the form are available to search for and/or organize
-the reordering rules as desired.
+要管理所有产品的补货规则，前往 :menuselection:`库存 --> 配置 --> 补货规则`。从这个仪表板，可以执行 Odoo 中的常规批量操作，例如导出数据或归档不再需要的规则。此外，可以使用 :guilabel:`过滤器`、:guilabel:`分组依据` 或表单上的三点菜单来搜索和/或按需组织补货规则。

@@ -1,193 +1,129 @@
 ==================================
-Managing BoMs for product variants
+管理产品变体的物料清单 (BoMs)
 ==================================
 
-Odoo allows one bill of materials (BoM) to be used for multiple variants of the same product. Having
-a consolidated :abbr:`BoM (bill of materials)` for a product with variants saves time by preventing
-the need to manage multiple :abbr:`BoMs (bills of materials)`.
+Odoo 允许一个物料清单 (BoM) 用于相同产品的多个变体。对于具有变体的产品，使用一个合并的物料清单 (BoM) 可以节省时间，避免管理多个物料清单 (BoMs) 的麻烦。
 
-Activate product variants
-=========================
+激活产品变体功能
+=================
 
-To activate the product variants feature, navigate to :menuselection:`Inventory app -->
-Configuration --> Settings`, and scroll down to the :guilabel:`Products` section. Then, click the
-checkbox to enable the :guilabel:`Variants` option. After that, click :guilabel:`Save` to apply the
-setting.
+要激活产品变体功能，进入 :menuselection:`库存应用 --> 配置 --> 设置`，向下滚动到 :guilabel:`产品` 部分。然后，勾选 :guilabel:`变体` 选项。之后，点击 :guilabel:`保存` 以应用设置。
 
-For more information on configuring product variants, refer to the :doc:`product variants
-<../../../sales/sales/products_prices/products/variants>` documentation.
+有关配置产品变体的更多信息，请参阅 :doc:`产品变体 <../../../sales/sales/products_prices/products/variants>` 文档。
 
 .. image:: product_variants/product-variants-variants-settings.png
    :align: center
-   :alt: Selecting "Variants" from Inventory app settings.
+   :alt: 从库存应用设置中选择“变体”。
 
-Create custom product attributes
-================================
+创建自定义产品属性
+=================
 
-Once the product variants feature is activated, create and edit product attributes on the
-:guilabel:`Attributes` page.
+激活产品变体功能后，可以在 :guilabel:`属性` 页面上创建和编辑产品属性。
 
-The :guilabel:`Attributes` page is accessible either from :menuselection:`Inventory app -->
-Configuration --> Settings` by clicking the :guilabel:`Attributes` button, or by clicking
-:menuselection:`Inventory app --> Configuration --> Attributes`.
+可以从 :menuselection:`库存应用 --> 配置 --> 设置` 中点击 :guilabel:`属性` 按钮，或通过点击 :menuselection:`库存应用 --> 配置 --> 属性` 访问 :guilabel:`属性` 页面。
 
-Once on the :guilabel:`Attributes` page, either click into an existing attribute, or click
-:guilabel:`Create` to create a new one. Clicking :guilabel:`Create` reveals a new, blank form for
-customizing an attribute. For an existing attribute, click :guilabel:`Edit` on its form to make
-changes.
+在 :guilabel:`属性` 页面上，您可以点击现有属性，或者点击 :guilabel:`创建` 来创建一个新属性。点击 :guilabel:`创建` 会显示一个新的空白表单，用于自定义属性。如果要编辑现有属性，请在其表单上点击 :guilabel:`编辑`。
 
-Assign an :guilabel:`Attribute Name`, and choose a category from the :guilabel:`Category` field's
-drop-down menu. Then, select the desired options next to the :guilabel:`Display Type` and
-:guilabel:`Variants Creation Mode` fields. Once the desired options are selected, click
-:guilabel:`Add a line` under the :guilabel:`Attribute Values` tab to add a new value.
+为属性分配一个 :guilabel:`属性名称`，并从 :guilabel:`类别` 字段的下拉菜单中选择一个类别。接着，选择 :guilabel:`显示类型` 和 :guilabel:`变体创建模式` 字段旁的所需选项。选择完毕后，点击 :guilabel:`属性值` 标签下的 :guilabel:`添加行` 以添加新值。
 
 .. tip::
-   Included on the :guilabel:`Value` row is a :guilabel:`Is custom value` checkbox. If selected,
-   this value will be recognized as a custom value, which allows customers to type special
-   customization requests upon ordering a custom variant of a product.
+   在 :guilabel:`值` 行中包含一个 :guilabel:`自定义值` 复选框。如果选中该项，则该值将被视为自定义值，允许客户在订购产品变体时输入特殊的定制请求。
 
 .. example::
    .. image:: product_variants/product-variants-attribute.png
       :align: center
-      :alt: Product variant attribute configuration screen.
+      :alt: 产品变体属性配置界面。
 
-Once all desired :guilabel:`Values` have been added, click :guilabel:`Save` to save the new
-attribute.
+添加完所有所需的 :guilabel:`值` 后，点击 :guilabel:`保存` 以保存新属性。
 
-Add product variants on the product form
-========================================
+在产品表单上添加产品变体
+===========================
 
-Created attributes can be applied on specific variants for particular products. To add product
-variants to a product, navigate to the product form by going to :menuselection:`Inventory app -->
-Products --> Products`. To make changes to the product, click :guilabel:`Edit`. Then, click the
-:guilabel:`Variants` tab.
+创建的属性可以应用于特定产品的特定变体。要将产品变体添加到产品，进入产品表单，路径为 :menuselection:`库存应用 --> 产品 --> 产品`。要更改产品，请点击 :guilabel:`编辑`。接着，点击 :guilabel:`变体` 标签。
 
-Under the :guilabel:`Attribute` header, click :guilabel:`Add a line` to add a new attribute, and
-select one to add from the drop-down menu.
+在 :guilabel:`属性` 标题下，点击 :guilabel:`添加行` 来添加新属性，并从下拉菜单中选择要添加的属性。
 
-Then, under the :guilabel:`Values` header, click the drop-down menu to choose from the list of
-existing values. Click on each desired value to add them, and repeat this process for any additional
-attributes that should be added to the product.
+然后，在 :guilabel:`值` 标题下，点击下拉菜单，从现有值列表中选择。点击每个所需值以添加它们，重复此过程以添加任何其他应添加到产品的属性。
 
-Once finished, click :guilabel:`Save` to save changes.
+完成后，点击 :guilabel:`保存` 以保存更改。
 
 .. image:: product_variants/product-variants-product-form.png
    :align: center
-   :alt: Product form variants tab with values and attributes.
+   :alt: 带有值和属性的产品表单变体标签。
 
 .. tip::
-   :abbr:`BoM (bill of materials)` products with multiple variants that are manufactured in-house
-   should either have a **0,0 reordering rule** set up, or have their replenishment routes set to
-   *Replenish on Order (MTO)*.
+   对于具有多个变体且在内部生产的物料清单 (BoM) 产品，应该设置一个 **0,0 的补货规则**，或将其补货路线设置为 *按订单补货 (MTO)*。
 
-Apply BoM components to product variants
-========================================
+为产品变体应用物料清单组件
+===============================
 
-Next, create a new :abbr:`BoM (bill of materials)`. Or, edit an existing one, by going to
-:menuselection:`Manufacturing app --> Products --> Bills of Materials`. Then, click
-:guilabel:`Create` to open a new :guilabel:`Bills of Materials` form to configure from scratch.
+接下来，创建一个新的物料清单 (BoM)，或者通过进入 :menuselection:`制造应用 --> 产品 --> 物料清单` 并点击 :guilabel:`创建`，从头开始配置。
 
-Add a product to the :abbr:`BoM (bill of materials)` by clicking the drop-down menu in the
-:guilabel:`Product` field and selecting the desired product.
+通过点击 :guilabel:`产品` 字段中的下拉菜单选择所需产品，向物料清单 (BoM) 中添加产品。
 
-Then, add components by clicking :guilabel:`Add a line` under the :guilabel:`Component` section of
-the :guilabel:`Components` tab, and choosing the desired components from the drop-down menu.
+然后，通过点击 :guilabel:`组件` 标签下的 :guilabel:`添加行`，并从下拉菜单中选择所需组件来添加组件。
 
-Choose the desired values in the :guilabel:`Quantity` and :guilabel:`Product Unit of Measure`
-columns. Then, choose the desired values in the :guilabel:`Apply on Variants` column.
+在 :guilabel:`数量` 和 :guilabel:`产品计量单位` 列中选择所需的值。然后，在 :guilabel:`应用于变体` 列中选择所需的值。
 
 .. note::
-   The :guilabel:`Apply on Variants` option to assign components to specific product variants on the
-   :abbr:`BoM (bill of materials)` is available once the :guilabel:`Variants` setting is activated
-   from the :menuselection:`Inventory` application. If the :guilabel:`Apply on Variants` field is
-   not immediately visible, activate it from the additional options menu (three-dots icon, to the
-   right of the header row).
+   一旦从 :menuselection:`库存` 应用程序中激活了 :guilabel:`变体` 设置，物料清单 (BoM) 中的 :guilabel:`应用于变体` 选项便可用于将组件分配给特定的产品变体。如果 :guilabel:`应用于变体` 字段未立即显示，可通过点击标题行右侧的额外选项菜单（三点图标）来激活它。
 
 .. image:: product_variants/product-variants-apply-on-variants.png
    :align: center
-   :alt: "Apply on Variants" option on the additional options menu.
+   :alt: “应用于变体”选项在额外选项菜单中。
 
-Each component can be assigned to multiple variants. Components with no variants specified are used
-in every variant of the product. The same principle applies when configuring operations and
-by-products.
+每个组件都可以分配给多个变体。未指定变体的组件将在产品的每个变体中使用。同样的原则适用于配置操作和副产品。
 
-When defining variant :abbr:`BoMs (bills of material)` by component assignment, the
-:guilabel:`Product Variant` field in the main section of the :abbr:`BoM (bill of materials)` should
-be left blank. This field is *only* used when creating a :abbr:`BoM (bill of materials)`
-specifically for one product variant.
+当通过组件分配定义变体物料清单 (BoM) 时，物料清单 (BoM) 主部分中的 :guilabel:`产品变体` 字段应为空。此字段 *仅* 用于专门为一个产品变体创建物料清单 (BoM) 时。
 
-When all desired configurations have been made to the :abbr:`BoM (bill of materials)`, click
-:guilabel:`Save` at the top of the form to save changes.
+当所有所需配置完成后，点击表单顶部的 :guilabel:`保存` 以保存更改。
 
 .. tip::
-   For components that only apply for specific variants, choose which operations the components
-   should be consumed in. If the :guilabel:`Consumed in Operation` column is *not* immediately
-   visible, activate it from the additional options menu (three-dots icon, to the right of the
-   header row).
+   对于仅适用于特定变体的组件，选择这些组件应在哪些操作中被消耗。如果 :guilabel:`在操作中消耗` 列 *没有* 立即显示，可以通过标题行右侧的额外选项菜单（三点图标）将其激活。
 
-Sell and manufacture variants of BoM products
-=============================================
+销售和生产变体的物料清单产品
+===============================
 
-To sell and manufacture variants of :abbr:`BoM (bill of materials)` products to order, navigate to
-:menuselection:`Sales app --> Create` to create a new quotation.
+要按订单销售和生产变体的物料清单 (BoM) 产品，进入 :menuselection:`销售应用 --> 创建` 来创建新的报价单。
 
-Sell variant of BoM product
----------------------------
+销售物料清单产品的变体
+------------------------
 
-Once on the blank :guilabel:`Quotation` form, click the drop-down next to the :guilabel:`Customer`
-field to add a customer.
+在空白的 :guilabel:`报价单` 表单上，点击 :guilabel:`客户` 字段旁的下拉菜单以添加客户。
 
-Then, under the :guilabel:`Order Lines` tab, click :guilabel:`Add a product`, and select the
-previously-created :abbr:`BoM (bill of materials)` product with variants from the drop-down menu.
-Doing so reveals a :guilabel:`Configure a product` pop-up.
+接着，在 :guilabel:`订单行` 标签下，点击 :guilabel:`添加产品`，并从下拉菜单中选择之前创建的具有变体的物料清单 (BoM) 产品。此时会弹出一个 :guilabel:`配置产品` 弹窗。
 
-From the pop-up window, click the desired attribute options to configure the correct variant of the
-product to manufacture. Then, click the green :guilabel:`+` or :guilabel:`-` icons next to the `1`
-to change the quantity to sell and manufacture, if desired.
+在弹窗中，点击所需的属性选项以配置要生产的正确产品变体。然后，如果需要，可以点击 `1` 旁的绿色 :guilabel:`+` 或 :guilabel:`-` 图标更改要销售和生产的数量。
 
 .. image:: product_variants/product-variants-variant-popup.png
    :align: center
-   :alt: Configure a product pop-up for choosing variant attributes.
+   :alt: 选择变体属性的配置产品弹窗。
 
-Once all the specifications have been chosen, click :guilabel:`Add`. This will change the pop-up to
-a second :guilabel:`Configure` pop-up, where available optional products will appear, if they have
-been created previously.
+选择好所有规格后，点击 :guilabel:`添加`。这将使弹窗切换到第二个 :guilabel:`配置` 弹窗，其中将显示之前创建的可用可选产品（如果有）。
 
-Once ready, click :guilabel:`Confirm` to close the pop-up.
+准备就绪后，点击 :guilabel:`确认` 关闭弹窗。
 
-Then, click :guilabel:`Save` to save all changes, and click :guilabel:`Confirm` at the top of the
-:guilabel:`Quotation` form to create and confirm a new sales order (SO).
+接着，点击 :guilabel:`保存` 以保存所有更改，并点击 :guilabel:`确认` 在 :guilabel:`报价单` 表单顶部创建并确认新的销售订单 (SO)。
 
-Manufacture variant of BoM product
-----------------------------------
+生产物料清单产品的变体
+------------------------
 
-Once the :abbr:`SO (sales order)` is confirmed, a :guilabel:`Manufacturing` smart button appears at
-the top of the :abbr:`SO (sales order)` form. Click the :guilabel:`Manufacturing` smart button to
-open the :guilabel:`Manufacturing Order` form.
+一旦确认销售订单 (SO)，一个 :guilabel:`制造` 智能按钮会出现在销售订单 (SO) 表单顶部。点击 :guilabel:`制造` 智能按钮以打开 :guilabel:`生产订单` 表单。
 
-On this form, under the :guilabel:`Components` tab, the appropriate components for the chosen
-variant are listed. And, depending on the variant, different components will be listed. To see any
-mandatory or optional :guilabel:`Operation` steps, click the :guilabel:`Work Orders` tab.
+在此表单中，点击 :guilabel:`组件` 标签，可以看到已选择的变体的适当组件。根据变体的不同，列出的组件会有所不同。要查看任何必需或可选的 :guilabel:`操作` 步骤，点击 :guilabel:`工作订单` 标签。
 
-To enter the tablet view work order screen, click the :guilabel:`tablet icon` to the right of the
-row for the desired operation to be completed.
+要进入工作订单的平板视图工作界面，点击要完成的操作所在行右侧的 :guilabel:`平板图标`。
 
-From the tablet view, click :guilabel:`Mark as Done` as the operation progresses to complete the
-operation steps.
+在平板视图中，点击 :guilabel:`标记为完成` 随着操作的进展来完成操作步骤。
 
-Alternatively, click the :guilabel:`Mark as Done` button at the top of the manufacturing order form
-to complete the order.
+或者，点击生产订单表单顶部的 :guilabel:`标记为完成` 按钮以完成订单。
 
 .. image:: product_variants/product-variants-manufacturing-order.png
    :align: center
-   :alt: Manufacturing order for variant of BoM product.
+   :alt: 生产物料清单产品变体的生产订单。
 
-Then, navigate back to the :abbr:`SO (sales order)` via the breadcrumbs at the top of the page.
+然后，通过页面顶部的面包屑导航返回销售订单 (SO)。
 
-Now that the product has been manufactured, click the :guilabel:`Delivery` smart button to deliver
-the product to the customer. From the :guilabel:`Delivery Order` form, click :guilabel:`Validate`,
-then click :guilabel:`Apply` to deliver the product.
+现在，产品已生产完毕，点击 :guilabel:`交货` 智能按钮将产品交付给客户。在交货订单表单中，点击 :guilabel:`验证`，然后点击 :guilabel:`应用` 以交付产品。
 
-To finish the sale, click back to the :abbr:`SO (sales order)` via the :guilabel:`breadcrumbs` at
-the top of the page again. Then, click :guilabel:`Create Invoice` followed by :guilabel:`Create
-Invoice` again to invoice the customer for the order.
+要完成销售，请再次通过页面顶部的面包屑导航返回销售订单 (SO)。然后，点击 :guilabel:`创建发票`，接着点击 :guilabel:`再次创建发票`，为客户生成订单发票。

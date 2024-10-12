@@ -1,110 +1,72 @@
 ==============
-Quality alerts
+质量警报
 ==============
 
 .. _quality/quality_management/quality-alerts:
-.. |MO| replace:: :abbr:`MO (Manufacturing Order)`
+.. |MO| replace:: :abbr:`MO (生产订单)`
 
-In the Odoo *Quality* app, *quality alerts* are used to notify quality teams of product defects or
-other issues. Quality alerts can be created from a manufacturing or inventory order, from a work
-order in the *Shop Floor* module, or directly within the *Quality* app.
+在 Odoo 的 *质量* 应用中，*质量警报* 用于通知质量团队产品缺陷或其他问题。质量警报可以从生产或库存订单中创建，从 *车间* 模块的工单中创建，或直接在 *质量* 应用中创建。
 
-Create quality alerts
-=====================
+创建质量警报
+===============
 
-There are multiple ways to create a new quality alert:
+有多种方式可以创建新的质量警报：
 
-- **From the Quality app itself**, by to :menuselection:`Quality -->  Quality Control --> Quality
-  Alerts`, and then click :guilabel:`New` to open a quality alert form.
-- Navigate to :menuselection:`Manufacturing --> Operations --> Manufacturing Orders`, and then
-  select an |MO|. Click the :guilabel:`Quality Alert` button at the top of the |MO| to open a
-  quality alert form in a new page.
+- **直接在质量应用中创建**，导航到 :menuselection:`质量 --> 质量控制 --> 质量警报`，然后点击 :guilabel:`新建` 打开质量警报表单。
+- 导航到 :menuselection:`生产 --> 操作 --> 生产订单`，然后选择一个 |MO|。点击 |MO| 顶部的 :guilabel:`质量警报` 按钮，在新页面中打开质量警报表单。
 
   .. important::
-     This method can only be used if a quality check has been requested for the |MO|. The
-     :guilabel:`Quality Alert` button will not appear otherwise.
+     只有在 |MO| 请求了质量检查的情况下才能使用此方法。否则不会出现 :guilabel:`质量警报` 按钮。
 
-- Open the :menuselection:`Inventory` app, click the :guilabel:`# To Process` button on an inventory
-  order type card (Receipts, Delivery Orders, etc.), and then select an order. Click the
-  :guilabel:`Quality Alert` button at the top of the order to open a quality alert form in a new
-  page.
+- 打开 :menuselection:`库存` 应用，点击库存订单类型卡片（收货、发货单等）上的 :guilabel:`# 待处理` 按钮，然后选择一个订单。点击订单顶部的 :guilabel:`质量警报` 按钮，在新页面中打开质量警报表单。
 
   .. important::
-     This method can only be used if a quality check has been requested for the inventory order. The
-     :guilabel:`Quality Alert` button will not appear otherwise. If the button does not appear, a
-     quality alert can also be created by clicking the :guilabel:`⚙️ (gear)` icon at the top of the
-     page and selecting the :guilabel:`Quality Alert` option from the resulting menu.
+     只有在库存订单请求了质量检查的情况下才能使用此方法。否则不会出现 :guilabel:`质量警报` 按钮。如果按钮未出现，还可以通过点击页面顶部的 :guilabel:`⚙️ (齿轮)` 图标，并从出现的菜单中选择 :guilabel:`质量警报` 选项来创建质量警报。
 
-- Open the :menuselection:`Shop Floor` module, and then select a work center from the navigation bar
-  at the top of the page. Then, click the :guilabel:`⋮ (three vertical dots)` button at the
-  bottom-right of a work order card to open the :guilabel:`What do you want to do?` menu. Select the
-  :guilabel:`Create a Quality Alert` option from this menu to open a quality alert in a pop-up
-  window.
+- 打开 :menuselection:`车间` 模块，然后从页面顶部的导航栏中选择一个工作中心。然后点击工单卡片右下角的 :guilabel:`⋮ (三竖点)` 按钮，打开 :guilabel:`您想做什么?` 菜单。从该菜单中选择 :guilabel:`创建质量警报` 选项，在弹出窗口中打开质量警报。
 
 .. note::
-   Depending on how a new quality alert form is opened, certain fields on the form may already be
-   filled in. For example, if a quality alert is created from a work order card in the *Shop Floor*
-   module, the :guilabel:`Product` and :guilabel:`Work Center` are pre-filled.
+   取决于如何打开新的质量警报表单，表单中的某些字段可能已经预填。例如，如果从 *车间* 模块中的工单卡片创建质量警报，:guilabel:`产品` 和 :guilabel:`工作中心` 将被预填。
 
-Quality alerts form
--------------------
+质量警报表单
+--------------
 
-After opening a new quality alert form, begin by giving it a short :guilabel:`Title` that summarizes
-the issue with the product.
+打开新的质量警报表单后，首先为其添加一个简短的 :guilabel:`标题`，以总结产品存在的问题。
 
-Then, if the quality alert is referencing:
+然后，如果质量警报涉及：
 
-- **A specific product or product variant**, select it from the :guilabel:`Product` or
-  :guilabel:`Product Variant` drop-down menus.
-- **A specific work center**, select it from the :guilabel:`Work Center` drop-down menu.
-- **A specific picking order**, select it from the :guilabel:`Picking` drop-down menu.
+- **特定产品或产品变体**，从 :guilabel:`产品` 或 :guilabel:`产品变体` 下拉菜单中选择。
+- **特定工作中心**，从 :guilabel:`工作中心` 下拉菜单中选择。
+- **特定拣货单**，从 :guilabel:`拣货` 下拉菜单中选择。
 
-Next in the :guilabel:`Team` field, select the quality team that is responsible for managing the
-quality alert. If a specific employee should be responsible for the quality alert, select them from
-the :guilabel:`Responsible` drop-down menu.
+接下来，在 :guilabel:`团队` 字段中，选择负责管理此质量警报的质量团队。如果某个特定员工应负责此质量警报，请从 :guilabel:`负责人` 下拉菜单中选择他们。
 
-In the :guilabel:`Tags` field, select any tags relevant to the quality alert from the drop-down
-menu.
+在 :guilabel:`标签` 字段中，从下拉菜单中选择与此质量警报相关的任何标签。
 
-Use the :guilabel:`Root Cause` field to select the cause of the quality issue, if known.
+使用 :guilabel:`根本原因` 字段选择质量问题的原因（如果已知）。
 
-Lastly, choose a :guilabel:`Priority` level by selecting a :guilabel:`⭐ (star)` number between one
-and three. Quality alerts with higher priorities appear at the top of the :guilabel:`Quality Alerts`
-Kanban board in the *Quality* app.
+最后，选择一个 :guilabel:`优先级` 级别，通过选择一到三颗 :guilabel:`⭐ (星)`。优先级较高的质量警报会显示在 *质量* 应用的 :guilabel:`质量警报` 看板的顶部。
 
-At the bottom of the quality alert form are four tabs which aid in adding supplemental information
-or actions to be taken for the quality alert. They can be filled out as follows:
+质量警报表单底部有四个标签页，帮助添加质量警报的补充信息或采取的措施。可以按如下方式填写：
 
-- In the :guilabel:`Description` tab, enter a description of the quality issue.
-- Use the :guilabel:`Corrective Actions` tab to detail the steps that should be taken to fix the
-  issue.
-- Use the :guilabel:`Preventive Actions` tab to detail what should be done to prevent the issue from
-  occurring in the future.
-- In the :guilabel:`Miscellaneous` tab, select the :guilabel:`Vendor` of the product. If using an
-  Odoo database which manages multiple companies, select the relevant company in the
-  :guilabel:`Company` field. Finally, specify when the alert was assigned to a quality team in the
-  :guilabel:`Date Assigned` field.
+- 在 :guilabel:`描述` 标签中，输入质量问题的描述。
+- 使用 :guilabel:`纠正措施` 标签详细说明应采取的步骤以解决问题。
+- 使用 :guilabel:`预防措施` 标签详细说明应采取的措施，以防止问题再次发生。
+- 在 :guilabel:`杂项` 标签中，选择产品的 :guilabel:`供应商`。如果使用的是管理多个公司的 Odoo 数据库，在 :guilabel:`公司` 字段中选择相关公司。最后，在 :guilabel:`分配日期` 字段中指定何时将警报分配给质量团队。
 
 .. image:: quality_alerts/alert-form.png
    :align: center
-   :alt: A quality alert form that has been filled out.
+   :alt: 已填写的质量警报表单。
 
-Manage quality alerts
-=====================
+管理质量警报
+===============
 
-To view all existing quality alerts, navigate to :menuselection:`Quality --> Quality Control -->
-Quality Alerts`. By default, alerts are displayed in a Kanban board view, which organizes them into
-different stages based on where they are in the review process.
+要查看所有现有的质量警报，导航到 :menuselection:`质量 --> 质量控制 --> 质量警报`。默认情况下，警报以看板视图显示，根据它们在审核流程中的不同阶段进行组织。
 
-To move an alert to a different stage, simply drag and drop it on the desired stage. Alternatively,
-select a quality alert to open it, and then click the desired stage above the top-right corner of
-the quality alert form.
+要将警报移到不同的阶段，只需将其拖放到所需阶段。或者，选择一个质量警报以打开它，然后点击质量警报表单右上角上方的所需阶段。
 
-To create a new alert within a specific stage, click the :guilabel:`+ (plus)` button to the right of
-the stage name. In the new alert card that appears below the stage title, enter the
-:guilabel:`Title` of the alert, and then click :guilabel:`Add`. To configure the rest of the alert,
-select the alert card to open its form.
+要在特定阶段内创建新警报，点击阶段名称右侧的 :guilabel:`+ (加号)` 按钮。在阶段标题下方出现的新警报卡片中，输入警报的 :guilabel:`标题`，然后点击 :guilabel:`添加`。要配置警报的其他内容，选择警报卡片以打开其表单。
 
 .. image:: quality_alerts/alert-kanban.png
    :align: center
-   :alt: The Quality Alerts page, displaying alerts in a Kanban view.
+   :alt: 显示在看板视图中的质量警报页面。

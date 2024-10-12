@@ -1,113 +1,77 @@
 =========================
-Purchase units of measure
+购买单位
 =========================
 
-When you purchase a product, it may happen that your vendor uses a different unit of measure than
-when it is sold. This can cause confusion between sales and purchase representatives. It is also
-time-consuming to convert measures manually every time. With Odoo, you can configure your product
-once and let Odoo handle the conversion.
+当你购买某种产品时，供应商可能使用与销售时不同的计量单位。这可能会导致销售和采购人员之间的混淆，并且每次手动转换计量单位也非常耗时。通过Odoo，你可以一次性配置产品，让Odoo自动处理转换。
 
-Consider the following examples:
+考虑以下示例：
 
-#. You purchase orange juice from an American vendor, and they use **gallons**. However, your
-   customers are European and use **liters**.
+#. 你从美国供应商处购买橙汁，他们使用**加仑**作为单位。然而，你的客户是欧洲的，他们使用**升**。
+#. 你从供应商那里以**卷**的形式购买窗帘，然后以**平方米**为单位，将窗帘的部分出售给你的客户。
 
-#. You buy curtains from a vendor in the form of **rolls** and you sell pieces of the rolls to your
-   customers using **square meters**.
+启用计量单位
+================
 
-Enable units of measure
-=======================
-
-Open your Sales app and go to :menuselection:`Configuration --> Settings`. Under Product Catalog,
-enable *Units of Measure*.
+打开你的销售应用，进入 :menuselection:`配置 --> 设置`。在产品目录下，启用*计量单位*选项。
 
 .. image:: uom/uom-enable-option.png
    :align: center
-   :alt: Enable the units of measure option in Odoo Sales
+   :alt: 在Odoo销售应用中启用计量单位选项
 
-Specify sales and purchase units of measure
-===========================================
+指定销售和采购的计量单位
+===========================
 
-Standard units of measure
--------------------------
+标准计量单位
+-------------
 
-A variety of units of measure are available by default in your database. Each belongs to one of the
-five pre-configured units of measure categories: *Length / Distance*, *Unit*, *Volume*, *Weight* and
-*Working Time*.
+数据库中默认提供了各种计量单位。每个计量单位都属于五个预配置的计量单位类别之一：*长度 / 距离*、*单位*、*体积*、*重量* 和 *工作时间*。
 
 .. tip::
-   You can create your new units of measure and units of measure categories (see next section).
+   你可以创建新的计量单位和计量单位类别（请参见下一部分）。
 
-To specify different units of measures for sales and purchases, open the Purchase app and go to
-:menuselection:`Products --> Products`. Create a product or select an existing one. Under the
-product's *General Information* tab, first select the *Unit of Measure* to be used for sales (as
-well as for other apps such as inventory). Then, select the *Purchase Unit of Measure* to be used
-for purchases.
+要为销售和采购指定不同的计量单位，打开采购应用，进入 :menuselection:`产品 --> 产品`。创建一个产品或选择一个现有产品。在产品的*常规信息*选项卡下，首先选择用于销售的*计量单位*（以及用于其他应用，如库存）。然后，选择用于采购的*采购计量单位*。
 
-Back to the first example, if you purchase orange juice from your vendor in **gallons** and sell it
-to your customers in **liters**, first select *L* (liters) as the *Unit of Measure*, and *gal (US)*
-(gallons) as the *Purchase Unit of Measure*, then click on *Save*.
+回到第一个示例，如果你从供应商处以**加仑**采购橙汁并以**升**出售给客户，首先选择*L*（升）作为*计量单位*，并选择*gal (US)*（加仑）作为*采购计量单位*，然后点击*保存*。
 
 .. image:: uom/uom-product-configuration.png
    :align: center
-   :alt: Configure a product's units of measure in Odoo
+   :alt: 在Odoo中配置产品的计量单位
 
-Create new units of measure and units of measure categories
------------------------------------------------------------
+创建新的计量单位和计量单位类别
+---------------------------------
 
-Sometimes you need to create your own units and categories, either because the measure is not
-pre-configured in Odoo or because the units do not relate with each other (e.g. kilos and
-centimeters).
+有时你需要创建自己的计量单位和类别，可能是因为该单位在Odoo中未预配置，或这些单位之间没有关联（例如千克和厘米）。
 
-If you take the second example where you buy curtains from a vendor in the form of **rolls** and you
-sell pieces of the rolls using **square meters**, you need to create a new *Units of Measure
-Category* in order to relate both units of measure.
+如果你以**卷**的形式从供应商处购买窗帘，并使用**平方米**出售窗帘的部分，那么你需要创建一个新的*计量单位类别*，以关联这两种计量单位。
 
-To do so, go to :menuselection:`Configuration --> Units of Measure Categories`. Click on *Create*
-and name the category.
+为此，进入 :menuselection:`配置 --> 计量单位类别`。点击*创建*并命名类别。
 
 .. image:: uom/uom-new-category.png
    :align: center
-   :alt: Create a new units of measure category in Odoo Purchase
+   :alt: 在Odoo采购应用中创建新的计量单位类别
 
-The next step is to create the two units of measures. To do so, click into the :guilabel:`Unit of
-Measure Category` field and enter a name for the category. Then, under the :guilabel:`Units of
-Measure` tab, click :guilabel:`Add a line`.
+下一步是创建两个计量单位。为此，点击 :guilabel:`计量单位类别`字段并输入类别名称。然后，在 :guilabel:`计量单位`选项卡下，点击 :guilabel:`添加一行`。
 
-First, create the unit of measure used as the reference point for converting to other units of
-measure inside the category. Name the unit, and select the units of measure category you just
-created. For the *Type*, select *Reference Unit of Measure for this category type*. Enter the
-*Rounding Precision* you would like to use. The quantity computed by Odoo is always a multiple of
-this value.
+首先，创建用于作为转换其他计量单位的参考点的计量单位。为该单位命名，并选择你刚刚创建的计量单位类别。对于*类型*，选择*此类别的参考计量单位类型*。输入你希望使用的*四舍五入精度*。Odoo计算的数量始终是该值的倍数。
 
-In the example, as you cannot purchase less than 1 roll and won't use fractions of a roll as a unit
-of measure, you can enter 1.
+在本例中，由于你无法购买少于1卷的窗帘卷，并且不会使用卷的分数作为计量单位，因此你可以输入1。
 
 .. image:: uom/uom-new-reference-unit.png
    :align: center
-   :alt: Create a new reference unit of measure in Odoo Purchase
+   :alt: 在Odoo采购应用中创建新的参考计量单位
 
-.. note:: If you use a *Rounding Precision* inferior to 0.01, a warning message might appear stating
-   that it is higher than the *Decimal Accuracy* and that it might cause inconsistencies. If you
-   wish to use a *Rounding Precision* lower than 0.01, first activate the :ref:`developer mode
-   <developer-mode>`, then go to :menuselection:`Settings --> Technical --> Database Structure -->
-   Decimal Accuracy`, select *Product Unit of Measure* and edit *Digits* accordingly. For example,
-   if you want to use a rounding precision of 0.00001, set *Digits* to 5.
+.. note:: 如果你使用的*四舍五入精度*小于0.01，可能会出现警告信息，提示其高于*小数精度*，并可能导致不一致性。如果你希望使用小于0.01的四舍五入精度，首先激活 :ref:`开发者模式<developer-mode>`，然后进入 :menuselection:`设置 --> 技术 --> 数据库结构 --> 小数精度`，选择*产品计量单位*并相应地编辑*数字*。例如，如果你想使用0.00001的四舍五入精度，请将*数字*设置为5。
 
-Next, create a second unit of measure, name it, and select the same units of measure category as
-your reference unit. As *Type*, select *Smaller* or *Bigger than the reference Unit of Measure*,
-depending on your situation.
+接下来，创建第二个计量单位，命名它，并选择与你的参考单位相同的计量单位类别。对于*类型*，根据你的情况选择*小于*或*大于参考计量单位*。
 
-As the curtain roll equals to 100 square meters, you should select *Smaller*.
+由于窗帘卷等于100平方米，你应该选择*小于*。
 
-Next, you need to enter the *Ratio* between your reference unit and the second one. If the second
-unit is smaller, the *Ratio* should be greater than 1. If the second unit is larger, the ratio
-should be smaller than 1.
+接下来，你需要输入参考单位与第二个单位之间的*比率*。如果第二个单位较小，则*比率*应大于1。如果第二个单位较大，则比率应小于1。
 
-For your curtain roll, the ratio should be set to 100.
+对于你的窗帘卷，比率应设置为100。
 
-You can now configure your product just as you would using Odoo's standard units of measure.
+现在，你可以像使用Odoo的标准计量单位一样配置你的产品。
 
 .. image:: uom/uom-product-configuration-new-units.png
    :align: center
-   :alt: Set a product's units of measure using your own units in Odoo Purchase
+   :alt: 在Odoo采购应用中使用你自己的计量单位设置产品的计量单位
